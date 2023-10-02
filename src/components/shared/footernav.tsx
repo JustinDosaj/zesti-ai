@@ -8,7 +8,7 @@ export interface Props {
 
 export function FooterNav({title, navItems}: Props) {
  return(
-    <nav className="space-y-6">
+    <nav className="space-y-6 ">
         <h2 className="capitalze font-semibold text-heading-1 text-xl">
             {title}
         </h2>

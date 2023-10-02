@@ -20,9 +20,13 @@ const config: Config = {
         },
         'color-alt': {
           'black': "#333333",
+          'green': "#008E53",
         },
-        'background': "#F5F5F5"
+        'background': "#FFFFFF"
       },
+      screens:{
+				midmd:"880px"
+			}
     },
   },
   plugins: [],

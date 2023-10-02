@@ -5,7 +5,7 @@ export interface Props {
 
 export function Paragraph({className, children}: Props){
     return(
-        <p className={`md:text-lg lg:text-xl text-heading-3 ${className}`}>
+        <p className={`md:text-md lg:text-lg text-heading-3 ${className}`}>
             {children}
         </p>
     )
