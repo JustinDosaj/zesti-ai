@@ -19,7 +19,7 @@ export default function Dashboard() {
 
   return (
     <main className={`flex min-h-screen flex-col items-center justify-between p-2 bg-background ${raleway.className}`}>
-        <LinkInput/>
+        <LinkInput user={user}/>
     </main>
   )
 }

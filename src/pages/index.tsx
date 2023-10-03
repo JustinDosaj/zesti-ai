@@ -5,9 +5,6 @@ import { Optimize } from '@/components/home-sections/optimize'
 import Head from 'next/head';
 import { Reach } from '@/components/home-sections/reach';
 
-
-
-
 const raleway = Raleway({subsets: ['latin']})
 
 export default function Home() {

@@ -1,5 +1,6 @@
 import { createContext, useContext, ReactNode, useEffect, useState } from 'react';
 import { User, getAuth, onAuthStateChanged, signOut, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+import { db } from '../firebase/firebase';
 
 interface AuthContextType {
   user: User | null;
@@ -20,7 +21,26 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
 
   const login = async () => {
     try {
-      await signInWithPopup(auth, provider);
+      const result = await signInWithPopup(auth, provider);
+      const user = result.user
+
+      if(user) {
+        const userRef = db.collection('users').doc(user.uid);
+        const doc = await userRef.get();
+
+        if(!doc.exists) {
+          await userRef.set({
+            tokens: 100,
+            email: user.email,
+            pages: {
+              "www.website.com": {
+                "name" : "test name",
+              }
+            }
+          })
+        }
+      }
+
     } catch (error) {
       console.error("Error logging in:", error);
       throw error;
