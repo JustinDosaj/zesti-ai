@@ -11,3 +11,7 @@
         return
     }
  }
+
+ export async function sendScrapedData() {
+    
+ }
