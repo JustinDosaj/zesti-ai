@@ -7,7 +7,7 @@ import { useState } from 'react'
 
 export function Hero(){
 
-    const { user , login } = useAuth()
+    const { user, login } = useAuth()
     const [ url, setUrl ] = useState<string>();
 
  return(

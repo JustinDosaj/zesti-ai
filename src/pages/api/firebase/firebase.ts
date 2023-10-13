@@ -23,11 +23,5 @@ try {
   console.error('Firebase initialization error', err);
 }
 
-//export const app = getApps.length ? getApp() : initializeApp(firebaseConfig);
-
 export const db = firebase.firestore();
 export const storage = firebase.storage();
-
-/*export const initFirebase = () => {
-    return app
-}*/
