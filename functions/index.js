@@ -38,9 +38,9 @@ exports.detectNewURLRecipe = onDocumentCreated("users/{userId}/recipes/{document
             if (recipeData.complete == false || !recipeData.complete) {
 
                 const completion = await openai.chat.completions.create({
-                    messages: [{ role: "system", content: "Given all the text from a webpage containing a recipe, provide the following fields in a JSON dict, where applicable: \"name\": (name of recipe), \"ingredients\": (list of ingredients excluding recommended ingredients, eg. 1/4 Cup of Honey), \"instructions\": (list of instructions, eg. Preheat oven to 450 degrees fahrenheit), \"recommendations\": (list of 3 possible recipe improvements gathered from reviews | Filter out bad reviews | Get Straight to the point on improvements)"},
+                    messages: [{ role: "system", content: "Given all the text from a webpage containing a recipe, provide the following fields in a JSON dict, where applicable: \"name\": (name of recipe), \"time\": (total time to make recipe, eg. 10), \"description\": (one sentence description of recipe) \"ingredients\": (list of ingredients excluding recommended ingredients, eg. 1/4 Cup of Honey), \"instructions\": (list of instructions, eg. Preheat oven to 450 degrees fahrenheit), \"recommendations\": (list of 3 possible recipe improvements gathered from reviews | Filter out bad reviews | Get Straight to the point on improvements)"},
                     {role:"user", content: recipeData.rawData}],
-                    model: "ft:gpt-3.5-turbo-0613:vurge-corp::89H1N80z",
+                    model: "ft:gpt-3.5-turbo-0613:vurge-corp::89IGQDYw",
                   });
                 transaction.update(pageRef, {
                     complete: true,
