@@ -19,7 +19,7 @@ export function LinkInput({user}: any) {
             <div className="relative flex flex-col items-center text-center lg:py-7 xl:py-8 lg:max-w-none max-w-3xl mx-auto lg:mx-0 lg:flex-1 lg:w-1/2">
                 <h1 className="text-3xl/tight sm:text-4xl/tight md:text-5xl/tight xl:text-5xl/tight
                 font-bold text-heading-1">
-                Your Webpages
+                Your Recipes
                 </h1>
                 <Paragraph className="mt-8">
                     Get ready to increase your website visibility with optimized SEO and google ads in a click

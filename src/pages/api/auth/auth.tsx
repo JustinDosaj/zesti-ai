@@ -30,13 +30,8 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
 
         if(!doc.exists) {
           await userRef.set({
-            tokens: 100,
+            tokens: 1,
             email: user.email,
-            pages: {
-              "www.website.com": {
-                "name" : "test name",
-              }
-            }
           })
         }
       }
