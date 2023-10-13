@@ -12,11 +12,10 @@ const { onDocumentCreated } = require("firebase-functions/v2/firestore");
 const { initializeApp } = require("firebase-admin/app");
 const { getFirestore } = require("firebase-admin/firestore");
 const OpenAI = require('openai');
-const axios = require('axios');
 
 initializeApp();
 
-exports.detectNewUpload = onDocumentCreated("users/{userId}/recipes/{documentId}", async (event) => {
+exports.detectNewURLRecipe = onDocumentCreated("users/{userId}/recipes/{documentId}", async (event) => {
     
     const userId = event.params.userId;
     const documentId = event.params.documentId;
@@ -41,7 +40,7 @@ exports.detectNewUpload = onDocumentCreated("users/{userId}/recipes/{documentId}
                 const completion = await openai.chat.completions.create({
                     messages: [{ role: "system", content: "Given all the text from a webpage containing a recipe, provide the following fields in a JSON dict, where applicable: \"name\": (name of recipe), \"ingredients\": (list of ingredients excluding recommended ingredients, eg. 1/4 Cup of Honey), \"instructions\": (list of instructions, eg. Preheat oven to 450 degrees fahrenheit), \"recommendations\": (list of 3 possible recipe improvements gathered from reviews | Filter out bad reviews | Get Straight to the point on improvements)"},
                     {role:"user", content: recipeData.rawData}],
-                    model: "ft:gpt-3.5-turbo-0613:vurge-corp::88yeUdMi",
+                    model: "ft:gpt-3.5-turbo-0613:vurge-corp::89H1N80z",
                   });
                 transaction.update(pageRef, {
                     complete: true,
