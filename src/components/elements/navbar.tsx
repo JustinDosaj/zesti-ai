@@ -24,7 +24,7 @@ const navItemsLoggedIn = [
         text:"Pricing",
     },
     {
-        href: "/dash",
+        href: "/dashboard",
         text: "Dashboard",
         isDashboard: true,
     }
@@ -56,10 +56,7 @@ export function Navbar({_user}: any) {
                     {
                         user !== null ? 
                         navItemsLoggedIn.map(item=> {
-                            return <Navitem 
-                            href={item.isDashboard ? `${item.href}?user=${user.uid}` : item.href} 
-                            text={item.text}
-                            />
+                            return <Navitem {...item}/>
                         })
                         :
                         navItems.map(item=>{
