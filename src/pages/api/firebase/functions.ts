@@ -1,11 +1,29 @@
 import { db } from "./firebase"
 
-export async function getAllRecipes(user: string) {
+export async function getAllRecipes(user: any) {
     try {
       const snapshot = await db.collection('users').doc(user).collection('recipes').get()
-      const pages = snapshot.docs.map((doc: any) => doc.data())
-      console.log("USER: " , user)
+      const pages = snapshot.docs.map((doc: any) => {
+        return {
+          id: doc.id,
+          ...doc.data()
+        }
+      })
       return pages
+    } catch (err) {
+        console.log(err)
+        return
+    }
+  }
+
+  export async function getRecipe(user: any, id: any) {
+    console.log("ID: ", id)
+    try {
+      const ref = await db.collection('users').doc(user).collection('recipes').doc(id)
+      const doc = await ref.get();
+      const res = doc.data()
+     // const pages = snapshot.docs.map((doc: any) => doc.data())
+      return res
     } catch (err) {
         console.log(err)
         return
