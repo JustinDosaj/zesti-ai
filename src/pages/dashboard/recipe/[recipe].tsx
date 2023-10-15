@@ -1,10 +1,11 @@
 import { GetServerSideProps } from "next";
 import { Raleway } from 'next/font/google'
-import { EllipsisVerticalIcon } from '@heroicons/react/20/solid'
+import { EllipsisVerticalIcon, StarIcon } from '@heroicons/react/20/solid'
 import React, {useEffect, useState} from 'react'
 import { useAuth } from "@/pages/api/auth/auth";
 import { useRouter } from 'next/router';
 import { getRecipe } from "@/pages/api/firebase/functions";
+import { Container } from "@/components/shared/container";
 
 const raleway = Raleway({subsets: ['latin']})
 
@@ -12,13 +13,6 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     const id = context.query?.recipe as string
     return {props: {id: id}}
 }
-
-  const projects = [
-    { name: 'Graph API', initials: 'GA', href: '#', members: 16, bgColor: 'bg-pink-600' },
-    { name: 'Component Design', initials: 'CD', href: '#', members: 12, bgColor: 'bg-purple-600' },
-    { name: 'Templates', initials: 'T', href: '#', members: 16, bgColor: 'bg-yellow-500' },
-    { name: 'React Components', initials: 'RC', href: '#', members: 8, bgColor: 'bg-green-500' },
-  ]
 
 function classNames(...classes: (string | undefined | null | false)[]): string {
 return classes.filter(Boolean).join(' ');
@@ -28,8 +22,9 @@ const Recipe: React.FC = ({id}: any) => {
 
     const { user, isLoading } = useAuth();
     const [ onFirstLoad, setOnFirstLoad ] = useState<boolean>(true)
-    const [obj, setObj] = useState<any>()
+    const [obj, setObj] = useState<any>([])
     const router = useRouter();
+
 
     useEffect( () => {
         if(user == null && isLoading == false) {
@@ -46,29 +41,93 @@ const Recipe: React.FC = ({id}: any) => {
         setOnFirstLoad(false)
     }  
 
-    console.log("Object: ", obj)
-    //let ingred = JSON.parse(obj.data.message.content)
+    console.log(obj)
 
     return(
     <main className={`flex min-h-screen flex-col items-center justify-between p-2 bg-background mt-12${raleway.className}`}>
-    <div className="my-auto">
-      <h2 className="text-lg font-medium text-gray-500">Ingredients</h2>
-      <ul role="list" className="mt-3 grid grid-cols-1 gap-5 sm:grid-cols-2 sm:gap-6 lg:grid-cols-4">
-        {obj?.ingredients.map((ingred: any) => (
-          <li key={ingred} className="col-span-1 flex rounded-md shadow-sm">
-            <div className="bg-yellow-500 flex w-16 flex-shrink-0 items-center justify-center rounded-l-md text-sm font-medium text-white" >
-         
+      <Container className={"flex flex-col lg:flex-row gap-10 lg:gap-12 mt-36"}>
+       <div className="bg-white py-5 border w-full rounded-lg p-12">
+        <div className="flex space-x-3">
+          <div className="min-w-0 flex-1 space-y-2">
+            <div className="gap-x-3 text-xl font-semibold text-gray-900 grid space-y-2 sm:inline-flex">
+                {obj?.name}
+                <div className="mt-1 space-y-2 sm:inline-flex sm:mt-0 sm:space-y-0 gap-x-2 text-center">
+                  <p className="bg-green-500 rounded-xl text-white text-sm p-1">{`${obj?.time} Minutes`}</p>
+                  <p className="bg-green-500 rounded-xl text-white text-sm p-1">{`${obj?.servings} Servings`}</p>
+                </div>
             </div>
-            <div className="flex flex-1 items-center justify-between rounded-r-md border-b border-r border-t border-gray-200 bg-white">
-              <div className="flex-1 truncate px-4 py-2 text-sm">
-                <p className="text-gray-500">{ingred}</p>
-              </div>
-            </div>
-          </li>
-        ))}
-      </ul>
-    </div>
-        </main>
+
+            <p className="text-gray-500">
+              {`${obj?.description}`}
+            </p>
+          </div>
+        </div>
+      </div>
+      </Container>
+      <Container className={"flex flex-col lg:flex-row gap-10 lg:gap-12 mt-36"}>
+        <div className="my-auto overflow-hidden w-full">
+          <h2 className="text-lg font-medium text-gray-500">Recommendations {`(${obj?.recommendations?.length})`}</h2>
+          <ul role="list" className="mt-3 grid grid-cols-1 gap-5 sm:grid-cols-2 sm:gap-6 lg:grid-cols-1">
+            {obj?.recommendations?.map((rec: any, index: any) => (
+              <li key={index} className="col-span-1 flex rounded-md shadow-sm">
+                <div className="flex rounded-md overflow-hidden w-full">
+                  <div className="bg-yellow-400 flex w-16 flex-shrink-0 items-center justify-center rounded-l-md font-medium text-white" >
+                    <StarIcon className="h-5 w-5 text-white"/>
+                  </div>
+                  <div className="flex flex-1 items-center justify-between rounded-r-md border-b border-r border-t border-gray-200 bg-white">
+                    <div className="flex-1 truncate px-4 py-2 text-sm">
+                      <p className="text-gray-500 overflow-ellipsis whitespace-normal">{rec}</p>
+                    </div>
+                  </div>
+                </div>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </Container>
+      <Container className={"flex flex-col lg:flex-row gap-10 lg:gap-12 mt-36"}>
+        <div className="my-auto overflow-hidden">
+          <h2 className="text-lg font-medium text-gray-500">Ingredients {`(${obj?.ingredients?.length})`}</h2>
+          <ul role="list" className="mt-3 grid grid-cols-1 gap-5 sm:grid-cols-2 sm:gap-6 lg:grid-cols-4">
+            {obj?.ingredients?.map((ingred: any, index: any) => (
+              <li key={index} className="col-span-1 flex rounded-md shadow-sm">
+                <div className="flex rounded-md overflow-hidden w-full">
+                  <div className="bg-rose-400 flex w-16 flex-shrink-0 items-center justify-center rounded-l-md font-medium text-white" >
+                    {index + 1}
+                  </div>
+                  <div className="flex flex-1 items-center justify-between rounded-r-md border-b border-r border-t border-gray-200 bg-white">
+                    <div className="flex-1 truncate px-4 py-2 text-sm">
+                      <p className="text-gray-500 overflow-ellipsis whitespace-normal">{ingred}</p>
+                    </div>
+                  </div>
+                </div>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </Container>
+      <Container className={"flex flex-col lg:flex-row gap-10 lg:gap-12 mt-36 mb-36"}>
+        <div className="my-auto overflow-hidden w-full">
+          <h2 className="text-lg font-medium text-gray-500">Instructions {`(${obj?.instructions?.length})`}</h2>
+          <ul role="list" className="mt-3 grid grid-cols-1 gap-5 sm:gap-6">
+            {obj?.instructions?.map((instruct: any, index: any) => (
+              <li key={index} className="col-span-1 flex rounded-md shadow-sm">
+                <div className="flex rounded-md overflow-hidden w-full">
+                  <div className="bg-green-600 flex w-16 flex-shrink-0 items-center justify-center rounded-l-md font-medium text-white" >
+                    {index + 1}
+                  </div>
+                  <div className="flex flex-1 items-center justify-between rounded-r-md border-b border-r border-t border-gray-200 bg-white">
+                    <div className="flex-1 truncate px-4 py-2 text-sm">
+                      <p className="text-gray-500 overflow-ellipsis whitespace-normal">{instruct}</p>
+                    </div>
+                  </div>
+                </div>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </Container>
+    </main>
     )
 }
 

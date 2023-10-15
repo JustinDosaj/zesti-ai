@@ -17,7 +17,6 @@ export async function getAllRecipes(user: any) {
   }
 
   export async function getRecipe(user: any, id: any) {
-    console.log("ID: ", id)
     try {
       const ref = await db.collection('users').doc(user).collection('recipes').doc(id)
       const doc = await ref.get();

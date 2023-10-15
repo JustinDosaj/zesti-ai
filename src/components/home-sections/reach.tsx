@@ -10,8 +10,10 @@ export function Reach() {
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <div className="mx-auto max-w-2xl sm:text-center">
             <Title className="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-            <span className="text-transparent bg-clip-text bg-gradient-to-br from-blue-400 from-20% via-primary via-30% to-blue-700 pr-2">Increase</span>
-            traffic and conversions
+            <span className="text-transparent bg-clip-text bg-gradient-to-br from-primary-main from-20% via-primary via-30% to-color-alt-red pr-2">Save</span>
+            recipes you
+            <span className="text-transparent bg-clip-text bg-gradient-to-br from-primary-main from-20% via-primary via-30% to-color-alt-red pl-2 pr-2">love</span>
+            for later
             </Title>
             <Paragraph className="mt-6 text-lg leading-8 text-gray-600">
               Generate optimal keywords that improve your Search Engine Optimization (SEO) and Google Ads to increase traffic and conversions
