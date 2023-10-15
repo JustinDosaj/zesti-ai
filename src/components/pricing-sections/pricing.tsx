@@ -2,41 +2,33 @@ import { Button } from "../shared/button";
 
 const tiers = [
   {
-    name: 'Freelancer',
+    name: 'Basic',
     id: 'tier-freelancer',
     href: '#',
-    priceMonthly: '$24',
-    description: 'The essentials to provide your best work for clients.',
-    features: ['5 products', 'Up to 1,000 subscribers', 'Basic analytics', '48-hour support response time'],
+    priceMonthly: '$9',
+    description: 'A basic plan the works for people who only cook a few times per month',
+    features: ['10 Website Recipe Searches/Month', '2 Video Recipe Searches/Month'],
     mostPopular: false,
   },
   {
-    name: 'Startup',
+    name: 'Essential',
     id: 'tier-startup',
     href: '#',
-    priceMonthly: '$32',
-    description: 'A plan that scales with your rapidly growing business.',
+    priceMonthly: '$15',
+    description: 'A plan for someone who cooks often and enjoys trying to new recipes contantly',
     features: [
-      '25 products',
-      'Up to 10,000 subscribers',
-      'Advanced analytics',
-      '24-hour support response time',
-      'Marketing automations',
+      '20 Website Recipe Searches/Month', '10 Video Recipe Searches/Month'
     ],
     mostPopular: true,
   },
   {
-    name: 'Enterprise',
+    name: 'Premium',
     id: 'tier-enterprise',
     href: '#',
-    priceMonthly: '$48',
-    description: 'Dedicated support and infrastructure for your company.',
+    priceMonthly: '$49',
+    description: 'For the top chef, the one who lives to cook and cooks nearly every meal, every day',
     features: [
-      'Unlimited products',
-      'Unlimited subscribers',
-      'Advanced analytics',
-      '1-hour, dedicated support response time',
-      'Marketing automations',
+      'Unlimited Website Recipe Searches', '30 Video Recipe Searches/Month'
     ],
     mostPopular: false,
   },
@@ -104,7 +96,7 @@ export function PricingList() {
                   ))}
                 </ul>
               </div>
-              <Button text="Buy" buttonType="button" className='mt-8 block py-2 px-3 text-center text-sm font-semibold leading-6'/>
+              <Button text="Subscribe" buttonType="button" className='mt-8 block py-2 px-3 text-center text-sm font-semibold leading-6'/>
             </div>
           ))}
         </div>

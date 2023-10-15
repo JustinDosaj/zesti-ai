@@ -15,7 +15,7 @@ export default function Home() {
       <meta name="viewport" content="width=device-width" />
       <link rel="icon" type="image/svg+xml" href="/favicon.ico" />
       <meta name="description" content="AgenceX - SEO Agency website landing page made with ASTROJS and TAILWINDCSS"/>
-      <title>Webnest - AI Generated SEO & Google Ads</title>
+      <title>Zesti - AI Cooking and Recipe Assistant</title>
       <link
         href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;500;600;700&display=swap"
         rel="stylesheet"

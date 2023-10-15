@@ -21,7 +21,7 @@ export default function Dashboard({data}: any) {
 
     const { user, isLoading } = useAuth();
     const [onFirstLoad, setOnFirstLoad] = useState<boolean>(true)
-    const [obj, setObj] = useState<any[]>([])
+    const [obj, setObj] = useState<any>([])
     const router = useRouter();
 
 
@@ -37,12 +37,12 @@ export default function Dashboard({data}: any) {
         onFirstPageLoad()
       }
     }, [user])
-    console.log("Obj:",obj)
+    console.log("Obj:", obj)
     console.log("Data:", {data})
   return (
-    <main className={`flex min-h-screen flex-col items-center p-2 bg-background ${raleway.className}`}>
+    <main className={`flex min-h-screen flex-col items-center bg-background ${raleway.className}`}>
         <LinkInput user={user}/>
-        <GridDisplay data={obj} user={user}/>
+        <GridDisplay data={obj[0]} user={user}/>
     </main>
   )
 }

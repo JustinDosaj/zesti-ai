@@ -38,7 +38,7 @@ export function LinkInput({user}: any) {
                             <Button buttonType="button" text="" className={"min-w-max text-white"} 
                             onClick={() => handleSubmit({url, user})}>
                                 <span className="hidden sm:flex relative z-[5]">
-                                    Optimize Site
+                                    Get Recipe
                                 </span>
                                 <span className="flex sm:hidden relative z-[5]">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-5 h-5">

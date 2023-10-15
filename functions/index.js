@@ -38,9 +38,9 @@ exports.detectNewURLRecipe = onDocumentCreated("users/{userId}/recipes/{document
             if (recipeData.complete == false || !recipeData.complete) {
 
                 const completion = await openai.chat.completions.create({
-                    messages: [{ role: "system", content: "Given all the text from a webpage containing a recipe, provide the following fields in a JSON dict, where applicable: \"name\": (name of recipe), \"time\": (total time to make recipe, eg. 10), \"description\": (one sentence description of recipe) \"ingredients\": (list of ingredients excluding recommended ingredients, eg. 1/4 Cup of Honey), \"instructions\": (list of instructions, eg. Preheat oven to 450 degrees fahrenheit), \"recommendations\": (list of 3 possible recipe improvements gathered from reviews | Filter out bad reviews | Get Straight to the point on improvements)"},
+                    messages: [{ role: "system", content: "Given all the text from a webpage containing a recipe, provide the following fields in a JSON dict, where applicable: \"name\": (name of recipe), \"time\": (total time to make recipe, eg. 10), \"servings\": (total servings recipe provides, eg. 4), \"description\": (create one sentence description of recipe), \"ingredients\": (list of ingredients excluding recommended ingredients, eg. 1/4 Cup of Honey), \"instructions\": (list of instructions, eg. Preheat oven to 450 degrees fahrenheit), \"recommendations\": (list of 3 possible recipe improvements gathered from reviews | Filter out bad reviews)"},
                     {role:"user", content: recipeData.rawData}],
-                    model: "ft:gpt-3.5-turbo-0613:vurge-corp::89IGQDYw",
+                    model: "ft:gpt-3.5-turbo-0613:vurge-corp::89eapevQ",
                   });
                 transaction.update(pageRef, {
                     complete: true,
@@ -58,79 +58,6 @@ exports.detectNewURLRecipe = onDocumentCreated("users/{userId}/recipes/{document
 })
 
 // Detect new page added by user
-/*exports.testDetect = onDocumentCreated("users/{userId}/pages/{documentId}", async (event) => {
-
-    const userId = event.params.userId;
-    const documentId = event.params.documentId;
-    const userRef = getFirestore().collection("users").doc(userId);
-    const pageRef = userRef.collection('recipes').doc(documentId)
-    openai.apiKey = "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"
-
-    try {
-        await getFirestore().runTransaction(async (transaction) => {
-            
-            const pageDoc = await transaction.get(pageRef);
-            const userDoc = await transaction.get(userRef)
-            const pageData = pageDoc.data();
-
-            if (!userDoc.exists || !pageDoc.exists) {
-                console.error(`Error: either ${userId} does not exist or ${documentId} does not exist`);
-                return;
-            }
-
-            if (pageData.complete == false || !pageData.complete) {
-                transaction.update(pageRef, {
-                    complete: true,
-                    data: "test",
-                });
-                console.log(`Completed scan for ${documentId}`);
-            } 
-            else {
-                console.error(`${documentId} scan has already been run`);
-            }
-        });
-    } catch (error) {
-        console.error("Transaction failure:", error);
-    }
-});
-
-exports.detect2 = onDocumentCreated("users/{userId}/pages/{documentId}", async (event) => {
-
-    const userId = event.params.userId;
-    const documentId = event.params.documentId;
-    const userRef = getFirestore().collection("users").doc(userId);
-    const pageRef = userRef.collection('pages').doc(documentId)
-
-    try {
-        await getFirestore().runTransaction(async (transaction) => {
-            const pageDoc = await transaction.get(pageRef);
-            const userDoc = await transaction.get(userRef)
-
-            if (!userDoc.exists || !pageDoc.exists) {
-                console.error(`Error: either ${userId} does not exist or ${documentId} does not exist`);
-                return;
-            }
-            const pageData = pageDoc.data();
-
-            if (pageData.complete == false || !pageData.complete) {
-
-                
-
-                transaction.update(pageRef, {
-                    complete: true,
-                    data: textContent,
-                });
-                console.log(`Completed scan for ${documentId}`);
-            } else {
-                console.error(`${documentId} scan has already been run`);
-            }
-        });
-    } catch (error) {
-        console.error("Transaction failure:", error);
-    }
-});
-
-
 // Deducts Tokens when new page is added by user
 /*exports.deductTokensOnNewPage = onDocumentCreated("users/{userId}/pages/{documentId}", async (event) => {
 

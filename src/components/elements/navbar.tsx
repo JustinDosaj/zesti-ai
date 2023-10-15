@@ -45,7 +45,7 @@ export function Navbar({_user}: any) {
                             <img src="/logos/gradient-logo-only-transparent.png"/>
                         </div>
                         <div className="inline-flex text-lg font-semibold text-heading-1">
-                            Webnest.AI
+                            Zesti.ai
                         </div>
                     </a>
                 </div>

@@ -31,9 +31,9 @@ export function Optimize() {
                 <div className="md:px-0 lg:pr-4 lg:pt-4">
                     <div className="mx-auto max-w-2xl lg:mx-0 lg:max-w-lg">
                     <Title className="mt-2 font-bold tracking-tight text-gray-900 text-3xl md:text-5xl">
-                    <span className="pr-2 text-transparent bg-clip-text bg-gradient-to-br from-blue-400 from-20% via-primary via-30% to-blue-700">Maximize</span>
-                    your website using
-                    <span className="pl-2 text-transparent bg-clip-text bg-gradient-to-br from-blue-400 from-20% via-primary via-30% to-blue-700">AI</span>
+                    <span className="pr-2 text-transparent bg-clip-text bg-gradient-to-br from-primary-main from-20% via-primary via-30% to-color-alt-red">Reduce</span>
+                    clutter from recipes using
+                    <span className="pl-2 text-transparent bg-clip-text bg-gradient-to-br from-primary-main from-20% via-primary via-30% to-color-alt-red">AI</span>
                     </Title>
                     <Paragraph className="mt-6 text-lg">
                         Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maiores impedit perferendis suscipit eaque,
