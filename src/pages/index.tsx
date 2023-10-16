@@ -4,7 +4,7 @@ import { FAQ } from '@/components/home-sections/faq';
 import { Optimize } from '@/components/home-sections/optimize'
 import Head from 'next/head';
 import { Reach } from '@/components/home-sections/reach';
-
+import { DownloadVideo } from './api/handler/download';
 const raleway = Raleway({subsets: ['latin']})
 
 export default function Home() {
@@ -21,8 +21,9 @@ export default function Home() {
         rel="stylesheet"
       />
     </Head>
-    <main className={`flex min-h-screen flex-col items-center justify-between p-2 bg-background ${raleway.className}`}>
+      <main className={`flex min-h-screen flex-col items-center justify-between p-2 bg-background ${raleway.className}`}>
       <Hero/>
+      <button className="bg-red-600 text-lg" onClick={() => DownloadVideo()}>HELLO THERE</button>
       <Optimize/>
       <Reach/>
       <FAQ/>

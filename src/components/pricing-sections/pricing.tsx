@@ -1,106 +1,91 @@
 import { Button } from "../shared/button";
-
-const tiers = [
-  {
-    name: 'Basic',
-    id: 'tier-freelancer',
-    href: '#',
-    priceMonthly: '$9',
-    description: 'A basic plan the works for people who only cook a few times per month',
-    features: ['10 Website Recipe Searches/Month', '2 Video Recipe Searches/Month'],
-    mostPopular: false,
-  },
-  {
-    name: 'Essential',
-    id: 'tier-startup',
-    href: '#',
-    priceMonthly: '$15',
-    description: 'A plan for someone who cooks often and enjoys trying to new recipes contantly',
-    features: [
-      '20 Website Recipe Searches/Month', '10 Video Recipe Searches/Month'
-    ],
-    mostPopular: true,
-  },
-  {
-    name: 'Premium',
-    id: 'tier-enterprise',
-    href: '#',
-    priceMonthly: '$49',
-    description: 'For the top chef, the one who lives to cook and cooks nearly every meal, every day',
-    features: [
-      'Unlimited Website Recipe Searches', '30 Video Recipe Searches/Month'
-    ],
-    mostPopular: false,
-  },
+import { CheckIcon, PlusIcon } from "@heroicons/react/20/solid";
+import { useState } from "react"
+import { Container } from "../shared/container";
+// 5 tokens = $0.20 // 10 tokens = $0.40
+const includedFeatures = [
+  'Private forum access',
+  'Member resources',
+  'Entry to annual conference',
+  'Official member t-shirt',
 ]
-
 function classNames(...classes: (string | undefined | null | false)[]): string {
     return classes.filter(Boolean).join(' ');
   }
   
 
 export function PricingList() {
+
+  const [credits, setCredits] = useState(50)
+  const [dolalrValue, setDollarValue] = useState(5)
+
+  const handleCreditsChange = (event: any) => {
+    const newValue = event.target.value;
+    setCredits(newValue);
+    
+    console.log(newValue); // Log the updated value
+  };
+
+
   return (
-    <div className="bg-white py-24 sm:py-24">
-      <div className="mx-auto max-w-7xl lg:px-8">
-        <div className="mx-auto max-w-4xl text-center">
-          <h1 className="mt-2 text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl">
-            Plans
-          </h1>
+    <Container className={"flex flex-col lg:flex-row gap-10 lg:gap-12"}>
+      <div className="bg-white py-24 sm:py-32">
+      <div className="mx-auto max-w-7xl px-6 lg:px-8">
+        <div className="mx-auto max-w-2xl sm:text-center">
+          <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Simple no-tricks pricing</h2>
+          <p className="mt-6 text-lg leading-8 text-gray-600">
+            Distinctio et nulla eum soluta et neque labore quibusdam. Saepe et quasi iusto modi velit ut non voluptas
+            in. Explicabo id ut laborum.
+          </p>
         </div>
-        <p className="mx-auto mt-6 max-w-2xl text-center text-lg leading-8 text-gray-600">
-          Try for free (No credit card required). Cancel anytime.
-        </p>
-        <div className="isolate mx-auto mt-16 grid max-w-md grid-cols-1 gap-y-8 sm:mt-20 lg:mx-0 lg:max-w-none lg:grid-cols-3">
-          {tiers.map((tier, tierIdx) => (
-            <div
-              key={tier.id}
-              className={classNames(
-                tier.mostPopular ? 'lg:z-10 lg:rounded-b-none' : 'lg:mt-8',
-                tierIdx === 0 ? 'lg:rounded-r-none' : '',
-                tierIdx === tiers.length - 1 ? 'lg:rounded-l-none' : '',
-                'flex flex-col justify-between rounded-3xl bg-white p-8 ring-1 ring-gray-200 xl:p-10'
-              )}
-            >
-              <div>
-                <div className="flex items-center justify-between gap-x-4">
-                  <h3
-                    id={tier.id}
-                    className={classNames(
-                      tier.mostPopular ? 'text-primary-main' : 'text-gray-900',
-                      'text-lg font-semibold leading-8'
-                    )}
-                  >
-                    {tier.name}
-                  </h3>
-                  {tier.mostPopular ? (
-                    <p className="rounded-full bg-indigo-600/10 px-2.5 py-1 text-xs font-semibold leading-5 text-primary-main">
-                      Most popular
-                    </p>
-                  ) : null}
-                </div>
-                <p className="mt-4 text-sm leading-6 text-gray-600">{tier.description}</p>
-                <p className="mt-6 flex items-baseline gap-x-1">
-                  <span className="text-4xl font-bold tracking-tight text-gray-900">{tier.priceMonthly}</span>
-                  <span className="text-sm font-semibold leading-6 text-gray-600">/month</span>
-                </p>
-                <ul role="list" className="mt-8 space-y-3 text-sm leading-6 text-gray-600">
-                  {tier.features.map((feature) => (
-                    <li key={feature} className="flex gap-x-3">
-                        <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-check h-6 w-5 flex-none text-color-alt-green" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">
-                            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                            <path d="M5 12l5 5l10 -10"></path>
-                        </svg>
-                      {feature}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-              <Button text="Subscribe" buttonType="button" className='mt-8 block py-2 px-3 text-center text-sm font-semibold leading-6'/>
+        <div className="mx-auto mt-16 max-w-2xl rounded-3xl ring-1 ring-gray-200 sm:mt-20 lg:mx-0 lg:flex lg:max-w-none">
+          <div className="p-8 sm:p-10 lg:flex-auto">
+            <h3 className="text-2xl font-bold tracking-tight text-gray-900">Lifetime membership</h3>
+            <p className="mt-6 text-base leading-7 text-gray-600">
+              Lorem ipsum dolor sit amet consect etur adipisicing elit. Itaque amet indis perferendis blanditiis
+              repellendus etur quidem assumenda.
+            </p>
+            <div className="mt-10 flex items-center gap-x-4">
+              <h4 className="flex-none text-sm font-semibold leading-6 text-primary-main">What’s included</h4>
+              <div className="h-px flex-auto bg-gray-100" />
             </div>
-          ))}
+            <ul
+              role="list"
+              className="mt-8 grid grid-cols-1 gap-4 text-sm leading-6 text-gray-600 sm:grid-cols-2 sm:gap-6"
+            >
+              {includedFeatures.map((feature) => (
+                <li key={feature} className="flex gap-x-3">
+                  <CheckIcon className="h-6 w-5 flex-none text-color-alt-green" aria-hidden="true" />
+                  {feature}
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div className="-mt-2 p-2 lg:mt-0 lg:w-full lg:max-w-md lg:flex-shrink-0">
+            <div className="rounded-2xl bg-gray-50 py-10 text-center ring-1 ring-inset ring-gray-900/5 lg:flex lg:flex-col lg:justify-center lg:py-16">
+              <div className="mx-auto max-w-xs px-8">
+                <p className="text-base font-semibold text-gray-600">Pay once, own it forever</p>
+                <p className="mt-6 flex items-baseline justify-center gap-x-2">
+                  <span className="text-5xl font-bold tracking-tight text-gray-900 w-36">
+                    <input type="text" className="w-full" value={credits} onChange={handleCreditsChange}></input>
+                  </span>
+                  <span className="text-sm font-semibold leading-6 tracking-wide text-gray-600">Credits</span>
+                </p>
+                <p className="mt-6 flex items-baseline justify-center gap-x-2">
+                  <span className="text-5xl font-bold tracking-tight text-gray-900">${dolalrValue}</span>
+                  <span className="text-sm font-semibold leading-6 tracking-wide text-gray-600">USD</span>
+                </p>
+                <Button className="mt-10 block w-full px-3 py-2"
+                  text="Purchase Credits" buttonType="button" onClick={() => {console.log("Click")}}/>
+                <p className="mt-6 text-xs leading-5 text-gray-600">
+                  Invoices and receipts available for easy company reimbursement
+                </p>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
+    </Container>
   )
 }
