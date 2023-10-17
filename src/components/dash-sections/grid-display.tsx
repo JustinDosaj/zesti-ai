@@ -74,13 +74,13 @@ export function GridDisplay({data = [], user}: {data: any[], user: any}) {
             <div className="flex justify-between gap-x-4 py-3">
               <dt className="text-gray-500">Time</dt>
               <dd className="text-gray-700">
-                <p>{`${desc.time} Minutes`}</p>
+                <p>{desc.time !== null ? `${desc.time} Minutes`: 'N/A'}</p>
               </dd>
             </div>
             <div className="flex justify-between gap-x-4 py-3">
               <dt className="text-gray-500">Servings</dt>
-              <dd className="flex items-start gap-x-2">
-                <div className="font-medium text-gray-900">{desc.servings}</div>
+              <dd className="flex items-start gap-x-2 text-gray-700">
+                <p className="">{desc.time !== null ? desc.servings : 'N/A'}</p>
               </dd>
             </div>
             <div className="flex justify-between gap-x-4 py-3">
