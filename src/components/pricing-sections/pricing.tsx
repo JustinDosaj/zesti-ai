@@ -2,12 +2,39 @@ import { Button } from "../shared/button";
 import { CheckIcon, PlusIcon } from "@heroicons/react/20/solid";
 import { useState } from "react"
 import { Container } from "../shared/container";
-// 5 tokens = $0.20 // 10 tokens = $0.40
-const includedFeatures = [
-  'Private forum access',
-  'Member resources',
-  'Entry to annual conference',
-  'Official member t-shirt',
+
+const tiers = [
+  {
+    name: 'Base',
+    id: 'tier-freelancer',
+    href: '#',
+    priceMonthly: '$3',
+    description: 'The essentials to provide your best work for clients.',
+    features: ['50 Tokens Per Month',],
+    mostPopular: false,
+  },
+  {
+    name: 'Essential',
+    id: 'tier-startup',
+    href: '#',
+    priceMonthly: '$7',
+    description: 'A plan that scales with your rapidly growing business.',
+    features: [
+      '150 Tokens Per Month',
+    ],
+    mostPopular: true,
+  },
+  {
+    name: 'Premium',
+    id: 'tier-enterprise',
+    href: '#',
+    priceMonthly: '$13',
+    description: 'Dedicated support and infrastructure for your company.',
+    features: [
+      '300 Tokens Per Month'
+    ],
+    mostPopular: false,
+  },
 ]
 function classNames(...classes: (string | undefined | null | false)[]): string {
     return classes.filter(Boolean).join(' ');
@@ -30,62 +57,69 @@ export function PricingList() {
   return (
     <Container className={"flex flex-col lg:flex-row gap-10 lg:gap-12"}>
       <div className="bg-white py-24 sm:py-32">
-      <div className="mx-auto max-w-7xl px-6 lg:px-8">
-        <div className="mx-auto max-w-2xl sm:text-center">
-          <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Simple no-tricks pricing</h2>
-          <p className="mt-6 text-lg leading-8 text-gray-600">
-            Distinctio et nulla eum soluta et neque labore quibusdam. Saepe et quasi iusto modi velit ut non voluptas
-            in. Explicabo id ut laborum.
-          </p>
-        </div>
-        <div className="mx-auto mt-16 max-w-2xl rounded-3xl ring-1 ring-gray-200 sm:mt-20 lg:mx-0 lg:flex lg:max-w-none">
-          <div className="p-8 sm:p-10 lg:flex-auto">
-            <h3 className="text-2xl font-bold tracking-tight text-gray-900">Lifetime membership</h3>
-            <p className="mt-6 text-base leading-7 text-gray-600">
-              Lorem ipsum dolor sit amet consect etur adipisicing elit. Itaque amet indis perferendis blanditiis
-              repellendus etur quidem assumenda.
+        <div className="mx-auto max-w-7xl md:px-6 lg:px-8">
+          <div className="mx-auto max-w-4xl text-center">
+            <p className="mt-2 text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl">
+              Pricing
             </p>
-            <div className="mt-10 flex items-center gap-x-4">
-              <h4 className="flex-none text-sm font-semibold leading-6 text-primary-main">What’s included</h4>
-              <div className="h-px flex-auto bg-gray-100" />
-            </div>
-            <ul
-              role="list"
-              className="mt-8 grid grid-cols-1 gap-4 text-sm leading-6 text-gray-600 sm:grid-cols-2 sm:gap-6"
-            >
-              {includedFeatures.map((feature) => (
-                <li key={feature} className="flex gap-x-3">
-                  <CheckIcon className="h-6 w-5 flex-none text-color-alt-green" aria-hidden="true" />
-                  {feature}
-                </li>
-              ))}
-            </ul>
           </div>
-          <div className="-mt-2 p-2 lg:mt-0 lg:w-full lg:max-w-md lg:flex-shrink-0">
-            <div className="rounded-2xl bg-gray-50 py-10 text-center ring-1 ring-inset ring-gray-900/5 lg:flex lg:flex-col lg:justify-center lg:py-16">
-              <div className="mx-auto max-w-xs px-8">
-                <p className="text-base font-semibold text-gray-600">Pay once, own it forever</p>
-                <p className="mt-6 flex items-baseline justify-center gap-x-2">
-                  <span className="text-5xl font-bold tracking-tight text-gray-900 w-36">
-                    <input type="text" className="w-full" value={credits} onChange={handleCreditsChange}></input>
-                  </span>
-                  <span className="text-sm font-semibold leading-6 tracking-wide text-gray-600">Credits</span>
-                </p>
-                <p className="mt-6 flex items-baseline justify-center gap-x-2">
-                  <span className="text-5xl font-bold tracking-tight text-gray-900">${dolalrValue}</span>
-                  <span className="text-sm font-semibold leading-6 tracking-wide text-gray-600">USD</span>
-                </p>
-                <Button className="mt-10 block w-full px-3 py-2"
-                  text="Purchase Credits" buttonType="button" onClick={() => {console.log("Click")}}/>
-                <p className="mt-6 text-xs leading-5 text-gray-600">
-                  Invoices and receipts available for easy company reimbursement
-                </p>
+          <p className="mx-auto mt-6 max-w-2xl text-center text-lg leading-8 text-gray-600">
+            New users get 10 free tokens (No Credit Card Required).
+          </p>
+          <div className="isolate mx-auto mt-16 grid max-w-md grid-cols-1 gap-y-8 sm:mt-20 lg:mx-0 lg:max-w-none lg:grid-cols-3">
+            {tiers.map((tier, tierIdx) => (
+              <div
+                key={tier.id}
+                className={classNames(
+                  tier.mostPopular ? 'lg:z-10 lg:rounded-b-none' : 'lg:mt-8',
+                  tierIdx === 0 ? 'lg:rounded-r-none' : '',
+                  tierIdx === tiers.length - 1 ? 'lg:rounded-l-none' : '',
+                  'flex flex-col justify-between rounded-3xl bg-white p-4 first-letter md:p-8 ring-1 ring-gray-200 xl:p-10'
+                )}
+              >
+                <div>
+                  <div className="flex items-center justify-between gap-x-4">
+                    <h3
+                      id={tier.id}
+                      className={classNames(
+                        tier.mostPopular ? 'text-primary-main' : 'text-gray-900',
+                        'text-lg font-semibold leading-8'
+                      )}
+                    >
+                      {tier.name}
+                    </h3>
+                    {tier.mostPopular ? (
+                      <p className="rounded-full bg-primary-main/10 md:px-2.5 py-1 text-xs font-semibold leading-5 text-primary-main">
+                        Most popular
+                      </p>
+                    ) : null}
+                  </div>
+                  <p className="mt-4 text-sm leading-6 text-gray-600">{tier.description}</p>
+                  <p className="mt-6 flex items-baseline gap-x-1">
+                    <span className="text-4xl font-bold tracking-tight text-gray-900">{tier.priceMonthly}</span>
+                    <span className="text-sm font-semibold leading-6 text-gray-600">/month</span>
+                  </p>
+                  <ul role="list" className="mt-8 space-y-3 text-sm leading-6 text-gray-600">
+                    {tier.features.map((feature) => (
+                      <li key={feature} className="flex gap-x-3">
+                        <CheckIcon className="h-6 w-5 flex-none text-color-alt-green" aria-hidden="true" />
+                        {feature}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                <Button buttonType="button" onClick={() => {console.log("Test")}} text="Subscribe" className="mt-4"/>
               </div>
-            </div>
+            ))}
+          </div>
+          <div className="text-center mt-6 text-gray-600">
+            <p className="border w-full p-2 rounded-2xl text-xs md:text-base">
+              1 Video Transcription = 10 Token
+            </p>
           </div>
         </div>
       </div>
-    </div>
     </Container>
   )
 }
