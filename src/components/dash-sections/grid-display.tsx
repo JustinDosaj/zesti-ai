@@ -11,6 +11,14 @@ function classNames(...classes: (string | undefined | null | boolean)[]): string
   return classes.filter(Boolean).join(' ');
 }
 
+const loadingObj = {
+  "name": "Loading New Recipe",
+  "time": "0",
+  "servings": "0",
+  "instructions": [],
+  "ingredients": [],
+}
+
 
 export function GridDisplay({data = [], user}: {data: any[], user: any}) {
 
@@ -18,8 +26,8 @@ export function GridDisplay({data = [], user}: {data: any[], user: any}) {
     <Container className={"flex flex-col lg:flex-row gap-10 lg:gap-12 w-screen mb-36"}>
       <ul role="list" className="grid grid-cols-1 gap-x-6 gap-y-8 lg:grid-cols-3 xl:gap-x-8 p-4">
       {data.map((recipe: any, index: number) => {
-
-        const desc = JSON.parse(recipe.data.message.content)          
+        console.log("Recipe: " , recipe)
+        const desc = recipe.complete == true ? JSON.parse(recipe.data.message.content) : loadingObj          
 
         return (
         <li key={recipe.id} className="overflow-hidden rounded-xl border border-gray-200">
