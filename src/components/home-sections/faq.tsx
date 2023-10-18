@@ -5,20 +5,20 @@ import { Title } from '../shared/title'
 
 const faqs = [
   {
-    question: "How does Webnest work?",
-    answer: "Webnest utilizes artifical intelligence (AI) to generate optimized keywords and phrases to increase traffic and conversions. The AI scans your web page to identify similar web pages and generates predictive and historical effective keywords.",
+    question: "How does Zesti work?",
+    answer: "Zesti utilizes artifical intelligence (AI) to generate transcribe a video into something our openai fine-tuned model can understand, allowing us to show you a full recipe with only a link.",
   },
   {
     question: "How do you train AI?",
-    answer: "It is important that we consistantly train our fine-tuned model to constantly improve the effectiveness of responses. We train our model in two ways; We compile data from various sources that show how effect certain keywords and we feed that data to our fine-tuned gpt AI model, Users have the option to rate responses based on effectiveness to help the model learn.",
+    answer: "We are constantly training and upgrading our model to improve outputs. To do this, we can hundreds, or even thousands, of video recipes and teach our model how it should respond.",
   },
   {
-    question: "Is Webnest free?",
-    answer: "We offer a few free tokens so you can test out the platform before committing to anything. After that, there will be a subcription fee of $9.99/Month that can be canceled anytime",
+    question: "Is Zesti free?",
+    answer: "We offer 10 free tokens to all new users, then Zesti moves to a subscription based models with different levels of plans.",
   },
   {
     question: "What languages are supported?",
-    answer: "Currently only english is available and we have no plans to add any other languages at this time.",
+    answer: "Currently only english is available, though we plan to add more language support in the future.",
   },
   {
     question: "I have more questions, how can I contact you?",

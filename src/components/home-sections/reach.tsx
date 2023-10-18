@@ -16,7 +16,7 @@ export function Reach() {
             for later
             </Title>
             <Paragraph className="mt-6 text-lg leading-8 text-gray-600">
-              Generate optimal keywords that improve your Search Engine Optimization (SEO) and Google Ads to increase traffic and conversions
+              Upload a recipe once, and you will always have access to it from your dashboard. 
             </Paragraph>
           </div>
         </div>

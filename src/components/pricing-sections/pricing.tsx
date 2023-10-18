@@ -43,17 +43,6 @@ function classNames(...classes: (string | undefined | null | false)[]): string {
 
 export function PricingList() {
 
-  const [credits, setCredits] = useState(50)
-  const [dolalrValue, setDollarValue] = useState(5)
-
-  const handleCreditsChange = (event: any) => {
-    const newValue = event.target.value;
-    setCredits(newValue);
-    
-    console.log(newValue); // Log the updated value
-  };
-
-
   return (
     <Container className={"flex flex-col lg:flex-row gap-10 lg:gap-12"}>
       <div className="bg-white py-24 sm:py-32">
