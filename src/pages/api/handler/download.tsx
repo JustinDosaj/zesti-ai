@@ -26,8 +26,9 @@ export async function DownloadVideo(url: any) {
       const mp3Blob = mp3Response.data;
       console.log(mp3Response)
       // Uploading the MP3 blob to Firebase
-      const match = url.match(/(.{11})$/);
+      const match = url.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|shorts\/))([a-zA-Z0-9_-]{11})/);
       const id = match ? match[1] : null;
+      console.log(id)
       await UploadMP3ToFirebase(mp3Blob, id);
       
       return; 

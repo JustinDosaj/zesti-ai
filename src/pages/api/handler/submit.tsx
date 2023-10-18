@@ -8,7 +8,7 @@ export interface Props {
 
 export const handleSubmit = async ({url, user}: Props): Promise<void> => {
 
-    const url_id = url.match(/(.{11})$/);
+    const url_id = url.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|shorts\/))([a-zA-Z0-9_-]{11})/);
     const recipeDocRef = db.collection('recipes').doc(url_id[1]);
     
     try {
