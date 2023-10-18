@@ -5,19 +5,19 @@ import { Title } from '../shared/title'
 
 const features = [
     {
-      name: 'Push to deploy.',
+      name: 'Ingredient List: ',
       description:
-        'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maiores impedit perferendis suscipit eaque, iste dolor cupiditate blanditiis ratione.',
+        'Get an organized ingrediant list to help you gather everything you need to get started on cooking something amazing',
       icon: CheckIcon,
     },
     {
-      name: 'SSL certificates.',
-      description: 'Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure qui lorem cupidatat commodo.',
+      name: 'Instructions: ',
+      description: 'Clear instructions will be at your disposal to refer to at any time',
       icon: CheckIcon,
     },
     {
-      name: 'Database backups.',
-      description: 'Ac tincidunt sapien vehicula erat auctor pellentesque rhoncus. Et magna sit morbi lobortis.',
+      name: 'No More Scrubbing or Pausing',
+      description: 'Quit scrubbing timelines and pausing cooking videos to try and follow along, use Zesti!',
       icon: CheckIcon,
     },
   ]
@@ -31,13 +31,13 @@ export function Optimize() {
                 <div className="md:px-0 lg:pr-4 lg:pt-4">
                     <div className="mx-auto max-w-2xl lg:mx-0 lg:max-w-lg">
                     <Title className="mt-2 font-bold tracking-tight text-gray-900 text-3xl md:text-5xl">
-                    <span className="pr-2 text-transparent bg-clip-text bg-gradient-to-br from-primary-main from-20% via-primary via-30% to-color-alt-red">Reduce</span>
-                    clutter from recipes using
+                        Finally create those
+                    <span className="pr-2 text-transparent bg-clip-text bg-gradient-to-br from-primary-main from-20% via-primary via-30% to-color-alt-red pl-2 ">delicious</span>
+                    recipes with help from
                     <span className="pl-2 text-transparent bg-clip-text bg-gradient-to-br from-primary-main from-20% via-primary via-30% to-color-alt-red">AI</span>
                     </Title>
                     <Paragraph className="mt-6 text-lg">
-                        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maiores impedit perferendis suscipit eaque,
-                        iste dolor cupiditate blanditiis ratione.
+                        Start enjoying those tasty home cooked meals you see all over youtube. Just copy and paste the video link, and you will have an easy-to-read recipe in no time!
                     </Paragraph>
                     <dl className="mt-10 max-w-xl space-y-8 text-base leading-7 text-gray-600 lg:max-w-none">
                         {features.map((feature) => (
