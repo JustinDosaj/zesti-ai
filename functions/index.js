@@ -8,7 +8,6 @@
  */
 
 const { onDocumentCreated } = require("firebase-functions/v2/firestore");
-const { initializeApp } = require("firebase-admin/app");
 const { getFirestore } = require("firebase-admin/firestore");
 const OpenAI = require('openai');
 const admin = require('firebase-admin');
@@ -18,6 +17,7 @@ const { Deepgram } = require("@deepgram/sdk");
 
 admin.initializeApp();
 const bucket = admin.storage().bucket('gs://webnest-f4392.appspot.com');
+
 
 exports.detectNewURLRecipe = onDocumentCreated("users/{userId}/recipes/{documentId}", async (event) => {
     
@@ -40,11 +40,45 @@ exports.detectNewURLRecipe = onDocumentCreated("users/{userId}/recipes/{document
             const recipeDoc = await transaction.get(pageRef);
             const userDoc = await transaction.get(userRef)
             const recipeData = recipeDoc.data();
+            const userData = userDoc.data();
 
             if (!userDoc.exists || !recipeDoc.exists) {
                 console.error(`Error: either ${userId} does not exist or ${documentId} does not exist`);
                 return;
             }
+
+            // Download Video & Upload
+            const options = {
+                method: 'GET',
+                url: 'https://youtube-mp310.p.rapidapi.com/download/mp3',
+                params: {
+                  url: recipeData.url
+                },
+                headers: {
+                  'X-RapidAPI-Key': '2fffa4118fmsh3a9b118e2f8b730p14358djsn079fd7f6a771',
+                  'X-RapidAPI-Host': 'youtube-mp310.p.rapidapi.com'
+                },
+                responseType: 'arraybuffer',
+              };
+
+            const response = await axios.request(options);
+            const parsedData = JSON.parse(response.data.toString());
+            const mp3Response = await axios.get(parsedData.downloadUrl, { responseType: 'arraybuffer' });
+            const mp3Blob = mp3Response.data;
+
+
+            const tempAudioPath = `/tmp/${recipeData.url_id}.mp3`;
+            fs.writeFileSync(tempAudioPath, mp3Blob);
+            await bucket.upload(tempAudioPath, {
+                destination: `mp3/${recipeData.url_id}.mp3`,
+                metadata: {
+                    ContentType: 'audio/mp3'
+                }
+            });
+
+            
+            // Clean up the temporary file
+            fs.unlinkSync(tempAudioPath);
 
             if (recipeData.complete == false || !recipeData.complete) {
                     
@@ -76,8 +110,6 @@ exports.detectNewURLRecipe = onDocumentCreated("users/{userId}/recipes/{document
                             {role:"user", content: transcript}],
                             model: "ft:gpt-3.5-turbo-0613:vurge-corp::89eapevQ",
                         });
-                        
-                        console.log(completion)
 
                         // Update Firestore with the transcript
                         transaction.update(pageRef, {
@@ -87,6 +119,9 @@ exports.detectNewURLRecipe = onDocumentCreated("users/{userId}/recipes/{document
                         transaction.set(recipeCollectionRef.doc(recipeData.url_id), {
                             data: completion ? completion.choices[0] : null,
                             rawData: transcript,
+                        });
+                        transaction.update(userRef, {
+                            tokens: userData.tokens - 10
                         });
                     })
                     .catch((err) => {
@@ -105,91 +140,3 @@ exports.detectNewURLRecipe = onDocumentCreated("users/{userId}/recipes/{document
         console.error("Error")
     }
 })
-
-/*exports.processRawData = functions.firestore.document('users/{userID}/recipes/{recipeId}').onUpdate(async (change, context) => {
-    const newValue = change.after.data();
-    const previousValue = change.before.data();
-
-    // Use the API key from environment configuration
-    const openai = new OpenAI({apiKey:"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"})
-
-    // Check if rawData exists in the new value but not in the previous value
-    if (newValue.rawData && !previousValue.rawData) {
-        const rawText = newValue.rawData.text; // Assuming the text is directly stored in rawData
-
-        try {
-            // Now, call the OpenAI API
-            const completion = await openai.chat.completions.create({
-                messages: [
-                    {
-                        role: "system",
-                        content: "Given all the text from a youtube video containing a recipe, provide the following fields in a JSON dict, where applicable: \"name\": (name of recipe), \"time\": (total time to make recipe, eg. 10), \"servings\": (total servings recipe provides, eg. 4), \"description\": (one sentence description of recipe), \"ingredients\": (list of ingredients excluding recommended ingredients), \"instructions\": (list of instructions)"
-                    },
-                    { role: "user", content: rawText }
-                ],
-                model: "ft:gpt-3.5-turbo-0613:vurge-corp::89eapevQ",
-            });
-
-            // Now, store the response back in Firestore
-            await admin.firestore()
-                .doc(`users/${context.params.userID}/recipes/${context.params.recipeId}`)
-                .update({ data: completion.data });
-
-        } catch (error) {
-            console.error("Error processing raw data with OpenAI:", error);
-            // Handle the error or rethrow as needed
-        }
-    }
-
-    return null;
-});*/
-
-// Detect new page added by user
-
-
-/*
-const completion = await openai.chat.completions.create({
-    messages: [{ role: "system", content: "Given all the text from a youtube video containing a recipe, provide the following fields in a JSON dict, where applicable: \"name\": (name of recipe), \"time\": (total time to make recipe, eg. 10), \"servings\": (total servings recipe provides, eg. 4), \"description\": (create one sentence description of recipe), \"ingredients\": (list of ingredients excluding recommended ingredients, eg. 1/4 Cup of Honey), \"instructions\": (list of instructions, eg. Preheat oven to 450 degrees fahrenheit)"},
-    {role:"user", content: response.data.text}],
-    model: "ft:gpt-3.5-turbo-0613:vurge-corp::89eapevQ",
-});
-transaction.update(pageRef, {
-    complete: true,
-    data: completion.choices[0],
-});
-*/ 
-
-
-// Deducts Tokens when new page is added by user
-/*exports.deductTokensOnNewPage = onDocumentCreated("users/{userId}/pages/{documentId}", async (event) => {
-
-    //PARAMS CAUSING ERROR: IT IS UNDEFINED -- MAYBE JUST context.userId?
-    const userId = event.params.userId;
-
-    const userRef = getFirestore().collection("users").doc(userId);
-
-    try {
-        await getFirestore().runTransaction(async (transaction) => {
-            const userDoc = await transaction.get(userRef);
-
-            if (!userDoc.exists) {
-                console.error("User does not exist:", userId);
-                return;
-            }
-
-            const userData = userDoc.data();
-
-            if (userData.tokens && userData.tokens >= 10) {
-                transaction.update(userRef, {
-                    tokens: userData.tokens - 10
-                });
-                console.log(`Deducted 10 tokens from user ${userId}`);
-            } else {
-                console.error(`User ${userId} does not have enough tokens`);
-            }
-        });
-    } catch (error) {
-        console.error("Transaction failure:", error);
-    }
-
-});*/

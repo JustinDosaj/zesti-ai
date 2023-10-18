@@ -18,8 +18,6 @@ export async function DownloadVideo(url: any) {
       const response = await axios.request(options);
       const jsonData = await response.data.text();
       const parsedData = JSON.parse(jsonData);
-
-      console.log(response)
       
       // Downloading the MP3 file
       const mp3Response = await axios.get(parsedData.downloadUrl, { responseType: 'blob' });
@@ -28,7 +26,7 @@ export async function DownloadVideo(url: any) {
       // Uploading the MP3 blob to Firebase
       const match = url.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|shorts\/))([a-zA-Z0-9_-]{11})/);
       const id = match ? match[1] : null;
-      console.log(id)
+
       await UploadMP3ToFirebase(mp3Blob, id);
       
       return; 
