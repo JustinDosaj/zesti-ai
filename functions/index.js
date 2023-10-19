@@ -60,12 +60,14 @@ exports.detectNewURLRecipe = onDocumentCreated("users/{userId}/recipes/{document
                 },
                 responseType: 'arraybuffer',
               };
+            
 
             const response = await axios.request(options);
             const parsedData = JSON.parse(response.data.toString());
-            const mp3Response = await axios.get(parsedData.downloadUrl, { responseType: 'arraybuffer' });
-            const mp3Blob = mp3Response.data;
 
+            const mp3Response = await axios.get(parsedData.downloadUrl, { responseType: 'arraybuffer' })
+
+            const mp3Blob = mp3Response.data;
 
             const tempAudioPath = `/tmp/${recipeData.url_id}.mp3`;
             fs.writeFileSync(tempAudioPath, mp3Blob);
@@ -167,6 +169,12 @@ exports.detectNewPayment = onDocumentCreated("users/{userId}/payments/{documentI
             switch(paymentData.prices[0].path) {
                 case 'products/prod_OqNq2NeOxy8xUS/prices/price_1O2h4ZGtkWdn4NzbF9sRI1pt':
                     tokensToAdd = 50;
+                    break
+                case 'products/prod_OqhPZzda86ZAaX/prices/price_1O300kGtkWdn4NzbM1ysXyXC':
+                    tokensToAdd = 150;
+                    break
+                case 'products/prod_OqhTsJEmFMrzfb/prices/price_1O304tGtkWdn4NzbOrQt7EBE':
+                    tokensToAdd = 300;
                     break
                 default:
                     console.log("Error determing how many coins to add")
