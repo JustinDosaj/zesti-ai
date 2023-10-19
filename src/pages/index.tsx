@@ -4,10 +4,13 @@ import { FAQ } from '@/components/home-sections/faq';
 import { Optimize } from '@/components/home-sections/optimize'
 import Head from 'next/head';
 import { Reach } from '@/components/home-sections/reach';
-import { DownloadVideo } from './api/handler/download';
+import { createCheckoutSession } from './api/stripe/stripePayments';
 const raleway = Raleway({subsets: ['latin']})
+import { useAuth } from './api/auth/auth';
 
 export default function Home() {
+
+  const {user} = useAuth()
 
   return (
     <>
@@ -23,6 +26,9 @@ export default function Home() {
     </Head>
       <main className={`flex min-h-screen flex-col items-center justify-between p-2 bg-background ${raleway.className}`}>
       <Hero/>
+
+      {/* CURRENTLY CALLING CREATECHECKOUT SESSION RETURNS A URL FOR THE STRIPE */}
+      <button className="text-red-600 text-lg" onClick={() => createCheckoutSession(user?.uid)}>TEST</button>
       <Optimize/>
       <Reach/>
       <FAQ/>

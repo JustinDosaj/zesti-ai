@@ -140,3 +140,45 @@ exports.detectNewURLRecipe = onDocumentCreated("users/{userId}/recipes/{document
         console.error("Error")
     }
 })
+
+exports.detectNewPayment = onDocumentCreated("users/{userId}/payments/{documentId}", async (event) => {
+    //Get Params
+    const userId = event.params.userId;
+    const documentId = event.params.documentId;
+
+    //Get References
+    const userRef = getFirestore().collection("users").doc(userId);
+    const pageRef = userRef.collection('payments').doc(documentId)
+
+    try {
+        await getFirestore().runTransaction(async (transaction) => { 
+            
+            const paymentDoc = await transaction.get(pageRef);
+            const userDoc = await transaction.get(userRef)
+            const paymentData = paymentDoc.data();
+
+            if (!userDoc.exists || !paymentDoc.exists) {
+                console.error(`Error: either ${userId} does not exist or ${documentId} does not exist`);
+                return;
+            }
+
+            let tokensToAdd = 0;
+
+            switch(paymentData.prices[0].path) {
+                case 'products/prod_OqNq2NeOxy8xUS/prices/price_1O2h4ZGtkWdn4NzbF9sRI1pt':
+                    tokensToAdd = 50;
+                    break
+                default:
+                    console.log("Error determing how many coins to add")
+                    return;
+            }
+
+            transaction.update(userRef, {
+                tokens: tokensToAdd
+            });
+        })
+    } 
+    catch (err) {
+        console.log("error")
+    }
+})
