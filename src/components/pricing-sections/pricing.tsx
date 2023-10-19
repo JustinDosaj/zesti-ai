@@ -3,46 +3,58 @@
 import { Button } from "../shared/button";
 import { CheckIcon, PlusIcon } from "@heroicons/react/20/solid";
 import { Container } from "../shared/container";
+import { createBaseCheckoutSession } from "@/pages/api/stripe/stripeBase";
+import { createEssentialCheckoutSession } from "@/pages/api/stripe/stripeEssential";
+import { createPremiumCheckoutSession } from "@/pages/api/stripe/stripePremium";
+import { useAuth } from "@/pages/api/auth/auth";
 
-const tiers = [
-  {
-    name: 'Base',
-    id: 'tier-freelancer',
-    href: '#',
-    priceMonthly: '$3',
-    description: 'The essentials to provide your best work for clients.',
-    features: ['50 Tokens Per Month',],
-    mostPopular: false,
-  },
-  {
-    name: 'Essential',
-    id: 'tier-startup',
-    href: '#',
-    priceMonthly: '$7',
-    description: 'A plan that scales with your rapidly growing business.',
-    features: [
-      '150 Tokens Per Month',
-    ],
-    mostPopular: true,
-  },
-  {
-    name: 'Premium',
-    id: 'tier-enterprise',
-    href: '#',
-    priceMonthly: '$13',
-    description: 'Dedicated support and infrastructure for your company.',
-    features: [
-      '300 Tokens Per Month'
-    ],
-    mostPopular: false,
-  },
-]
+
 function classNames(...classes: (string | undefined | null | false)[]): string {
     return classes.filter(Boolean).join(' ');
   }
 
 
 export function PricingList() {
+
+  const { user, isLoading } = useAuth();
+
+  const tiers = [
+    {
+      name: 'Base',
+      id: 'tier-freelancer',
+      href: '#',
+      priceMonthly: '$3',
+      description: 'The essentials to provide your best work for clients.',
+      features: ['50 Tokens Per Month',],
+      mostPopular: false,
+      checkout: () => {createBaseCheckoutSession(user?.uid)}
+    },
+    {
+      name: 'Essential',
+      id: 'tier-startup',
+      href: '#',
+      priceMonthly: '$7',
+      description: 'A plan that scales with your rapidly growing business.',
+      features: [
+        '150 Tokens Per Month',
+      ],
+      mostPopular: true,
+      checkout: () => {createEssentialCheckoutSession(user?.uid)}
+    },
+    {
+      name: 'Premium',
+      id: 'tier-enterprise',
+      href: '#',
+      priceMonthly: '$13',
+      description: 'Dedicated support and infrastructure for your company.',
+      features: [
+        '300 Tokens Per Month'
+      ],
+      mostPopular: false,
+      checkout: () => {createPremiumCheckoutSession(user?.uid)}
+    },
+  ]
+
   return (
     <Container className={"flex flex-col lg:flex-row gap-10 lg:gap-12"}>
       <div className="bg-white py-24 sm:py-32">
@@ -98,7 +110,7 @@ export function PricingList() {
                   </ul>
                 </div>
 
-                <Button buttonType="button" onClick={() => {console.log("Test")}} text="Subscribe" className="mt-4"/>
+                <Button buttonType="button" onClick={tier.checkout} text="Subscribe" className="mt-4"/>
               </div>
             ))}
           </div>
