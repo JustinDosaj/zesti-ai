@@ -28,6 +28,10 @@ const navItemsLoggedIn = [
         href: "/dashboard",
         text: "Dashboard",
         isDashboard: true,
+    },
+    {
+        href: "/profile",
+        text: "Profile",
     }
 ]
 
@@ -65,12 +69,10 @@ export function Navbar({_user}: any) {
                         })
                     }
                     </ul>
-
                     <div className="lg:min-w-max flex items-center sm:w-max w-full pb-6 lg:pb-0 border-b border-box-bg lg:border-0 px-6 lg:px-0">
                         { user ?
-                        <div>
+                        <div className="inline-flex">
                         <Button buttonType="button" text='Logout' className="flex justify-center w-full sm:w-max" onClick={() => logout()}/>
-                        <Button buttonType="button" text='Edit Sub' className="flex justify-center w-full sm:w-max" onClick={() => window.open("https://billing.stripe.com/p/login/test_6oEeY05261fY7a8000")}/>
                         </div>
                         :
                         <Button buttonType="button" text='Login' className="flex justify-center w-full sm:w-max" onClick={() => login()}/>
