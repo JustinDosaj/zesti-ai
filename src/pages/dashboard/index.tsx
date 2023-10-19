@@ -10,14 +10,7 @@ import { useState } from "react";
 
 const raleway = Raleway({subsets: ['latin']})
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
-  const user = context.query?.user as string
-  const recipes = await getAllRecipes(user)
-  return {props: {data: recipes}}
-}
-
-
-export default function Dashboard({data}: any) {
+export default function Dashboard() {
 
     const { user, isLoading } = useAuth();
     const [onFirstLoad, setOnFirstLoad] = useState<boolean>(true)

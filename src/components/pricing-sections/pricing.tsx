@@ -1,6 +1,7 @@
+"use client";
+
 import { Button } from "../shared/button";
 import { CheckIcon, PlusIcon } from "@heroicons/react/20/solid";
-import { useState } from "react"
 import { Container } from "../shared/container";
 
 const tiers = [
@@ -39,10 +40,9 @@ const tiers = [
 function classNames(...classes: (string | undefined | null | false)[]): string {
     return classes.filter(Boolean).join(' ');
   }
-  
+
 
 export function PricingList() {
-
   return (
     <Container className={"flex flex-col lg:flex-row gap-10 lg:gap-12"}>
       <div className="bg-white py-24 sm:py-32">
