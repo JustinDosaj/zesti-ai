@@ -34,9 +34,6 @@ export const handleSubmit = async ({url, user}: Props): Promise<void> => {
                 }
             }
 
-            console.log(recipeData)
-
-            // Return the data field (or any other field you want)
             return;
         } else {
 

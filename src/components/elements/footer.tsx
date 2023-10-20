@@ -5,16 +5,16 @@ import { GroupFooterNav } from "../blocks/groupfooternav"
 
 const footerNav1 = [
     {
-        itemText:"Marketing",
-        itemLink:"#WDFeatures"
+        itemText:"Pricing",
+        itemLink:"/pricing"
     },
     {
-        itemText:"Google Ad Management",
-        itemLink:"#GAFeatures"
+        itemText:"Dashboard",
+        itemLink:"/dashboard"
     },
     {
-        itemText:"Search Engine Optimization",
-        itemLink:"#GAFeatures"
+        itemText:"Profile",
+        itemLink:"/profile"
     },
     
 ]

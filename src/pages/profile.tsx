@@ -39,8 +39,12 @@ export default function Profile() {
     <>
     <main className={`flex min-h-screen flex-col items-center justify-between p-2 bg-background ${raleway.className}`}>
      <Container className={"flex flex-col lg:flex-row justify-center lg:gap-12 h-screen"}>
-        <div className="lg:col-start-1 lg:row-end-1 mx-auto my-auto w-1/2">
-            <h2 className="sr-only">Summary</h2>
+        <div className="lg:col-start-1 lg:row-end-1 mx-auto mt-36 w-1/2">
+            <div className="mx-auto max-w-4xl text-center mb-12">
+              <p className="mt-2 text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl">
+                Manage Profile
+              </p>
+            </div>
             <div className="rounded-lg bg-gray-100 shadow-sm ring-1 ring-gray-900/5">
                 <dl className="flex flex-wrap">
                 <div className="flex-auto pl-6 pt-6 ">
