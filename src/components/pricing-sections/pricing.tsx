@@ -24,7 +24,7 @@ export function PricingList() {
       id: 'tier-freelancer',
       href: '#',
       priceMonthly: '$3',
-      description: 'The essentials to provide your best work for clients.',
+      description: 'Best for users who try new recipes once in a while, but not too often.',
       features: ['50 Tokens Per Month',],
       mostPopular: false,
       checkout: () => {createBaseCheckoutSession(user?.uid)}
@@ -34,7 +34,7 @@ export function PricingList() {
       id: 'tier-startup',
       href: '#',
       priceMonthly: '$7',
-      description: 'A plan that scales with your rapidly growing business.',
+      description: 'Best for users that find new recipes fairly frequently and want to try them for later.',
       features: [
         '150 Tokens Per Month',
       ],
@@ -46,7 +46,7 @@ export function PricingList() {
       id: 'tier-enterprise',
       href: '#',
       priceMonthly: '$13',
-      description: 'Dedicated support and infrastructure for your company.',
+      description: 'Best for users who cook frequently, and constantly enjoy trying new recipes they find online.',
       features: [
         '300 Tokens Per Month'
       ],
@@ -57,7 +57,7 @@ export function PricingList() {
 
   return (
     <Container className={"flex flex-col lg:flex-row gap-10 lg:gap-12"}>
-      <div className="bg-white py-24 sm:py-32">
+      <div className="bg-white py-24 sm:py-32 p-2">
         <div className="mx-auto max-w-7xl md:px-6 lg:px-8">
           <div className="mx-auto max-w-4xl text-center">
             <p className="mt-2 text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl">

@@ -1,7 +1,7 @@
 import { Container } from "@/components/shared/container"
 import { CalendarDaysIcon, CreditCardIcon, UserCircleIcon } from '@heroicons/react/20/solid'
 import { Raleway } from 'next/font/google'
-import { Button } from "@/components/shared/button"
+import { Button, AltButton } from "@/components/shared/button"
 import { useAuth } from "./api/auth/auth"
 import { useState, useEffect } from 'react'
 import { useRouter } from "next/router"
@@ -13,7 +13,7 @@ const raleway = Raleway({subsets: ['latin']})
 
 export default function Profile() {
 
-    const {user, isLoading} = useAuth()
+    const { user, logout, isLoading } = useAuth();
     const [onFirstLoad, setOnFirstLoad] = useState<boolean>(true)
     const [subModel, setSubModel] = useState<string>('free')
     const [tokens, setTokens] = useState<number>(0)
@@ -41,7 +41,7 @@ export default function Profile() {
      <Container className={"flex flex-col lg:flex-row justify-center lg:gap-12 h-screen"}>
         <div className="lg:col-start-1 lg:row-end-1 mx-auto mt-36 w-1/2">
             <div className="mx-auto max-w-4xl text-center mb-12">
-              <p className="mt-2 text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl">
+              <p className="mt-2  md:text-4xl font-bold tracking-tight text-gray-900">
                 Manage Profile
               </p>
             </div>
@@ -58,8 +58,9 @@ export default function Profile() {
                     </dd>
                 </div>
                 </dl>
-                <div className="grid justify-center mt-6 border-t border-gray-900/5 px-6 py-6">
-                    <Button buttonType="button" text="Manage Subscription" onClick={() => {window.open("https://billing.stripe.com/p/login/test_6oEeY05261fY7a8000")}}/>
+                <div className="flex justify-between mt-6 border-t border-gray-900/5 px-6 py-6">
+                    <AltButton buttonType="button" text="Manage Subscription" onClick={() => {window.open("https://billing.stripe.com/p/login/test_6oEeY05261fY7a8000")}}/>
+                    <Button buttonType="button" text='Logout' onClick={() => logout()}/>
                 </div>
             </div>
         </div>

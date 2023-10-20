@@ -2,7 +2,9 @@ import { Container } from "../shared/container"
 import { Navitem } from "../shared/navitem"
 import { Button } from "../shared/button"
 import { useAuth } from "@/pages/api/auth/auth"
-import { db } from "@/pages/api/firebase/firebase"
+import { getUserData } from "@/pages/api/firebase/functions"
+import { useState, useEffect } from "react"
+import { TokenAmount } from "../shared/tokenAmt"
 
 const navItems = [
     {
@@ -38,7 +40,19 @@ const navItemsLoggedIn = [
 
 export function Navbar({_user}: any) {
     
-    const { user, login, logout, auth, isLoading } = useAuth();
+    const { user, login, logout } = useAuth();
+
+    const [tokens, setTokens] = useState<number>(0)
+
+    useEffect(() => {
+        UpdateUserData()
+    },[tokens, user])
+
+    async function UpdateUserData() {
+        console.log("Make sure we arent logging too much)")
+        const response = await getUserData(user?.uid)
+        setTokens(response ? response.tokens : 0)
+    }
 
     return(
     <>
@@ -72,7 +86,7 @@ export function Navbar({_user}: any) {
                     <div className="lg:min-w-max flex items-center sm:w-max w-full pb-6 lg:pb-0 border-b border-box-bg lg:border-0 px-6 lg:px-0">
                         { user ?
                         <div className="inline-flex">
-                        <Button buttonType="button" text='Logout' className="flex justify-center w-full sm:w-max" onClick={() => logout()}/>
+                            <TokenAmount tokens={tokens}/>
                         </div>
                         :
                         <Button buttonType="button" text='Login' className="flex justify-center w-full sm:w-max" onClick={() => login()}/>
