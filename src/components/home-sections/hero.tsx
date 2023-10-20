@@ -4,11 +4,13 @@ import { Paragraph } from "../shared/paragraph";
 import { useAuth } from "@/pages/api/auth/auth";
 import { handleSubmit } from "@/pages/api/handler/submit";
 import { useState } from 'react'
+import { Loader } from "../shared/loader";
 
 export function Hero(){
 
     const { user, login } = useAuth()
     const [ url, setUrl ] = useState<string>();
+    const [ isLoading, setIsLoading ] = useState<boolean>(false)
 
  return(
     <section className="relative pt-24 lg:pt-32">
@@ -41,8 +43,14 @@ export function Hero(){
                                 <path d="M13 18l-.397 .534a5.068 5.068 0 0 1 -7.127 0a4.972 4.972 0 0 1 0 -7.071l.524 -.463"></path>
                             </svg>
                             <input type="text" name="web-page" placeholder="https://www.webnest.ai/" className="w-full py-3 outline-none bg-transparent" onChange={(e) => setUrl(e.target.value)}/>
-                            <Button buttonType="button" text="" className={"min-w-max text-white"} 
-                            onClick={ () => { !user ? login() : handleSubmit({url, user})}}>
+                            {isLoading == false ?
+                            <Button buttonType="button" text=""  className={"min-w-max text-white"} 
+                                onClick={ async () => { if(!user) { login() } else {
+                                    setIsLoading(true) 
+                                    await handleSubmit({url, user}); 
+                                    setIsLoading(false)
+                                    setUrl('')
+                                }}}>
                                 <span className="hidden sm:flex relative z-[5]">
                                     Get Recipe
                                 </span>
@@ -52,6 +60,9 @@ export function Hero(){
                                     </svg>                                      
                                 </span>
                             </Button>
+                            :
+                            <Loader/>
+                            }
                         </form>
                     </div>
                 </div>

@@ -7,6 +7,7 @@ import { handleSubmit } from "@/pages/api/handler/submit"
 export function LinkInput({user}: any) {
 
     const [ url, setUrl ] = useState<string>();
+    const [ isLoading, setIsLoading ] = useState<boolean>(false)
 
     return(
     <section className="relative pt-24 lg:pt-32">
@@ -35,8 +36,13 @@ export function LinkInput({user}: any) {
                                 <path d="M13 18l-.397 .534a5.068 5.068 0 0 1 -7.127 0a4.972 4.972 0 0 1 0 -7.071l.524 -.463"></path>
                             </svg>
                             <input type="text" name="web-page" value={url} onChange={(e) => setUrl(e.target.value)} placeholder="https://www.webnest.ai/" className="w-full py-3 outline-none bg-transparent"/>
-                            <Button buttonType="button" text="" className={"min-w-max text-white"} 
-                            onClick={() => handleSubmit({url, user})}>
+                            <Button buttonType="button" text=""  className={"min-w-max text-white"} 
+                                onClick={ async () => {
+                                    setIsLoading(true) 
+                                    await handleSubmit({url, user}); 
+                                    setIsLoading(false)
+                                    setUrl('')
+                                }}>
                                 <span className="hidden sm:flex relative z-[5]">
                                     Get Recipe
                                 </span>
