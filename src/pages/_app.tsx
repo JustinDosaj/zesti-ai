@@ -7,8 +7,6 @@ import { AuthProvider } from './api/auth/auth'
 
 export default function App({ Component, pageProps }: AppProps) {
 
-  //const app = initFirebase();
-
   return (
   <>
     <AuthProvider>

@@ -128,6 +128,10 @@ exports.detectNewURLRecipe = onDocumentCreated("users/{userId}/recipes/{document
                     })
                     .catch((err) => {
                         console.error("Error with Deepgram:", err);
+                        transaction.update(pageRef, {
+                            complete: true,
+                            failed: true,
+                        });
                     });
                 
                     // Cleanup the temporary file

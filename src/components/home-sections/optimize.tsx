@@ -25,16 +25,17 @@ const features = [
 export function Optimize() {
     return (
         <Container className={"flex flex-col lg:flex-row gap-10 lg:gap-12"}>
-        <div className="bg-white py-24 sm:py-32">
+        <div className="bg-white py-24 sm:py-32 p-8">
             <div className="mx-auto max-w-7xl md:px-6 lg:px-8">
                 <div className="grid grid-cols-1 gap-x-8 gap-y-16 sm:gap-y-20 lg:grid-cols-2 lg:items-start">
                 <div className="md:px-0 lg:pr-4 lg:pt-4">
                     <div className="mx-auto max-w-2xl lg:mx-0 lg:max-w-lg">
-                    <Title className="mt-2 font-bold tracking-tight text-gray-900 text-3xl md:text-5xl">
-                        Finally create those
-                    <span className="pr-2 text-transparent bg-clip-text bg-gradient-to-br from-primary-main from-20% via-primary via-30% to-color-alt-red pl-2 ">delicious</span>
-                    recipes with help from
-                    <span className="pl-2 text-transparent bg-clip-text bg-gradient-to-br from-primary-main from-20% via-primary via-30% to-color-alt-red">AI</span>
+                    <Title className="mt-2 font-bold tracking-tight text-gray-900 text-3xl md:text-5xl flex flex-wrap">
+                    <p>Finally create</p>&nbsp;
+                    <div className="inline-flex text-transparent bg-clip-text bg-gradient-to-br from-primary-main from-20% via-primary via-30% to-color-alt-red">delicious</div>&nbsp;
+                    <p>recipes with</p>&nbsp;
+                    <div className="inline-flex text-transparent bg-clip-text bg-gradient-to-br from-primary-main from-20% via-primary via-30% to-color-alt-red">AI</div>&nbsp;
+                    <p>Assistance</p>&nbsp;
                     </Title>
                     <Paragraph className="mt-6 text-lg">
                         Start enjoying those tasty home cooked meals you see all over youtube. Just copy and paste the video link, and you will have an easy-to-read recipe in no time!

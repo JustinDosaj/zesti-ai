@@ -38,7 +38,7 @@ var year = new Date().getFullYear()
 export function Footer() {
     return(
     <>
-        <footer className="relative  bg-gradient-to-tr from-gray-100 to-gray-200 dark:from-gray-900 pt-28 rounded-t-3xl">
+        <footer className="relative  bg-gradient-to-tr from-gray-100 to-gray-200 dark:from-gray-900 pt-28 rounded-t-3xl p-4 md:p-0">
             <div className="invisible sm:visible absolute right-0 top-0 h-full w-full flex justify-end">
                 <div className="w-28 h-28 overflow-hidden flex rounded-xl relative blur-2xl">
                     <span

@@ -70,9 +70,9 @@ const Recipe: React.FC = ({id}: any) => {
             </p>
           </div>
             <button onClick={() => window.open(url)}
-              className="text-primary-main underline mt-2 md:mt-0"
+              className="mt-4 md:mt-0 inline-flex text-primary-main h-fit border-primary-main border rounded-lg p-2 transition ease-in-out delay-150 bg-white hover:text-white hover:-translate-y-1 hover:scale-110 hover:bg-primary-main duration-300"
             >
-              <div className="inline-flex gap-x-2">
+              <div className="flex gap-x-2">
                 <VideoCameraIcon className="h-6 w-6"/>
                 <p className="">Video Link</p>
                 </div>
@@ -80,7 +80,7 @@ const Recipe: React.FC = ({id}: any) => {
         </div>
       </div>
       </Container>
-      <Container className={"flex flex-col lg:flex-row gap-10 lg:gap-12 mt-36"}>
+      <Container className={"flex flex-col lg:flex-row gap-10 lg:gap-12 mt-24"}>
         <div className="my-auto overflow-hidden w-full">
           <h2 className="text-lg font-medium text-gray-500">Ingredients {`(${obj?.ingredients?.length})`}</h2>
           <ul role="list" className="mt-3 grid grid-cols-1 gap-5 sm:grid-cols-2 sm:gap-6 lg:grid-cols-4">
@@ -101,7 +101,7 @@ const Recipe: React.FC = ({id}: any) => {
           </ul>
         </div>
       </Container>
-      <Container className={"flex flex-col lg:flex-row gap-10 lg:gap-12 mt-36 mb-36"}>
+      <Container className={"flex flex-col lg:flex-row gap-10 lg:gap-12 mt-24 mb-36"}>
         <div className="my-auto overflow-hidden w-full">
           <h2 className="text-lg font-medium text-gray-500">Instructions {`(${obj?.instructions?.length})`}</h2>
           <ul role="list" className="mt-3 grid grid-cols-1 gap-5 sm:gap-6">
