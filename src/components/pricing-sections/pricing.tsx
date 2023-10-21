@@ -7,7 +7,8 @@ import { createBaseCheckoutSession } from "@/pages/api/stripe/stripeBase";
 import { createEssentialCheckoutSession } from "@/pages/api/stripe/stripeEssential";
 import { createPremiumCheckoutSession } from "@/pages/api/stripe/stripePremium";
 import { useAuth } from "@/pages/api/auth/auth";
-
+import { useState, useEffect } from "react";
+import { getSubscription } from "@/pages/api/firebase/functions";
 
 function classNames(...classes: (string | undefined | null | false)[]): string {
     return classes.filter(Boolean).join(' ');
@@ -17,15 +18,32 @@ function classNames(...classes: (string | undefined | null | false)[]): string {
 export function PricingList() {
 
   const { user, isLoading } = useAuth();
+  const [onFirstLoad, setOnFirstLoad] = useState<boolean>(true)
+  const [subModel, setSubModel] = useState<string>('free')
+
+  async function onFirstPageLoad() {
+    const response = await getSubscription(user?.uid)
+    setSubModel(response ? response[0].role : 'n/a')
+    setOnFirstLoad(false)
+  }
+
+  useEffect(() => {
+    if (user !== null && isLoading == false && onFirstLoad == true) {
+      onFirstPageLoad()
+    }
+  }, [user])
 
   const tiers = [
     {
       name: 'Base',
       id: 'tier-freelancer',
       href: '#',
-      priceMonthly: '$3',
+      priceMonthly: '$2.99',
       description: 'Best for users who try new recipes once in a while, but not too often.',
-      features: ['50 Tokens Per Month',],
+      features: [
+        '10 Recipe Transcriptions Per Month',
+        'Limited to short videos (60s or less)'
+      ],
       mostPopular: false,
       checkout: () => {createBaseCheckoutSession(user?.uid)}
     },
@@ -33,10 +51,11 @@ export function PricingList() {
       name: 'Essential',
       id: 'tier-startup',
       href: '#',
-      priceMonthly: '$7',
+      priceMonthly: '$7.99',
       description: 'Best for users that find new recipes fairly frequently and want to try them for later.',
       features: [
-        '150 Tokens Per Month',
+        '30 Recipe Transcriptions Per Month',
+        '10 Minute Max Video Upload'
       ],
       mostPopular: true,
       checkout: () => {createEssentialCheckoutSession(user?.uid)}
@@ -45,10 +64,11 @@ export function PricingList() {
       name: 'Premium',
       id: 'tier-enterprise',
       href: '#',
-      priceMonthly: '$13',
+      priceMonthly: '$14.99',
       description: 'Best for users who cook frequently, and constantly enjoy trying new recipes they find online.',
       features: [
-        '300 Tokens Per Month'
+        'Unlimited Transcriptions',
+        '10 Minute Max Video Upload'
       ],
       mostPopular: false,
       checkout: () => {createPremiumCheckoutSession(user?.uid)}
@@ -109,8 +129,11 @@ export function PricingList() {
                     ))}
                   </ul>
                 </div>
-
+                {subModel == 'free' ?
                 <Button buttonType="button" onClick={tier.checkout} text="Subscribe" className="mt-4"/>
+                :
+                <Button buttonType="button" onClick={() => {window.open("https://billing.stripe.com/p/login/test_6oEeY05261fY7a8000")}} text="Manage Subscription" className="mt-4"/>
+                }
               </div>
             ))}
           </div>

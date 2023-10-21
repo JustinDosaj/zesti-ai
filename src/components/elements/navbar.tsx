@@ -5,10 +5,9 @@ import { useAuth } from "@/pages/api/auth/auth"
 import { getUserData } from "@/pages/api/firebase/functions"
 import { useState, useEffect } from "react"
 import { TokenAmount } from "../shared/tokenAmt"
-import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
+import { Bars3Icon } from '@heroicons/react/24/outline'
 import { Fragment } from 'react'
 import { Menu, Transition } from '@headlessui/react'
-import { EllipsisVerticalIcon } from '@heroicons/react/20/solid'
 
 const navItems = [
     {
@@ -48,7 +47,7 @@ function classNames(...classes: (string | undefined | null | false)[]): string {
 
 export function Navbar({_user}: any) {
     
-    const { user, login, logout } = useAuth();
+    const { user, login } = useAuth();
     const [tokens, setTokens] = useState<number>(0)
 
     useEffect(() => {
