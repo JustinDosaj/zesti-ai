@@ -26,7 +26,8 @@ export async function getSubscription(user: any) {
     const snapshot = await db.collection('users').doc(user).collection('subscriptions').get()
     const pages = snapshot.docs.map((doc: any) => {
       return {
-        role: doc.data().role
+        role: doc.data().role,
+        status: doc.data().status
       }
     })
     return pages

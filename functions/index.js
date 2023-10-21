@@ -64,10 +64,27 @@ exports.detectNewURLRecipe = onDocumentCreated("users/{userId}/recipes/{document
 
             const response = await axios.request(options);
             const parsedData = JSON.parse(response.data.toString());
+            
+            let retries = 0;
+            let maxRetries = 5;
+            let mp3Blob;
+            
+            while(retries < maxRetries) {
+                try {
+                    const mp3Response = await axios.get(parsedData.downloadUrl, { responseType: 'arraybuffer' })
+                    mp3Blob = mp3Response.data;
+                    if(mp3Blob) break;
 
-            const mp3Response = await axios.get(parsedData.downloadUrl, { responseType: 'arraybuffer' })
-
-            const mp3Blob = mp3Response.data;
+                } catch (err) { 
+                    retries++
+                    if(retries === maxRetries) { 
+                        console.log("Max retires attempted") 
+                        throw err;
+                    }
+                    console.log("Error getting mp3 response") 
+                    await new Promise(res => setTimeout(res, 10000));
+                }
+            }
 
             const tempAudioPath = `/tmp/${recipeData.url_id}.mp3`;
             fs.writeFileSync(tempAudioPath, mp3Blob);
@@ -128,10 +145,6 @@ exports.detectNewURLRecipe = onDocumentCreated("users/{userId}/recipes/{document
                     })
                     .catch((err) => {
                         console.error("Error with Deepgram:", err);
-                        transaction.update(pageRef, {
-                            complete: true,
-                            failed: true,
-                        });
                     });
                 
                     // Cleanup the temporary file
