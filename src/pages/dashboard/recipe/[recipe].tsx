@@ -74,14 +74,14 @@ const Recipe: React.FC = ({id}: any) => {
             >
               <div className="flex gap-x-2">
                 <VideoCameraIcon className="h-6 w-6"/>
-                <p className="">Video Link</p>
+                <p>Video Link</p>
                 </div>
             </button>
         </div>
       </div>
       </Container>
       <Container className={"flex flex-col lg:flex-row gap-10 lg:gap-12 mt-24"}>
-        <div className="my-auto overflow-hidden w-full">
+        <div className="my-auto overflow-hidden w-full bg-white py-5 border rounded-lg p-4 md:p-12">
           <h2 className="text-lg font-medium text-gray-500">Ingredients {`(${obj?.ingredients?.length})`}</h2>
           <ul role="list" className="mt-3 grid grid-cols-1 gap-5 sm:grid-cols-2 sm:gap-6 lg:grid-cols-4">
             {obj?.ingredients?.map((ingred: any, index: any) => (
@@ -102,7 +102,7 @@ const Recipe: React.FC = ({id}: any) => {
         </div>
       </Container>
       <Container className={"flex flex-col lg:flex-row gap-10 lg:gap-12 mt-24 mb-36"}>
-        <div className="my-auto overflow-hidden w-full">
+        <div className="my-auto overflow-hidden bg-white py-5 border w-full rounded-lg p-4 md:p-12 ">
           <h2 className="text-lg font-medium text-gray-500">Instructions {`(${obj?.instructions?.length})`}</h2>
           <ul role="list" className="mt-3 grid grid-cols-1 gap-5 sm:gap-6">
             {obj?.instructions?.map((instruct: any, index: any) => (
