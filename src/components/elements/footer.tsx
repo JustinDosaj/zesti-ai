@@ -68,7 +68,7 @@ export function Footer() {
             <Container className="pb-8 relative overflow-hidden">
                 
                 <span className="absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 blur-2xl opacity-20 w-24 h-16 sm:w-48 sm:h-36 rounded-full rotate-12 skew-x-6 bg-primary"></span>
-                <div className="grid grid-cols-2 lg:grid-cols-3 lg:items-stretch gap-8 relative">
+                <div className="grid grid-cols-2 lg:grid-cols-3 lg:items-stretch gap-8 relative mt-0 sm:mt-24">
                     <div className="col-span-2 lg:col-span-1 h-auto flex flex-col">
                         <div className="h-full">
                             <a href="#" className="relative flex items-center gap-3">

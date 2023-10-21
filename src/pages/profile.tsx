@@ -37,11 +37,11 @@ export default function Profile() {
 
     return(
     <>
-    <main className={`flex min-h-screen flex-col items-center justify-between p-2 bg-background ${raleway.className}`}>
-     <Container className={"flex flex-col lg:flex-row justify-center lg:gap-12 h-screen"}>
-        <div className="lg:col-start-1 lg:row-end-1 mx-auto mt-36 w-1/2">
+    <main className={`flex min-h-screen flex-col items-center justify-between bg-background ${raleway.className}`}>
+     <Container className={" justify-center lg:gap-12 h-screen"}>
+        <div className="lg:col-start-1 lg:row-end-1 mx-auto mt-36 w-full md:w-1/2">
             <div className="mx-auto max-w-4xl text-center mb-12">
-              <p className="mt-2  md:text-4xl font-bold tracking-tight text-gray-900">
+              <p className="mt-2 text-2xl md:text-4xl font-bold tracking-tight text-gray-900">
                 Manage Profile
               </p>
             </div>
@@ -58,8 +58,8 @@ export default function Profile() {
                     </dd>
                 </div>
                 </dl>
-                <div className="flex justify-between mt-6 border-t border-gray-900/5 px-6 py-6">
-                    <AltButton buttonType="button" text="Manage Subscription" onClick={() => {window.open("https://billing.stripe.com/p/login/test_6oEeY05261fY7a8000")}}/>
+                <div className="grid grid-cols-1 md:grid-cols-2 space-x-0 md:space-x-4 space-y-2 md:space-y-0 mt-6 border-t px-6 py-6">
+                    <AltButton buttonType="button" text="Manage" onClick={() => {window.open("https://billing.stripe.com/p/login/test_6oEeY05261fY7a8000")}}/>
                     <Button buttonType="button" text='Logout' onClick={() => logout()}/>
                 </div>
             </div>
