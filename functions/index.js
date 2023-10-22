@@ -49,21 +49,26 @@ exports.detectNewURLRecipe = onDocumentCreated("users/{userId}/recipes/{document
 
             // Download Video & Upload
             const options = {
-                method: 'GET',
-                url: 'https://youtube-mp310.p.rapidapi.com/download/mp3',
+                method: 'POST',
+                url: 'https://youtube-to-mp315.p.rapidapi.com/download',
                 params: {
-                  url: recipeData.url
+                  url: recipeData.url,
+                  format: 'mp3'
                 },
                 headers: {
+                  'content-type': 'application/json',
                   'X-RapidAPI-Key': '2fffa4118fmsh3a9b118e2f8b730p14358djsn079fd7f6a771',
-                  'X-RapidAPI-Host': 'youtube-mp310.p.rapidapi.com'
+                  'X-RapidAPI-Host': 'youtube-to-mp315.p.rapidapi.com'
                 },
                 responseType: 'arraybuffer',
+                data: {}
               };
             
-
+            console.log("About to try and download the file I think")
             const response = await axios.request(options);
-            const parsedData = JSON.parse(response.data.toString());
+            console.log("response: ", response)
+            const parsedData = JSON.parse(response.data.toString())
+            console.log("parse: ", parsedData)
             
             let retries = 0;
             let maxRetries = 5;
@@ -71,8 +76,9 @@ exports.detectNewURLRecipe = onDocumentCreated("users/{userId}/recipes/{document
             
             while(retries < maxRetries) {
                 try {
-                    const mp3Response = await axios.get(parsedData.downloadUrl, { responseType: 'arraybuffer' })
+                    const mp3Response = await axios.get(parsedData.link, { responseType: 'arraybuffer' })
                     mp3Blob = mp3Response.data;
+                    console.log("mp3 Blob: ", mp3Blob)
                     if(mp3Blob) break;
 
                 } catch (err) { 
