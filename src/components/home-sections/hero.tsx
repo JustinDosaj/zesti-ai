@@ -5,12 +5,15 @@ import { useAuth } from "@/pages/api/auth/auth";
 import { handleSubmit } from "@/pages/api/handler/submit";
 import { useState } from 'react'
 import { Loader } from "../shared/loader";
+import { InputResponseModal } from "../shared/modals";
 
 export function Hero(){
 
     const { user, login } = useAuth()
     const [ url, setUrl ] = useState<string>();
+    const [ isOpen , setIsOpen ] = useState<boolean>(false);
     const [ isLoading, setIsLoading ] = useState<boolean>(false)
+    const [ success, setSuccess ] = useState<boolean>(false)
 
  return(
     <section className="relative pt-24 lg:pt-32">
@@ -40,9 +43,10 @@ export function Hero(){
                             <Button buttonType="button" text="" className={"min-w-max text-white"} 
                                 onClick={ async () => { if(!user) { login() } else {
                                     setIsLoading(true) 
-                                    await handleSubmit({url, user}); 
+                                    const res = await handleSubmit({url, user}).then((val) => {console.log("VAL: ", val); setSuccess(val)}); 
                                     setIsLoading(false)
                                     setUrl('')
+                                    setIsOpen(true)
                                 }}}>
                                 <span className="hidden sm:flex relative z-[5]">
                                     Get Recipe
@@ -60,6 +64,7 @@ export function Hero(){
                     </div>
                 </div>
             </div>
+            <InputResponseModal isOpen={isOpen} setIsOpen={setIsOpen} success={success}/>
         </Container>
     </section>
  )

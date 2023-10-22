@@ -3,11 +3,15 @@ import { Button } from "../shared/button"
 import { Container } from "../shared/container"
 import { useState } from 'react'
 import { handleSubmit } from "@/pages/api/handler/submit"
+import { Loader } from "../shared/loader";
+import { InputResponseModal } from "../shared/modals"
 
 export function LinkInput({user}: any) {
 
     const [ url, setUrl ] = useState<string>();
+    const [ isOpen , setIsOpen ] = useState<boolean>(false);
     const [ isLoading, setIsLoading ] = useState<boolean>(false)
+    const [ success, setSuccess ] = useState<boolean>(false)
 
     return(
     <section className="relative pt-24 lg:pt-32">
@@ -27,7 +31,7 @@ export function LinkInput({user}: any) {
                 </Paragraph>
                 <div className="mt-10 w-full flex max-w-md mx-auto lg:mx-0">
                     <div className="flex sm:flex-row flex-col gap-5 w-full">
-                        <form action="" method="POST" className="py-1 pl-6 w-full pr-1 flex gap-3 items-center text-heading-3 shadow-lg shadow-box-shadow
+                    <form action="" method="POST" className="py-1 pl-6 w-full pr-1 flex gap-3 items-center text-heading-3 shadow-lg shadow-box-shadow
                         border border-box-border bg-box-bg rounded-full ease-linear focus-within:bg-body  focus-within:border-primary">
                             <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-link w-10 h-10" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">
                                 <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
@@ -35,13 +39,15 @@ export function LinkInput({user}: any) {
                                 <path d="M11 6l.463 -.536a5 5 0 0 1 7.071 7.072l-.534 .464"></path>
                                 <path d="M13 18l-.397 .534a5.068 5.068 0 0 1 -7.127 0a4.972 4.972 0 0 1 0 -7.071l.524 -.463"></path>
                             </svg>
-                            <input type="text" name="web-page" value={url} onChange={(e) => setUrl(e.target.value)} placeholder="https://www.webnest.ai/" className="w-full py-3 outline-none bg-transparent"/>
-                            <Button buttonType="button" text=""  className={"min-w-max text-white"} 
-                                onClick={ async () => {
+                            <input type="text" name="web-page" value={url} placeholder="https://www.webnest.ai/" className="w-full py-3 outline-none bg-transparent" onChange={(e) => setUrl(e.target.value)}/>
+                            {isLoading == false ?
+                            <Button buttonType="button" text="" className={"min-w-max text-white"} 
+                                onClick={ async () => { 
                                     setIsLoading(true) 
-                                    await handleSubmit({url, user}); 
+                                    const res = await handleSubmit({url, user}).then((val) => {console.log("VAL: ", val); setSuccess(val)}); 
                                     setIsLoading(false)
                                     setUrl('')
+                                    setIsOpen(true)
                                 }}>
                                 <span className="hidden sm:flex relative z-[5]">
                                     Get Recipe
@@ -52,10 +58,14 @@ export function LinkInput({user}: any) {
                                     </svg>                                      
                                 </span>
                             </Button>
+                            :
+                            <Loader/>
+                            }
                         </form>
                     </div>
                 </div>
             </div>
+            <InputResponseModal isOpen={isOpen} setIsOpen={setIsOpen} success={success}/>
         </Container>
     </section>
     )
