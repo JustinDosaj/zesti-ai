@@ -13,10 +13,9 @@ const raleway = Raleway({subsets: ['latin']})
 
 export default function Profile() {
 
-    const { user, logout, isLoading } = useAuth();
+    const { user, logout, isLoading, stripeRole } = useAuth();
     const [onFirstLoad, setOnFirstLoad] = useState<boolean>(true)
     const [subModel, setSubModel] = useState<string>('free')
-    const [subStatus, setSubStatus] = useState<string>('inactive')
     const [tokens, setTokens] = useState<number>(0)
     const router = useRouter();
 
@@ -25,7 +24,6 @@ export default function Profile() {
         const userData = await getUserData(user?.uid)
         setTokens(userData ? userData.tokens : 0)
         setSubModel(response ? response[0].role : 'n/a')
-        setSubStatus(response ? response[0].status : 'inactive')
         setOnFirstLoad(false)
       }
   
@@ -56,7 +54,7 @@ export default function Profile() {
                 <div className="flex-none self-end px-6 pt-4">
                     <dt className="sr-only">Status</dt>
                     <dd className="inline-flex items-center rounded-md bg-green-50 px-2 py-1 text-base font-medium text-green-700 ring-1 ring-inset ring-green-600/20">
-                    {subModel}
+                    {stripeRole ? stripeRole : 'free'}
                     </dd>
                 </div>
                 </dl>

@@ -9,6 +9,7 @@ interface AuthContextType {
   provider: any;
   login: () => Promise<void>;
   logout: () => Promise<void>;
+  stripeRole: string | null;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -18,6 +19,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   const [isLoading, setIsLoading] = useState(true);  // Default to loading
   const auth = getAuth();
   const provider = new GoogleAuthProvider();
+  const [stripeRole, setStripeRole] = useState<string | null>(null);
 
   const login = async () => {
     try {
@@ -54,6 +56,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
+      setStripeRole(JSON.parse((currentUser as any)?.reloadUserInfo?.customAttributes).stripeRole)
       setIsLoading(false);  // Once the user state is updated, set isLoading to false
     });
 
@@ -61,7 +64,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   }, [auth]);
 
   return (
-    <AuthContext.Provider value={{ user, isLoading, auth, provider, login, logout }}>
+    <AuthContext.Provider value={{ user, isLoading, auth, provider, login, logout, stripeRole }}>
       {children}
     </AuthContext.Provider>
   );
