@@ -10,8 +10,13 @@ const raleway = Raleway({subsets: ['latin']})
 
 export default function Home() {
 
-  const {user} = useAuth()
+  /* SEEMS LIKE CANCELING IMMEDIATELY GETS RID OF FIREBASE ROLE SO I CAN ADD
+    FIREBASE STATUS TO METADATA PRODUCT DATA AND ADD FIREBASE STATUS TO
+    USE AUTH LIKE I DID WITH ROLE.
+  */
 
+  const {user, stripeRole} = useAuth()
+  console.log("Stripe Role: ", user)
   return (
     <>
     <Head>

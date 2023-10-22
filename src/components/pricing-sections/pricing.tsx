@@ -1,14 +1,12 @@
 "use client";
 
 import { Button } from "../shared/button";
-import { CheckIcon, PlusIcon } from "@heroicons/react/20/solid";
+import { CheckIcon } from "@heroicons/react/20/solid";
 import { Container } from "../shared/container";
 import { createBaseCheckoutSession } from "@/pages/api/stripe/stripeBase";
 import { createEssentialCheckoutSession } from "@/pages/api/stripe/stripeEssential";
 import { createPremiumCheckoutSession } from "@/pages/api/stripe/stripePremium";
 import { useAuth } from "@/pages/api/auth/auth";
-import { useState, useEffect } from "react";
-import { getSubscription } from "@/pages/api/firebase/functions";
 
 function classNames(...classes: (string | undefined | null | false)[]): string {
     return classes.filter(Boolean).join(' ');
@@ -17,21 +15,7 @@ function classNames(...classes: (string | undefined | null | false)[]): string {
 
 export function PricingList() {
 
-  const { user, isLoading } = useAuth();
-  const [onFirstLoad, setOnFirstLoad] = useState<boolean>(true)
-  const [subModel, setSubModel] = useState<string>('free')
-
-  async function onFirstPageLoad() {
-    const response = await getSubscription(user?.uid)
-    setSubModel(response ? response[0].role : 'n/a')
-    setOnFirstLoad(false)
-  }
-
-  useEffect(() => {
-    if (user !== null && isLoading == false && onFirstLoad == true) {
-      onFirstPageLoad()
-    }
-  }, [user])
+  const { user, stripeRole } = useAuth();
 
   const tiers = [
     {
@@ -129,7 +113,7 @@ export function PricingList() {
                     ))}
                   </ul>
                 </div>
-                {subModel == 'free' ?
+                {stripeRole == null ?
                 <Button buttonType="button" onClick={tier.checkout} text="Subscribe" className="mt-4"/>
                 :
                 <Button buttonType="button" onClick={() => {window.open("https://billing.stripe.com/p/login/test_6oEeY05261fY7a8000")}} text="Manage Subscription" className="mt-4"/>
