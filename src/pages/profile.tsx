@@ -33,7 +33,7 @@ export default function Profile() {
         } else if (user !== null && isLoading == false && onFirstLoad == true) {
           onFirstPageLoad()
         }
-      }, [user])
+      }, [user, onFirstPageLoad])
 
     return(
     <>

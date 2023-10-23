@@ -34,8 +34,8 @@ export function GridDisplay({data = [], user}: {data: any[], user: any}) {
 
         const desc = recipe.complete == true ? JSON.parse(recipe.data.message.content) : loadingObj          
         return (
-        <div className="flex flex-col h-full p-2">
-          <li key={recipe.id} className="flex flex-col overflow-hidden rounded-xl border border-gray-200">
+        <div key={recipe.id} className="flex flex-col h-full p-2">
+          <li className="flex flex-col overflow-hidden rounded-xl border border-gray-200">
             <div className="flex items-center gap-x-4 border-b border-gray-900/5 bg-gray-50 p-6">
               <div className="flex flex-col justify-center h-12"> 
                 <div className="text-base font-semibold leading-6 text-gray-900 line-clamp-2">{!recipe.failed ? desc.name : 'Error creating recipe, please try again later'}</div>

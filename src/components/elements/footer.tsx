@@ -2,6 +2,8 @@ import { Container } from "../shared/container"
 import { Paragraph } from "../shared/paragraph"
 import { FooterNav } from "../shared/footernav"
 import { GroupFooterNav } from "../blocks/groupfooternav"
+import Link from "next/link"
+import Image from "next/image"
 
 const footerNav1 = [
     {
@@ -69,14 +71,14 @@ export function Footer() {
                 <div className="grid grid-cols-2 lg:grid-cols-3 lg:items-stretch gap-8 lg:gap-24 relative mt-0 sm:mt-24">
                     <div className="col-span-2 lg:col-span-1 h-auto flex flex-col">
                         <div className="h-full">
-                            <a href="/" className="relative flex items-center gap-3">
+                            <Link href="/" className="relative flex items-center gap-3">
                                 <div className="relative w-16 h-16 overflow-hidden flex rounded-xl">
-                                <img src="/images/Zesti-Logo.png"/>
+                                <Image src="/images/Zesti-Logo.png" alt="Zesti AI Recipe Helper Logo" width={70} height={30}/>
                                 </div>
                                 <div className="inline-flex text-2xl font-semibold text-heading-1">
                                     Zesti.ai
                                 </div>
-                            </a>
+                            </Link>
                             <Paragraph className={"mt-8"}>
                                 Stop rewatching videos over and over to get the recipe. Just input the link, and get cooking!
                             </Paragraph>
