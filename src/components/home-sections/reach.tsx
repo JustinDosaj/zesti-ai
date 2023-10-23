@@ -1,6 +1,7 @@
 import { Title } from "../shared/title"
 import { Paragraph } from "../shared/paragraph"
 import { Container } from "../shared/container"
+import Image from "next/image"
 
 
 export function Reach() {
@@ -22,9 +23,9 @@ export function Reach() {
         </div>
         <div className="relative overflow-hidden pt-16">
           <div className="mx-auto max-w-7xl px-6 lg:px-8">
-            <img
+            <Image
               src="/images/recipedataimage.JPG"
-              alt="App screenshot"
+              alt="Ingredient and Instruction Screenshot for Recipe"
               className="mb-[-12%] rounded-xl shadow-2xl ring-1 ring-gray-900/10"
               width={2432}
               height={1442}
