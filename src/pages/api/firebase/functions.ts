@@ -1,4 +1,5 @@
 import { db } from "./firebase"
+import { doc, deleteDoc } from 'firebase/firestore';
 
 export interface Props {
   url: any,
@@ -53,4 +54,9 @@ export async function getRecipe(user: any, id: any) {
         console.log(err)
         return
     }
+}
+
+export async function deleteRecipe(user: any, id: any) {
+  const recipeRef = doc(db, 'users', user, 'recipes', id);
+  await deleteDoc(recipeRef);
 }

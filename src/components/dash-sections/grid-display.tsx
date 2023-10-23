@@ -1,11 +1,13 @@
+"use client;"
+
 import { BookOpenIcon } from '@heroicons/react/20/solid'
 import Link from 'next/link'
 import { Container } from '../shared/container'
 import { Fragment } from 'react'
 import { Menu, Transition } from '@headlessui/react'
-import { EllipsisHorizontalIcon } from '@heroicons/react/20/solid'
-import { EyeIcon } from '@heroicons/react/24/outline'
-
+import { EllipsisHorizontalIcon, TrashIcon } from '@heroicons/react/20/solid'
+import { DeleteConfirmationModal } from '../shared/modals'
+import { useState } from 'react'
 
 function classNames(...classes: (string | undefined | null | boolean)[]): string {
   return classes.filter(Boolean).join(' ');
@@ -22,10 +24,13 @@ const loadingObj = {
 
 export function GridDisplay({data = [], user}: {data: any[], user: any}) {
 
+    const [ isDeleteOpen, setIsDeleteOpen ] = useState<boolean>(false)
+    const [selectedRecipeId, setSelectedRecipeId] = useState<string | null>(null);
+
     return(
     <Container className={"flex flex-col lg:flex-row gap-10 lg:gap-12 mb-28 mt-12"}>
       <ul role="list" className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-8">
-      {data.map((recipe: any, index: number) => {
+      {data.map((recipe: any) => {
 
         const desc = recipe.complete == true ? JSON.parse(recipe.data.message.content) : loadingObj          
 
@@ -39,7 +44,7 @@ export function GridDisplay({data = [], user}: {data: any[], user: any}) {
               <Menu as="div" className="relative ml-auto">
                 <Menu.Button className="-m-2.5 block p-2.5 text-gray-400 hover:text-gray-500">
                   <span className="sr-only">Open options</span>
-                  <EllipsisHorizontalIcon className="h-5 w-5" aria-hidden="true" />
+                  <EllipsisHorizontalIcon className="h-7 w-7" aria-hidden="true" />
                 </Menu.Button>
                 <Transition
                   as={Fragment}
@@ -53,28 +58,18 @@ export function GridDisplay({data = [], user}: {data: any[], user: any}) {
                   <Menu.Items className="absolute right-0 z-10 mt-0.5 w-32 origin-top-right rounded-md bg-white py-2 shadow-lg ring-1 ring-gray-900/5 focus:outline-none">
                     <Menu.Item>
                       {({ active }) => (
-                        <a
-                          href="#"
+                        <button
+                          onClick={() => { setIsDeleteOpen(true); setSelectedRecipeId(recipe.id);}}
                           className={classNames(
                             active ? 'bg-gray-50' : '',
                             'block px-3 py-1 text-sm leading-6 text-gray-900'
                           )}
                         >
-                          View<span className="sr-only">, {desc.name}</span>
-                        </a>
-                      )}
-                    </Menu.Item>
-                    <Menu.Item>
-                      {({ active }) => (
-                        <a
-                          href="#"
-                          className={classNames(
-                            active ? 'bg-gray-50' : '',
-                            'block px-3 py-1 text-sm leading-6 text-gray-900'
-                          )}
-                        >
-                          Edit<span className="sr-only">, {desc.name}</span>
-                        </a>
+                          <div className="inline-flex gap-x-2">
+                            <TrashIcon className="text-color-alt-red h-5 w-5"/>
+                            <span className="text-base">Delete</span>
+                          </div>
+                        </button>
                       )}
                     </Menu.Item>
                   </Menu.Items>
@@ -108,6 +103,7 @@ export function GridDisplay({data = [], user}: {data: any[], user: any}) {
         </div>
       )})}
     </ul>
+    <DeleteConfirmationModal isOpen={isDeleteOpen} setIsOpen={setIsDeleteOpen} recipeId={selectedRecipeId}/>
     </Container>
     )
 }
