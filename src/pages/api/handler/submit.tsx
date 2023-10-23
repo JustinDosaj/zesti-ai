@@ -15,8 +15,9 @@ export async function getVideoLength(url_id: any) {
     try {
         const response = await axios.get(`https://www.googleapis.com/youtube/v3/videos?part=contentDetails&id=${url_id}&key=${apiKey}`);
         const duration = response.data.items[0].contentDetails.duration; // Duration in ISO 8601 format, like "PT1H15M32S"
-
+        console.log("Duration: ", duration)
         const result = await convertISO8601ToMinutesAndSeconds(duration);
+        console.log("Result: ", result)
         return result; 
     } catch (error) {
         console.error('Error fetching video details:', error);
@@ -65,7 +66,7 @@ export const handleSubmit = async ({url, user, setMessage, stripeRole}: Props): 
 
     // Checking video length compared to subscription model
     const result = await getVideoLength(url_id ? url_id[1] : null)
-    console.log(result?.minutes)
+    console.log("Minutes: ", result?.minutes)
     if (stripeRole == 'base' || stripeRole == 'essential') {
         if(result?.minutes || 0 > 10) { setMessage("Video too long for your subscription. You can upload videos that are up to 10 minutes long"); return false;}
     } else if (stripeRole == 'premium') {
