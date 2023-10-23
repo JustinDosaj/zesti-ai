@@ -10,7 +10,7 @@ export interface Props {
 }
 
 export async function getVideoLength(url_id: any) {
-    const apiKey = 'AIzaSyARw2ZZ4s06XGevQpMmrV06J6A8rOHtc8Q';
+    const apiKey = process.env.NEXT_PUBLIC_VIDEO_LENGTH_API_KEY;
 
     try {
         const response = await axios.get(`https://www.googleapis.com/youtube/v3/videos?part=contentDetails&id=${url_id}&key=${apiKey}`);

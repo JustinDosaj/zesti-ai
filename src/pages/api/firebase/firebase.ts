@@ -5,13 +5,13 @@ import "firebase/compat/storage";
 
 
 const firebaseConfig = {
-  apiKey: "AIzaSyARw2ZZ4s06XGevQpMmrV06J6A8rOHtc8Q",
-  authDomain: "webnest-f4392.firebaseapp.com",
-  projectId: "webnest-f4392",
-  storageBucket: "webnest-f4392.appspot.com",
-  messagingSenderId: "232253787380",
-  appId: "1:232253787380:web:71cd6941b60cc0983262a1",
-  measurementId: "G-012X9GRCG0"
+  apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
+  authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
+  projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
+  storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
+  appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
+  measurementId: process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID
 };
 
 try {
