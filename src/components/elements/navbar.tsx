@@ -66,17 +66,17 @@ export function Navbar({_user}: any) {
             <nav className="w-full flex justify-between relative">
                 <div className="min-w-max inline-flex relative">
                     <a href="/" className="relative flex items-center gap-3">
-                        <div className="relative w-8 h-8 overflow-hidden flex rounded-xl">
-                            <img src="/logos/gradient-logo-only-transparent.png"/>
+                        <div className="relative w-16 h-16 overflow-hidden flex rounded-xl">
+                            <img src="/images/Zesti-Logo.png"/>
                         </div>
-                        <div className="inline-flex text-lg font-semibold text-heading-1">
+                        <div className="inline-flex invisible sm:visible text-2xl font-semibold text-heading-1">
                             Zesti.ai
                         </div>
                     </a>
                 </div>
                 <div data-nav-overlay aria-hidden="true" className="fixed hidden inset-0 lg:!hidden bg-box-bg bg-opacity-50 backdrop-filter backdrop-blur-xl"></div>
                 <div data-navbar className="flex h-0 overflow-hidden lg:!h-auto lg:scale-y-100 duration-300 ease-linear flex-col gap-y-6 gap-x-4 lg:flex-row w-full lg:justify-between lg:items-center absolute lg:relative top-full lg:top-0 bg-body lg:bg-transparent border-x border-x-box-border lg:border-x-0">
-                    <ul className="border-t border-box-border lg:border-t-0 px-6 lg:px-0 pt-6 lg:pt-0 flex flex-col lg:flex-row gap-y-4 gap-x-3 text-lg text-heading-2 w-full lg:justify-center lg:items-center">
+                    <ul className="border-t border-box-border lg:border-t-0 px-6 lg:px-0 pt-6 lg:pt-0 flex flex-col lg:flex-row gap-y-4 gap-x-3 text-xl text-heading-2 w-full lg:justify-center lg:items-center">
                     {
                         user !== null ? 
                         navItemsLoggedIn.map(item=> {
