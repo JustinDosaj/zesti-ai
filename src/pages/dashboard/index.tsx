@@ -12,7 +12,7 @@ const raleway = Raleway({subsets: ['latin']})
 
 export default function Dashboard() {
 
-    const { user, isLoading } = useAuth();
+    const { user, isLoading, stripeRole } = useAuth();
     const [onFirstLoad, setOnFirstLoad] = useState<boolean>(true)
     const [obj, setObj] = useState<any>([])
     const router = useRouter();
@@ -33,7 +33,7 @@ export default function Dashboard() {
     
   return (
     <main className={`flex min-h-screen flex-col items-center bg-background ${raleway.className}`}>
-        <LinkInput user={user}/>
+        <LinkInput user={user} stripeRole={stripeRole}/>
         <GridDisplay data={obj[0]} user={user}/>
     </main>
   )

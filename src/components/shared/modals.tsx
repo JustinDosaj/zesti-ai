@@ -8,9 +8,10 @@ interface Props {
     isOpen: boolean,
     setIsOpen: any,
     success: boolean,
+    message: any,
 }
 
-export function InputResponseModal({isOpen, setIsOpen, success}: Props) {
+export function InputResponseModal({isOpen, setIsOpen, success, message}: Props) {
 
   const cancelButtonRef = useRef(null)
 
@@ -52,7 +53,7 @@ export function InputResponseModal({isOpen, setIsOpen, success}: Props) {
                     </Dialog.Title>
                     <div className="mt-2">
                       <p className="text-sm text-gray-500">
-                        You can now visit your dashboard to view the recipe. Videos can sometimes take time to fully process, if the recipe does not appear right away, just give it a few minutes.
+                        {message}
                       </p>
                     </div>
                   </div>
@@ -68,7 +69,7 @@ export function InputResponseModal({isOpen, setIsOpen, success}: Props) {
                     </Dialog.Title>
                     <div className="mt-2">
                         <p className="text-sm text-gray-500">
-                        Please make sure you are logged in and have 10 tokens to transcribe a video. If neither of those are the problem, please try again later. If the problem persists, please contact us for assistance.
+                        {message}
                         </p>
                     </div>
                     </div>

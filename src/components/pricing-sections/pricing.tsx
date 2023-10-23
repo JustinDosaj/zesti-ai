@@ -25,8 +25,8 @@ export function PricingList() {
       priceMonthly: '$2.99',
       description: 'Best for users who try new recipes once in a while, but not too often.',
       features: [
-        '10 Recipe Transcriptions Per Month',
-        'Limited to short videos (60s or less)'
+        '5 Recipe Transcriptions Per Month',
+        '10 Minute Max Video Upload'
       ],
       mostPopular: false,
       checkout: () => {createBaseCheckoutSession(user?.uid)}
@@ -38,7 +38,7 @@ export function PricingList() {
       priceMonthly: '$7.99',
       description: 'Best for users that find new recipes fairly frequently and want to try them for later.',
       features: [
-        '30 Recipe Transcriptions Per Month',
+        '15 Recipe Transcriptions Per Month',
         '10 Minute Max Video Upload'
       ],
       mostPopular: true,
@@ -51,8 +51,8 @@ export function PricingList() {
       priceMonthly: '$14.99',
       description: 'Best for users who cook frequently, and constantly enjoy trying new recipes they find online.',
       features: [
-        'Unlimited Transcriptions',
-        '10 Minute Max Video Upload'
+        '30 Recipe Transcriptions Per Month',
+        '20 Minute Max Video Upload'
       ],
       mostPopular: false,
       checkout: () => {createPremiumCheckoutSession(user?.uid)}
