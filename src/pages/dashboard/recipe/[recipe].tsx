@@ -80,7 +80,7 @@ const Recipe: React.FC = ({id}: any) => {
         </div>
       </div>
       </Container>
-      <Container className={"flex flex-col lg:flex-row gap-10 lg:gap-12 mt-24"}>
+      <Container className={"flex flex-col lg:flex-row gap-10 lg:gap-12 mt-12"}>
         <div className="my-auto overflow-hidden w-full bg-white py-5 border rounded-lg p-4 md:p-12">
           <h2 className="text-lg font-medium text-gray-500">Ingredients {`(${obj?.ingredients?.length})`}</h2>
           <ul role="list" className="mt-3 grid grid-cols-1 gap-5 sm:grid-cols-2 sm:gap-6 lg:grid-cols-4">
@@ -101,7 +101,7 @@ const Recipe: React.FC = ({id}: any) => {
           </ul>
         </div>
       </Container>
-      <Container className={"flex flex-col lg:flex-row gap-10 lg:gap-12 mt-24 mb-36"}>
+      <Container className={"flex flex-col lg:flex-row gap-10 lg:gap-12 mt-12 mb-36"}>
         <div className="my-auto overflow-hidden bg-white py-5 border w-full rounded-lg p-4 md:p-12 ">
           <h2 className="text-lg font-medium text-gray-500">Instructions {`(${obj?.instructions?.length})`}</h2>
           <ul role="list" className="mt-3 grid grid-cols-1 gap-5 sm:gap-6">

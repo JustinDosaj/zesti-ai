@@ -36,7 +36,7 @@ export function LinkInput({user, stripeRole}: any) {
                 Your Recipes
                 </h1>
                 <Paragraph className="mt-8">
-                    Get ready to increase your website visibility with optimized SEO and google ads in a click
+                    Transform a cooking video into a readable recipe so you no longer have to rewatch videos over and over to start cooking.
                 </Paragraph>
                 <div className="mt-10 w-full flex max-w-md mx-auto lg:mx-0">
                     <div className="flex sm:flex-row flex-col gap-5 w-full">
