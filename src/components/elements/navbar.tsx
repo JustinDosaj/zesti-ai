@@ -8,6 +8,8 @@ import { TokenAmount } from "../shared/tokenAmt"
 import { Bars3Icon } from '@heroicons/react/24/outline'
 import { Fragment } from 'react'
 import { Menu, Transition } from '@headlessui/react'
+import Link from "next/link"
+import Image from "next/image"
 
 const navItems = [
     {
@@ -52,7 +54,7 @@ export function Navbar({_user}: any) {
 
     useEffect(() => {
         UpdateUserData()
-    },[tokens, user])
+    },[tokens, user, UpdateUserData])
 
     async function UpdateUserData() {
         const response = await getUserData(user?.uid)
@@ -65,14 +67,14 @@ export function Navbar({_user}: any) {
         <Container>
             <nav className="w-full flex justify-between relative">
                 <div className="min-w-max inline-flex relative">
-                    <a href="/" className="relative flex items-center gap-3">
+                    <Link href="/" className="relative flex items-center gap-3">
                         <div className="relative w-16 h-16 overflow-hidden flex rounded-xl">
-                            <img src="/images/Zesti-Logo.png"/>
+                            <Image src="/images/Zesti-Logo.png" alt="Zesti Artificial Intelligence Recipe Helper Logo" width={70} height={30}/>
                         </div>
                         <div className="inline-flex invisible sm:visible text-2xl font-semibold text-heading-1">
                             Zesti.ai
                         </div>
-                    </a>
+                    </Link>
                 </div>
                 <div data-nav-overlay aria-hidden="true" className="fixed hidden inset-0 lg:!hidden bg-box-bg bg-opacity-50 backdrop-filter backdrop-blur-xl"></div>
                 <div data-navbar className="flex h-0 overflow-hidden lg:!h-auto lg:scale-y-100 duration-300 ease-linear flex-col gap-y-6 gap-x-4 lg:flex-row w-full lg:justify-between lg:items-center absolute lg:relative top-full lg:top-0 bg-body lg:bg-transparent border-x border-x-box-border lg:border-x-0">
@@ -80,11 +82,11 @@ export function Navbar({_user}: any) {
                     {
                         user !== null ? 
                         navItemsLoggedIn.map(item=> {
-                            return <Navitem {...item}/>
+                            return <Navitem key={item.text} {...item}/>
                         })
                         :
                         navItems.map(item=>{
-                            return <Navitem {...item}/>
+                            return <Navitem key={item.text} {...item}/>
                         })
                     }
                     </ul>
@@ -127,7 +129,7 @@ export function Navbar({_user}: any) {
                             {
                                 user !== null ? 
                                 navItemsLoggedIn.map((item)=> (
-                                    <Menu.Item>
+                                    <Menu.Item key={item.text}>
                                     {({ active }) => (
                                         <a
                                         href={item.href}
@@ -143,7 +145,7 @@ export function Navbar({_user}: any) {
                                 ))
                                 :
                                 navItems.map(item=>{
-                                    return <Navitem {...item}/>
+                                    return <Navitem key={item.text} {...item}/>
                                 })
                             }
                         </div>

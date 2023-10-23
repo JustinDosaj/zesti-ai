@@ -2,6 +2,7 @@ import { CheckIcon } from '@heroicons/react/20/solid'
 import { Paragraph } from '../shared/paragraph'
 import { Container } from '../shared/container'
 import { Title } from '../shared/title'
+import Image from 'next/image'
 
 const features = [
     {
@@ -56,10 +57,11 @@ export function Optimize() {
                         aria-hidden="true"
                     />
                     <div className="mx-auto max-w-2xl sm:mx-0 sm:max-w-none p-2">
-                        <img
+                        <Image
                             src="/images/singlerecipeimage.JPG"
-                            alt="Product screenshot"
+                            alt="Cooking Recipes Screenshot"
                             className="rounded-xl w-full max-w-none rounded-tl-xl bg-gray-800 ring-1 ring-white/10"
+                            width={500} height={500}
                         />
                     </div>
                     <div
