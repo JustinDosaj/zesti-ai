@@ -5,7 +5,6 @@ import { Button, AltButton } from "@/components/shared/button"
 import { useAuth } from "./api/auth/auth"
 import { useState, useEffect } from 'react'
 import { useRouter } from "next/router"
-import { db } from "./api/firebase/firebase"
 import { getSubscription, getUserData } from "./api/firebase/functions"
 
 const raleway = Raleway({subsets: ['latin']})
