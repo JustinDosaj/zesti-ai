@@ -7,12 +7,27 @@ export interface Props {
 }
 
 export function Button({text, className, buttonType, children, onClick}: Props) {
+        return(
+        <>
+            <button type={buttonType}  onClick={onClick}
+                className={`text-white bg-primary-main px-6 py-3 rounded-full outline-none relative overflow-hidden border duration-300 ease-linear after
+                    after:absolute after:inset-x-0 after:aspect-square after:scale-0 after:opacity-70 after:origin-center after:duration-300 
+                    after:ease-linear after:rounded-full after:top-0 after:left-0 after:bg-primary-alt
+                    hover:after:opacity-100 hover:after:scale-[2.5] ${className}`}>
+                        <span className="relative z-10">{text}</span>
+                        {children}
+            </button>
+        </>
+        )
+}
+
+export function AltButton({text, className, buttonType, children, onClick}: Props) {
     return(
     <>
         <button type={buttonType}  onClick={onClick}
-            className={`text-white bg-primary-main px-6 py-3 rounded-full outline-none relative overflow-hidden border duration-300 ease-linear after
-                after:absolute after:inset-x-0 after:aspect-square after:scale-0 after:opacity-70 after:origin-center after:duration-300 
-                after:ease-linear after:rounded-full after:top-0 after:left-0 after:bg-primary-alt
+            className={`text-black bg-white border-primary-main px-6 py-3 rounded-full outline-none relative overflow-hidden border duration-300 ease-linear after
+                after:absolute after:inset-x-0 after:aspect-square after:scale-0 after:opacity-70 after:origin-center after:duration-300  
+                after:ease-linear after:rounded-full after:top-0 after:left-0 after:bg-primary-main
                 hover:after:opacity-100 hover:after:scale-[2.5] ${className}`}>
                     <span className="relative z-10">{text}</span>
                     {children}
