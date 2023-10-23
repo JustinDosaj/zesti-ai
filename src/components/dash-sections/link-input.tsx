@@ -6,12 +6,21 @@ import { handleSubmit } from "@/pages/api/handler/submit"
 import { Loader } from "../shared/loader";
 import { InputResponseModal } from "../shared/modals"
 
-export function LinkInput({user}: any) {
+export function LinkInput({user, stripeRole}: any) {
 
     const [ url, setUrl ] = useState<string>();
     const [ isOpen , setIsOpen ] = useState<boolean>(false);
     const [ isLoading, setIsLoading ] = useState<boolean>(false)
     const [ success, setSuccess ] = useState<boolean>(false)
+    const [ message, setMessage ] = useState<string>('')
+
+    async function onClick() {
+        setIsLoading(true) 
+        await handleSubmit({url, user, setMessage, stripeRole}).then((val) => { setSuccess(val) }); 
+        setIsLoading(false)
+        setUrl('')
+        setIsOpen(true)
+    }
 
     return(
     <section className="relative pt-24 lg:pt-32">
@@ -42,13 +51,7 @@ export function LinkInput({user}: any) {
                             <input type="text" name="web-page" value={url} placeholder="https://www.webnest.ai/" className="w-full py-3 outline-none bg-transparent" onChange={(e) => setUrl(e.target.value)}/>
                             {isLoading == false ?
                             <Button buttonType="button" text="" className={"min-w-max text-white"} 
-                                onClick={ async () => { 
-                                    setIsLoading(true) 
-                                    const res = await handleSubmit({url, user}).then((val) => {console.log("VAL: ", val); setSuccess(val)}); 
-                                    setIsLoading(false)
-                                    setUrl('')
-                                    setIsOpen(true)
-                                }}>
+                                onClick={ async () => {await onClick()}}>
                                 <span className="hidden sm:flex relative z-[5]">
                                     Get Recipe
                                 </span>
@@ -65,7 +68,7 @@ export function LinkInput({user}: any) {
                     </div>
                 </div>
             </div>
-            <InputResponseModal isOpen={isOpen} setIsOpen={setIsOpen} success={success}/>
+            <InputResponseModal isOpen={isOpen} setIsOpen={setIsOpen} success={success} message={message}/>
         </Container>
     </section>
     )

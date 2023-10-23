@@ -4,7 +4,9 @@ import axios from 'axios'
 
 export interface Props {
     url: any,
-    user: any, 
+    user: any,
+    setMessage: any,
+    stripeRole: any, 
 }
 
 export async function getVideoLength(url_id: any) {
@@ -44,35 +46,44 @@ async function convertISO8601ToMinutesAndSeconds(isoDuration: any) {
 }
 
 
-export const handleSubmit = async ({url, user}: Props): Promise<boolean> => {
+export const handleSubmit = async ({url, user, setMessage, stripeRole}: Props): Promise<boolean> => {
 
     // Check if URL is empty
-    if (url == '') { return false;}
+    if (url == '') { 
+        setMessage("Oops! You must input a valid video link!")
+        return false;
+    }
 
     // Ensure video length is equal or below user sub usage rate
     const url_id = url?.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|shorts\/))([a-zA-Z0-9_-]{11})/);
-    const result = await getVideoLength(url_id ? url_id[1] : null)
-    if ((result?.minutes || 0) > 1 || (result?.seconds || 0) > 60) { console.log("Video too long for base subscriber!"); return false; }
-
-    // Get user tokens to check if they have enough to buy transcription
-    let tokens = 0;
-    await getUserData(user?.uid).then((res) => {tokens = res?.tokens})
-
     const falseObj = {
         "url": `${url}`,
         "url_id": url_id ? url_id[1] : null,
         "complete": false,
     }
+
+
+    // Checking video length compared to subscription model
+    const result = await getVideoLength(url_id ? url_id[1] : null)
+    if (stripeRole == 'base' || stripeRole == 'essential') {
+        if(result?.minutes || 0 > 10) { setMessage("Video too long for your subscription. You can upload videos that are up to 10 minutes long"); return false;}
+    } else if (stripeRole == 'premium') {
+        if(result?.minutes || 0 > 20) { setMessage("Video is too long. You can currently upload videos that are up to 20 minutes long"); return false;}
+    } else if (stripeRole !== 'base' || stripeRole !== 'essential' || stripeRole !== 'premium') {
+        if(result?.minutes || 0 > 10) { setMessage("Video is too long. Free users can only upload a maximum of 10 minute long videos"); return false;}
+    }
+
+
+    let tokens = 0;
+    await getUserData(user?.uid).then((res) => {tokens = res?.tokens})
     
     if (tokens >= 10) {
         try {
             // Reference to the specific document in the recipes collection
             const recipeRef = db.collection('recipes').doc(url_id[1]);
-        
-            // Fetch the document
             const doc = await recipeRef.get();
             if (doc.exists) {
-                // Extract the data from the document
+
                 const recipeData = doc.data();                
                 
                 const trueObj = {
@@ -84,9 +95,11 @@ export const handleSubmit = async ({url, user}: Props): Promise<boolean> => {
                 
                 if(user) {
                     try {
-                    await db.collection('users').doc(user.uid).collection('recipes').doc().set(trueObj)
-                    return true
+                        await db.collection('users').doc(user.uid).collection('recipes').doc().set(trueObj)
+                        setMessage("Your recipe has begun progressing. This may take a few minutes, but when the recipe is finished, it will appear in your dashboard")
+                        return true
                     } catch (err) {
+                        setMessage("Something went wrong. Please try again later. If the problem persists, feel free to contact us.")
                         console.log(err)
                     }
                 }
@@ -96,20 +109,22 @@ export const handleSubmit = async ({url, user}: Props): Promise<boolean> => {
             
                 if(user){
                     try {
-                    await db.collection('users').doc(user.uid).collection('recipes').doc().set(falseObj)
-                    return true
+                        await db.collection('users').doc(user.uid).collection('recipes').doc().set(falseObj)
+                        setMessage("Your recipe has begun progressing. This may take a few minutes, but when the recipe is finished, it will appear in your dashboard")
+                        return true
                     } catch (err) {
+                        setMessage("Something went wrong. Please try again later. If the problem persists, feel free to contact us.")
                         console.log(err)
                     }
                 } 
                 return false;
             }
         } catch (error) {
-            console.error("Error fetching recipe data: ", error);
+            setMessage("Something went wrong. Please try again later. If the problem persists, feel free to contact us.")
             return false;
         }
     } else { 
-        console.log("Not enough tokens to complete transaction") 
+        setMessage("Not enough tokens to complete transaction") 
         return false; 
     }
 }
