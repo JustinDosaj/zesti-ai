@@ -1,3 +1,5 @@
+"use client;"
+
 import { Container } from "../shared/container"
 import { Navitem } from "../shared/navitem"
 import { Button } from "../shared/button"
