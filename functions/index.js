@@ -18,7 +18,6 @@ const { Deepgram } = require("@deepgram/sdk");
 admin.initializeApp();
 const bucket = admin.storage().bucket('gs://webnest-f4392.appspot.com');
 
-
 exports.detectNewURLRecipe = onDocumentCreated("users/{userId}/recipes/{documentId}", async (event) => {
     
     //Get Params
@@ -42,8 +41,20 @@ exports.detectNewURLRecipe = onDocumentCreated("users/{userId}/recipes/{document
             const recipeData = recipeDoc.data();
             const userData = userDoc.data();
 
+            if (userData.tokens < 10) {
+                console.error(`Error: Not enough tokens. Tokens available to user: ${userData.tokens}`)
+                transaction.update(pageRef, {
+                    failed: true,
+                    failedMessage: "Not enough tokens to complete transaction"
+                })
+            }
+
             if (!userDoc.exists || !recipeDoc.exists) {
                 console.error(`Error: either ${userId} does not exist or ${documentId} does not exist`);
+                transaction.update(pageRef, {
+                    failed: true,
+                    failedMessage: "Problem retrieving video, please try again"
+                })
                 return;
             }
 
@@ -64,11 +75,8 @@ exports.detectNewURLRecipe = onDocumentCreated("users/{userId}/recipes/{document
                 data: {}
               };
             
-            console.log("About to try and download the file I think")
             const response = await axios.request(options);
-            console.log("response: ", response)
             const parsedData = JSON.parse(response.data.toString())
-            console.log("parse: ", parsedData)
             
             let retries = 0;
             let maxRetries = 5;
@@ -78,7 +86,6 @@ exports.detectNewURLRecipe = onDocumentCreated("users/{userId}/recipes/{document
                 try {
                     const mp3Response = await axios.get(parsedData.link, { responseType: 'arraybuffer' })
                     mp3Blob = mp3Response.data;
-                    console.log("mp3 Blob: ", mp3Blob)
                     if(mp3Blob) break;
 
                 } catch (err) { 
@@ -100,7 +107,6 @@ exports.detectNewURLRecipe = onDocumentCreated("users/{userId}/recipes/{document
                     ContentType: 'audio/mp3'
                 }
             });
-
             
             // Clean up the temporary file
             fs.unlinkSync(tempAudioPath);
@@ -118,11 +124,10 @@ exports.detectNewURLRecipe = onDocumentCreated("users/{userId}/recipes/{document
                     return;
                 }
                 
-                // 2. Send the retrieved .mp3 file to the Whisper API
                 const audio = fs.readFileSync(tempFilePath);
 
                 await deepgram.transcription
-                    .preRecorded({ buffer: audio, mimetype: "audio/mp3" }, { // <-- Assuming it's an MP3. Change if different.
+                    .preRecorded({ buffer: audio, mimetype: "audio/mp3" }, { 
                         smart_format: true,
                         model: "nova",
                     })
@@ -150,6 +155,10 @@ exports.detectNewURLRecipe = onDocumentCreated("users/{userId}/recipes/{document
                         });
                     })
                     .catch((err) => {
+                        transaction.update(pageRef, {
+                            failed: true,
+                            failedMessage: "Problem transcribing. This often occurs if the video uploaded has no words."
+                        })
                         console.error("Error with Deepgram:", err);
                     });
                 
@@ -159,10 +168,19 @@ exports.detectNewURLRecipe = onDocumentCreated("users/{userId}/recipes/{document
                 } 
                 else {
                 console.error(`${documentId} scan has already been run`);
+                transaction.update(pageRef, {
+                    failed: true
+                })
             }
         });
     } catch(error) {
         console.error("Error")
+        await getFirestore().runTransaction(async (transaction) => {
+            transaction.update(pageRef, {
+                failed: true,
+                failedMessage: "Retrieving recipe failed, Please try again later."
+            })
+        })
     }
 })
 
@@ -173,7 +191,7 @@ exports.detectNewPayment = onDocumentCreated("users/{userId}/payments/{documentI
 
     //Get References
     const userRef = getFirestore().collection("users").doc(userId);
-    const pageRef = userRef.collection('payments').doc(documentId)
+    const pageRef = userRef.collection('payments').doc(documentId);
 
     try {
         await getFirestore().runTransaction(async (transaction) => { 

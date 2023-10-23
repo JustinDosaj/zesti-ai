@@ -33,13 +33,12 @@ export function GridDisplay({data = [], user}: {data: any[], user: any}) {
       {data.map((recipe: any) => {
 
         const desc = recipe.complete == true ? JSON.parse(recipe.data.message.content) : loadingObj          
-
         return (
         <div className="flex flex-col h-full p-2">
           <li key={recipe.id} className="flex flex-col overflow-hidden rounded-xl border border-gray-200">
             <div className="flex items-center gap-x-4 border-b border-gray-900/5 bg-gray-50 p-6">
               <div className="flex flex-col justify-center h-12"> 
-                <div className="text-base font-semibold leading-6 text-gray-900 line-clamp-2">{desc.name}</div>
+                <div className="text-base font-semibold leading-6 text-gray-900 line-clamp-2">{!recipe.failed ? desc.name : 'Error creating recipe, please try again later'}</div>
               </div>
               <Menu as="div" className="relative ml-auto">
                 <Menu.Button className="-m-2.5 block p-2.5 text-gray-400 hover:text-gray-500">
@@ -90,15 +89,24 @@ export function GridDisplay({data = [], user}: {data: any[], user: any}) {
                 </dd>
               </div>
             </dl>
-            <div className="bg-primary-main p-3 text-center inline-flex w-full justify-center text-white hover:bg-primary-alt">
-              {<Link className="relative inline-flex w-0 flex-1 items-center justify-center gap-x-3 rounded-br-lg border border-transparent text-sm font-semibold text-gray-900" 
-                href={{pathname: `/dashboard/recipe/[recipeId]`,
-                  query: {recipeId: recipe.id}
-                }}>
-                <BookOpenIcon className="h-5 w-5 text-white" aria-hidden="true" />
-                <p className="text-white">View Recipe</p>
-              </Link>}
-            </div>
+              { !recipe.failed ?
+              <div className="bg-primary-main p-3 text-center inline-flex w-full justify-center text-white hover:bg-primary-alt"> 
+                <Link className="relative inline-flex w-0 flex-1 items-center justify-center gap-x-3 rounded-br-lg border border-transparent text-sm font-semibold text-gray-900" 
+                  href={{pathname: `/dashboard/recipe/[recipeId]`,
+                    query: {recipeId: recipe.id}
+                  }}>
+                  <BookOpenIcon className="h-5 w-5 text-white" aria-hidden="true" />
+                  <p className="text-white">View Recipe</p>
+                </Link>
+              </div>
+              :
+              <div className="bg-color-alt-red p-3 text-center inline-flex w-full justify-center text-white hover:bg-red-700">
+                <div className="relative inline-flex w-0 flex-1 items-center justify-center gap-x-3 rounded-br-lg border border-transparent text-sm font-semibold text-gray-900" >
+                  <BookOpenIcon className="h-5 w-5 text-white" aria-hidden="true" />
+                  <p className="text-white">Error</p>
+                </div>
+              </div>
+              }
           </li>
         </div>
       )})}
@@ -107,17 +115,3 @@ export function GridDisplay({data = [], user}: {data: any[], user: any}) {
     </Container>
     )
 }
-
-
-
-{/*recipe[index]?.complete == true ?
-                  <span className="inline-flex flex-shrink-0 items-center rounded-full bg-green-50 px-1.5 py-0.5 text-xs font-medium text-green-700 ring-1 ring-inset ring-green-600/20">
-                    {"Complete"}
-                  </span>
-                  :
-                  <span className="inline-flex flex-shrink-0 items-center rounded-full bg-yellow-100 px-1.5 py-0.5 text-xs font-medium text-yellow-600 ring-1 ring-inset ring-green-600/20">
-                    {"Processing"}
-                  </span>
-                  }
-
-*/}
