@@ -15,7 +15,6 @@ export async function getVideoLength(url_id: any) {
     try {
         const response = await axios.get(`https://www.googleapis.com/youtube/v3/videos?part=contentDetails&id=${url_id}&key=${apiKey}`);
         const duration = response.data.items[0].contentDetails.duration; // Duration in ISO 8601 format, like "PT1H15M32S"
-
         const result = await convertISO8601ToMinutesAndSeconds(duration);
         return result; 
     } catch (error) {
@@ -65,13 +64,13 @@ export const handleSubmit = async ({url, user, setMessage, stripeRole}: Props): 
 
     // Checking video length compared to subscription model
     const result = await getVideoLength(url_id ? url_id[1] : null)
-    console.log(result?.minutes)
+    console.log("Minutes: ", result?.minutes) // resulting in 4
     if (stripeRole == 'base' || stripeRole == 'essential') {
-        if(result?.minutes || 0 > 10) { setMessage("Video too long for your subscription. You can upload videos that are up to 10 minutes long"); return false;}
+        if((result?.minutes || 0) > 10) { setMessage("Video too long for your subscription. You can upload videos that are up to 10 minutes long"); return false;}
     } else if (stripeRole == 'premium') {
-        if(result?.minutes || 0 > 20) { setMessage("Video is too long. You can currently upload videos that are up to 20 minutes long"); return false;}
+        if((result?.minutes || 0) > 20) { setMessage("Video is too long. You can currently upload videos that are up to 20 minutes long"); return false;}
     } else if (stripeRole !== 'base' || stripeRole !== 'essential' || stripeRole !== 'premium') {
-        if(result?.minutes || 0 > 10) { setMessage("Video is too long. Free users can only upload a maximum of 10 minute long videos"); return false;}
+        if((result?.minutes || 0) > 10) { setMessage("Video is too long. Free users can only upload a maximum of 10 minute long videos"); return false;}
     }
 
 
