@@ -15,8 +15,6 @@ export default function Home() {
     USE AUTH LIKE I DID WITH ROLE.
   */
 
-  const {user, stripeRole} = useAuth()
-
   return (
     <>
     <Head>
