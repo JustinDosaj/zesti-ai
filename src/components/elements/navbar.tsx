@@ -118,14 +118,18 @@ export function Navbar({_user}: any) {
                         leave="transition ease-in duration-75"
                         leaveFrom="transform opacity-100 scale-100"
                         leaveTo="transform opacity-0 scale-95"
-                    >
+                    >   
                         <Menu.Items className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                         <div className="py-1">
                             <Menu.Item>
                             {({ active }) => (
-                                <p className='block px-4 py-2 text-sm' >
-                                <TokenAmount className="w-full grid grid-cols-6" tokens={tokens}/>
-                                </p>
+                                <div className='block px-4 py-2 text-sm' >
+                                    { user ? 
+                                        <TokenAmount className="w-full grid grid-cols-6" tokens={tokens}/>
+                                        :
+                                        <Button buttonType="button" text='Login' className="flex justify-center w-full sm:w-max" onClick={() => login()}/>
+                                    }
+                                </div>
                             )}
                             </Menu.Item>
                             {
@@ -146,9 +150,21 @@ export function Navbar({_user}: any) {
                                     </Menu.Item>
                                 ))
                                 :
-                                navItems.map(item=>{
-                                    return <Navitem key={item.text} {...item}/>
-                                })
+                                navItems.map((item)=> (
+                                    <Menu.Item key={item.text}>
+                                    {({ active }) => (
+                                        <a
+                                        href={item.href}
+                                        className={classNames(
+                                            active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
+                                            'block px-4 py-2 text-sm'
+                                        )}
+                                        >
+                                        {item.text}
+                                        </a>
+                                    )}
+                                    </Menu.Item>
+                                ))
                             }
                         </div>
                         </Menu.Items>
