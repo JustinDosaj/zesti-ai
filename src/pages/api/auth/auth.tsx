@@ -56,7 +56,11 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
-      setStripeRole(JSON.parse((currentUser as any)?.reloadUserInfo?.customAttributes).stripeRole)
+      if ((currentUser as any)?.reloadUserInfo?.customAttributes) {
+        setStripeRole(JSON.parse((currentUser as any)?.reloadUserInfo.customAttributes).stripeRole);
+    } else {
+        setStripeRole(null);
+    }
       setIsLoading(false);  // Once the user state is updated, set isLoading to false
     });
 
