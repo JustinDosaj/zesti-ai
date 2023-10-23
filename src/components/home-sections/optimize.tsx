@@ -33,7 +33,7 @@ export function Optimize() {
                     <div className="inline-flex text-transparent bg-clip-text bg-gradient-to-br from-primary-main from-20% via-primary via-30% to-color-alt-red">AI</div>&nbsp;
                     <p>Assistance</p>&nbsp;
                     </Title>
-                    <Paragraph className="mt-6 text-lg">
+                    <Paragraph className="mt-6 text-lg text-gray-600">
                         Start enjoying those tasty home cooked meals you see all over youtube. Just copy and paste the video link, and you will have an easy-to-read recipe in no time!
                     </Paragraph>
                     <dl className="mt-10 max-w-xl space-y-8 text-base leading-7 text-gray-600 lg:max-w-none">
