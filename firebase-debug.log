@@ -1,0 +1,59 @@
+[debug] [2023-10-21T23:40:11.084Z] ----------------------------------------------------------------------
+[debug] [2023-10-21T23:40:11.086Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\jcdos\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js deploy --only functions:detectNewURLRecipe
+[debug] [2023-10-21T23:40:11.086Z] CLI Version:   12.7.0
+[debug] [2023-10-21T23:40:11.086Z] Platform:      win32
+[debug] [2023-10-21T23:40:11.086Z] Node Version:  v18.16.0
+[debug] [2023-10-21T23:40:11.087Z] Time:          Sat Oct 21 2023 16:40:11 GMT-0700 (Pacific Daylight Time)
+[debug] [2023-10-21T23:40:11.087Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2023-10-21T23:40:11.091Z] >>> [apiv2][query] GET https://firebase-public.firebaseio.com/cli.json [none]
+[debug] [2023-10-21T23:40:11.187Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2023-10-21T23:40:11.188Z] > authorizing via signed-in user (jdosaj@vurge.io)
+[debug] [2023-10-21T23:40:11.188Z] [iam] checking project webnest-f4392 for permissions ["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","firebase.projects.get"]
+[debug] [2023-10-21T23:40:11.192Z] > refreshing access token with scopes: []
+[debug] [2023-10-21T23:40:11.193Z] >>> [apiv2][query] POST https://www.googleapis.com/oauth2/v3/token [none]
+[debug] [2023-10-21T23:40:11.193Z] >>> [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2023-10-21T23:40:11.374Z] <<< [apiv2][status] GET https://firebase-public.firebaseio.com/cli.json 200
+[debug] [2023-10-21T23:40:11.374Z] <<< [apiv2][body] GET https://firebase-public.firebaseio.com/cli.json {"cloudBuildErrorAfter":1594252800000,"cloudBuildWarnAfter":1590019200000,"defaultNode10After":1594252800000,"minVersion":"3.0.5","node8DeploysDisabledAfter":1613390400000,"node8RuntimeDisabledAfter":1615809600000,"node8WarnAfter":1600128000000}
+[debug] [2023-10-21T23:40:11.419Z] <<< [apiv2][status] POST https://www.googleapis.com/oauth2/v3/token 200
+[debug] [2023-10-21T23:40:11.419Z] <<< [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2023-10-21T23:40:11.425Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/webnest-f4392:testIamPermissions [none]
+[debug] [2023-10-21T23:40:11.425Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/webnest-f4392:testIamPermissions x-goog-quota-user=projects/webnest-f4392
+[debug] [2023-10-21T23:40:11.425Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/webnest-f4392:testIamPermissions {"permissions":["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","firebase.projects.get"]}
+[debug] [2023-10-21T23:40:11.767Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/webnest-f4392:testIamPermissions 200
+[debug] [2023-10-21T23:40:11.767Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/webnest-f4392:testIamPermissions {"permissions":["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","firebase.projects.get"]}
+[debug] [2023-10-21T23:40:11.767Z] >>> [apiv2][query] POST https://iam.googleapis.com/v1/projects/webnest-f4392/serviceAccounts/webnest-f4392@appspot.gserviceaccount.com:testIamPermissions [none]
+[debug] [2023-10-21T23:40:11.767Z] >>> [apiv2][body] POST https://iam.googleapis.com/v1/projects/webnest-f4392/serviceAccounts/webnest-f4392@appspot.gserviceaccount.com:testIamPermissions {"permissions":["iam.serviceAccounts.actAs"]}
+[debug] [2023-10-21T23:40:11.971Z] <<< [apiv2][status] POST https://iam.googleapis.com/v1/projects/webnest-f4392/serviceAccounts/webnest-f4392@appspot.gserviceaccount.com:testIamPermissions 200
+[debug] [2023-10-21T23:40:11.971Z] <<< [apiv2][body] POST https://iam.googleapis.com/v1/projects/webnest-f4392/serviceAccounts/webnest-f4392@appspot.gserviceaccount.com:testIamPermissions {"permissions":["iam.serviceAccounts.actAs"]}
+[info] 
+[info] === Deploying to 'webnest-f4392'...
+[info] 
+[info] i  deploying functions 
+[debug] [2023-10-21T23:40:11.974Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/webnest-f4392 [none]
+[debug] [2023-10-21T23:40:12.299Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/webnest-f4392 200
+[debug] [2023-10-21T23:40:12.299Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/webnest-f4392 {"projectId":"webnest-f4392","projectNumber":"232253787380","displayName":"Webnest","name":"projects/webnest-f4392","resources":{"hostingSite":"webnest-f4392","storageBucket":"webnest-f4392.appspot.com","locationId":"us-central"},"state":"ACTIVE","etag":"1_7c9ae153-69b1-430a-95b4-5c4fc6f247c8"}
+[info] i  functions: preparing codebase default for deployment 
+[info] i  functions: ensuring required API cloudfunctions.googleapis.com is enabled... 
+[info] i  functions: ensuring required API cloudbuild.googleapis.com is enabled... 
+[info] i  artifactregistry: ensuring required API artifactregistry.googleapis.com is enabled... 
+[debug] [2023-10-21T23:40:12.301Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/webnest-f4392/services/cloudfunctions.googleapis.com [none]
+[debug] [2023-10-21T23:40:12.301Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/webnest-f4392/services/cloudfunctions.googleapis.com x-goog-quota-user=projects/webnest-f4392
+[debug] [2023-10-21T23:40:12.302Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/webnest-f4392/services/runtimeconfig.googleapis.com [none]
+[debug] [2023-10-21T23:40:12.302Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/webnest-f4392/services/runtimeconfig.googleapis.com x-goog-quota-user=projects/webnest-f4392
+[debug] [2023-10-21T23:40:12.303Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/webnest-f4392/services/cloudbuild.googleapis.com [none]
+[debug] [2023-10-21T23:40:12.303Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/webnest-f4392/services/cloudbuild.googleapis.com x-goog-quota-user=projects/webnest-f4392
+[debug] [2023-10-21T23:40:12.303Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/webnest-f4392/services/artifactregistry.googleapis.com [none]
+[debug] [2023-10-21T23:40:12.303Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/webnest-f4392/services/artifactregistry.googleapis.com x-goog-quota-user=projects/webnest-f4392
+[debug] [2023-10-21T23:40:12.814Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/webnest-f4392/services/artifactregistry.googleapis.com 200
+[debug] [2023-10-21T23:40:12.814Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/webnest-f4392/services/artifactregistry.googleapis.com [omitted]
+[info] +  artifactregistry: required API artifactregistry.googleapis.com is enabled 
+[debug] [2023-10-21T23:40:12.815Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/webnest-f4392/services/cloudfunctions.googleapis.com 200
+[debug] [2023-10-21T23:40:12.815Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/webnest-f4392/services/cloudfunctions.googleapis.com [omitted]
+[info] +  functions: required API cloudfunctions.googleapis.com is enabled 
+[debug] [2023-10-21T23:40:12.815Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/webnest-f4392/services/runtimeconfig.googleapis.com 200
+[debug] [2023-10-21T23:40:12.815Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/webnest-f4392/services/runtimeconfig.googleapis.com [omitted]
+[debug] [2023-10-21T23:40:12.816Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/webnest-f4392/services/cloudbuild.googleapis.com 200
+[debug] [2023-10-21T23:40:12.816Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/webnest-f4392/services/cloudbuild.googleapis.com [omitted]
+[info] +  functions: required API cloudbuild.googleapis.com is enabled 
+[debug] [2023-10-21T23:40:12.816Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/webnest-f4392/adminSdkConfig [none]

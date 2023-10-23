@@ -1,11 +1,29 @@
-import { Button } from "../shared/button";
-import { Container } from "../shared/container";
-import { Paragraph } from "../shared/paragraph";
-import { SignIn } from "@/pages/api/auth/login";
+import { Paragraph } from "../shared/paragraph"
+import { Button } from "../shared/button"
+import { Container } from "../shared/container"
+import { useState } from 'react'
+import { handleSubmit } from "@/pages/api/handler/submit"
+import { Loader } from "../shared/loader";
+import { InputResponseModal } from "../shared/modals"
 
-export function Hero({provider, auth}: any){
- return(
-    <section className="relative pt-14 lg:pt-28">
+export function LinkInput({user, stripeRole}: any) {
+
+    const [ url, setUrl ] = useState<string>();
+    const [ isOpen , setIsOpen ] = useState<boolean>(false);
+    const [ isLoading, setIsLoading ] = useState<boolean>(false)
+    const [ success, setSuccess ] = useState<boolean>(false)
+    const [ message, setMessage ] = useState<string>('')
+
+    async function onClick() {
+        setIsLoading(true) 
+        await handleSubmit({url, user, setMessage, stripeRole}).then((val) => { setSuccess(val) }); 
+        setIsLoading(false)
+        setUrl('')
+        setIsOpen(true)
+    }
+
+    return(
+    <section className="relative pt-24 lg:pt-32">
         <Container className={"flex flex-col lg:flex-row gap-10 lg:gap-12"}>
             <div className="absolute w-full lg:w-1/2 inset-y-0 lg:right-0 ">
                 <span className="absolute -left-6 md:left-4 top-24 lg:top-28 w-24 h-24 rotate-90 skew-x-12 rounded-3xl bg-primarypink blur-xl opacity-60 lg:opacity-95 lg:block hidden"></span>
@@ -13,18 +31,16 @@ export function Hero({provider, auth}: any){
             </div>
             <span className="w-4/12 lg:w-2/12 aspect-square bg-gradient-to-tr to-primary from-primaryteal absolute -top-5 lg:left-0 rounded-full skew-y-12 blur-2xl opacity-40 skew-x-12 rotate-90"></span>
             <div className="relative flex flex-col items-center text-center lg:py-7 xl:py-8 lg:max-w-none max-w-3xl mx-auto lg:mx-0 lg:flex-1 lg:w-1/2">
-                <h1 className="text-3xl/tight sm:text-4xl/tight md:text-5xl/tight xl:text-6xl/tight
+                <h1 className="text-3xl/tight sm:text-4xl/tight md:text-5xl/tight xl:text-5xl/tight
                 font-bold text-heading-1">
-                <span className="text-transparent bg-clip-text bg-gradient-to-br from-blue-400 from-20% via-primary via-30% to-blue-700">Optimize </span>
-                your website to increase
-                <span className="text-transparent bg-clip-text bg-gradient-to-br from-blue-400 from-20% via-primary via-30% to-blue-700 pl-2">traffic & conversions</span>
+                Your Recipes
                 </h1>
                 <Paragraph className="mt-8">
-                    Get ready to increase your website visibility with optimized SEO and google ads in a click
+                    Transform a cooking video into a readable recipe so you no longer have to rewatch videos over and over to start cooking.
                 </Paragraph>
                 <div className="mt-10 w-full flex max-w-md mx-auto lg:mx-0">
                     <div className="flex sm:flex-row flex-col gap-5 w-full">
-                        <form action="" method="POST" className="py-1 pl-6 w-full pr-1 flex gap-3 items-center text-heading-3 shadow-lg shadow-box-shadow
+                    <form action="" method="POST" className="py-1 pl-6 w-full pr-1 flex gap-3 items-center text-heading-3 shadow-lg shadow-box-shadow
                         border border-box-border bg-box-bg rounded-full ease-linear focus-within:bg-body  focus-within:border-primary">
                             <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-link w-10 h-10" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">
                                 <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
@@ -32,10 +48,12 @@ export function Hero({provider, auth}: any){
                                 <path d="M11 6l.463 -.536a5 5 0 0 1 7.071 7.072l-.534 .464"></path>
                                 <path d="M13 18l-.397 .534a5.068 5.068 0 0 1 -7.127 0a4.972 4.972 0 0 1 0 -7.071l.524 -.463"></path>
                             </svg>
-                            <input type="email" name="EMAIL" placeholder="https://www.webnest.ai/" className="w-full py-3 outline-none bg-transparent"/>
-                            <Button buttonType="button" text="" className={"min-w-max text-white"} onClick={() => SignIn({auth, provider})}>
+                            <input type="text" name="web-page" value={url} placeholder="https://www.youtube.com/shorts/ZBIPT-hTv94" className="w-full py-3 outline-none bg-transparent" onChange={(e) => setUrl(e.target.value)}/>
+                            {isLoading == false ?
+                            <Button buttonType="button" text="" className={"min-w-max text-white"} 
+                                onClick={ async () => {await onClick()}}>
                                 <span className="hidden sm:flex relative z-[5]">
-                                    Optimize Site
+                                    Get Recipe
                                 </span>
                                 <span className="flex sm:hidden relative z-[5]">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-5 h-5">
@@ -43,11 +61,15 @@ export function Hero({provider, auth}: any){
                                     </svg>                                      
                                 </span>
                             </Button>
+                            :
+                            <Loader/>
+                            }
                         </form>
                     </div>
                 </div>
             </div>
+            <InputResponseModal isOpen={isOpen} setIsOpen={setIsOpen} success={success} message={message}/>
         </Container>
     </section>
- )
+    )
 }

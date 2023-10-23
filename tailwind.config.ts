@@ -15,14 +15,21 @@ const config: Config = {
       },
       colors: {
         'primary':{
-          'main': "#176de8",
-          'alt':"#00106F"
+          'main': "#f5821f",
+          'alt':"#D7690A"
         },
         'color-alt': {
           'black': "#333333",
+          'green': "#008E53",
+          'yellow': '#F9E308',
+          'red': '#DA291C',
+          'orange': '#f5821f'
         },
-        'background': "#F5F5F5"
+        'background': "#FFFFFF"
       },
+      screens:{
+				midmd:"880px"
+			}
     },
   },
   plugins: [],
