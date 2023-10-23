@@ -1,11 +1,14 @@
+"use client;"
+
 import { Container } from "../shared/container"
 import { Paragraph } from "../shared/paragraph"
 import { FooterNav } from "../shared/footernav"
 import { GroupFooterNav } from "../blocks/groupfooternav"
 import Link from "next/link"
 import Image from "next/image"
+import { useAuth } from "@/pages/api/auth/auth"
 
-const footerNav1 = [
+const loggedInFooterNav = [
     {
         itemText:"Home",
         itemLink:"/"
@@ -25,6 +28,17 @@ const footerNav1 = [
     
 ]
 
+const loggedOutFooterNav =[
+    {
+        itemText:"Home",
+        itemLink:"/"
+    },
+    {
+        itemText:"Pricing",
+        itemLink:"/pricing"
+    },
+]
+
 const footerSupport = [
     {
         itemText:"Contact",
@@ -32,10 +46,12 @@ const footerSupport = [
     }
 ]
 
-
 var year = new Date().getFullYear()
 
 export function Footer() {
+
+    const { user } = useAuth();
+
     return(
     <>
         <footer className="relative  bg-gradient-to-tr from-gray-100 to-gray-200 dark:from-gray-900 pt-28 p-4 md:p-0">
@@ -85,8 +101,7 @@ export function Footer() {
                         </div>
                     </div>
                     <GroupFooterNav>
-                        <FooterNav title={"Navigation"} navItems={footerNav1}/>
-
+                        <FooterNav title={"Navigation"} navItems={user ? loggedInFooterNav: loggedOutFooterNav}/>
                     </GroupFooterNav>
                     <GroupFooterNav>
                         <FooterNav title={"Support"} navItems={footerSupport}/>
