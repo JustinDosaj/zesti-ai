@@ -15,11 +15,6 @@ const features = [
       description: 'Clear instructions will be at your disposal to refer to at any time',
       icon: CheckIcon,
     },
-    {
-      name: 'No More Scrubbing or Pausing',
-      description: 'Quit scrubbing timelines and pausing cooking videos to try and follow along, use Zesti!',
-      icon: CheckIcon,
-    },
   ]
 
 export function Optimize() {
@@ -51,26 +46,21 @@ export function Optimize() {
                         </div>
                         ))}
                     </dl>
+                    
                     </div>
                 </div>
                 <div className="sm:px-6 lg:px-0">
-                    <div className="relative isolate overflow-hidden bg-primary-main px-6 pt-8 sm:mx-auto sm:max-w-2xl sm:rounded-3xl sm:pl-16 sm:pr-0 sm:pt-16 lg:mx-0 lg:max-w-none">
+                    <div className="relative isolate overflow-hidden bg-primary-main sm:mx-auto sm:max-w-2xl rounded-3xl p-2 sm:p-8 lg:p-12">
                     <div
                         className="absolute -inset-y-px -left-3 -z-10 w-full origin-bottom-left skew-x-[-30deg] bg-indigo-100 opacity-20 ring-1 ring-inset ring-white"
                         aria-hidden="true"
                     />
-                    <div className="mx-auto max-w-2xl sm:mx-0 sm:max-w-none">
-                        <div className="w-screen overflow-hidden rounded-tl-xl bg-gray-900 ring-1 ring-white/10">
-                        <div className="flex bg-gray-800/40 ring-1 ring-white/5">
-                            <div className="-mb-px flex text-sm font-medium leading-6 text-gray-400">
-                            <div className="border-b border-r border-b-white/20 border-r-white/10 bg-white/5 px-4 py-2 text-white">
-                                NotificationSetting.jsx
-                            </div>
-                            <div className="border-r border-gray-600/10 px-4 py-2">App.jsx</div>
-                            </div>
-                        </div>
-                        <div className="px-6 pb-14 pt-6">{/* Your code example */}</div>
-                        </div>
+                    <div className="mx-auto max-w-2xl sm:mx-0 sm:max-w-none p-2">
+                        <img
+                            src="/images/singlerecipeimage.JPG"
+                            alt="Product screenshot"
+                            className="rounded-xl w-full max-w-none rounded-tl-xl bg-gray-800 ring-1 ring-white/10"
+                        />
                     </div>
                     <div
                         className="pointer-events-none absolute inset-0 ring-1 ring-inset ring-black/10 sm:rounded-3xl"
