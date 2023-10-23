@@ -16,7 +16,7 @@ export default function Home() {
   */
 
   const {user, stripeRole} = useAuth()
-  console.log("Stripe Role: ", user)
+
   return (
     <>
     <Head>
