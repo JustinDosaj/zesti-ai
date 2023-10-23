@@ -65,6 +65,7 @@ export const handleSubmit = async ({url, user, setMessage, stripeRole}: Props): 
 
     // Checking video length compared to subscription model
     const result = await getVideoLength(url_id ? url_id[1] : null)
+    console.log(result?.minutes)
     if (stripeRole == 'base' || stripeRole == 'essential') {
         if(result?.minutes || 0 > 10) { setMessage("Video too long for your subscription. You can upload videos that are up to 10 minutes long"); return false;}
     } else if (stripeRole == 'premium') {
