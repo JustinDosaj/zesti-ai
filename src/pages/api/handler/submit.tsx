@@ -96,12 +96,16 @@ export const handleSubmit = async ({url, user, setMessage, stripeRole}: Props): 
                     try {
                         await db.collection('users').doc(user.uid).collection('recipes').doc().set(trueObj)
                         setMessage("Your recipe has begun progressing. This may take a few minutes, but when the recipe is finished, it will appear in your dashboard")
+                        await db.collection('users').doc(user.uid).update({
+                            tokens: tokens - 10
+                        });
                         return true
                     } catch (err) {
                         setMessage("Something went wrong. Please try again later. If the problem persists, feel free to contact us.")
                         console.log(err)
                     }
                 }
+       
 
                 return false;
             } else {
