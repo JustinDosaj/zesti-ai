@@ -17,6 +17,7 @@ export function PricingList() {
 
   const { user, stripeRole } = useAuth();
 
+
   const tiers = [
     {
       name: 'Base',
@@ -116,7 +117,7 @@ export function PricingList() {
                 {stripeRole == null ?
                 <Button buttonType="button" onClick={tier.checkout} text="Subscribe" className="mt-4"/>
                 :
-                <Button buttonType="button" onClick={() => {window.open("https://billing.stripe.com/p/login/test_6oEeY05261fY7a8000")}} text="Manage Subscription" className="mt-4"/>
+                <Button buttonType="button" onClick={() => {window.open(`${process.env.NEXT_PUBLIC_STRIPE_NO_CODE_PORATL}`)}} text="Manage Subscription" className="mt-4"/>
                 }
               </div>
             ))}

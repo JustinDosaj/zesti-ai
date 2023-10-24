@@ -14,7 +14,6 @@ export default function Profile() {
 
     const { user, logout, isLoading, stripeRole } = useAuth();
     const [onFirstLoad, setOnFirstLoad] = useState<boolean>(true)
-    const [subModel, setSubModel] = useState<string>('free')
     const [tokens, setTokens] = useState<number>(0)
     const router = useRouter();
 
@@ -22,7 +21,6 @@ export default function Profile() {
         const response = await getSubscription(user?.uid)
         const userData = await getUserData(user?.uid)
         setTokens(userData ? userData.tokens : 0)
-        setSubModel(response ? response[0].role : 'n/a')
         setOnFirstLoad(false)
       }
   

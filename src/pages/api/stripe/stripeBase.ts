@@ -4,8 +4,9 @@ import { db } from '../firebase/firebase';
 export async function createBaseCheckoutSession(id: any) {  // You might want to replace 'any' with the appropriate type for currentUser
     try {
         const checkoutSessionsCollection = collection(doc(collection(db, 'users'), id), 'checkout_sessions');
+        
         const docRef = await addDoc(checkoutSessionsCollection, {
-            price: 'price_1O2h4ZGtkWdn4NzbF9sRI1pt',
+            price: process.env.NEXT_PUBLIC_STRIPE_BASE_PRICE,
             success_url: window.location.origin,
             cancel_url: window.location.origin,
         });
