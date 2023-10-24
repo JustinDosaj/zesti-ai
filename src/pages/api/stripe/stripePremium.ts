@@ -5,7 +5,7 @@ export async function createPremiumCheckoutSession(id: any) {  // You might want
     try {
         const checkoutSessionsCollection = collection(doc(collection(db, 'users'), id), 'checkout_sessions');
         const docRef = await addDoc(checkoutSessionsCollection, {
-            price: 'price_1O304tGtkWdn4NzbOrQt7EBE',
+            price: process.env.NEXT_PUBLIC_STRIPE_PREMIUM_PRICE,
             success_url: window.location.origin,
             cancel_url: window.location.origin,
         });
