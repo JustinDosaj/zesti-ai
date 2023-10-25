@@ -4,6 +4,7 @@ import { Navbar } from '@/components/elements/navbar'
 import { Footer } from '@/components/elements/footer'
 //import { initFirebase } from './api/firebase/firebase'
 import { AuthProvider } from './api/auth/auth'
+import { Analytics } from '@vercel/analytics/react';
 
 export default function App({ Component, pageProps }: AppProps) {
 
@@ -12,6 +13,7 @@ export default function App({ Component, pageProps }: AppProps) {
     <AuthProvider>
         <Navbar/>
           <Component {...pageProps}/>
+          <Analytics/>
         <Footer/>
     </AuthProvider>
   </>
