@@ -35,7 +35,7 @@ export function PricingList() {
       mostPopular: false,
       checkout: () => {
         setIsLoading(true)
-        //createBaseCheckoutSession(user?.uid)
+        createBaseCheckoutSession(user?.uid)
       }
     },
     {
