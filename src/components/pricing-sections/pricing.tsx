@@ -17,7 +17,7 @@ function classNames(...classes: (string | undefined | null | false)[]): string {
 
 export function PricingList() {
 
-  const { user, stripeRole } = useAuth();
+  const { user, stripeRole, login } = useAuth();
   const [ isLoading, setIsLoading ] = useState<boolean>(false);
 
 
@@ -126,7 +126,9 @@ export function PricingList() {
                     ))}
                   </ul>
                 </div>
-                {(stripeRole == null && isLoading == false) ?
+                {!user ?
+                <Button buttonType="button" onClick={login} text="Subscribe" className="mt-4"/>
+                : (stripeRole == null && isLoading == false) ?
                 <Button buttonType="button" onClick={tier.checkout} text="Subscribe" className="mt-4"/>
                 : (isLoading == true) ?
                 <div className="mt-4 w-full grid">
