@@ -22,7 +22,7 @@ const faqs = [
   },
   {
     question: "I have more questions, how can I contact you?",
-    answer: "You can visit the conatct page and send us a message!",
+    answer: "You can visit the contact page and send us a message!",
   },
   // More questions...
 ]
