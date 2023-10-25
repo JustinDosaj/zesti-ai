@@ -46,6 +46,18 @@ const footerSupport = [
     }
 ]
 
+const footerLegal = [
+    {
+        itemText: "Terms of Service",
+        itemLink: "https://app.termly.io/document/terms-of-service/7fda3661-ebd6-42c4-9dfb-e66e58cd4253"
+    },
+    {
+        itemText: "Privacy Policy",
+        itemLink: "https://app.termly.io/document/privacy-policy/728b76f9-24fe-480c-ad17-3c56ffa53417"
+    },
+]
+
+
 var year = new Date().getFullYear()
 
 export function Footer() {
@@ -102,9 +114,12 @@ export function Footer() {
                     </div>
                     <GroupFooterNav>
                         <FooterNav title={"Navigation"} navItems={user ? loggedInFooterNav: loggedOutFooterNav}/>
+                        <FooterNav title={"Support"} navItems={footerSupport}/>
                     </GroupFooterNav>
                     <GroupFooterNav>
-                        <FooterNav title={"Support"} navItems={footerSupport}/>
+                        <FooterNav title={"Legal"} navItems={footerLegal}/>
+                        
+                        {/*https://app.termly.io/document/privacy-policy/728b76f9-24fe-480c-ad17-3c56ffa53417 */}
                     </GroupFooterNav>
                 </div>
             </Container>
