@@ -6,6 +6,8 @@ import { useAuth } from "@/pages/api/auth/auth";
 import { useRouter } from 'next/router';
 import { getRecipe } from "@/pages/api/firebase/functions";
 import { Container } from "@/components/shared/container";
+import { PageLoader } from "@/components/shared/loader";
+import Head from "next/head";
 
 const raleway = Raleway({subsets: ['latin']})
 
@@ -41,9 +43,15 @@ const Recipe: React.FC = ({id}: any) => {
             setUrl(res?.url)
         })
         setOnFirstLoad(false)
-    }  
+    }
+
+    if(!obj.name) return <PageLoader/>
 
     return(
+    <>
+    <Head>
+      <title>{obj.name}</title>
+    </Head>  
     <main className={`flex min-h-screen flex-col items-center justify-between p-2 bg-background mt-12${raleway.className}`}>
       <Container className={"flex flex-col lg:flex-row gap-10 lg:gap-12 mt-36"}>
        <div className="bg-white py-5 border w-full rounded-lg p-4 md:p-12">
@@ -53,12 +61,12 @@ const Recipe: React.FC = ({id}: any) => {
                 {obj?.name}
                 <div className="mt-1 space-y-2 sm:inline-flex sm:mt-0 sm:space-y-0 gap-x-2 text-center">
                   { obj.time == null ? 
-                  <p></p>
+                  <div></div>
                   :
                   <p className="bg-green-500 rounded-xl text-white text-sm p-1">{`${obj?.time} Minutes`}</p> 
                   }
                   { obj.servings == null ? 
-                  <p></p>
+                  <div></div>
                   :
                   <p className="bg-green-500 rounded-xl text-white text-sm p-1">{`${obj?.servings} Servings`}</p>
                   }
@@ -123,6 +131,7 @@ const Recipe: React.FC = ({id}: any) => {
         </div>
       </Container>
     </main>
+    </>
     )
 }
 
