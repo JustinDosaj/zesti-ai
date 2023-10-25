@@ -103,7 +103,20 @@ export default function Profile() {
                       </div>
                     </div>
                     :
-                    <div></div>
+                    <div className="space-y-2">
+                      <div className="inline-flex space-x-2 align-middle items-center">
+                        <CheckIcon className="h-5 w-5 text-color-alt-green"/>
+                        <span>1 Free Video Recipe</span>
+                      </div>
+                      <div className="inline-flex space-x-2 align-middle items-center">
+                        <CheckIcon className="h-5 w-5 text-color-alt-green"/>
+                        <span>Up to 10 Minute Long Videos</span>
+                      </div>
+                      <div className="inline-flex space-x-2 align-middle items-center">
+                        <ChevronDoubleUpIcon className="h-5 w-5 text-color-alt-green"/>
+                        <span>Upgrade subscription for more</span>
+                      </div>
+                    </div>
                   }
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 space-x-0 md:space-x-4 space-y-2 md:space-y-0 mt-6 border-t px-6 py-6">
