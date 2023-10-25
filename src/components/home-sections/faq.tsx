@@ -10,11 +10,11 @@ const faqs = [
   },
   {
     question: "What are the video requirements for Zesti?",
-    answer: "Videos can be 10 to 20 minutes long depending on your subscription. For best results, ensure that the video has verbal instructions. Ideally, select a video that direct states measurements (ie. 1/4 cup of water)",
+    answer: "Videos can be 10 to 20 minutes long depending on your subscription. For best results, ensure that the video has verbal instructions. Ideally, select a video that directly states measurements (ie. 1/4 cup of water)",
   },
   {
     question: "Does Zesti only work with Youtube videos?",
-    answer: "Yes, though we are actively working on intrgrating support for Tiktok, Vimeo, Twitch.tv and more! ",
+    answer: "Yes, though we are actively working on integrating support for Tiktok, Vimeo, Twitch.tv and more! ",
   },
   {
     question: "Is Zesti free?",
