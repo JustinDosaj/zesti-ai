@@ -7,6 +7,8 @@ import { createBaseCheckoutSession } from "@/pages/api/stripe/stripeBase";
 import { createEssentialCheckoutSession } from "@/pages/api/stripe/stripeEssential";
 import { createPremiumCheckoutSession } from "@/pages/api/stripe/stripePremium";
 import { useAuth } from "@/pages/api/auth/auth";
+import { Loader } from "../shared/loader";
+import { useState } from "react";
 
 function classNames(...classes: (string | undefined | null | false)[]): string {
     return classes.filter(Boolean).join(' ');
@@ -16,6 +18,7 @@ function classNames(...classes: (string | undefined | null | false)[]): string {
 export function PricingList() {
 
   const { user, stripeRole } = useAuth();
+  const [ isLoading, setIsLoading ] = useState<boolean>(false);
 
 
   const tiers = [
@@ -30,7 +33,10 @@ export function PricingList() {
         '10 Minute Max Video Upload'
       ],
       mostPopular: false,
-      checkout: () => {createBaseCheckoutSession(user?.uid)}
+      checkout: () => {
+        setIsLoading(true)
+        //createBaseCheckoutSession(user?.uid)
+      }
     },
     {
       name: 'Essential',
@@ -43,7 +49,10 @@ export function PricingList() {
         '10 Minute Max Video Upload'
       ],
       mostPopular: true,
-      checkout: () => {createEssentialCheckoutSession(user?.uid)}
+      checkout: () => {
+        setIsLoading(true)
+        createEssentialCheckoutSession(user?.uid)
+      }
     },
     {
       name: 'Premium',
@@ -56,7 +65,10 @@ export function PricingList() {
         '20 Minute Max Video Upload'
       ],
       mostPopular: false,
-      checkout: () => {createPremiumCheckoutSession(user?.uid)}
+      checkout: () => {
+        setIsLoading(true)
+        createPremiumCheckoutSession(user?.uid)
+      }
     },
   ]
 
@@ -114,11 +126,16 @@ export function PricingList() {
                     ))}
                   </ul>
                 </div>
-                {stripeRole == null ?
+                {(stripeRole == null && isLoading == false) ?
                 <Button buttonType="button" onClick={tier.checkout} text="Subscribe" className="mt-4"/>
+                : (isLoading == true) ?
+                <div className="mt-4 w-full grid">
+                  <Loader/>
+                </div>
                 :
                 <Button buttonType="button" onClick={() => {window.open(`${process.env.NEXT_PUBLIC_STRIPE_NO_CODE_PORATL}`)}} text="Manage Subscription" className="mt-4"/>
-                }
+                
+              }
               </div>
             ))}
           </div>
