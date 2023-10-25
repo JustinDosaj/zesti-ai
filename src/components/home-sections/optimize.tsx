@@ -27,11 +27,11 @@ export function Optimize() {
                 <div className="md:px-0 lg:pr-4 lg:pt-4">
                     <div className="mx-auto max-w-2xl lg:mx-0 lg:max-w-lg">
                     <Title className="mt-2 font-bold tracking-tight text-gray-900 text-3xl md:text-5xl flex flex-wrap">
-                    <p>Finally create</p>&nbsp;
+                    <p>Cook</p>&nbsp;
                     <div className="inline-flex text-transparent bg-clip-text bg-gradient-to-br from-primary-main from-20% via-primary via-30% to-color-alt-red">delicious</div>&nbsp;
                     <p>recipes with</p>&nbsp;
                     <div className="inline-flex text-transparent bg-clip-text bg-gradient-to-br from-primary-main from-20% via-primary via-30% to-color-alt-red">AI</div>&nbsp;
-                    <p>Assistance</p>&nbsp;
+                    <p>help</p>&nbsp;
                     </Title>
                     <Paragraph className="mt-6 text-lg text-gray-600">
                         Start enjoying those tasty home cooked meals you see all over youtube. Just copy and paste the video link, and you will have an easy-to-read recipe in no time!
@@ -51,14 +51,14 @@ export function Optimize() {
                     </div>
                 </div>
                 <div className="sm:px-6 lg:px-0">
-                    <div className="relative isolate overflow-hidden bg-primary-main sm:mx-auto sm:max-w-2xl rounded-3xl p-2 sm:p-8 lg:p-12">
+                    <div className="relative isolate overflow-hidden bg-primary-main sm:mx-auto sm:max-w-2xl rounded-3xl p-2 sm:p-8 lg:p-8">
                     <div
                         className="absolute -inset-y-px -left-3 -z-10 w-full origin-bottom-left skew-x-[-30deg] bg-indigo-100 opacity-20 ring-1 ring-inset ring-white"
                         aria-hidden="true"
                     />
-                    <div className="mx-auto max-w-2xl sm:mx-0 sm:max-w-none p-2">
+                    <div className="mx-auto max-w-2xl sm:mx-0 sm:max-w-none p-4 sm:p-0">
                         <Image
-                            src="/images/singlerecipeimage.JPG"
+                            src="/images/video-image.jpg"
                             alt="Cooking Recipes Screenshot"
                             className="rounded-xl w-full max-w-none rounded-tl-xl bg-gray-800 ring-1 ring-white/10"
                             width={500} height={500}
