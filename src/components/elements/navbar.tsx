@@ -22,16 +22,16 @@ const navItems = [
         href:"/pricing",
         text:"Pricing",
     },
+    {
+        href:"/contact",
+        text: "Contact",
+    },
 ]
 
 const navItemsLoggedIn = [
     {
         href:"/",
         text:"Home",
-    },
-    {
-        href:"/pricing",
-        text:"Pricing",
     },
     {
         href: "/dashboard",
@@ -41,6 +41,10 @@ const navItemsLoggedIn = [
     {
         href: "/profile",
         text: "Profile",
+    },
+    {
+        href:"/contact",
+        text: "Contact",
     },
 ]
 
@@ -70,15 +74,14 @@ export function Navbar({_user}: any) {
             <nav className="w-full flex justify-between relative">
                 <div className="min-w-max inline-flex relative">
                     <Link href="/" className="relative flex items-center gap-3">
-                        <div className="relative w-16 h-16 overflow-hidden flex rounded-xl">
-                            <Image src="/images/Zesti-Logo.png" alt="Zesti Artificial Intelligence Recipe Helper Logo" width={70} height={30}/>
+                        <div className="relative w-14 h-14 overflow-hidden flex rounded-xl">
+                            <Image src="/images/Zesti-Logo.png" alt="Zesti Artificial Intelligence Recipe Helper Logo" width={60} height={30}/>
                         </div>
-                        <div className="inline-flex invisible sm:visible text-2xl font-semibold text-heading-1">
+                        <div className="inline-flex sm:visible text-2xl font-semibold text-heading-1">
                             Zesti.ai
                         </div>
                     </Link>
                 </div>
-                <div data-nav-overlay aria-hidden="true" className="fixed hidden inset-0 lg:!hidden bg-box-bg bg-opacity-50 backdrop-filter backdrop-blur-xl"></div>
                 <div data-navbar className="flex h-0 overflow-hidden lg:!h-auto lg:scale-y-100 duration-300 ease-linear flex-col gap-y-6 gap-x-4 lg:flex-row w-full lg:justify-between lg:items-center absolute lg:relative top-full lg:top-0 bg-body lg:bg-transparent border-x border-x-box-border lg:border-x-0">
                     <ul className="border-t border-box-border lg:border-t-0 px-6 lg:px-0 pt-6 lg:pt-0 flex flex-col lg:flex-row gap-y-4 gap-x-3 text-xl text-heading-2 w-full lg:justify-center lg:items-center">
                     {
@@ -102,7 +105,7 @@ export function Navbar({_user}: any) {
                         }
                     </div>
                 </div>
-                <Menu as="div" className="relative inline-block text-left lg:invisible">
+                <Menu as="div" className="relative inline-block text-left lg:invisible  mt-3">
                     <div>
                         <Menu.Button className="flex items-center rounded-full text-black hover:text-gray-600 focus:outline-none focus:ring-2 focus:ring-primary-main focus:ring-offset-2 focus:ring-offset-primary-alt">
                             <span className="sr-only">Open options</span>

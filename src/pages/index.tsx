@@ -4,7 +4,6 @@ import { FAQ } from '@/components/home-sections/faq';
 import { Optimize } from '@/components/home-sections/optimize'
 import Head from 'next/head';
 import { Reach } from '@/components/home-sections/reach';
-import { useAuth } from './api/auth/auth';
 
 const raleway = Raleway({subsets: ['latin']})
 
@@ -17,15 +16,15 @@ export default function Home() {
 
   return (
     <>
-    <Head>
-      <title>Zesti - AI Cooking and Recipe Assistant</title>
-    </Head>
+      <Head>
+        <title>Zesti | Turn Youtube Cooking Videos into Readable Recipes</title>
+      </Head>
       <main className={`flex min-h-screen flex-col items-center justify-between bg-background ${raleway.className}`}>
-      <Hero/>
-      <Optimize/>
-      <Reach/>
-      <FAQ/>
-    </main>
+        <Hero/>
+        <Optimize/>
+        <Reach/>
+        <FAQ/>
+      </main>
     </>
   )
 }

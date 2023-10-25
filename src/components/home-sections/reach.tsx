@@ -17,16 +17,23 @@ export function Reach() {
             for later
             </Title>
             <Paragraph className="mt-6 text-lg leading-8 text-gray-600">
-              Upload a recipe once, and you will always have access to it from your dashboard. 
+              Upload a recipe once and always have access to it from the dashboard, even without a subscription! 
             </Paragraph>
           </div>
         </div>
         <div className="relative overflow-hidden pt-16">
           <div className="mx-auto max-w-7xl px-6 lg:px-8">
             <Image
-              src="/images/recipedataimage.JPG"
+              src="/images/recipepage.JPG"
               alt="Ingredient and Instruction Screenshot for Recipe"
-              className="mb-[-12%] rounded-xl shadow-2xl ring-1 ring-gray-900/10"
+              className="mb-[-4%] rounded-xl shadow-2xl ring-1 ring-gray-900/10 hidden sm:block"
+              width={2432}
+              height={1442}
+            />
+            <Image
+              src="/images/mobilerecipepage.JPG"
+              alt="Ingredient and Instruction Screenshot for Recipe"
+              className="mb-[-4%] rounded-xl shadow-2xl ring-1 ring-gray-900/10 block sm:hidden"
               width={2432}
               height={1442}
             />
