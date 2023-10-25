@@ -5,8 +5,9 @@ import { useRouter } from "next/router";
 import { useEffect } from 'react';
 import { GridDisplay } from '@/components/dash-sections/grid-display';
 import { getAllRecipes } from '../api/firebase/functions';
-import { GetServerSideProps } from 'next';
 import { useState } from "react";
+import { PageLoader } from "@/components/shared/loader";
+import Head from 'next/head';
 
 const raleway = Raleway({subsets: ['latin']})
 
@@ -32,9 +33,15 @@ export default function Dashboard() {
     }, [user])
     
   return (
+    <>
+    <Head>
+      <title>Zesti | Your Dashboard</title>
+    </Head>  
     <main className={`flex min-h-screen flex-col items-center bg-background ${raleway.className}`}>
         <LinkInput user={user} stripeRole={stripeRole}/>
-        <GridDisplay data={obj[0]} user={user}/>
+        {obj.length == 0 ? <PageLoader/> : <GridDisplay data={obj[0]} user={user}/>}
+        
     </main>
+    </>
   )
 }

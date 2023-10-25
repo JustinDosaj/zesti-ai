@@ -1,11 +1,11 @@
 import { Container } from "@/components/shared/container"
-import { CalendarDaysIcon, CreditCardIcon, UserCircleIcon } from '@heroicons/react/20/solid'
 import { Raleway } from 'next/font/google'
 import { Button, AltButton } from "@/components/shared/button"
 import { useAuth } from "./api/auth/auth"
 import { useState, useEffect } from 'react'
 import { useRouter } from "next/router"
 import { getSubscription, getUserData } from "./api/firebase/functions"
+import Head from "next/head"
 
 const raleway = Raleway({subsets: ['latin']})
 
@@ -18,7 +18,7 @@ export default function Profile() {
     const router = useRouter();
 
     async function onFirstPageLoad() {
-        const response = await getSubscription(user?.uid)
+        await getSubscription(user?.uid)
         const userData = await getUserData(user?.uid)
         setTokens(userData ? userData.tokens : 0)
         setOnFirstLoad(false)
@@ -34,11 +34,14 @@ export default function Profile() {
 
     return(
     <>
+    <Head>
+      <title>Zesti | Your Profile</title>
+    </Head>  
     <main className={`flex min-h-screen flex-col items-center justify-between bg-background ${raleway.className}`}>
      <Container className={" justify-center lg:gap-12 h-screen"}>
         <div className="lg:col-start-1 lg:row-end-1 mx-auto mt-36 w-full md:w-1/2">
             <div className="mx-auto max-w-4xl text-center mb-12">
-              <p className="mt-2 text-2xl md:text-4xl font-bold tracking-tight text-gray-900">
+              <p className="mt-2 text-3xl md:text-5xl font-bold tracking-tight text-gray-900">
                 Manage Profile
               </p>
             </div>

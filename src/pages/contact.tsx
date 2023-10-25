@@ -12,6 +12,10 @@ const raleway = Raleway({subsets: ['latin']})
 
 export default function Contact() {
     return(
+    <>
+    <Head>
+        <title>Get in Touch | Contact Zesti for Support & Inquiries</title>
+    </Head>    
     <main className={`flex min-h-screen flex-col items-center justify-between bg-background  h-screen ${raleway.className}`}>
         <section className="relative my-auto ">
             <Container className={"grid md:grid-cols-2 lg:flex-row gap-10 lg:gap-12"}>
@@ -20,20 +24,7 @@ export default function Contact() {
                         Contact Us
                     </Title>
                     <Paragraph className="mt-8 text-gray-600">
-                        Send us a message and we will respond to you as soon as possible!                
-                    </Paragraph>
-                    <Paragraph className="mt-2 inline-flex text-gray-600">
-                        <span className="min-w-max pr-2">
-                            <EnvelopeIcon className="h-6 w-6 text-black"/>                                                                 
-                        </span>
-                        jdosaj@vurge.io
-                    </Paragraph>
-                    <Paragraph className="mt-2 inline-flex text-gray-600">
-                        <span className="min-w-max pr-2">
-                            <MapPinIcon className="h-6 w-6 text-black"/>                                                               
-                        </span>
-                        3400 Cottage Way, Ste G2 #19004 
-                        Sacramento, California 95825 Us
+                        If you have any questions or require support, send us a message and we will respond as soon as possible!                
                     </Paragraph>
                 </div>
                 <form action="https://formspree.io/f/maygvonw" method="POST" target="_blank">
@@ -66,5 +57,6 @@ export default function Contact() {
             </Container>
         </section>
     </main>
+    </>
     )
 }
