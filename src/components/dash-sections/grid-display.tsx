@@ -31,14 +31,14 @@ export function GridDisplay({data = [], user}: {data: any[], user: any}) {
     <Container className={"flex flex-col lg:flex-row gap-10 lg:gap-12 mb-28 mt-12"}>
       <ul role="list" className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-8">
       {data.map((recipe: any) => {
-
+        console.log(recipe)
         const desc = recipe.complete == true ? JSON.parse(recipe.data.message.content) : loadingObj          
         return (
         <div key={recipe.id} className="flex flex-col h-full p-2">
-          <li className="flex flex-col overflow-hidden rounded-xl border border-gray-200">
+          <li className="flex flex-col overflow-hidden rounded-xl border border-gray-200 shadow-lg">
             <div className="flex items-center gap-x-4 border-b border-gray-900/5 bg-gray-50 p-6">
               <div className="flex flex-col justify-center h-12"> 
-                <div className="text-base font-semibold leading-6 text-gray-900 line-clamp-2">{!recipe.failed ? desc.name : 'Error creating recipe, please try again later'}</div>
+                <div className="text-base font-semibold leading-6 text-gray-900 line-clamp-2">{!recipe.failed ? desc.name : "Please make sure videos have audible instructions"}</div>
               </div>
               <Menu as="div" className="relative ml-auto">
                 <Menu.Button className="-m-2.5 block p-2.5 text-gray-400 hover:text-gray-500">
