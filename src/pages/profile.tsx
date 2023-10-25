@@ -5,7 +5,9 @@ import { useAuth } from "./api/auth/auth"
 import { useState, useEffect } from 'react'
 import { useRouter } from "next/router"
 import { getSubscription, getUserData } from "./api/firebase/functions"
+import { CheckIcon } from "@heroicons/react/20/solid"
 import Head from "next/head"
+import { ChevronDoubleUpIcon } from "@heroicons/react/20/solid"
 
 const raleway = Raleway({subsets: ['latin']})
 
@@ -47,19 +49,65 @@ export default function Profile() {
             </div>
             <div className="rounded-lg bg-gray-100 shadow-sm ring-1 ring-gray-900/5">
                 <dl className="flex flex-wrap">
-                <div className="flex-auto pl-6 pt-6 ">
-                    <dt className="text-sm font-semibold leading-6 text-gray-900">Tokens Available</dt>
-                    <dd className="mt-1 text-base font-semibold leading-6 text-gray-900">{tokens}</dd>
-                </div>
-                <div className="flex-none self-end px-6 pt-4">
-                    <dt className="sr-only">Status</dt>
-                    <dd className="inline-flex items-center rounded-md bg-green-50 px-2 py-1 text-base font-medium text-green-700 ring-1 ring-inset ring-green-600/20">
-                    {stripeRole ? stripeRole : 'free'}
-                    </dd>
-                </div>
+                  <div className="flex-auto pl-6 pt-6 ">
+                      <dt className="text-sm font-semibold leading-6 text-gray-900">Tokens Available</dt>
+                      <dd className="mt-1 text-base font-semibold leading-6 text-gray-900">{tokens}</dd>
+                  </div>
+                  <div className="flex-none self-end px-6 pt-4">
+                      <dt className="sr-only">Status</dt>
+                      <dd className="inline-flex rounded-md bg-green-50 px-2 py-1 text-base font-medium text-green-700 ring-1 ring-inset ring-green-600/20">
+                      {stripeRole ? stripeRole : 'free'}
+                      </dd>
+                  </div>
                 </dl>
+                <div className="grid grid-cols-1 sm:grid-cols-2 space-x-0 md:space-x-4 space-y-2 md:space-y-0 mt-6 border-t px-6 py-6">
+                  {stripeRole == 'base' ?
+                    <div className="space-y-2">
+                      <div className="inline-flex space-x-2 align-middle items-center">
+                        <CheckIcon className="h-5 w-5 text-color-alt-green"/>
+                        <span>5 Video Recipes Per Month</span>
+                      </div>
+                      <div className="inline-flex space-x-2 align-middle items-center">
+                        <CheckIcon className="h-5 w-5 text-color-alt-green"/>
+                        <span>Up to 10 Minute Long Videos</span>
+                      </div>
+                      <div className="inline-flex space-x-2 align-middle items-center">
+                        <ChevronDoubleUpIcon className="h-5 w-5 text-color-alt-green"/>
+                        <span>Upgrade subscription for more</span>
+                      </div>
+                    </div>
+                    : stripeRole == 'essential' ? 
+                    <div className="space-y-2">
+                      <div className="inline-flex space-x-2 align-middle items-center">
+                        <CheckIcon className="h-5 w-5 text-color-alt-green"/>
+                        <span>15 Video Recipes Per Month</span>
+                      </div>
+                      <div className="inline-flex space-x-2 align-middle items-center">
+                        <CheckIcon className="h-5 w-5 text-color-alt-green"/>
+                        <span>Up to 10 Minute Long Videos</span>
+                      </div>
+                      <div className="inline-flex space-x-2 align-middle items-center">
+                        <ChevronDoubleUpIcon className="h-5 w-5 text-color-alt-green"/>
+                        <span>Upgrade subscription for more</span>
+                      </div>
+                    </div>
+                    : stripeRole == 'premium' ?
+                    <div className="space-y-2">
+                      <div className="inline-flex space-x-2 align-middle items-center">
+                        <CheckIcon className="h-5 w-5 text-color-alt-green"/>
+                        <span>30 Video Recipes Per Month</span>
+                      </div>
+                      <div className="inline-flex space-x-2 align-middle items-center">
+                        <CheckIcon className="h-5 w-5 text-color-alt-green"/>
+                        <span>Up to 20 Minute Long Videos</span>
+                      </div>
+                    </div>
+                    :
+                    <div></div>
+                  }
+                </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 space-x-0 md:space-x-4 space-y-2 md:space-y-0 mt-6 border-t px-6 py-6">
-                    <AltButton buttonType="button" text="Manage" onClick={() => {window.open(`${process.env.NEXT_PUBLIC_STRIPE_NO_CODE_PORATL}`)}}/>
+                    <AltButton buttonType="button" text="Manage Subscription" onClick={() => {window.open(`${process.env.NEXT_PUBLIC_STRIPE_NO_CODE_PORATL}`)}}/>
                     <Button buttonType="button" text='Logout' onClick={() => logout()}/>
                 </div>
             </div>

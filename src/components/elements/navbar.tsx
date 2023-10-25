@@ -22,16 +22,16 @@ const navItems = [
         href:"/pricing",
         text:"Pricing",
     },
+    {
+        href:"/contact",
+        text: "Contact",
+    },
 ]
 
 const navItemsLoggedIn = [
     {
         href:"/",
         text:"Home",
-    },
-    {
-        href:"/pricing",
-        text:"Pricing",
     },
     {
         href: "/dashboard",
@@ -41,6 +41,10 @@ const navItemsLoggedIn = [
     {
         href: "/profile",
         text: "Profile",
+    },
+    {
+        href:"/contact",
+        text: "Contact",
     },
 ]
 

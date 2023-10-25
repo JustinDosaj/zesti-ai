@@ -6,15 +6,15 @@ import { Title } from '../shared/title'
 const faqs = [
   {
     question: "How does Zesti work?",
-    answer: "Zesti utilizes artifical intelligence (AI) to generate transcribe a video into something our openai fine-tuned model can understand, allowing us to show you a full recipe with only a link.",
+    answer: "Zesti utilizes artifical intelligence (AI) to transcribe a video into something our specially trainer openai model can understand, allowing us to show you a full recipe with only a link.",
   },
   {
-    question: "How do you train AI?",
-    answer: "We are constantly training and upgrading our model to improve outputs. To do this, we can hundreds, or even thousands, of video recipes and teach our model how it should respond.",
+    question: "Does Zesti only work with Youtube videos?",
+    answer: "Yes, though we are actively working on intrgrating support for Tiktok, Vimeo, Twitch.tv and more! ",
   },
   {
     question: "Is Zesti free?",
-    answer: "We offer 10 free tokens to all new users, then Zesti moves to a subscription based models with different levels of plans.",
+    answer: "We offer enough tokens for you to get a recipe from 1 video up to 10 minutes long. After that, Zesti moves to a subscription model.",
   },
   {
     question: "What languages are supported?",
