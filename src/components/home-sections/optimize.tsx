@@ -34,7 +34,7 @@ export function Optimize() {
                     <p>help</p>&nbsp;
                     </Title>
                     <Paragraph className="mt-6 text-lg text-gray-600">
-                        Start enjoying those tasty home cooked meals you see all over youtube. Just copy and paste the video link, and you will have an easy-to-read recipe in no time!
+                        Cooking videos are hard to follow and recipes on websites are cluttered with ads. Just copy and paste the video link, and you will have an easy-to-read recipe in no time!
                     </Paragraph>
                     <dl className="mt-10 max-w-xl space-y-8 text-base leading-7 text-gray-600 lg:max-w-none">
                         {features.map((feature) => (
