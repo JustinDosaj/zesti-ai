@@ -76,7 +76,7 @@ export const handleSubmit = async ({url, user, setMessage, stripeRole}: Props): 
     let tokens = 0;
     await getUserData(user?.uid).then((res) => {tokens = res?.tokens})
     
-    if (tokens >= 10) {
+    if (tokens >= 1) {
         try {
             // Reference to the specific document in the recipes collection
             const recipeRef = db.collection('recipes').doc(url_id[1]);
@@ -97,7 +97,7 @@ export const handleSubmit = async ({url, user, setMessage, stripeRole}: Props): 
                         await db.collection('users').doc(user.uid).collection('recipes').doc().set(trueObj)
                         setMessage("Your recipe has begun progressing. This may take a few minutes, but when the recipe is finished, it will appear in your dashboard")
                         await db.collection('users').doc(user.uid).update({
-                            tokens: tokens - 10
+                            tokens: tokens - 1
                         });
                         return true
                     } catch (err) {

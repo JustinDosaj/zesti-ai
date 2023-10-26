@@ -16,7 +16,10 @@ const axios = require('axios');
 const { Deepgram } = require("@deepgram/sdk");
 
 admin.initializeApp();
+
+//TEST BUCKET
 //const bucket = admin.storage().bucket('gs://webnest-f4392.appspot.com');
+
 const bucket = admin.storage().bucket('gs://zesti-production.appspot.com');
 
 exports.detectNewURLRecipe = onDocumentCreated("users/{userId}/recipes/{documentId}", async (event) => {
@@ -42,12 +45,13 @@ exports.detectNewURLRecipe = onDocumentCreated("users/{userId}/recipes/{document
             const recipeData = recipeDoc.data();
             const userData = userDoc.data();
 
-            if (userData.tokens < 10) {
+            if (userData.tokens < 1) {
                 console.error(`Error: Not enough tokens. Tokens available to user: ${userData.tokens}`)
                 transaction.update(pageRef, {
                     failed: true,
                     failedMessage: "Not enough tokens to complete transaction"
                 })
+                return;
             }
 
             if (!userDoc.exists || !recipeDoc.exists) {
@@ -127,28 +131,27 @@ exports.detectNewURLRecipe = onDocumentCreated("users/{userId}/recipes/{document
                 
                 const audio = fs.readFileSync(tempFilePath);
 
-                await deepgram.transcription
-                    .preRecorded({ buffer: audio, mimetype: "audio/mp3" }, { 
+                await deepgram.transcription.preRecorded({ buffer: audio, mimetype: "audio/mp3" }, { 
                         smart_format: true,
                         model: "nova",
                     })
                     .then(async (response) => {
                         // Assuming the transcription result you want to save is in response.results.channels[0].alternatives[0].transcript
                         const transcript = response.results.channels[0].alternatives[0].transcript;
-
-                        if ((transcript == '') || (transcript == null)) {
+                        console.log("Transcript: ", transcript)
+                        if (transcript == '') {
+                            console.log("Transcript does not exist")
                             transaction.update(pageRef, {
                                 failed: true,
                                 failedMessage: "Please make sure videos have audible instructions"
                             })
-                            console.error(`Transcript does not exist or is blank`)
                             return;
                         }
 
                         const completion = await openai.chat.completions.create({
                             messages: [{ role: "system", content: "Given all the text from a youtube video containing a recipe, provide the following fields in a JSON dict, where applicable: \"name\": (name of recipe), \"time\": (total time to make recipe, eg. 10), \"servings\": (total servings recipe provides, eg. 4), \"description\": (create one sentence description of recipe), \"ingredients\": (list of ingredients excluding recommended ingredients, eg. 1/4 Cup of Honey), \"instructions\": (list of instructions, eg. Preheat oven to 450 degrees fahrenheit)"},
                             {role:"user", content: transcript}],
-                            model: "ft:gpt-3.5-turbo-0613:vurge-corp::89eapevQ",
+                            model: "ft:gpt-3.5-turbo-0613:vurge-corp::8E0qQLYm",
                         });
 
                         // Update Firestore with the transcript
@@ -161,7 +164,7 @@ exports.detectNewURLRecipe = onDocumentCreated("users/{userId}/recipes/{document
                             rawData: transcript,
                         });
                         transaction.update(userRef, {
-                            tokens: userData.tokens - 10
+                            tokens: userData.tokens - 1
                         });
                     })
                     .catch((err) => {
@@ -179,7 +182,8 @@ exports.detectNewURLRecipe = onDocumentCreated("users/{userId}/recipes/{document
                 else {
                 console.error(`${documentId} scan has already been run`);
                 transaction.update(pageRef, {
-                    failed: true
+                    failed: true,
+                    failedMessage: "Error processing video, please try again later."
                 })
             }
         });
@@ -219,13 +223,13 @@ exports.detectNewPayment = onDocumentCreated("users/{userId}/payments/{documentI
 
            switch(paymentData.prices[0].path) {
                 case 'products/prod_OsasnTlaGjDyNL/prices/price_1O4pgyGtkWdn4NzbydWONe8g':
-                    tokensToAdd = 50;
+                    tokensToAdd = 5;
                     break
                 case 'products/prod_Osaue1VMUCpvlk/prices/price_1O4pj1GtkWdn4NzbPFS1Yg8M':
-                    tokensToAdd = 150;
+                    tokensToAdd = 15;
                     break
                 case 'products/prod_Osaw2LLm7naW3y/prices/price_1O4pkPGtkWdn4NzbWzKVtd8z':
-                    tokensToAdd = 300;
+                    tokensToAdd = 30;
                     break
                 default:
                     console.log("Error determing how many coins to add")
@@ -235,13 +239,13 @@ exports.detectNewPayment = onDocumentCreated("users/{userId}/payments/{documentI
             // Test switch statement
             /*switch(paymentData.prices[0].path) {
                 case 'products/prod_OqNq2NeOxy8xUS/prices/price_1O2h4ZGtkWdn4NzbF9sRI1pt':
-                    tokensToAdd = 50;
+                    tokensToAdd = 5;
                     break
                 case 'products/prod_OqhPZzda86ZAaX/prices/price_1O300kGtkWdn4NzbM1ysXyXC':
-                    tokensToAdd = 150;
+                    tokensToAdd = 15;
                     break
                 case 'products/prod_OqhTsJEmFMrzfb/prices/price_1O304tGtkWdn4NzbOrQt7EBE':
-                    tokensToAdd = 300;
+                    tokensToAdd = 30;
                     break
                 default:
                     console.log("Error determing how many coins to add")
