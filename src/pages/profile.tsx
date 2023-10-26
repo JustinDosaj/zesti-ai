@@ -65,56 +65,56 @@ export default function Profile() {
                     <div className="space-y-2">
                       <div className="inline-flex space-x-2 align-middle items-center">
                         <CheckIcon className="h-5 w-5 text-color-alt-green"/>
-                        <span>5 Video Recipes Per Month</span>
+                        <span className="text-gray-700">5 Video Recipes Per Month</span>
                       </div>
                       <div className="inline-flex space-x-2 align-middle items-center">
                         <CheckIcon className="h-5 w-5 text-color-alt-green"/>
-                        <span>Up to 10 Minute Long Videos</span>
+                        <span className="text-gray-700">Up to 10 Minute Long Videos</span>
                       </div>
                       <div className="inline-flex space-x-2 align-middle items-center">
                         <ChevronDoubleUpIcon className="h-5 w-5 text-color-alt-green"/>
-                        <span>Upgrade subscription for more</span>
+                        <span className="text-gray-700">Upgrade subscription for more</span>
                       </div>
                     </div>
                     : stripeRole == 'essential' ? 
                     <div className="space-y-2">
                       <div className="inline-flex space-x-2 align-middle items-center">
                         <CheckIcon className="h-5 w-5 text-color-alt-green"/>
-                        <span>15 Video Recipes Per Month</span>
+                        <span className="text-gray-700">15 Video Recipes Per Month</span>
                       </div>
                       <div className="inline-flex space-x-2 align-middle items-center">
                         <CheckIcon className="h-5 w-5 text-color-alt-green"/>
-                        <span>Up to 10 Minute Long Videos</span>
+                        <span className="text-gray-700">Up to 10 Minute Long Videos</span>
                       </div>
                       <div className="inline-flex space-x-2 align-middle items-center">
                         <ChevronDoubleUpIcon className="h-5 w-5 text-color-alt-green"/>
-                        <span>Upgrade subscription for more</span>
+                        <span className="text-gray-700" >Upgrade subscription for more</span>
                       </div>
                     </div>
                     : stripeRole == 'premium' ?
                     <div className="space-y-2">
                       <div className="inline-flex space-x-2 align-middle items-center">
                         <CheckIcon className="h-5 w-5 text-color-alt-green"/>
-                        <span>30 Video Recipes Per Month</span>
+                        <span className="text-gray-700">30 Video Recipes Per Month</span>
                       </div>
                       <div className="inline-flex space-x-2 align-middle items-center">
                         <CheckIcon className="h-5 w-5 text-color-alt-green"/>
-                        <span>Up to 20 Minute Long Videos</span>
+                        <span className="text-gray-700">Up to 20 Minute Long Videos</span>
                       </div>
                     </div>
                     :
                     <div className="space-y-2">
                       <div className="inline-flex space-x-2 align-middle items-center">
                         <CheckIcon className="h-5 w-5 text-color-alt-green"/>
-                        <span>1 Free Video Recipe</span>
+                        <span className="text-gray-700">1 Free Video Recipe</span>
                       </div>
                       <div className="inline-flex space-x-2 align-middle items-center">
                         <CheckIcon className="h-5 w-5 text-color-alt-green"/>
-                        <span>Up to 10 Minute Long Videos</span>
+                        <span className="text-gray-700">Up to 10 Minute Long Videos</span>
                       </div>
                       <div className="inline-flex space-x-2 align-middle items-center">
                         <ChevronDoubleUpIcon className="h-5 w-5 text-color-alt-green"/>
-                        <span>Upgrade subscription for more</span>
+                        <span className="text-gray-700">Upgrade subscription for more</span>
                       </div>
                     </div>
                   }

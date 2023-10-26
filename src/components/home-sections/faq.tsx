@@ -17,8 +17,8 @@ const faqs = [
     answer: "Yes, though we are actively working on integrating support for Tiktok, Vimeo, Twitch.tv and more! ",
   },
   {
-    question: "Is Zesti free?",
-    answer: "We offer enough tokens for you to get a recipe from 1 video up to 10 minutes long. After that, Zesti moves to a subscription model.",
+    question: "How much does Zesti cost?",
+    answer: "Each video recipe costs 10 tokens to transcribe. We offer 10 free tokens to new users, then have a subscription model users can continue with.",
   },
   {
     question: "I have more questions, how can I contact you?",
@@ -33,7 +33,7 @@ export function FAQ() {
     <div className="bg-white w-full">
       <div className="mx-auto max-w-7xl px-6 py-24 sm:py-32 lg:px-8 lg:py-40">
         <div className="mx-auto max-w-4xl divide-y divide-gray-900/10">
-          <Title className="text-center">Frequently asked questions</Title>
+          <Title className="text-center text-black">Frequently asked questions</Title>
           <dl className="mt-10 space-y-6 divide-y divide-gray-900/10">
             {faqs.map((faq) => (
               <Disclosure as="div" key={faq.question} className="pt-6">
