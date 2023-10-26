@@ -8,7 +8,7 @@ import { XMarkIcon, TrashIcon } from '@heroicons/react/20/solid'
 import { deleteRecipe } from '@/pages/api/firebase/functions'
 import { useAuth } from '@/pages/api/auth/auth'
 import { useState } from 'react'
-import { useRouter } from 'next/router'
+
 
 interface Props {
     isOpen: boolean,
@@ -118,7 +118,6 @@ export function DeleteConfirmationModal({isOpen, setIsOpen, recipeId}: DeletePro
   const cancelButtonRef = useRef(null)
   const { user } = useAuth()
   const [ isLoading, setIsLoading ] = useState<boolean>(false)
-  const router = useRouter()
 
   async function  onClick() {
 

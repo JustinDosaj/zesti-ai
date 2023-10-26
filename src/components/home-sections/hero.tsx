@@ -49,7 +49,7 @@ export function Hero(){
                         border border-box-border bg-box-bg rounded-full ease-linear focus-within:bg-body  focus-within:border-primary">
 
                             <LinkIcon className="text-gray-600 h-10 w-10"/>
-                            <input type="text" name="web-page" value={url} placeholder="https://www.youtube.com/shorts/ZBIPT-hTv94" className="w-full py-3 outline-none bg-transparent" onChange={(e) => setUrl(e.target.value)}/>
+                            <input type="text" name="web-page" value={url} placeholder="https://www.youtube.com/shorts/ZBIPT-hTv94" className="w-full text-gray-500 py-3 outline-none bg-transparent" onChange={(e) => setUrl(e.target.value)}/>
                             {isLoading == false ?
                             <Button buttonType="button" text="" className={"min-w-max text-white"}  
                                 onClick={ async () => { await onClick() }}>
@@ -68,9 +68,12 @@ export function Hero(){
                         </form>
                     </div>
                 </div>
+                <div className="mt-2 space-x-1 text-sm">
+                    <span className="text-gray-400">Try for free (No credit card required).</span>
+                </div>
                 <div className="mt-4 space-x-1 text-base">
                     <span className="text-gray-700">Curious about results? Check out this</span>
-                    <Link href="/demo" className="underline text-primary-main hover:text-primary-alt">example</Link>
+                    <Link href="/demo" className="underline text-primary-main hover:text-primary-alt font-bold">demo</Link>
                 </div>
             </div>
             <InputResponseModal isOpen={isOpen} setIsOpen={setIsOpen} success={success} message={message}/>
