@@ -32,7 +32,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
 
         if(!doc.exists) {
           await userRef.set({
-            tokens: 10,
+            tokens: 1,
             email: user.email,
           })
         }
