@@ -29,7 +29,7 @@ export function PricingList() {
       priceMonthly: '$2.99',
       description: 'Best for users who try new recipes once in a while, but not too often.',
       features: [
-        '5 Recipe Transcriptions Per Month',
+        '5 Recipes Per Month',
         '10 Minute Max Video Upload'
       ],
       mostPopular: false,
@@ -45,7 +45,7 @@ export function PricingList() {
       priceMonthly: '$7.99',
       description: 'Best for users that find new recipes fairly frequently and want to try them for later.',
       features: [
-        '15 Recipe Transcriptions Per Month',
+        '15 Recipes Per Month',
         '10 Minute Max Video Upload'
       ],
       mostPopular: true,
@@ -61,7 +61,7 @@ export function PricingList() {
       priceMonthly: '$14.99',
       description: 'Best for users who cook frequently, and constantly enjoy trying new recipes they find online.',
       features: [
-        '30 Recipe Transcriptions Per Month',
+        '30 Recipes Per Month',
         '20 Minute Max Video Upload'
       ],
       mostPopular: false,
@@ -82,7 +82,7 @@ export function PricingList() {
             </p>
           </div>
           <p className="mx-auto mt-6 max-w-2xl text-center text-lg leading-8 text-gray-600">
-            New users get 10 free tokens (No Credit Card Required).
+            Try for free. (No Credit Card Required). Cancel anytime.
           </p>
           <div className="isolate mx-auto mt-16 grid max-w-md grid-cols-1 gap-y-8 sm:mt-20 lg:mx-0 lg:max-w-none lg:grid-cols-3">
             {tiers.map((tier, tierIdx) => (
@@ -140,11 +140,6 @@ export function PricingList() {
               }
               </div>
             ))}
-          </div>
-          <div className="text-center mt-6 text-gray-600">
-            <p className="border w-full p-2 rounded-2xl text-xs md:text-base">
-              1 Video Transcription = 10 Token
-            </p>
           </div>
         </div>
       </div>
