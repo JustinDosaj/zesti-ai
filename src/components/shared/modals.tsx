@@ -8,6 +8,7 @@ import { XMarkIcon, TrashIcon } from '@heroicons/react/20/solid'
 import { deleteRecipe } from '@/pages/api/firebase/functions'
 import { useAuth } from '@/pages/api/auth/auth'
 import { useState } from 'react'
+import { useRouter } from 'next/router'
 
 interface Props {
     isOpen: boolean,
@@ -84,6 +85,7 @@ export function InputResponseModal({isOpen, setIsOpen, success, message}: Props)
                   <Link
                     className="inline-flex w-full justify-center rounded-md bg-primary-main px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-primary-alt focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 sm:col-start-2"
                     href="/dashboard"
+                    onClick={() => setIsOpen(false)}
                   >
                     Go to Dashboard
                   </Link>
@@ -116,6 +118,7 @@ export function DeleteConfirmationModal({isOpen, setIsOpen, recipeId}: DeletePro
   const cancelButtonRef = useRef(null)
   const { user } = useAuth()
   const [ isLoading, setIsLoading ] = useState<boolean>(false)
+  const router = useRouter()
 
   async function  onClick() {
 
@@ -123,6 +126,7 @@ export function DeleteConfirmationModal({isOpen, setIsOpen, recipeId}: DeletePro
     deleteRecipe(user?.uid, recipeId)
     setIsLoading(false)
     setIsOpen(false)
+    location.reload();
   }
 
   return(

@@ -50,7 +50,7 @@ export default function Profile() {
             <div className="rounded-lg bg-gray-100 shadow-sm ring-1 ring-gray-900/5">
                 <dl className="flex flex-wrap">
                   <div className="flex-auto pl-6 pt-6 ">
-                      <dt className="text-sm font-semibold leading-6 text-gray-900">Tokens Available</dt>
+                      <dt className="text-sm font-semibold leading-6 text-gray-900">Remaining Videos</dt>
                       <dd className="mt-1 text-base font-semibold leading-6 text-gray-900">{tokens}</dd>
                   </div>
                   <div className="flex-none self-end px-6 pt-4">
