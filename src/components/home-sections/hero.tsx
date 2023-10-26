@@ -7,6 +7,7 @@ import { useState } from 'react'
 import { Loader } from "../shared/loader";
 import { InputResponseModal } from "../shared/modals";
 import { LinkIcon } from "@heroicons/react/20/solid";
+import Link from "next/link";
 
 export function Hero(){
 
@@ -40,7 +41,7 @@ export function Hero(){
                 <span className="text-transparent bg-clip-text bg-gradient-to-br from-primary-main from-20% via-primary via-30% to-color-alt-red pl-2 pr-2">Readable Recipes</span> 
                 </h1>
                 <Paragraph className="mt-8 text-black">
-                    Found a delicious recipe on youtube? Enter the link and get a list of all the ingredients and instructions so you can start making amazing home cooked meals!
+                    Found a delicious recipe on youtube? Try Zesti for free by entering the video link to get the ingredient and instructions so you can start making amazing home cooked meals!
                 </Paragraph>
                 <div className="mt-10 w-full flex max-w-md mx-auto lg:mx-0">
                     <div className="flex sm:flex-row flex-col gap-5 w-full">
@@ -66,6 +67,10 @@ export function Hero(){
                             }
                         </form>
                     </div>
+                </div>
+                <div className="mt-4 space-x-1 text-base">
+                    <span className="text-gray-700">Curious about results? Check out this</span>
+                    <Link href="/demo" className="underline text-primary-main hover:text-primary-alt">example</Link>
                 </div>
             </div>
             <InputResponseModal isOpen={isOpen} setIsOpen={setIsOpen} success={success} message={message}/>
