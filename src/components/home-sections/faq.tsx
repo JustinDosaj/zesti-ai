@@ -18,7 +18,7 @@ const faqs = [
   },
   {
     question: "How much does Zesti cost?",
-    answer: "Each video recipe costs 10 tokens to transcribe. We offer 10 free tokens to new users, then have a subscription model users can continue with.",
+    answer: "We offer 1 free video to recipe transcription for new users, then users can optionally upgrade to one of our subscription packages.",
   },
   {
     question: "I have more questions, how can I contact you?",
