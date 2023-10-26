@@ -41,7 +41,7 @@ export function Hero(){
                 <span className="text-transparent bg-clip-text bg-gradient-to-br from-primary-main from-20% via-primary via-30% to-color-alt-red pl-2 pr-2">Readable Recipes</span> 
                 </h1>
                 <Paragraph className="mt-8 text-black">
-                    Found a delicious recipe on youtube? Try Zesti for free by entering the video link to get the ingredient and instructions so you can start making amazing home cooked meals!
+                    Found a delicious recipe on youtube? Try Zesti for free by entering the video link to get the ingredients and instructions so you can start making amazing home cooked meals!
                 </Paragraph>
                 <div className="mt-10 w-full flex max-w-md mx-auto lg:mx-0">
                     <div className="flex sm:flex-row flex-col gap-5 w-full">
