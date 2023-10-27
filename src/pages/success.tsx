@@ -17,6 +17,7 @@ export default function Success() {
       <Head>
         <title>Zesti | Turn Youtube Cooking Videos into Readable Recipes</title>
         <meta name="description" content="Transform YouTube cooking videos into easy-to-follow recipes with Zesti. Experience clutterless and easy-to-follow recipes with our AI-powered tool. Start now!"/>
+        <meta name="robots" content="noindex" />
         <GoogleTags/>
         <script dangerouslySetInnerHTML={{
           __html: `
