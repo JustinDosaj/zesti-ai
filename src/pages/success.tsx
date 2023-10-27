@@ -21,7 +21,7 @@ export default function Success() {
         <GoogleTags/>
         <script dangerouslySetInnerHTML={{
           __html: `
-            gtag('event', 'conversion', {'send_to': 'AW-11391923080/-WyuCOnWnfEYEIjni7gq'});
+            gtag('event', 'conversion', {'send_to': '${process.env.NEXT_PUBIC_GOOGLE_CONVERSION_ID}/${process.env.NEXT_PUBLIC_GOOGLE_SUBSCRIPTION_TRACKER}'});
           `
         }} />
       </Head>
