@@ -2,6 +2,7 @@ import { Raleway } from 'next/font/google'
 import { VideoCameraIcon } from '@heroicons/react/20/solid'
 import React from 'react'
 import { Container } from "@/components/shared/container";
+import GoogleTags from '@/components/google/conversion';
 
 import Head from "next/head";
 
@@ -17,6 +18,7 @@ const Demo: React.FC = () => {
     <Head>
       <title>Zesti | Example Recipe</title>
       <meta name="description" content="Check out our demo recipe so you can see the results of transforming a Youtube cooking video into a readible recipe!"/>
+      <GoogleTags/>
     </Head>  
     <main className={`flex min-h-screen flex-col items-center justify-between p-2 bg-background mt-12${raleway.className}`}>
       <Container className={"flex flex-col lg:flex-row gap-10 lg:gap-12 mt-36"}>
