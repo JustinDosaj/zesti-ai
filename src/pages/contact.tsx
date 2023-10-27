@@ -5,6 +5,7 @@ import { Button } from "@/components/shared/button"
 import { Raleway } from 'next/font/google'
 import { EnvelopeIcon, MapPinIcon, UsersIcon, PaperAirplaneIcon } from "@heroicons/react/24/outline"
 import Head from 'next/head';
+import GoogleTags from "@/components/google/conversion"
 
 
 const raleway = Raleway({subsets: ['latin']})
@@ -16,6 +17,7 @@ export default function Contact() {
     <Head>
         <title>Get in Touch | Contact Zesti for Support & Inquiries</title>
         <meta name="description" content="Have questions or need assistance? Reach out to the Zesti support team through our contact page. We are here to help with all your recipe conversion needs!"/>
+        <GoogleTags/>
     </Head>    
     <main className={`flex min-h-screen flex-col items-center justify-between bg-background  h-screen ${raleway.className}`}>
         <section className="relative my-auto ">
