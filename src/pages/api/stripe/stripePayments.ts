@@ -6,7 +6,7 @@ export async function createCheckoutSession(id: any) {  // You might want to rep
         const checkoutSessionsCollection = collection(doc(collection(db, 'users'), id), 'checkout_sessions');
         const docRef = await addDoc(checkoutSessionsCollection, {
             price: 'price_1O2h4ZGtkWdn4NzbF9sRI1pt',
-            success_url: window.location.origin,
+            success_url: `${window.location.origin}/success`,
             cancel_url: window.location.origin,
         });
 

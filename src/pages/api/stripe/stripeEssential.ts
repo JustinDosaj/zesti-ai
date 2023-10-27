@@ -6,7 +6,7 @@ export async function createEssentialCheckoutSession(id: any) {  // You might wa
         const checkoutSessionsCollection = collection(doc(collection(db, 'users'), id), 'checkout_sessions');
         const docRef = await addDoc(checkoutSessionsCollection, {
             price: process.env.NEXT_PUBLIC_STRIPE_ESSENTIAL_PRICE,
-            success_url: window.location.origin,
+            success_url: `${window.location.origin}/success`,
             cancel_url: window.location.origin,
         });
 
