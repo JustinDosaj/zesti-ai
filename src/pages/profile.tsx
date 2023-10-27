@@ -8,6 +8,7 @@ import { getSubscription, getUserData } from "./api/firebase/functions"
 import { CheckIcon } from "@heroicons/react/20/solid"
 import Head from "next/head"
 import { ChevronDoubleUpIcon } from "@heroicons/react/20/solid"
+import GoogleTags from "@/components/google/conversion"
 
 const raleway = Raleway({subsets: ['latin']})
 
@@ -38,6 +39,7 @@ export default function Profile() {
     <>
     <Head>
       <title>Zesti | Your Profile</title>
+      <GoogleTags/>
     </Head>  
     <main className={`flex min-h-screen flex-col items-center justify-between bg-background ${raleway.className}`}>
      <Container className={" justify-center lg:gap-12 h-screen"}>

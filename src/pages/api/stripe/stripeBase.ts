@@ -7,7 +7,7 @@ export async function createBaseCheckoutSession(id: any) {  // You might want to
         
         const docRef = await addDoc(checkoutSessionsCollection, {
             price: process.env.NEXT_PUBLIC_STRIPE_BASE_PRICE,
-            success_url: window.location.origin,
+            success_url: `${window.location.origin}/success`,
             cancel_url: window.location.origin,
         });
 
