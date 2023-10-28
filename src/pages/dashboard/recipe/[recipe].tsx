@@ -95,7 +95,7 @@ const Recipe: React.FC = ({id}: any) => {
             {obj?.ingredients?.map((ingred: any, index: any) => (
               <li key={index} className="col-span-1 flex rounded-md shadow-sm">
                 <div className="flex rounded-md overflow-hidden w-full">
-                  <div className="bg-yellow-500 flex w-16 flex-shrink-0 items-center justify-center rounded-l-md font-md text-white" >
+                  <div className="bg-amber-400 flex w-16 flex-shrink-0 items-center justify-center rounded-l-md font-md text-white" >
                     {index + 1}
                   </div>
                   <div className="flex flex-1 items-center justify-between rounded-r-md border-b border-r border-t border-gray-200 bg-white">

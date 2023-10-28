@@ -41,7 +41,7 @@ export function Hero(){
                 <span className="text-transparent bg-clip-text bg-gradient-to-br from-primary-main from-20% via-primary via-30% to-color-alt-red pl-2 pr-2">Readable Recipes</span> 
                 </h1>
                 <Paragraph className="mt-8 text-black">
-                    Found a delicious recipe on youtube? Try Zesti for free by entering the video link to get the ingredients and instructions so you can start making amazing home cooked meals!
+                    Say goodbye to pausing, rewinding, and excessive ads. With just a link, Zesti will transform a cooking video into easy-to-follow instructions with a clear ingredient list
                 </Paragraph>
                 <div className="mt-10 w-full flex max-w-md mx-auto lg:mx-0">
                     <div className="flex sm:flex-row flex-col gap-5 w-full">
@@ -53,9 +53,15 @@ export function Hero(){
                             {isLoading == false ?
                             <Button buttonType="button" text="" className={"min-w-max text-white"}  
                                 onClick={ async () => { await onClick() }}>
+                                {!user ?
+                                <span className="hidden sm:flex relative z-[5]">
+                                    Sign Up
+                                </span>
+                                :
                                 <span className="hidden sm:flex relative z-[5]">
                                     Get Recipe
                                 </span>
+                                }
                                 <span className="flex sm:hidden relative z-[5]">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-5 h-5">
                                         <path strokeLinecap="round" strokeLinejoin="round" d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5" />
