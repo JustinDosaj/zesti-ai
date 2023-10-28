@@ -26,11 +26,11 @@ export function PricingList() {
       name: 'Base',
       id: 'tier-freelancer',
       href: '#',
-      priceMonthly: '$2.99',
+      priceMonthly: '$1.99',
       description: 'Best for users who try new recipes once in a while, but not too often.',
       features: [
         '5 Recipes Per Month',
-        '10 Minute Max Video Upload'
+        '5 Minute Max Video Upload'
       ],
       mostPopular: false,
       checkout: () => {
@@ -42,7 +42,7 @@ export function PricingList() {
       name: 'Essential',
       id: 'tier-startup',
       href: '#',
-      priceMonthly: '$7.99',
+      priceMonthly: '$4.99',
       description: 'Best for users that find new recipes fairly frequently and want to try them for later.',
       features: [
         '15 Recipes Per Month',
@@ -58,7 +58,7 @@ export function PricingList() {
       name: 'Premium',
       id: 'tier-enterprise',
       href: '#',
-      priceMonthly: '$14.99',
+      priceMonthly: '$9.99',
       description: 'Best for users who cook frequently, and constantly enjoy trying new recipes they find online.',
       features: [
         '30 Recipes Per Month',
