@@ -33,7 +33,7 @@ export function FAQ() {
     <div className="bg-white w-full">
       <div className="mx-auto max-w-7xl px-6 py-24 sm:py-32 lg:px-8 lg:py-40">
         <div className="mx-auto max-w-4xl divide-y divide-gray-900/10">
-          <Title className="text-center text-black">Frequently asked questions</Title>
+          <Title className="text-center text-black text-4xl md:text-5xl">Frequently asked questions</Title>
           <dl className="mt-10 space-y-6 divide-y divide-gray-900/10">
             {faqs.map((faq) => (
               <Disclosure as="div" key={faq.question} className="pt-6">
