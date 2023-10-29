@@ -10,7 +10,7 @@ export function Reach() {
       <div className="bg-white py-24 sm:py-32">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <div className="mx-auto max-w-2xl sm:text-center">
-            <Title className="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+            <Title className="mt-2 text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl">
             <span className="text-transparent bg-clip-text bg-gradient-to-br from-primary-main from-20% via-primary via-30% to-color-alt-red pr-2">Save</span>
             recipes you
             <span className="text-transparent bg-clip-text bg-gradient-to-br from-primary-main from-20% via-primary via-30% to-color-alt-red pl-2 pr-2">love</span>

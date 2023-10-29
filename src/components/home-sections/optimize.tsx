@@ -26,15 +26,14 @@ export function Optimize() {
                 <div className="grid grid-cols-1 gap-x-8 gap-y-16 sm:gap-y-20 lg:grid-cols-2 lg:items-start">
                 <div className="md:px-0 lg:pr-4 lg:pt-4">
                     <div className="mx-auto max-w-2xl lg:mx-0 lg:max-w-lg">
-                    <Title className="mt-2 font-bold tracking-tight text-gray-900 text-3xl md:text-5xl flex flex-wrap">
-                    <p>Cook</p>&nbsp;
-                    <div className="inline-flex text-transparent bg-clip-text bg-gradient-to-br from-primary-main from-20% via-primary via-30% to-color-alt-red">delicious</div>&nbsp;
-                    <p>recipes with</p>&nbsp;
-                    <div className="inline-flex text-transparent bg-clip-text bg-gradient-to-br from-primary-main from-20% via-primary via-30% to-color-alt-red">AI</div>&nbsp;
-                    <p>help</p>&nbsp;
+                    <Title className="mt-2 font-bold tracking-tight text-gray-900 text-4xl md:text-5xl flex flex-wrap">
+                    <p>Trying</p>
+                    <div className="inline-flex text-transparent bg-clip-text bg-gradient-to-br from-primary-main from-20% via-primary via-30% to-color-alt-red pl-0 sm:pl-1">new recipes</div>
+                    <p>has never been</p>
+                    <div className="inline-flex text-transparent bg-clip-text bg-gradient-to-br from-primary-main from-20% via-primary via-30% to-color-alt-red pl-0 sm:pl-1">easier</div>
                     </Title>
                     <Paragraph className="mt-6 text-lg text-gray-600">
-                        Cooking videos are hard to follow and recipes on websites are cluttered with ads. Just copy and paste the video link, and you will have an easy-to-read recipe in no time!
+                        You no longer need to constantly pause and rewind cooking videos. And no more recipe websites with cluttered ads. Zesti will give you the following:
                     </Paragraph>
                     <dl className="mt-10 max-w-xl space-y-8 text-base leading-7 text-gray-600 lg:max-w-none">
                         {features.map((feature) => (

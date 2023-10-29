@@ -82,7 +82,7 @@ export function PricingList() {
             </p>
           </div>
           <p className="mx-auto mt-6 max-w-2xl text-center text-lg leading-8 text-gray-600">
-            Try for free. (No Credit Card Required). Cancel anytime.
+            Try for Free. Get 2 Video to Recipe When You Sign Up. (No Credit Card Required). Cancel anytime.
           </p>
           <div className="isolate mx-auto mt-16 grid max-w-md grid-cols-1 gap-y-8 sm:mt-20 lg:mx-0 lg:max-w-none lg:grid-cols-3">
             {tiers.map((tier, tierIdx) => (
