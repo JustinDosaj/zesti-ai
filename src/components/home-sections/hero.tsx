@@ -40,7 +40,7 @@ export function Hero(){
                 <span className="text-black">Cooking Videos Into</span>
                 <span className="text-transparent bg-clip-text bg-gradient-to-br from-primary-main from-20% via-primary via-30% to-color-alt-red pl-2 pr-2">Readable Recipes</span> 
                 </h1>
-                <Paragraph className="mt-8 text-black">
+                <Paragraph className="text-lg mt-8 text-black">
                     Say goodbye to pausing, rewinding, and excessive ads. Just enter a YouTube Link and Zesti will transform the cooking video to text, with a clear ingredient list and easy-to-follow instructions 
                 </Paragraph>
                 <div className="mt-10 w-full flex max-w-md mx-auto lg:mx-0">
