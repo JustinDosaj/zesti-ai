@@ -127,7 +127,7 @@ export function PricingList() {
                   </ul>
                 </div>
                 {!user ?
-                <Button buttonType="button" onClick={login} text="Subscribe" className="mt-4"/>
+                <Button buttonType="button" onClick={login} text="Sign up to Subscribe" className="mt-4"/>
                 : (stripeRole == null && isLoading == false) ?
                 <Button buttonType="button" onClick={tier.checkout} text="Subscribe" className="mt-4"/>
                 : (isLoading == true) ?
