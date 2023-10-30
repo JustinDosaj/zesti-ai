@@ -32,16 +32,16 @@ export function Hero(){
     }
 
     return(
-    <section className="relative pt-24 lg:pt-32">
+    <section className="relative pt-24 lg:pt-40">
         <Container className={"flex flex-col lg:flex-row gap-10 lg:gap-12"}>
             <div className="relative flex flex-col items-center text-center lg:py-7 xl:py-8 lg:max-w-none max-w-3xl mx-auto lg:mx-0 lg:flex-1 lg:w-1/2 p-8 md:p-16">
                 <h1 className="text-4xl/tight sm:text-4xl/tight md:text-5xl/tight xl:text-6xl/tight font-bold text-heading-1">            
-                <span className="text-transparent bg-clip-text bg-gradient-to-br from-primary-main from-20% via-primary via-30% to-color-alt-red pr-2">Turn</span>
-                <span className="text-black">Cooking Videos Into</span>
-                <span className="text-transparent bg-clip-text bg-gradient-to-br from-primary-main from-20% via-primary via-30% to-color-alt-red pl-2 pr-2">Readable Recipes</span> 
+                    <span className="text-transparent bg-clip-text bg-gradient-to-br from-primary-main from-20% via-primary via-30% to-color-alt-red pr-2">Turn</span>
+                    <span className="text-black">Cooking Videos Into</span>
+                    <span className="text-transparent bg-clip-text bg-gradient-to-br from-primary-main from-20% via-primary via-30% to-color-alt-red pl-2 pr-2">Text Recipes</span> 
                 </h1>
                 <Paragraph className="text-lg mt-8 text-black">
-                    Say goodbye to pausing, rewinding, and excessive ads. Just enter a YouTube Link and Zesti will transform the cooking video to text, with a clear ingredient list and easy-to-follow instructions 
+                    Transform your cooking with Zesti! Paste a YouTube link and instantly turn cooking videos into detailed, ad-free recipes. No more pausing or rewinding needed 
                 </Paragraph>
                 <div className="mt-10 w-full flex max-w-md mx-auto lg:mx-0">
                     <div className="flex sm:flex-row flex-col gap-5 w-full">
@@ -49,7 +49,7 @@ export function Hero(){
                         border border-box-border bg-box-bg rounded-full ease-linear focus-within:bg-body  focus-within:border-primary">
 
                             <LinkIcon className="text-gray-600 h-10 w-10"/>
-                            <input type="text" name="web-page" value={url} placeholder="https://www.youtube.com/shorts/ZBIPT-hTv94" className="w-full text-gray-500 py-3 outline-none bg-transparent" onChange={(e) => setUrl(e.target.value)}/>
+                            <input type="text" name="web-page" value={url} placeholder="Paste a Youtube Link" className="w-full text-gray-500 py-3 outline-none bg-transparent" onChange={(e) => setUrl(e.target.value)}/>
                             {isLoading == false ?
                             <Button buttonType="button" text="" className={"min-w-max text-white"}  
                                 onClick={ async () => { await onClick() }}>
@@ -75,11 +75,11 @@ export function Hero(){
                     </div>
                 </div>
                 <div className="mt-2 space-x-1 text-sm">
-                    <span className="text-gray-400">Try for free (No credit card required).</span>
+                    <span className="text-gray-400">Get your first 2 video-to-text recipes free! <br/> (No credit card required).</span>
                 </div>
                 <div className="mt-4 space-x-1 text-base">
                     <span className="text-gray-700">Curious about results? Check out this</span>
-                    <Link href="/demo" className="underline text-primary-main hover:text-primary-alt font-bold">demo</Link>
+                    <Link href="/demo" className="underline text-primary-main hover:text-primary-alt font-bold">example</Link>
                 </div>
             </div>
             <InputResponseModal isOpen={isOpen} setIsOpen={setIsOpen} success={success} message={message}/>
