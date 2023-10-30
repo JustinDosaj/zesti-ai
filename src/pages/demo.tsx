@@ -49,7 +49,7 @@ const Demo: React.FC = () => {
               {`${demoObj?.description}`}
             </p>
           </div>
-            <button onClick={() => window.open("https://www.youtube.com/shorts/7O0pKKlw2fA")}
+            <button onClick={() => window.open("https://www.youtube.com/watch?app=desktop&v=CKiLG5MUR3Y")}
               className="mt-4 md:mt-0 inline-flex text-primary-main h-fit border-primary-main border rounded-lg p-2 transition bg-white hover:text-white hover:bg-primary-main"
             >
               <div className="flex gap-x-2">
