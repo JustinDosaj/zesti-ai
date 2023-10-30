@@ -5,18 +5,18 @@ import { Paragraph } from '../shared/paragraph';
 
 const cards = [
   {
-    name: 'Enter Youtube Link',
-    description: 'Find a cooking video with a verbal recipe, and enter it inside your Dashboard',
+    name: 'Paste Youtube Link',
+    description: 'Find a cooking video you want to try and copy the link',
     icon: VideoCameraIcon,
   },
   {
-    name: 'Video to Text',
-    description: 'Zesti downloads the video and feeds the script to an OpenAI Model. Once it is complete, we are able to show you a full recipe with instructions, ingredients and more',
+    name: 'Get the Recipe',
+    description: 'After pasting the link, Zesti will take the video and transform it to text for your convenience',
     icon: ChatBubbleBottomCenterIcon,
   },
   {
     name: 'Access Recipes',
-    description: 'After a few minutes, the recipes will be available to view inside your Dashboard',
+    description: 'Go to your dashboard and access the easy-to-read recipe and cook at your own pace, ad-free!',
     icon: KeyIcon,
   },
 ]

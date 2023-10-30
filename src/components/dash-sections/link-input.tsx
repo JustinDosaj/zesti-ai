@@ -40,7 +40,7 @@ export function LinkInput({user, stripeRole}: any) {
                     <form action="" method="POST" className="py-1 pl-6 w-full pr-1 flex gap-3 items-center text-heading-3 shadow-lg shadow-box-shadow
                         border border-box-border bg-box-bg rounded-full ease-linear focus-within:bg-body  focus-within:border-primary">
                             <LinkIcon className="text-gray-600 h-10 w-10"/>
-                            <input type="text" name="web-page" value={url} placeholder="https://www.youtube.com/shorts/ZBIPT-hTv94" className="w-full text-gray-500 py-3 outline-none bg-transparent" onChange={(e) => setUrl(e.target.value)}/>
+                            <input type="text" name="web-page" value={url} placeholder="Paste a Youtube Link" className="w-full text-gray-500 py-3 outline-none bg-transparent" onChange={(e) => setUrl(e.target.value)}/>
                             {isLoading == false ?
                             <Button buttonType="button" text="" className={"min-w-max text-white"} 
                                 onClick={ async () => {await onClick()}}>
