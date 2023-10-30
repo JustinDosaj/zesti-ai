@@ -3,13 +3,14 @@ import { VideoCameraIcon } from '@heroicons/react/20/solid'
 import React from 'react'
 import { Container } from "@/components/shared/container";
 import GoogleTags from '@/components/google/conversion';
+import { Title } from '@/components/shared/title';
 
 import Head from "next/head";
 
 const raleway = Raleway({subsets: ['latin']})
 
 
-const demoObj = {"name": "Perfect French Toast", "ingredients": ["1 cup of milk", "2 eggs", "cinnamon", "nutmeg", "cloves", "1 tablespoon of sugar", "dash of vanilla", "clarified butter", "bread slices"], "instructions": ["In a bowl, mix together the milk and eggs.", "Add in the spices (cinnamon, nutmeg, and cloves) and mix well.", "Stir in the sugar and vanilla.", "Warm up a skillet with clarified butter.", "Dip bread slices into the custard mixture for about 10 seconds per side.", "Place the bread slices in the skillet and cook for 7 and a half minutes per side, without touching.", "Serve the French toast with desired toppings like strawberries, blueberries, syrup, and powdered sugar."], "description": "Learn how to make the perfect French toast by combining a custard mixture with spices and cooking it until golden and crispy on the outside, with a soft and fluffy interior. It can be customized with your favorite toppings.", "time": null, "servings": null}
+const demoObj = {"name": "Bakery Style Blueberry Muffins", "ingredients": ["2 and a half cups of all purpose flour", "Three quarters of a teaspoon of salt", "2 teaspoons of baking powder", "1 cup or 240 milliliters of whole milk", "3 quarters of a cup of regular granulated sugar", "1 teaspoon of vanilla", "One quarter cup of melted butter", "A quarter cup of sour cream", "A quarter cup of vegetable oil", "Two eggs", "About 7.75 ounces of fresh blueberries", "About a tablespoon of flour for coating the blueberries", "Half a cup of sugar for streusel topping", "Half a cup of flour for streusel topping", "1 quarter cup of butter for streusel topping"], "instructions": ["Preheat the oven to 400 degrees Fahrenheit.", "In a big bowl, combine the all purpose flour, salt, and baking powder.", "In a separate bowl, mix together the whole milk, granulated sugar, vanilla, melted butter, sour cream, vegetable oil, eggs, and lemon zest if desired.", "Whisk the wet ingredients until well combined.", "Toss the fresh blueberries in about a tablespoon of flour to prevent them from sinking.", "Combine the wet and dry ingredients, mixing gently.", "Fold in the blueberries.", "Optional: Prepare a streusel topping by mixing together the sugar, flour, and butter with your hands until crumbly.", "Scoop the batter into muffin cups, filling them almost all the way up.", "Optional: Sprinkle some streusel topping on half of the muffins.", "Bake at 400 degrees Fahrenheit for about 20 minutes, or until the muffins are puffed up and golden.", "Check for doneness by testing with a skewer or your finger to see if the top bounces back or if it comes out clean.", "Enjoy the moist and delicious blueberry muffins!"], "time": 20, "description": "These bakery style blueberry muffins are moist, delicious, and packed with blueberries. They are the perfect treat for breakfast or any time of the day.", "servings": 12}
 
 const Demo: React.FC = () => {
 
@@ -21,27 +22,30 @@ const Demo: React.FC = () => {
       <GoogleTags/>
     </Head>  
     <main className={`flex min-h-screen flex-col items-center justify-between p-2 bg-background mt-12${raleway.className}`}>
-      <Container className={"flex flex-col lg:flex-row gap-10 lg:gap-12 mt-36"}>
+      <div className="text-center">
+        <Title className="text-gray-900 text-3xl mt-36">Example</Title>
+      </div>
+      <Container className={"flex flex-col lg:flex-row gap-10 lg:gap-12 mt-12 sm:mt-24"}>
        <div className="bg-white py-5 border w-full rounded-lg p-4 md:p-12">
         <div className="md:flex">
           <div className="min-w-0 flex-1 space-y-2">
             <div className="gap-x-3 text-xl font-semibold text-gray-900 grid space-y-2 sm:inline-flex">
-                {`${demoObj?.name} (Example Output)`}
-                <div className="mt-1 space-y-2 sm:inline-flex sm:mt-0 sm:space-y-0 gap-x-2 text-center">
+                {`${demoObj?.name}`}
+                <div className="mt-2 inline-flex sm:mt-0 sm:space-y-0 gap-x-2 text-center">
                   { demoObj?.time == null ? 
                   <div></div>
                   :
-                  <p className="bg-green-500 rounded-xl text-white text-sm p-1">{`${demoObj?.time} Minutes`}</p> 
+                  <p className="bg-color-alt-green rounded-xl text-white text-sm p-1">{`${demoObj?.time} Minutes`}</p> 
                   }
                   { demoObj?.servings == null ? 
                   <div></div>
                   :
-                  <p className="bg-green-500 rounded-xl text-white text-sm p-1">{`${demoObj?.servings} Servings`}</p>
+                  <p className="bg-color-alt-green rounded-xl text-white text-sm p-1">{`${demoObj?.servings} Servings`}</p>
                   }
                 </div>
             </div>
 
-            <p className="text-gray-500">
+            <p className="text-gray-500 w-full lg:w-1/2">
               {`${demoObj?.description}`}
             </p>
           </div>

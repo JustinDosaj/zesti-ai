@@ -28,7 +28,8 @@ const config: Config = {
         'background': "#FFFFFF"
       },
       screens:{
-				midmd:"880px"
+				midmd:"880px",
+        xs: "450px"
 			}
     },
   },
