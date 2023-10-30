@@ -59,7 +59,7 @@ const Recipe: React.FC = ({id}: any) => {
           <div className="min-w-0 flex-1 space-y-2">
             <div className="gap-x-3 text-xl font-semibold text-gray-900 grid space-y-2 sm:inline-flex">
                 {obj?.name}
-                <div className="mt-1 space-y-2 sm:inline-flex sm:mt-0 sm:space-y-0 gap-x-2 text-center">
+                <div className="mt-2 inline-flex sm:mt-0 sm:space-y-0 gap-x-2 text-center">
                   { obj.time == null ? 
                   <div></div>
                   :
