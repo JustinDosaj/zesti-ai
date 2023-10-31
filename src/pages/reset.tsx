@@ -20,8 +20,7 @@ import 'react-toastify/dist/ReactToastify.css';
  export default function Reset() {
  
      const [ email, setEmail ] = useState<string>('')
-     const {user, signUpWithEmailPassword, login, sendPasswordReset} = useAuth();
-     const [ reset, setReset ] = useState<boolean>(false)
+     const {user, sendPasswordReset} = useAuth();
      const router = useRouter()
  
      async function resetPasswordOnClick() {
@@ -35,7 +34,7 @@ import 'react-toastify/dist/ReactToastify.css';
     }
      
      useEffect(() => {
-         if(user) { /*router.push('/')*/ }
+         if(user) { router.push('/') }
      },[user])
  
      return(
@@ -51,7 +50,7 @@ import 'react-toastify/dist/ReactToastify.css';
              <Container className={"grid md:grid-cols-1 lg:flex-row gap-10 lg:gap-12"}>
                  <div className="flex-1 flex flex-col">
                      <Title className="text-black text-center text-3xl md:text-4xl">
-                         {reset == true ? "Email Sent" : "Reset Password"}
+                          Reset Password
                      </Title>
                  </div>
                  <form method="POST" target="_blank" className="my-auto md:w-96">
