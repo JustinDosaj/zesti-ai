@@ -58,7 +58,7 @@ import 'react-toastify/dist/ReactToastify.css';
                          <span className="min-w-max pr-2 border-r border-box-border">
                              <EnvelopeIcon className="h-6 w-6 text-black"/>                                                             
                          </span>
-                         <input type="text" name="EMAIL" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Email" className="w-full py-3 outline-none bg-transparent text"/>
+                         <input type="text" name="EMAIL" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Email" className="w-full py-3 outline-none bg-transparent text-gray-700"/>
                      </div>
                      <div className="grid grid-cols-1 justify-center mt-4 py-1 w-full pr-1 gap-3 items-center text-heading">
                          <Button buttonType="button" onClick={() => resetPasswordOnClick()} text="" className={"min-w-max text-white"}>
