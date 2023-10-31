@@ -10,6 +10,7 @@ import { TokenAmount } from "../shared/tokenAmt"
 import { Bars3Icon } from '@heroicons/react/24/outline'
 import { Fragment } from 'react'
 import { Menu, Transition } from '@headlessui/react'
+import { BtnLink } from "@/components/shared/btnlink"
 import Link from "next/link"
 import Image from "next/image"
 
@@ -104,7 +105,7 @@ export function Navbar({_user}: any) {
                             <TokenAmount tokens={tokens}/>
                         </div>
                         :
-                        <Button buttonType="button" text='Login' className="flex justify-center w-full sm:w-max" onClick={() => login()}/>
+                        <BtnLink text='Login' className="flex justify-center w-full sm:w-max" href='/login'/>
                         }
                     </div>
                 </div>
@@ -133,7 +134,7 @@ export function Navbar({_user}: any) {
                                     { user ? 
                                         <TokenAmount className="w-full grid grid-cols-6" tokens={tokens}/>
                                         :
-                                        <Button buttonType="button" text='Login' className="flex justify-center w-full sm:w-max" onClick={() => login()}/>
+                                        <BtnLink text='Login' className="flex justify-center w-full sm:w-max" href={'/login'}/>
                                     }
                                 </div>
                             )}

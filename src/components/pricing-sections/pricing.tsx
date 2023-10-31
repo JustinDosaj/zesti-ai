@@ -9,6 +9,7 @@ import { createPremiumCheckoutSession } from "@/pages/api/stripe/stripePremium";
 import { useAuth } from "@/pages/api/auth/auth";
 import { Loader } from "../shared/loader";
 import { useState } from "react";
+import { BtnLink } from "../shared/btnlink";
 
 function classNames(...classes: (string | undefined | null | false)[]): string {
     return classes.filter(Boolean).join(' ');
@@ -127,15 +128,15 @@ export function PricingList() {
                   </ul>
                 </div>
                 {!user ?
-                <Button buttonType="button" onClick={login} text="Sign up to Subscribe" className="mt-4"/>
+                <BtnLink href="/login" text="Sign up to Subscribe" className="mt-4 text-center"/>
                 : (stripeRole == null && isLoading == false) ?
-                <Button buttonType="button" onClick={tier.checkout} text="Subscribe" className="mt-4"/>
+                <Button buttonType="button" onClick={tier.checkout} text="Subscribe" className="mt-4 text-center"/>
                 : (isLoading == true) ?
                 <div className="mt-4 w-full grid">
                   <Loader/>
                 </div>
                 :
-                <Button buttonType="button" onClick={() => {window.open(`${process.env.NEXT_PUBLIC_STRIPE_NO_CODE_PORATL}`)}} text="Manage Subscription" className="mt-4"/>
+                <Button buttonType="button" onClick={() => {window.open(`${process.env.NEXT_PUBLIC_STRIPE_NO_CODE_PORATL}`)}} text="Manage Subscription" className="mt-4 text-center"/>
                 
               }
               </div>
