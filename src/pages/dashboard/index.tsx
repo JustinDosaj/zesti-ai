@@ -15,22 +15,15 @@ const raleway = Raleway({subsets: ['latin']})
 export default function Dashboard() {
 
     const { user, isLoading, stripeRole } = useAuth();
-    const [onFirstLoad, setOnFirstLoad] = useState<boolean>(true)
     const [isLoadingRecipes, setIsLoadingRecipes] = useState(true);
-    const [obj, setObj] = useState<any>([])
     const [recipes, setRecipes] = useState<any[]>([]);
     const router = useRouter();
 
 
-    async function onFirstPageLoad() {
-      const recipes = await getAllRecipes(user?.uid).then((res) => {setObj([...obj, res])})
-      //setOnFirstLoad(false)
-    }
-
     useEffect( () => {
       if(user == null && isLoading == false) {
         router.replace('/')
-      } else if (user !== null && isLoading == false && onFirstLoad == true) {
+      } else if (user !== null && isLoading == false) {
         const unsubscribe = db.collection(`users/${user.uid}/recipes`)
           .onSnapshot((snapshot) => {
             const updatedRecipes = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
