@@ -120,12 +120,11 @@ export function DeleteConfirmationModal({isOpen, setIsOpen, recipeId}: DeletePro
   const [ isLoading, setIsLoading ] = useState<boolean>(false)
 
   async function  onClick() {
-
+    console.log("User and other: ", user?.uid, recipeId)
     setIsLoading(true)
-    deleteRecipe(user?.uid, recipeId)
+    await deleteRecipe(user?.uid, recipeId)
     setIsLoading(false)
     setIsOpen(false)
-    location.reload();
   }
 
   return(
