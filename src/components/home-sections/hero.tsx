@@ -46,12 +46,12 @@ export function Hero(){
                     <Image width={20} height={20} src="/images/openaipng.png" alt="Powered by OpenAI Chatgpt AI Technology Tool" className=" "/>
                 </div>
                 <h1 className="text-4xl/tight sm:text-4xl/tight md:text-5xl/tight xl:text-6xl/tight font-bold text-heading-1 mt-6">            
-                    <span className="text-transparent bg-clip-text bg-gradient-to-br from-primary-main from-20% via-primary via-30% to-color-alt-red pr-2">Turn</span>
-                    <span className="text-black">Cooking Videos Into</span>
+                    <span className="text-transparent bg-clip-text bg-gradient-to-br from-primary-main from-20% via-primary via-30% to-color-alt-red pr-2">Quickly Save</span>
+                    <span className="text-black">Cooking Videos as</span>
                     <span className="text-transparent bg-clip-text bg-gradient-to-br from-primary-main from-20% via-primary via-30% to-color-alt-red pl-2 pr-2">Text Recipes</span> 
                 </h1>
                 <Paragraph className="text-lg mt-8 text-black">
-                    Transform your cooking with Zesti! Paste a YouTube link and instantly turn cooking videos into detailed, ad-free recipes. No more pausing or rewinding.
+                    Transform your cooking with Zesti! Paste a YouTube link and instantly save cooking videos as detailed, ad-free recipes. No more pausing or rewinding.
                 </Paragraph>
                 <div className="mt-10 w-full flex max-w-md mx-auto lg:mx-0">
                     <div className="flex sm:flex-row flex-col gap-5 w-full">
