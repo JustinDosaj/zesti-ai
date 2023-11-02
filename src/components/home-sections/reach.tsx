@@ -17,7 +17,7 @@ export function Reach() {
             for later
             </Title>
             <Paragraph className="mt-6 text-lg leading-8 text-gray-600">
-              Upload a recipe once and always have access to it from the dashboard, even without a subscription! 
+              Upload a recipe once and always have access to the easy-to-follow text recipe from the dashboard, even without a subscription! 
             </Paragraph>
           </div>
         </div>
