@@ -66,12 +66,14 @@ export const handleSubmit = async ({url, user, setMessage, stripeRole}: Props): 
     const result = await getVideoLength(url_id ? url_id[1] : null)
     if (stripeRole == 'base') {
         if((result?.minutes || 0) > 5) { setMessage("Video too long for your subscription. You can upload videos that are up to 5 minutes long"); return false;}
-    } else if (stripeRole == 'essential') {
+    } else if (stripeRole == 'free') {
         if((result?.minutes || 0) > 10) { setMessage("Video too long for your subscription. You can upload videos that are up to 10 minutes long"); return false;}
-    } else if (stripeRole == 'premium') {
+    } else if (stripeRole == 'essential') {
         if((result?.minutes || 0) > 20) { setMessage("Video is too long. You can currently upload videos that are up to 20 minutes long"); return false;}
+    } else if (stripeRole == 'premium') {
+        if((result?.minutes || 0) > 20) { setMessage("Video too long for your subscription. You can upload videos that are up to 20 minutes long"); return false;}
     } else if (stripeRole !== 'base' || stripeRole !== 'essential' || stripeRole !== 'premium') {
-        if((result?.minutes || 0) > 20) { setMessage("Video is too long. The free recipe transcription can be a maximum of 20 minutes long."); return false;}
+        if((result?.minutes || 0) > 20) { setMessage("Video is too long. The free recipe transcription can be a maximum of 10 minutes long."); return false;}
     }
 
 

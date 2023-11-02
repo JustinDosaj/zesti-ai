@@ -12,7 +12,6 @@ import GoogleTags from "@/components/google/conversion"
 
 const raleway = Raleway({subsets: ['latin']})
 
-
 export default function Profile() {
 
     const { user, logout, isLoading, stripeRole } = useAuth();
@@ -58,12 +57,28 @@ export default function Profile() {
                   <div className="flex-none self-end px-6 pt-4">
                       <dt className="sr-only">Status</dt>
                       <dd className="inline-flex rounded-md bg-green-50 px-2 py-1 text-base font-medium text-green-700 ring-1 ring-inset ring-green-600/20">
-                      {stripeRole ? stripeRole : 'free'}
+                      {stripeRole ? stripeRole : 'unsubscribed'}
                       </dd>
                   </div>
                 </dl>
                 <div className="grid grid-cols-1 sm:grid-cols-2 space-x-0 md:space-x-4 space-y-2 md:space-y-0 mt-6 border-t px-6 py-6">
-                  {stripeRole == 'base' ?
+                  {stripeRole == 'free' ?
+                  <div className="space-y-2">
+                    <div className="inline-flex space-x-2 align-middle items-center">
+                      <CheckIcon className="h-5 w-5 text-color-alt-green"/>
+                      <span className="text-gray-700">3 Video Recipes Per Month</span>
+                    </div>
+                    <div className="inline-flex space-x-2 align-middle items-center">
+                      <CheckIcon className="h-5 w-5 text-color-alt-green"/>
+                      <span className="text-gray-700">Up to 10 Minute Long Videos</span>
+                    </div>
+                    <div className="inline-flex space-x-2 align-middle items-center">
+                      <ChevronDoubleUpIcon className="h-5 w-5 text-color-alt-green"/>
+                      <span className="text-gray-700">Upgrade subscription for more</span>
+                    </div>
+                  </div>
+                  :
+                  stripeRole == 'base' ?
                     <div className="space-y-2">
                       <div className="inline-flex space-x-2 align-middle items-center">
                         <CheckIcon className="h-5 w-5 text-color-alt-green"/>
@@ -82,11 +97,11 @@ export default function Profile() {
                     <div className="space-y-2">
                       <div className="inline-flex space-x-2 align-middle items-center">
                         <CheckIcon className="h-5 w-5 text-color-alt-green"/>
-                        <span className="text-gray-700">15 Video Recipes Per Month</span>
+                        <span className="text-gray-700">10 Video Recipes Per Month</span>
                       </div>
                       <div className="inline-flex space-x-2 align-middle items-center">
                         <CheckIcon className="h-5 w-5 text-color-alt-green"/>
-                        <span className="text-gray-700">Up to 10 Minute Long Videos</span>
+                        <span className="text-gray-700">Up to 20 Minute Long Videos</span>
                       </div>
                       <div className="inline-flex space-x-2 align-middle items-center">
                         <ChevronDoubleUpIcon className="h-5 w-5 text-color-alt-green"/>
@@ -108,11 +123,11 @@ export default function Profile() {
                     <div className="space-y-2">
                       <div className="inline-flex space-x-2 align-middle items-center">
                         <CheckIcon className="h-5 w-5 text-color-alt-green"/>
-                        <span className="text-gray-700">2 Free Cooking Video to Text</span>
+                        <span className="text-gray-700">2 Free Video Recipes (No Credit Card Required)</span>
                       </div>
                       <div className="inline-flex space-x-2 align-middle items-center">
                         <CheckIcon className="h-5 w-5 text-color-alt-green"/>
-                        <span className="text-gray-700">Up to 10 Minute Long Videos</span>
+                        <span className="text-gray-700">Up to 5 Minute Long Videos</span>
                       </div>
                       <div className="inline-flex space-x-2 align-middle items-center">
                         <ChevronDoubleUpIcon className="h-5 w-5 text-color-alt-green"/>
