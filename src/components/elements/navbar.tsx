@@ -2,9 +2,7 @@
 
 import { Container } from "../shared/container"
 import { Navitem } from "../shared/navitem"
-import { Button } from "../shared/button"
 import { useAuth } from "@/pages/api/auth/auth"
-import { getUserData } from "@/pages/api/firebase/functions"
 import { useState, useEffect } from "react"
 import { TokenAmount } from "../shared/tokenAmt"
 import { Bars3Icon } from '@heroicons/react/24/outline'
@@ -13,6 +11,7 @@ import { Menu, Transition } from '@headlessui/react'
 import { BtnLink } from "@/components/shared/btnlink"
 import Link from "next/link"
 import Image from "next/image"
+import { db } from "@/pages/api/firebase/firebase"
 
 const navItems = [
     {
@@ -59,17 +58,22 @@ function classNames(...classes: (string | undefined | null | false)[]): string {
 
 export function Navbar({_user}: any) {
     
-    const { user, stripeRole, login } = useAuth();
+    const { user } = useAuth();
     const [tokens, setTokens] = useState<number>(0)
 
     useEffect(() => {
-        UpdateUserData()
-    },[tokens, user, UpdateUserData])
+        if (user?.uid) {
+            // Set up a real-time listener to the user's tokens
+            const unsubscribe = db.doc(`users/${user.uid}`)
+                .onSnapshot(doc => {
+                    const userData = doc.data();
+                    setTokens(userData?.tokens || 0);
+                });
 
-    async function UpdateUserData() {
-        const response = await getUserData(user?.uid)
-        setTokens(response ? response.tokens : 0)
-    }
+            // Clean up the listener when the component unmounts
+            return () => unsubscribe();
+        }
+    }, [user?.uid]);
 
     return(
     <>
