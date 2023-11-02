@@ -1,11 +1,12 @@
 import { collection, doc, addDoc, onSnapshot } from 'firebase/firestore';
 import { db } from '../firebase/firebase';
 
-export async function createCheckoutSession(id: any) {  // You might want to replace 'any' with the appropriate type for currentUser
+export async function createFreeCheckoutSession(id: any) {  // You might want to replace 'any' with the appropriate type for currentUser
     try {
         const checkoutSessionsCollection = collection(doc(collection(db, 'users'), id), 'checkout_sessions');
+        
         const docRef = await addDoc(checkoutSessionsCollection, {
-            price: 'price_1O2h4ZGtkWdn4NzbF9sRI1pt',
+            price: process.env.NEXT_PUBLIC_STRIPE_FREE_PRICE,
             success_url: `${window.location.origin}/success`,
             cancel_url: window.location.origin,
         });
