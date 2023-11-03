@@ -116,7 +116,7 @@ export default function Profile() {
                       </div>
                       <div className="inline-flex space-x-2 align-middle items-center">
                         <CheckIcon className="h-5 w-5 text-color-alt-green"/>
-                        <span className="text-gray-700">Up to 20 Minute Long Videos</span>
+                        <span className="text-gray-700">Up to 30 Minute Long Videos</span>
                       </div>
                     </div>
                     :
