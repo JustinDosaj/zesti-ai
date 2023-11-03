@@ -127,9 +127,6 @@ export default function Essential() {
                 : (stripeRole == 'premium' || stripeRole == 'essential' || stripeRole == 'base' || stripeRole == 'free') ?
                 <div className="mt-10 space-x-6 items-center justify-center">
                     <Button buttonType="button" onClick={() => router.push("/dashboard")} text="Go to Dashboard" className="mt-4 text-center"/>
-                    <Link href="/login" className="text-sm font-semibold leading-6 text-primary-main hover:text-primary-alt">
-                    Sign Up <span aria-hidden="true">→</span>
-                    </Link>
                 </div>
                 :
                 <div className="mt-10 space-x-6 items-center justify-center">
