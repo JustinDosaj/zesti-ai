@@ -4,11 +4,11 @@ import { VideoCameraIcon } from '@heroicons/react/20/solid'
 import React, {useEffect, useState} from 'react'
 import { useAuth } from "@/pages/api/auth/auth";
 import { useRouter } from 'next/router';
-import { getRecipe } from "@/pages/api/firebase/functions";
 import { Container } from "@/components/shared/container";
 import { PageLoader } from "@/components/shared/loader";
 import Head from "next/head";
-import { RecipePopOutMenu, EditRecipeInput } from "@/components/recipe/recipe";
+import { RecipePopOutMenu, EditRecipeInput, InstructionPopOutMenu, EditInstructionInput } from "@/components/recipe/recipe";
+import { db } from "@/pages/api/firebase/firebase";
 
 const raleway = Raleway({subsets: ['latin']})
 
@@ -21,30 +21,83 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 const Recipe: React.FC = ({id}: any) => {
 
     const { user, isLoading } = useAuth();
-    const [ onFirstLoad, setOnFirstLoad ] = useState<boolean>(true)
     const [recipe, setRecipe] = useState<any>([])
     const [url, setUrl] = useState<string>('')
     const [edit, setEdit] = useState<boolean>(false)
     const [editingIngredientIndex, setEditingIngredientIndex] = useState<number | null>(null);
+    const [editingInstructionIndex, setEditingInstructionIndex] = useState<number | null>(null);
     const router = useRouter();
 
 
-    useEffect( () => {
-        if(user == null && isLoading == false) {
-          router.push('/')
-        } else if(user !== null && isLoading == false && onFirstLoad == true) {
-            onFirstRecipeLoad()
-        }
-      }, [user])
+    useEffect(() => {
+      if (user == null && isLoading == false) {
+        router.replace('/');
+      } else if (user !== null && isLoading == false) {
+        const unsubscribe = db.doc(`users/${user.uid}/recipes/${id}`)
+          .onSnapshot((docSnapshot) => {
+            if (docSnapshot.exists) {
+              setRecipe(docSnapshot.data()?.data);
+              setUrl(docSnapshot.data()?.url)
+            } else {
+              console.log("Doc doesnt exist")
+            }
+          });
+    
+        return () => unsubscribe();
+      }
+    }, [user, isLoading, id, router, edit]);
 
-    async function onFirstRecipeLoad(){
-        const response = await getRecipe(user?.uid, id).then((res) => {
-          console.log("RES: ", res)
-            setRecipe(res?.data)
-            setUrl(res?.url)
-        })
-        setOnFirstLoad(false)
-    }
+    const handleSaveIngredient = async (index: number, newValue: string) => {
+      // Update the local state to reflect the changes immediately
+      const updatedIngredients = [...recipe.ingredients];
+      updatedIngredients[index] = newValue;
+
+      const recipeRef = db.collection(`users/${user?.uid}/recipes`).doc(id);
+      try {
+        await recipeRef.update({
+          'data.ingredients': updatedIngredients // Directly updating the nested field
+        });
+        console.log('Ingredient updated successfully in Firestore!');
+    
+        // Optimistically update the local state right after sending the Firestore update
+        setRecipe((prevRecipe: any) => ({
+          ...prevRecipe,
+          data: {
+            ...prevRecipe.data,
+            ingredients: updatedIngredients
+          }
+        }));
+      } catch (error) {
+        console.error('Error updating ingredient in Firestore:', error);
+        // Optionally handle the error here
+      }
+    };
+
+    const handleSaveInstruction = async (index: number, newValue: string) => {
+      // Update the local state to reflect the changes immediately
+      const updatedInstructions = [...recipe.instructions];
+      updatedInstructions[index] = newValue;
+
+      const recipeRef = db.collection(`users/${user?.uid}/recipes`).doc(id);
+      try {
+        await recipeRef.update({
+          'data.instructions': updatedInstructions // Directly updating the nested field
+        });
+        console.log('Instruction updated successfully in Firestore!');
+    
+        // Optimistically update the local state right after sending the Firestore update
+        setRecipe((prevRecipe: any) => ({
+          ...prevRecipe,
+          data: {
+            ...prevRecipe.data,
+            instructions: updatedInstructions
+          }
+        }));
+      } catch (error) {
+        console.error('Error updating instructions in Firestore:', error);
+        // Optionally handle the error here
+      }
+    };
 
     if(!recipe.name) return <PageLoader/>
 
@@ -100,7 +153,7 @@ const Recipe: React.FC = ({id}: any) => {
                     {index + 1}
                   </div>
                   <div className="flex flex-1 items-center justify-between rounded-r-md border-b border-r border-t border-gray-200 bg-white">
-                    <EditRecipeInput edit={edit} setEdit={setEdit} ingredient={ingred} isEditing={editingIngredientIndex === index} setEditingIngredientIndex={setEditingIngredientIndex} index={index}/>
+                    <EditRecipeInput edit={edit} setEdit={setEdit} ingredient={ingred} isEditing={editingIngredientIndex === index} setEditingIngredientIndex={setEditingIngredientIndex} index={index} onSave={handleSaveIngredient}/>
                     <RecipePopOutMenu edit={edit} setEdit={setEdit} setEditingIngredientIndex={setEditingIngredientIndex} index={index}/>
                   </div>
                 </div>
@@ -120,10 +173,8 @@ const Recipe: React.FC = ({id}: any) => {
                     {index + 1}
                   </div>
                   <div className="flex flex-1 items-center justify-between rounded-r-md border-b border-r border-t border-gray-200 bg-white">
-                    <div className="flex-1 truncate px-4 py-2 text-sm">
-                      <p className="text-gray-500 overflow-ellipsis whitespace-normal">{instruct}</p>
-                    </div>
-                    <RecipePopOutMenu edit={edit} setEdit={setEdit} setEditingIngredientIndex={setEditingIngredientIndex} index={index}/>
+                      <EditInstructionInput edit={edit} setEdit={setEdit} instruction={instruct} isEditing={editingInstructionIndex === index} setEditingIngredientIndex={setEditingInstructionIndex} index={index} onSave={handleSaveInstruction}/>
+                      <InstructionPopOutMenu edit={edit} setEdit={setEdit} setEditingInstructionIndex={setEditingInstructionIndex} index={index}/>
                   </div>
                 </div>
               </li>
