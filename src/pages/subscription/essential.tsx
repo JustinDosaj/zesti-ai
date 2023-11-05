@@ -24,7 +24,7 @@ const features = [
     description: 'Essential gets longer videos to upload with a max length of 20 minutes for each video-to-text recipe',
   },
 
-  { name: 'Edit Recipes (Coming Nov. 15th)', description: 'Some recipes are not perfect as is. Edit recipes to your liking and save them for later.' },
+  { name: 'Edit Recipes', description: 'Some recipes are not perfect as is. Edit recipes to your liking and save them for later.' },
   { name: 'More Coming Soon', description: 'New features will be announced soon' },
 ]
 
@@ -43,8 +43,8 @@ export default function Essential() {
   return (
     <>
     <Head>
-        <title>Zesti Essential | Best and Most Popular Video to Text</title>
-        <meta name="description" content="Subscribe to Zesti Essential to gain the best access to our kitchen AI tool."/>
+        <title>Zesti AI Essential | Save & Edit Cooking Videos as Text | Most Popular</title>
+        <meta name="description" content="Subscribe to Zesti Essential to gain the most popular access to edit and save cooking videos as text recipes. Try for free. No credit card required."/>
     </Head>
     <div className="bg-white">
     {/* Header */}

@@ -10,6 +10,7 @@ import { useRouter } from 'next/router'
 import Head from 'next/head'
 import { Loader } from '@/components/shared/loader'
 const raleway = Raleway({subsets: ['latin']})
+
 const features = [
     {
     name: 'Save Recipes',
@@ -41,8 +42,8 @@ export default function Essential() {
   return (
     <>
     <Head>
-        <title>Zesti Free | Try Zesti for $0 Per Month | Best Deal</title>
-        <meta name="description" content="Subscribe to Zesti Free to gain access to our base features for free"/>
+        <title>Zesti AI Free | Save Cooking Videos as Text Recipes | $0 </title>
+        <meta name="description" content="Subscribe to Zesti Free to gain no cost access to save cooking videos as text recipes. Try for free. No credit card required."/>
     </Head>
     <div className="bg-white">
     {/* Header */}

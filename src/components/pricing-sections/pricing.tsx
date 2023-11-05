@@ -48,7 +48,8 @@ export function PricingList() {
       description: 'Best for users that find new recipes fairly frequently and want to try them for later.',
       features: [
         '10 Recipes Per Month',
-        '20 Minute Max Length'
+        '20 Minute Max Length',
+        'Edit Recipes'
       ],
       mostPopular: true,
       checkout: () => {
@@ -64,7 +65,8 @@ export function PricingList() {
       description: 'Best for users who cook frequently, and constantly enjoy trying new recipes they find',
       features: [
         '30 Recipes Per Month',
-        '30 Minute Max Length'
+        '30 Minute Max Length',
+        'Edit Recipes'
       ],
       mostPopular: false,
       checkout: () => {

@@ -39,6 +39,7 @@ export default function Profile() {
     <Head>
       <title>Zesti | Your Profile</title>
       <GoogleTags/>
+      <meta name="robots" content="noindex" />
     </Head>  
     <main className={`flex min-h-screen flex-col items-center justify-between bg-background ${raleway.className}`}>
      <Container className={" justify-center lg:gap-12 h-screen"}>
