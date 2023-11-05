@@ -18,9 +18,7 @@ export default function Home() {
         <meta name="description" content="Easily save cooking videos into text recipes with our AI tool powered by OpenAI and Chatgpt. Try for free. No credit card required."/>
       </Head>
       <main className={`flex min-h-screen flex-col items-center justify-between bg-background ${raleway.className}`}>
-
         <Hero/>
-        <Link href="/subscription/premium">HEY THERE</Link>
         <HowItWorks/>
         <Optimize/>
         <Reach/>
