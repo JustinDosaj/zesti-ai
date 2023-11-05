@@ -17,7 +17,7 @@ const Demo: React.FC = () => {
     return(
     <>
     <Head>
-      <title>Zesti AI Demo | Easily Save & Edit Cooking Videos as Recipes</title>
+      <title>Zesti AI Demo | Easily Save & Edit Recipes from Cooking Videos</title>
       <meta name="description" content="Check out our demo recipe so you can see the results of transforming a Youtube cooking video into a readible recipe!"/>
       <GoogleTags/>
     </Head>  
