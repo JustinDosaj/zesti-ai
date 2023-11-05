@@ -6,16 +6,16 @@ import Image from 'next/image'
 
 const features = [
     {
-      name: 'Ingredient List: ',
+      name: 'Recipe: ',
       description:
-        'Get an organized ingrediant list to help you gather everything you need to get started on cooking something amazing',
+        'Get an organized ingrediant list and instructions to help cook something amazing',
       icon: CheckIcon,
     },
     {
-      name: 'Instructions: ',
-      description: 'Clear instructions will be at your disposal to refer to at any time',
-      icon: CheckIcon,
-    },
+        name: 'Edit: ',
+        description: 'Recipes are often not just the way you like it. Make edits to ensure you make the perfect dish every time',
+        icon: CheckIcon,
+      },
   ]
 
 export function Optimize() {
@@ -28,9 +28,9 @@ export function Optimize() {
                     <div className="mx-auto max-w-2xl lg:mx-0 lg:max-w-lg">
                     <Title className="mt-2 xs:space-x-1 sm:space-x-1 font-bold tracking-tight text-gray-900 text-4xl md:text-5xl flex flex-wrap">
                         <span>Cooking</span>
-                        <div className="inline-flex text-transparent bg-clip-text bg-gradient-to-br from-primary-main from-20% via-primary via-30% to-color-alt-red">new recipes</div>
-                        <span>has never been</span>
-                        <div className="inline-flex text-transparent bg-clip-text bg-gradient-to-br from-primary-main from-20% via-primary via-30% to-color-alt-red">easier</div>
+                        <div className="inline-flex text-transparent bg-clip-text bg-gradient-to-br from-primary-main from-20% via-primary via-30% to-color-alt-red">New Recipes</div>
+                        <span>Has Never Been</span>
+                        <div className="inline-flex text-transparent bg-clip-text bg-gradient-to-br from-primary-main from-20% via-primary via-30% to-color-alt-red">Easier</div>
                     </Title>
                     <Paragraph className="mt-6 text-lg text-gray-600">
                         You no longer need to constantly pause and rewind cooking videos. And no more recipe websites with cluttered ads. Zesti will give you the following:

@@ -45,10 +45,11 @@ export function Hero(){
                     <div className="text-black font-bold text-sm">Powered By OpenAI</div>
                     <Image width={20} height={20} src="/images/openaipng.png" alt="Powered by OpenAI Chatgpt AI Technology Tool" className=" "/>
                 </div>
-                <h1 className="text-4xl/tight sm:text-4xl/tight md:text-5xl/tight xl:text-6xl/tight font-bold text-heading-1 mt-6">            
-                    <span className="text-transparent bg-clip-text bg-gradient-to-br from-primary-main from-20% via-primary via-30% to-color-alt-red pr-2">Quickly Save</span>
-                    <span className="text-black">Cooking Videos as</span>
-                    <span className="text-transparent bg-clip-text bg-gradient-to-br from-primary-main from-20% via-primary via-30% to-color-alt-red pl-2 pr-2">Text Recipes</span> 
+                <h1 className="text-4xl/tight sm:text-4xl/tight md:text-5xl/tight xl:text-6xl/tight font-bold text-heading-1 mt-6">
+                    <span className="text-black pr-2 ">Quickly</span>            
+                    <span className="text-transparent bg-clip-text bg-gradient-to-br from-primary-main from-20% via-primary via-30% to-color-alt-red pr-2">Save & Edit</span>
+                    <span className="text-black">Recipes from</span>
+                    <span className="text-transparent bg-clip-text bg-gradient-to-br from-primary-main from-20% via-primary via-30% to-color-alt-red pl-2 pr-2">Cooking Videos</span> 
                 </h1>
                 <Paragraph className="text-lg mt-8 text-black">
                     Transform your cooking with Zesti! Paste a YouTube link and instantly save cooking videos as detailed, ad-free recipes. No more pausing or rewinding.

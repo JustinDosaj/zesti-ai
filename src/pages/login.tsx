@@ -36,8 +36,8 @@ export default function Login() {
     return(
     <>
     <Head>
-        <title>Login or Sign Up for Zesti | Try for Free. No Credit Card Required</title>
-        <meta name="description" content="Login or Sign Up for Zesti's Cooking Video to Text AI tool"/>
+        <title>Zesti AI | Login or Sign Up | Try for Free </title>
+        <meta name="description" content="Join Zesti to gain access to the best AI powered kitchen tool that helps you quickly save and edit recipes from cooking videos"/>
         <GoogleTags/>
     </Head>
     <ToastContainer/>    
