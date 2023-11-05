@@ -10,6 +10,7 @@ import { useRouter } from 'next/router'
 import Head from 'next/head'
 import { Loader } from '@/components/shared/loader'
 const raleway = Raleway({subsets: ['latin']})
+
 const features = [
     {
     name: 'Save Recipes',
@@ -24,7 +25,7 @@ const features = [
     description: 'Premium gets to upload the longest videos with a max length of 30 minutes for each video-to-text',
   },
 
-  { name: 'Edit Recipes(Coming Nov. 15th)', description: 'Some recipes are not perfect as is. Edit recipes to your liking and save them for later.' },
+  { name: 'Edit Recipes', description: 'Some recipes are not perfect as is. Edit recipes to your liking and save them for later.' },
   { name: 'More Coming Soon', description: 'New features will be announced soon' },
 ]
 
@@ -43,8 +44,8 @@ export default function Premium() {
   return (
     <>
     <Head>
-        <title>Zesti Premium | Video Recipe to Text</title>
-        <meta name="description" content="Subscribe to Zesti premium to gain the best access to our kitchen AI tool."/>
+        <title>Zesti AI Premium | Save & Edit Cooking Videos as Text | Best Value</title>
+        <meta name="description" content="Subscribe to Zesti Premium to gain the best value access to edit and save cooking videos as text recipes. Try for free. No credit card required."/>
     </Head>
     <div className="bg-white">
     {/* Header */}

@@ -20,7 +20,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
 const Recipe: React.FC = ({id}: any) => {
 
-    const { user, isLoading } = useAuth();
+    const { user, isLoading, stripeRole } = useAuth();
     const [recipe, setRecipe] = useState<any>([])
     const [url, setUrl] = useState<string>('')
     const [edit, setEdit] = useState<boolean>(false)
@@ -154,7 +154,7 @@ const Recipe: React.FC = ({id}: any) => {
                   </div>
                   <div className="flex flex-1 items-center justify-between rounded-r-md border-b border-r border-t border-gray-200 bg-white">
                     <EditRecipeInput edit={edit} setEdit={setEdit} ingredient={ingred} isEditing={editingIngredientIndex === index} setEditingIngredientIndex={setEditingIngredientIndex} index={index} onSave={handleSaveIngredient}/>
-                    <RecipePopOutMenu edit={edit} setEdit={setEdit} setEditingIngredientIndex={setEditingIngredientIndex} index={index}/>
+                    <RecipePopOutMenu edit={edit} setEdit={setEdit} setEditingIngredientIndex={setEditingIngredientIndex} index={index} role={stripeRole}/>
                   </div>
                 </div>
               </li>
@@ -174,7 +174,7 @@ const Recipe: React.FC = ({id}: any) => {
                   </div>
                   <div className="flex flex-1 items-center justify-between rounded-r-md border-b border-r border-t border-gray-200 bg-white">
                       <EditInstructionInput edit={edit} setEdit={setEdit} instruction={instruct} isEditing={editingInstructionIndex === index} setEditingIngredientIndex={setEditingInstructionIndex} index={index} onSave={handleSaveInstruction}/>
-                      <InstructionPopOutMenu edit={edit} setEdit={setEdit} setEditingInstructionIndex={setEditingInstructionIndex} index={index}/>
+                      <InstructionPopOutMenu edit={edit} setEdit={setEdit} setEditingInstructionIndex={setEditingInstructionIndex} index={index} role={stripeRole}/>
                   </div>
                 </div>
               </li>

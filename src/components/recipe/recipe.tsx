@@ -11,15 +11,17 @@ interface RecipePopOutProps {
     edit: boolean,
     setEdit: React.Dispatch<React.SetStateAction<boolean>>;
     setEditingIngredientIndex: React.Dispatch<React.SetStateAction<number | null>>;
-    index: number
+    index: number,
+    role: string | null,
 }
 
-export function RecipePopOutMenu({edit, setEdit, setEditingIngredientIndex, index}: RecipePopOutProps) {
+export function RecipePopOutMenu({edit, setEdit, setEditingIngredientIndex, index, role}: RecipePopOutProps) {
 
     const handleEditClick = () => {
         setEditingIngredientIndex(index)
     }
 
+    if (role == 'essential' || role == 'premium')
     return(
     <>
     <Menu as="div" className="relative ml-auto">
@@ -118,15 +120,17 @@ interface InstructionPopOutProps {
     edit: boolean,
     setEdit: React.Dispatch<React.SetStateAction<boolean>>;
     setEditingInstructionIndex: React.Dispatch<React.SetStateAction<number | null>>;
-    index: number
+    index: number,
+    role: string | null,
 }
 
-export function InstructionPopOutMenu({edit, setEdit, setEditingInstructionIndex, index}: InstructionPopOutProps) {
+export function InstructionPopOutMenu({edit, setEdit, setEditingInstructionIndex, index, role}: InstructionPopOutProps) {
 
     const handleEditClick = () => {
         setEditingInstructionIndex(index)
     }
 
+    if (role == 'essential' || role == 'premium')
     return(
     <>
     <Menu as="div" className="relative ml-auto">
