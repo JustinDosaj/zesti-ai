@@ -15,8 +15,8 @@ const cards = [
     icon: ChatBubbleBottomCenterIcon,
   },
   {
-    name: 'Access Recipes',
-    description: 'Go to your dashboard and access the easy-to-read recipe and cook at your own pace, ad-free!',
+    name: 'Access and Edit Recipes',
+    description: 'Go to your dashboard and access and edit the easy-to-read recipe and cook at your own pace, ad-free!',
     icon: KeyIcon,
   },
 ]
