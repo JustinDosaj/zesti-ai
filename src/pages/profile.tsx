@@ -5,7 +5,7 @@ import { useAuth } from "./api/auth/auth"
 import { useState, useEffect } from 'react'
 import { useRouter } from "next/router"
 import { getSubscription, getUserData } from "./api/firebase/functions"
-import { CheckIcon } from "@heroicons/react/20/solid"
+import { CheckIcon, XMarkIcon } from "@heroicons/react/20/solid"
 import Head from "next/head"
 import { ChevronDoubleUpIcon } from "@heroicons/react/20/solid"
 import GoogleTags from "@/components/google/conversion"
@@ -74,8 +74,12 @@ export default function Profile() {
                       <span className="text-gray-700">Up to 10 Minute Long Videos</span>
                     </div>
                     <div className="inline-flex space-x-2 align-middle items-center">
+                        <XMarkIcon className="h-5 w-5 text-color-alt-red"/>
+                        <span className="text-gray-700">Edit Recipes</span>
+                    </div>
+                    <div className="inline-flex space-x-2 align-middle items-center">
                       <ChevronDoubleUpIcon className="h-5 w-5 text-color-alt-green"/>
-                      <span className="text-gray-700">Upgrade subscription for more</span>
+                      <span className="text-gray-700">Upgrade subscription to unlock editing and more recipes</span>
                     </div>
                   </div>
                   :
@@ -88,6 +92,10 @@ export default function Profile() {
                       <div className="inline-flex space-x-2 align-middle items-center">
                         <CheckIcon className="h-5 w-5 text-color-alt-green"/>
                         <span className="text-gray-700">Up to 5 Minute Long Videos</span>
+                      </div>
+                      <div className="inline-flex space-x-2 align-middle items-center">
+                        <XMarkIcon className="h-5 w-5 text-color-alt-red"/>
+                        <span className="text-gray-700">Edit Recipes</span>
                       </div>
                       <div className="inline-flex space-x-2 align-middle items-center">
                         <ChevronDoubleUpIcon className="h-5 w-5 text-color-alt-green"/>
@@ -105,6 +113,10 @@ export default function Profile() {
                         <span className="text-gray-700">Up to 20 Minute Long Videos</span>
                       </div>
                       <div className="inline-flex space-x-2 align-middle items-center">
+                        <CheckIcon className="h-5 w-5 text-color-alt-green"/>
+                        <span className="text-gray-700">Edit Recipes</span>
+                      </div>
+                      <div className="inline-flex space-x-2 align-middle items-center">
                         <ChevronDoubleUpIcon className="h-5 w-5 text-color-alt-green"/>
                         <span className="text-gray-700" >Upgrade subscription for more</span>
                       </div>
@@ -118,6 +130,10 @@ export default function Profile() {
                       <div className="inline-flex space-x-2 align-middle items-center">
                         <CheckIcon className="h-5 w-5 text-color-alt-green"/>
                         <span className="text-gray-700">Up to 30 Minute Long Videos</span>
+                      </div>
+                      <div className="inline-flex space-x-2 align-middle items-center">
+                        <CheckIcon className="h-5 w-5 text-color-alt-green"/>
+                        <span className="text-gray-700">Edit Recipes</span>
                       </div>
                     </div>
                     :
