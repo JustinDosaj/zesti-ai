@@ -88,6 +88,9 @@ export function PricingList() {
           <p className="mx-auto mt-6 max-w-2xl text-center text-lg leading-8 text-gray-600">
            Get Free Recipe Transcription When You Sign Up. Cancel anytime.
           </p>
+          <p className="mx-auto mt-2 max-w-xl w-fit pr-2 pl-2 text-center text-sm leading-8 text-gray-600 border rounded-2xl font-semibold">
+           Price shown in local currency at checkout
+          </p>
           <div className="isolate mx-auto mt-16 grid max-w-md grid-cols-1 gap-y-8 sm:mt-20 lg:mx-0 lg:max-w-none lg:grid-cols-3">
             {tiers.map((tier, tierIdx) => (
               <div
