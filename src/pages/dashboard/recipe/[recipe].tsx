@@ -9,6 +9,7 @@ import { PageLoader } from "@/components/shared/loader";
 import Head from "next/head";
 import { RecipePopOutMenu, EditRecipeInput, InstructionPopOutMenu, EditInstructionInput } from "@/components/recipe/recipe";
 import { db } from "@/pages/api/firebase/firebase";
+import { Chatbox } from "@/components/chat/chatbox";
 
 const raleway = Raleway({subsets: ['latin']})
 
@@ -107,6 +108,7 @@ const Recipe: React.FC = ({id}: any) => {
       <title>{recipe.name}</title>
     </Head>  
     <main className={`flex min-h-screen flex-col items-center justify-between p-2 bg-background mt-12${raleway.className}`}>
+      <Chatbox recipeId={id}/>
       <Container className={"flex flex-col lg:flex-row gap-10 lg:gap-12 mt-36"}>
        <div className="bg-white py-5 border w-full rounded-lg p-4 md:p-12">
         <div className="md:flex">
