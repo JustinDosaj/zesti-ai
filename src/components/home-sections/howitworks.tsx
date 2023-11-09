@@ -28,11 +28,11 @@ export default function HowItWorks() {
             <div className="mx-auto max-w-7xl px-6 lg:px-8">
                 <div className="mx-auto max-w-2xl sm:text-center">
                     <Title className="mt-2 text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl">
-                    How it
-                    <span className="text-transparent bg-clip-text bg-gradient-to-br from-primary-main from-20% via-primary via-30% to-color-alt-red pl-2 pr-2">Works</span>
+                    Get
+                    <span className="text-transparent bg-clip-text bg-gradient-to-br from-primary-main from-20% via-primary via-30% to-color-alt-red pl-2 pr-2">Cooking Video</span>
                     </Title>
                     <Paragraph className="mt-6 text-lg leading-8 text-gray-800">
-                    Using Zesti is easy! All you need is a link to a youtube cooking video, and you are good to go!
+                    Retrieving an easy-to-read and ad-free recipe from a cooking video is easy! Just follow these steps:
                     </Paragraph>
                 </div>
                 <div className="mx-auto mt-16 grid max-w-2xl grid-cols-1 gap-6 sm:mt-20 lg:mx-0 lg:max-w-none lg:grid-cols-3 lg:gap-8">

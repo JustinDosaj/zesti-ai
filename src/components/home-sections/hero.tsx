@@ -45,14 +45,13 @@ export function Hero(){
                     <div className="text-black font-bold text-sm">Powered By OpenAI</div>
                     <Image width={20} height={20} src="/images/openaipng.png" alt="Powered by OpenAI Chatgpt AI Technology Tool" className=" "/>
                 </div>
-                <h1 className="text-4xl/tight sm:text-4xl/tight md:text-5xl/tight xl:text-6xl/tight font-bold text-heading-1 mt-6">
-                    <span className="text-black pr-2 ">Quickly</span>            
-                    <span className="text-transparent bg-clip-text bg-gradient-to-br from-primary-main from-20% via-primary via-30% to-color-alt-red pr-2">Save & Edit</span>
-                    <span className="text-black">Recipes from</span>
-                    <span className="text-transparent bg-clip-text bg-gradient-to-br from-primary-main from-20% via-primary via-30% to-color-alt-red pl-2 pr-2">Cooking Videos</span> 
+                <h1 className="text-4xl/tight sm:text-4xl/tight md:text-5xl/tight xl:text-6xl/tight font-bold text-heading-1 mt-6">          
+                    <span className="text-transparent bg-clip-text bg-gradient-to-br from-primary-main from-20% via-primary via-30% to-color-alt-red pr-2">Upgrade</span>
+                    <span className="text-black">Your Cooking Using</span>
+                    <span className="text-transparent bg-clip-text bg-gradient-to-br from-primary-main from-20% via-primary via-30% to-color-alt-red pl-2 pr-2">Zesti AI Assistant</span> 
                 </h1>
                 <Paragraph className="text-lg mt-8 text-black">
-                    Transform your cooking with Zesti! Paste a YouTube link and instantly save cooking videos as detailed, ad-free recipes. No more pausing or rewinding.
+                    Zesti will answer your cooking questions and transform cooking videos into detailed, ad-free recipes from just a YouTube link. 
                 </Paragraph>
                 <div className="mt-10 w-full flex max-w-md mx-auto lg:mx-0">
                     <div className="flex sm:flex-row flex-col gap-5 w-full">
@@ -60,7 +59,7 @@ export function Hero(){
                         border border-box-border bg-box-bg rounded-full ease-linear focus-within:bg-body  focus-within:border-primary">
 
                             <LinkIcon className="text-gray-600 h-10 w-10"/>
-                            <input type="text" name="web-page" value={url} placeholder="Paste a Youtube Link" className="w-full text-gray-500 py-3 outline-none bg-transparent" onChange={(e) => setUrl(e.target.value)}/>
+                            <input type="text" name="web-page" value={url} placeholder="Paste Youtube Link" className="w-full text-gray-500 py-3 outline-none bg-transparent" onChange={(e) => setUrl(e.target.value)}/>
                             {isLoading == false ?
                             <Button buttonType="button" text="" className={"min-w-max text-white"}  
                                 onClick={ async () => { await onClick() }}>                              
