@@ -2,7 +2,7 @@ import { useState, ChangeEvent, MouseEvent, useEffect } from 'react';
 import { ChatBubbleLeftEllipsisIcon, PaperAirplaneIcon } from '@heroicons/react/24/outline';
 import { db } from '@/pages/api/firebase/firebase';
 import { useAuth } from '@/pages/api/auth/auth';
-import { doc, updateDoc, arrayUnion, serverTimestamp, setDoc, collection, onSnapshot, query, orderBy, } from 'firebase/firestore';
+import { doc, updateDoc, arrayUnion, serverTimestamp, setDoc, collection, onSnapshot, query, orderBy, where, Timestamp } from 'firebase/firestore';
 
 interface Message {
   id: string;
@@ -20,17 +20,24 @@ export function Chatbox() {
 
   useEffect(() => {
     if (user) {
+      const twoHoursAgo = new Date();
+      twoHoursAgo.setHours(twoHoursAgo.getHours() - 2); // Set to two hours ago
+
       const messagesRef = collection(db, `users/${user.uid}/messages`);
-      const q = query(messagesRef, orderBy('timestamp', 'asc')); // Get messages ordered by timestamp
+      const q = query(
+        messagesRef,
+        where('timestamp', '>=', Timestamp.fromDate(twoHoursAgo)), // Only get messages from the last two hours
+        orderBy('timestamp', 'asc')
+      );
 
       const unsubscribe = onSnapshot(q, (snapshot) => {
-        const fetchedMessages = snapshot.docs.map(doc => ({
-          ...doc.data() as Message // Cast the data to the Message interface
+        const fetchedMessages: Message[] = snapshot.docs.map(doc => ({
+          ...doc.data() as Message
         }));
         setMessages(fetchedMessages);
       });
 
-      return () => unsubscribe(); // Unsubscribe from updates when component unmounts
+      return () => unsubscribe();
     }
   }, [user]);
 
