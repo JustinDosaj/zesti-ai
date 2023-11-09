@@ -44,7 +44,7 @@ export default function Premium() {
   return (
     <>
     <Head>
-        <title>Zesti AI Premium | Save & Edit Cooking Videos as Text | Best Value</title>
+        <title>Zesti AI Premium | Chatgpt Cooking Assistant | Best Value</title>
         <meta name="description" content="Subscribe to Zesti Premium to gain the best value access to edit and save cooking videos as text recipes. Plus gain access to the cooking chat AI assistant. Try for free. No credit card required."/>
     </Head>
     <div className="bg-white">
