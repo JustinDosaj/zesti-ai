@@ -5,6 +5,7 @@ import { Footer } from '@/components/elements/footer'
 //import { initFirebase } from './api/firebase/firebase'
 import { AuthProvider } from './api/auth/auth'
 import { Analytics } from '@vercel/analytics/react';
+import { Chatbox } from '@/components/chat/chatbox'
 
 export default function App({ Component, pageProps }: AppProps) {
 
@@ -14,6 +15,7 @@ export default function App({ Component, pageProps }: AppProps) {
         <Navbar/>
           <Component {...pageProps}/>
           <Analytics/>
+          <Chatbox/>
         <Footer/>
     </AuthProvider>
   </>
