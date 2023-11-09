@@ -24,6 +24,7 @@ export default function Home() {
         <Optimize/>
         <Reach/>
         <FAQ/>
+        <Chatbox/>
       </main>
     </>
   )

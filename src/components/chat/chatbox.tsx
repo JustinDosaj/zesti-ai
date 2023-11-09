@@ -1,19 +1,39 @@
-import { useState, ChangeEvent, MouseEvent } from 'react';
+import { useState, ChangeEvent, MouseEvent, useEffect } from 'react';
 import { ChatBubbleLeftEllipsisIcon, PaperAirplaneIcon } from '@heroicons/react/24/outline';
 import { db } from '@/pages/api/firebase/firebase';
 import { useAuth } from '@/pages/api/auth/auth';
-import { doc, updateDoc, arrayUnion, serverTimestamp } from 'firebase/firestore';
+import { doc, updateDoc, arrayUnion, serverTimestamp, setDoc, collection, onSnapshot, query, orderBy, } from 'firebase/firestore';
 
-type ChatBoxProps = {
-    recipeId: string;
-  };
+interface Message {
+  id: string;
+  sender: string;
+  text: string;
+  timestamp: Date | { seconds: number, nanoseconds: number }; // Adjust based on the actual shape of the timestamp
+}
 
-export function Chatbox({recipeId}: ChatBoxProps) {
+export function Chatbox() {
     
-  const [isOpen, setIsOpen] = useState(false);
-  const [message, setMessage] = useState('');
-  const [id, setId] = useState<string | null >({recipeId}.recipeId)
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [message, setMessage] = useState<string>('');
+  const [messages, setMessages] = useState<Message[]>([]);
   const { user } = useAuth();
+
+  useEffect(() => {
+    if (user) {
+      const messagesRef = collection(db, `users/${user.uid}/messages`);
+      const q = query(messagesRef, orderBy('timestamp', 'asc')); // Get messages ordered by timestamp
+
+      const unsubscribe = onSnapshot(q, (snapshot) => {
+        const fetchedMessages = snapshot.docs.map(doc => ({
+          ...doc.data() as Message // Cast the data to the Message interface
+        }));
+        setMessages(fetchedMessages);
+      });
+
+      return () => unsubscribe(); // Unsubscribe from updates when component unmounts
+    }
+  }, [user]);
+
 
   const handleChatboxClick = (e: MouseEvent<HTMLDivElement>) => {
     e.stopPropagation();
@@ -25,22 +45,28 @@ export function Chatbox({recipeId}: ChatBoxProps) {
 
   const handleSendMessage = async (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    if (message.trim() === '' || !user || !id) return;
+
+    if (message.trim() === '' || !user ) return;
   
-    // Use a client-side timestamp
-    const newMessage = {
+
+    const messagesRef = collection(db, `users/${user?.uid}/messages`);
+
+    // Client side message and timestamp
+    const userMessage = {
+      sender: "user",
       text: message,
-      timestamp: new Date() // Client-side timestamp
+      timestamp: new Date()
     };
   
-    const messagesRef = doc(db, `users/${user.uid}/recipes/${id}`);
-  
     try {
-      await updateDoc(messagesRef, {
-        messages: arrayUnion(newMessage)
-      });
+      await setDoc(doc(messagesRef), {
+        sender: "user",
+        text: message,
+        timestamp: new Date()
+      }, { merge: true });
   
       setMessage(''); // Clear the message input after sending
+
     } catch (error) {
       console.error('Error sending message:', error);
     }
@@ -55,7 +81,11 @@ export function Chatbox({recipeId}: ChatBoxProps) {
             <button onClick={() => setIsOpen(false)} className="text-xl">×</button>
           </div>
           <div className="flex-1 p-4 overflow-y-auto ">
-            {"Message"}
+          {messages.map(({ id, sender, text }) => (
+              <div key={id} className={`border p-2 rounded-xl message ${sender === 'user' ? 'user-message bg-primary-main bg-opacity-90 justify-items-end w-fit text-white mb-3' : 'bg-gray-100 bot-message mb-3'}`}>
+                {text}
+              </div>
+            ))}
           </div>
           <div className="flex items-center m-4 focus:outline-none focus:ring border rounded-lg">
             <input
