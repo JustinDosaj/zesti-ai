@@ -5,7 +5,6 @@ import { Optimize } from '@/components/home-sections/optimize'
 import Head from 'next/head';
 import { Reach } from '@/components/home-sections/reach';
 import HowItWorks from '@/components/home-sections/howitworks';
-import Link from 'next/link';
 
 const raleway = Raleway({subsets: ['latin']})
 

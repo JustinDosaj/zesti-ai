@@ -79,7 +79,7 @@ export default function Profile() {
                     </div>
                     <div className="inline-flex space-x-2 align-middle items-center">
                       <ChevronDoubleUpIcon className="h-5 w-5 text-color-alt-green"/>
-                      <span className="text-gray-700">Upgrade subscription to unlock editing and more recipes</span>
+                      <span className="text-gray-700">Upgrade subscription for more</span>
                     </div>
                   </div>
                   :
