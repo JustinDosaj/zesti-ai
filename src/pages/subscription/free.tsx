@@ -43,7 +43,7 @@ export default function Essential() {
     <>
     <Head>
         <title>Zesti AI Free | Save Cooking Videos as Text Recipes | $0 </title>
-        <meta name="description" content="Subscribe to Zesti Free to gain no cost access to save cooking videos as text recipes. Try for free. No credit card required."/>
+        <meta name="description" content="Subscribe to Zesti Free to gain no cost access to save cooking videos as text recipes. Plus gain access to the cooking chat AI assistant. Try for free. No credit card required."/>
     </Head>
     <div className="bg-white">
     {/* Header */}

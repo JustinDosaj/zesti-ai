@@ -6,14 +6,14 @@ import Image from 'next/image'
 
 const features = [
     {
-      name: 'Recipe: ',
+      name: 'Get Recipes',
       description:
-        'Get an organized ingrediant list and instructions to help cook something amazing',
+        'Retrieve recipes from cooking videos found on YouTube to get easy-to-follow instructions',
       icon: CheckIcon,
     },
     {
-        name: 'Edit: ',
-        description: 'Recipes are often not just the way you like it. Make edits to ensure you make the perfect dish every time',
+        name: 'Chat Assistant:',
+        description: 'Get your cooking questions answered fast without leaving your recipe page',
         icon: CheckIcon,
       },
   ]
@@ -33,7 +33,7 @@ export function Optimize() {
                         <div className="inline-flex text-transparent bg-clip-text bg-gradient-to-br from-primary-main from-20% via-primary via-30% to-color-alt-red">Easier</div>
                     </Title>
                     <Paragraph className="mt-6 text-lg text-gray-600">
-                        You no longer need to constantly pause and rewind cooking videos. And no more recipe websites with cluttered ads. Zesti will give you the following:
+                        You no longer need to constantly pause and rewind cooking videos, get spammed with ads or scower the internet for cooking questions
                     </Paragraph>
                     <dl className="mt-10 max-w-xl space-y-8 text-base leading-7 text-gray-600 lg:max-w-none">
                         {features.map((feature) => (

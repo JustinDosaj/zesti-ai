@@ -11,9 +11,6 @@ import {useRouter} from "next/router"
 import { Notify } from "@/components/shared/notify"
 import { ToastContainer } from "react-toastify"
 import 'react-toastify/dist/ReactToastify.css';
-import Link from "next/link"
-
-
 
 const raleway = Raleway({subsets: ['latin']})
 
@@ -57,7 +54,7 @@ export default function Login() {
                         <span>Connect with Google</span>
                     </button>
                 </div>
-                <div className="mx-auto text-gray-700">OR</div>
+                {/*<div className="mx-auto text-gray-700">OR</div>
                 <form method="POST" target="_blank" className="my-auto md:w-96">
                     <div className="py-1 pl-6 w-full pr-1 flex gap-3 items-center text-heading-3 shadow-lg shadow-box-shadow border border-box-border bg-box-bg rounded-full ease-linear focus-within:bg-body  focus-within:border-primary">
                         <span className="min-w-max pr-2 border-r border-box-border">
@@ -87,7 +84,7 @@ export default function Login() {
                     <div className="text-center mt-4">
                         <Link href="/reset" className="text-sm text-black text-right underline hover:text-gray-500">Forgot Password?</Link>
                     </div>
-                </form>
+                </form>*/}
 
             </Container>
         </section>

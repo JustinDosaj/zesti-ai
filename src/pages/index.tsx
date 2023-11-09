@@ -13,8 +13,8 @@ export default function Home() {
   return (
     <>
       <Head>
-        <title>Zesti AI | Easily Save & Edit Recipes from Cooking Videos</title>
-        <meta name="description" content="Easily save & edit recipes found from cooking videos with our AI tool powered by OpenAI and ChatGPT. Try for free. No credit card required."/>
+        <title>Zesti AI | Save & Edit Recipes | Cooking Assistant</title>
+        <meta name="description" content="Easily save & edit recipes found from cooking videos and chat with our AI tool powered by OpenAI and ChatGPT. Try for free. No credit card required."/>
       </Head>
       <main className={`flex min-h-screen flex-col items-center justify-between bg-background ${raleway.className}`}>
         <Hero/>
