@@ -90,40 +90,58 @@ export function Chatbox() {
   useEffect(() => {
     scrollToBottom(); // Scroll to bottom every time messages change
   }, [messages]);
-
+  console.log("LENGTH: ", messages.length)
   return (
-    <div className="fixed bottom-4 right-4 z-[10]">
+    <div className="fixed bottom-4 right-4 z-[99]">
       {isOpen ? (
-        <div className="w-fit h-96 ml-4 p-4 md:w-[500px] md:h-[500px] bg-white rounded-lg shadow-lg flex flex-col border border-gray-700" onClick={handleChatboxClick}>
+        <div className="w-fit h-[3/4]] ml-4 p-4 md:w-[500px] md:h-[500px] bg-white rounded-lg shadow-lg flex flex-col border border-gray-700" onClick={handleChatboxClick}>
           <div className="p-4 flex justify-between items-center border-b border-gray-200">
             <h2 className="text-lg font-semibold text-black">Zesti Cooking Assistant</h2>
             <button onClick={() => setIsOpen(false)} className="text-xl">
               <XMarkIcon className="text-black w-6 h-6 hover:text-red-600"/>
             </button>
           </div>
-          {user ? 
-          <div className="flex-1 p-4 overflow-y-auto ">
-          {messages.map(({ id, sender, text }) => (
-              <div key={id} className={`border p-2 rounded-xl message ${sender === 'user' ? 'user-message bg-primary-main bg-opacity-90 justify-items-end w-fit text-white mb-3' : 'bg-gray-100 bot-message mb-3 text-black'}`}>
-                {text}
+          {user && messages.length == 0 ? 
+            <div className="flex-1 p-4 overflow-y-auto ">
+              <div className={`border p-2 rounded-xl message bg-gray-100 bg-opacity-90 justify-items-end w-fit text-black mb-3`}>
+                <span className="text-black">Welcome to Zesti. Here are some ideas of what you can ask me:</span>
               </div>
+              <div className={`border p-2 rounded-xl message bg-gray-100 bg-opacity-90 justify-items-end w-fit text-black mb-3`}>
+                <div className="text-black">What is a substitution for buttermilk?</div>
+              </div>
+              <div className={`border p-2 rounded-xl message bg-gray-100 bg-opacity-90 justify-items-end w-fit text-black mb-3`}>
+                <div className="text-black">Why should I use unsalted butter in baking?</div>
+              </div>
+              <div className={`border p-2 rounded-xl message bg-gray-100 bg-opacity-90 justify-items-end w-fit text-black mb-3`}>
+                <div className="text-black">How do I know if chicken is cooked?</div>
+              </div>
+              <div className={`border p-2 rounded-xl message bg-gray-100 bg-opacity-90 justify-items-end w-fit text-black mb-3`}>
+                <div className="text-black">How do I save a video as a recipe?</div>
+              </div>
+            </div>
+          : user && messages.length > 0 ?
+          <div className="flex-1 p-4 overflow-y-auto ">
+            {messages.map(({ id, sender, text }) => (
+            <div key={id} className={`border p-2 rounded-xl message ${sender === 'user' ? 'user-message bg-primary-main bg-opacity-90 justify-items-end w-fit text-white mb-3' : 'bg-gray-100 bot-message mb-3 text-black'}`}>
+              {text}
+            </div>
             ))}
             <div ref={endOfMessagesRef} />
           </div>
           :
           <div className="flex-1 p-4 overflow-y-auto ">
-              <div className={`border p-2 rounded-xl message bg-primary-main bg-opacity-90 justify-items-end w-fit text-black mb-3`}>
-                <span className="text-white">Please login to use chat</span>
-              </div>
-              <div className={`border p-2 rounded-xl message bg-primary-main bg-opacity-90 justify-items-end w-fit text-black mb-3`}>
-                <InlineBtnLink href="/login" text="Click Here to Login" className="text-white mr-1"/>
-              </div>
+            <div className={`border p-2 rounded-xl message bg-primary-main bg-opacity-90 justify-items-end w-fit text-black mb-3`}>
+              <span className="text-white">Please login to use chat</span>
+            </div>
+            <div className={`border p-2 rounded-xl message bg-primary-main bg-opacity-90 justify-items-end w-fit text-black mb-3`}>
+              <InlineBtnLink href="/login" text="Click Here to Login" className="text-white mr-1"/>
+            </div>
           </div>
           }
-          <div className="flex items-center m-4 focus:outline-none focus:ring border rounded-lg">
+          <div className="flex items-center focus:outline-none focus:ring border rounded-lg">
             <input
               type="text"
-              placeholder="Type a message..."
+              placeholder="Ask a cooking question..."
               className="w-full p-2 text-gray-700"
               value={message}
               onChange={handleInputChange}
