@@ -113,10 +113,10 @@ export function Chatbox() {
                 <div className="text-black">Why should I use unsalted butter in baking?</div>
               </div>
               <div className={`border p-2 rounded-xl message bg-gray-100 bg-opacity-90 justify-items-end w-fit text-black mb-3`}>
-                <div className="text-black">How do I know if chicken is cooked?</div>
+                <div className="text-black">How to change cooking video to recipe?</div>
               </div>
               <div className={`border p-2 rounded-xl message bg-gray-100 bg-opacity-90 justify-items-end w-fit text-black mb-3`}>
-                <div className="text-black">How do I save a video as a recipe?</div>
+                <div className="text-black"></div>
               </div>
             </div>
           : user && messages.length > 0 ?
