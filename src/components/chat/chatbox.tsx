@@ -94,7 +94,7 @@ export function Chatbox() {
   return (
     <div className="fixed bottom-4 right-4 z-[99]">
       {isOpen ? (
-        <div className="w-fit h-[3/4]] ml-4 p-4 md:w-[500px] md:h-[500px] bg-white rounded-lg shadow-lg flex flex-col border border-gray-700" onClick={handleChatboxClick}>
+        <div className="w-fit h-[500px] ml-4 p-4 md:w-[500px] md:h-[500px] bg-white rounded-lg shadow-lg flex flex-col border border-gray-700" onClick={handleChatboxClick}>
           <div className="p-4 flex justify-between items-center border-b border-gray-200">
             <h2 className="text-lg font-semibold text-black">Zesti Cooking Assistant</h2>
             <button onClick={() => setIsOpen(false)} className="text-xl">
@@ -102,7 +102,7 @@ export function Chatbox() {
             </button>
           </div>
           {user && messages.length == 0 ? 
-            <div className="flex-1 p-4 overflow-y-auto ">
+            <div className="flex-1 p-4 overflow-y-auto">
               <div className={`border p-2 rounded-xl message bg-gray-100 bg-opacity-90 justify-items-end w-fit text-black mb-3`}>
                 <span className="text-black">Welcome to Zesti. Here are some ideas of what you can ask me:</span>
               </div>
@@ -115,12 +115,9 @@ export function Chatbox() {
               <div className={`border p-2 rounded-xl message bg-gray-100 bg-opacity-90 justify-items-end w-fit text-black mb-3`}>
                 <div className="text-black">How do I know if chicken is cooked?</div>
               </div>
-              <div className={`border p-2 rounded-xl message bg-gray-100 bg-opacity-90 justify-items-end w-fit text-black mb-3`}>
-                <div className="text-black">How do I save a video as a recipe?</div>
-              </div>
             </div>
           : user && messages.length > 0 ?
-          <div className="flex-1 p-4 overflow-y-auto ">
+          <div className="flex-1 p-4 overflow-y-auto">
             {messages.map(({ id, sender, text }) => (
             <div key={id} className={`border p-2 rounded-xl message ${sender === 'user' ? 'user-message bg-primary-main bg-opacity-90 justify-items-end w-fit text-white mb-3' : 'bg-gray-100 bot-message mb-3 text-black'}`}>
               {text}
