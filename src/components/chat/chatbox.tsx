@@ -115,6 +115,9 @@ export function Chatbox() {
               <div className={`border p-2 rounded-xl message bg-gray-100 bg-opacity-90 justify-items-end w-fit text-black mb-3`}>
                 <div className="text-black">How do I know if chicken is cooked?</div>
               </div>
+              <div className={`border p-2 rounded-xl message bg-gray-100 bg-opacity-90 justify-items-end w-fit text-black mb-3`}>
+                <div className="text-black">How do I save a video as a recipe?</div>
+              </div>
             </div>
           : user && messages.length > 0 ?
           <div className="flex-1 p-4 overflow-y-auto">
