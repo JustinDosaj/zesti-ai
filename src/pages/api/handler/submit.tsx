@@ -84,35 +84,6 @@ export const handleSubmit = async ({url, user, setMessage, stripeRole}: Props): 
         try {
             // Reference to the specific document in the recipes collection
             const recipeRef = db.collection('recipes').doc(url_id[1]);
-            const doc = await recipeRef.get();
-            if (doc.exists) {
-
-                const recipeData = doc.data();                
-                
-                const trueObj = {
-                    "url": `${url}`,
-                    "url_id": url_id ? url_id[1] : null,
-                    "complete": true,
-                    "data": recipeData?.data
-                }
-                
-                if(user) {
-                    try {
-                        await db.collection('users').doc(user.uid).collection('recipes').doc().set(trueObj)
-                        setMessage("The recipe has begun progressing and will appear in your dashboard shortly.")
-                        await db.collection('users').doc(user.uid).update({
-                            tokens: tokens - 1
-                        });
-                        return true
-                    } catch (err) {
-                        setMessage("Something went wrong. Please try again later or contact us if the problem persists")
-                        console.log(err)
-                    }
-                }
-       
-
-                return false;
-            } else {
             
                 if(user){
                     try {
@@ -125,7 +96,7 @@ export const handleSubmit = async ({url, user, setMessage, stripeRole}: Props): 
                     }
                 } 
                 return false;
-            }
+            
         } catch (error) {
             setMessage("Something went wrong. Please try again later. If the problem persists, feel free to contact us.")
             return false;
