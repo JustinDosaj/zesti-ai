@@ -115,9 +115,6 @@ export function Chatbox() {
               <div className={`border p-2 rounded-xl message bg-gray-100 bg-opacity-90 justify-items-end w-fit text-black mb-3`}>
                 <div className="text-black">How to change cooking video to recipe?</div>
               </div>
-              <div className={`border p-2 rounded-xl message bg-gray-100 bg-opacity-90 justify-items-end w-fit text-black mb-3`}>
-                <div className="text-black"></div>
-              </div>
             </div>
           : user && messages.length > 0 ?
           <div className="flex-1 p-4 overflow-y-auto">
@@ -129,12 +126,18 @@ export function Chatbox() {
             <div ref={endOfMessagesRef} />
           </div>
           :
-          <div className="flex-1 p-4 overflow-y-auto ">
-            <div className={`border p-2 rounded-xl message bg-primary-main bg-opacity-90 justify-items-end w-fit text-black mb-3`}>
-              <span className="text-white">Please login to use chat</span>
+          <div className="flex-1 p-4 overflow-y-auto">
+            <div className={`border p-2 rounded-xl message bg-gray-100 bg-opacity-90 justify-items-end w-fit text-black mb-3`}>
+              <span className="text-black">Welcome to Zesti!</span>
             </div>
-            <div className={`border p-2 rounded-xl message bg-primary-main bg-opacity-90 justify-items-end w-fit text-black mb-3`}>
-              <InlineBtnLink href="/login" text="Click Here to Login" className="text-white mr-1"/>
+            <div className={`border p-2 rounded-xl message bg-gray-100 bg-opacity-90 justify-items-end w-fit text-black mb-3`}>
+              <span className="text-black">I am an AI cooking assistant that can answer your cooking questions and change YouTube recipe videos into easy-to-follow instructions</span>
+            </div>
+            <div className={`border p-2 rounded-xl message bg-gray-100 bg-opacity-90 justify-items-end w-fit text-black mb-3`}>
+              <span className="text-black">   
+              <InlineBtnLink href="/login" text="Click Here to login" className="text-black mr-1 hover:primary-alt"/>
+              and start chatting
+              </span>
             </div>
           </div>
           }
