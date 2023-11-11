@@ -142,13 +142,13 @@ export function FailedRecipe({key, recipe, isDeleteOpen, setIsDeleteOpen, select
                 <div className="flex justify-between gap-x-4 py-3">
                 <dt className="text-gray-500">Total Ingrediants</dt>
                 <dd className="text-gray-700">
-                    <p>{`${recipe.data.ingredients.length}`}</p>
+                    <p>{`0`}</p>
                 </dd>
                 </div>
                 <div className="flex justify-between gap-x-4 py-3">
                 <dt className="text-gray-500">Total Steps</dt>
                 <dd className="text-gray-700">
-                    <p>{`${recipe.data.instructions.length}`}</p>
+                    <p>{`0`}</p>
                 </dd>
                 </div>
             </dl>
