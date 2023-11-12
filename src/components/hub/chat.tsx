@@ -8,7 +8,6 @@ import React, { useState } from 'react';
 import { PencilIcon } from '@heroicons/react/24/outline';
 import { Button } from "../shared/button";
 import { Loader } from "../shared/loader";
-import { Notify } from "../shared/notify";
 import { handleCreativeChatSubmit } from "@/pages/api/handler/submit";
 
 
