@@ -104,10 +104,10 @@ export function Chatbox() {
           {user && messages.length == 0 ? 
             <div className="flex-1 p-4 overflow-y-auto">
               <div className={`border p-2 rounded-xl message bg-gray-100 bg-opacity-90 justify-items-end w-fit text-black mb-3`}>
-                <span className="text-black">Ask your cooking questions here so you never have to leave your recipe</span>
+                <span className="text-black">Let start cooking!</span>
               </div>
               <div className={`border p-2 rounded-xl message bg-gray-100 bg-opacity-90 justify-items-end w-fit text-black mb-3`}>
-                <div className="text-black">Here are some examples of what to ask:</div>
+                <div className="text-black">If you have any general questions, feel free to ask here! For example:</div>
               </div>
               <div className={`border p-2 rounded-xl message bg-gray-100 bg-opacity-90 justify-items-end w-fit text-black mb-3`}>
                 <div className="text-black">How do I know if chicken is finished cooking?</div>
