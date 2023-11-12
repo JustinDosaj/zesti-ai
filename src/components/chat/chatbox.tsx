@@ -107,7 +107,7 @@ export function Chatbox() {
                 <span className="text-black">Ask your cooking questions here so you never have to leave your recipe</span>
               </div>
               <div className={`border p-2 rounded-xl message bg-gray-100 bg-opacity-90 justify-items-end w-fit text-black mb-3`}>
-                <div className="text-black">Don't know what to ask? Here are some examples:</div>
+                <div className="text-black">Here are some examples of what to ask:</div>
               </div>
               <div className={`border p-2 rounded-xl message bg-gray-100 bg-opacity-90 justify-items-end w-fit text-black mb-3`}>
                 <div className="text-black">How do I know if chicken is finished cooking?</div>
