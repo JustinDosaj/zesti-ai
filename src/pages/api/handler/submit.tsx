@@ -177,7 +177,7 @@ export const handleCreativeChatSubmit = async({userInput, user, setMessage, stri
 
         // Check if chat is empty
         if (userInput == '') { 
-            setMessage("Oops! You must input a valid video link!")
+            setMessage("Oops! The input cannot be blank!")
             return false;
         }
 
