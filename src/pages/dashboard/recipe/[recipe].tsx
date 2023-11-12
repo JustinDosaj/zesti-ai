@@ -38,7 +38,7 @@ const Recipe: React.FC = ({id}: any) => {
           .onSnapshot((docSnapshot) => {
             if (docSnapshot.exists) {
               setRecipe(docSnapshot.data()?.data);
-              setUrl(docSnapshot.data()?.url)
+              setUrl(docSnapshot.data()?.url ? docSnapshot.data()?.url : '')
             } else {
               console.log("Doc doesnt exist")
             }
@@ -133,6 +133,7 @@ const Recipe: React.FC = ({id}: any) => {
               {`${recipe?.description}`}
             </p>
           </div>
+          { url !== '' ?
             <button onClick={() => window.open(url)}
               className="mt-4 md:mt-0 inline-flex text-primary-main h-fit border-primary-main border rounded-lg p-2 transition bg-white hover:text-white hover:bg-primary-main"
             >
@@ -141,6 +142,9 @@ const Recipe: React.FC = ({id}: any) => {
                 <p>Original Recipe</p>
                 </div>
             </button>
+            :
+            <div></div>
+          }
         </div>
       </div>
       </Container>
