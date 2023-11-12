@@ -90,7 +90,7 @@ export function Chatbox() {
   useEffect(() => {
     scrollToBottom(); // Scroll to bottom every time messages change
   }, [messages]);
-  console.log("LENGTH: ", messages.length)
+
   return (
     <div className="fixed bottom-4 right-4 z-[99]">
       {isOpen ? (
@@ -104,16 +104,16 @@ export function Chatbox() {
           {user && messages.length == 0 ? 
             <div className="flex-1 p-4 overflow-y-auto">
               <div className={`border p-2 rounded-xl message bg-gray-100 bg-opacity-90 justify-items-end w-fit text-black mb-3`}>
-                <span className="text-black">Welcome to Zesti. Here are some ideas of what you can ask me:</span>
+                <span className="text-black">Ask your cooking questions here so you never have to leave your recipe</span>
               </div>
               <div className={`border p-2 rounded-xl message bg-gray-100 bg-opacity-90 justify-items-end w-fit text-black mb-3`}>
-                <div className="text-black">What is a substitution for buttermilk?</div>
+                <div className="text-black">Here are some examples of what to ask:</div>
               </div>
               <div className={`border p-2 rounded-xl message bg-gray-100 bg-opacity-90 justify-items-end w-fit text-black mb-3`}>
-                <div className="text-black">Why should I use unsalted butter in baking?</div>
+                <div className="text-black">How do I know if chicken is finished cooking?</div>
               </div>
               <div className={`border p-2 rounded-xl message bg-gray-100 bg-opacity-90 justify-items-end w-fit text-black mb-3`}>
-                <div className="text-black">How to change cooking video to recipe?</div>
+                <div className="text-black">I ran out of vegetable oil, what can I replace it with?</div>
               </div>
             </div>
           : user && messages.length > 0 ?

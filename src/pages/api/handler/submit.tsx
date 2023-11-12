@@ -107,3 +107,110 @@ export const handleSubmit = async ({url, user, setMessage, stripeRole}: Props): 
     }
 }
 
+export const handleYouTubeURLSubmit = async ({url, user, setMessage, stripeRole}: Props): Promise<boolean> => {
+
+    // Check if URL is empty
+    if (url == '') { 
+        setMessage("Oops! You must input a valid video link!")
+        return false;
+    }
+
+    // Ensure video length is equal or below user sub usage rate
+    const url_id = url?.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|shorts\/))([a-zA-Z0-9_-]{11})/);
+    const falseObj = {
+        "url": `${url}`,
+        "url_id": url_id ? url_id[1] : null,
+        "source": "youtube"
+    }
+
+
+    // Checking video length compared to subscription model
+    const result = await getVideoLength(url_id ? url_id[1] : null)
+    if (stripeRole == 'base') {
+        if((result?.minutes || 0) > 10) { setMessage("Video too long for your subscription. You can upload videos that are up to 10 minutes long"); return false;}
+    } else if (stripeRole == 'free') {
+        if((result?.minutes || 0) > 10) { setMessage("Video too long for your subscription. You can upload videos that are up to 10 minutes long"); return false;}
+    } else if (stripeRole == 'essential') {
+        if((result?.minutes || 0) > 20) { setMessage("Video is too long. You can currently upload videos that are up to 20 minutes long"); return false;}
+    } else if (stripeRole == 'premium') {
+        if((result?.minutes || 0) > 30) { setMessage("Video too long for your subscription. You can upload videos that are up to 30 minutes long"); return false;}
+    } else if (stripeRole !== 'base' || stripeRole !== 'essential' || stripeRole !== 'premium') {
+        if((result?.minutes || 0) > 10) { setMessage("Video is too long. The free recipe transcription can be a maximum of 10 minutes long."); return false;}
+    }
+
+
+    let tokens = 0;
+    await getUserData(user?.uid).then((res) => {tokens = res?.tokens})
+    
+    if (tokens >= 1) {
+        try {
+            if(user){
+                try {
+                    await db.collection('users').doc(user.uid).collection('youtubeurl').doc().set(falseObj)
+                    setMessage("The recipe has begun progressing and will appear in your dashboard shortly.")
+                    return true
+                } catch (err) {
+                    setMessage("Something went wrong. Please try again later. If the problem persists, please contact us.")
+                    console.log(err)
+                }
+            } 
+            return false;
+            
+        } catch (error) {
+            setMessage("Something went wrong. Please try again later. If the problem persists, feel free to contact us.")
+            return false;
+        }
+    } else { 
+        setMessage("Not enough tokens to complete transaction") 
+        return false; 
+    }
+}
+
+interface ChatProps {
+    userInput: string,
+    user: any,
+    setMessage: any,
+    stripeRole: any,
+}
+
+export const handleCreativeChatSubmit = async({userInput, user, setMessage, stripeRole}: ChatProps) => {
+
+        // Check if chat is empty
+        if (userInput == '') { 
+            setMessage("Oops! You must input a valid video link!")
+            return false;
+        }
+
+        const falseObj = {
+            "userMessage": `${userInput}`,
+            "source": "creative"
+        }
+
+        let tokens = 0;
+        await getUserData(user?.uid).then((res) => {tokens = res?.tokens})
+
+            
+    if (tokens >= 1) {
+        try {
+            if(user){
+                try {
+                    await db.collection('users').doc(user.uid).collection('creative').doc().set(falseObj)
+                    setMessage("The recipe began processing and will appear in your dashboard shortly.")
+                    return true
+                } catch (err) {
+                    setMessage("Something went wrong. Please try again later. If the problem persists, feel free to contact us.")
+                    console.log(err)
+                }
+            } 
+            return false;
+            
+        } catch (error) {
+            setMessage("Please login or sign up to continue")
+            return false;
+        }
+    } else { 
+        setMessage("Not enough tokens to complete transaction") 
+        return false; 
+    }
+
+}
