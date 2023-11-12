@@ -32,7 +32,7 @@ export function PricingList() {
       description: 'Use Zesti AI for free and gain recipe transcriptions every month',
       features: [
         '3 Recipes Per Month',
-        '10 Minute Max Length'
+        '10 Minute Max for Videos'
       ],
       mostPopular: false,
       checkout: () => {
@@ -48,7 +48,7 @@ export function PricingList() {
       description: 'Best for users that find new recipes fairly frequently and want to try them for later.',
       features: [
         '10 Recipes Per Month',
-        '20 Minute Max Length',
+        '20 Minute Max for Videos',
         'Edit Recipes'
       ],
       mostPopular: true,
@@ -65,7 +65,7 @@ export function PricingList() {
       description: 'Best for users who cook frequently, and constantly enjoy trying new recipes they find',
       features: [
         '30 Recipes Per Month',
-        '30 Minute Max Length',
+        '30 Minute Max for Videos',
         'Edit Recipes'
       ],
       mostPopular: false,
