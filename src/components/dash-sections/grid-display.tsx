@@ -38,6 +38,7 @@ export function GridDisplay({data, user}: GridDisplayProps) {
 
     return(
     <Container className={"flex flex-col lg:flex-wrap gap-10 lg:gap-12 mb-28 mt-12"}>
+      <h2 className="text-black font-semibold text-center text-4xl">Your Recipes</h2>
       <ul role="list" className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-8">
       {data.map((recipe: any) => {
         if (recipe.complete == false) {

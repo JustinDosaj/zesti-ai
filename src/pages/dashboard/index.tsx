@@ -9,6 +9,7 @@ import { useState } from "react";
 import { PageLoader } from "@/components/shared/loader";
 import Head from 'next/head';
 import { db } from '../api/firebase/firebase';
+import Hub from '@/components/hub/hub';
 
 const raleway = Raleway({subsets: ['latin']})
 
@@ -40,6 +41,7 @@ export default function Dashboard() {
     </Head>  
     <main className={`flex min-h-screen flex-col items-center bg-background ${raleway.className}`}>
         <LinkInput user={user} stripeRole={stripeRole}/>
+        <Hub/>
         {isLoadingRecipes ? <PageLoader/> : <GridDisplay data={recipes} user={user}/>}
         
     </main>
