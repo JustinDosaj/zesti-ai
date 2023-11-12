@@ -18,10 +18,10 @@ export default function Hub() {
             <div className="rounded border p-4 mx-auto mt-4 w-full max-w-7xl">
                 <nav className="flex justify-center space-x-2 sm:space-x-6 lg:space-x-16 mb-4 border-b-2">
                     <div className={`py-2 ${selectedFeature === 'chat' ? 'border-b-2 border-primary-main' : ' hover:text-gray-500 hover:border-b-2 hover:border-primary-alt'}`} onClick={() => selectFeature('chat')}>
-                        <button className="w-24 md:w-48 text-center text-gray-600">Recipe Ideas</button>
+                        <button className="w-36 md:w-48 text-center text-gray-600">Recipe Ideas</button>
                     </div>
                     <div className={`py-2 ${selectedFeature === 'video' ? 'border-b-2 border-primary-main' : ' hover:text-gray-500 hover:border-b-2 hover:border-primary-alt'}`} onClick={() => selectFeature('video')}>
-                        <button className="w-24 md:w-48 text-center text-gray-600">Video to Recipe</button>
+                        <button className="w-36 md:w-48 text-center text-gray-600">Video to Recipe</button>
                     </div>
                     {/*<div className={`py-2 ${selectedFeature === 'url' ? 'border-b-2 border-primary-main' : ' hover:text-gray-500 hover:border-b-2 hover:border-primary-alt'}`} onClick={() => selectFeature('url')}>
                         <button className="w-24 md:w-48 text-center text-gray-600">Get Website Recipe</button>

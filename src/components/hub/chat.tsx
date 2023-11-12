@@ -1,6 +1,6 @@
 
 import { useAuth } from "@/pages/api/auth/auth";
-import { InputResponseModal } from "../shared/modals";
+import { InputResponseModal, NotLoggedInModal } from "../shared/modals";
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify';
 import Link from "next/link";
@@ -10,6 +10,7 @@ import { Button } from "../shared/button";
 import { Loader } from "../shared/loader";
 import { Notify } from "../shared/notify";
 import { handleCreativeChatSubmit } from "@/pages/api/handler/submit";
+
 
 interface Message {
     id: string;
@@ -23,6 +24,7 @@ export default function ChatComponent() {
     const { user, stripeRole } = useAuth()
     const [ isLoading, setIsLoading ] = useState<boolean>(false)
     const [ isOpen, setIsOpen ] = useState<boolean>(false)
+    const [ loginPrompt, setLoginPrompt ] = useState<boolean>(false)
     const [ success, setSuccess ] = useState<boolean>(false)
     const [message, setMessage] = useState<string>('');
     const [userInput, setUserInput] = useState<string>('')
@@ -30,7 +32,7 @@ export default function ChatComponent() {
 
       async function onClick() {
         if (!user) {
-            Notify('Please Login or Sign Up')
+            setLoginPrompt(true)
             return;
         } else {
         setIsLoading(true) 
@@ -72,11 +74,12 @@ export default function ChatComponent() {
         <div className="mt-2 space-x-1 text-sm">
             <span className="text-gray-400">Try for free! (No credit card required).</span>
         </div>
-        <div className="mt-4 space-x-1 text-base">
+        <div className="mt-4 space-x-1 text-base text-center">
             <span className="text-gray-700">Curious about results? Check out this</span>
             <Link href="/demo" className="underline text-primary-main hover:text-primary-alt font-bold">example</Link>
         </div>
         <InputResponseModal isOpen={isOpen} setIsOpen={setIsOpen} success={success} message={message}/>
+        <NotLoggedInModal loginPrompt={loginPrompt} setLoginPrompt={setLoginPrompt}/>
     </div>
     )
 }

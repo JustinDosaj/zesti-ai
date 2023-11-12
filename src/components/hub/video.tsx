@@ -1,11 +1,10 @@
 import { LinkIcon } from "@heroicons/react/24/outline"
 import { Button } from "../shared/button"
 import { Loader } from "../shared/loader"
-import { Notify } from "../shared/notify"
 import { useAuth } from "@/pages/api/auth/auth";
 import React, { useState } from 'react'
 import { handleYouTubeURLSubmit } from "@/pages/api/handler/submit";
-import { InputResponseModal } from "../shared/modals";
+import { InputResponseModal, NotLoggedInModal } from "../shared/modals";
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify';
 import Link from "next/link";
@@ -16,13 +15,14 @@ export default function VideoComponent() {
     const { user, stripeRole } = useAuth()
     const [ url, setUrl ] = useState<string>('');
     const [ isOpen , setIsOpen ] = useState<boolean>(false);
+    const [ loginPrompt, setLoginPrompt ] = useState<boolean>(false)
     const [ isLoading, setIsLoading ] = useState<boolean>(false)
     const [ success, setSuccess ] = useState<boolean>(false)
     const [ message, setMessage ] = useState<string>('')
 
     async function onClick() {
         if (!user) {
-            Notify('Please Login or Sign Up')
+            setLoginPrompt(true)
             return;
         } else {
         setIsLoading(true) 
@@ -64,11 +64,12 @@ export default function VideoComponent() {
         <div className="mt-2 space-x-1 text-sm">
             <span className="text-gray-400">Try for free! (No credit card required).</span>
         </div>
-        <div className="mt-4 space-x-1 text-base">
+        <div className="mt-4 space-x-1 text-base text-center">
             <span className="text-gray-700">Curious about results? Check out this</span>
             <Link href="/demo" className="underline text-primary-main hover:text-primary-alt font-bold">example</Link>
         </div>
         <InputResponseModal isOpen={isOpen} setIsOpen={setIsOpen} success={success} message={message}/>
+        <NotLoggedInModal loginPrompt={loginPrompt} setLoginPrompt={setLoginPrompt}/>
     </div>
     )
 }
