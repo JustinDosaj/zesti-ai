@@ -5,6 +5,7 @@ import { Optimize } from '@/components/home-sections/optimize'
 import Head from 'next/head';
 import { Reach } from '@/components/home-sections/reach';
 import HowItWorks from '@/components/home-sections/howitworks';
+import Hub from '@/components/hub/hub';
 
 const raleway = Raleway({subsets: ['latin']})
 
@@ -18,6 +19,7 @@ export default function Home() {
       </Head>
       <main className={`flex min-h-screen flex-col items-center justify-between bg-background ${raleway.className}`}>
         <Hero/>
+        <Hub/>
         <HowItWorks/>
         <Optimize/>
         <Reach/>
