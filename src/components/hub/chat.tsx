@@ -48,7 +48,7 @@ export default function ChatComponent() {
     <div className="mt-10 mb-6 w-full flex flex-col items-center">
         <ToastContainer/>
         <h2 className="text-2xl font-bold text-center mb-4 text-black">Create Recipe with Zesti</h2>
-        <p className="text-center mb-6 max-w-2xl mx-auto text-gray-700">Enter ingredients you have or simply say what you're in the mood for and Zesti will do its best to come up with something delicious!</p>
+        <p className="text-center mb-6 max-w-2xl mx-auto text-gray-700">Enter ingredients you have or simply say what you are in the mood for and Zesti will do its best to come up with something delicious!</p>
         <div className="flex sm:flex-row flex-col gap-5 w-full justify-center">
             <form action="" method="POST" className="py-1 pl-6 w-full max-w-md pr-1 flex gap-3 items-center text-heading-3 shadow-lg shadow-box-shadow
             border border-box-border bg-box-bg rounded-full ease-linear focus-within:bg-body focus-within:border-primary">
