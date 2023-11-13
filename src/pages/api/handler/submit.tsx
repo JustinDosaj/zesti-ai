@@ -2,23 +2,13 @@ import { db } from "../firebase/firebase";
 import { getUserData } from "../firebase/functions";
 import axios from 'axios'
 
-export interface Props {
-    url: any,
-    user: any,
-    setMessage: any,
-    stripeRole: any, 
-}
 
-export async function getVideoLength(url_id: any) {
-    const apiKey = process.env.NEXT_PUBLIC_VIDEO_LENGTH_API_KEY;
-
+async function isValidUrl(string: string) {
     try {
-        const response = await axios.get(`https://www.googleapis.com/youtube/v3/videos?part=contentDetails&id=${url_id}&key=${apiKey}`);
-        const duration = response.data.items[0].contentDetails.duration; // Duration in ISO 8601 format, like "PT1H15M32S"
-        const result = await convertISO8601ToMinutesAndSeconds(duration);
-        return result; 
+        new URL(string);
+        return true;
     } catch (error) {
-        console.error('Error fetching video details:', error);
+        return false;
     }
 }
 
@@ -44,73 +34,32 @@ async function convertISO8601ToMinutesAndSeconds(isoDuration: any) {
     };
 }
 
+export interface Props {
+    url: any,
+    user: any,
+    setMessage: any,
+    stripeRole: any,
+    setNotify: any, 
+}
 
-export const handleSubmit = async ({url, user, setMessage, stripeRole}: Props): Promise<boolean> => {
+export async function getVideoLength(url_id: any) {
+    const apiKey = process.env.NEXT_PUBLIC_VIDEO_LENGTH_API_KEY;
 
-    // Check if URL is empty
-    if (url == '') { 
-        setMessage("Oops! You must input a valid video link!")
-        return false;
-    }
-
-    // Ensure video length is equal or below user sub usage rate
-    const url_id = url?.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|shorts\/))([a-zA-Z0-9_-]{11})/);
-    const falseObj = {
-        "url": `${url}`,
-        "url_id": url_id ? url_id[1] : null,
-        "complete": false,
-    }
-
-
-    // Checking video length compared to subscription model
-    const result = await getVideoLength(url_id ? url_id[1] : null)
-    if (stripeRole == 'base') {
-        if((result?.minutes || 0) > 10) { setMessage("Video too long for your subscription. You can upload videos that are up to 10 minutes long"); return false;}
-    } else if (stripeRole == 'free') {
-        if((result?.minutes || 0) > 10) { setMessage("Video too long for your subscription. You can upload videos that are up to 10 minutes long"); return false;}
-    } else if (stripeRole == 'essential') {
-        if((result?.minutes || 0) > 20) { setMessage("Video is too long. You can currently upload videos that are up to 20 minutes long"); return false;}
-    } else if (stripeRole == 'premium') {
-        if((result?.minutes || 0) > 30) { setMessage("Video too long for your subscription. You can upload videos that are up to 30 minutes long"); return false;}
-    } else if (stripeRole !== 'base' || stripeRole !== 'essential' || stripeRole !== 'premium') {
-        if((result?.minutes || 0) > 10) { setMessage("Video is too long. The free recipe transcription can be a maximum of 10 minutes long."); return false;}
-    }
-
-
-    let tokens = 0;
-    await getUserData(user?.uid).then((res) => {tokens = res?.tokens})
-    
-    if (tokens >= 1) {
-        try {
-            // Reference to the specific document in the recipes collection
-            const recipeRef = db.collection('recipes').doc(url_id[1]);
-            
-                if(user){
-                    try {
-                        await db.collection('users').doc(user.uid).collection('recipes').doc().set(falseObj)
-                        setMessage("The recipe has begun progressing and will appear in your dashboard shortly.")
-                        return true
-                    } catch (err) {
-                        setMessage("Something went wrong. Please try again later. If the problem persists, feel free to contact us.")
-                        console.log(err)
-                    }
-                } 
-                return false;
-            
-        } catch (error) {
-            setMessage("Something went wrong. Please try again later. If the problem persists, feel free to contact us.")
-            return false;
-        }
-    } else { 
-        setMessage("Not enough tokens to complete transaction") 
-        return false; 
+    try {
+        const response = await axios.get(`https://www.googleapis.com/youtube/v3/videos?part=contentDetails&id=${url_id}&key=${apiKey}`);
+        const duration = response.data.items[0].contentDetails.duration; // Duration in ISO 8601 format, like "PT1H15M32S"
+        const result = await convertISO8601ToMinutesAndSeconds(duration);
+        return result; 
+    } catch (error) {
+        console.error('Error fetching video details:', error);
     }
 }
 
-export const handleYouTubeURLSubmit = async ({url, user, setMessage, stripeRole}: Props): Promise<boolean> => {
+export const handleYouTubeURLSubmit = async ({url, user, setMessage, stripeRole, setNotify}: Props): Promise<boolean> => {
 
     // Check if URL is empty
-    if (url == '') { 
+    if (url == '') {
+        setNotify(true) 
         setMessage("Oops! You must input a valid video link!")
         return false;
     }
@@ -126,16 +75,35 @@ export const handleYouTubeURLSubmit = async ({url, user, setMessage, stripeRole}
 
     // Checking video length compared to subscription model
     const result = await getVideoLength(url_id ? url_id[1] : null)
-    if (stripeRole == 'base') {
-        if((result?.minutes || 0) > 10) { setMessage("Video too long for your subscription. You can upload videos that are up to 10 minutes long"); return false;}
-    } else if (stripeRole == 'free') {
-        if((result?.minutes || 0) > 10) { setMessage("Video too long for your subscription. You can upload videos that are up to 10 minutes long"); return false;}
-    } else if (stripeRole == 'essential') {
-        if((result?.minutes || 0) > 20) { setMessage("Video is too long. You can currently upload videos that are up to 20 minutes long"); return false;}
-    } else if (stripeRole == 'premium') {
-        if((result?.minutes || 0) > 30) { setMessage("Video too long for your subscription. You can upload videos that are up to 30 minutes long"); return false;}
-    } else if (stripeRole !== 'base' || stripeRole !== 'essential' || stripeRole !== 'premium') {
-        if((result?.minutes || 0) > 10) { setMessage("Video is too long. The free recipe transcription can be a maximum of 10 minutes long."); return false;}
+    switch (stripeRole) {
+        case 'base':
+        case 'free':
+            if ((result?.minutes || 0) > 10) {
+                setMessage("Max video length is 10 minutes. Upgrade subscription for more.");
+                setNotify(true)
+                return false;
+            }
+            break;
+        case 'essential':
+            if ((result?.minutes || 0) > 20) {
+                setMessage("Max video length is 20 minutes. Upgrade subscription for more.");
+                setNotify(true)
+                return false;
+            }
+            break;
+        case 'premium':
+            if ((result?.minutes || 0) > 30) {
+                setMessage("Max video length is 30 minutes. Contact us if you need more.");
+                setNotify(true)
+                return false;
+            }
+            break;
+        default:
+            if ((result?.minutes || 0) > 10) {
+                setMessage("Max video length is 10 minutes. Upgrade subscription for more");
+                setNotify(true)
+                return false;
+            }
     }
 
 
@@ -157,11 +125,13 @@ export const handleYouTubeURLSubmit = async ({url, user, setMessage, stripeRole}
             return false;
             
         } catch (error) {
+            setNotify(true)
             setMessage("Something went wrong. Please try again later. If the problem persists, feel free to contact us.")
             return false;
         }
-    } else { 
-        setMessage("Not enough tokens to complete transaction") 
+    } else {  
+        setNotify(true)
+        setMessage("No more recipes available. Upgrade subscription for more.") 
         return false; 
     }
 }
@@ -171,13 +141,21 @@ interface ChatProps {
     user: any,
     setMessage: any,
     stripeRole: any,
+    setNotify: any,
 }
 
-export const handleCreativeChatSubmit = async({userInput, user, setMessage, stripeRole}: ChatProps) => {
+export const handleCreativeChatSubmit = async({userInput, user, setMessage, stripeRole, setNotify}: ChatProps) => {
 
-        // Check if chat is empty
-        if (userInput == '') { 
+        // url check
+        const urlCheck = await isValidUrl(userInput)
+
+        if (userInput == '') {
+            setNotify(true) 
             setMessage("Oops! The input cannot be blank!")
+            return false;
+        } else if (urlCheck == true) {
+            setNotify(true)
+            setMessage("Oops! That looks like a URL. You may be trying to access Video to Recipe or Ad-Free Recipe")
             return false;
         }
 
@@ -198,6 +176,7 @@ export const handleCreativeChatSubmit = async({userInput, user, setMessage, stri
                     setMessage("The recipe began processing and will appear in your dashboard shortly.")
                     return true
                 } catch (err) {
+                    setNotify(true)
                     setMessage("Something went wrong. Please try again later. If the problem persists, feel free to contact us.")
                     console.log(err)
                 }
@@ -205,12 +184,71 @@ export const handleCreativeChatSubmit = async({userInput, user, setMessage, stri
             return false;
             
         } catch (error) {
+            setNotify(true)
             setMessage("Please login or sign up to continue")
             return false;
         }
     } else { 
-        setMessage("Not enough tokens to complete transaction") 
+        setNotify(true)
+        setMessage("No more recipes available. Upgrade subscription for more.") 
         return false; 
     }
 
+}
+
+interface WebURLProps {
+    url: string,
+    user: any,
+    setMessage: any,
+    stripeRole: any,
+    setNotify: any,
+}
+
+export const handleWebURLSubmit = async ({url, user, setMessage, stripeRole, setNotify}: WebURLProps): Promise<boolean> => {
+
+    // URL CHecks
+    const urlCheck = await isValidUrl(url)
+
+    if (url == '') {
+        setNotify(true) 
+        setMessage("Oops! You must input a valid website URL!")
+        return false;
+    } else if (urlCheck == false) {
+        setNotify(true)
+        setMessage("Oops! That isn't a valid URL!")
+        return false;
+    }
+
+    const falseObj = {
+        "url": `${url}`,
+        "source": "url"
+    }
+
+    let tokens = 0;
+    await getUserData(user?.uid).then((res) => {tokens = res?.tokens})
+    
+    if (tokens >= 1) {
+        try {
+            if(user){
+                try {
+                    await db.collection('users').doc(user.uid).collection('weburl').doc().set(falseObj)
+                    setMessage("The recipe has begun progressing and will appear in your dashboard shortly.")
+                    return true
+                } catch (err) {
+                    setNotify(true)
+                    setMessage("Something went wrong. Please try again later. If the problem persists, please contact us.")
+                    console.log(err)
+                }
+            } 
+            return false;
+            
+        } catch (error) {
+            setMessage("Something went wrong. Please try again later. If the problem persists, feel free to contact us.")
+            return false;
+        }
+    } else {  
+        setNotify(true)
+        setMessage("No more recipes available. Upgrade subscription for more.") 
+        return false; 
+    }
 }

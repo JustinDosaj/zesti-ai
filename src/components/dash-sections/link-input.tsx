@@ -2,26 +2,9 @@ import { Paragraph } from "../shared/paragraph"
 import { Button } from "../shared/button"
 import { Container } from "../shared/container"
 import { useState } from 'react'
-import { handleSubmit } from "@/pages/api/handler/submit"
-import { Loader } from "../shared/loader";
 import { InputResponseModal } from "../shared/modals"
-import { LinkIcon } from "@heroicons/react/20/solid"
 
 export function LinkInput({user, stripeRole}: any) {
-
-    const [ url, setUrl ] = useState<string>();
-    const [ isOpen , setIsOpen ] = useState<boolean>(false);
-    const [ isLoading, setIsLoading ] = useState<boolean>(false)
-    const [ success, setSuccess ] = useState<boolean>(false)
-    const [ message, setMessage ] = useState<string>('')
-
-    async function onClick() {
-        setIsLoading(true) 
-        await handleSubmit({url, user, setMessage, stripeRole}).then((val) => { setSuccess(val) }); 
-        setIsLoading(false)
-        setUrl('')
-        setIsOpen(true)
-    }
 
     return(
     <section className="relative pt-32">
@@ -36,7 +19,6 @@ export function LinkInput({user, stripeRole}: any) {
                      Access your recipes or use Zesti to come up with new ideas and convert cooking videos into easy-to-follow recipes
                 </Paragraph>
             </div>
-            <InputResponseModal isOpen={isOpen} setIsOpen={setIsOpen} success={success} message={message}/>
         </Container>
     </section>
     )

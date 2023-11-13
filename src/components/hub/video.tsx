@@ -2,12 +2,13 @@ import { LinkIcon } from "@heroicons/react/24/outline"
 import { Button } from "../shared/button"
 import { Loader } from "../shared/loader"
 import { useAuth } from "@/pages/api/auth/auth";
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { handleYouTubeURLSubmit } from "@/pages/api/handler/submit";
 import { InputResponseModal, NotLoggedInModal } from "../shared/modals";
-import 'react-toastify/dist/ReactToastify.css';
-import { ToastContainer } from 'react-toastify';
 import Link from "next/link";
+import { Notify } from '../shared/notify';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 export default function VideoComponent() {
@@ -19,6 +20,14 @@ export default function VideoComponent() {
     const [ isLoading, setIsLoading ] = useState<boolean>(false)
     const [ success, setSuccess ] = useState<boolean>(false)
     const [ message, setMessage ] = useState<string>('')
+    const [ notify, setNotify ] = useState<boolean | null>(null)
+
+    useEffect(() => {
+        if (notify == true) {
+            Notify(message)
+            setNotify(false)
+        }
+    },[notify])
 
     async function onClick() {
         if (!user) {
@@ -26,10 +35,12 @@ export default function VideoComponent() {
             return;
         } else {
         setIsLoading(true) 
-        await handleYouTubeURLSubmit({url, user, setMessage, stripeRole}).then((val) => {setSuccess(val)});
+        await handleYouTubeURLSubmit({url, user, setMessage, stripeRole, setNotify}).then((val) => {
+            setSuccess(val)
+            setIsOpen(val)
+        });
         setIsLoading(false)
         setUrl('')
-        setIsOpen(true)
         }
     }
 
