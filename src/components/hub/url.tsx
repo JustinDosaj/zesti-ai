@@ -73,10 +73,10 @@ export default function UrlComponent() {
                 }
             </form>
         </div>
-        <div className="mt-2 space-x-1 text-sm">
+        <div className="mt-2 space-x-1 text-sm text-center">
             <span className="text-gray-400">Try for free! (No credit card required).</span>
         </div>
-        <div className="mt-4 space-x-1 text-base">
+        <div className="mt-4 space-x-1 text-base text-center">
             <span className="text-gray-700">Curious about results? Check out this</span>
             <Link href="/demo" className="underline text-primary-main hover:text-primary-alt font-bold">example</Link>
         </div>

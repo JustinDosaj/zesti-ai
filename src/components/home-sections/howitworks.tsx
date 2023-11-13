@@ -5,13 +5,13 @@ import { Paragraph } from '../shared/paragraph';
 
 const cards = [
   {
-    name: 'Paste Youtube Link',
-    description: 'Find a cooking video you want to try and copy the link',
+    name: 'Choosing the Right Tool',
+    description: 'On your dashboard, select recipe ideas, ad-free recipe or video-to-recipe. Then enter the required information.',
     icon: VideoCameraIcon,
   },
   {
-    name: 'Get the Recipe',
-    description: 'After pasting the link, Zesti will take the video and transform it to text for your convenience',
+    name: 'Retrieving the Recipe',
+    description: 'After Zesti has what it needs, select get recipe. After a few minutes, there will be a clear and concise recipe on your dashboard',
     icon: ChatBubbleBottomCenterIcon,
   },
   {
@@ -26,13 +26,13 @@ export default function HowItWorks() {
     <Container className={"flex flex-col lg:flex-row gap-10 lg:gap-12"}>
         <div className="relative isolate overflow-hidden py-24 sm:py-32 ">
             <div className="mx-auto max-w-7xl px-6 lg:px-8">
-                <div className="mx-auto max-w-2xl sm:text-center">
+                <div className="mx-auto max-w-3xl text-center">
                     <Title className="mt-2 text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl">
-                    Get
-                    <span className="text-transparent bg-clip-text bg-gradient-to-br from-primary-main from-20% via-primary via-30% to-color-alt-red pl-2 pr-2">Cooking Video</span>
+                    Discover
+                    <span className="text-transparent bg-clip-text bg-gradient-to-br from-primary-main from-20% via-primary via-30% to-color-alt-red pl-2 pr-2">Delicious Recipes</span>
                     </Title>
                     <Paragraph className="mt-6 text-lg leading-8 text-gray-800">
-                    Retrieving an easy-to-read and ad-free recipe from a cooking video is easy! Just follow these steps:
+                    Start cooking more by discovering new recipes! Use Zesti to retrieve recipes from videos and websites, or just have Zesti create one for you!
                     </Paragraph>
                 </div>
                 <div className="mx-auto mt-16 grid max-w-2xl grid-cols-1 gap-6 sm:mt-20 lg:mx-0 lg:max-w-none lg:grid-cols-3 lg:gap-8">
