@@ -1,14 +1,15 @@
 import { LinkIcon } from "@heroicons/react/24/outline"
 import { Button } from "../shared/button"
 import { Loader } from "../shared/loader"
-import { Notify } from "../shared/notify"
 import { useAuth } from "@/pages/api/auth/auth";
-import React, { useState } from 'react'
-import { handleSubmit } from "@/pages/api/handler/submit";
-import { InputResponseModal } from "../shared/modals";
+import React, { useState, useEffect } from 'react'
+import { InputResponseModal, NotLoggedInModal } from "../shared/modals";
 import 'react-toastify/dist/ReactToastify.css';
-import { ToastContainer } from 'react-toastify';
 import Link from "next/link";
+import { handleWebURLSubmit } from "@/pages/api/handler/submit";
+import { Notify } from '../shared/notify';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 export default function UrlComponent() {
@@ -17,27 +18,38 @@ export default function UrlComponent() {
     const [ url, setUrl ] = useState<string>('');
     const [ isOpen , setIsOpen ] = useState<boolean>(false);
     const [ isLoading, setIsLoading ] = useState<boolean>(false)
+    const [ loginPrompt, setLoginPrompt ] = useState<boolean>(false)
     const [ success, setSuccess ] = useState<boolean>(false)
     const [ message, setMessage ] = useState<string>('')
+    const [ notify, setNotify ] = useState<boolean | null>(null)
+
+    useEffect(() => {
+        if (notify == true) {
+            Notify(message)
+            setNotify(false)
+        }
+    },[notify])
 
     async function onClick() {
         if (!user) {
-            Notify('Please Login or Sign Up')
+            setLoginPrompt(true)
             return;
         } else {
         setIsLoading(true) 
-        await handleSubmit({url, user, setMessage, stripeRole}).then((val) => {setSuccess(val)});
+        await handleWebURLSubmit({url, user, setMessage, stripeRole, setNotify}).then((val) => {
+            setSuccess(val)
+            setIsOpen(val)
+        });
         setIsLoading(false)
         setUrl('')
-        setIsOpen(true)
         }
     }
 
     return(
     <div className="mt-10 mb-6 w-full flex flex-col items-center">
         <ToastContainer/>
-        <h2 className="text-2xl font-bold text-center mb-4 text-black">Clean Up Website Recipe</h2>
-        <p className="text-center mb-6 max-w-2xl mx-auto text-gray-700">Websites are often cluttered with ads and unnecessary information. Avoid it all simply by inputting the website URL below.</p>
+        <h2 className="text-2xl font-bold text-center mb-4 text-black">Avoid the Clutter of Online Recipes</h2>
+        <p className="text-center mb-6 max-w-2xl mx-auto text-gray-700">Just provide the entire URL of the recipe page you found and get a clear, concise recipe right to your screen</p>
         <div className="flex sm:flex-row flex-col gap-5 w-full justify-center">
             <form action="" method="POST" className="py-1 pl-6 w-full max-w-md pr-1 flex gap-3 items-center text-heading-3 shadow-lg shadow-box-shadow
             border border-box-border bg-box-bg rounded-full ease-linear focus-within:bg-body  focus-within:border-primary">
@@ -69,6 +81,7 @@ export default function UrlComponent() {
             <Link href="/demo" className="underline text-primary-main hover:text-primary-alt font-bold">example</Link>
         </div>
         <InputResponseModal isOpen={isOpen} setIsOpen={setIsOpen} success={success} message={message}/>
+        <NotLoggedInModal loginPrompt={loginPrompt} setLoginPrompt={setLoginPrompt}/>
     </div>
     )
 }

@@ -23,14 +23,6 @@ export function Hero(){
                     <Paragraph className="text-lg mt-8 text-black">
                         Get your questions answered on the fly, create delicious recipes with what you have available, generate new ideas and turn cooking videos into ad-free text recipe
                     </Paragraph>
-
-                    {/*<div className="mt-2 space-x-1 text-sm">
-                        <span className="text-gray-400">Try for free! (No credit card required).</span>
-                    </div>
-                    <div className="mt-4 space-x-1 text-base">
-                        <span className="text-gray-700">Curious about results? Check out this</span>
-                        <Link href="/demo" className="underline text-primary-main hover:text-primary-alt font-bold">example</Link>
-                    </div>*/}
                 </div>
             </Container>
         </section>
