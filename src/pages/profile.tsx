@@ -50,7 +50,7 @@ export default function Profile() {
               </p>
             </div>
             <div className="rounded-lg bg-gray-100 shadow-sm ring-1 ring-gray-900/5">
-              <div className="text-center pt-6 pb-6 font-bold">
+              <div className="text-center pt-6 pb-6 font-bold text-black">
                   {user?.email}
               </div>
                 <dl className="flex flex-wrap">
