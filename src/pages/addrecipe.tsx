@@ -15,7 +15,7 @@ export default function AddRecipe() {
       </Head>
       <main className={`flex min-h-screen flex-col items-center bg-background ${raleway.className}`}>
         <AddRecipePageTitle/>
-        <Hub className="mt-4"/>
+        <Hub className="mt-4 mb-16"/>
       </main>
     </>
   )
