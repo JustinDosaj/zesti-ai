@@ -1,10 +1,10 @@
 import { Raleway } from 'next/font/google'
-import { LinkInput } from '@/components/dash-sections/link-input'
+import { RecipePageTitle } from '@/components/dash-sections/dash';
+import { AddRecipeLink } from '@/components/dash-sections/addRecipeLink';
 import { useAuth } from "@/pages/api/auth/auth"
 import { useRouter } from "next/router";
 import { useEffect } from 'react';
 import { GridDisplay } from '@/components/dash-sections/grid-display';
-import { getAllRecipes } from '../api/firebase/functions';
 import { useState } from "react";
 import { PageLoader } from "@/components/shared/loader";
 import Head from 'next/head';
@@ -37,13 +37,13 @@ export default function Dashboard() {
   return (
     <>
     <Head>
-      <title>Zesti | Your Dashboard</title>
+      <title>Zesti | Your Recipes</title>
     </Head>  
     <main className={`flex min-h-screen flex-col items-center bg-background ${raleway.className}`}>
-        <LinkInput user={user} stripeRole={stripeRole}/>
-        <Hub/>
-        {isLoadingRecipes ? <PageLoader/> : <GridDisplay data={recipes} user={user}/>}
-        
+        <RecipePageTitle/>
+        <AddRecipeLink className="mt-6 sm:mt-2 block sm:hidden" href="/addrecipe"/>
+        <Hub className="hidden sm:block"/>
+        {isLoadingRecipes ? <PageLoader/> : <GridDisplay data={recipes}/>}     
     </main>
     </>
   )

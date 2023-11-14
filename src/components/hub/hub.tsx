@@ -5,7 +5,11 @@ import UrlComponent from './url';
 import { Container } from '../shared/container';
 
 
-export default function Hub() {
+interface HubProps {
+    className?: string
+}
+
+export default function Hub({className}: HubProps) {
     // State to track the selected feature
     const [selectedFeature, setSelectedFeature] = useState('chat');
 
@@ -14,7 +18,7 @@ export default function Hub() {
         setSelectedFeature(feature);
     };
     return (
-        <Container className={"flex flex-col lg:flex-row gap-10 lg:gap-12"}>
+        <Container className={`${className} flex-col lg:flex-row gap-10 lg:gap-12`}>
             <div className="rounded border p-4 mx-auto mt-4 w-full max-w-7xl">
                 <nav className="flex justify-center space-x-2 sm:space-x-6 lg:space-x-16 mb-4 border-b-2">
                     <div className={`py-2 ${selectedFeature === 'chat' ? 'border-b-2 border-primary-main' : ' hover:text-gray-500 hover:border-b-2 hover:border-primary-alt'}`} onClick={() => selectFeature('chat')}>
