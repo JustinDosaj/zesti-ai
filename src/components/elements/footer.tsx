@@ -1,12 +1,5 @@
 "use client;"
 
-import { Container } from "../shared/container"
-import { Paragraph } from "../shared/paragraph"
-import { FooterNav } from "../shared/footernav"
-import { GroupFooterNav } from "../blocks/groupfooternav"
-import Link from "next/link"
-import Image from "next/image"
-
 const navigation = {
     main: [
       { name: 'Home', href: '/' },
@@ -39,6 +32,17 @@ const navigation = {
         ),
       },
     ],
+    alt: [
+      { name: 'Dish Gen', altId: 'dishgen' },
+      { name: 'Cook AI Food', altId: 'cookaifood' },
+      { name: 'ChefGPT', altId: 'chefgpt' },
+      { name: 'Basyl', altId: 'basyl' },
+      { name: 'Lets Foodie', altId: 'letsfoodie' },
+      { name: 'Food AI', altId: 'foodai' },
+      { name: 'Super Cook', altId: 'supercook' },
+      { name: 'Plant Jammer', altId: 'plantjammer'},
+      { name: 'Lionix', altId: 'lionix'},
+    ]
   }
 
 
@@ -67,9 +71,19 @@ export function Footer() {
             </a>
           ))}
         </div>
-        <p className="mt-10 text-center text-xs leading-5 text-gray-500">
+        <p className="mt-6 text-center text-xs leading-5 text-gray-500">
           &copy; {year} Vurge LLC. All rights reserved.
         </p>
+        <p className="mt-10 text-center text-gray-700 text-sm font-semi-bold">Alternatives</p>
+        <div className="mt-2 grid grid-cols-3 lg:flex lg:space-x-8 justify-center text-center">
+            {navigation.alt.map((item) => (
+              <a key={item.name} 
+                  className="text-xs leading-6 text-gray-600 hover:text-gray-900" 
+                  href={`/about/alternative/${item.altId}?altId=${item.altId}`}>
+                  <span>{item.name}</span>
+              </a>
+            ))}
+        </div>
       </div>
     </footer>
     </>
