@@ -17,7 +17,7 @@ interface CompetitorApp {
 // Your Zesti app data
 const zestiApp = {
     name: 'Zesti',
-    priceMonthly: '$20', // Replace with your app's monthly price
+    priceMonthly: 'Free', // Replace with your app's monthly price
     videoToRecipe: true,
     urlToRecipe: true,
     aiGeneratedRecipe: true,
