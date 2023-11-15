@@ -16,6 +16,7 @@ export default function Contact() {
     <>
     <Head>
         <title>Zesti AI | Get in Touch for Support & Inquiries</title>
+        <meta name="title" content="Zesti AI | Get in Touch for Support & Inquiries"/>
         <meta name="description" content="Have questions or need assistance? Reach out to the Zesti support team through our contact page. We are here to help with all your recipe conversion needs!"/>
         <GoogleTags/>
     </Head>    

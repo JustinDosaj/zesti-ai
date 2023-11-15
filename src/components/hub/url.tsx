@@ -78,7 +78,7 @@ export default function UrlComponent() {
         </div>
         <div className="mt-4 space-x-1 text-base text-center">
             <span className="text-gray-700">Curious about results? Check out this</span>
-            <Link href="/demo" className="underline text-primary-main hover:text-primary-alt font-bold">example</Link>
+            <Link href="/about/demo" className="underline text-primary-main hover:text-primary-alt font-bold">example</Link>
         </div>
         <InputResponseModal isOpen={isOpen} setIsOpen={setIsOpen} success={success} message={message}/>
         <NotLoggedInModal loginPrompt={loginPrompt} setLoginPrompt={setLoginPrompt}/>
