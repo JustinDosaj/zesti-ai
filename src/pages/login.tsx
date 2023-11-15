@@ -34,6 +34,7 @@ export default function Login() {
     <>
     <Head>
         <title>Zesti AI | Login or Sign Up | Try for Free </title>
+        <meta name="title" content="Zesti AI | Login or Sign Up | Try for Free"/>
         <meta name="description" content="Join Zesti to gain access to the best AI powered kitchen tool that helps you quickly save and edit recipes from cooking videos"/>
         <GoogleTags/>
     </Head>
