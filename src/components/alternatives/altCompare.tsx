@@ -42,34 +42,34 @@ export function AltCompare({name, priceMonthly, videoToRecipe, urlToRecipe, aiGe
                             <table className="w-full table-fixed text-left xs:text-center border-separate border-spacing-y-2 border rounded-3xl p-1 xs:p-4">
                                 <thead>
                                     <tr>
-                                    <th className="w-1/3 px-4 py-2 text-sm font-semibold text-gray-900">Features</th>
-                                    <th className="w-1/3 px-4 py-2 text-xl font-semibold text-gray-900">{zestiApp.name}</th>
-                                    <th className="w-1/3 px-4 py-2 text-xl font-semibold text-gray-900">{name}</th>
+                                    <th className="w-1/3 px-4 py-2 text-xs font-semibold text-gray-900">Features</th>
+                                    <th className="w-1/3 px-8 xs:px-6 py-2 text-sm sm:text-xl font-semibold text-gray-900">{zestiApp.name}</th>
+                                    <th className="w-1/3 px-8 xs:px-6 text-sm sm:text-xl font-semibold text-gray-900">{name}</th>
                                     </tr>
                                 </thead>
-                                <tbody>
+                                <tbody className="text-sm sm:text-base text-gray-900">
                                     <tr>
-                                        <td className="px-4 py-2">Monthly Price</td>
-                                        <td className="px-4 py-2">{zestiApp.priceMonthly}</td>
-                                        <td className="px-4 py-2">{priceMonthly}</td>
+                                        <td className="px-4 py-2 border-r border-gray-400">Monthly Price</td>
+                                        <td className="px-8 xs:px-6 py-2 ">{zestiApp.priceMonthly}</td>
+                                        <td className="px-8 xs:px-6 py-2">{priceMonthly}</td>
                                     </tr>
                                     <tr>
-                                        <td className="px-4 py-2 capitalize">{"AI Generated Recipe"}</td>
+                                        <td className="px-4 py-2 capitalize border-r border-gray-400">{"AI Generated Recipe"}</td>
                                         <td className="px-4 py-2">{<CheckIcon className="mx-auto h-5 w-5 text-color-alt-green" aria-hidden="true" />}</td>
                                         <td className="px-4 py-2">{aiGeneratedRecipe ? <CheckIcon className="mx-auto h-5 w-5 text-color-alt-green" aria-hidden="true" /> : <XMarkIcon className="mx-auto h-5 w-5 text-gray-400" aria-hidden="true" />}</td>
                                     </tr>
                                     <tr>
-                                        <td className="px-4 py-2 capitalize">{"AI Chat Assistant"}</td>
+                                        <td className="px-4 py-2 capitalize border-r border-gray-400">{"AI Chat Assistant"}</td>
                                         <td className="px-4 py-2">{<CheckIcon className="mx-auto h-5 w-5 text-color-alt-green" aria-hidden="true" />}</td>
                                         <td className="px-4 py-2">{chatAssistance ? <CheckIcon className="mx-auto h-5 w-5 text-color-alt-green" aria-hidden="true" /> : <XMarkIcon className="mx-auto h-5 w-5 text-gray-400" aria-hidden="true" />}</td>
                                     </tr>
                                     <tr>
-                                        <td className="px-4 py-2 capitalize">{"Video to Recipe"}</td>
+                                        <td className="px-4 py-2 capitalize border-r border-gray-400">{"Video to Recipe"}</td>
                                         <td className="px-4 py-2">{<CheckIcon className="mx-auto h-5 w-5 text-color-alt-green" aria-hidden="true" />}</td>
                                         <td className="px-4 py-2">{urlToRecipe ? <CheckIcon className="mx-auto h-5 w-5 text-color-alt-green" aria-hidden="true" /> : <XMarkIcon className="mx-auto h-5 w-5 text-gray-400" aria-hidden="true" />}</td>
                                     </tr>
                                     <tr>
-                                        <td className="px-4 py-2 capitalize">{"Website URL to Recipe"}</td>
+                                        <td className="px-4 py-2 capitalize border-r border-gray-400">{"Website URL to Recipe"}</td>
                                         <td className="px-4 py-2">{<CheckIcon className="mx-auto h-5 w-5 text-color-alt-green" aria-hidden="true" />}</td>
                                         <td className="px-4 py-2">{videoToRecipe? <CheckIcon className="mx-auto h-5 w-5 text-color-alt-green" aria-hidden="true" /> : <XMarkIcon className="mx-auto h-5 w-5 text-gray-400" aria-hidden="true" />}</td>
                                     </tr>
