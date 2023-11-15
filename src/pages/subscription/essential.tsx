@@ -43,7 +43,8 @@ export default function Essential() {
   return (
     <>
     <Head>
-        <title>Zesti AI Essential | Chatgpt Cooking Assistant | Most Popular</title>
+        <title>Zesti Essential | Chatgpt Cooking Assistant | Most Popular</title>
+        <meta name="title" content="Zesti Essential | Most Popular Chatgpt Cooking Assistant"/>
         <meta name="description" content="Subscribe to Zesti Essential to gain the most popular access to edit & save cooking videos as text recipes. Plus gain access to the cooking chat AI assistant. Try for free. No credit card required."/>
     </Head>
     <div className="bg-white">

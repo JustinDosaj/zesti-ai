@@ -12,6 +12,7 @@ export default function Pricing() {
     <>
     <Head>
       <title>Zesti AI | Subscribe to Gain Exclusive Access | Try for Free</title>
+      <meta name="title" content="Zesti AI | Subscribe to Gain Exclusive Access | Try for Free"/>
       <meta name="description" content="Explore affordable pricing options for Zesti's AI-powered video to recipe converter. Flexible plans to suit your culinary adventures. Try us today!"/>
       <GoogleTags/>
     </Head>
