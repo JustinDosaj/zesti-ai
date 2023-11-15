@@ -10,7 +10,7 @@ import Hub from '@/components/hub/hub';
 const raleway = Raleway({subsets: ['latin']})
 
 export default function Home() {
-
+  // Comment
   return (
     <>
       <Head>
