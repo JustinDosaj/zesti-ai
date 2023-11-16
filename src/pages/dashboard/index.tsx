@@ -1,5 +1,5 @@
 import { Raleway } from 'next/font/google'
-import { RecipePageTitle } from '@/components/dash-sections/dash';
+import { RecipePageTitle, Tools, Usage } from '@/components/dash-sections/dash';
 import { AddRecipeLink } from '@/components/dash-sections/addRecipeLink';
 import { useAuth } from "@/pages/api/auth/auth"
 import { useRouter } from "next/router";
@@ -9,7 +9,6 @@ import { useState } from "react";
 import { PageLoader } from "@/components/shared/loader";
 import Head from 'next/head';
 import { db } from '../api/firebase/firebase';
-import Hub from '@/components/hub/hub';
 
 const raleway = Raleway({subsets: ['latin']})
 
@@ -40,10 +39,15 @@ export default function Dashboard() {
       <title>Zesti | Your Recipes</title>
     </Head>  
     <main className={`flex min-h-screen flex-col items-center bg-background ${raleway.className}`}>
+
         <RecipePageTitle/>
-        <AddRecipeLink className="mt-6 sm:mt-2 block sm:hidden" href="/addrecipe"/>
-        <Hub className="hidden sm:block"/>
-        {isLoadingRecipes ? <PageLoader/> : <GridDisplay data={recipes}/>}     
+        <div className="border-t border-gray-200 sm:mt-0 mb-12 mr-12 ml-12 mt-12" style={{ width: '35%' }} />
+        <Usage data={recipes}/>
+        <div className="border-t border-gray-200 m-12" style={{ width: '35%' }} />
+        <Tools/>
+        <div className="border-t border-gray-200 m-12" style={{ width: '35%' }} />
+        {isLoadingRecipes ? <PageLoader/> : <GridDisplay data={recipes}/>}
+ 
     </main>
     </>
   )

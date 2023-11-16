@@ -69,7 +69,8 @@ export const handleYouTubeURLSubmit = async ({url, user, setMessage, stripeRole,
     const falseObj = {
         "url": `${url}`,
         "url_id": url_id ? url_id[1] : null,
-        "source": "youtube"
+        "source": "youtube",
+        "date": new Date().toISOString()
     }
 
 
@@ -161,7 +162,8 @@ export const handleCreativeChatSubmit = async({userInput, user, setMessage, stri
 
         const falseObj = {
             "userMessage": `${userInput}`,
-            "source": "creative"
+            "source": "creative",
+            "date": new Date().toISOString()
         }
 
         let tokens = 0;
@@ -221,7 +223,8 @@ export const handleWebURLSubmit = async ({url, user, setMessage, stripeRole, set
 
     const falseObj = {
         "url": `${url}`,
-        "source": "url"
+        "source": "url",
+        "date": new Date().toISOString()
     }
 
     let tokens = 0;
