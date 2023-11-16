@@ -1,11 +1,8 @@
 import { BookOpenIcon } from '@heroicons/react/20/solid'
 import Link from 'next/link'
-import { Container } from '../shared/container'
 import { Fragment } from 'react'
 import { Menu, Transition } from '@headlessui/react'
 import { EllipsisHorizontalIcon, TrashIcon } from '@heroicons/react/20/solid'
-import { DeleteConfirmationModal } from '../shared/modals'
-import { useState } from 'react'
 import { OrangeBGLoader } from '../shared/loader'
 
 function classNames(...classes: (string | undefined | null | boolean)[]): string {
@@ -25,16 +22,16 @@ interface GridRecipeProps {
 export function SuccessRecipe({key, recipe, isDeleteOpen, setIsDeleteOpen, selectedRecipeId, setSelectedRecipeId}: GridRecipeProps) {
     console.log("PAGE REC: ", recipe.id)
     return(
-        <div key={key} className="flex flex-col h-full p-2">
+        <div key={key} className="flex flex-col h-full mt-2">
           <li className="flex flex-col overflow-hidden rounded-xl border border-gray-200 shadow-lg">
-            <div className="flex items-center gap-x-4 border-b border-gray-900/5 bg-gray-50 p-6">
+            <div className="flex items-center gap-x-4 border-b border-gray-900/5 bg-gray-50 p-2 pl-6">
               <div className="flex flex-col justify-center h-12"> 
                 <div className="text-base font-semibold leading-6 text-gray-900 line-clamp-2">{recipe?.data.name}</div>
               </div>
               <Menu as="div" className="relative ml-auto">
                 <Menu.Button className="-m-2.5 block p-2.5 text-gray-400 hover:text-gray-500">
                   <span className="sr-only">Open options</span>
-                  <EllipsisHorizontalIcon className="h-7 w-7" aria-hidden="true" />
+                  <EllipsisHorizontalIcon className="h-6 w-6" aria-hidden="true" />
                 </Menu.Button>
                 <Transition
                   as={Fragment}
@@ -66,7 +63,7 @@ export function SuccessRecipe({key, recipe, isDeleteOpen, setIsDeleteOpen, selec
                 </Transition>
               </Menu>
             </div>
-            <dl className="flex-grow -my-3 divide-y divide-gray-100 px-6 py-4 text-sm leading-6">
+            <dl className="flex-grow -my-3 divide-y divide-gray-100 px-6 py-2 text-sm leading-6">
               <div className="flex justify-between gap-x-4 py-3">
                 <dt className="text-gray-500">Total Ingrediants</dt>
                 <dd className="text-gray-700">
@@ -77,6 +74,12 @@ export function SuccessRecipe({key, recipe, isDeleteOpen, setIsDeleteOpen, selec
                 <dt className="text-gray-500">Total Steps</dt>
                 <dd className="text-gray-700">
                   <p>{`${recipe.data.instructions.length}`}</p>
+                </dd>
+              </div>
+              <div className="flex justify-between gap-x-4 py-3">
+                <dt className="text-gray-500">Date Added</dt>
+                <dd className="text-gray-700">
+                  <p>{`${recipe.data.date ? recipe.data.date : 'N/A'}`}</p>
                 </dd>
               </div>
             </dl>
