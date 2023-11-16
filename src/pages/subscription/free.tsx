@@ -68,7 +68,7 @@ export default function Essential() {
         <div className="mx-auto max-w-2xl pt-24 text-center sm:pt-40">
             <h1 className="text-4xl/tight sm:text-4xl/tight md:text-5xl/tight xl:text-6xl/tight font-bold text-heading-1 mt-6">     
                 <span className="text-black">Zesti</span>       
-                <span className="text-transparent bg-clip-text bg-gradient-to-br from-primary-main from-20% via-primary via-30% to-color-alt-red pl-2">Free</span>
+                <span className="text-transparent bg-clip-text bg-gradient-to-br from-primary-main from-20% via-primary via-30% to-color-alt-red"> Free</span>
             </h1>
             <div className="mt-6 text-lg leading-8 text-gray-700">
                 Zesti Free is our no cost, free-to-use subscription model that lets users who are unsure explore the platform with no commitment 
