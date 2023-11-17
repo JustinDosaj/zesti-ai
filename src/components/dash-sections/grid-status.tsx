@@ -9,7 +9,6 @@ function classNames(...classes: (string | undefined | null | boolean)[]): string
   return classes.filter(Boolean).join(' ');
 }
 
-
 interface GridRecipeProps {
     key: any,
     recipe: any,
@@ -20,9 +19,8 @@ interface GridRecipeProps {
 }
 
 export function SuccessRecipe({key, recipe, isDeleteOpen, setIsDeleteOpen, selectedRecipeId, setSelectedRecipeId}: GridRecipeProps) {
-    console.log("PAGE REC: ", recipe.id)
     return(
-        <div key={key} className="flex flex-col h-full mt-2">
+        <div key={key} className="flex flex-col h-full p-2">
           <li className="flex flex-col overflow-hidden rounded-xl border border-gray-200 shadow-lg">
             <div className="flex items-center gap-x-4 border-b border-gray-900/5 bg-gray-50 p-2 pl-6">
               <div className="flex flex-col justify-center h-12"> 
@@ -74,12 +72,6 @@ export function SuccessRecipe({key, recipe, isDeleteOpen, setIsDeleteOpen, selec
                 <dt className="text-gray-500">Total Steps</dt>
                 <dd className="text-gray-700">
                   <p>{`${recipe.data.instructions.length}`}</p>
-                </dd>
-              </div>
-              <div className="flex justify-between gap-x-4 py-3">
-                <dt className="text-gray-500">Date Added</dt>
-                <dd className="text-gray-700">
-                  <p>{`${recipe.data.date ? recipe.data.date : 'N/A'}`}</p>
                 </dd>
               </div>
             </dl>
@@ -170,13 +162,12 @@ export function LoadingRecipe({key, recipe}: any) {
     return(
         <div key={key} className="flex flex-col h-full p-2">
             <li className="flex flex-col overflow-hidden rounded-xl border border-gray-200 shadow-lg">
-            <div className="flex items-center gap-x-4 border-b border-gray-900/5 bg-gray-50 p-6">
+            <div className="flex items-center gap-x-4 border-b border-gray-900/5 bg-gray-50 p-2 pl-6">
                 <div className="flex flex-col justify-center h-12">
-                    <svg className="animate-spin h-5 w-5 mr-3 ..." viewBox="0 0 24 24"></svg> 
                     <div className="text-base font-semibold leading-6 text-gray-900 line-clamp-2">{"This may take a few minutes"}</div>
                 </div>
             </div>
-            <dl className="flex-grow -my-3 divide-y divide-gray-100 px-6 py-4 text-sm leading-6">
+            <dl className="flex-grow -my-3 divide-y divide-gray-100 px-6 py-2 text-sm leading-6">
                 <div className="flex justify-between gap-x-4 py-3">
                 <dt className="text-gray-500">Total Ingrediants</dt>
                 <dd className="text-gray-700">

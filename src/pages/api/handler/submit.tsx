@@ -1,5 +1,6 @@
 import { db } from "../firebase/firebase";
 import { getUserData } from "../firebase/functions";
+import React, { useState } from "react";
 import axios from 'axios'
 import { getFirestore, doc, updateDoc, increment } from 'firebase/firestore';
 
@@ -106,9 +107,10 @@ interface ChatProps {
     setMessage: any,
     stripeRole: any,
     setNotify: any,
+    recipes: any,
 }
 
-export const handleCreativeChatSubmit = async({userInput, user, setMessage, stripeRole, setNotify}: ChatProps) => {
+export const handleCreativeChatSubmit = async({userInput, user, setMessage, stripeRole, setNotify, recipes}: ChatProps) => {
 
         // url check
         const urlCheck = await isValidUrl(userInput)
@@ -144,6 +146,12 @@ export const handleCreativeChatSubmit = async({userInput, user, setMessage, stri
 
     let tokens = 0;
     await getUserData(user?.uid).then((res) => {tokens = res?.tokens})
+
+    if (recipes.length >= 5) {
+        setNotify(true)
+        setMessage("Max saved recipes reached. Upgrade subscription for more space")
+        return false
+    }
             
     if (tokens >= 1 && stripeRole !== 'premium') {
         try {

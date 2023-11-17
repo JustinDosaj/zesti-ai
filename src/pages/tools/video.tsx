@@ -1,12 +1,17 @@
 import { Raleway } from 'next/font/google'
 import { Hero } from '@/components/home-sections/hero'
 import Head from 'next/head';
-import VideoComponent from '@/components/hub/video';
+import { VideoComponent, VideoHero } from '@/components/hub/video';
+import { useAuth } from '../api/auth/auth';
+import { PricingDisplay } from '@/components/pricing-sections/pricing';
+import { FAQ } from '@/components/home-sections/faq';
 
 const raleway = Raleway({subsets: ['latin']})
 
 export default function Video() {
-  // Comment
+
+  const { user, stripeRole } = useAuth()
+
   return (
     <>
       <Head>
@@ -14,9 +19,14 @@ export default function Video() {
         <meta name="title" content="Zesti AI | Cooking Video to Text Recipe Tool"/>
         <meta name="description" content="Say good by to pausing and rewinding, Zesti AI Video to Text Recipe creates an easy-to-follow ingredient and instruction list"/>
       </Head>
-      <main className={`flex min-h-screen flex-col items-center justify-between bg-background ${raleway.className}`}>
-        <Hero/>
+      <main className={`flex min-h-screen flex-col items-center bg-background ${raleway.className}`}>
+        <VideoHero/>
+        { stripeRole == 'premium' ?
         <VideoComponent/>
+        :
+        <PricingDisplay/>
+        }
+        <FAQ/>
       </main>
     </>
   )
