@@ -9,9 +9,11 @@ import Link from "next/link";
 import { Notify } from '../shared/notify';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { Container } from "../shared/container";
+import { Paragraph } from "../shared/paragraph";
 
 
-export default function VideoComponent() {
+export function VideoComponent() {
 
     const { user, stripeRole } = useAuth()
     const [ url, setUrl ] = useState<string>('');
@@ -45,10 +47,8 @@ export default function VideoComponent() {
     }
 
     return(
-    <div className="mt-10 mb-6 w-full flex flex-col items-center">
+    <div className="p-4 w-full flex flex-col items-center">
         <ToastContainer/>
-        <h2 className="text-2xl font-bold text-center mb-4 text-black">Video to Recipe Converter</h2>
-        <p className="text-center mb-6 max-w-2xl mx-auto text-gray-700">Paste a YouTube link to convert cooking videos into detailed, ad-free recipes. No more pausing or rewinding.</p>
         <div className="flex sm:flex-row flex-col gap-5 w-full justify-center">
             <form action="" method="POST" className="py-1 pl-6 w-full max-w-md pr-1 flex gap-3 items-center text-heading-3 shadow-lg shadow-box-shadow
             border border-box-border bg-box-bg rounded-full ease-linear focus-within:bg-body  focus-within:border-primary">
@@ -82,5 +82,25 @@ export default function VideoComponent() {
         <InputResponseModal isOpen={isOpen} setIsOpen={setIsOpen} success={success} message={message}/>
         <NotLoggedInModal loginPrompt={loginPrompt} setLoginPrompt={setLoginPrompt}/>
     </div>
+    )
+}
+
+export function VideoHero(){
+
+    return(
+        <section className="relative pt-24 lg:pt-36">
+            <Container className={"flex flex-col lg:flex-row gap-10 lg:gap-12"}>
+                <div className="relative flex flex-col items-center text-center lg:py-7 xl:py-8 lg:max-w-none max-w-3xl mx-auto lg:mx-0 lg:flex-1 lg:w-1/2 p-8 md:p-16">
+                    <h1 className="text-3xl/tight sm:text-4xl/tight md:text-5xl/tight xl:text-6xl/tight font-bold text-heading-1 mt-6">          
+                        <span className="text-transparent bg-clip-text bg-gradient-to-br from-primary-main from-20% via-primary via-30% to-color-alt-red">Convert</span>
+                        <span className="text-black"> Video Recipe To</span>
+                        <span className="text-transparent bg-clip-text bg-gradient-to-br from-primary-main from-20% via-primary via-30% to-color-alt-red"> Text Recipe</span> 
+                    </h1>
+                    <Paragraph className="text-base sm:text-lg mt-4 sm:mt-8 text-black">
+                        Find a YouTube cooking video and simply enter the video link to convert it to a text recipe
+                    </Paragraph>
+                </div>
+            </Container>
+        </section>
     )
 }
