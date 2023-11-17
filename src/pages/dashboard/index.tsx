@@ -1,6 +1,5 @@
 import { Raleway } from 'next/font/google'
 import { RecipePageTitle, Tools, Usage } from '@/components/dash-sections/dash';
-import { AddRecipeLink } from '@/components/dash-sections/addRecipeLink';
 import { useAuth } from "@/pages/api/auth/auth"
 import { useRouter } from "next/router";
 import { useEffect } from 'react';
