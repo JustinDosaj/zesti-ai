@@ -147,7 +147,7 @@ export const handleCreativeChatSubmit = async({userInput, user, setMessage, stri
             
     if (tokens >= 1 && stripeRole !== 'premium') {
         try {
-            //await db.collection('users').doc(user.uid).collection('creative').doc().set(falseObj)
+            await db.collection('users').doc(user.uid).collection('creative').doc().set(falseObj)
             setMessage("The recipe began processing and will appear in your dashboard shortly.")
             await db.collection('users').doc(user.uid).update({
                 tokens: increment(-1)
@@ -156,7 +156,6 @@ export const handleCreativeChatSubmit = async({userInput, user, setMessage, stri
         } catch (err) {
             setNotify(true)
             setMessage("Something went wrong. Please try again later. If the problem persists, feel free to contact us.")
-            console.log(err)
             return false
         }
     } else { 
