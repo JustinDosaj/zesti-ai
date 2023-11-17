@@ -34,20 +34,16 @@ const navItemsLoggedIn = [
         text:"Home",
     },
     {
-        href: "/dashboard",
-        text: "Dashboard",
-    },
-    {
-        href: "/profile",
-        text: "Profile",
-    },
-    {
         href:"/pricing",
         text:"Pricing",
     },
     {
         href:"/contact",
         text: "Contact",
+    },
+    {
+        href: "/profile",
+        text: "Profie",
     },
 ]
 
@@ -58,7 +54,7 @@ function classNames(...classes: (string | undefined | null | false)[]): string {
 
 export function Navbar({_user}: any) {
     
-    const { user } = useAuth();
+    const { user, stripeRole } = useAuth();
     const [tokens, setTokens] = useState<number>(0)
 
     useEffect(() => {
@@ -85,13 +81,13 @@ export function Navbar({_user}: any) {
                         <div className="relative w-14 h-14 overflow-hidden flex rounded-xl">
                             <Image src="/images/Zesti-Logo.png" alt="Zesti Artificial Intelligence Recipe Helper Logo" width={60} height={30}/>
                         </div>
-                        <div className="inline-flex sm:visible text-2xl font-semibold text-heading-1">
+                        <div className="inline-flex sm:visible text-2xl font-semibold text-heading-1 text-black">
                             Zesti.ai
                         </div>
                     </Link>
                 </div>
                 <div data-navbar className="flex h-0 overflow-hidden lg:!h-auto lg:scale-y-100 duration-300 ease-linear flex-col gap-y-6 gap-x-4 lg:flex-row w-full lg:justify-between lg:items-center absolute lg:relative top-full lg:top-0 bg-body lg:bg-transparent border-x border-x-box-border lg:border-x-0">
-                    <ul className="border-t border-box-border lg:border-t-0 px-6 lg:px-0 pt-6 lg:pt-0 flex flex-col lg:flex-row gap-y-4 gap-x-8 text-xl text-heading-2 w-full lg:justify-center lg:items-center">
+                    <ul className="border-t border-box-border lg:border-t-0 px-6 lg:px-0 pt-6 lg:pt-0 flex flex-col lg:flex-row gap-y-4 gap-x-14 text-xl text-heading-2 w-full lg:justify-center lg:items-center">
                     {
                         user !== null ? 
                         navItemsLoggedIn.map(item=> {
@@ -104,14 +100,14 @@ export function Navbar({_user}: any) {
                     }
                     </ul>
                     <div className="lg:min-w-max flex items-center sm:w-max w-full pb-6 lg:pb-0 border-b border-box-bg lg:border-0 px-6 lg:px-0">
-                        { user ?
-                        <div className="inline-flex">
-                            <TokenAmount tokens={tokens}/>
-                        </div>
-                        :
-                        <BtnLink text='Login' className="flex justify-center w-full sm:w-max" href='/login'/>
-                        }
+                    { !user ?
+                    <BtnLink text='Login' className="flex justify-center w-full sm:w-max" href='/login'/>
+                    :
+                    <div className="inline-flex">
+                        <BtnLink href="/dashboard" text={'Dashboard'}/>
                     </div>
+                    }
+                </div>
                 </div>
                 <Menu as="div" className="relative inline-block text-left lg:invisible  mt-3">
                     <div>
@@ -134,12 +130,16 @@ export function Navbar({_user}: any) {
                         <div className="py-1">
                             <Menu.Item>
                             {({ active }) => (
-                                <div className='block px-4 py-2 text-sm' >
-                                    { user ? 
-                                        <TokenAmount className="w-full grid grid-cols-6" tokens={tokens}/>
-                                        :
-                                        <BtnLink text='Login' className="flex justify-center w-full sm:w-max" href={'/login'}/>
-                                    }
+                                <div>
+                                { !user ? 
+                                    <div className='block px-4 py-2 text-sm' >
+                                        <BtnLink text='Login' className="flex justify-center w-full sm:w-max" href={'/login'}/>        
+                                    </div>
+                                    :
+                                    <div className='block px-4 py-2 text-sm' >
+                                        <BtnLink text='My Account' className="flex justify-center w-full sm:w-max" href={'/profile'}/>        
+                                    </div>
+                                   }
                                 </div>
                             )}
                             </Menu.Item>

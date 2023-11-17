@@ -1,7 +1,6 @@
 import { GetServerSideProps } from "next";
 import { Raleway } from 'next/font/google'
 import React, {useEffect, useState} from 'react'
-import { Container } from "@/components/shared/container";
 import Head from "next/head";
 import { db } from "@/pages/api/firebase/firebase";
 import { AltHero } from "@/components/alternatives/althero";

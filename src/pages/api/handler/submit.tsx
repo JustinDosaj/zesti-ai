@@ -1,6 +1,8 @@
 import { db } from "../firebase/firebase";
 import { getUserData } from "../firebase/functions";
+import React, { useState } from "react";
 import axios from 'axios'
+import { getFirestore, doc, updateDoc, increment } from 'firebase/firestore';
 
 
 async function isValidUrl(string: string) {
@@ -69,69 +71,32 @@ export const handleYouTubeURLSubmit = async ({url, user, setMessage, stripeRole,
     const falseObj = {
         "url": `${url}`,
         "url_id": url_id ? url_id[1] : null,
-        "source": "youtube"
+        "source": "youtube",
+        "date": new Date().toISOString()
     }
 
 
     // Checking video length compared to subscription model
     const result = await getVideoLength(url_id ? url_id[1] : null)
-    switch (stripeRole) {
-        case 'base':
-        case 'free':
-            if ((result?.minutes || 0) > 10) {
-                setMessage("Max video length is 10 minutes. Upgrade subscription for more.");
-                setNotify(true)
-                return false;
-            }
-            break;
-        case 'essential':
-            if ((result?.minutes || 0) > 20) {
-                setMessage("Max video length is 20 minutes. Upgrade subscription for more.");
-                setNotify(true)
-                return false;
-            }
-            break;
-        case 'premium':
-            if ((result?.minutes || 0) > 30) {
-                setMessage("Max video length is 30 minutes. Contact us if you need more.");
-                setNotify(true)
-                return false;
-            }
-            break;
-        default:
-            if ((result?.minutes || 0) > 10) {
-                setMessage("Max video length is 10 minutes. Upgrade subscription for more");
-                setNotify(true)
-                return false;
-            }
+    if ((result?.minutes || 0) > 20) {
+        setMessage("Max video length is 20 minutes. Upgrade subscription for more.");
+        setNotify(true)
+        return false;
     }
-
-
-    let tokens = 0;
-    await getUserData(user?.uid).then((res) => {tokens = res?.tokens})
     
-    if (tokens >= 1) {
+    if (stripeRole == 'premium') {
         try {
-            if(user){
-                try {
-                    await db.collection('users').doc(user.uid).collection('youtubeurl').doc().set(falseObj)
-                    setMessage("The recipe has begun progressing and will appear in your dashboard shortly.")
-                    return true
-                } catch (err) {
-                    setMessage("Something went wrong. Please try again later. If the problem persists, please contact us.")
-                    console.log(err)
-                }
-            } 
-            return false;
-            
-        } catch (error) {
-            setNotify(true)
-            setMessage("Something went wrong. Please try again later. If the problem persists, feel free to contact us.")
-            return false;
+            await db.collection('users').doc(user.uid).collection('youtubeurl').doc().set(falseObj)
+            setMessage("The recipe has begun progressing and will appear in your dashboard shortly.")
+            return true
+        } catch (err) {
+            setMessage("Something went wrong. Please try again later. If the problem persists, please contact us.")
+            console.log(err)
+            return false
         }
     } else {  
         setNotify(true)
-        setMessage("No more recipes available. Upgrade subscription for more.") 
+        setMessage("This feature is only available to premium users") 
         return false; 
     }
 }
@@ -142,9 +107,10 @@ interface ChatProps {
     setMessage: any,
     stripeRole: any,
     setNotify: any,
+    recipes: any,
 }
 
-export const handleCreativeChatSubmit = async({userInput, user, setMessage, stripeRole, setNotify}: ChatProps) => {
+export const handleCreativeChatSubmit = async({userInput, user, setMessage, stripeRole, setNotify, recipes}: ChatProps) => {
 
         // url check
         const urlCheck = await isValidUrl(userInput)
@@ -161,36 +127,48 @@ export const handleCreativeChatSubmit = async({userInput, user, setMessage, stri
 
         const falseObj = {
             "userMessage": `${userInput}`,
-            "source": "creative"
+            "source": "creative",
+            "date": new Date().toISOString()
         }
 
-        let tokens = 0;
-        await getUserData(user?.uid).then((res) => {tokens = res?.tokens})
-
-            
-    if (tokens >= 1) {
+    if (stripeRole == 'premium') {
         try {
-            if(user){
-                try {
-                    await db.collection('users').doc(user.uid).collection('creative').doc().set(falseObj)
-                    setMessage("The recipe began processing and will appear in your dashboard shortly.")
-                    return true
-                } catch (err) {
-                    setNotify(true)
-                    setMessage("Something went wrong. Please try again later. If the problem persists, feel free to contact us.")
-                    console.log(err)
-                }
-            } 
-            return false;
-            
-        } catch (error) {
+            await db.collection('users').doc(user.uid).collection('creative').doc().set(falseObj)
+            setMessage("The recipe began processing and will appear in your dashboard shortly.")
+            return true
+        } catch (err) {
             setNotify(true)
-            setMessage("Please login or sign up to continue")
-            return false;
+            setMessage("Something went wrong. Please try again later. If the problem persists, feel free to contact us.")
+            console.log(err)
+            return false
+        }
+    }
+
+    let tokens = 0;
+    await getUserData(user?.uid).then((res) => {tokens = res?.tokens})
+
+    if (recipes.length >= 5) {
+        setNotify(true)
+        setMessage("Max saved recipes reached. Upgrade subscription for more space")
+        return false
+    }
+            
+    if (tokens >= 1 && stripeRole !== 'premium') {
+        try {
+            await db.collection('users').doc(user.uid).collection('creative').doc().set(falseObj)
+            setMessage("The recipe began processing and will appear in your dashboard shortly.")
+            await db.collection('users').doc(user.uid).update({
+                tokens: increment(-1)
+            })
+            return true
+        } catch (err) {
+            setNotify(true)
+            setMessage("Something went wrong. Please try again later. If the problem persists, feel free to contact us.")
+            return false
         }
     } else { 
         setNotify(true)
-        setMessage("No more recipes available. Upgrade subscription for more.") 
+        setMessage("Uh oh! You ran out of recipes, you can upgrade you subscription for unlimited recipes or wait until next month for more") 
         return false; 
     }
 
@@ -221,34 +199,27 @@ export const handleWebURLSubmit = async ({url, user, setMessage, stripeRole, set
 
     const falseObj = {
         "url": `${url}`,
-        "source": "url"
+        "source": "url",
+        "date": new Date().toISOString()
     }
 
     let tokens = 0;
     await getUserData(user?.uid).then((res) => {tokens = res?.tokens})
     
-    if (tokens >= 1) {
+    if (stripeRole == 'premium') {
         try {
-            if(user){
-                try {
-                    await db.collection('users').doc(user.uid).collection('weburl').doc().set(falseObj)
-                    setMessage("The recipe has begun progressing and will appear in your dashboard shortly.")
-                    return true
-                } catch (err) {
-                    setNotify(true)
-                    setMessage("Something went wrong. Please try again later. If the problem persists, please contact us.")
-                    console.log(err)
-                }
-            } 
-            return false;
-            
-        } catch (error) {
-            setMessage("Something went wrong. Please try again later. If the problem persists, feel free to contact us.")
-            return false;
-        }
+            await db.collection('users').doc(user.uid).collection('weburl').doc().set(falseObj)
+            setMessage("The recipe has begun progressing and will appear in your dashboard shortly.")
+            return true
+        } catch (err) {
+            setNotify(true)
+            setMessage("Something went wrong. Please try again later. If the problem persists, please contact us.")
+            console.log(err)
+            return false
+        }   
     } else {  
         setNotify(true)
-        setMessage("No more recipes available. Upgrade subscription for more.") 
+        setMessage("This feature is only available to premium users") 
         return false; 
     }
 }

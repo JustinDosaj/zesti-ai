@@ -10,9 +10,11 @@ import { handleWebURLSubmit } from "@/pages/api/handler/submit";
 import { Notify } from '../shared/notify';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { Container } from "../shared/container";
+import { Paragraph } from "../shared/paragraph";
 
 
-export default function UrlComponent() {
+export function UrlComponent() {
 
     const { user, stripeRole } = useAuth()
     const [ url, setUrl ] = useState<string>('');
@@ -46,10 +48,8 @@ export default function UrlComponent() {
     }
 
     return(
-    <div className="mt-10 mb-6 w-full flex flex-col items-center">
+    <div className="w-full flex flex-col items-center p-4">
         <ToastContainer/>
-        <h2 className="text-2xl font-bold text-center mb-4 text-black">Avoid the Clutter of Online Recipes</h2>
-        <p className="text-center mb-6 max-w-2xl mx-auto text-gray-700">Just provide the entire URL of the recipe page you found and get a clear, concise recipe right to your screen</p>
         <div className="flex sm:flex-row flex-col gap-5 w-full justify-center">
             <form action="" method="POST" className="py-1 pl-6 w-full max-w-md pr-1 flex gap-3 items-center text-heading-3 shadow-lg shadow-box-shadow
             border border-box-border bg-box-bg rounded-full ease-linear focus-within:bg-body  focus-within:border-primary">
@@ -73,9 +73,6 @@ export default function UrlComponent() {
                 }
             </form>
         </div>
-        <div className="mt-2 space-x-1 text-sm text-center">
-            <span className="text-gray-400">Try for free! (No credit card required).</span>
-        </div>
         <div className="mt-4 space-x-1 text-base text-center">
             <span className="text-gray-700">Curious about results? Check out this</span>
             <Link href="/about/demo" className="underline text-primary-main hover:text-primary-alt font-bold">example</Link>
@@ -83,5 +80,24 @@ export default function UrlComponent() {
         <InputResponseModal isOpen={isOpen} setIsOpen={setIsOpen} success={success} message={message}/>
         <NotLoggedInModal loginPrompt={loginPrompt} setLoginPrompt={setLoginPrompt}/>
     </div>
+    )
+}
+
+export function UrlHero(){
+    return(
+        <section className="relative pt-24 lg:pt-36">
+            <Container className={"flex flex-col lg:flex-row gap-10 lg:gap-12"}>
+                <div className="relative flex flex-col items-center text-center lg:py-7 xl:py-8 lg:max-w-none max-w-3xl mx-auto lg:mx-0 lg:flex-1 lg:w-1/2 p-8 md:p-16">
+                    <h1 className="text-3xl/tight sm:text-4xl/tight md:text-5xl/tight xl:text-6xl/tight font-bold text-heading-1 mt-6">          
+                        <span className="text-transparent bg-clip-text bg-gradient-to-br from-primary-main from-20% via-primary via-30% to-color-alt-red">Remove Ads</span>
+                        <span className="text-black"> From Web Recipes With</span>
+                        <span className="text-transparent bg-clip-text bg-gradient-to-br from-primary-main from-20% via-primary via-30% to-color-alt-red"> Zesti AI</span> 
+                    </h1>
+                    <Paragraph className="text-base sm:text-lg mt-4 sm:mt-8 text-black">
+                        Copy and paste the link from a recipe you found on a website, and Zesti will create a recipe without invasive ads
+                    </Paragraph>
+                </div>
+            </Container>
+        </section>
     )
 }

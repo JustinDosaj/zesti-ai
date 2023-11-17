@@ -60,8 +60,8 @@ export default function Profile() {
                   </div>
                   <div className="flex-none self-end px-6 pt-4">
                       <dt className="sr-only">Status</dt>
-                      <dd className="inline-flex rounded-md bg-green-50 px-2 py-1 text-base font-medium text-green-700 ring-1 ring-inset ring-green-600/20">
-                      {stripeRole ? stripeRole : 'unsubscribed'}
+                      <dd className="inline-flex rounded-md bg-green-50 px-2 py-1 text-base font-medium text-green-700 ring-1 ring-inset ring-green-600/20 capitalize">
+                      {stripeRole ? stripeRole : 'Base'}
                       </dd>
                   </div>
                 </dl>
