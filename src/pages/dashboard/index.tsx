@@ -9,6 +9,7 @@ import { useState } from "react";
 import { PageLoader } from "@/components/shared/loader";
 import Head from 'next/head';
 import { db } from '../api/firebase/firebase';
+import { getUserData } from '../api/firebase/functions';
 
 const raleway = Raleway({subsets: ['latin']})
 
@@ -16,6 +17,7 @@ export default function Dashboard() {
 
     const { user, isLoading, stripeRole } = useAuth();
     const [isLoadingRecipes, setIsLoadingRecipes] = useState(true);
+    const [ tokens, setTokens ] = useState<number>(0)
     const [recipes, setRecipes] = useState<any[]>([]);
     const router = useRouter();
 
@@ -30,6 +32,11 @@ export default function Dashboard() {
             setRecipes(updatedRecipes);
             setIsLoadingRecipes(false);
           });
+          const fetchUserData = async () => {
+              const userData = await getUserData(user.uid);
+              setTokens(userData?.tokens);
+          };
+          fetchUserData();
       }
     }, [user])
     
@@ -42,7 +49,7 @@ export default function Dashboard() {
 
         <RecipePageTitle/>
         <div className="border-t border-gray-200 sm:mt-0 mb-12 mr-12 ml-12 mt-12" style={{ width: '35%' }} />
-        <Usage data={recipes}/>
+        <Usage data={recipes} tokens={tokens}/>
         <div className="border-t border-gray-200 m-12" style={{ width: '35%' }} />
         <Tools/>
         <div className="border-t border-gray-200 m-12" style={{ width: '35%' }} />
