@@ -3,153 +3,154 @@
 import { Button } from "../shared/button";
 import { CheckIcon } from "@heroicons/react/20/solid";
 import { Container } from "../shared/container";
-import { createBaseCheckoutSession } from "@/pages/api/stripe/stripeBase";
-import { createEssentialCheckoutSession } from "@/pages/api/stripe/stripeEssential";
 import { createPremiumCheckoutSession } from "@/pages/api/stripe/stripePremium";
-import { createFreeCheckoutSession } from "@/pages/api/stripe/stripeFree";
 import { useAuth } from "@/pages/api/auth/auth";
 import { Loader } from "../shared/loader";
 import { useState } from "react";
-import { BtnLink } from "../shared/btnlink";
+import { useRouter } from "next/router";
 
 function classNames(...classes: (string | undefined | null | false)[]): string {
     return classes.filter(Boolean).join(' ');
   }
 
+export function PricingDisplay() {
 
-export function PricingList() {
+    const { user, stripeRole } = useAuth();
+    const [ isLoading, setIsLoading ] = useState<boolean>(false);
+    const router = useRouter()
 
-  const { user, stripeRole, login } = useAuth();
-  const [ isLoading, setIsLoading ] = useState<boolean>(false);
+    const tiers = [
+        {
+          name: 'Base',
+          id: 'tier-basic',
+          href: '#',
+          priceMonthly: '$0',
+          description: "The perfect plan if you're just getting started with our product.",
+          features: [
+            '5 Monthly Generated Recipes', 
+            'Save up to 5 recipes', 
+        ],
+          featured: false,
+          checkout: () => {
+            setIsLoading(true)
+            router.push('/dashboard')
+          }
+        },
+        {
+          name: 'Premium',
+          id: 'tier-premium',
+          href: '#',
+          priceMonthly: '$2.99',
+          description: 'Dedicated support and infrastructure for your company.',
+          features: [
+            'Unlimited Generated Recipes',
+            'Unlimited Recipe Saves',
+            'Cooking Video Conversion Tool',
+            'Remove Ads from Website Recipe',
+          ],
+          featured: true,
+          checkout: () => {
+            setIsLoading(true)
+            createPremiumCheckoutSession(user?.uid)
+          }
+        },
+      ]
+    
 
-
-  const tiers = [
-    {
-      name: 'Free',
-      id: 'tier-freelancer',
-      href: '#',
-      priceMonthly: '$0',
-      description: 'Use Zesti AI for free and gain recipe transcriptions every month',
-      features: [
-        '3 Recipes Per Month',
-        '10 Minute Max for Videos'
-      ],
-      mostPopular: false,
-      checkout: () => {
-        setIsLoading(true)
-        createFreeCheckoutSession(user?.uid)
-      }
-    },
-    {
-      name: 'Essential',
-      id: 'tier-startup',
-      href: '#',
-      priceMonthly: '$4.99',
-      description: 'Best for users that find new recipes fairly frequently and want to try them for later.',
-      features: [
-        '10 Recipes Per Month',
-        '20 Minute Max for Videos',
-        'Edit Recipes'
-      ],
-      mostPopular: true,
-      checkout: () => {
-        setIsLoading(true)
-        createEssentialCheckoutSession(user?.uid)
-      }
-    },
-    {
-      name: 'Premium',
-      id: 'tier-enterprise',
-      href: '#',
-      priceMonthly: '$9.99',
-      description: 'Best for users who cook frequently, and constantly enjoy trying new recipes they find',
-      features: [
-        '30 Recipes Per Month',
-        '30 Minute Max for Videos',
-        'Edit Recipes'
-      ],
-      mostPopular: false,
-      checkout: () => {
-        setIsLoading(true)
-        createPremiumCheckoutSession(user?.uid)
-      }
-    },
-  ]
-
-  return (
-    <Container className={"flex flex-col lg:flex-row gap-10 lg:gap-12"}>
-      <div className="bg-white py-24 sm:py-32 p-2">
-        <div className="mx-auto max-w-7xl md:px-6 lg:px-8">
-          <div className="mx-auto max-w-4xl text-center">
-            <p className="mt-2 text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl">
-              Pricing
-            </p>
-          </div>
-          <p className="mx-auto mt-6 max-w-2xl text-center text-lg leading-8 text-gray-600">
-           Get Free Recipe Transcription When You Sign Up. Cancel anytime.
-          </p>
-          <p className="mx-auto mt-2 max-w-xl w-fit pr-2 pl-2 text-center text-sm leading-8 text-gray-600 border rounded-2xl font-semibold">
-           Price shown in local currency at checkout
-          </p>
-          <div className="isolate mx-auto mt-16 grid max-w-md grid-cols-1 gap-y-8 sm:mt-20 lg:mx-0 lg:max-w-none lg:grid-cols-3">
-            {tiers.map((tier, tierIdx) => (
+    return (
+    <Container className={"flex flex-col lg:flex-row gap-10 lg:gap-12 justify-center mb-12 sm:mb-16"}>
+        <div className="relative isolate bg-white px-6 lg:px-8">
+          <div className="mx-auto grid max-w-lg grid-cols-1 items-center gap-y-6 sm:gap-y-0 lg:max-w-4xl lg:grid-cols-2">
+            {tiers.map((tier: any, tierIdx: number) => (
               <div
                 key={tier.id}
                 className={classNames(
-                  tier.mostPopular ? 'lg:z-10 lg:rounded-b-none' : 'lg:mt-8',
-                  tierIdx === 0 ? 'lg:rounded-r-none' : '',
-                  tierIdx === tiers.length - 1 ? 'lg:rounded-l-none' : '',
-                  'flex flex-col justify-between rounded-3xl bg-white p-4 first-letter md:p-8 ring-1 ring-gray-200 xl:p-10'
+                  tier.featured ? 'relative bg-white bg-opacity-90 border border-primary-main' : 'bg-gray-50 sm:mx-8 lg:mx-0',
+                  tier.featured
+                    ? ''
+                    : tierIdx === 0
+                    ? 'rounded-t-3xl sm:rounded-b-none lg:rounded-tr-none lg:rounded-bl-3xl'
+                    : 'sm:rounded-t-none lg:rounded-tr-3xl lg:rounded-bl-none',
+                  'rounded-3xl p-8 ring-1 ring-gray-900/10 sm:p-10'
                 )}
               >
-                <div>
-                  <div className="flex items-center justify-between gap-x-4">
-                    <h3
-                      id={tier.id}
-                      className={classNames(
-                        tier.mostPopular ? 'text-primary-main' : 'text-gray-900',
-                        'text-lg font-semibold leading-8'
-                      )}
-                    >
-                      {tier.name}
-                    </h3>
-                    {tier.mostPopular ? (
-                      <p className="rounded-full bg-primary-main/10 md:px-2.5 py-1 text-xs font-semibold leading-5 text-primary-main">
-                        Most popular
-                      </p>
-                    ) : null}
-                  </div>
-                  <p className="mt-4 text-sm leading-6 text-gray-600">{tier.description}</p>
-                  <p className="mt-6 flex items-baseline gap-x-1">
-                    <span className="text-4xl font-bold tracking-tight text-gray-900">{tier.priceMonthly}</span>
-                    <span className="text-sm font-semibold leading-6 text-gray-600">/month</span>
-                  </p>
-                  <ul role="list" className="mt-8 space-y-3 text-sm leading-6 text-gray-600">
-                    {tier.features.map((feature) => (
-                      <li key={feature} className="flex gap-x-3">
-                        <CheckIcon className="h-6 w-5 flex-none text-color-alt-green" aria-hidden="true" />
-                        {feature}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
+                <h3
+                  id={tier.id}
+                  className={classNames(
+                    tier.featured ? 'text-primary-main' : 'text-gray-900',
+                    'text-base font-semibold leading-7'
+                  )}
+                >
+                  {tier.name}
+                </h3>
+                <p className="mt-4 flex items-baseline gap-x-2">
+                  <span
+                    className={classNames(
+                      tier.featured ? 'text-gray-900' : 'text-gray-900',
+                      'text-5xl font-bold tracking-tight'
+                    )}
+                  >
+                    {tier.priceMonthly}
+                  </span>
+                  <span className={classNames(tier.featured ? 'text-gray-700' : 'text-gray-500', 'text-base')}>/month</span>
+                </p>
+                <p className={classNames(tier.featured ? 'text-gray-700' : 'text-gray-600', 'mt-6 text-base leading-7')}>
+                  {tier.description}
+                </p>
+                <ul
+                  role="list"
+                  className={classNames(
+                    tier.featured ? 'text-gray-700' : 'text-gray-600',
+                    'mt-8 space-y-3 text-sm leading-6 sm:mt-10'
+                  )}
+                >
+                  {tier.features.map((feature: any) => (
+                    <li key={feature} className="flex gap-x-3">
+                      <CheckIcon
+                        className={classNames(tier.featured ? 'text-color-alt-green' : 'text-color-alt-green', 'h-6 w-5 flex-none')}
+                        aria-hidden="true"
+                      />
+                      {feature}
+                    </li>
+                  ))}
+                </ul>
                 {!user ?
-                <BtnLink href="/login" text="Sign up to Subscribe" className="mt-4 text-center"/>
-                : (stripeRole == null && isLoading == false) ?
-                <Button buttonType="button" onClick={tier.checkout} text="Subscribe" className="mt-4 text-center"/>
+                <Button buttonType="button" onClick={() => router.push('/login')} text="Sign Up to Get Started" className="mt-4 text-center w-full"/>
+                : (stripeRole == null && isLoading == false && stripeRole !== 'premium') ?
+                <Button buttonType="button" onClick={tier.checkout} text="Get Started" className="mt-4 text-center w-full"/>
                 : (isLoading == true) ?
                 <div className="mt-4 w-full grid">
                   <Loader/>
                 </div>
                 :
-                <Button buttonType="button" onClick={() => {window.open(`${process.env.NEXT_PUBLIC_STRIPE_NO_CODE_PORATL}`)}} text="Manage Subscription" className="mt-4 text-center"/>
-                
-              }
+                <Button buttonType="button" onClick={() => {window.open(`${process.env.NEXT_PUBLIC_STRIPE_NO_CODE_PORATL}`)}} text="Manage Subscription" className="mt-4 text-center w-full"/>
+                }
               </div>
             ))}
           </div>
         </div>
-      </div>
+        </Container>
+      )
+}
+
+export function PricingTitle() {
+
+  return(
+    <Container className={"flex flex-col lg:flex-row gap-10 lg:gap-12"}>
+      <div className="bg-white py-24 sm:py-32 p-2 mx-auto">
+        <div className="mx-auto max-w-7xl md:px-6 lg:px-8"></div>
+          <div className="mx-auto max-w-4xl text-center">
+            <p className="mt-2 text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl">
+              Choose a plan
+            </p>
+            <p className="mx-auto mt-6 max-w-2xl text-center text-lg leading-8 text-gray-600">
+              Discovering and cooking new recipes has never been easier
+            </p>
+            <p className="mx-auto mt-2 max-w-xl w-fit pr-2 pl-2 text-center text-sm leading-8 text-gray-600 border rounded-2xl font-semibold">
+              Price shown in local currency at checkout
+            </p>
+          </div>
+        </div>
     </Container>
   )
 }
