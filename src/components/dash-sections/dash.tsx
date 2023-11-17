@@ -1,8 +1,7 @@
 import { Paragraph } from "../shared/paragraph"
 import { Container } from "../shared/container"
-import { SparklesIcon, VideoCameraIcon, LinkIcon } from '@heroicons/react/24/outline'
+import { SparklesIcon, VideoCameraIcon, LinkIcon, LockClosedIcon } from '@heroicons/react/24/outline'
 import { useAuth } from "@/pages/api/auth/auth"
-import { db } from "@/pages/api/firebase/firebase"
 import React, { useEffect, useState } from "react"
 import Link from "next/link"
 
@@ -50,10 +49,30 @@ export function AddRecipePageTitle() {
 
 export function Tools() {
 
+    const { stripeRole } = useAuth()
+
     const stats = [
-        { id: 1, name: 'AI Recipe Generator', icon: SparklesIcon, colorType: 'green', href: '/tools/generator', desc: "Generate new & creative recipes" },
-        { id: 2, name: 'Video to Recipe', icon: VideoCameraIcon, colorType: 'red', href: '/tools/video', desc: "Turn cooking video into text recipe" },
-        { id: 3, name: 'Website Recipe', icon: LinkIcon, colorType: 'yellow', href: '/tools/website', desc: "Get recipe from website without ads" },
+        { 
+            id: 1, 
+            name: 'AI Recipe Generator', 
+            icon: SparklesIcon, 
+            colorType: 'green', 
+            href: '/tools/generator', 
+            desc: "Generate new & creative recipes" },
+        { 
+            id: 2, 
+            name: 'Video to Recipe', 
+            icon: stripeRole == 'premium' ? VideoCameraIcon : LockClosedIcon, 
+            colorType: 'red', 
+            href: '/tools/video', 
+            desc: "Turn cooking video into text recipe" },
+        { 
+            id: 3, 
+            name: 'Website Recipe', 
+            icon: stripeRole == 'premium' ? LinkIcon : LockClosedIcon, 
+            colorType: 'yellow', 
+            href: '/tools/website', 
+            desc: "Get recipe from website without ads" },
       ]
 
     return(
@@ -101,15 +120,16 @@ interface Recipe {
 
 interface UsageProps {
     data: Recipe[];
+    tokens: number;
   }
 
-export function Usage({data}: UsageProps) {
+export function Usage({data, tokens}: UsageProps) {
 
     const { user, stripeRole } = useAuth()
-
+    
     const stats = [
-        { name: 'Account Name', value: user?.email },
-        { name: 'Total Recipes', value: `${stripeRole !== 'premium' ? `${data.length} / 5` : `${data.length} / unlimited`}`},
+        { name: 'Recipes Remaining', value: `${stripeRole !== 'premium' ? tokens : 'Unlimited'}` },
+        { name: 'Saved Recipes', value: `${stripeRole !== 'premium' ? `${data.length} / 5` : `${data.length} / unlimited`}`},
         { name: 'Account Status', value: `${stripeRole ? stripeRole : 'Free'}`},
       ]
 
