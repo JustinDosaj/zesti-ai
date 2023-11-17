@@ -4,7 +4,6 @@ import { Container } from "../shared/container"
 import { Navitem } from "../shared/navitem"
 import { useAuth } from "@/pages/api/auth/auth"
 import { useState, useEffect } from "react"
-import { TokenAmount } from "../shared/tokenAmt"
 import { Bars3Icon } from '@heroicons/react/24/outline'
 import { Fragment } from 'react'
 import { Menu, Transition } from '@headlessui/react'
@@ -137,7 +136,7 @@ export function Navbar({_user}: any) {
                                     </div>
                                     :
                                     <div className='block px-4 py-2 text-sm' >
-                                        <BtnLink text='My Account' className="flex justify-center w-full sm:w-max" href={'/profile'}/>        
+                                        <BtnLink text='Dashboard' className="flex justify-center w-full sm:w-max" href={'/dashboard'}/>        
                                     </div>
                                    }
                                 </div>
