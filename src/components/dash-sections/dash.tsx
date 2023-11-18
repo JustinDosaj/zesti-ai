@@ -121,14 +121,15 @@ interface Recipe {
 interface UsageProps {
     data: Recipe[];
     tokens: number;
+    usage: number;
   }
 
-export function Usage({data, tokens}: UsageProps) {
+export function Usage({data, tokens, usage}: UsageProps) {
 
     const { user, stripeRole } = useAuth()
     
     const stats = [
-        { name: 'Recipes Remaining', value: `${stripeRole !== 'premium' ? tokens : 'Unlimited'}` },
+        { name: 'Recipes Remaining', value: `${stripeRole !== 'premium' ? tokens : usage}` },
         { name: 'Saved Recipes', value: `${stripeRole !== 'premium' ? `${data.length} / 5` : `${data.length} / unlimited`}`},
         { name: 'Account Status', value: `${stripeRole ? stripeRole : 'Free'}`},
       ]

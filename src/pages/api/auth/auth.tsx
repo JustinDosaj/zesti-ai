@@ -36,6 +36,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         if(!doc.exists) {
           await userRef.set({
             tokens: 5,
+            premiumUsage: 0,
             email: user.email,
           })
         }
@@ -98,6 +99,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         if(!doc.exists) {
           await userRef.set({
             tokens: 5,
+            premiumUsage: 0,
             email: user.email,
           })
         }

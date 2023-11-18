@@ -5,18 +5,18 @@ import { Paragraph } from '../shared/paragraph';
 
 const cards = [
   {
-    name: 'Choosing the Right Tool',
-    description: 'On your dashboard, select recipe ideas, ad-free recipe or video-to-recipe. Then enter the required information.',
+    name: 'Generate Recipe',
+    description: 'Use Zesti AI to generate a recipe from a list of ingredients, description or dish name.',
     icon: VideoCameraIcon,
   },
   {
-    name: 'Retrieving the Recipe',
-    description: 'After Zesti has what it needs, select get recipe. After a few minutes, there will be a clear and concise recipe on your dashboard',
+    name: 'Ad-Free Web Recipe',
+    description: 'Enter the website URL of a recipe to discard the ads and useless information.',
     icon: ChatBubbleBottomCenterIcon,
   },
   {
-    name: 'Access and Edit Recipes',
-    description: 'Go to your dashboard and access and edit the easy-to-read recipe and cook at your own pace, ad-free!',
+    name: 'Video to Recipe Conversion',
+    description: 'Convert cooking video to easy-to-read recipe with just the link.',
     icon: KeyIcon,
   },
 ]
@@ -28,11 +28,11 @@ export default function HowItWorks() {
             <div className="mx-auto max-w-7xl px-6 lg:px-8">
                 <div className="mx-auto max-w-3xl text-center">
                     <Title className="mt-2 text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl">
-                    Discover
-                    <span className="text-transparent bg-clip-text bg-gradient-to-br from-primary-main from-20% via-primary via-30% to-color-alt-red pl-2 pr-2">Delicious Recipes</span>
+                    No More
+                    <span className="text-transparent bg-clip-text bg-gradient-to-br from-primary-main from-20% via-primary via-30% to-color-alt-red pl-2 pr-2">Cluttered Recipes</span>
                     </Title>
                     <Paragraph className="mt-6 text-lg leading-8 text-gray-800">
-                    Start cooking more by discovering new recipes! Use Zesti to retrieve recipes from videos and websites, or just have Zesti create one for you!
+                      Start cooking more by discovering new recipes! Use Zesti to retrieve recipes from videos and websites, or just have Zesti create one for you!
                     </Paragraph>
                 </div>
                 <div className="mx-auto mt-16 grid max-w-2xl grid-cols-1 gap-6 sm:mt-20 lg:mx-0 lg:max-w-none lg:grid-cols-3 lg:gap-8">

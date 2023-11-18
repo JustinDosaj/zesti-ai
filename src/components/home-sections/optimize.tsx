@@ -6,14 +6,13 @@ import Image from 'next/image'
 
 const features = [
     {
-      name: 'Get Recipes',
-      description:
-        'Retrieve recipes from cooking videos found on YouTube to get easy-to-follow instructions',
+      name: 'Fast Responses:',
+      description: 'Zesti typically responds within 3 seconds of less',
       icon: CheckIcon,
     },
     {
-        name: 'Chat Assistant:',
-        description: 'Get your cooking questions answered fast without leaving your recipe page',
+        name: 'Save Time:',
+        description: 'Zesti can handle most questions so you never have to take your eye of the recipe to get answers',
         icon: CheckIcon,
       },
   ]
@@ -26,15 +25,17 @@ export function Optimize() {
                 <div className="grid grid-cols-1 gap-x-8 gap-y-16 sm:gap-y-20 lg:grid-cols-2 lg:items-start">
                 <div className="md:px-0 lg:pr-4 lg:pt-4">
                     <div className="mx-auto max-w-2xl lg:mx-0 lg:max-w-lg">
-                    <Title className="mt-2 xs:space-x-1 sm:space-x-1 font-bold tracking-tight text-gray-900 text-4xl md:text-5xl flex flex-wrap">
-                        <span>Cooking</span>
-                        <div className="inline-flex text-transparent bg-clip-text bg-gradient-to-br from-primary-main from-20% via-primary via-30% to-color-alt-red">New Recipes</div>
-                        <span>Has Never Been</span>
-                        <div className="inline-flex text-transparent bg-clip-text bg-gradient-to-br from-primary-main from-20% via-primary via-30% to-color-alt-red">Easier</div>
-                    </Title>
-                    <Paragraph className="mt-6 text-lg text-gray-600">
-                        You no longer need to constantly pause and rewind cooking videos, get spammed with ads or scower the internet for cooking questions
-                    </Paragraph>
+
+                        <Title className="mt-2 text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl">
+                        Ask
+                        <span className="text-transparent bg-clip-text bg-gradient-to-br from-primary-main from-20% via-primary via-30% to-color-alt-red"> Zesti </span>
+                        Questions While
+                        <span className="text-transparent bg-clip-text bg-gradient-to-br from-primary-main from-20% via-primary via-30% to-color-alt-red"> Cooking</span>
+                        </Title>
+                        <Paragraph className="mt-6 text-lg leading-8 text-gray-800">
+                            With cooking, time is everything. When you start cooking a recipe, Zesti will be ready to answer any of your questions.
+                        </Paragraph>
+                
                     <dl className="mt-10 max-w-xl space-y-8 text-base leading-7 text-gray-600 lg:max-w-none">
                         {features.map((feature) => (
                         <div key={feature.name} className="relative pl-9">
@@ -57,9 +58,9 @@ export function Optimize() {
                     />
                     <div className="mx-auto max-w-2xl sm:mx-0 sm:max-w-none p-4 sm:p-0">
                         <Image
-                            src="/images/video-image.jpg"
+                            src="/images/chatbotpicbgless.png"
                             alt="Cooking Recipes Screenshot"
-                            className="rounded-xl w-full max-w-none rounded-tl-xl bg-gray-800 ring-1 ring-white/10"
+                            className="bg-transparent rounded-xl w-full max-w-none rounded-tl-xl"
                             width={500} height={500}
                         />
                     </div>
