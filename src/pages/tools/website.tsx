@@ -1,7 +1,7 @@
 import { Raleway } from 'next/font/google'
 import { Hero } from '@/components/home-sections/hero'
 import Head from 'next/head';
-import { UrlComponent, UrlHero } from '@/components/hub/url';
+import { UrlComponent, UrlHero, UrlTips } from '@/components/hub/url';
 import { useAuth } from '../api/auth/auth';
 import { PricingDisplay } from '@/components/pricing-sections/pricing';
 import { FAQ } from '@/components/home-sections/faq';
@@ -22,7 +22,10 @@ export default function Website() {
       <main className={`flex min-h-screen flex-col items-center bg-background ${raleway.className}`}>
       <UrlHero/>
       { stripeRole == 'premium' ?
-        <UrlComponent/>
+        <div>
+          <UrlComponent/>
+          <UrlTips/>
+        </div>
         :
         <PricingDisplay/>
       }

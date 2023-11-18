@@ -13,6 +13,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { Container } from "../shared/container";
 import { Paragraph } from "../shared/paragraph";
 import { db } from "@/pages/api/firebase/firebase";
+import { LightBulbIcon } from '@heroicons/react/20/solid'
 
 export function ChatComponent() {
 
@@ -125,4 +126,65 @@ export function ChatHero(){
             </Container>
         </section>
     )
+}
+
+export function ChatTips() {
+
+    const features = [
+        {
+          name: 'Be Specific:',
+          description:
+            'The more descriptive you are, the better. For example, instead of asking for a tomato soup recipe, ask for a creamy tomato soup recipe that serves 4',
+          icon: LightBulbIcon,
+        },
+        {
+          name: 'Edit:',
+          description: 'Zesti is not always perfect, once the recipe is created you can access it in your dashboard. There, you can chat with Zesti and edit the recipe to your liking',
+          icon: LightBulbIcon,
+        },
+        {
+          name: 'Meal Type:',
+          description: 'Let Zesti know if you are trying to make breakfast, lunch, dinner, dessert or even just a quick snack.',
+          icon: LightBulbIcon,
+        },
+        {
+            name: 'Time & Servings:',
+            description: 'Make sure to tell Zesti how long you expect to cook and how much you want to make to help eliminate waste',
+            icon: LightBulbIcon,
+        },
+        {
+            name: 'Chef Controls (Coming Soon):',
+            description: 'Use our Chef Controls to ensure you give the most possible detail to recipe, resulting in the best recipes.',
+            icon: LightBulbIcon,
+        },
+      ]
+      
+
+    return (
+        <Container className={"flex flex-col lg:flex-row gap-10 lg:gap-12"}>
+            <div className="mx-auto overflow-hidden bg-white mt-24">
+            <div className="mx-auto max-w-7xl px-6 lg:px-8">
+                <div className="mx-auto grid w-full gap-x-8 gap-y-16 sm:gap-y-20 lg:mx-0 lg:max-w-none">
+                <div className="lg:ml-auto lg:pl-4 lg:pt-4">
+                    <div className="max-w-4xl">
+                    <h2 className="text-base font-semibold leading-7 text-primary-main text-center">Tips</h2>
+                    <p className="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl text-center">Get The Most Out Of Zesti</p>
+                    <dl className="mt-10 max-w-xl space-y-8 text-base leading-7 text-gray-600 lg:max-w-none">
+                        {features.map((feature: any) => (
+                        <div key={feature.name} className="relative pl-9">
+                            <dt className="inline font-semibold text-gray-900">
+                            <feature.icon className="absolute left-1 top-1 h-5 w-5 text-primary-main" aria-hidden="true" />
+                            {feature.name}
+                            </dt>{' '}
+                            <dd className="inline">{feature.description}</dd>
+                        </div>
+                        ))}
+                    </dl>
+                    </div>
+                </div>
+                </div>
+            </div>
+            </div>
+        </Container>
+      )
 }

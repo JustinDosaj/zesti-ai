@@ -2,13 +2,15 @@ import { Container } from "@/components/shared/container"
 import { Raleway } from 'next/font/google'
 import { Button, AltButton } from "@/components/shared/button"
 import { useAuth } from "./api/auth/auth"
-import { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useRouter } from "next/router"
 import { getSubscription, getUserData } from "./api/firebase/functions"
 import { CheckIcon, XMarkIcon } from "@heroicons/react/20/solid"
 import Head from "next/head"
 import { ChevronDoubleUpIcon } from "@heroicons/react/20/solid"
+import { db } from "./api/firebase/firebase"
 import GoogleTags from "@/components/google/conversion"
+import { InlineBtnLink } from "@/components/shared/inline-btn-link"
 
 const raleway = Raleway({subsets: ['latin']})
 
@@ -17,22 +19,28 @@ export default function Profile() {
     const { user, logout, isLoading, stripeRole } = useAuth();
     const [onFirstLoad, setOnFirstLoad] = useState<boolean>(true)
     const [tokens, setTokens] = useState<number>(0)
+    const [ usage, setUsage ] = useState<number>(0)
     const router = useRouter();
-
-    async function onFirstPageLoad() {
-        await getSubscription(user?.uid)
-        const userData = await getUserData(user?.uid)
-        setTokens(userData ? userData.tokens : 0)
-        setOnFirstLoad(false)
-      }
   
-      useEffect( () => {
+      useEffect(() => {
         if(user == null && isLoading == false) {
-          router.push('/')
-        } else if (user !== null && isLoading == false && onFirstLoad == true) {
-          onFirstPageLoad()
+            router.push('/');
         }
-      }, [user, onFirstPageLoad])
+        // Remove the onFirstPageLoad call and related state updates
+    }, [user, isLoading, router]);
+
+      useEffect(() => {
+        if (user?.uid) {
+            const unsubscribe = db.doc(`users/${user.uid}`)
+                .onSnapshot((doc: any) => {
+                    const userData = doc.data();
+                    setTokens(userData?.tokens || 0);
+                    if (stripeRole == 'premium') { setUsage(userData?.premiumUsage) }
+                });
+
+            return () => unsubscribe();
+        }
+    }, [user?.uid]);
 
     return(
     <>
@@ -56,7 +64,7 @@ export default function Profile() {
                 <dl className="flex flex-wrap">
                   <div className="flex-auto pl-6">
                       <dt className="text-sm font-semibold leading-6 text-gray-900">Remaining Videos</dt>
-                      <dd className="mt-1 text-base font-semibold leading-6 text-gray-900">{tokens}</dd>
+                      <dd className="mt-1 text-base font-semibold leading-6 text-gray-900">{stripeRole == 'premium' ? usage : tokens}</dd>
                   </div>
                   <div className="flex-none self-end px-6 pt-4">
                       <dt className="sr-only">Status</dt>
@@ -65,74 +73,28 @@ export default function Profile() {
                       </dd>
                   </div>
                 </dl>
-                <div className="grid grid-cols-1 sm:grid-cols-2 space-x-0 md:space-x-4 space-y-2 md:space-y-0 mt-6 border-t px-6 py-6">
-                  {stripeRole == 'free' ?
-                  <div className="space-y-2">
-                    <div className="inline-flex space-x-2 align-middle items-center">
-                      <CheckIcon className="h-5 w-5 text-color-alt-green"/>
-                      <span className="text-gray-700">3 Video Recipes Per Month</span>
-                    </div>
-                    <div className="inline-flex space-x-2 align-middle items-center">
-                      <CheckIcon className="h-5 w-5 text-color-alt-green"/>
-                      <span className="text-gray-700">Up to 10 Minute Long Videos</span>
-                    </div>
-                    <div className="inline-flex space-x-2 align-middle items-center">
-                        <XMarkIcon className="h-5 w-5 text-color-alt-red"/>
-                        <span className="text-gray-700">Edit Recipes</span>
-                    </div>
-                    <div className="inline-flex space-x-2 align-middle items-center">
-                      <ChevronDoubleUpIcon className="h-5 w-5 text-color-alt-green"/>
-                      <span className="text-gray-700">Upgrade subscription for more</span>
-                    </div>
-                  </div>
-                  :
-                  stripeRole == 'base' ?
+                <div className="grid grid-cols-1 sm:grid-cols-2 space-x-0 md:space-x-4 space-y-2 md:space-y-0 mt-6 border-t px-6 py-6 w-full">
+                  {stripeRole == 'premium' ?
                     <div className="space-y-2">
                       <div className="inline-flex space-x-2 align-middle items-center">
                         <CheckIcon className="h-5 w-5 text-color-alt-green"/>
-                        <span className="text-gray-700">5 Video Recipes Per Month</span>
+                        <span className="text-gray-700">Generate Unlimited AI Recipes</span>
                       </div>
                       <div className="inline-flex space-x-2 align-middle items-center">
                         <CheckIcon className="h-5 w-5 text-color-alt-green"/>
-                        <span className="text-gray-700">Up to 5 Minute Long Videos</span>
-                      </div>
-                      <div className="inline-flex space-x-2 align-middle items-center">
-                        <XMarkIcon className="h-5 w-5 text-color-alt-red"/>
-                        <span className="text-gray-700">Edit Recipes</span>
-                      </div>
-                      <div className="inline-flex space-x-2 align-middle items-center">
-                        <ChevronDoubleUpIcon className="h-5 w-5 text-color-alt-green"/>
-                        <span className="text-gray-700">Upgrade subscription for more</span>
-                      </div>
-                    </div>
-                    : stripeRole == 'essential' ? 
-                    <div className="space-y-2">
-                      <div className="inline-flex space-x-2 align-middle items-center">
-                        <CheckIcon className="h-5 w-5 text-color-alt-green"/>
-                        <span className="text-gray-700">10 Video Recipes Per Month</span>
+                        <span className="text-gray-700">Unlimited Recipe Saves</span>
                       </div>
                       <div className="inline-flex space-x-2 align-middle items-center">
                         <CheckIcon className="h-5 w-5 text-color-alt-green"/>
-                        <span className="text-gray-700">Up to 20 Minute Long Videos</span>
+                        <span className="text-gray-700">Cooking Video Conversion Tool</span>
                       </div>
                       <div className="inline-flex space-x-2 align-middle items-center">
                         <CheckIcon className="h-5 w-5 text-color-alt-green"/>
-                        <span className="text-gray-700">Edit Recipes</span>
-                      </div>
-                      <div className="inline-flex space-x-2 align-middle items-center">
-                        <ChevronDoubleUpIcon className="h-5 w-5 text-color-alt-green"/>
-                        <span className="text-gray-700" >Upgrade subscription for more</span>
-                      </div>
-                    </div>
-                    : stripeRole == 'premium' ?
-                    <div className="space-y-2">
-                      <div className="inline-flex space-x-2 align-middle items-center">
-                        <CheckIcon className="h-5 w-5 text-color-alt-green"/>
-                        <span className="text-gray-700">30 Video Recipes Per Month</span>
+                        <span className="text-gray-700">Website Recipe Transformation Tool</span>
                       </div>
                       <div className="inline-flex space-x-2 align-middle items-center">
                         <CheckIcon className="h-5 w-5 text-color-alt-green"/>
-                        <span className="text-gray-700">Up to 30 Minute Long Videos</span>
+                        <span className="text-gray-700">Cooking Chat Assistant</span>
                       </div>
                       <div className="inline-flex space-x-2 align-middle items-center">
                         <CheckIcon className="h-5 w-5 text-color-alt-green"/>
@@ -143,15 +105,20 @@ export default function Profile() {
                     <div className="space-y-2">
                       <div className="inline-flex space-x-2 align-middle items-center">
                         <CheckIcon className="h-5 w-5 text-color-alt-green"/>
-                        <span className="text-gray-700">2 Free Video Recipes (No Credit Card Required)</span>
+                        <span className="text-gray-700">5 AI Recipes Per Month</span>
                       </div>
                       <div className="inline-flex space-x-2 align-middle items-center">
                         <CheckIcon className="h-5 w-5 text-color-alt-green"/>
-                        <span className="text-gray-700">Up to 5 Minute Long Videos</span>
+                        <span className="text-gray-700">Save up to 5 Recipes</span>
+                      </div>
+                      <div className="inline-flex space-x-2 align-middle items-center">
+                        <CheckIcon className="h-5 w-5 text-color-alt-green"/>
+                        <span className="text-gray-700">Cooking Chat Assistant</span>
                       </div>
                       <div className="inline-flex space-x-2 align-middle items-center">
                         <ChevronDoubleUpIcon className="h-5 w-5 text-color-alt-green"/>
-                        <span className="text-gray-700">Upgrade subscription for more</span>
+                        <span><InlineBtnLink href="/pricing" text="Try Premium Free"/></span>
+
                       </div>
                     </div>
                   }
