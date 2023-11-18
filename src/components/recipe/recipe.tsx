@@ -21,7 +21,7 @@ export function RecipePopOutMenu({edit, setEdit, setEditingIngredientIndex, inde
         setEditingIngredientIndex(index)
     }
 
-    if (role == 'essential' || role == 'premium')
+
     return(
     <>
     <Menu as="div" className="relative ml-auto">
