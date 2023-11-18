@@ -28,7 +28,9 @@ export function PricingDisplay() {
           description: "The perfect plan if you're just getting started with our product.",
           features: [
             '5 Monthly Generated Recipes', 
-            'Save up to 5 recipes', 
+            'Save up to 5 recipes',
+            'Edit Recipes',
+            'Chef Chat Assistant' 
         ],
           featured: false,
           checkout: () => {
@@ -43,10 +45,12 @@ export function PricingDisplay() {
           priceMonthly: '$2.99',
           description: 'Dedicated support and infrastructure for your company.',
           features: [
-            'Unlimited Generated Recipes',
+            '30 Monthly Generated Recipes',
             'Unlimited Recipe Saves',
             'Cooking Video Conversion Tool',
-            'Remove Ads from Website Recipe',
+            'Website Recipe Transformation Tool',
+            'Edit Recipes',
+            'Chef Chat Assistant'
           ],
           featured: true,
           checkout: () => {

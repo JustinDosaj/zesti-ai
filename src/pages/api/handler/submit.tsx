@@ -78,16 +78,22 @@ export const handleYouTubeURLSubmit = async ({url, user, setMessage, stripeRole,
 
     // Checking video length compared to subscription model
     const result = await getVideoLength(url_id ? url_id[1] : null)
-    if ((result?.minutes || 0) > 20) {
-        setMessage("Max video length is 20 minutes. Upgrade subscription for more.");
+    if ((result?.minutes || 0) > 15) {
+        setMessage("Max video length is 15 minutes");
         setNotify(true)
         return false;
     }
     
-    if (stripeRole == 'premium') {
+    let usage = 0;
+    await getUserData(user?.uid).then((res) => {usage = res?.premiumUsage})
+
+    if (usage >= 1 && stripeRole == 'premium') {
         try {
             await db.collection('users').doc(user.uid).collection('youtubeurl').doc().set(falseObj)
             setMessage("The recipe has begun progressing and will appear in your dashboard shortly.")
+            await db.collection('users').doc(user.uid).update({
+                premiumUsage: increment(-1)
+            })
             return true
         } catch (err) {
             setMessage("Something went wrong. Please try again later. If the problem persists, please contact us.")
@@ -96,7 +102,7 @@ export const handleYouTubeURLSubmit = async ({url, user, setMessage, stripeRole,
         }
     } else {  
         setNotify(true)
-        setMessage("This feature is only available to premium users") 
+        setMessage("Uh oh! You ran out of recipes for the month!") 
         return false; 
     }
 }
@@ -139,7 +145,6 @@ export const handleCreativeChatSubmit = async({userInput, user, setMessage, stri
         } catch (err) {
             setNotify(true)
             setMessage("Something went wrong. Please try again later. If the problem persists, feel free to contact us.")
-            console.log(err)
             return false
         }
     }
@@ -153,7 +158,7 @@ export const handleCreativeChatSubmit = async({userInput, user, setMessage, stri
         return false
     }
             
-    if (tokens >= 1 && stripeRole !== 'premium') {
+    if (tokens >= 1) {
         try {
             await db.collection('users').doc(user.uid).collection('creative').doc().set(falseObj)
             setMessage("The recipe began processing and will appear in your dashboard shortly.")
@@ -168,7 +173,7 @@ export const handleCreativeChatSubmit = async({userInput, user, setMessage, stri
         }
     } else { 
         setNotify(true)
-        setMessage("Uh oh! You ran out of recipes, you can upgrade you subscription for unlimited recipes or wait until next month for more") 
+        setMessage("Uh oh! You ran out of recipes for the month!") 
         return false; 
     }
 
@@ -203,13 +208,16 @@ export const handleWebURLSubmit = async ({url, user, setMessage, stripeRole, set
         "date": new Date().toISOString()
     }
 
-    let tokens = 0;
-    await getUserData(user?.uid).then((res) => {tokens = res?.tokens})
+    let usage = 0;
+    await getUserData(user?.uid).then((res) => {usage = res?.premiumUsage})
     
-    if (stripeRole == 'premium') {
+    if (usage >= 1 && stripeRole == 'premium') {
         try {
             await db.collection('users').doc(user.uid).collection('weburl').doc().set(falseObj)
             setMessage("The recipe has begun progressing and will appear in your dashboard shortly.")
+            await db.collection('users').doc(user.uid).update({
+                premiumUsage: increment(-1)
+            })
             return true
         } catch (err) {
             setNotify(true)
@@ -219,7 +227,7 @@ export const handleWebURLSubmit = async ({url, user, setMessage, stripeRole, set
         }   
     } else {  
         setNotify(true)
-        setMessage("This feature is only available to premium users") 
+        setMessage("Uh oh! You ran out of recipes for the month!") 
         return false; 
     }
 }

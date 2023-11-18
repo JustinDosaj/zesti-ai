@@ -17,6 +17,7 @@ export default function Dashboard() {
     const { user, isLoading, stripeRole } = useAuth();
     const [isLoadingRecipes, setIsLoadingRecipes] = useState(true);
     const [ tokens, setTokens ] = useState<number>(0)
+    const [ usage, setUsage ] = useState<number>(0)
     const [recipes, setRecipes] = useState<any[]>([]);
     const router = useRouter();
 
@@ -34,6 +35,7 @@ export default function Dashboard() {
           const fetchUserData = async () => {
               const userData = await getUserData(user.uid);
               setTokens(userData?.tokens);
+              if(stripeRole == 'premium') { setUsage(userData?.premiumUsage) }
           };
           fetchUserData();
       }
@@ -48,7 +50,7 @@ export default function Dashboard() {
 
         <RecipePageTitle/>
         <div className="border-t border-gray-200 sm:mt-0 mb-12 mr-12 ml-12 mt-12" style={{ width: '35%' }} />
-        <Usage data={recipes} tokens={tokens}/>
+        <Usage data={recipes} tokens={tokens} usage={usage}/>
         <div className="border-t border-gray-200 m-12" style={{ width: '35%' }} />
         <Tools/>
         <div className="border-t border-gray-200 m-12" style={{ width: '35%' }} />
