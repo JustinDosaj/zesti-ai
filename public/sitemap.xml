@@ -9,72 +9,82 @@
 
 <url>
   <loc>https://www.zesti.ai/</loc>
-  <lastmod>2023-11-15T21:08:37+00:00</lastmod>
+  <lastmod>2023-11-18T23:33:40+00:00</lastmod>
   <priority>1.00</priority>
 </url>
 <url>
   <loc>https://www.zesti.ai/pricing</loc>
-  <lastmod>2023-11-15T21:08:37+00:00</lastmod>
+  <lastmod>2023-11-18T23:33:40+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>https://www.zesti.ai/contact</loc>
-  <lastmod>2023-11-15T21:08:37+00:00</lastmod>
+  <lastmod>2023-11-18T23:33:40+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>https://www.zesti.ai/login</loc>
-  <lastmod>2023-11-15T21:08:37+00:00</lastmod>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>https://www.zesti.ai/about/demo</loc>
-  <lastmod>2023-11-15T21:08:37+00:00</lastmod>
+  <lastmod>2023-11-18T23:33:40+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>https://www.zesti.ai/about/alternative/dishgen?altId=dishgen</loc>
-  <lastmod>2023-11-15T21:08:37+00:00</lastmod>
+  <lastmod>2023-11-18T23:33:40+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>https://www.zesti.ai/about/alternative/cookaifood?altId=cookaifood</loc>
-  <lastmod>2023-11-15T21:08:37+00:00</lastmod>
+  <lastmod>2023-11-18T23:33:40+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>https://www.zesti.ai/about/alternative/chefgpt?altId=chefgpt</loc>
-  <lastmod>2023-11-15T21:08:37+00:00</lastmod>
+  <lastmod>2023-11-18T23:33:40+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>https://www.zesti.ai/about/alternative/basyl?altId=basyl</loc>
-  <lastmod>2023-11-15T21:08:37+00:00</lastmod>
+  <lastmod>2023-11-18T23:33:40+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>https://www.zesti.ai/about/alternative/letsfoodie?altId=letsfoodie</loc>
-  <lastmod>2023-11-15T21:08:37+00:00</lastmod>
+  <lastmod>2023-11-18T23:33:40+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>https://www.zesti.ai/about/alternative/foodai?altId=foodai</loc>
-  <lastmod>2023-11-15T21:08:37+00:00</lastmod>
+  <lastmod>2023-11-18T23:33:40+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>https://www.zesti.ai/about/alternative/supercook?altId=supercook</loc>
-  <lastmod>2023-11-15T21:08:37+00:00</lastmod>
+  <lastmod>2023-11-18T23:33:40+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>https://www.zesti.ai/about/alternative/plantjammer?altId=plantjammer</loc>
-  <lastmod>2023-11-15T21:08:37+00:00</lastmod>
+  <lastmod>2023-11-18T23:33:40+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>https://www.zesti.ai/about/alternative/lionix?altId=lionix</loc>
-  <lastmod>2023-11-15T21:08:37+00:00</lastmod>
+  <lastmod>2023-11-18T23:33:40+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://www.zesti.ai/tools/video</loc>
+  <lastmod>2023-11-18T23:33:40+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://www.zesti.ai/tools/website</loc>
+  <lastmod>2023-11-18T23:33:40+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://www.zesti.ai/tools/generator</loc>
+  <lastmod>2023-11-18T23:33:40+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 
