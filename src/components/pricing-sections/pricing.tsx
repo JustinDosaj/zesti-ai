@@ -25,7 +25,7 @@ export function PricingDisplay() {
           id: 'tier-basic',
           href: '#',
           priceMonthly: '$0',
-          description: "The perfect plan if you're just getting started with our product.",
+          description: "The perfect plan if you're just getting started with Zesti",
           features: [
             '5 Monthly Generated Recipes', 
             'Save up to 5 recipes',
@@ -43,7 +43,7 @@ export function PricingDisplay() {
           id: 'tier-premium',
           href: '#',
           priceMonthly: '$2.99',
-          description: 'Dedicated support and infrastructure for your company.',
+          description: 'Unlock the full potential of Zesti',
           features: [
             '30 Monthly Generated Recipes',
             'Unlimited Recipe Saves',
