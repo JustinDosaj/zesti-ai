@@ -1,6 +1,6 @@
 import { Raleway } from 'next/font/google'
 import React from 'react';
-import { ChatHero } from '@/components/hub/chat';
+import { ChatHero, ChatTips } from '@/components/hub/chat';
 import Head from 'next/head';
 import { ChatComponent } from '@/components/hub/chat';
 import { FAQ } from '@/components/home-sections/faq';
@@ -20,6 +20,7 @@ export default function Generator() {
       <main className={`flex min-h-screen flex-col items-center bg-background ${raleway.className}`}>
         <ChatHero/>
         <ChatComponent/>
+        <ChatTips/>
         <FAQ/>
       </main>
     </>

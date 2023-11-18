@@ -23,7 +23,7 @@ export function PricingDisplay() {
         {
           name: 'Base',
           id: 'tier-basic',
-          href: '#',
+          trial: false,
           priceMonthly: '$0',
           description: "The perfect plan if you're just getting started with Zesti",
           features: [
@@ -41,7 +41,7 @@ export function PricingDisplay() {
         {
           name: 'Premium',
           id: 'tier-premium',
-          href: '#',
+          trial: true,
           priceMonthly: '$2.99',
           description: 'Unlock the full potential of Zesti',
           features: [
@@ -62,7 +62,7 @@ export function PricingDisplay() {
     
 
     return (
-    <Container className={"flex flex-col lg:flex-row gap-10 lg:gap-12 justify-center mb-12 sm:mb-16"}>
+    <Container className={"flex flex-col lg:flex-row gap-10 lg:gap-12 justify-center mt-6 sm:mt-0 mb-12 sm:mb-16"}>
         <div className="relative isolate bg-white px-6 lg:px-8">
           <div className="mx-auto grid max-w-lg grid-cols-1 items-center gap-y-6 sm:gap-y-0 lg:max-w-4xl lg:grid-cols-2">
             {tiers.map((tier: any, tierIdx: number) => (
@@ -78,15 +78,20 @@ export function PricingDisplay() {
                   'rounded-3xl p-8 ring-1 ring-gray-900/10 sm:p-10'
                 )}
               >
-                <h3
-                  id={tier.id}
-                  className={classNames(
-                    tier.featured ? 'text-primary-main' : 'text-gray-900',
-                    'text-base font-semibold leading-7'
-                  )}
-                >
-                  {tier.name}
-                </h3>
+                <div className="flex justify-between items-center">
+                  <h3
+                    id={tier.id}
+                    className={classNames(
+                      tier.featured ? 'text-primary-main' : 'text-gray-900',
+                      'text-base font-semibold leading-7'
+                    )}
+                  >
+                    {tier.name} 
+                  </h3>
+                  <div className={tier.trial == true ? `` : `hidden`}>
+                    <div className="bg-gray-900 text-white rounded-xl pt-1 pb-1 pl-2 pr-2">7 Day Trial</div>
+                  </div>
+                </div>
                 <p className="mt-4 flex items-baseline gap-x-2">
                   <span
                     className={classNames(
@@ -141,7 +146,7 @@ export function PricingTitle() {
 
   return(
     <Container className={"flex flex-col lg:flex-row gap-10 lg:gap-12"}>
-      <div className="bg-white py-24 sm:py-32 p-2 mx-auto">
+      <div className="bg-white mt-24 sm:mt-32 p-2 mx-auto">
         <div className="mx-auto max-w-7xl md:px-6 lg:px-8"></div>
           <div className="mx-auto max-w-4xl text-center">
             <p className="mt-2 text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl">
