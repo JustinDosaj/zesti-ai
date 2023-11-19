@@ -7,10 +7,12 @@ import React from 'react'
 import Image from "next/image";
 import 'react-toastify/dist/ReactToastify.css';
 import { useRouter } from "next/router";
+import { useAuth } from "@/pages/api/auth/auth";
 
 export function Hero(){
 
     const router = useRouter()
+    const { user } = useAuth()
 
     return(
         <section className="relative pt-24 lg:pt-36">
@@ -28,6 +30,7 @@ export function Hero(){
                     <Paragraph className="text-lg mt-8 text-black">
                         Get your questions answered on the fly, create delicious recipes with what you have available, generate new ideas and turn cooking videos into ad-free text recipe
                     </Paragraph>
+                    { !user ? 
                     <Button
                         onClick={() => router.push('/login')}
                         buttonType="button"
@@ -35,6 +38,15 @@ export function Hero(){
                         className="mt-4 w-48"
                     >
                     </Button>
+                    :
+                    <Button
+                        onClick={() => router.push('/dashboard')}
+                        buttonType="button"
+                        text="Go to Dashboard"
+                        className="mt-4 w-48"
+                    >
+                    </Button>
+                    }
                     <p className="text-sm mt-1 text-gray-500">No Credit Card Required.</p>
                 </div>
             </Container>

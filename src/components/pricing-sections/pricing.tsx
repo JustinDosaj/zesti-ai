@@ -50,7 +50,8 @@ export function PricingDisplay() {
             'Cooking Video Conversion Tool',
             'Website Recipe Transformation Tool',
             'Edit Recipes',
-            'Chef Chat Assistant'
+            'Chef Chat Assistant',
+            'Zero Ads'
           ],
           featured: true,
           checkout: () => {
