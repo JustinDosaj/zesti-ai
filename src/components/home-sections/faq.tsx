@@ -6,19 +6,19 @@ import { Title } from '../shared/title'
 const faqs = [
   {
     question: "How does Zesti work?",
-    answer: "Zesti utilizes artifical intelligence (AI) to transcribe a video into something our specially trainer openai model can understand, allowing us to show you a full recipe with only a link.",
+    answer: "Zesti Utilizes AI (Artificial Intelligence) to generate recipes and transcribe them from videos and websites." ,
   },
   {
-    question: "What are the video requirements for Zesti?",
-    answer: "Videos can be 10 to 20 minutes long depending on your subscription. For best results, ensure that the video has verbal instructions. Ideally, select a video that directly states measurements (ie. 1/4 cup of water)",
-  },
-  {
-    question: "Does Zesti only work with Youtube videos?",
-    answer: "Yes, though we are actively working on integrating support for Tiktok, Vimeo, Twitch.tv and more! ",
+    question: "Why use Zesti?",
+    answer: "Zesti will help you create recipes that fit your exact needs, create text recipes from YouTube videos to make following the recipe easier, and cut through the ads and clutter on website recipes.",
   },
   {
     question: "How much does Zesti cost?",
-    answer: "We offer 1 free video to recipe transcription for new users, then users can optionally upgrade to one of our subscription packages.",
+    answer: "Zesti is free to use, but we also have a premium option (7-day free trial) that unlocks the full potential of Zesti",
+  },
+  {
+    question: "Does Zesti work?",
+    answer: "Yes, Zesti can help create easy-to-read recipes. Though, Zesti is not always perfect and sometimes makes mistakes and misses information. But we constantly strive to improve the performance of Zesti",
   },
   {
     question: "I have more questions, how can I contact you?",
