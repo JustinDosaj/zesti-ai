@@ -4,12 +4,14 @@ import { UrlComponent, UrlHero, UrlTips } from '@/components/hub/url';
 import { useAuth } from '../api/auth/auth';
 import { PricingDisplay } from '@/components/pricing-sections/pricing';
 import { FAQ } from '@/components/home-sections/faq';
-import { VideoTips } from '@/components/hub/video';
+import { ToolLoader } from '@/components/shared/loader';
 const raleway = Raleway({subsets: ['latin']})
 
 export default function Website() {
   
-  const { user, stripeRole } = useAuth()
+  const { user, stripeRole, isLoading } = useAuth()
+
+  console.log("LOADING: ", isLoading)
 
   return (
     <>
@@ -20,7 +22,10 @@ export default function Website() {
       </Head>
       <main className={` flex min-h-screen flex-col items-center bg-background ${raleway.className}`}>
         <UrlHero/>
-        { stripeRole == 'premium' ?
+        { isLoading == true ?
+        <ToolLoader/>
+        : 
+        stripeRole == 'premium' ?
           <div>
             <UrlComponent/>
             <UrlTips/>
