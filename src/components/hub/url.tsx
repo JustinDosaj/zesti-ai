@@ -14,7 +14,6 @@ import { Container } from "../shared/container";
 import { Paragraph } from "../shared/paragraph";
 import { LightBulbIcon } from '@heroicons/react/20/solid'
 
-
 export function UrlComponent() {
 
     const { user, stripeRole } = useAuth()
@@ -49,7 +48,7 @@ export function UrlComponent() {
     }
 
     return(
-    <div className="w-full flex flex-col items-center p-4">
+    <div className="p-4 w-full flex flex-col items-center">
         <ToastContainer/>
         <div className="flex sm:flex-row flex-col gap-5 w-full justify-center">
             <form action="" method="POST" className="py-1 pl-6 w-full max-w-md pr-1 flex gap-3 items-center text-heading-3 shadow-lg shadow-box-shadow
@@ -114,7 +113,7 @@ export function UrlTips() {
         },
         {
           name: 'Copy Link:',
-          description: 'Copy the link from the search bar at the top of your web brwoser (ie. https://www.spendwithpennies.com/easy-cheesy-potatoes). ',
+          description: 'Copy the link from the search bar at the top of your web browser. ',
           icon: LightBulbIcon,
         },
         {
@@ -132,29 +131,29 @@ export function UrlTips() {
 
     return (
         <Container className={"flex flex-col lg:flex-row gap-10 lg:gap-12"}>
-            <div className="mx-auto overflow-hidden bg-white mt-24">
-            <div className="mx-auto max-w-7xl px-6 lg:px-8">
-                <div className="mx-auto grid w-full gap-x-8 gap-y-16 sm:gap-y-20 lg:mx-0 lg:max-w-none">
-                <div className="lg:ml-auto lg:pl-4 lg:pt-4">
-                    <div className="max-w-4xl">
-                    <h2 className="text-base font-semibold leading-7 text-primary-main text-center">Guide</h2>
-                    <p className="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl text-center">Get The Most Out Of Zesti</p>
-                    <dl className="mt-10 max-w-xl space-y-8 text-base leading-7 text-gray-600 lg:max-w-none">
-                        {features.map((feature: any) => (
-                        <div key={feature.name} className="relative pl-9">
-                            <dt className="inline font-semibold text-gray-900">
-                            <feature.icon className="absolute left-1 top-1 h-5 w-5 text-primary-main" aria-hidden="true" />
-                            {feature.name}
-                            </dt>{' '}
-                            <dd className="inline">{feature.description}</dd>
-                        </div>
-                        ))}
-                    </dl>
+        <div className="mx-auto overflow-hidden bg-white mt-24">
+        <div className="mx-auto max-w-7xl px-6 lg:px-8">
+            <div className="mx-auto grid w-full gap-x-8 gap-y-16 sm:gap-y-20 lg:mx-0 lg:max-w-none">
+            <div className="lg:ml-auto lg:pl-4 lg:pt-4">
+                <div className="max-w-4xl">
+                <h2 className="text-base font-semibold leading-7 text-primary-main text-center">Guide</h2>
+                <p className="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl text-center">Get The Most Out Of Zesti</p>
+                <dl className="mt-10 max-w-xl space-y-8 text-base leading-7 text-gray-600 lg:max-w-none">
+                    {features.map((feature: any) => (
+                    <div key={feature.name} className="relative pl-9">
+                        <dt className="inline font-semibold text-gray-900">
+                        <feature.icon className="absolute left-1 top-1 h-5 w-5 text-primary-main" aria-hidden="true" />
+                        {feature.name}
+                        </dt>{' '}
+                        <dd className="inline">{feature.description}</dd>
                     </div>
-                </div>
+                    ))}
+                </dl>
                 </div>
             </div>
             </div>
-        </Container>
+        </div>
+        </div>
+    </Container>
       )
 }
