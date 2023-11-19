@@ -1,5 +1,5 @@
 import { Raleway } from 'next/font/google'
-import { Hero, Hero2 } from '@/components/home-sections/hero'
+import { Hero } from '@/components/home-sections/hero'
 import { FAQ } from '@/components/home-sections/faq';
 import { Optimize } from '@/components/home-sections/optimize'
 import Head from 'next/head';

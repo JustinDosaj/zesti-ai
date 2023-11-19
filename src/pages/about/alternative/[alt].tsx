@@ -11,54 +11,30 @@ const raleway = Raleway({subsets: ['latin']})
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
     const id = context.query?.alt as string
-    return {props: {id: id}}
+    const docSnapshot = await db.doc(`alternatives/${id}`).get();
+    const data = docSnapshot.exists ? docSnapshot.data() : null;
+    return {props: {data}}
 }
 
 
-const Alternative: React.FC = ({id}: any) => {
-
-    const [altName, setAltName] = useState<string>('')
-    const [altChat, setAltChat] = useState<boolean>(false)
-    const [altGenerator, setAltGenerator] = useState<boolean>(false)
-    const [altURLRecipe, setAltURLRecipe] = useState<boolean>(false)
-    const [altVideoRecipe, setAltVideoRecipe] = useState<boolean>(false)
-    const [altPrice, setAltPrice] = useState<string>('$0')
-
-    useEffect(() => {
-      const unsubscribe = db.doc(`alternatives/${id}`)
-        .onSnapshot((docSnapshot) => {
-          if (docSnapshot.exists) {
-            const data = docSnapshot.data()
-            setAltName(data?.name)
-            setAltChat(data?.chatAssist)
-            setAltGenerator(data?.recipeGenerator)
-            setAltURLRecipe(data?.urlToRecipe)
-            setAltVideoRecipe(data?.videoToRecipe)
-            setAltPrice(data?.price)
-          } else {
-            console.log("Doc doesnt exist")
-          }
-        });
-        return () => unsubscribe(); 
-    }, [id]);
-
+const Alternative: React.FC = ({data}: any) => {
 
     return(
     <>
       <Head>
-        <title>Zesti | The AI alternative to {altName}</title>
-        <meta name="title" content={`Zesti | The AI alternative to ${altName}`}/>
-        <meta name="description" content={`Find out what makes Zesti the best ${altName} alternative and learn about the unique things only Zesti can do`}/>
+        <title>Zesti | The AI alternative to {data?.name}</title>
+        <meta name="title" content={`Zesti | The AI alternative to ${data?.name}`}/>
+        <meta name="description" content={`Find out what makes Zesti the best ${data?.name} alternative and learn about the unique things only Zesti can do`}/>
       </Head>
       <main className={`flex min-h-screen flex-col items-center justify-between p-2 bg-background ${raleway.className}`}>
-        <AltHero name={altName}/>
+        <AltHero name={data?.name}/>
         <AltCompare 
-          name={altName} 
-          priceMonthly={altPrice}
-          videoToRecipe={altVideoRecipe}
-          urlToRecipe={altURLRecipe}
-          aiGeneratedRecipe={altGenerator}
-          chatAssistance={altChat}
+          name={data?.name} 
+          priceMonthly={data?.price}
+          videoToRecipe={data?.videoToRecipe}
+          urlToRecipe={data?.urlToRecipe}
+          aiGeneratedRecipe={data?.recipeGenerator}
+          chatAssistance={data?.chatAssist}
           />
         <FAQ/>
       </main>
