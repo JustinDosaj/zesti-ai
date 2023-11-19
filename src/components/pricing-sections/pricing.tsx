@@ -150,13 +150,13 @@ export function PricingTitle() {
       <div className="bg-white p-2 mx-auto">
         <div className="mx-auto max-w-7xl md:px-6 lg:px-8"></div>
           <div className="mx-auto max-w-4xl text-center">
-            <p className="mt-2 text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl">
+            <h1 className="mt-2 text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl">
               Choose a plan
-            </p>
+            </h1>
             <p className="mx-auto mt-6 max-w-2xl text-center text-lg leading-8 text-gray-600">
               Discovering and cooking new recipes has never been easier
             </p>
-            <p className="mx-auto mt-2 max-w-xl w-fit pr-2 pl-2 text-center text-sm leading-8 text-gray-600 border rounded-2xl font-semibold">
+            <p className="mx-auto sm:mb-4 mt-2 max-w-xl w-fit pr-2 pl-2 text-center text-sm leading-8 text-gray-600 border rounded-2xl font-semibold">
               Price shown in local currency at checkout
             </p>
           </div>
