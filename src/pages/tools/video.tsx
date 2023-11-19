@@ -5,12 +5,13 @@ import { VideoComponent, VideoHero, VideoTips } from '@/components/hub/video';
 import { useAuth } from '../api/auth/auth';
 import { PricingDisplay } from '@/components/pricing-sections/pricing';
 import { FAQ } from '@/components/home-sections/faq';
+import { ToolLoader } from '@/components/shared/loader';
 
 const raleway = Raleway({subsets: ['latin']})
 
 export default function Video() {
 
-  const { user, stripeRole } = useAuth()
+  const { user, stripeRole, isLoading } = useAuth()
 
   return (
     <>
@@ -21,7 +22,10 @@ export default function Video() {
       </Head>
       <main className={`flex min-h-screen flex-col items-center bg-background ${raleway.className}`}>
         <VideoHero/>
-        { stripeRole == 'premium' ?
+        { isLoading == true ?
+        <ToolLoader/>
+        :
+        stripeRole == 'premium' ?
           <div>
             <VideoComponent/>
             <VideoTips/>
