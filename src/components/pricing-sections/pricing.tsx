@@ -133,7 +133,7 @@ export function PricingDisplay() {
                   <Loader/>
                 </div>
                 :
-                <Button buttonType="button" onClick={() => {window.open(`${process.env.NEXT_PUBLIC_STRIPE_NO_CODE_PORATL}`)}} text="Manage Subscription" className="mt-4 text-center w-full"/>
+                <Button buttonType="button" onClick={() => {window.open(`${process.env.NEXT_PUBLIC_STRIPE_NO_CODE_PORATL}`)}} text="Manage Subscription" className="text-sm sm:text-base mt-4 text-center w-full"/>
                 }
               </div>
             ))}
@@ -146,8 +146,8 @@ export function PricingDisplay() {
 export function PricingTitle() {
 
   return(
-    <Container className={"flex flex-col lg:flex-row gap-10 lg:gap-12"}>
-      <div className="bg-white mt-24 sm:mt-32 p-2 mx-auto">
+    <Container className={"flex flex-col lg:flex-row gap-10 lg:gap-12 mt-36"}>
+      <div className="bg-white p-2 mx-auto">
         <div className="mx-auto max-w-7xl md:px-6 lg:px-8"></div>
           <div className="mx-auto max-w-4xl text-center">
             <p className="mt-2 text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl">
