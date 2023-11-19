@@ -26,8 +26,8 @@ export default function Video() {
             <VideoComponent/>
             <VideoTips/>
           </div>
-        :
-        <PricingDisplay/>
+          :
+          <PricingDisplay/>
         }
         <FAQ/>
       </main>
