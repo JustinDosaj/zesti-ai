@@ -1,5 +1,5 @@
 import { Raleway } from 'next/font/google'
-import { Hero } from '@/components/home-sections/hero'
+import { Hero, Hero2 } from '@/components/home-sections/hero'
 import { FAQ } from '@/components/home-sections/faq';
 import { Optimize } from '@/components/home-sections/optimize'
 import Head from 'next/head';
@@ -18,7 +18,7 @@ export default function Home() {
         <meta name="description" content="Easily save & edit recipes found from cooking videos and chat with our AI tool powered by OpenAI and ChatGPT. Try for free. No credit card required."/>
       </Head>
       <main className={`flex min-h-screen flex-col items-center justify-between bg-background ${raleway.className}`}>
-        <Hero/>
+        <Hero2/>
         <HowItWorks/>
         <Optimize/>
         <Reach/>
