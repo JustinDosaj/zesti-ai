@@ -8,8 +8,9 @@ import { Container } from "@/components/shared/container";
 import { PageLoader } from "@/components/shared/loader";
 import Head from "next/head";
 import { RecipePopOutMenu, EditRecipeInput, InstructionPopOutMenu, EditInstructionInput } from "@/components/recipe/recipe";
-import { db } from "@/pages/api/firebase/firebase";
 import { Chatbox } from "@/components/chat/chatbox";
+import { RecipePageAmazonProduct } from "@/components/google/ads";
+import { db } from "@/pages/api/firebase/firebase";
 
 const raleway = Raleway({subsets: ['latin']})
 
@@ -20,6 +21,8 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
 
 const Recipe: React.FC = ({id}: any) => {
+
+    console.log("ID: ", id)
 
     const { user, isLoading, stripeRole } = useAuth();
     const [recipe, setRecipe] = useState<any>([])
@@ -168,7 +171,7 @@ const Recipe: React.FC = ({id}: any) => {
           </ul>
         </div>
       </Container>
-      <Container className={"flex flex-col lg:flex-row gap-10 lg:gap-12 mt-12 mb-36"}>
+      <Container className={"flex flex-col lg:flex-row gap-10 lg:gap-12 mt-12"}>
         <div className="my-auto overflow-hidden bg-white py-5 border w-full rounded-lg p-4 md:p-12 ">
           <h2 className="text-lg font-medium text-gray-500">Instructions {`(${recipe?.instructions?.length})`}</h2>
           <ul role="list" className="mt-3 grid grid-cols-1 gap-5 sm:gap-6">
@@ -188,6 +191,9 @@ const Recipe: React.FC = ({id}: any) => {
           </ul>
         </div>
       </Container>
+
+      <RecipePageAmazonProduct/>
+      
     </main>
     </>
     )
