@@ -24,7 +24,7 @@ const cards = [
 export default function HowItWorks() {
   return (
     <Container className={"flex flex-col lg:flex-row gap-10 lg:gap-12"}>
-        <div className="relative isolate overflow-hidden py-24 sm:py-32 ">
+        <div className="relative isolate overflow-hidden py-8 sm:py-32 ">
             <div className="mx-auto max-w-7xl px-6 lg:px-8">
                 <div className="mx-auto max-w-3xl text-center">
                     <Title className="mt-2 text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl">
