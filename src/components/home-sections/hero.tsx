@@ -66,10 +66,10 @@ export function Hero2(){
           className="absolute inset-y-0 right-1/2 -z-10 -mr-96 w-[200%] origin-top-right skew-x-[-30deg] bg-white shadow-xl shadow-indigo-600/10 ring-1 ring-indigo-50 sm:-mr-80 lg:-mr-96"
           aria-hidden="true"
         />
-        <div className="mx-auto max-w-7xl px-6 py-32 sm:py-40 lg:px-8">
+        <div className="mx-auto max-w-7xl px-2 py-32 sm:py-40 lg:px-8">
           <div className="mx-auto max-w-2xl lg:mx-0 lg:grid lg:max-w-none lg:grid-cols-2 lg:gap-x-16 lg:gap-y-6 xl:grid-cols-1 xl:grid-rows-1 xl:gap-x-8">
             <div className="mt-6 max-w-xl lg:mt-0 xl:col-end-1 xl:row-start-1 ">
-                <div className="flex justify-center sm:inline-flex sm:justify-left items-center border border-gray-300 rounded-3xl p-2 space-x-1 ">
+                <div className="flex w-fit mx-auto sm:inline-flex sm:justify-left items-center border border-gray-300 rounded-3xl p-2 space-x-1 ">
                     <div className="text-black font-bold text-sm">Powered By OpenAI</div>
                     <Image width={20} height={20} src="/images/openaipng.png" alt="Powered by OpenAI Chatgpt AI Technology Tool" className=" "/>
                 </div>
@@ -78,8 +78,8 @@ export function Hero2(){
                     <span className="text-black">Your Cooking Using</span>
                     <span className="text-transparent bg-clip-text bg-gradient-to-br from-primary-main from-20% via-primary via-30% to-color-alt-red pl-2 pr-2">Zesti AI Assistant</span> 
                 </h1>
-                <Paragraph className="text-lg mt-8 text-black text-center sm:text-left">
-                    Get your questions answered on the fly, create delicious recipes with what you have available, generate new ideas and turn cooking videos into ad-free text recipe
+                <Paragraph className="text-base sm:text-lg mt-8 text-black text-center sm:text-left">
+                    Create AI generated recipes, get cooking questions answered, turn cooking videos into text recipes and more with Zesti
                 </Paragraph>
               { !user ?
                 <div className="mt-10 grid sm:flex items-center gap-x-6 justify-center sm:justify-start">
