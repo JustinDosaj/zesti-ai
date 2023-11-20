@@ -191,9 +191,6 @@ const Recipe: React.FC = ({id}: any) => {
           </ul>
         </div>
       </Container>
-
-      <RecipePageAmazonProduct/>
-      
     </main>
     </>
     )

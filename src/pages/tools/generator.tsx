@@ -4,11 +4,14 @@ import { ChatHero, ChatTips } from '@/components/hub/chat';
 import Head from 'next/head';
 import { ChatComponent } from '@/components/hub/chat';
 import { FAQ } from '@/components/home-sections/faq';
+import AdComponent from '@/components/google/ads';
+import { useAuth } from '../api/auth/auth';
 
 const raleway = Raleway({subsets: ['latin']})
 
 export default function Generator() {
   // Comment
+  const { stripeRole, isLoading } = useAuth()
 
   return (
     <>
@@ -20,6 +23,7 @@ export default function Generator() {
       <main className={`flex min-h-screen flex-col items-center bg-background ${raleway.className}`}>
         <ChatHero/>
         <ChatComponent/>
+        {stripeRole == 'premium' ? <AdComponent/> : <></>}
         <ChatTips/>
         <FAQ/>
       </main>
