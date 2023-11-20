@@ -1,4 +1,5 @@
 import { Container } from "../shared/container"
+import { useEffect } from "react";
 
 export function RecipePageAmazonProduct(){
 
@@ -25,9 +26,36 @@ export function RecipePageAmazonProduct(){
     )
 }
 
-export function RecipePageGoogleAd() {
-    return(
-    <>
-    </>
-    )
-}
+
+
+const AdComponent = () => {
+    console.log("Loading ad componenet...")
+    useEffect(() => {
+      // Load the AdSense script
+      const script = document.createElement('script');
+      script.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js';
+      script.async = true;
+      script.crossOrigin = 'anonymous';
+      document.body.appendChild(script);
+  
+      // Prepare the ad slot
+      script.onload = () => {
+        try {
+          (window.adsbygoogle = window.adsbygoogle || []).push({});
+        } catch (e) {
+          console.error(e);
+        }
+      };
+    }, []);
+  
+    return (
+      <ins className="adsbygoogle"
+           style={{ display: 'block' }}
+           data-ad-client="ca-pub-5837655994202747"
+           data-ad-slot="4074875757"
+           data-ad-format="auto"
+           data-full-width-responsive="true"></ins>
+    );
+  };
+  
+  export default AdComponent;
