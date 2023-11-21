@@ -94,7 +94,7 @@ export function FailedRecipe({key, recipe, isDeleteOpen, setIsDeleteOpen, select
     return(
         <div key={key} className="flex flex-col h-full p-2">
             <li className="flex flex-col overflow-hidden rounded-xl border border-gray-200 shadow-lg">
-            <div className="flex items-center gap-x-4 border-b border-gray-900/5 bg-gray-50 p-6">
+            <div className="flex items-center gap-x-4 border-b border-gray-900/5 bg-gray-50 p-2 pl-6">
                 <div className="flex flex-col justify-center h-12"> 
                 <div className="text-base font-semibold leading-6 text-gray-900 line-clamp-2">{"Failed to get recipe. Please try again later."}</div>
                 </div>
@@ -133,7 +133,7 @@ export function FailedRecipe({key, recipe, isDeleteOpen, setIsDeleteOpen, select
                 </Transition>
                 </Menu>
             </div>
-            <dl className="flex-grow -my-3 divide-y divide-gray-100 px-6 py-4 text-sm leading-6">
+            <dl className="flex-grow -my-3 divide-y divide-gray-100 px-6 py-2 text-sm leading-6">
                 <div className="flex justify-between gap-x-4 py-3">
                 <dt className="text-gray-500">Total Ingrediants</dt>
                 <dd className="text-gray-700">

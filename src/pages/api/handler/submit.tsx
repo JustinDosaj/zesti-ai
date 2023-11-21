@@ -107,6 +107,49 @@ export const handleYouTubeURLSubmit = async ({url, user, setMessage, stripeRole,
     }
 }
 
+export const handleTikTokURLSubmit = async ({url, user, setMessage, stripeRole, setNotify}: Props): Promise<boolean> => {
+
+    console.log("Inside TiklTok Submit")
+
+    // Check if URL is empty
+    if (url == '') {
+        setNotify(true) 
+        setMessage("Oops! You must input a valid video link!")
+        return false;
+    }
+
+    // Ensure video length is equal or below user sub usage rate
+    const url_id = url?.match(/tiktok\.com\/@[^\/]+\/video\/(\d+)/);
+    const falseObj = {
+        "url": `${url}`,
+        "url_id": url_id ? url_id[1] : null,
+        "source": "tiktok",
+        "date": new Date().toISOString()
+    }
+    
+    let usage = 0;
+    await getUserData(user?.uid).then((res) => {usage = res?.premiumUsage})
+
+    if (usage >= 1 && stripeRole == 'premium') {
+        try {
+            await db.collection('users').doc(user.uid).collection('tiktokurl').doc().set(falseObj)
+            setMessage("The recipe has begun progressing and will appear in your dashboard shortly.")
+            await db.collection('users').doc(user.uid).update({
+                premiumUsage: increment(-1)
+            })
+            return true
+        } catch (err) {
+            setMessage("Something went wrong. Please try again later. If the problem persists, please contact us.")
+            console.log(err)
+            return false
+        }
+    } else {  
+        setNotify(true)
+        setMessage("Uh oh! You ran out of recipes for the month!") 
+        return false; 
+    }
+}
+
 interface ChatProps {
     userInput: string,
     user: any,
