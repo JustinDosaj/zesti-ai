@@ -65,7 +65,7 @@ export function Tools() {
             icon: stripeRole == 'premium' ? VideoCameraIcon : LockClosedIcon, 
             colorType: 'red', 
             href: '/tools/video', 
-            desc: "Turn cooking video into text recipe" },
+            desc: "Save recipe from YouTube or TikTok" },
         { 
             id: 3, 
             name: 'Website Recipe', 
@@ -137,7 +137,7 @@ export function Usage({data, tokens, usage}: UsageProps) {
     return(
     <Container className={"flex flex-col lg:flex-row gap-10 lg:gap-12"}>
         <div className="w-full rounded-2xl">
-            <dl className="mx-auto grid grid-cols-1 gap-px sm:grid-cols-2 lg:grid-cols-3 border rounded-xl bg-gray-100">
+            <dl className="mx-auto grid grid-cols-1 gap-px lg:grid-cols-3 border rounded-xl bg-gray-100">
                 {stats.map((stat) => (
                     <div
                     key={stat.name}

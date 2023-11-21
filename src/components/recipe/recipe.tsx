@@ -130,7 +130,6 @@ export function InstructionPopOutMenu({edit, setEdit, setEditingInstructionIndex
         setEditingInstructionIndex(index)
     }
 
-    if (role == 'essential' || role == 'premium')
     return(
     <>
     <Menu as="div" className="relative ml-auto">
