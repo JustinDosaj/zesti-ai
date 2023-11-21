@@ -16,13 +16,14 @@ const raleway = Raleway({subsets: ['latin']})
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
     const id = context.query?.recipe as string
-    return {props: {id: id}}
+    const docSnapshot = await db.doc(`amazonproducts/${0}`).get()
+    const ad = docSnapshot.exists ? docSnapshot.data() : null
+
+    return {props: {id, ad}}
 }
 
 
-const Recipe: React.FC = ({id}: any) => {
-
-    console.log("ID: ", id)
+const Recipe: React.FC = ({id, ad}: any) => {
 
     const { user, isLoading, stripeRole } = useAuth();
     const [recipe, setRecipe] = useState<any>([])
@@ -191,6 +192,7 @@ const Recipe: React.FC = ({id}: any) => {
           </ul>
         </div>
       </Container>
+      {stripeRole !== 'premium' ? <RecipePageAmazonProduct ad={ad}/> : <div className="mb-36"/>}
     </main>
     </>
     )
