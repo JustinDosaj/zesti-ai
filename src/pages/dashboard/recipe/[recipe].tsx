@@ -16,7 +16,11 @@ const raleway = Raleway({subsets: ['latin']})
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
     const id = context.query?.recipe as string
-    const docSnapshot = await db.doc(`amazonproducts/${0}`).get()
+
+    const collectionSnapshot = await db.collection('amazonproducts').get();
+    const totalProducts = collectionSnapshot.size
+    const randIdx = Math.floor(Math.random() * totalProducts)
+    const docSnapshot = await db.doc(`amazonproducts/${randIdx}`).get()
     const ad = docSnapshot.exists ? docSnapshot.data() : null
 
     return {props: {id, ad}}
