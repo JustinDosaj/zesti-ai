@@ -27,7 +27,7 @@ export function PricingDisplay() {
           priceMonthly: '$0',
           description: "The perfect plan if you're just getting started with Zesti",
           features: [
-            '5 Monthly Generated Recipes', 
+            '5 AI Generated Recipes Per Month', 
             'Save up to 5 recipes',
             'Edit Recipes',
             'Chef Chat Assistant' 
@@ -45,7 +45,8 @@ export function PricingDisplay() {
           priceMonthly: '$2.99',
           description: 'Unlock the full potential of Zesti',
           features: [
-            '30 Monthly Generated Recipes',
+            'Unlimited AI Generated Recipes',
+            'Save 30 Tiktok & YouTube Recipe Per Month',
             'Unlimited Recipe Saves',
             'Cooking Video Conversion Tool',
             'Website Recipe Transformation Tool',
