@@ -11,7 +11,7 @@ export function RecipePageAmazonProduct({ad}: any){
                     <Image src={ad?.image} height={200} width={200} alt={ad?.name}/>
                 </div>
                 <div className="md:col-span-2">
-                    <h2 className="text-lg font-bold">{ad?.name}</h2>
+                    <h2 className="text-lg font-bold text-black">{ad?.name}</h2>
                     <p className="text-sm text-gray-600">{ad?.desc}</p>
                     <p className="text-md font-bold text-green-600 mt-2">{ad?.price}</p>
                     <button 
