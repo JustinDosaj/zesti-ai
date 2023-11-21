@@ -3,7 +3,7 @@ import { Button } from "../shared/button"
 import { Loader } from "../shared/loader"
 import { useAuth } from "@/pages/api/auth/auth";
 import React, { useState, useEffect } from 'react'
-import { handleYouTubeURLSubmit } from "@/pages/api/handler/submit";
+import { handleYouTubeURLSubmit, handleTikTokURLSubmit } from "@/pages/api/handler/submit";
 import { InputResponseModal, NotLoggedInModal } from "../shared/modals";
 import Link from "next/link";
 import { Notify } from '../shared/notify';
@@ -37,11 +37,27 @@ export function VideoComponent() {
             setLoginPrompt(true)
             return;
         } else {
-        setIsLoading(true) 
-        await handleYouTubeURLSubmit({url, user, setMessage, stripeRole, setNotify}).then((val) => {
-            setSuccess(val)
-            setIsOpen(val)
-        });
+        setIsLoading(true)
+        
+        const youtubePattern = /^(https?:\/\/)?(www\.)?(youtube\.com|youtu\.?be)\/.+$/;
+        const tiktokPattern = /^(https?:\/\/)?(www\.)?tiktok\.com\/.+$/;
+        
+        if(youtubePattern.test(url)) {
+            console.log("YouTube Link") 
+            await handleYouTubeURLSubmit({url, user, setMessage, stripeRole, setNotify}).then((val) => {
+                setSuccess(val)
+                setIsOpen(val)
+            });
+        }
+        else if (tiktokPattern.test(url)) {
+            console.log("TikTok Link") 
+            await handleTikTokURLSubmit({url, user, setMessage, stripeRole, setNotify}).then((val) => {
+                setSuccess(val)
+                setIsOpen(val)
+            });
+        }
+        else { Notify("Only tiktok and youtube videos are accepted") }
+
         setIsLoading(false)
         setUrl('')
         }
@@ -55,7 +71,7 @@ export function VideoComponent() {
             border border-box-border bg-box-bg rounded-full ease-linear focus-within:bg-body  focus-within:border-primary">
 
                 <LinkIcon className="text-gray-600 h-10 w-10"/>
-                <input type="text" name="web-page" value={url} placeholder="Paste Youtube Link" className="w-full text-gray-500 py-3 outline-none bg-transparent" onChange={(e) => setUrl(e.target.value)}/>
+                <input type="text" name="web-page" value={url} placeholder="Paste Tiktok or YouTube Video" className="w-full text-gray-500 py-3 outline-none bg-transparent" onChange={(e) => setUrl(e.target.value)}/>
                 {isLoading == false ?
                 <Button buttonType="button" text="" className={"min-w-max text-white"}  
                     onClick={ async () => { await onClick() }}>                              
@@ -95,7 +111,7 @@ export function VideoHero(){
                         <span className="text-transparent bg-clip-text bg-gradient-to-br from-primary-main from-20% via-primary via-30% to-color-alt-red"> Text Recipe</span> 
                     </h1>
                     <Paragraph className="text-base sm:text-lg mt-4 sm:mt-8 text-black">
-                        Find a YouTube cooking video and simply enter the video link to convert it to a text recipe
+                        Find a Tiktok or YouTube cooking video and simply enter the video link to convert it to a text recipe
                     </Paragraph>
                 </div>
             </Container>
