@@ -16,8 +16,8 @@ export default function Video() {
   return (
     <>
       <Head>
-        <title>Zesti | Change YouTube & Tiktok Video Recipes to Text</title>
-        <meta name="title" content="Zesti | Change YouTube & Tiktok Video Recipes to Text"/>
+        <title>Zesti | Instantly Save YouTube & Tiktok Recipes as Text</title>
+        <meta name="title" content="Zesti | Instantly Save YouTube & Tiktok Recipes as Text"/>
         <meta name="description" content="Say good by to pausing and rewinding, Zesti AI Video to Text Recipe creates an easy-to-follow ingredient and instruction list"/>
       </Head>
       <main className={`flex min-h-screen flex-col items-center bg-background ${raleway.className}`}>
