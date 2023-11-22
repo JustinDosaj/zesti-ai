@@ -134,9 +134,10 @@ export const handleTikTokURLSubmit = async ({url, setUrl, user, setMessage, stri
 
     if(url.includes('tiktok.com/t/')) {
         url_id = url?.match(/^https:\/\/www\.tiktok\.com\/t\/([A-Za-z0-9_-]+)\/?$/);
-        setNotify(true)
-        setMessage("There is currently a problem with short links. Paste current link in any browser to get the format: https://www.tiktok.com/@user/video/123. ")
-        return false;
+        
+        //setNotify(true)
+        //setMessage("There is currently a problem with short links. Paste current link in any browser to get the format: https://www.tiktok.com/@user/video/123. ")
+        //return false;
     } else {
         url_id = url?.match(/tiktok\.com\/@[^\/]+\/video\/(\d+)/);
     }
