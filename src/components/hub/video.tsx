@@ -11,7 +11,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Container } from "../shared/container";
 import { Paragraph } from "../shared/paragraph";
-import { LightBulbIcon } from '@heroicons/react/20/solid'
+import { LightBulbIcon, ExclamationTriangleIcon } from '@heroicons/react/20/solid'
 
 export function VideoComponent() {
 
@@ -88,29 +88,29 @@ export function VideoComponent() {
                 }
             </form>
         </div>
-        <div className="mt-4 space-x-1 text-base text-center">
-            <span className="text-gray-700">Curious about results? Check out this</span>
-            <Link href="/about/demo" className="underline text-primary-main hover:text-primary-alt font-bold">example</Link>
-        </div>
         <InputResponseModal isOpen={isOpen} setIsOpen={setIsOpen} success={success} message={message}/>
         <NotLoggedInModal loginPrompt={loginPrompt} setLoginPrompt={setLoginPrompt}/>
     </div>
     )
 }
 
-export function VideoHero(){
+export function VideoHero({role}: any){
 
     return(
         <section className="relative pt-24 lg:pt-36">
             <Container className={"flex flex-col lg:flex-row gap-10 lg:gap-12"}>
                 <div className="relative flex flex-col items-center text-center lg:py-7 xl:py-8 lg:max-w-none max-w-3xl mx-auto lg:mx-0 lg:flex-1 lg:w-1/2 p-8 md:p-16">
-                    <h1 className="text-3xl/tight sm:text-4xl/tight md:text-5xl/tight xl:text-6xl/tight font-bold text-heading-1 mt-6">          
-                        <span className="text-transparent bg-clip-text bg-gradient-to-br from-primary-main from-20% via-primary via-30% to-color-alt-red">Convert</span>
-                        <span className="text-black"> Video Recipe To</span>
-                        <span className="text-transparent bg-clip-text bg-gradient-to-br from-primary-main from-20% via-primary via-30% to-color-alt-red"> Text Recipe</span> 
+                    <h1 className="text-3xl/tight sm:text-4xl/tight md:text-5xl/tight xl:text-6xl/tight font-bold text-heading-1 mt-6">
+                    <span className="text-black">Save </span>          
+                        <span className="text-transparent bg-clip-text bg-gradient-to-br from-primary-main from-20% via-primary via-30% to-color-alt-red">Tiktok & YouTube</span>
+                        <span className="text-black"> Recipes</span>
                     </h1>
                     <Paragraph className="text-base sm:text-lg mt-4 sm:mt-8 text-black">
-                        Find a Tiktok or YouTube cooking video and simply enter the video link to convert it to a text recipe
+                        {role == 'premium' ?
+                        `Find a recipe on Tiktok or YouTube and simply enter the video link to convert it to a text recipe`
+                        :
+                        `Try a free 7-day trial of Zesti Premium to save Tiktok or YouTube recipes`
+                        }
                     </Paragraph>
                 </div>
             </Container>
@@ -121,6 +121,12 @@ export function VideoHero(){
 export function VideoTips() {
 
     const features = [
+        {
+            name: 'Advisory:',
+            description:
+                'Max video allowed is 15 minutes and results can vary. (ie. Videos with no audible cooking instructions will not process properly)',
+            icon: ExclamationTriangleIcon,
+        },
         {
           name: 'Find a YouTube or TikTok Recipe:',
           description:

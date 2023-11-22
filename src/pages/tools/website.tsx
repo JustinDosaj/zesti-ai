@@ -21,7 +21,7 @@ export default function Website() {
         <meta name="description" content="Tired of Ads? Avoid searching through endless clutter and simply input the web URL into Zesti for a recipe you want to enjoy!"/>
       </Head>
       <main className={` flex min-h-screen flex-col items-center bg-background ${raleway.className}`}>
-        <UrlHero/>
+        <UrlHero role={stripeRole}/>
         { isLoading == true ?
         <ToolLoader/>
         : 

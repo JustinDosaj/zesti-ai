@@ -13,9 +13,9 @@ import 'react-toastify/dist/ReactToastify.css';
 import { Container } from "../shared/container";
 import { Paragraph } from "../shared/paragraph";
 import { db } from "@/pages/api/firebase/firebase";
-import { LightBulbIcon } from '@heroicons/react/20/solid'
+import { LightBulbIcon, ExclamationTriangleIcon } from '@heroicons/react/20/solid'
 
-export function ChatComponent() {
+export function ChatComponent({role}: any) {
 
     const { user, stripeRole } = useAuth()
     const [ isLoading, setIsLoading ] = useState<boolean>(false)
@@ -95,13 +95,14 @@ export function ChatComponent() {
             <Loader/>
         }
         </div>
-        <div className="mt-2 space-x-1 text-sm">
-            <span className="text-gray-400">Try for free! (No credit card required).</span>
-        </div>
+        {role !== 'premium' ? 
         <div className="mt-4 space-x-1 text-base text-center">
-            <span className="text-gray-700">Curious about results? Check out this</span>
-            <Link href="/about/demo" className="underline text-primary-main hover:text-primary-alt font-bold">example</Link>
+            <span className="text-gray-700">Get more out of Zesti with Premium. Try it now with a</span>
+            <Link href="/pricing" className="underline text-primary-main hover:text-primary-alt font-bold">Free 7-Day Trial!</Link>
         </div>
+        :
+        <></>
+        }
         <InputResponseModal isOpen={isOpen} setIsOpen={setIsOpen} success={success} message={message}/>
         <NotLoggedInModal loginPrompt={loginPrompt} setLoginPrompt={setLoginPrompt}/>
     </div>
@@ -114,10 +115,9 @@ export function ChatHero(){
         <section className="relative pt-24 lg:pt-36">
             <Container className={"flex flex-col lg:flex-row gap-10 lg:gap-12"}>
                 <div className="relative flex flex-col items-center text-center lg:py-7 xl:py-8 lg:max-w-none max-w-3xl mx-auto lg:mx-0 lg:flex-1 lg:w-1/2 p-8 md:p-16">
-                    <h1 className="text-3xl/tight sm:text-4xl/tight md:text-5xl/tight xl:text-6xl/tight font-bold text-heading-1 mt-6">          
-                        <span className="text-transparent bg-clip-text bg-gradient-to-br from-primary-main from-20% via-primary via-30% to-color-alt-red">Create</span>
-                        <span className="text-black"> A Delicious Recipe With</span>
-                        <span className="text-transparent bg-clip-text bg-gradient-to-br from-primary-main from-20% via-primary via-30% to-color-alt-red"> Zesti AI</span> 
+                    <h1 className="text-3xl/tight sm:text-4xl/tight md:text-5xl/tight xl:text-6xl/tight font-bold text-heading-1 mt-6">
+                        <span className="text-black">Create </span>          
+                        <span className="text-transparent bg-clip-text bg-gradient-to-br from-primary-main from-20% via-primary via-30% to-color-alt-red">AI Generated Recipe</span>
                     </h1>
                     <Paragraph className="text-base sm:text-lg mt-4 sm:mt-8 text-black">
                         Enter ingredients you have, describe a recipe the best you can, or enter a name of a dish. Then watch Zesti cook up a delicious recipe to follow.
@@ -131,6 +131,12 @@ export function ChatHero(){
 export function ChatTips() {
 
     const features = [
+        {
+            name: 'Advisory:',
+            description:
+              'Results can vary. The AI recipe generator is still early in development and may not always output with perfect accuracy.',
+            icon: ExclamationTriangleIcon,
+          },
         {
           name: 'Be Specific:',
           description:
