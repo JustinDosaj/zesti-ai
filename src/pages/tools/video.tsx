@@ -21,7 +21,7 @@ export default function Video() {
         <meta name="description" content="Say good by to pausing and rewinding, Zesti AI Video to Text Recipe creates an easy-to-follow ingredient and instruction list"/>
       </Head>
       <main className={`flex min-h-screen flex-col items-center bg-background ${raleway.className}`}>
-        <VideoHero/>
+        <VideoHero role={stripeRole}/>
         { isLoading == true ?
         <ToolLoader/>
         :

@@ -91,7 +91,7 @@ export function PricingDisplay() {
                     {tier.name} 
                   </h3>
                   <div className={tier.trial == true ? `` : `hidden`}>
-                    <div className="bg-gray-900 text-white rounded-xl pt-1 pb-1 pl-2 pr-2">7 Day Trial</div>
+                    <div className="bg-gray-900 text-white rounded-xl pt-1 pb-1 pl-2 pr-2">7 Day Free Trial</div>
                   </div>
                 </div>
                 <p className="mt-4 flex items-baseline gap-x-2">

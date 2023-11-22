@@ -58,21 +58,22 @@ export function Tools() {
             icon: SparklesIcon, 
             colorType: 'green', 
             href: '/tools/generator', 
-            desc: "Generate new & creative recipes" },
+            desc: "Create new recipes just for you" },
         { 
             id: 2, 
-            name: 'Video to Recipe', 
+            name: 'Social Media Recipe', 
             icon: stripeRole == 'premium' ? VideoCameraIcon : LockClosedIcon, 
             colorType: 'red', 
             href: '/tools/video', 
-            desc: "Save recipe from YouTube or TikTok" },
+            desc: "Save recipes from YouTube or TikTok" },
         { 
             id: 3, 
             name: 'Website Recipe', 
             icon: stripeRole == 'premium' ? LinkIcon : LockClosedIcon, 
             colorType: 'yellow', 
             href: '/tools/website', 
-            desc: "Get recipe from website without ads" },
+            desc: "Remove clutter from recipe websites"
+                },
       ]
 
     return(

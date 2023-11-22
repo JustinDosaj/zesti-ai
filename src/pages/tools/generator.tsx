@@ -21,7 +21,7 @@ export default function Generator() {
       </Head>
       <main className={`flex min-h-screen flex-col items-center bg-background ${raleway.className}`}>
         <ChatHero/>
-        <ChatComponent/>
+        <ChatComponent role={stripeRole}/>
         <ChatTips/>
         <FAQ/>
       </main>

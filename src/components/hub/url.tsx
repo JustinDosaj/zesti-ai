@@ -12,7 +12,7 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Container } from "../shared/container";
 import { Paragraph } from "../shared/paragraph";
-import { LightBulbIcon } from '@heroicons/react/20/solid'
+import { LightBulbIcon, ExclamationTriangleIcon } from '@heroicons/react/20/solid'
 
 export function UrlComponent() {
 
@@ -73,28 +73,28 @@ export function UrlComponent() {
                 }
             </form>
         </div>
-        <div className="mt-4 space-x-1 text-base text-center">
-            <span className="text-gray-700">Curious about results? Check out this</span>
-            <Link href="/about/demo" className="underline text-primary-main hover:text-primary-alt font-bold">example</Link>
-        </div>
         <InputResponseModal isOpen={isOpen} setIsOpen={setIsOpen} success={success} message={message}/>
         <NotLoggedInModal loginPrompt={loginPrompt} setLoginPrompt={setLoginPrompt}/>
     </div>
     )
 }
 
-export function UrlHero(){
+export function UrlHero({role}: any){
     return(
         <section className="relative pt-24 lg:pt-36">
             <Container className={"flex flex-col lg:flex-row gap-10 lg:gap-12"}>
                 <div className="relative flex flex-col items-center text-center lg:py-7 xl:py-8 lg:max-w-none max-w-3xl mx-auto lg:mx-0 lg:flex-1 lg:w-1/2 p-8 md:p-16">
-                    <h1 className="text-3xl/tight sm:text-4xl/tight md:text-5xl/tight xl:text-6xl/tight font-bold text-heading-1 mt-6">          
-                        <span className="text-transparent bg-clip-text bg-gradient-to-br from-primary-main from-20% via-primary via-30% to-color-alt-red">Remove Ads</span>
-                        <span className="text-black"> From Web Recipes With</span>
-                        <span className="text-transparent bg-clip-text bg-gradient-to-br from-primary-main from-20% via-primary via-30% to-color-alt-red"> Zesti AI</span> 
+                    <h1 className="text-3xl/tight sm:text-4xl/tight md:text-5xl/tight xl:text-6xl/tight font-bold text-heading-1 mt-6">
+                        <span className="text-black">Remove </span>          
+                        <span className="text-transparent bg-clip-text bg-gradient-to-br from-primary-main from-20% via-primary via-30% to-color-alt-red">Clutter & Ads</span>
+                        <span className="text-black"> From Recipe Websites</span>
                     </h1>
                     <Paragraph className="text-base sm:text-lg mt-4 sm:mt-8 text-black">
-                        Copy and paste the link from a recipe you found on a website, and Zesti will create a recipe without invasive ads
+                        {role == 'premium' ?
+                        `Copy and paste the link from a recipe you found on a website, and Zesti will create a recipe without invasive ads`
+                        :
+                        `Try a free 7-day trial of Zesti Premium to save a website recipe without the ads and clutter`
+                        }
                     </Paragraph>
                 </div>
             </Container>
@@ -105,6 +105,12 @@ export function UrlHero(){
 export function UrlTips() {
 
     const features = [
+        {
+            name: 'Advisory:',
+            description:
+                'Results can vary. The accuracy of results can sometimes differ but missing gaps of information can often be answered by the chat assist inside the recipe.',
+            icon: ExclamationTriangleIcon,
+        },
         {
           name: 'Find a Recipe:',
           description:
