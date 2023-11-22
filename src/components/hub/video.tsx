@@ -13,7 +13,6 @@ import { Container } from "../shared/container";
 import { Paragraph } from "../shared/paragraph";
 import { LightBulbIcon } from '@heroicons/react/20/solid'
 
-
 export function VideoComponent() {
 
     const { user, stripeRole } = useAuth()
@@ -51,7 +50,7 @@ export function VideoComponent() {
         }
         else if (tiktokPattern.test(url)) {
             console.log("TikTok Link") 
-            await handleTikTokURLSubmit({url, user, setMessage, stripeRole, setNotify}).then((val) => {
+            await handleTikTokURLSubmit({url, setUrl, user, setMessage, stripeRole, setNotify}).then((val) => {
                 setSuccess(val)
                 setIsOpen(val)
             });

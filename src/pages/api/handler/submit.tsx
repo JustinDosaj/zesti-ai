@@ -1,8 +1,11 @@
+`use client`
+
 import { db } from "../firebase/firebase";
 import { getUserData } from "../firebase/functions";
-import React, { useState } from "react";
 import axios from 'axios'
-import { getFirestore, doc, updateDoc, increment } from 'firebase/firestore';
+import { increment } from 'firebase/firestore';
+import React, { useState } from "react";
+
 
 
 async function isValidUrl(string: string) {
@@ -107,19 +110,34 @@ export const handleYouTubeURLSubmit = async ({url, user, setMessage, stripeRole,
     }
 }
 
-export const handleTikTokURLSubmit = async ({url, user, setMessage, stripeRole, setNotify}: Props): Promise<boolean> => {
 
-    console.log("Inside TiklTok Submit")
+export interface TikTokProps {
+    url: any,
+    setUrl: any,
+    user: any,
+    setMessage: any,
+    stripeRole: any,
+    setNotify: any, 
+}
 
-    // Check if URL is empty
+export const handleTikTokURLSubmit = async ({url, setUrl, user, setMessage, stripeRole, setNotify}: TikTokProps): Promise<boolean> => {
+
+    // Check if URL is empty    
     if (url == '') {
         setNotify(true) 
         setMessage("Oops! You must input a valid video link!")
         return false;
     }
 
-    // Ensure video length is equal or below user sub usage rate
-    const url_id = url?.match(/tiktok\.com\/@[^\/]+\/video\/(\d+)/);
+
+    var url_id;
+
+    if(url.includes('tiktok.com/t/')) {
+        url_id = url?.match(/^https:\/\/www\.tiktok\.com\/t\/([A-Za-z0-9_-]+)\/?$/);
+    } else {
+        url_id = url?.match(/tiktok\.com\/@[^\/]+\/video\/(\d+)/);
+    }
+
     const falseObj = {
         "url": `${url}`,
         "url_id": url_id ? url_id[1] : null,
@@ -133,7 +151,7 @@ export const handleTikTokURLSubmit = async ({url, user, setMessage, stripeRole, 
     if (usage >= 1 && stripeRole == 'premium') {
         try {
             await db.collection('users').doc(user.uid).collection('tiktokurl').doc().set(falseObj)
-            setMessage("The recipe has begun progressing and will appear in your dashboard shortly.")
+            setMessage("The recipe has begun processing and will appear in your dashboard shortly.")
             await db.collection('users').doc(user.uid).update({
                 premiumUsage: increment(-1)
             })
