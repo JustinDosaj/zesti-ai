@@ -82,7 +82,7 @@ export function Hero2(){
                     Create AI generated recipes, automatically save recipes from YouTube & Tiktok, and get cooking questions answered instantly!
                 </Paragraph>
               { !user ?
-                <div className="mt-10 grid sm:flex items-center gap-x-6 justify-center sm:justify-start">
+                <div className="mt-10 grid space-y-2 sm:flex items-center gap-x-6 justify-center sm:justify-start">
                     <Button
                         onClick={() => router.push('/login')}
                         buttonType="button"
