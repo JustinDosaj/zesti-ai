@@ -79,7 +79,7 @@ export function Hero2(){
                     <span className="text-transparent bg-clip-text bg-gradient-to-br from-primary-main from-20% via-primary via-30% to-color-alt-red pl-2 pr-2">Zesti AI Assistant</span> 
                 </h1>
                 <Paragraph className="text-base sm:text-lg mt-8 text-black text-center sm:text-left">
-                    Create AI generated recipes, get cooking questions answered, turn cooking videos into text recipes and more with Zesti
+                    Create AI generated recipes, automatically save recipes from YouTube & Tiktok, and get cooking questions answered instantly!
                 </Paragraph>
               { !user ?
                 <div className="mt-10 grid sm:flex items-center gap-x-6 justify-center sm:justify-start">

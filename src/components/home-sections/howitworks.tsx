@@ -16,7 +16,7 @@ const cards = [
   },
   {
     name: 'Video to Recipe Conversion',
-    description: 'Convert cooking video to easy-to-read recipe with just the link.',
+    description: 'Save a TikTok or YouTube cooking video to an easy-to-read recipe with just the link.',
     icon: KeyIcon,
   },
 ]
