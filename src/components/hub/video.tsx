@@ -122,15 +122,20 @@ export function VideoTips() {
 
     const features = [
         {
-          name: 'Find a YouTube Recipe:',
+          name: 'Find a YouTube or TikTok Recipe:',
           description:
-            'Find a YouTube Video Recipe (max 15 minutes) or YouTube short that you want to try.',
+            'Find a video recipe that you want to try! (max 15 minutes)',
           icon: LightBulbIcon,
         },
         {
           name: 'Copy Link:',
           description: 'On mobile devices, select share then copy link. On desktop computers, copy the link from the search bar in your browser.',
           icon: LightBulbIcon,
+        },
+        {
+            name: 'TikTok Link:',
+            description: 'Currently links copied from app are not in a supported format. You can copy the short link into any browser to then get the proper link format',
+            icon: LightBulbIcon,
         },
         {
           name: 'Paste Link',

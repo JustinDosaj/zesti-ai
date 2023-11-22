@@ -130,7 +130,7 @@ export function DeleteConfirmationModal({isOpen, setIsOpen, recipeId}: DeletePro
   return(
   <>
   <Transition.Root show={isOpen} as={Fragment}>
-      <Dialog as="div" className="relative z-10" initialFocus={cancelButtonRef} onClose={setIsOpen}>
+      <Dialog as="div" className="relative z-20" initialFocus={cancelButtonRef} onClose={setIsOpen}>
         <Transition.Child
           as={Fragment}
           enter="ease-out duration-300"
