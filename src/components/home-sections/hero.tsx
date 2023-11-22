@@ -90,12 +90,13 @@ export function Hero2(){
                         className=""
                     >
                     </Button>
-                    <p className="text-xs font-semibold leading-6 text-gray-600 text-center sm:text-left">
-                        No Credit Card Required.
-                    </p>
+                    <div className="space-x-1 text-sm text-center border rounded-xl p-1 bg-gray-100">
+                        <span className="text-gray-700">Curious about results? Check out this</span>
+                        <Link href="/about/demo" className="underline text-primary-main hover:text-primary-alt font-bold">example</Link>
+                    </div>
                 </div>
                 :
-                <div className="mt-10 flex items-center gap-x-6 justify-center sm:justify-start">
+                <div className="mt-10 grid space-y-2 md:space-y-0 md:inline-flex items-center gap-x-6">
                     <Button
                         onClick={() => router.push('/dashboard')}
                         buttonType="button"
@@ -103,6 +104,10 @@ export function Hero2(){
                         className=""
                     >
                     </Button>
+                    <div className="space-x-1 text-sm text-center border rounded-xl p-1 bg-gray-100">
+                        <span className="text-gray-700">Curious about results? Check out this</span>
+                        <Link href="/about/demo" className="underline text-primary-main hover:text-primary-alt font-bold">example</Link>
+                    </div>
                 </div>
                 }
             </div>

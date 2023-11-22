@@ -4,6 +4,8 @@ import React from 'react'
 import { Container } from "@/components/shared/container";
 import GoogleTags from '@/components/google/conversion';
 import { Title } from '@/components/shared/title';
+import { InlineBtnLink } from '@/components/shared/inline-btn-link';
+import { useAuth } from '../api/auth/auth';
 
 import Head from "next/head";
 
@@ -14,6 +16,8 @@ const demoObj = {"name": "Mom's Easy Chocolate Chip Muffins","time": 25,"serving
 
 const Demo: React.FC = () => {
 
+    const { user } = useAuth()
+
     return(
     <>
     <Head>
@@ -23,10 +27,15 @@ const Demo: React.FC = () => {
       <GoogleTags/>
     </Head>  
     <main className={`flex min-h-screen flex-col items-center justify-between p-2 bg-background mt-12${raleway.className}`}>
-      <div className="text-center">
+      <div className="text-center space-y-2">
         <Title className="text-gray-900 text-3xl mt-36">Example</Title>
+        {user ? 
+        <p>This is a demo output of Zesti. Visit <InlineBtnLink href='/dashboard' text="Your Dashboard"/> to start using Zesti</p>
+        :
+        <p>This is a demo output of Zesti. To start using Zesti please <InlineBtnLink href='/login' text="Login or Sign Up"/></p>
+        }
       </div>
-      <Container className={"flex flex-col lg:flex-row gap-10 lg:gap-12 mt-12 sm:mt-24"}>
+      <Container className={"flex flex-col lg:flex-row gap-10 lg:gap-12 mt-12 sm:mt-12"}>
        <div className="bg-white py-5 border w-full rounded-lg p-4 md:p-12">
         <div className="md:flex">
           <div className="min-w-0 flex-1 space-y-2">
