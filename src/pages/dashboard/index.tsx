@@ -46,7 +46,7 @@ export default function Dashboard() {
     <Head>
       <title>Zesti | Your Recipes</title>
     </Head>  
-    <main className={`flex min-h-screen flex-col items-center bg-background ${raleway.className}`}>
+    <main className={`flex min-h-screen flex-col items-center justify-between bg-background ${raleway.className}`}>
 
         <RecipePageTitle/>
         <div className="border-t border-gray-200 sm:mt-0 mb-12 mr-12 ml-12 mt-12" style={{ width: '35%' }} />
