@@ -1,21 +1,8 @@
 "use client;"
 import { Container } from '../shared/container'
 import { DeleteConfirmationModal } from '../shared/modals'
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { SuccessRecipe, FailedRecipe, LoadingRecipe } from './grid-status'
-import { useAuth } from '@/pages/api/auth/auth'
-
-function classNames(...classes: (string | undefined | null | boolean)[]): string {
-  return classes.filter(Boolean).join(' ');
-}
-
-const loadingObj = {
-  "name": "Loading New Recipe",
-  "time": "0",
-  "servings": "0",
-  "instructions": [],
-  "ingredients": [],
-}
 
 interface Recipe {
   id: string;
@@ -35,9 +22,9 @@ export function GridDisplay({data}: GridDisplayProps) {
     //const { user } = useAuth
 
     return(
-    <Container className={"flex flex-col lg:flex-wrap gap-10 lg:gap-4 mb-28 "}>
+    <Container className={"flex flex-col lg:flex-wrap gap-10 lg:gap-4 pb-28"}>
       <h3 className="text-2xl font-bold leading-6 text-gray-900 text-center">Saved Recipes</h3>
-      <ul role="list" className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-x-6 gap-y-8 max-h-screen overflow-y-scroll md:overflow-auto md:max-h-max">
+      <ul role="list" className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-x-6 gap-y-8">
       {data.map((recipe: any) => {
         if (recipe.complete == false) {
           return(

@@ -133,11 +133,6 @@ export function VideoTips() {
           icon: LightBulbIcon,
         },
         {
-            name: 'TikTok Link:',
-            description: 'Currently links copied from app are not in a supported format. You can copy the short link into any browser to then get the proper link format',
-            icon: LightBulbIcon,
-        },
-        {
           name: 'Paste Link',
           description: 'Paste the link into the Website Transformation Tool and retrieve the recipe',
           icon: LightBulbIcon,
