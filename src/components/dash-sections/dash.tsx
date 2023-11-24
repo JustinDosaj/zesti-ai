@@ -130,7 +130,7 @@ export function Usage({data, tokens, usage}: UsageProps) {
     const { user, stripeRole } = useAuth()
     
     const stats = [
-        { name: 'Recipes Remaining', value: `${stripeRole !== 'premium' ? tokens : usage}` },
+        { name: 'Recipes Remaining', value: `${stripeRole == 'premium' ? usage : tokens ? tokens : `5` }`},
         { name: 'Saved Recipes', value: `${stripeRole !== 'premium' ? `${data.length} / 5` : `${data.length} / unlimited`}`},
         { name: 'Account Status', value: `${stripeRole ? stripeRole : 'Free'}`},
       ]
