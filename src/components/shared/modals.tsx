@@ -442,16 +442,23 @@ export function AdvancedControlsModal({isOptionsOpen, setIsOptionsOpen, setUserI
                   <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-green-500">
                     <UserCircleIcon className="h-8 w-8 text-white" aria-hidden="true" />
                   </div>
-                  <div className="mt-3 text-center sm:mt-5">
-                    <Dialog.Title as="h3" className="text-base font-semibold leading-6 text-gray-900">
-                      More Options
+                  <div className="mt-3 text-center sm:mt-5 space-y-5 pb-5">
+                    <Dialog.Title as="h3" className="text-xl font-semibold leading-6 text-gray-900">
+                      Settings
                     </Dialog.Title>
-                    <p className="text-sm text-gray-500 p-4">
-                      Enter the following information for more output control or leave sections blank to let Zesti get creative
-                    </p>
+                    <div className="border p-1">
+                      <span className="text-base font-semibold text-primary-main">
+                        Quick Tips
+                      </span>
+                      <div className="text-sm text-left text-gray-700 pl-1">
+                        <li>We assume you have salt, pepper & water</li>
+                        <li>New ingredients are sometimes added to enchance recipe</li>
+                        <li>Recipe can be edited later to make it perfect just for you</li>
+                      </div>
+                    </div>
                   </div>
                   {/*Form Adjust STARTS*/}
-                  <div className="space-y-8 pb-8">
+                  <div className="space-y-5 pb-8">
                     <div className="py-1 pl-6 w-full pr-1 flex gap-3 items-center text-heading-3 shadow-lg shadow-box-shadow border border-box-border bg-box-bg rounded-full ease-linear focus-within:bg-body focus-within:border-primary">
                         <input type="text" className="w-full py-2 outline-none bg-transparent text-gray-700"
                           value={ingredientInput} onChange={(e) => setIngredientInput(e.target.value)} onKeyDown={(e) => e.key === 'Enter' && handleAddIngredient()} placeholder="Add Ingredients"/>
