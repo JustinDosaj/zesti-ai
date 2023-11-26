@@ -23,10 +23,10 @@ export function ChatComponent({role}: any) {
     const [ isOptionsOpen, setIsOptionsOpen ] = useState<boolean>(false)
     const [ loginPrompt, setLoginPrompt ] = useState<boolean>(false)
     const [ success, setSuccess ] = useState<boolean>(false)
-    const [message, setMessage] = useState<string>('');
+    const [ message, setMessage] = useState<string>('');
     const [userInput, setUserInput] = useState<string>('')
     const [ notify, setNotify ] = useState<boolean | null>(null)
-    const [recipes, setRecipes] = useState<any[]>([]);
+    const [ recipes, setRecipes] = useState<any[]>([]);
 
     
     useEffect( () => {
@@ -44,13 +44,16 @@ export function ChatComponent({role}: any) {
         }
     },[notify])
 
-    async function onClick() {
+    async function onClick(input: any) {
+
+        console.log("User Input: ",  input)
+
         if (!user) {
             setLoginPrompt(true)
             return;
         } else {
         setIsLoading(true) 
-        await handleCreativeChatSubmit({userInput, user, setMessage, stripeRole, setNotify, recipes}).then((val) => {
+        await handleCreativeChatSubmit({input, user, setMessage, stripeRole, setNotify, recipes}).then((val) => {
             setSuccess(val)
             setIsOpen(val)
         });
@@ -68,11 +71,6 @@ export function ChatComponent({role}: any) {
         const newRows = numberOfLineBreaks + 1;
         e.target.rows = newRows < 1 ? 1 : newRows; // Adjust the 5 to your minimum rows
     };
-
-    const handleAdvancedControlsSubmit = async () => {
-        
-    }   
-
 
     return(
     <div className="w-full flex flex-col items-center p-4 sm:p-0">
@@ -92,7 +90,7 @@ export function ChatComponent({role}: any) {
         {isLoading == false ?
             <div className="w-full space-x-4">
             <Button buttonType="button" text="" className={"min-w-max text-white"}  
-                onClick={ async () => { await onClick() }}>                              
+                onClick={ async () => { await onClick(userInput) }}>                              
                 <span className="sm:flex relative z-[5]">
                     Create Recipe
                 </span>
@@ -118,7 +116,7 @@ export function ChatComponent({role}: any) {
         }
         <InputResponseModal isOpen={isOpen} setIsOpen={setIsOpen} success={success} message={message}/>
         <NotLoggedInModal loginPrompt={loginPrompt} setLoginPrompt={setLoginPrompt}/>
-        <AdvancedControlsModal isOptionsOpen={isOptionsOpen} setIsOptionsOpen={setIsOptionsOpen} onSubmit={handleAdvancedControlsSubmit}/>
+        <AdvancedControlsModal isOptionsOpen={isOptionsOpen} setIsOptionsOpen={setIsOptionsOpen} setUserInput={setUserInput} onSubmit={async (updatedInput: any) => await onClick(updatedInput)}/>
     </div>
     )
 }

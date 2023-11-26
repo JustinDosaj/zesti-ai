@@ -4,10 +4,10 @@ import { Fragment, useRef } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 import { CheckIcon } from '@heroicons/react/24/outline'
 import Link from 'next/link'
-import { XMarkIcon, TrashIcon, UserCircleIcon, SquaresPlusIcon, UsersIcon, EnvelopeIcon, PaperAirplaneIcon } from '@heroicons/react/20/solid'
+import { XMarkIcon, TrashIcon, UserCircleIcon, SquaresPlusIcon, UsersIcon, EnvelopeIcon, PaperAirplaneIcon, PlusIcon } from '@heroicons/react/20/solid'
 import { deleteRecipe } from '@/pages/api/firebase/functions'
 import { useAuth } from '@/pages/api/auth/auth'
-import { useState } from 'react'
+import React, { useState } from 'react'
 import { Button } from './button'
 
 
@@ -360,12 +360,66 @@ export function AddToRecipeModal({isOpen, setIsOpen, addType, onSubmit}: AddProp
 interface AdvancedControlsProps {
   isOptionsOpen: boolean,
   setIsOptionsOpen: any,
+  setUserInput: React.Dispatch<React.SetStateAction<string>>;
   onSubmit: any,
 }
 
-export function AdvancedControlsModal({isOptionsOpen, setIsOptionsOpen, onSubmit}: AdvancedControlsProps) {
+export function AdvancedControlsModal({isOptionsOpen, setIsOptionsOpen, setUserInput, onSubmit} : AdvancedControlsProps) {
 
   const cancelButtonRef = useRef(null)
+  const [ingredients, setIngredients] = useState<string[]>([]);
+  const [ingredientInput, setIngredientInput] = useState('');
+  const [mealType, setMealType] = useState('');
+  const [recipeTime, setRecipeTime] = useState('');
+  const [servings, setServings] = useState('');
+  const [skillLevel, setSkillLevel] = useState('');
+
+  const handleAddIngredient = () => {
+    if (ingredientInput) {
+      setIngredients([...ingredients, ingredientInput]);
+      setIngredientInput('');
+    }
+  };
+  
+  // To remove an ingredient
+  const handleRemoveIngredient = (index: number) => {
+    const newIngredients = ingredients.filter((_, i) => i !== index);
+    setIngredients(newIngredients);
+  };
+
+  const handleCloseModal = () => {
+    setIngredients([])
+    setIngredientInput('')
+    setMealType('')
+    setRecipeTime('')
+    setServings('')
+    setSkillLevel('')
+    setIsOptionsOpen(false)
+  }
+
+  const handleAdvancedSubmit = () => {
+    
+    const userInputValue = `Ingredients: ${ingredients.join(', ')}, Meal Type: ${mealType}, Recipe Time: ${recipeTime} minutes, Servings: ${servings}, Skill Level: ${skillLevel}`;
+
+    onSubmit(userInputValue)
+
+    setIngredients([])
+    setIngredientInput('')
+    setMealType('')
+    setRecipeTime('')
+    setServings('')
+    setSkillLevel('')
+    setIsOptionsOpen(false)
+  }
+
+  const handleKeyDown = (e: any) => {
+    console.log(e)
+    if (e.key === 'Enter') {
+      handleAddIngredient();
+    }
+  };
+
+
 
   return(
     <Transition.Root show={isOptionsOpen} as={Fragment}>
@@ -382,7 +436,7 @@ export function AdvancedControlsModal({isOptionsOpen, setIsOptionsOpen, onSubmit
           <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
         </Transition.Child>
 
-        <div className="fixed inset-0 z-10 w-screen overflow-y-auto">
+        <div className="fixed inset-0 z-10 overflow-y-auto">
           <div className="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
             <Transition.Child
               as={Fragment}
@@ -401,31 +455,73 @@ export function AdvancedControlsModal({isOptionsOpen, setIsOptionsOpen, onSubmit
                     <Dialog.Title as="h3" className="text-base font-semibold leading-6 text-gray-900">
                       More Options
                     </Dialog.Title>
-                    <p className="text-sm text-gray-500">
-                      Follow the login or sign up link to create an account
+                    <p className="text-sm text-gray-500 p-4">
+                      Enter the following information for more output control or leave sections blank to let Zesti get creative
                     </p>
                   </div>
-                  <div className="py-1 pl-6 w-full pr-1 flex gap-3 items-center text-heading-3 shadow-lg shadow-box-shadow border border-box-border bg-box-bg rounded-full ease-linear focus-within:bg-body  focus-within:border-primary">
-                      <span className="min-w-max pr-2 border-r border-box-border">
-                          <UsersIcon className="h-6 w-6 text-black"/>                                                             
-                      </span>
-                      <input type="text" name="FULLNAME" placeholder="Name" className="w-full py-3 outline-none bg-transparent text"/>
+                  {/*Form Adjust STARTS*/}
+                  <div className="space-y-8 pb-8">
+                    <div className="py-1 pl-6 w-full pr-1 flex gap-3 items-center text-heading-3 shadow-lg shadow-box-shadow border border-box-border bg-box-bg rounded-full ease-linear focus-within:bg-body focus-within:border-primary">
+                        <input type="text" className="w-full py-2 outline-none bg-transparent text-gray-700"
+                          value={ingredientInput} onChange={(e) => setIngredientInput(e.target.value)} onKeyDown={(e) => e.key === 'Enter' && handleAddIngredient()} placeholder="Add Ingredients"/>
+                        <button className="min-w-max pr-4 pl-2 border-l border-box-border inline-flex" onClick={handleAddIngredient}>
+                            <PlusIcon className="h-6 w-6 text-black"/>                                                             
+                        </button>
+                    </div>
+                    <div className={ingredients.length > 0 ? `border-b pb-2 rounded items-center` : `hidden`}>
+                      {ingredients.map((ingredient, index) => (
+                        <div key={index} className="inline-flex border p-1 rounded mr-1 mb-1">
+                          {ingredient}
+                          <button onClick={() => handleRemoveIngredient(index)}>
+                            <XMarkIcon className="h-5 w-5 text-red-600"/>
+                          </button>
+                        </div>
+                      ))}
+                    </div>
+                      <div className="py-1 pl-6 w-full pr-1 flex gap-3 items-center text-heading-3 shadow-lg shadow-box-shadow border border-box-border bg-box-bg rounded-full ease-linear focus-within:bg-body focus-within:border-primary">
+                        <select value={mealType} onChange={(e) => setMealType(e.target.value)} className="p-2 w-full bg-transparent mr-2 text-gray-700 outline-none">
+                          <option value="">Select Type</option>
+                          <option value="breakfast">Breakfast</option>
+                          <option value="lunch">Lunch</option>
+                          <option value="dinner">Dinner</option>
+                          <option value="snack">Snack</option>
+                        </select>
+                      </div>
+                      <div className="py-1 pl-6 w-full pr-1 flex gap-3 items-center text-heading-3 shadow-lg shadow-box-shadow border border-box-border bg-box-bg rounded-full ease-linear focus-within:bg-body focus-within:border-primary">
+                        <select value={skillLevel} onChange={(e) => setSkillLevel(e.target.value)} className="p-2 w-full bg-transparent mr-2 rounded-xl text-gray-700 outline-none">
+                          <option value="">Skill</option>
+                          <option value="beginner">Beginner</option>
+                          <option value="intermediate">Intermediate</option>
+                          <option value="expert">Expert</option>
+                          <option value="professional">Professional</option>
+                        </select>
+                      </div>
+
+                    <div className="flex justify-between space-x-4">
+                      <div className="py-1 pl-6 w-full pr-1 flex gap-3 items-center text-heading-3 shadow-lg shadow-box-shadow border border-box-border bg-box-bg rounded-full ease-linear focus-within:bg-body focus-within:border-primary">
+                        <input type="number" value={recipeTime} onChange={(e) => setRecipeTime(e.target.value)} placeholder="Time" className="p-2 w-full bg-transparent outline-none text-gray-700"/>
+                      </div>
+                      <div className="py-1 pl-6 w-full pr-1 flex gap-3 items-center text-heading-3 shadow-lg shadow-box-shadow border border-box-border bg-box-bg rounded-full ease-linear focus-within:bg-body focus-within:border-primary">
+                        <input type="number" value={servings} onChange={(e) => setServings(e.target.value)} placeholder="Servings" className="p-2 w-full bg-transparent outline-none text-gray-700"/>
+                      </div>
+                    </div>
                   </div>
+                  {/*Form Adjust END*/}
                 <div className="mt-5 sm:mt-6 sm:grid sm:grid-flow-row-dense sm:grid-cols-2 sm:gap-3">
-                  <Link
+                  <button
+                    type="button"
                     className="inline-flex w-full justify-center rounded-md bg-primary-main px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-primary-alt focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 sm:col-start-2"
-                    href="/login"
-                    onClick={() => {}}
+                    onClick={handleAdvancedSubmit}
                   >
-                    Login or Sign up
-                  </Link>
+                    Create Recipe
+                  </button>
                   <button
                     type="button"
                     className="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:col-start-1 sm:mt-0"
-                    onClick={() => {setIsOptionsOpen(false)}}
+                    onClick={handleCloseModal}
                     ref={cancelButtonRef}
                   >
-                    Return
+                    Exit/Reset
                   </button>
                 </div>
               </Dialog.Panel>
