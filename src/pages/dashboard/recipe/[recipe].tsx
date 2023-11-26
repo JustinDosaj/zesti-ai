@@ -276,11 +276,11 @@ const Recipe: React.FC = ({id, ad}: any) => {
         <div className="my-auto w-full bg-white py-5 border rounded-lg p-4 md:p-12">
           <div className="flex pt-4 pb-4 justify-between items-center">
             <h2 className="text-lg font-medium text-gray-500">Ingredients {`(${recipe?.ingredients?.length})`}</h2>
-            <button className="hidden xs:inline-flex bg-gray-300 p-2 rounded items-center" onClick={() => {
+            <button className="hidden xs:inline-flex bg-gray-300 hover:bg-gray-400 space-x-1 p-2 rounded items-center" onClick={() => {
               setIsOpen(true)
               setAddType('ingredient')
             }}>
-              <PlusIcon className="h-4 w-4"/>
+              <PlusIcon className="h-4 w-4 text-gray-700"/>
               <span className="text-gray-700">Add Ingredient</span>
             </button>
           </div>
@@ -300,11 +300,11 @@ const Recipe: React.FC = ({id, ad}: any) => {
             ))}
           </ul>
           <div className="xs:hidden flex pt-4 pb-4 justify-end">
-            <button className="bg-gray-300 p-2 rounded inline-flex items-center" onClick={() => {
+            <button className="bg-gray-300 p-2 rounded inline-flex items-center hover:bg-gray-400 space-x-1" onClick={() => {
                 setIsOpen(true)
                 setAddType('ingredient')
             }}>
-              <PlusIcon className="h-4 w-4"/>
+              <PlusIcon className="text-gray-700 h-4 w-4"/>
               <span className="text-gray-700">Add Ingredient</span>
             </button>
           </div>
@@ -314,11 +314,11 @@ const Recipe: React.FC = ({id, ad}: any) => {
         <div className="my-auto bg-white py-5 border w-full rounded-lg p-4 md:p-12 ">
           <div className="flex pt-4 pb-4 justify-between items-center">
             <h2 className="text-lg font-medium text-gray-500">Instructions {`(${recipe?.instructions?.length})`}</h2>
-            <button className="hidden xs:inline-flex bg-gray-300 p-2 rounded items-center" onClick={() => {
+            <button className="hidden xs:inline-flex bg-gray-300 hover:bg-gray-400 space-x-1 p-2 rounded items-center" onClick={() => {
               setIsOpen(true)
               setAddType('instruction')
             }}>
-              <PlusIcon className="h-4 w-4"/>
+              <PlusIcon className="text-gray-700 h-4 w-4"/>
               <span className="text-gray-700">Add Instruction</span>
             </button>
           </div>
@@ -338,11 +338,11 @@ const Recipe: React.FC = ({id, ad}: any) => {
             ))}
           </ul>
           <div className="xs:hidden flex pt-4 pb-4 justify-end">
-            <button className="bg-gray-300 p-2 rounded inline-flex items-center" onClick={() => {
+            <button className="bg-gray-300 hover:bg-gray-400 space-x-1 p-2 rounded inline-flex items-center" onClick={() => {
               setIsOpen(true)
               setAddType('instruction')
             }}>
-              <PlusIcon className="h-4 w-4"/>
+              <PlusIcon className="text-gray-700 h-4 w-4"/>
               <span className="text-gray-700">Add Instruction</span>
             </button>
           </div>
