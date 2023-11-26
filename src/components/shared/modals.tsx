@@ -470,10 +470,10 @@ export function AdvancedControlsModal({isOptionsOpen, setIsOptionsOpen, setUserI
                     </div>
                     <div className={ingredients.length > 0 ? `border-b pb-2 rounded items-center` : `hidden`}>
                       {ingredients.map((ingredient, index) => (
-                        <div key={index} className="inline-flex border p-1 rounded mr-1 mb-1 text-gray-700">
+                        <div key={index} className="inline-flex border p-2 rounded-3xl mr-1 mb-1 text-gray-700">
                           {ingredient}
                           <button onClick={() => handleRemoveIngredient(index)}>
-                            <XMarkIcon className="h-5 w-5 text-red-600"/>
+                            <XMarkIcon className="ml-1 h-5 w-5 text-red-600"/>
                           </button>
                         </div>
                       ))}
