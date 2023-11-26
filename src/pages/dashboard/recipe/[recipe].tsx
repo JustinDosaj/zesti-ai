@@ -1,6 +1,6 @@
 import { GetServerSideProps } from "next";
 import { Raleway } from 'next/font/google'
-import { VideoCameraIcon } from '@heroicons/react/20/solid'
+import { PlusIcon, VideoCameraIcon } from '@heroicons/react/20/solid'
 import React, {useEffect, useState} from 'react'
 import { useAuth } from "@/pages/api/auth/auth";
 import { useRouter } from 'next/router';
@@ -11,6 +11,7 @@ import { RecipePopOutMenu, EditRecipeInput, InstructionPopOutMenu, EditInstructi
 import { Chatbox } from "@/components/chat/chatbox";
 import { RecipePageAmazonProduct } from "@/components/google/ads";
 import { db } from "@/pages/api/firebase/firebase";
+import { AddToRecipeModal } from "@/components/shared/modals";
 
 const raleway = Raleway({subsets: ['latin']})
 
@@ -30,11 +31,14 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 const Recipe: React.FC = ({id, ad}: any) => {
 
     const { user, isLoading, stripeRole } = useAuth();
+
     const [recipe, setRecipe] = useState<any>([])
     const [url, setUrl] = useState<string>('')
     const [edit, setEdit] = useState<boolean>(false)
     const [editingIngredientIndex, setEditingIngredientIndex] = useState<number | null>(null);
     const [editingInstructionIndex, setEditingInstructionIndex] = useState<number | null>(null);
+    const [isOpen, setIsOpen] = useState<boolean>(false)
+    const [addType, setAddType] = useState<string>('')
     const router = useRouter();
 
 
@@ -108,6 +112,118 @@ const Recipe: React.FC = ({id, ad}: any) => {
       }
     };
 
+    const handleDeleteIngredient = async (index: number) => {
+      // Copy the current ingredients array
+      const updatedIngredients = [...recipe.ingredients];
+  
+      // Remove the ingredient at the specified index
+      updatedIngredients.splice(index, 1);
+  
+      // Update the local state
+      setRecipe((prevRecipe: any) => ({
+          ...prevRecipe,
+          data: {
+              ...prevRecipe.data,
+              ingredients: updatedIngredients,
+          },
+      }));
+  
+      // Update Firestore
+      const recipeRef = db.collection(`users/${user?.uid}/recipes`).doc(id);
+      try {
+          await recipeRef.update({
+              'data.ingredients': updatedIngredients,
+          });
+          console.log('Ingredient deleted successfully from Firestore');
+      } catch (error) {
+          console.error('Error deleting ingredient from Firestore:', error);
+      }
+    };
+
+    const handleDeleteInstruction = async (index: number) => {
+      // Copy the current ingredients array
+      const updatedInstructions = [...recipe.instructions];
+  
+      // Remove the ingredient at the specified index
+      updatedInstructions.splice(index, 1);
+  
+      // Update the local state
+      setRecipe((prevRecipe: any) => ({
+          ...prevRecipe,
+          data: {
+              ...prevRecipe.data,
+              instructions: updatedInstructions,
+          },
+      }));
+  
+      // Update Firestore
+      const recipeRef = db.collection(`users/${user?.uid}/recipes`).doc(id);
+      try {
+          await recipeRef.update({
+              'data.instructions': updatedInstructions,
+          });
+          console.log('Instruction deleted successfully from Firestore');
+      } catch (error) {
+          console.error('Error deleting Instruction from Firestore:', error);
+      }
+    };
+
+    const handleAddToRecipeSubmit = async (userInput: string) => {
+      if (!userInput) {
+          console.error('No ingredient provided');
+          return;
+      }
+
+      // Add the new ingredient to the existing list
+      if (addType == 'ingredient') {
+        const updatedIngredients = [...recipe.ingredients, userInput];
+
+        // Update the local state
+        setRecipe((prevRecipe: any) => ({
+            ...prevRecipe,
+            data: {
+                ...prevRecipe.data,
+                ingredients: updatedIngredients,
+            },
+        }));
+        
+
+        // Update Firestore
+        const recipeRef = db.collection(`users/${user?.uid}/recipes`).doc(id);
+        try {
+            await recipeRef.update({
+                'data.ingredients': updatedIngredients,
+            });
+            console.log('Ingredient added successfully to Firestore');
+        } catch (error) {
+            console.error('Error adding ingredient to Firestore:', error);
+        }
+      } else if (addType == 'instruction') {
+        const updatedInstructions = [...recipe.instructions, userInput];
+
+        // Update the local state
+        setRecipe((prevRecipe: any) => ({
+            ...prevRecipe,
+            data: {
+                ...prevRecipe.data,
+                instructions: updatedInstructions,
+            },
+        }));
+        
+
+        // Update Firestore
+        const recipeRef = db.collection(`users/${user?.uid}/recipes`).doc(id);
+        try {
+            await recipeRef.update({
+                'data.instructions': updatedInstructions,
+            });
+            console.log('Ingredient added successfully to Firestore');
+        } catch (error) {
+            console.error('Error adding ingredient to Firestore:', error);
+        }
+      }
+    }                                                 
+
     if(!recipe.name) return <PageLoader/>
 
     return(
@@ -119,7 +235,7 @@ const Recipe: React.FC = ({id, ad}: any) => {
       <Chatbox/>
       <Container className={"flex flex-col lg:flex-row gap-10 lg:gap-12 mt-36"}>
        <div className="bg-white py-5 border w-full rounded-lg p-4 md:p-12">
-        <div className="md:flex">
+        <div className="md:flex md:space-x-4">
           <div className="min-w-0 flex-1 space-y-2">
             <div className="gap-x-3 text-xl font-semibold text-gray-900 grid space-y-2 sm:inline-flex">
                 {recipe?.name}
@@ -157,8 +273,17 @@ const Recipe: React.FC = ({id, ad}: any) => {
       </div>
       </Container>
       <Container className={"flex flex-col lg:flex-row gap-10 lg:gap-12 mt-12"}>
-        <div className="my-auto overflow-hidden w-full bg-white py-5 border rounded-lg p-4 md:p-12">
-          <h2 className="text-lg font-medium text-gray-500">Ingredients {`(${recipe?.ingredients?.length})`}</h2>
+        <div className="my-auto w-full bg-white py-5 border rounded-lg p-4 md:p-12">
+          <div className="flex pt-4 pb-4 justify-between items-center">
+            <h2 className="text-lg font-medium text-gray-500">Ingredients {`(${recipe?.ingredients?.length})`}</h2>
+            <button className="hidden xs:inline-flex bg-gray-300 hover:bg-gray-400 space-x-1 p-2 rounded items-center" onClick={() => {
+              setIsOpen(true)
+              setAddType('ingredient')
+            }}>
+              <PlusIcon className="h-4 w-4 text-gray-700"/>
+              <span className="text-gray-700">Add Ingredient</span>
+            </button>
+          </div>
           <ul role="list" className="mt-3 grid grid-cols-1 gap-5 sm:grid-cols-2 sm:gap-6 lg:grid-cols-4">
             {recipe?.ingredients?.map((ingred: any, index: any) => (
               <li key={index} className="col-span-1 flex rounded-md shadow-sm">
@@ -168,17 +293,35 @@ const Recipe: React.FC = ({id, ad}: any) => {
                   </div>
                   <div className="flex flex-1 items-center justify-between rounded-r-md border-b border-r border-t border-gray-200 bg-white">
                     <EditRecipeInput edit={edit} setEdit={setEdit} ingredient={ingred} isEditing={editingIngredientIndex === index} setEditingIngredientIndex={setEditingIngredientIndex} index={index} onSave={handleSaveIngredient}/>
-                    <RecipePopOutMenu edit={edit} setEdit={setEdit} setEditingIngredientIndex={setEditingIngredientIndex} index={index} role={stripeRole}/>
+                    <RecipePopOutMenu edit={edit} setEdit={setEdit} setEditingIngredientIndex={setEditingIngredientIndex} index={index} role={stripeRole} onSave={handleDeleteIngredient}/>
                   </div>
                 </div>
               </li>
             ))}
           </ul>
+          <div className="xs:hidden flex pt-4 pb-4 justify-end">
+            <button className="bg-gray-300 p-2 rounded inline-flex items-center hover:bg-gray-400 space-x-1" onClick={() => {
+                setIsOpen(true)
+                setAddType('ingredient')
+            }}>
+              <PlusIcon className="text-gray-700 h-4 w-4"/>
+              <span className="text-gray-700">Add Ingredient</span>
+            </button>
+          </div>
         </div>
       </Container>
       <Container className={"flex flex-col lg:flex-row gap-10 lg:gap-12 mt-12"}>
-        <div className="my-auto overflow-hidden bg-white py-5 border w-full rounded-lg p-4 md:p-12 ">
-          <h2 className="text-lg font-medium text-gray-500">Instructions {`(${recipe?.instructions?.length})`}</h2>
+        <div className="my-auto bg-white py-5 border w-full rounded-lg p-4 md:p-12 ">
+          <div className="flex pt-4 pb-4 justify-between items-center">
+            <h2 className="text-lg font-medium text-gray-500">Instructions {`(${recipe?.instructions?.length})`}</h2>
+            <button className="hidden xs:inline-flex bg-gray-300 hover:bg-gray-400 space-x-1 p-2 rounded items-center" onClick={() => {
+              setIsOpen(true)
+              setAddType('instruction')
+            }}>
+              <PlusIcon className="text-gray-700 h-4 w-4"/>
+              <span className="text-gray-700">Add Instruction</span>
+            </button>
+          </div>
           <ul role="list" className="mt-3 grid grid-cols-1 gap-5 sm:gap-6">
             {recipe?.instructions?.map((instruct: any, index: any) => (
               <li key={index} className="col-span-1 flex rounded-md shadow-sm">
@@ -188,16 +331,26 @@ const Recipe: React.FC = ({id, ad}: any) => {
                   </div>
                   <div className="flex flex-1 items-center justify-between rounded-r-md border-b border-r border-t border-gray-200 bg-white">
                       <EditInstructionInput edit={edit} setEdit={setEdit} instruction={instruct} isEditing={editingInstructionIndex === index} setEditingIngredientIndex={setEditingInstructionIndex} index={index} onSave={handleSaveInstruction}/>
-                      <InstructionPopOutMenu edit={edit} setEdit={setEdit} setEditingInstructionIndex={setEditingInstructionIndex} index={index} role={stripeRole}/>
+                      <InstructionPopOutMenu edit={edit} setEdit={setEdit} setEditingInstructionIndex={setEditingInstructionIndex} index={index} role={stripeRole} onSave={handleDeleteInstruction}/>
                   </div>
                 </div>
               </li>
             ))}
           </ul>
+          <div className="xs:hidden flex pt-4 pb-4 justify-end">
+            <button className="bg-gray-300 hover:bg-gray-400 space-x-1 p-2 rounded inline-flex items-center" onClick={() => {
+              setIsOpen(true)
+              setAddType('instruction')
+            }}>
+              <PlusIcon className="text-gray-700 h-4 w-4"/>
+              <span className="text-gray-700">Add Instruction</span>
+            </button>
+          </div>
         </div>
       </Container>
       {stripeRole !== 'premium' ? <RecipePageAmazonProduct ad={ad}/> : <div className="mb-36"/>}
     </main>
+    <AddToRecipeModal isOpen={isOpen} setIsOpen={setIsOpen} addType={addType} onSubmit={handleAddToRecipeSubmit}/>
     </>
     )
 }
