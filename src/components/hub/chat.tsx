@@ -98,7 +98,7 @@ export function ChatComponent({role}: any) {
             <AltButton buttonType="button" text="" className={"min-w-max text-black"}
                 onClick={() => setIsOptionsOpen(true)}>
                 <span className="sm:flex relative z-[5]">
-                    More Options
+                    More Settings
                 </span>
             </AltButton>
             </div>
@@ -157,7 +157,7 @@ export function ChatTips() {
         },
         {
           name: 'Edit:',
-          description: 'Zesti is not always perfect, once the recipe is created you can access it in your dashboard. There, you can chat with Zesti and edit the recipe to your liking',
+          description: 'Zesti is not always perfect, once the recipe is created you can access it in your dashboard. There, you can chat with Zesti and edit the recipe to your liking.',
           icon: LightBulbIcon,
         },
         {
@@ -167,12 +167,12 @@ export function ChatTips() {
         },
         {
             name: 'Time & Servings:',
-            description: 'Make sure to tell Zesti how long you expect to cook and how much you want to make to help eliminate waste',
+            description: 'Make sure to tell Zesti how long you expect to cook and how much you want to make to help eliminate waste.',
             icon: LightBulbIcon,
         },
         {
-            name: 'Chef Controls (Coming Soon):',
-            description: 'Use our Chef Controls to ensure you give the most possible detail to recipe, resulting in the best recipes.',
+            name: 'Advanced Settings:',
+            description: 'Select the More Settings button above to add additional information and get more control over your recipe.',
             icon: LightBulbIcon,
         },
       ]
