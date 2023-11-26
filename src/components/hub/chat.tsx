@@ -1,10 +1,10 @@
 
 import { useAuth } from "@/pages/api/auth/auth";
-import { InputResponseModal, NotLoggedInModal } from "../shared/modals";
+import { AdvancedControlsModal, InputResponseModal, NotLoggedInModal } from "../shared/modals";
 import Link from "next/link";
 import React, { useState, useEffect } from 'react';
 import { PencilIcon } from '@heroicons/react/24/outline';
-import { Button } from "../shared/button";
+import { AltButton, Button } from "../shared/button";
 import { Loader } from "../shared/loader";
 import { handleCreativeChatSubmit } from "@/pages/api/handler/submit";
 import { Notify } from '../shared/notify';
@@ -20,12 +20,13 @@ export function ChatComponent({role}: any) {
     const { user, stripeRole } = useAuth()
     const [ isLoading, setIsLoading ] = useState<boolean>(false)
     const [ isOpen, setIsOpen ] = useState<boolean>(false)
+    const [ isOptionsOpen, setIsOptionsOpen ] = useState<boolean>(false)
     const [ loginPrompt, setLoginPrompt ] = useState<boolean>(false)
     const [ success, setSuccess ] = useState<boolean>(false)
-    const [message, setMessage] = useState<string>('');
+    const [ message, setMessage] = useState<string>('');
     const [userInput, setUserInput] = useState<string>('')
     const [ notify, setNotify ] = useState<boolean | null>(null)
-    const [recipes, setRecipes] = useState<any[]>([]);
+    const [ recipes, setRecipes] = useState<any[]>([]);
 
     
     useEffect( () => {
@@ -43,13 +44,16 @@ export function ChatComponent({role}: any) {
         }
     },[notify])
 
-    async function onClick() {
+    async function onClick(input: any) {
+
+        console.log("User Input: ",  input)
+
         if (!user) {
             setLoginPrompt(true)
             return;
         } else {
         setIsLoading(true) 
-        await handleCreativeChatSubmit({userInput, user, setMessage, stripeRole, setNotify, recipes}).then((val) => {
+        await handleCreativeChatSubmit({input, user, setMessage, stripeRole, setNotify, recipes}).then((val) => {
             setSuccess(val)
             setIsOpen(val)
         });
@@ -68,7 +72,6 @@ export function ChatComponent({role}: any) {
         e.target.rows = newRows < 1 ? 1 : newRows; // Adjust the 5 to your minimum rows
     };
 
-
     return(
     <div className="w-full flex flex-col items-center p-4 sm:p-0">
         <ToastContainer/>
@@ -76,7 +79,7 @@ export function ChatComponent({role}: any) {
             <form action="" method="POST" className="pl-6 w-full max-w-md pr-1 flex gap-3 text-heading-3 shadow-lg shadow-box-shadow
             border border-box-border bg-box-bg rounded-lg ease-linear focus-within:bg-body focus-within:border-primary">
                 <PencilIcon className="text-gray-600 h-6 w-6 mt-4"/>
-                <textarea name="web-page" value={userInput} placeholder="Enter something..." rows={5} maxLength={1000} className="mt-4 w-full text-gray-500 outline-none bg-transparent" 
+                <textarea name="web-page" value={userInput} placeholder="Enter something..." rows={3} maxLength={1000} className="mt-4 w-full text-gray-500 outline-none bg-transparent" 
                 onChange={(e) => {
                     adjustTextAreaHeight
                     setUserInput(e.target.value)
@@ -85,12 +88,20 @@ export function ChatComponent({role}: any) {
         </div>
         <div className="mt-4">
         {isLoading == false ?
+            <div className="w-full space-x-4">
             <Button buttonType="button" text="" className={"min-w-max text-white"}  
-                onClick={ async () => { await onClick() }}>                              
+                onClick={ async () => { await onClick(userInput) }}>                              
                 <span className="sm:flex relative z-[5]">
                     Create Recipe
                 </span>
             </Button>
+            <AltButton buttonType="button" text="" className={"min-w-max text-black"}
+                onClick={() => setIsOptionsOpen(true)}>
+                <span className="sm:flex relative z-[5]">
+                    More Options
+                </span>
+            </AltButton>
+            </div>
             :
             <Loader/>
         }
@@ -105,6 +116,7 @@ export function ChatComponent({role}: any) {
         }
         <InputResponseModal isOpen={isOpen} setIsOpen={setIsOpen} success={success} message={message}/>
         <NotLoggedInModal loginPrompt={loginPrompt} setLoginPrompt={setLoginPrompt}/>
+        <AdvancedControlsModal isOptionsOpen={isOptionsOpen} setIsOptionsOpen={setIsOptionsOpen} setUserInput={setUserInput} onSubmit={async (updatedInput: any) => await onClick(updatedInput)}/>
     </div>
     )
 }
@@ -168,7 +180,7 @@ export function ChatTips() {
 
     return (
         <Container className={"flex flex-col lg:flex-row gap-10 lg:gap-12"}>
-            <div className="mx-auto overflow-hidden bg-white mt-24">
+            <div className="mx-auto overflow-hidden bg-white mt-16">
             <div className="mx-auto max-w-7xl px-6 lg:px-8">
                 <div className="mx-auto grid w-full gap-x-8 gap-y-16 sm:gap-y-20 lg:mx-0 lg:max-w-none">
                 <div className="lg:ml-auto lg:pl-4 lg:pt-4">

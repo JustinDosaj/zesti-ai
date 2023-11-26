@@ -173,7 +173,7 @@ export const handleTikTokURLSubmit = async ({url, setUrl, user, setMessage, stri
 }
 
 interface ChatProps {
-    userInput: string,
+    input: string,
     user: any,
     setMessage: any,
     stripeRole: any,
@@ -181,23 +181,19 @@ interface ChatProps {
     recipes: any,
 }
 
-export const handleCreativeChatSubmit = async({userInput, user, setMessage, stripeRole, setNotify, recipes}: ChatProps) => {
+export const handleCreativeChatSubmit = async({input, user, setMessage, stripeRole, setNotify, recipes}: ChatProps) => {
 
         // url check
-        const urlCheck = await isValidUrl(userInput)
+        const urlCheck = await isValidUrl(input)
 
-        if (userInput == '') {
+        if (input == '') {
             setNotify(true) 
             setMessage("Oops! The input cannot be blank!")
-            return false;
-        } else if (urlCheck == true) {
-            setNotify(true)
-            setMessage("Oops! That looks like a URL. You may be trying to access Video to Recipe or Ad-Free Recipe")
             return false;
         }
 
         const falseObj = {
-            "userMessage": `${userInput}`,
+            "userMessage": `${input}`,
             "source": "creative",
             "date": new Date().toISOString()
         }
