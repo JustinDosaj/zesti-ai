@@ -1,6 +1,6 @@
 import { Fragment, useState } from 'react'
 import { Menu, Transition } from '@headlessui/react'
-import { EllipsisVerticalIcon, PencilSquareIcon, XCircleIcon, CheckIcon  } from '@heroicons/react/20/solid'
+import { EllipsisVerticalIcon, PencilSquareIcon, XCircleIcon, CheckIcon, TrashIcon  } from '@heroicons/react/20/solid'
 
 
 function classNames(...classes: (string | undefined | null | false)[]): string {
@@ -13,13 +13,23 @@ interface RecipePopOutProps {
     setEditingIngredientIndex: React.Dispatch<React.SetStateAction<number | null>>;
     index: number,
     role: string | null,
+    onSave: (index: number) => void,
 }
 
-export function RecipePopOutMenu({edit, setEdit, setEditingIngredientIndex, index, role}: RecipePopOutProps) {
+export function RecipePopOutMenu({edit, setEdit, setEditingIngredientIndex, index, role, onSave}: RecipePopOutProps) {
+
+    
+    const [confirm, setConfirm] = useState<boolean>(false)
 
     const handleEditClick = () => {
         setEditingIngredientIndex(index)
     }
+
+    const handleConfirmDeleteClick = () => {
+        onSave(index)
+    }
+  
+
 
 
     return(
@@ -41,21 +51,37 @@ export function RecipePopOutMenu({edit, setEdit, setEditingIngredientIndex, inde
         <Menu.Items className="absolute right-0 z-10 mt-0.5 w-32 origin-top-right rounded-md bg-white py-2 shadow-lg ring-1 ring-gray-900/5 focus:outline-none">
             <Menu.Item>
             {({ active }) => (
-            <button
-                onClick={handleEditClick}
-                className={classNames(
-                    active ? 'bg-gray-50' : '',
-                    'block px-3 py-1 text-sm leading-6 text-gray-900 w-full'
-                )}
-                >
-                <div className="flex items-center gap-x-2">
-                    <PencilSquareIcon className="text-gray-600 h-4 w-4"/>
-                    <span className="text-sm text-gray-600">Edit</span>
-                </div>
-            </button>
+                <button
+                    onClick={handleEditClick}
+                    className={classNames(
+                        active ? 'bg-gray-50' : '',
+                        'block px-3 py-1 text-sm leading-6 text-gray-900 w-full'
+                    )}
+                    >
+                    <div className="flex items-center gap-x-2">
+                        <PencilSquareIcon className="text-gray-600 h-4 w-4"/>
+                        <span className="text-sm text-gray-600">Edit</span>
+                    </div>
+                </button>
             )}
             </Menu.Item>
-        </Menu.Items>
+                <Menu.Item>
+                {({ active }) => (
+                    <button
+                        onClick={handleConfirmDeleteClick}
+                        className={classNames(
+                            active ? 'bg-gray-50' : '',
+                            'block px-3 py-1 text-sm leading-6 text-gray-900 w-full'
+                        )}
+                        >
+                        <div className="flex items-center gap-x-2">
+                            <TrashIcon className="text-color-alt-red h-4 w-4"/>
+                            <span className="text-sm text-gray-600">Delete</span>
+                        </div>
+                    </button>
+                )}
+                </Menu.Item>
+            </Menu.Items>
         </Transition>
     </Menu>
     </>
@@ -122,12 +148,17 @@ interface InstructionPopOutProps {
     setEditingInstructionIndex: React.Dispatch<React.SetStateAction<number | null>>;
     index: number,
     role: string | null,
+    onSave: (index: number) => void,
 }
 
-export function InstructionPopOutMenu({edit, setEdit, setEditingInstructionIndex, index, role}: InstructionPopOutProps) {
+export function InstructionPopOutMenu({edit, setEdit, setEditingInstructionIndex, index, role, onSave}: InstructionPopOutProps) {
 
     const handleEditClick = () => {
         setEditingInstructionIndex(index)
+    }
+
+    const handleConfirmDeleteClick = () => {
+        onSave(index)
     }
 
     return(
@@ -159,6 +190,22 @@ export function InstructionPopOutMenu({edit, setEdit, setEditingInstructionIndex
                 <div className="flex items-center gap-x-2">
                     <PencilSquareIcon className="text-gray-600 h-4 w-4"/>
                     <span className="text-sm text-gray-600">Edit</span>
+                </div>
+            </button>
+            )}
+            </Menu.Item>
+            <Menu.Item>
+            {({ active }) => (
+            <button
+                onClick={handleConfirmDeleteClick}
+                className={classNames(
+                    active ? 'bg-gray-50' : '',
+                    'block px-3 py-1 text-sm leading-6 text-gray-900 w-full'
+                )}
+                >
+                <div className="flex items-center gap-x-2">
+                    <TrashIcon className="text-color-alt-red h-4 w-4"/>
+                    <span className="text-sm text-gray-600">Delete</span>
                 </div>
             </button>
             )}
