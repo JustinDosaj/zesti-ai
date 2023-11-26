@@ -32,12 +32,12 @@ export default function Contact() {
                     </Paragraph>
                 </div>
                 <form action="https://formspree.io/f/maygvonw" method="POST" target="_blank">
-                <div className="py-1 pl-6 w-full pr-1 flex gap-3 items-center text-heading-3 shadow-lg shadow-box-shadow border border-box-border bg-box-bg rounded-full ease-linear focus-within:bg-body  focus-within:border-primary">
-                    <span className="min-w-max pr-2 border-r border-box-border">
-                        <UsersIcon className="h-6 w-6 text-black"/>                                                             
-                    </span>
-                    <input type="text" name="FULLNAME" placeholder="Name" className="w-full py-3 outline-none bg-transparent text"/>
-                        </div>
+                    <div className="py-1 pl-6 w-full pr-1 flex gap-3 items-center text-heading-3 shadow-lg shadow-box-shadow border border-box-border bg-box-bg rounded-full ease-linear focus-within:bg-body  focus-within:border-primary">
+                        <span className="min-w-max pr-2 border-r border-box-border">
+                            <UsersIcon className="h-6 w-6 text-black"/>                                                             
+                        </span>
+                        <input type="text" name="FULLNAME" placeholder="Name" className="w-full py-3 outline-none bg-transparent text"/>
+                    </div>
                         <div className="mt-4 py-1 pl-6 w-full pr-1 flex gap-3 items-center text-heading-3 shadow-lg shadow-box-shadow border border-box-border bg-box-bg rounded-full ease-linear focus-within:bg-body  focus-within:border-primary">
                             <span className="min-w-max pr-2 border-r border-box-border">
                                 <EnvelopeIcon className="h-6 w-6 text-black"/>                                                                 
