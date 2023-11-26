@@ -412,15 +412,6 @@ export function AdvancedControlsModal({isOptionsOpen, setIsOptionsOpen, setUserI
     setIsOptionsOpen(false)
   }
 
-  const handleKeyDown = (e: any) => {
-    console.log(e)
-    if (e.key === 'Enter') {
-      handleAddIngredient();
-    }
-  };
-
-
-
   return(
     <Transition.Root show={isOptionsOpen} as={Fragment}>
       <Dialog as="div" className="relative z-50" initialFocus={cancelButtonRef} onClose={setIsOptionsOpen}>
