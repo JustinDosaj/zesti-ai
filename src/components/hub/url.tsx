@@ -137,7 +137,7 @@ export function UrlTips() {
 
     return (
         <Container className={"flex flex-col lg:flex-row gap-10 lg:gap-12"}>
-        <div className="mx-auto overflow-hidden bg-white mt-24">
+        <div className="mx-auto overflow-hidden bg-white mt-16">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
             <div className="mx-auto grid w-full gap-x-8 gap-y-16 sm:gap-y-20 lg:mx-0 lg:max-w-none">
             <div className="lg:ml-auto lg:pl-4 lg:pt-4">
