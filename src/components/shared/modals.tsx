@@ -423,7 +423,7 @@ export function AdvancedControlsModal({isOptionsOpen, setIsOptionsOpen, setUserI
 
   return(
     <Transition.Root show={isOptionsOpen} as={Fragment}>
-      <Dialog as="div" className="relative z-10" initialFocus={cancelButtonRef} onClose={setIsOptionsOpen}>
+      <Dialog as="div" className="relative z-50" initialFocus={cancelButtonRef} onClose={setIsOptionsOpen}>
         <Transition.Child
           as={Fragment}
           enter="ease-out duration-300"
@@ -447,7 +447,7 @@ export function AdvancedControlsModal({isOptionsOpen, setIsOptionsOpen, setUserI
               leaveFrom="opacity-100 translate-y-0 sm:scale-100"
               leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
             >
-              <Dialog.Panel className="z-50 relative transform overflow-hidden rounded-lg bg-white px-4 pb-4 pt-5 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg sm:p-6 space-y-2">
+              <Dialog.Panel className="relative transform overflow-hidden rounded-lg bg-white px-4 pb-4 pt-5 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg sm:p-6 space-y-2">
                   <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-green-500">
                     <UserCircleIcon className="h-8 w-8 text-white" aria-hidden="true" />
                   </div>
@@ -470,7 +470,7 @@ export function AdvancedControlsModal({isOptionsOpen, setIsOptionsOpen, setUserI
                     </div>
                     <div className={ingredients.length > 0 ? `border-b pb-2 rounded items-center` : `hidden`}>
                       {ingredients.map((ingredient, index) => (
-                        <div key={index} className="inline-flex border p-1 rounded mr-1 mb-1">
+                        <div key={index} className="inline-flex border p-1 rounded mr-1 mb-1 text-gray-700">
                           {ingredient}
                           <button onClick={() => handleRemoveIngredient(index)}>
                             <XMarkIcon className="h-5 w-5 text-red-600"/>
