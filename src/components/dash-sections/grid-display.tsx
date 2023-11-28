@@ -90,6 +90,12 @@ export function DashboardRecipeStackList({data, maxDisplayCount = -1}:StackListP
                 <div className="hidden rounded-md bg-transparent px-2.5 py-1.5 text-sm font-semibold shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-primary-alt sm:block">
                   <WhiteLoader/>
                 </div>
+                : recipe.status == "Failed" ? 
+                <div
+                  className="hidden rounded-md bg-color-alt-red text-white px-2.5 py-1.5 text-sm font-semibold shadow-sm ring-1 ring-inset ring-gray-300 sm:block"
+                >
+                  <span className="pl-6 pr-6">Error</span>
+                </div>
                 :
                 <Link
                   href={{pathname: `/dashboard/recipe/[recipeId]`,
@@ -123,7 +129,7 @@ export function DashboardRecipeStackList({data, maxDisplayCount = -1}:StackListP
                             }}
                             className={classNames(
                               active ? 'bg-gray-50' : '',
-                              'block px-3 py-1 text-sm leading-6 text-gray-900 w-full text-left'
+                              `${recipe.status == "Failed" ? 'hidden' : ''} block px-3 py-1 text-sm leading-6 text-gray-900 w-full text-left`
                             )}
                           >
                             <span className="inline-flex text-base gap-x-1.5 items-center"><EyeIcon className="text-primary-main h-4 w-4"/>View</span>

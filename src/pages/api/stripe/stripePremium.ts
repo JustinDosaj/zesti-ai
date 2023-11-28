@@ -8,6 +8,7 @@ export async function createPremiumCheckoutSession(id: any) {  // You might want
             price: process.env.NEXT_PUBLIC_STRIPE_PREMIUM_PRICE,
             success_url: `${window.location.origin}/dashboard`,
             cancel_url: `${window.location.origin}/dashboard`,
+            mode: "subscription",
         });
 
         onSnapshot(docRef, (snap) => {
