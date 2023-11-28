@@ -92,10 +92,10 @@ export function Tools() {
                     <div className={classNames(item.colorType == 'green' ? 'bg-color-alt-green bg-opacity-80' : item.colorType == 'yellow' ? 'bg-yellow-400' : item.colorType == 'red' ? 'bg-red-400' : 'bg-color-alt-green bg-opacity-80', `absolute rounded-md p-3`)}>
                         <item.icon className="h-6 w-6 text-white" aria-hidden="true" />
                     </div>
-                    <p className="ml-16 truncate text-xl font-semibold text-black">{item.name}</p>
+                    <p className="ml-16 truncate text-lg font-semibold text-black">{item.name}</p>
                     </dt>
                     <dd className="ml-16 flex items-baseline pb-6 sm:pb-7">
-                    <p className="text-base text-gray-900">{item.desc}</p>
+                    <p className="text-sm sm:text-base text-gray-900">{item.desc}</p>
                     <div className="flex justify-center absolute inset-x-0 bottom-0 bg-gray-150 px-4 py-4 sm:px-6">
                         <div className="flex justify-center font-medium cursor-pointer text-white bg-black w-full text-sm p-2 rounded-3xl hover:bg-gray-700 hover:ease-in hover:duration-100">
                             Add Recipe<span className="sr-only"> {item.name} stats</span>

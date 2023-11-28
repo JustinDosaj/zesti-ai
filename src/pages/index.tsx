@@ -6,6 +6,7 @@ import Head from 'next/head';
 import { Reach } from '@/components/home-sections/reach';
 import HowItWorks from '@/components/home-sections/howitworks';
 import GoogleTags from '@/components/google/conversion';
+import { getCurrentDate } from './api/handler/general';
 
 const raleway = Raleway({subsets: ['latin']})
 
