@@ -5,7 +5,7 @@ import { useState } from 'react'
 import { Fragment } from 'react'
 import { Menu, Transition } from '@headlessui/react'
 import { EllipsisVerticalIcon, TrashIcon, EyeIcon } from '@heroicons/react/20/solid'
-import { OrangeBGLoader, WhiteLoader } from '../shared/loader'
+import { WhiteLoader } from '../shared/loader'
 import Link from 'next/link'
 
 interface Recipe {
@@ -65,10 +65,10 @@ export function DashboardRecipeStackList({data}:StackListProps) {
                     </p>
                 </div>
                 <div className="mt-1 flex items-center gap-x-2 text-xs sm:text-sm leading-5 text-gray-500">
-                  <p className={recipe.data.time ? `whitespace-nowrap` : `hidden`}>
-                    <span>{recipe.data ? `${recipe.data.time} Minutes` : ''}</span>
+                  <p className={recipe.data?.time ? `whitespace-nowrap` : `hidden`}>
+                    <span>{recipe.data ? `${recipe.data?.time} Minutes` : ''}</span>
                   </p>
-                  <svg viewBox="0 0 2 2" className={recipe.data.time ? `h-0.5 w-0.5 fill-current` : `hidden`}>
+                  <svg viewBox="0 0 2 2" className={recipe.data?.time ? `h-0.5 w-0.5 fill-current` : `hidden`}>
                     <circle cx={1} cy={1} r={1} />
                   </svg>
                   <p className="whitespace-nowrap">
