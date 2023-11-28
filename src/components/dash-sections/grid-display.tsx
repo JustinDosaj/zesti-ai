@@ -101,7 +101,7 @@ export function DashboardRecipeStackList({data, maxDisplayCount = -1}:StackListP
                   href={{pathname: `/dashboard/recipe/[recipeId]`,
                     query: {recipeId: recipe.id}
                   }}
-                  className="hidden rounded-md bg-primary-main text-white px-2.5 py-1.5 text-sm font-semibold shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-primary-alt sm:block"
+                  className="hidden rounded-3xl bg-primary-main duration-200 text-white px-2.5 py-1.5 text-sm font-semibold shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-primary-alt sm:block"
                 >
                   <span>View Recipe</span>
                 </Link>
