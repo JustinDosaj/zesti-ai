@@ -9,7 +9,7 @@ function classNames(...classes: (string | null | undefined)[]): string {
     return classes.filter(Boolean).join(' ')
   }
 
-export function RecipePageTitle() {
+export function DashboardPageTitle() {
     return(
         <section className="relative pt-32">
             <Container className={"flex flex-col lg:flex-row gap-10 lg:gap-12"}>
@@ -80,7 +80,7 @@ export function Tools() {
     <Container className={"flex flex-col lg:flex-row gap-10 lg:gap-12"}>
     <div className="w-full">
       <h3 className="text-2xl font-bold leading-6 text-gray-900 text-center">Tools</h3>
-      <dl className="mt-5 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+      <dl className="mt-8 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
         {stats.map((item) => (
         <div key={item.id}>
             <Link href={item.href} className="">
