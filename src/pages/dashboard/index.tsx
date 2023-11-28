@@ -1,10 +1,9 @@
 import { Raleway } from 'next/font/google'
-import { RecipePageTitle, Tools, Usage } from '@/components/dash-sections/dash';
+import { DashboardPageTitle, Tools, Usage } from '@/components/dash-sections/dash';
 import { useAuth } from "@/pages/api/auth/auth"
 import { useRouter } from "next/router";
-import { useEffect } from 'react';
-import { DashboardRecipeStackList } from '@/components/dash-sections/grid-display';
-import { useState } from "react";
+import { DashboardRecipeStackList, DashboardRecipeTitle } from '@/components/dash-sections/grid-display';
+import { useState, useEffect } from "react";
 import { PageLoader } from "@/components/shared/loader";
 import Head from 'next/head';
 import { db } from '../api/firebase/firebase';
@@ -45,17 +44,18 @@ export default function Dashboard() {
     <>
     <Head>
       <title>Zesti | Your Recipes</title>
-    </Head>  
+      <meta name="robots" content="noindex" />
+    </Head>
     <main className={`flex min-h-screen flex-col items-center justify-between bg-background ${raleway.className}`}>
 
-        <RecipePageTitle/>
+        <DashboardPageTitle/>
         <div className="border-t border-gray-200 sm:mt-0 mb-12 mr-12 ml-12 mt-12" style={{ width: '35%' }} />
         <Usage data={recipes} tokens={tokens} usage={usage}/>
         <div className="border-t border-gray-200 m-12" style={{ width: '35%' }} />
         <Tools/>
         <div className="border-t border-gray-200 m-12" style={{ width: '35%' }} />
-        {isLoadingRecipes ? <PageLoader/> : <DashboardRecipeStackList data={recipes}/>}
-        
+        <DashboardRecipeTitle/>
+        {isLoadingRecipes ? <PageLoader/> : <DashboardRecipeStackList data={recipes} maxDisplayCount={5}/>}
     </main>
     </>
   )
