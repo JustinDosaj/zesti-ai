@@ -5,6 +5,7 @@ import { getUserData } from "../firebase/functions";
 import axios from 'axios'
 import { increment } from 'firebase/firestore';
 import React, { useState } from "react";
+import { getCurrentDate } from "./general";
 
 
 
@@ -71,14 +72,17 @@ export const handleYouTubeURLSubmit = async ({url, user, setMessage, stripeRole,
 
     // Ensure video length is equal or below user sub usage rate
     const url_id = url?.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|shorts\/))([a-zA-Z0-9_-]{11})/);
+
+    const date = await getCurrentDate()
+    
+
     const falseObj = {
         "url": `${url}`,
         "url_id": url_id ? url_id[1] : null,
         "source": "youtube",
-        "date": new Date().toISOString()
+        "date": date,
     }
-
-
+    
     // Checking video length compared to subscription model
     const result = await getVideoLength(url_id ? url_id[1] : null)
     if ((result?.minutes || 0) > 15) {
@@ -129,7 +133,6 @@ export const handleTikTokURLSubmit = async ({url, setUrl, user, setMessage, stri
         return false;
     }
 
-
     var url_id;
 
     if(url.includes('tiktok.com/t/')) {
@@ -142,11 +145,13 @@ export const handleTikTokURLSubmit = async ({url, setUrl, user, setMessage, stri
         url_id = url?.match(/tiktok\.com\/@[^\/]+\/video\/(\d+)/);
     }
 
+    const date = await getCurrentDate()
+
     const falseObj = {
         "url": `${url}`,
         "url_id": url_id ? url_id[1] : null,
         "source": "tiktok",
-        "date": new Date().toISOString()
+        "date": date
     }
     
     let usage = 0;
@@ -192,10 +197,12 @@ export const handleCreativeChatSubmit = async({input, user, setMessage, stripeRo
             return false;
         }
 
+        const date = await getCurrentDate()
+
         const falseObj = {
             "userMessage": `${input}`,
             "source": "creative",
-            "date": new Date().toISOString()
+            "date": date
         }
 
     if (stripeRole == 'premium') {
@@ -263,10 +270,12 @@ export const handleWebURLSubmit = async ({url, user, setMessage, stripeRole, set
         return false;
     }
 
+    const date = await getCurrentDate()
+
     const falseObj = {
         "url": `${url}`,
         "source": "url",
-        "date": new Date().toISOString()
+        "date": date
     }
 
     let usage = 0;
