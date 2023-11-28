@@ -3,7 +3,7 @@ import { RecipePageTitle, Tools, Usage } from '@/components/dash-sections/dash';
 import { useAuth } from "@/pages/api/auth/auth"
 import { useRouter } from "next/router";
 import { useEffect } from 'react';
-import { GridDisplay } from '@/components/dash-sections/grid-display';
+import { DashboardRecipeStackList } from '@/components/dash-sections/grid-display';
 import { useState } from "react";
 import { PageLoader } from "@/components/shared/loader";
 import Head from 'next/head';
@@ -54,8 +54,8 @@ export default function Dashboard() {
         <div className="border-t border-gray-200 m-12" style={{ width: '35%' }} />
         <Tools/>
         <div className="border-t border-gray-200 m-12" style={{ width: '35%' }} />
-        {isLoadingRecipes ? <PageLoader/> : <GridDisplay data={recipes}/>}
- 
+        {isLoadingRecipes ? <PageLoader/> : <DashboardRecipeStackList data={recipes}/>}
+        
     </main>
     </>
   )
