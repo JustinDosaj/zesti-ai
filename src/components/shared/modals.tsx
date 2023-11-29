@@ -82,6 +82,25 @@ export function InputResponseModal({isOpen, setIsOpen, success, message}: Props)
                     </div>
                 </div>
                 }
+                {success == true ?
+                <div className="mt-5 sm:mt-6 sm:grid sm:grid-flow-row-dense sm:grid-cols-2 sm:gap-3">
+                  <Link
+                    className="inline-flex w-full justify-center rounded-md bg-primary-main px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-primary-alt focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 sm:col-start-2"
+                    href="/dashboard/recipebook"
+                    onClick={() => setIsOpen(false)}
+                  >
+                    Go to Recipes
+                  </Link>
+                  <button
+                    type="button"
+                    className="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:col-start-1 sm:mt-0"
+                    onClick={() => {setIsOpen(false)}}
+                    ref={cancelButtonRef}
+                  >
+                    Return
+                  </button>
+                </div>
+                :
                 <div className="mt-5 sm:mt-6 sm:grid sm:grid-flow-row-dense sm:grid-cols-2 sm:gap-3">
                   <Link
                     className="inline-flex w-full justify-center rounded-md bg-primary-main px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-primary-alt focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 sm:col-start-2"
@@ -99,6 +118,7 @@ export function InputResponseModal({isOpen, setIsOpen, success, message}: Props)
                     Return
                   </button>
                 </div>
+              }
               </Dialog.Panel>
             </Transition.Child>
           </div>
