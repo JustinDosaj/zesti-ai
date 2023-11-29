@@ -1,8 +1,8 @@
 import { Paragraph } from "../shared/paragraph"
 import { Container } from "../shared/container"
-import { SparklesIcon, VideoCameraIcon, LinkIcon, LockClosedIcon } from '@heroicons/react/24/outline'
+import { SparklesIcon, VideoCameraIcon, LinkIcon, LockClosedIcon, ChevronDoubleRightIcon, ChevronDoubleLeftIcon } from '@heroicons/react/24/outline'
 import { useAuth } from "@/pages/api/auth/auth"
-import React, { useEffect, useState } from "react"
+import React from "react"
 import Link from "next/link"
 
 function classNames(...classes: (string | null | undefined)[]): string {
@@ -127,7 +127,7 @@ interface UsageProps {
 
 export function Usage({data, tokens, usage}: UsageProps) {
 
-    const { user, stripeRole } = useAuth()
+    const { stripeRole } = useAuth()
     
     const stats = [
         { name: 'Recipes Remaining', value: `${stripeRole == 'premium' ? usage : tokens ? tokens : `5` }`},
@@ -138,7 +138,7 @@ export function Usage({data, tokens, usage}: UsageProps) {
     return(
     <Container className={"flex flex-col lg:flex-row gap-10 lg:gap-12"}>
         <div className="w-full rounded-2xl">
-            <dl className="mx-auto grid grid-cols-1 gap-px lg:grid-cols-3 border rounded-xl bg-gray-100">
+            <dl className="mx-auto grid grid-cols-1 gap-px lg:grid-cols-3 shadow border border-gray-200 rounded-xl p-2">
                 {stats.map((stat) => (
                     <div
                     key={stat.name}
@@ -158,3 +158,43 @@ export function Usage({data, tokens, usage}: UsageProps) {
         </div>
     </Container>
 )}
+
+export function DashboardRecipeTitle() {
+    return(
+      <Container className="relative sm:flex justify-center items-center lg:flex-wrap gap-10 lg:gap-4 w-full">
+        <h3 className="text-2xl font-bold leading-6 text-gray-900 text-center">Recent Recipes</h3>
+        <div className="grid justify-center pl-3 sm:absolute sm:right-0">
+          <Link href="/dashboard/recipebook" passHref className="hover:bg-primary-dark text-gray-700 hover:text-gray-500 font-semibold py-2 px-4">
+            <span className="inline-flex items-center gap-x-1.5">
+              <span className="underline">View All Recipes</span>
+              <ChevronDoubleRightIcon className="h-5 w-5"/>
+            </span>
+          </Link>
+        </div>
+    </Container>
+    )
+}
+
+export function RecipeBookTitle() {
+    return(
+        <Container className="pt-32">
+            <div className="flex lg:relative justify-center items-center lg:flex-wrap gap-10 lg:gap-4 w-full">
+                <div className="inline-flex items-center">
+                    <h3 className="text-3xl/tight sm:text-4xl/tight md:text-5xl/tight xl:text-5xl/tight font-bold text-heading-1 text-black text-center">Recipe Book</h3>
+                    <div className="absolute left-0">
+                        <Link href="/dashboard" passHref className="hover:bg-primary-dark text-gray-700 hover:text-gray-500 font-semibold py-2 px-4 lg:px-0">
+                            <span className="inline-flex items-center mt-2 gap-x-1.5 px-0 sm:px-4 md:px-8 lg:px-0">
+                                <ChevronDoubleLeftIcon className="h-7 w-7 lg:h-5 lg:w-5"/>
+                                <span className="hidden lg:block underline">Back to Dashboard</span>
+                            </span>
+                        </Link>
+                    </div>
+                </div>
+            </div>
+            <Paragraph className="mt-4 text-center text-gray-600">
+                View all the recipes you have saved and created with Zesti
+            </Paragraph>
+        </Container>
+    )
+}
+  

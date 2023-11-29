@@ -73,40 +73,38 @@ export function Hero2(){
                     <div className="text-black font-bold text-sm">Powered By OpenAI</div>
                     <Image width={20} height={20} src="/images/openaipng.png" alt="Powered by OpenAI Chatgpt AI Technology Tool" className=" "/>
                 </div>
-                <h1 className="text-4xl/tight sm:text-4xl/tight md:text-5xl/tight xl:text-6xl/tight font-bold text-heading-1 mt-6 grid text-center sm:text-left">          
+                <h1 className="text-4xl/tight sm:text-4xl/tight md:text-5xl/tight xl:text-6xl/tight font-bold text-heading-1 mt-6 grid text-center md:text-left">          
                     <span className="text-transparent bg-clip-text bg-gradient-to-br from-primary-main from-20% via-primary via-30% to-color-alt-red pr-2">Upgrade</span>
                     <span className="text-black">Your Cooking Using</span>
                     <span className="text-transparent bg-clip-text bg-gradient-to-br from-primary-main from-20% via-primary via-30% to-color-alt-red pl-2 pr-2">Zesti AI Assistant</span> 
                 </h1>
-                <Paragraph className="text-base sm:text-lg mt-8 text-black text-center sm:text-left">
-                    Create AI generated recipes, automatically save recipes from YouTube & Tiktok, and get cooking questions answered instantly!
+                <Paragraph className="text-base sm:text-lg mt-8 text-black text-center md:text-left">
+                    Create AI generated recipes, instantly save recipes from YouTube & Tiktok, and get cooking questions answered instantly!
                 </Paragraph>
               { !user ?
-                <div className="mt-10 grid space-y-2 sm:flex items-center gap-x-6 justify-center sm:justify-start">
+                <div className="mt-6 grid space-y-4 md:space-y-0 md:inline-flex items-center gap-x-6">
                     <Button
                         onClick={() => router.push('/login')}
                         buttonType="button"
                         text="Try for Free"
-                        className=""
+                        className="w-fit mx-auto"
                     >
                     </Button>
-                    <div className="space-x-1 text-sm text-center border rounded-xl p-1 bg-gray-100">
-                        <span className="text-gray-700">Curious about results? Check out this</span>
-                        <Link href="/about/demo" className="underline text-primary-main hover:text-primary-alt font-bold">example</Link>
+                    <div className="space-x-1 text-sm text-center border rounded-xl p-1 bg-gray-100 w-fit mx-auto">
+                        <span className="text-gray-600 text-xs">No Credit Card Required</span>
                     </div>
                 </div>
                 :
-                <div className="mt-10 grid space-y-2 md:space-y-0 md:inline-flex items-center gap-x-6">
+                <div className="mt-6 grid space-y-4 md:space-y-0 md:inline-flex items-center gap-x-6">
                     <Button
                         onClick={() => router.push('/dashboard')}
                         buttonType="button"
                         text="Go to Dashboard"
-                        className=""
+                        className="w-fit mx-auto"
                     >
                     </Button>
-                    <div className="space-x-1 text-sm text-center border rounded-xl p-1 bg-gray-100">
-                        <span className="text-gray-700">Curious about results? Check out this</span>
-                        <Link href="/about/demo" className="underline text-primary-main hover:text-primary-alt font-bold">example</Link>
+                    <div className="space-x-1 text-sm text-center border rounded-xl p-1 bg-gray-100 w-fit mx-auto">
+                        <span className="text-gray-600 text-xs">No Credit Card Required</span>
                     </div>
                 </div>
                 }
