@@ -3,10 +3,10 @@ import { Hero2 } from '@/components/home-sections/hero'
 import { FAQ } from '@/components/home-sections/faq';
 import { Optimize } from '@/components/home-sections/optimize'
 import Head from 'next/head';
-import { Reach } from '@/components/home-sections/reach';
+import { Reach, EasyRecipe } from '@/components/home-sections/reach';
 import HowItWorks from '@/components/home-sections/howitworks';
 import GoogleTags from '@/components/google/conversion';
-import { getCurrentDate } from './api/handler/general';
+import { TryPremiumCTA } from '@/components/home-sections/home';
 
 const raleway = Raleway({subsets: ['latin']})
 
@@ -26,6 +26,8 @@ export default function Home() {
         <HowItWorks/>
         <Optimize/>
         <Reach/>
+        <EasyRecipe/>
+        <TryPremiumCTA/>
         <FAQ/>
       </main>
     </>

@@ -1,4 +1,4 @@
-import { VideoCameraIcon, ChatBubbleBottomCenterIcon, KeyIcon } from '@heroicons/react/20/solid'
+import { VideoCameraIcon, ComputerDesktopIcon, StarIcon } from '@heroicons/react/20/solid'
 import { Container } from '../shared/container'
 import { Title } from "../shared/title";
 import { Paragraph } from '../shared/paragraph'; 
@@ -7,17 +7,17 @@ const cards = [
   {
     name: 'Generate Recipe',
     description: 'Use Zesti AI to generate a recipe from a list of ingredients, description or dish name.',
+    icon: StarIcon,
+  },
+  {
+    name: 'Save Tiktok & YouTube Recipes',
+    description: 'Say goodbye to pausing and rewinding cooking videos to get every detail.',
     icon: VideoCameraIcon,
   },
   {
     name: 'Ad-Free Web Recipe',
-    description: 'Enter the website URL of a recipe to discard the ads and useless information.',
-    icon: ChatBubbleBottomCenterIcon,
-  },
-  {
-    name: 'Video to Recipe Conversion',
-    description: 'Save a TikTok or YouTube cooking video to an easy-to-read recipe with just the link.',
-    icon: KeyIcon,
+    description: 'Remove clutter from website recipes using Zesti',
+    icon: ComputerDesktopIcon,
   },
 ]
 
