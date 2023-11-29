@@ -4,9 +4,8 @@ import { DeleteConfirmationModal } from '../shared/modals'
 import { useState } from 'react'
 import { Fragment } from 'react'
 import { Menu, Transition } from '@headlessui/react'
-import { EllipsisVerticalIcon, TrashIcon, EyeIcon, ChevronDoubleRightIcon } from '@heroicons/react/20/solid'
+import { EllipsisVerticalIcon, TrashIcon, EyeIcon } from '@heroicons/react/20/solid'
 import { WhiteLoader } from '../shared/loader'
-import { Paragraph } from '../shared/paragraph'
 import Link from 'next/link'
 
 interface Recipe {
@@ -31,16 +30,16 @@ function classNames(...classes: (string | undefined | null | false)[]): string {
   return classes.filter(Boolean).join(' ');
 }
 
-export function DashboardRecipeStackList({data, maxDisplayCount = -1}:StackListProps & {maxDisplayCount?: number}) {
+export function RecipeList({data, maxDisplayCount = -1}:StackListProps & {maxDisplayCount?: number}) {
 
   const [ isDeleteOpen, setIsDeleteOpen ] = useState<boolean>(false)
   const [ selectedRecipeId, setSelectedRecipeId ] = useState<string | null>(null);
 
   return(
     <Container className={"flex flex-col lg:flex-wrap gap-10 lg:gap-4 pb-28 mt-4"}>
-      <ul role="list" className="divide-y divide-gray-100 text-gray-700">
+      <ul role="list" className="divide-y divide-primary-main divide-opacity-50 sm:divide-gray-300 text-gray-700">
         {data.slice(0, maxDisplayCount >= 0 ? maxDisplayCount : data.length).map((recipe) => (
-            <li key={recipe.id} className="flex items-center justify-between gap-x-6 py-5 border-b border-primary-main sm:border-gray-300">
+            <li key={recipe.id} className="flex items-center justify-between gap-x-6 py-5 border-b">
               <div className="min-w-0">
                 <div className="flex items-start gap-x-3">
                   <Link 
@@ -164,37 +163,3 @@ export function DashboardRecipeStackList({data, maxDisplayCount = -1}:StackListP
   )
 }
 
-export function DashboardRecipeTitle() {
-  return(
-    <Container className="relative sm:flex justify-center items-center lg:flex-wrap gap-10 lg:gap-4 w-full">
-      <h3 className="text-2xl font-bold leading-6 text-gray-900 text-center">Recent Recipes</h3>
-      <div className="grid justify-center pl-3 sm:absolute sm:right-0">
-        <Link href="/dashboard/recipebook" passHref className="hover:bg-primary-dark text-gray-700 hover:text-gray-500 font-semibold py-2 px-4">
-          <span className="inline-flex items-center gap-x-1.5">
-            <span className="underline">View All Recipes</span>
-            <ChevronDoubleRightIcon className="h-5 w-5"/>
-          </span>
-        </Link>
-      </div>
-  </Container>
-  )
-}
-
-export function RecipeBookTitle() {
-  return(
-      <section className="relative pt-32">
-          <Container className={"flex flex-col lg:flex-row gap-10 lg:gap-12"}>
-              <span className="w-4/12 lg:w-2/12 aspect-square bg-gradient-to-tr to-primary from-primaryteal absolute -top-5 lg:left-0 rounded-full skew-y-12 blur-2xl opacity-40 skew-x-12 rotate-90"></span>
-              <div className="relative flex flex-col items-center text-center lg:py-7 xl:py-8 lg:max-w-none max-w-3xl mx-auto lg:mx-0 lg:flex-1 lg:w-1/2">
-                  <h1 className="text-3xl/tight sm:text-4xl/tight md:text-5xl/tight xl:text-5xl/tight
-                  font-bold text-heading-1 text-black">
-                  Recipe Book
-                  </h1>
-                  <Paragraph className="mt-4 text-gray-600">
-                       Your recipe book contains every recipe you have saved to Zesti
-                  </Paragraph>
-              </div>
-          </Container>
-      </section>
-      )
-}

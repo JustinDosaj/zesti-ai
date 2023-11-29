@@ -284,7 +284,7 @@ const Recipe: React.FC = ({id, ad}: any) => {
               <span className="text-gray-700">Add Ingredient</span>
             </button>
           </div>
-          <ul role="list" className="mt-3 grid grid-cols-1 gap-5 sm:grid-cols-2 sm:gap-6 lg:grid-cols-4">
+          <ul role="list" className="mt-3 grid grid-cols-1 gap-5 sm:grid-cols-2 sm:gap-6 lg:grid-cols-4 capitalize">
             {recipe?.ingredients?.map((ingred: any, index: any) => (
               <li key={index} className="col-span-1 flex rounded-md shadow-sm">
                 <div className="flex rounded-md overflow-visible w-full">
