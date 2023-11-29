@@ -1,11 +1,12 @@
 import { Raleway } from 'next/font/google'
-import { DashboardRecipeStackList, RecipeBookTitle } from '@/components/dash-sections/grid-display'
+import { RecipeBookTitle } from '@/components/dash-sections/dash'
 import Head from "next/head"
 import React, { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
 import { useAuth } from '../api/auth/auth'
 import { db } from '../api/firebase/firebase'
 import { PageLoader } from '@/components/shared/loader'
+import { RecipeList } from '@/components/dash-sections/recipelist'
 
 const raleway = Raleway({subsets: ['latin']})
 
@@ -38,7 +39,7 @@ export default function RecipeBook() {
         </Head>  
         <main className={`flex min-h-screen flex-col items-center bg-background ${raleway.className}`}>
             <RecipeBookTitle/>
-            {isLoadingRecipes ? <PageLoader/> : <DashboardRecipeStackList data={recipes}/>}
+            {isLoadingRecipes ? <PageLoader/> : <RecipeList data={recipes}/>}
         </main>
     </>
     )

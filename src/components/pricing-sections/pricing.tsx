@@ -21,24 +21,6 @@ export function PricingDisplay() {
 
     const tiers = [
         {
-          name: 'Base',
-          id: 'tier-basic',
-          trial: false,
-          priceMonthly: '$0',
-          description: "The perfect plan if you're just getting started with Zesti",
-          features: [
-            '5 AI Generated Recipes Per Month', 
-            'Recipe Book Limited to 5',
-            'AI Chat Assistant while cooking',
-            'Edit recipes',
-        ],
-          featured: false,
-          checkout: () => {
-            setIsLoading(true)
-            router.push('/dashboard')
-          }
-        },
-        {
           name: 'Premium',
           id: 'tier-premium',
           trial: true,
@@ -59,12 +41,30 @@ export function PricingDisplay() {
             createPremiumCheckoutSession(user?.uid)
           }
         },
+        {
+          name: 'Base',
+          id: 'tier-basic',
+          trial: false,
+          priceMonthly: '$0',
+          description: "The perfect plan if you're just getting started with Zesti",
+          features: [
+            '5 AI Generated Recipes Per Month', 
+            'Recipe Book Limited to 5',
+            'AI Chat Assistant while cooking',
+            'Edit recipes',
+        ],
+          featured: false,
+          checkout: () => {
+            setIsLoading(true)
+            router.push('/dashboard')
+          }
+        },
       ]
     
 
     return (
     <Container className={"flex flex-col lg:flex-row gap-10 lg:gap-12 justify-center mt-6 sm:mt-0 mb-12 sm:mb-16"}>
-        <div className="relative isolate bg-white px-6 lg:px-8">
+        <div className="relative isolate bg-white px-2 lg:px-8">
           <div className="mx-auto grid max-w-lg grid-cols-1 items-center gap-y-6 sm:gap-y-0 lg:max-w-4xl lg:grid-cols-2">
             {tiers.map((tier: any, tierIdx: number) => (
               <div
@@ -153,11 +153,11 @@ export function PricingTitle() {
             <h1 className="mt-2 text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl">
               Choose a plan
             </h1>
-            <p className="mx-auto mt-6 max-w-2xl text-center text-lg leading-8 text-gray-600">
-              Discovering and cooking new recipes has never been easier
+            <p className="mx-auto mt-4 max-w-2xl text-center text-lg leading-8 text-gray-700">
+              Join hundreds of users enjoying home cooked meals with Zesti!
             </p>
-            <p className="mx-auto sm:mb-4 mt-2 max-w-xl w-fit pr-2 pl-2 text-center text-sm leading-8 text-gray-600 border rounded-2xl font-semibold">
-              Price shown in local currency at checkout
+            <p className="mx-auto sm:mb-4 mt-4 max-w-xl w-fit pr-2 pl-2 text-center leading-8 border border-primary-main rounded-3xl text-gray-600">
+              Try for Free. Cancel anytime.
             </p>
           </div>
         </div>
