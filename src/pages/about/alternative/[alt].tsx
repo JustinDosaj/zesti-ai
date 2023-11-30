@@ -4,8 +4,8 @@ import React from 'react'
 import Head from "next/head";
 import { db } from "@/pages/api/firebase/firebase";
 import { AltHero } from "@/components/alternatives/althero";
-import { FAQ } from "@/components/home-sections/home";
 import { AltCompare } from "@/components/alternatives/altCompare";
+import { FAQ, TryPremiumCTA, ZestiTools, HomeChat, HomeDashDisplay, HomeRecipeDisplay } from '@/components/home-sections/home';
 
 const raleway = Raleway({subsets: ['latin']})
 
@@ -35,7 +35,12 @@ const Alternative: React.FC = ({data}: any) => {
           urlToRecipe={data?.urlToRecipe}
           aiGeneratedRecipe={data?.recipeGenerator}
           chatAssistance={data?.chatAssist}
-          />
+        />
+        <ZestiTools/>
+        <HomeChat/>
+        <HomeDashDisplay/>
+        <HomeRecipeDisplay/>
+        <TryPremiumCTA/>
         <FAQ/>
       </main>
     </>

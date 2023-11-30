@@ -4,12 +4,10 @@ import { Fragment, useRef } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 import { CheckIcon } from '@heroicons/react/24/outline'
 import Link from 'next/link'
-import { XMarkIcon, TrashIcon, UserCircleIcon, SquaresPlusIcon, UsersIcon, EnvelopeIcon, PaperAirplaneIcon, PlusIcon } from '@heroicons/react/20/solid'
+import { XMarkIcon, TrashIcon, UserCircleIcon, SquaresPlusIcon, PlusIcon } from '@heroicons/react/20/solid'
 import { deleteRecipe } from '@/pages/api/firebase/functions'
 import { useAuth } from '@/pages/api/auth/auth'
 import React, { useState } from 'react'
-import { Button } from './button'
-
 
 interface Props {
     isOpen: boolean,
