@@ -5,11 +5,9 @@ import { useAuth } from "@/pages/api/auth/auth";
 import React, { useState, useEffect } from 'react'
 import { InputResponseModal, NotLoggedInModal } from "../shared/modals";
 import 'react-toastify/dist/ReactToastify.css';
-import Link from "next/link";
 import { handleWebURLSubmit } from "@/pages/api/handler/submit";
 import { Notify } from '../shared/notify';
 import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 import { Container } from "../shared/container";
 import { Paragraph } from "../shared/paragraph";
 import { LightBulbIcon, ExclamationTriangleIcon } from '@heroicons/react/20/solid'

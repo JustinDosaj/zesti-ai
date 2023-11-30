@@ -1,17 +1,16 @@
-import { BtnLink } from "../shared/btnlink";
 import { Container } from "../shared/container";
 import { Paragraph } from "../shared/paragraph";
-import { Button } from "../shared/button";
+import { Button, BtnLink, InlineBtnLink } from "../shared/button";
 import { Title } from "../shared/title";
-import Link from "next/link";
 import React from 'react'
 import Image from "next/image";
 import 'react-toastify/dist/ReactToastify.css';
 import { useRouter } from "next/router";
 import { useAuth } from "@/pages/api/auth/auth";
-import { VideoCameraIcon, ComputerDesktopIcon, StarIcon, CheckIcon } from '@heroicons/react/20/solid'
+import { VideoCameraIcon, ComputerDesktopIcon, StarIcon, CheckIcon, ChevronDoubleRightIcon } from '@heroicons/react/20/solid'
 import { Disclosure } from '@headlessui/react'
 import { MinusSmallIcon, PlusSmallIcon } from '@heroicons/react/24/outline'
+import Link from "next/link";
 
 export function Hero(){
 
@@ -131,19 +130,22 @@ export function ZestiTools() {
 
     const cards = [
       {
-        name: 'Generate Recipe',
-        description: 'Use Zesti AI to generate a recipe from a list of ingredients, description or dish name.',
+        name: 'AI Recipe Generator',
+        description: 'Create a recipe from a list of ingredients, description or dish name.',
         icon: StarIcon,
+        href: '/about/tools/create-recipe'
       },
       {
         name: 'Save Tiktok & YouTube Recipes',
-        description: 'Say goodbye to pausing and rewinding cooking videos to get every detail.',
+        description: 'No more pausing or rewinding cooking videos to get every detail.',
         icon: VideoCameraIcon,
+        href: '/about/tools/social-media-recipe'
       },
       {
         name: 'Ad-Free Web Recipe',
-        description: 'Remove clutter from website recipes using Zesti',
+        description: 'Remove clutter and invasive ads from website recipes using Zesti',
         icon: ComputerDesktopIcon,
+        href: '/about/tools/web-recipe'
       },
     ]
   
@@ -153,7 +155,7 @@ export function ZestiTools() {
               <div className="mx-auto max-w-7xl px-6 lg:px-8">
                   <div className="mx-auto max-w-3xl text-center">
                       <Title className="mt-2 text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl">
-                      No More
+                        No More
                       <span className="text-transparent bg-clip-text bg-gradient-to-br from-primary-main from-20% via-primary via-30% to-color-alt-red pl-2 pr-2">Cluttered Recipes</span>
                       </Title>
                       <Paragraph className="mt-6 text-lg leading-8 text-gray-800">
@@ -163,11 +165,15 @@ export function ZestiTools() {
                   <div className="mx-auto mt-16 grid max-w-2xl grid-cols-1 gap-6 sm:mt-20 lg:mx-0 lg:max-w-none lg:grid-cols-3 lg:gap-8">
                   {cards.map((card) => (
                       <div key={card.name} className="flex gap-x-4 rounded-xl bg-white/5 p-6 ring-1 ring-inset ring-white/10 border">
-                      <card.icon className="h-7 w-5 flex-none text-primary-main" aria-hidden="true" />
-                      <div className="text-base leading-7">
-                          <h3 className="font-semibold text-gray-800">{card.name}</h3>
-                          <p className="mt-2 text-gray-600">{card.description}</p>
-                      </div>
+                        <card.icon className="h-7 w-5 flex-none text-primary-main" aria-hidden="true" />
+                        <div className="text-base leading-7">
+                            <h3 className="font-semibold text-gray-800">{card.name}</h3>
+                            <p className="mt-2 text-gray-600">{card.description}</p>
+                            <Link href={card.href} className="text-primary-main hover:text-primary-alt inline-flex items-center space-x-1 underline">
+                              <span className="text-sm md:text-base">Learn More</span>
+                              <ChevronDoubleRightIcon className="h-4 w-4"/>
+                            </Link>
+                        </div>
                       </div>
                   ))}
                   </div>

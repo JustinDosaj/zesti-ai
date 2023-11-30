@@ -7,7 +7,7 @@ import { useState, useEffect } from "react"
 import { Bars3Icon } from '@heroicons/react/24/outline'
 import { Fragment } from 'react'
 import { Menu, Transition } from '@headlessui/react'
-import { BtnLink } from "@/components/shared/btnlink"
+import { BtnLink } from "../shared/button"
 import Link from "next/link"
 import Image from "next/image"
 import { db } from "@/pages/api/firebase/firebase"
