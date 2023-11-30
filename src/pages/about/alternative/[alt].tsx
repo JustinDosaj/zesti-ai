@@ -1,10 +1,10 @@
 import { GetServerSideProps } from "next";
 import { Raleway } from 'next/font/google'
-import React, {useEffect, useState} from 'react'
+import React from 'react'
 import Head from "next/head";
 import { db } from "@/pages/api/firebase/firebase";
 import { AltHero } from "@/components/alternatives/althero";
-import { FAQ } from "@/components/home-sections/faq";
+import { FAQ } from "@/components/home-sections/home";
 import { AltCompare } from "@/components/alternatives/altCompare";
 
 const raleway = Raleway({subsets: ['latin']})
