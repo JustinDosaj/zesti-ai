@@ -25,7 +25,7 @@ export function AltHero({name}: HeroProps){
                         <span className="text-black">for AI Powered Cooking Assistance</span>
                     </h1>
                     <Paragraph className="text-lg mt-8 text-black">
-                        Get your questions answered on the fly, create delicious recipes with what you have available, generate new ideas and turn cooking videos into ad-free text recipe
+                        Instantly save YouTube & Tiktok recipes, use ai to create delicious recipes, and get your cooking questions answered immediately without leaving the recipe!
                     </Paragraph>
                     <BtnLink text="Try Zesti for Free" href="/login" className="align-middle mt-4 text-lg"/>
                 </div>
