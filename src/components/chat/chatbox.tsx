@@ -2,8 +2,8 @@ import React, { useRef, useState, ChangeEvent, MouseEvent, useEffect } from 'rea
 import { ChatBubbleLeftEllipsisIcon, PaperAirplaneIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import { db } from '@/pages/api/firebase/firebase';
 import { useAuth } from '@/pages/api/auth/auth';
-import { doc, updateDoc, arrayUnion, serverTimestamp, setDoc, collection, onSnapshot, query, orderBy, where, Timestamp } from 'firebase/firestore';
-import { InlineBtnLink } from '../shared/inline-btn-link';
+import { doc, setDoc, collection, onSnapshot, query, orderBy, where, Timestamp } from 'firebase/firestore';
+import { InlineBtnLink, BtnLink } from '../shared/button';
 
 interface Message {
   id: string;

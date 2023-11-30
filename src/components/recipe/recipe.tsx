@@ -1,6 +1,6 @@
 import { Fragment, useState } from 'react'
 import { Menu, Transition } from '@headlessui/react'
-import { EllipsisVerticalIcon, PencilSquareIcon, XCircleIcon, CheckIcon, TrashIcon  } from '@heroicons/react/20/solid'
+import { EllipsisVerticalIcon, PencilSquareIcon, TrashIcon  } from '@heroicons/react/20/solid'
 
 
 function classNames(...classes: (string | undefined | null | false)[]): string {

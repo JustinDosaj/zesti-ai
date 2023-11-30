@@ -5,9 +5,8 @@ import { useAuth } from "@/pages/api/auth/auth";
 import React, { useState, useEffect } from 'react'
 import { handleYouTubeURLSubmit, handleTikTokURLSubmit } from "@/pages/api/handler/submit";
 import { InputResponseModal, NotLoggedInModal } from "../shared/modals";
-import Link from "next/link";
 import { Notify } from '../shared/notify';
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Container } from "../shared/container";
 import { Paragraph } from "../shared/paragraph";
