@@ -63,7 +63,7 @@ export function SocialMediaRecipeQuickGuide() {
                       <span className="text-black">Has Never Been Easier</span>
                       </Title>
                       <Paragraph className="mt-6 text-lg leading-8 text-gray-800">
-                        All your tools are accessible through the dashboard, once you've created an account you can access the tools there to get started
+                        All your tools are accessible through the dashboard, once you have created an account you can access the tools there to get started
                       </Paragraph>
                   </div>
                   <div className="mx-auto mt-16 grid max-w-2xl grid-cols-1 gap-6 sm:mt-20 lg:mx-0 lg:max-w-none lg:grid-cols-3 lg:gap-8">
@@ -139,7 +139,7 @@ export function CreateRecipeQuickGuide() {
                       <span className="text-black">Recipes</span>
                       </Title>
                       <Paragraph className="mt-6 text-lg leading-8 text-gray-800">
-                        All your tools are accessible through the dashboard, once you've created an account you can access the tools there to get started
+                        All your tools are accessible through the dashboard, once you have created an account you can access the tools there to get started
                       </Paragraph>
                   </div>
                   <div className="mx-auto mt-16 grid max-w-2xl grid-cols-1 gap-6 sm:mt-20 lg:mx-0 lg:max-w-none lg:grid-cols-3 lg:gap-8">
@@ -213,7 +213,7 @@ export function WebRecipeQuickGuide() {
                       <span className="text-transparent bg-clip-text bg-gradient-to-br from-primary-main from-20% via-primary via-30% to-color-alt-red"> Cluttered Websites</span>
                       </Title>
                       <Paragraph className="mt-6 text-lg leading-8 text-gray-800">
-                        All your tools are accessible through the dashboard, once you've created an account you can access the tools there to get started
+                        All your tools are accessible through the dashboard, once you have created an account you can access the tools there to get started
                       </Paragraph>
                   </div>
                   <div className="mx-auto mt-16 grid max-w-2xl grid-cols-1 gap-6 sm:mt-20 lg:mx-0 lg:max-w-none lg:grid-cols-3 lg:gap-8">
