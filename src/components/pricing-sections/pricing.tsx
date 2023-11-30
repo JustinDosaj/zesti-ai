@@ -10,8 +10,8 @@ import { useState } from "react";
 import { useRouter } from "next/router";
 
 function classNames(...classes: (string | undefined | null | false)[]): string {
-    return classes.filter(Boolean).join(' ');
-  }
+  return classes.filter(Boolean).join(' ');
+}
 
 export function PricingDisplay() {
 
