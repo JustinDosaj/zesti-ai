@@ -10,9 +10,9 @@ export default function SocialMediaRecipe() {
     return (
     <>
       <Head>
-        <title>Zesti | Best AI Recipe Idea Generator</title>
-        <meta name="title" content="Zesti | Best AI Recipe Idea Generator"/>
-        <meta name="description" content="Let AI generate amazing recipe ideas just for you or take control use it to help create something amazing from scratch!"/>
+        <title>Zesti | Remove Clutter & Ads from Recipes</title>
+        <meta name="title" content="Zesti | Remove Clutter & Ads from Recipes"/>
+        <meta name="description" content="Let Zesti AI remove the clutter and ad spam that occurs on website recipes."/>
       </Head>
       <main className={`flex min-h-screen flex-col items-center bg-background ${raleway.className}`}>
         <WebRecipeHero/>
