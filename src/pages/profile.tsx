@@ -1,16 +1,14 @@
 import { Container } from "@/components/shared/container"
 import { Raleway } from 'next/font/google'
-import { Button, AltButton } from "@/components/shared/button"
+import { Button, AltButton, InlineBtnLink } from "@/components/shared/button"
 import { useAuth } from "./api/auth/auth"
 import React, { useState, useEffect } from 'react'
 import { useRouter } from "next/router"
-import { getSubscription, getUserData } from "./api/firebase/functions"
-import { CheckIcon, XMarkIcon } from "@heroicons/react/20/solid"
+import { CheckIcon } from "@heroicons/react/20/solid"
 import Head from "next/head"
 import { ChevronDoubleUpIcon } from "@heroicons/react/20/solid"
 import { db } from "./api/firebase/firebase"
 import GoogleTags from "@/components/google/conversion"
-import { InlineBtnLink } from "@/components/shared/inline-btn-link"
 
 const raleway = Raleway({subsets: ['latin']})
 

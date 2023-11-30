@@ -4,7 +4,7 @@ import React from 'react'
 import { Container } from "@/components/shared/container";
 import GoogleTags from '@/components/google/conversion';
 import { Title } from '@/components/shared/title';
-import { InlineBtnLink } from '@/components/shared/inline-btn-link';
+import { InlineBtnLink } from '@/components/shared/button';
 import { useAuth } from '../api/auth/auth';
 
 import Head from "next/head";

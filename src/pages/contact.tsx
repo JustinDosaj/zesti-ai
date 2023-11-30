@@ -3,7 +3,7 @@ import { Paragraph } from "@/components/shared/paragraph"
 import { Container } from "@/components/shared/container"
 import { Button } from "@/components/shared/button"
 import { Raleway } from 'next/font/google'
-import { EnvelopeIcon, MapPinIcon, UsersIcon, PaperAirplaneIcon } from "@heroicons/react/24/outline"
+import { EnvelopeIcon, UsersIcon, PaperAirplaneIcon } from "@heroicons/react/24/outline"
 import Head from 'next/head';
 import GoogleTags from "@/components/google/conversion"
 

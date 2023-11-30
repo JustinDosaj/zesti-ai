@@ -4,7 +4,7 @@ import { Paragraph } from "../shared/paragraph";
 import React from 'react'
 import Image from "next/image";
 import 'react-toastify/dist/ReactToastify.css';
-import { BtnLink } from "../shared/btnlink";
+import { BtnLink } from "../shared/button";
 
 interface HeroProps {
     name: string,

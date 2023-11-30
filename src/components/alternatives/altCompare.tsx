@@ -3,7 +3,7 @@ import { Container } from "../shared/container";
 import 'react-toastify/dist/ReactToastify.css';
 import React from 'react'
 import { CheckIcon, XMarkIcon } from '@heroicons/react/20/solid'
-import { BtnLink } from "../shared/btnlink";
+import { BtnLink } from "../shared/button";
 
 interface CompetitorApp {
     name: string;
