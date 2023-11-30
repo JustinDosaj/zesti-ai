@@ -1,11 +1,8 @@
 import { Raleway } from 'next/font/google'
-import { Hero } from '@/components/home-sections/hero'
-import { FAQ } from '@/components/home-sections/faq';
-import { Optimize } from '@/components/home-sections/optimize'
+import { FAQ, TryPremiumCTA, Hero, ZestiTools, HomeChat, HomeDashDisplay, HomeRecipeDisplay } from '@/components/home-sections/home';
 import Head from 'next/head';
-import { Reach } from '@/components/home-sections/reach';
 import GoogleTags from '@/components/google/conversion';
-import React, { useEffect } from 'react';
+import React from 'react';
 
 const raleway = Raleway({subsets: ['latin']})
 
@@ -28,8 +25,11 @@ export default function Success() {
 
       <main className={`flex min-h-screen flex-col items-center justify-between bg-background ${raleway.className}`}>
         <Hero/>
-        <Optimize/>
-        <Reach/>
+        <ZestiTools/>
+        <HomeChat/>
+        <HomeDashDisplay/>
+        <HomeRecipeDisplay/>
+        <TryPremiumCTA/>
         <FAQ/>
       </main>
     </>
