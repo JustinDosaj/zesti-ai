@@ -1,10 +1,9 @@
 import { Raleway } from 'next/font/google'
-import { Hero } from '@/components/home-sections/hero'
 import Head from 'next/head';
 import { VideoComponent, VideoHero, VideoTips } from '@/components/hub/video';
 import { useAuth } from '../api/auth/auth';
 import { PricingDisplay } from '@/components/pricing-sections/pricing';
-import { FAQ } from '@/components/home-sections/faq';
+import { FAQ } from '@/components/home-sections/home';
 import { ToolLoader } from '@/components/shared/loader';
 
 const raleway = Raleway({subsets: ['latin']})

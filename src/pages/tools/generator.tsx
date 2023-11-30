@@ -3,7 +3,7 @@ import React from 'react';
 import { ChatHero, ChatTips } from '@/components/hub/chat';
 import Head from 'next/head';
 import { ChatComponent } from '@/components/hub/chat';
-import { FAQ } from '@/components/home-sections/faq';
+import { FAQ } from '@/components/home-sections/home';
 import { useAuth } from '../api/auth/auth';
 
 const raleway = Raleway({subsets: ['latin']})
