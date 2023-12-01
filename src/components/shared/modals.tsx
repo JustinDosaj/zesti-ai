@@ -5,6 +5,7 @@ import { Dialog, Transition } from '@headlessui/react'
 import { CheckIcon } from '@heroicons/react/24/outline'
 import Link from 'next/link'
 import { XMarkIcon, TrashIcon, UserCircleIcon, SquaresPlusIcon, PlusIcon } from '@heroicons/react/20/solid'
+import {PencilIcon} from '@heroicons/react/24/outline'
 import { deleteRecipe } from '@/pages/api/firebase/functions'
 import { useAuth } from '@/pages/api/auth/auth'
 import React, { useState } from 'react'
@@ -386,11 +387,12 @@ export function AdvancedControlsModal({isOptionsOpen, setIsOptionsOpen, setUserI
 
   const cancelButtonRef = useRef(null)
   const [ingredients, setIngredients] = useState<string[]>([]);
-  const [ingredientInput, setIngredientInput] = useState('');
-  const [mealType, setMealType] = useState('');
-  const [recipeTime, setRecipeTime] = useState('');
-  const [servings, setServings] = useState('');
-  const [skillLevel, setSkillLevel] = useState('');
+  const [ingredientInput, setIngredientInput] = useState<string>('');
+  const [mealType, setMealType] = useState<string>('');
+  const [recipeTime, setRecipeTime] = useState<string>('');
+  const [servings, setServings] = useState<string>('');
+  const [skillLevel, setSkillLevel] = useState<string>('');
+  const [additionalInfo, setAdditionalInfo] = useState<string>('')
 
   const handleAddIngredient = () => {
     if (ingredientInput) {
@@ -417,13 +419,14 @@ export function AdvancedControlsModal({isOptionsOpen, setIsOptionsOpen, setUserI
 
   const handleAdvancedSubmit = () => {
     
-    const userInputValue = `Ingredients: ${ingredients.join(', ')}, Meal Type: ${mealType}, Recipe Time: ${recipeTime} minutes, Servings: ${servings}, Skill Level: ${skillLevel}`;
+    const userInputValue = `Ingredients: ${ingredients.join(', ')}, Meal Type: ${mealType}, Recipe Time: ${recipeTime} minutes, Servings: ${servings}, Skill Level: ${skillLevel}, Additional Details: ${additionalInfo}`;
 
     onSubmit(userInputValue)
 
     setIngredients([])
     setIngredientInput('')
     setMealType('')
+    setAdditionalInfo('')
     setRecipeTime('')
     setServings('')
     setSkillLevel('')
@@ -520,6 +523,13 @@ export function AdvancedControlsModal({isOptionsOpen, setIsOptionsOpen, setUserI
                       <div className="py-1 pl-6 w-full pr-1 flex gap-3 items-center text-heading-3 shadow-lg shadow-box-shadow border border-box-border bg-box-bg rounded-full ease-linear focus-within:bg-body focus-within:border-primary">
                         <input type="number" value={servings} onChange={(e) => setServings(e.target.value)} placeholder="Servings" className="p-2 w-full bg-transparent outline-none text-gray-700"/>
                       </div>
+                    </div>
+                    <div className="py-1 pl-6 w-full pr-1 flex gap-3 items-center text-heading-3 shadow-lg shadow-box-shadow border border-box-border bg-box-bg rounded-full ease-linear focus-within:bg-body focus-within:border-primary">
+                        <button className="min-w-max pr-2 border-r border-box-border inline-flex" onClick={handleAddIngredient}>
+                            <PencilIcon className="h-5 w-5 text-black"/>                                                             
+                        </button>
+                        <input type="text" className="w-full py-2 outline-none bg-transparent text-gray-700"
+                          value={ingredientInput} onChange={(e) => setAdditionalInfo(e.target.value)} placeholder="Additional Details for Zesti" maxLength={500}/>
                     </div>
                   </div>
                   {/*Form Adjust END*/}
