@@ -525,11 +525,11 @@ export function AdvancedControlsModal({isOptionsOpen, setIsOptionsOpen, setUserI
                       </div>
                     </div>
                     <div className="py-1 pl-6 w-full pr-1 flex gap-3 items-center text-heading-3 shadow-lg shadow-box-shadow border border-box-border bg-box-bg rounded-full ease-linear focus-within:bg-body focus-within:border-primary">
-                        <button className="min-w-max pr-2 border-r border-box-border inline-flex" onClick={handleAddIngredient}>
+                        <div className="min-w-max pr-2 border-r border-box-border inline-flex">
                             <PencilIcon className="h-5 w-5 text-black"/>                                                             
-                        </button>
+                        </div>
                         <input type="text" className="w-full py-2 outline-none bg-transparent text-gray-700"
-                          value={ingredientInput} onChange={(e) => setAdditionalInfo(e.target.value)} placeholder="Additional Details for Zesti" maxLength={500}/>
+                          value={additionalInfo} onChange={(e) => setAdditionalInfo(e.target.value)} placeholder="Additional Details for Zesti" maxLength={500}/>
                     </div>
                   </div>
                   {/*Form Adjust END*/}
