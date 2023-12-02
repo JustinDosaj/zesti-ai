@@ -77,7 +77,7 @@ export function UrlComponent() {
     )
 }
 
-export function UrlHero({role}: any){
+export function UrlHero({role, tokens}: any){
     return(
         <section className="relative pt-24 lg:pt-36">
             <Container className={"flex flex-col lg:flex-row gap-10 lg:gap-12"}>
@@ -88,10 +88,10 @@ export function UrlHero({role}: any){
                         <span className="text-black"> From Recipe Websites</span>
                     </h1>
                     <Paragraph className="text-base sm:text-lg mt-4 sm:mt-8 text-black">
-                        {role == 'premium' ?
+                        {role == 'premium' || tokens > 0 ?
                         `Copy and paste the link from a recipe you found on a website, and Zesti will create a recipe without invasive ads`
                         :
-                        `Try a free 7-day trial of Zesti Premium to save a website recipe without the ads and clutter`
+                        `Try a free 7-day trial of Zesti Premium to save more recipes this month`
                         }
                     </Paragraph>
                 </div>
