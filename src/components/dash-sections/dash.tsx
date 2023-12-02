@@ -62,14 +62,14 @@ export function Tools() {
         { 
             id: 2, 
             name: 'Social Media Recipe', 
-            icon: stripeRole == 'premium' ? VideoCameraIcon : LockClosedIcon, 
+            icon: VideoCameraIcon, 
             colorType: 'red', 
             href: '/tools/video', 
             desc: "Save recipes from YouTube or TikTok" },
         { 
             id: 3, 
             name: 'Website Recipe', 
-            icon: stripeRole == 'premium' ? LinkIcon : LockClosedIcon, 
+            icon: LinkIcon, 
             colorType: 'yellow', 
             href: '/tools/website', 
             desc: "Remove clutter from recipe websites"
@@ -122,16 +122,16 @@ interface Recipe {
 interface UsageProps {
     data: Recipe[];
     tokens: number;
-    usage: number;
   }
 
-export function Usage({data, tokens, usage}: UsageProps) {
+export function Usage({data, tokens}: UsageProps) {
 
     const { stripeRole } = useAuth()
+    console.log(tokens)
     
     const stats = [
-        { name: 'Recipes Remaining', value: `${stripeRole == 'premium' ? usage : tokens ? tokens : `5` }`},
-        { name: 'Saved Recipes', value: `${stripeRole !== 'premium' ? `${data.length} / 5` : `${data.length} / unlimited`}`},
+        { name: 'Recipes Remaining', value: `${tokens ? tokens : 0 }`},
+        { name: 'Saved Recipes', value: `${data.length}`},
         { name: 'Account Status', value: `${stripeRole ? stripeRole : 'Free'}`},
       ]
 

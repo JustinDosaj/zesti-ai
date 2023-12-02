@@ -93,7 +93,7 @@ export function VideoComponent() {
     )
 }
 
-export function VideoHero({role}: any){
+export function VideoHero({role, tokens}: any){
 
     return(
         <section className="relative pt-24 lg:pt-36">
@@ -105,10 +105,10 @@ export function VideoHero({role}: any){
                         <span className="text-black"> Recipes</span>
                     </h1>
                     <Paragraph className="text-base sm:text-lg mt-4 sm:mt-8 text-black">
-                        {role == 'premium' ?
+                        {role == 'premium' || tokens > 0 ?
                         `Find a recipe on Tiktok or YouTube and simply enter the video link to convert it to a text recipe`
                         :
-                        `Try a free 7-day trial of Zesti Premium to save Tiktok or YouTube recipes`
+                        `Try a free 7-day trial of Zesti Premium to save more recipes this month`
                         }
                     </Paragraph>
                 </div>
