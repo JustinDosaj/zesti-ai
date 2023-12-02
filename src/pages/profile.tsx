@@ -15,9 +15,7 @@ const raleway = Raleway({subsets: ['latin']})
 export default function Profile() {
 
     const { user, logout, isLoading, stripeRole } = useAuth();
-    const [onFirstLoad, setOnFirstLoad] = useState<boolean>(true)
     const [tokens, setTokens] = useState<number>(0)
-    const [ usage, setUsage ] = useState<number>(0)
     const router = useRouter();
   
       useEffect(() => {
@@ -33,7 +31,6 @@ export default function Profile() {
                 .onSnapshot((doc: any) => {
                     const userData = doc.data();
                     setTokens(userData?.tokens || 0);
-                    if (stripeRole == 'premium') { setUsage(userData?.premiumUsage) }
                 });
 
             return () => unsubscribe();
@@ -62,7 +59,7 @@ export default function Profile() {
                 <dl className="flex flex-wrap">
                   <div className="flex-auto pl-6">
                       <dt className="text-sm font-semibold leading-6 text-gray-900">Remaining Videos</dt>
-                      <dd className="mt-1 text-base font-semibold leading-6 text-gray-900">{stripeRole == 'premium' ? usage : tokens}</dd>
+                      <dd className="mt-1 text-base font-semibold leading-6 text-gray-900">{tokens ? tokens : 'N/A'}</dd>
                   </div>
                   <div className="flex-none self-end px-6 pt-4">
                       <dt className="sr-only">Status</dt>
@@ -76,7 +73,7 @@ export default function Profile() {
                     <div className="space-y-2">
                       <div className="inline-flex space-x-2 align-middle items-center">
                         <CheckIcon className="h-5 w-5 text-color-alt-green"/>
-                        <span className="text-gray-700">Generate Unlimited AI Recipes</span>
+                        <span className="text-gray-700">Unlimited AI Generated Recipes</span>
                       </div>
                       <div className="inline-flex space-x-2 align-middle items-center">
                         <CheckIcon className="h-5 w-5 text-color-alt-green"/>
@@ -84,7 +81,7 @@ export default function Profile() {
                       </div>
                       <div className="inline-flex space-x-2 align-middle items-center">
                         <CheckIcon className="h-5 w-5 text-color-alt-green"/>
-                        <span className="text-gray-700">Cooking Video Conversion Tool</span>
+                        <span className="text-gray-700">Save Tiktok & YouTube Cooking Videos</span>
                       </div>
                       <div className="inline-flex space-x-2 align-middle items-center">
                         <CheckIcon className="h-5 w-5 text-color-alt-green"/>
@@ -103,11 +100,15 @@ export default function Profile() {
                     <div className="space-y-2">
                       <div className="inline-flex space-x-2 align-middle items-center">
                         <CheckIcon className="h-5 w-5 text-color-alt-green"/>
-                        <span className="text-gray-700">5 AI Recipes Per Month</span>
+                        <span className="text-gray-700">3 Recipes Per Month</span>
                       </div>
                       <div className="inline-flex space-x-2 align-middle items-center">
                         <CheckIcon className="h-5 w-5 text-color-alt-green"/>
-                        <span className="text-gray-700">Save up to 5 Recipes</span>
+                        <span className="text-gray-700">Save Tiktok & YouTube Cooking Videos</span>
+                      </div>
+                      <div className="inline-flex space-x-2 align-middle items-center">
+                        <CheckIcon className="h-5 w-5 text-color-alt-green"/>
+                        <span className="text-gray-700">Website Recipe Transformation Tool</span>
                       </div>
                       <div className="inline-flex space-x-2 align-middle items-center">
                         <CheckIcon className="h-5 w-5 text-color-alt-green"/>

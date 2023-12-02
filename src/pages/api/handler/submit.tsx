@@ -49,6 +49,7 @@ export interface Props {
 }
 
 export async function getVideoLength(url_id: any) {
+    
     const apiKey = process.env.NEXT_PUBLIC_VIDEO_LENGTH_API_KEY;
 
     try {
@@ -91,15 +92,15 @@ export const handleYouTubeURLSubmit = async ({url, user, setMessage, stripeRole,
         return false;
     }
     
-    let usage = 0;
-    await getUserData(user?.uid).then((res) => {usage = res?.premiumUsage})
+    let tokens = 0;
+    await getUserData(user?.uid).then((res) => {tokens = res?.tokens})
 
-    if (usage >= 1 && stripeRole == 'premium') {
+    if (tokens >= 1) {
         try {
             await db.collection('users').doc(user.uid).collection('youtubeurl').doc().set(falseObj)
             setMessage("The recipe has begun progressing and will appear in your dashboard shortly.")
             await db.collection('users').doc(user.uid).update({
-                premiumUsage: increment(-1)
+                tokens: increment(-1)
             })
             return true
         } catch (err) {
@@ -137,10 +138,6 @@ export const handleTikTokURLSubmit = async ({url, setUrl, user, setMessage, stri
 
     if(url.includes('tiktok.com/t/')) {
         url_id = url?.match(/^https:\/\/www\.tiktok\.com\/t\/([A-Za-z0-9_-]+)\/?$/);
-        
-        //setNotify(true)
-        //setMessage("There is currently a problem with short links. Paste current link in any browser to get the format: https://www.tiktok.com/@user/video/123. ")
-        //return false;
     } else {
         url_id = url?.match(/tiktok\.com\/@[^\/]+\/video\/(\d+)/);
     }
@@ -154,15 +151,15 @@ export const handleTikTokURLSubmit = async ({url, setUrl, user, setMessage, stri
         "date": date
     }
     
-    let usage = 0;
-    await getUserData(user?.uid).then((res) => {usage = res?.premiumUsage})
+    let tokens = 0;
+    await getUserData(user?.uid).then((res) => {tokens = res?.tokens})
 
-    if (usage >= 1 && stripeRole == 'premium') {
+    if (tokens >= 1) {
         try {
             await db.collection('users').doc(user.uid).collection('tiktokurl').doc().set(falseObj)
             setMessage("The recipe has begun processing and will appear in your dashboard shortly.")
             await db.collection('users').doc(user.uid).update({
-                premiumUsage: increment(-1)
+                tokens: increment(-1)
             })
             return true
         } catch (err) {
@@ -219,12 +216,6 @@ export const handleCreativeChatSubmit = async({input, user, setMessage, stripeRo
 
     let tokens = 0;
     await getUserData(user?.uid).then((res) => {tokens = res?.tokens})
-
-    if (recipes.length >= 5) {
-        setNotify(true)
-        setMessage("Max saved recipes reached. Upgrade subscription for more space")
-        return false
-    }
             
     if (tokens >= 1) {
         try {
@@ -278,15 +269,15 @@ export const handleWebURLSubmit = async ({url, user, setMessage, stripeRole, set
         "date": date
     }
 
-    let usage = 0;
-    await getUserData(user?.uid).then((res) => {usage = res?.premiumUsage})
+    let tokens = 0;
+    await getUserData(user?.uid).then((res) => {tokens = res?.tokens})
     
-    if (usage >= 1 && stripeRole == 'premium') {
+    if (tokens >= 1) {
         try {
             await db.collection('users').doc(user.uid).collection('weburl').doc().set(falseObj)
             setMessage("The recipe has begun progressing and will appear in your dashboard shortly.")
             await db.collection('users').doc(user.uid).update({
-                premiumUsage: increment(-1)
+                tokens: increment(-1)
             })
             return true
         } catch (err) {

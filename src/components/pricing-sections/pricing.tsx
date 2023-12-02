@@ -28,8 +28,7 @@ export function PricingDisplay() {
           description: 'Unlock the full potential of Zesti',
           features: [
             'Unlimited AI Generated Recipes',
-            'Unlimited Recipe Book Storage',
-            'Save Tiktok & YouTube Recipes (30/Month)',
+            'Save Tiktok & YouTube Recipe (30/Month)',
             'Save Website Recipes Without Ads',
             'AI Chat Assistant While Cooking',
             'Edit Recipes',
@@ -48,8 +47,8 @@ export function PricingDisplay() {
           priceMonthly: '$0',
           description: "The perfect plan if you're just getting started with Zesti",
           features: [
-            '5 AI Generated Recipes Per Month', 
-            'Recipe Book Limited to 5',
+            'Save/Create 3 Recipes Per Month',
+            'Save TikTok or YouTube Recipes OR Generate AI Recipes',
             'AI Chat Assistant while cooking',
             'Edit recipes',
         ],

@@ -25,7 +25,8 @@ export function SocialMediaRecipeHero(){
                     <Paragraph className="text-lg mt-8 text-black">
                         Say goodbye to pausing, rewinding and restarting. Zesti Premium lets you transform a cooking video from TikTok or YouTube to an easy-to-follow text recipe!
                     </Paragraph>
-                    <BtnLink text="Start Free 7-Day Trial" href="/pricing" className="align-middle mt-4 text-lg"/>
+                    <BtnLink text="Try for Free!" href="/login" className="align-middle mt-4 text-lg"/>
+                    <p className="text-gray-600">Try for Free. No Credit Card Required.</p>
                 </div>
             </Container>
         </section>
@@ -176,7 +177,8 @@ export function WebRecipeHero(){
                     <Paragraph className="text-lg mt-8 text-black">
                         Tired of the constant ad spam or the paragraphs of information you have to sift through to get a recipe? Zesti will remove all of that instantly!
                     </Paragraph>
-                    <BtnLink text="Start Free 7-Day Trial" href="/pricing" className="align-middle mt-4 text-lg"/>
+                    <BtnLink text="Try for Free!" href="/login" className="align-middle mt-4 text-lg"/>
+                    <p className="text-gray-600">Try for Free. No Credit Card Required.</p>
                 </div>
             </Container>
         </section>
