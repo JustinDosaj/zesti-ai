@@ -121,7 +121,7 @@ export function ChatComponent({role}: any) {
     )
 }
 
-export function ChatHero(){
+export function ChatHero({role, tokens}: any){
 
     return(
         <section className="relative pt-24 lg:pt-36">
@@ -132,7 +132,11 @@ export function ChatHero(){
                         <span className="text-transparent bg-clip-text bg-gradient-to-br from-primary-main from-20% via-primary via-30% to-color-alt-red">AI Generated Recipe</span>
                     </h1>
                     <Paragraph className="text-base sm:text-lg mt-4 sm:mt-8 text-black">
-                        Enter ingredients you have, describe a recipe the best you can, or enter a name of a dish. Then watch Zesti cook up a delicious recipe to follow.
+                        {role == 'premium' || tokens > 0 ?
+                        `Enter ingredients you have, describe a recipe the best you can, or enter a name of a dish. Then watch Zesti cook up a delicious recipe to follow.`
+                        :
+                        `Try a free 7-day trial of Zesti Premium to save more recipes this month`
+                        }
                     </Paragraph>
                 </div>
             </Container>

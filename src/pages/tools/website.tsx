@@ -5,13 +5,26 @@ import { useAuth } from '../api/auth/auth';
 import { PricingDisplay } from '@/components/pricing-sections/pricing';
 import { FAQ } from '@/components/home-sections/home';
 import { ToolLoader } from '@/components/shared/loader';
+import React, { useState, useEffect } from 'react';
+import { db } from '../api/firebase/firebase';
+import { getUserData } from '../api/firebase/functions';
 const raleway = Raleway({subsets: ['latin']})
 
 export default function Website() {
   
   const { user, stripeRole, isLoading } = useAuth()
+  const [ tokens, setTokens ] = useState<number>(0)
 
-  console.log("LOADING: ", isLoading)
+  useEffect( () => { 
+
+    const fetchUserData = async () => {
+        const userData = await getUserData(user?.uid);
+        setTokens(userData?.tokens);
+    };
+    
+    fetchUserData();
+  
+  }, [user])
 
   return (
     <>
@@ -21,11 +34,11 @@ export default function Website() {
         <meta name="description" content="Tired of Ads? Avoid searching through endless clutter and simply input the web URL into Zesti for a recipe you want to enjoy!"/>
       </Head>
       <main className={` flex min-h-screen flex-col items-center bg-background ${raleway.className}`}>
-        <UrlHero role={stripeRole}/>
+        <UrlHero role={stripeRole} tokens={tokens}/>
         { isLoading == true ?
         <ToolLoader/>
         : 
-        stripeRole == 'premium' ?
+        tokens > 0 || stripeRole == 'premium' ?
           <div>
             <UrlComponent/>
             <UrlTips/>

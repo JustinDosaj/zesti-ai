@@ -5,12 +5,27 @@ import { useAuth } from '../api/auth/auth';
 import { PricingDisplay } from '@/components/pricing-sections/pricing';
 import { FAQ } from '@/components/home-sections/home';
 import { ToolLoader } from '@/components/shared/loader';
+import React, { useState, useEffect } from 'react';
+import { db } from '../api/firebase/firebase';
+import { getUserData } from '../api/firebase/functions';
 
 const raleway = Raleway({subsets: ['latin']})
 
 export default function Video() {
 
   const { user, stripeRole, isLoading } = useAuth()
+  const [ tokens, setTokens ] = useState<number>(0)
+
+  useEffect( () => { 
+
+    const fetchUserData = async () => {
+        const userData = await getUserData(user?.uid);
+        setTokens(userData?.tokens);
+    };
+    
+    fetchUserData();
+  
+  }, [user])
 
   return (
     <>
@@ -20,16 +35,16 @@ export default function Video() {
         <meta name="description" content="Say good by to pausing and rewinding, Zesti AI Video to Text Recipe creates an easy-to-follow ingredient and instruction list"/>
       </Head>
       <main className={`flex min-h-screen flex-col items-center bg-background ${raleway.className}`}>
-        <VideoHero role={stripeRole}/>
+        <VideoHero role={stripeRole} tokens={tokens}/>
         { isLoading == true ?
         <ToolLoader/>
         :
-        stripeRole == 'premium' ?
+        tokens > 0 || stripeRole == 'premium'  ?
           <div>
             <VideoComponent/>
             <VideoTips/>
           </div>
-          :
+        :
           <PricingDisplay/>
         }
         <FAQ/>
