@@ -61,7 +61,7 @@ export function Tools() {
             desc: "Create new recipes just for you" },
         { 
             id: 2, 
-            name: 'Social Media Recipe', 
+            name: 'Save Cooking Video', 
             icon: VideoCameraIcon, 
             colorType: 'red', 
             href: '/tools/video', 
