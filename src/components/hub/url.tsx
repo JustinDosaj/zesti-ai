@@ -91,7 +91,7 @@ export function UrlHero({role, tokens}: any){
                         {role == 'premium' || tokens > 0 ?
                         `Copy and paste the link from a recipe you found on a website, and Zesti will create a recipe without invasive ads`
                         :
-                        `Try a free 7-day trial of Zesti Premium to save more recipes this month`
+                        `No more recipes available. Try Zesti Premium free for 7 days to unlock more!`
                         }
                     </Paragraph>
                 </div>

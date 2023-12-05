@@ -157,7 +157,7 @@ export function PricingTitle() {
             <p className="mx-auto mt-4 max-w-2xl text-center text-lg leading-8 text-gray-700">
               Join hundreds of users creating their favorite home cooked meals!
             </p>
-            <p className="mx-auto sm:mb-4 mt-4 max-w-xl w-fit pr-2 pl-2 text-center leading-8 border border-primary-main rounded-3xl text-gray-600">
+            <p className="mx-auto sm:mb-8 mt-4 sm:mt-6 max-w-xl w-fit pr-3 pl-3 text-center leading-8 border border-primary-main rounded-3xl text-gray-600">
               Try for Free. Cancel anytime.
             </p>
           </div>
