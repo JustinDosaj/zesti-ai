@@ -2,6 +2,8 @@ import { collection, doc, addDoc, onSnapshot } from 'firebase/firestore';
 import { db } from '../firebase/firebase';
 
 export async function createPremiumCheckoutSession(id: any) {  // You might want to replace 'any' with the appropriate type for currentUser
+
+
     try {
         const checkoutSessionsCollection = collection(doc(collection(db, 'users'), id), 'checkout_sessions');
         const docRef = await addDoc(checkoutSessionsCollection, {

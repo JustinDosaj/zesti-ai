@@ -135,7 +135,7 @@ export function ChatHero({role, tokens}: any){
                         {role == 'premium' || tokens > 0 ?
                         `Enter ingredients you have, describe a recipe the best you can, or enter a name of a dish. Then watch Zesti cook up a delicious recipe to follow.`
                         :
-                        `Try a free 7-day trial of Zesti Premium to save more recipes this month`
+                        `No more recipes available. Try Zesti Premium free for 7 days to unlock more!`
                         }
                     </Paragraph>
                 </div>
