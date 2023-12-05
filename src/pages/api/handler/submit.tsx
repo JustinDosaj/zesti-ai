@@ -84,12 +84,28 @@ export const handleYouTubeURLSubmit = async ({url, user, setMessage, stripeRole,
         "date": date,
     }
     
-    // Checking video length compared to subscription model
+    /* 
+    * Get video length
+    * Check user role
+    * Check if video length is too large for role
+    * Free Users - Max 5 Minutes | Premium Users - Max 15 Minutes
+    */
     const result = await getVideoLength(url_id ? url_id[1] : null)
-    if ((result?.minutes || 0) > 15) {
-        setMessage("Max video length is 15 minutes");
-        setNotify(true)
-        return false;
+
+    if (stripeRole == 'premium') {
+        if((result?.minutes || 0) > 15) {
+            setMessage("Max video length is 15 minutes")
+            setNotify(true)
+            return false;
+        }
+    }
+
+    if (stripeRole !== 'premium') {
+        if((result?.minutes) || 0 > 5) {
+            setMessage("Max video length for free users is 5 minutes")
+            setNotify(true)
+            return false;
+        }
     }
     
     let tokens = 0;

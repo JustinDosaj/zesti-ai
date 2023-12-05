@@ -21,36 +21,17 @@ export function PricingDisplay() {
 
     const tiers = [
         {
-          name: 'Premium',
-          id: 'tier-premium',
-          trial: true,
-          priceMonthly: '$2.99',
-          description: 'Unlock the full potential of Zesti',
-          features: [
-            'Unlimited AI Generated Recipes',
-            'Save Tiktok & YouTube Recipe (30/Month)',
-            'Save Website Recipes Without Ads',
-            'AI Chat Assistant While Cooking',
-            'Edit Recipes',
-            'Zero Ads'
-          ],
-          featured: true,
-          checkout: () => {
-            setIsLoading(true)
-            createPremiumCheckoutSession(user?.uid)
-          }
-        },
-        {
           name: 'Base',
           id: 'tier-basic',
           trial: false,
           priceMonthly: '$0',
           description: "The perfect plan if you're just getting started with Zesti",
           features: [
-            'Save/Create 3 Recipes Per Month',
-            'Save TikTok or YouTube Recipes OR Generate AI Recipes',
-            'AI Chat Assistant while cooking',
-            'Edit recipes',
+            'Save 3 recipes per month',
+            'Save TikTok & YouTube recipes',
+            'Max Video Length: 5 Minutes',
+            'AI Recipe Generator',
+            'Customize Recipes',
         ],
           featured: false,
           checkout: () => {
@@ -58,12 +39,33 @@ export function PricingDisplay() {
             router.push('/dashboard')
           }
         },
+        {
+          name: 'Premium',
+          id: 'tier-premium',
+          trial: true,
+          priceMonthly: '$2.99',
+          description: 'Unlock the full potential of Zesti',
+          features: [
+            'Save 30 recipes per month',
+            'Save TikTok & YouTube recipes',
+            'Max Video Length: 15 Minutes',
+            'Unlimited AI Generated Recipes',
+            'AI Cooking Support',
+            'Customize Recipes',
+            'Ad-Free'
+          ],
+          featured: true,
+          checkout: () => {
+            setIsLoading(true)
+            createPremiumCheckoutSession(user?.uid)
+          }
+        },
       ]
     
 
     return (
     <Container className={"flex flex-col lg:flex-row gap-10 lg:gap-12 justify-center mt-6 sm:mt-0 mb-12 sm:mb-16"}>
-        <div className="relative isolate bg-white px-2 lg:px-8">
+        <div className="relative isolate bg-white lg:px-8">
           <div className="mx-auto grid max-w-lg grid-cols-1 items-center gap-y-6 sm:gap-y-0 lg:max-w-4xl lg:grid-cols-2">
             {tiers.map((tier: any, tierIdx: number) => (
               <div
@@ -89,7 +91,7 @@ export function PricingDisplay() {
                     {tier.name} 
                   </h3>
                   <div className={tier.trial == true ? `` : `hidden`}>
-                    <div className="bg-gray-900 text-white rounded-xl pt-1 pb-1 pl-2 pr-2">7 Day Free Trial</div>
+                    <div className="bg-gray-900 text-white rounded-xl pt-1 pb-1 pl-2 pr-2">Free 7-Day Trial</div>
                   </div>
                 </div>
                 <p className="mt-4 flex items-baseline gap-x-2">
@@ -146,14 +148,14 @@ export function PricingTitle() {
 
   return(
     <Container className={"flex flex-col lg:flex-row gap-10 lg:gap-12 mt-36"}>
-      <div className="bg-white p-2 mx-auto">
+      <div className="bg-white mx-auto">
         <div className="mx-auto max-w-7xl md:px-6 lg:px-8"></div>
           <div className="mx-auto max-w-4xl text-center">
             <h1 className="mt-2 text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl">
               Choose a plan
             </h1>
             <p className="mx-auto mt-4 max-w-2xl text-center text-lg leading-8 text-gray-700">
-              Join hundreds of users enjoying home cooked meals with Zesti!
+              Join hundreds of users creating their favorite home cooked meals!
             </p>
             <p className="mx-auto sm:mb-4 mt-4 max-w-xl w-fit pr-2 pl-2 text-center leading-8 border border-primary-main rounded-3xl text-gray-600">
               Try for Free. Cancel anytime.
