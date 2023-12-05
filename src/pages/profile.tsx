@@ -52,7 +52,7 @@ export default function Profile() {
                 Manage Profile
               </p>
             </div>
-            <div className="rounded-lg bg-gray-100 shadow-sm ring-1 ring-gray-900/5">
+            <div className="rounded-2xl shadow-lg border border-gray-300">
               <div className="text-center pt-6 pb-6 font-bold text-black">
                   {user?.email}
               </div>
@@ -73,51 +73,58 @@ export default function Profile() {
                     <div className="space-y-2">
                       <div className="inline-flex space-x-2 align-middle items-center">
                         <CheckIcon className="h-5 w-5 text-color-alt-green"/>
+                        <span className="text-gray-700">Save 30 recipes per month</span>
+                      </div>
+                      <div className="inline-flex space-x-2 align-middle items-center">
+                        <CheckIcon className="h-5 w-5 text-color-alt-green"/>
+                        <span className="text-gray-700">Save TikTok & YouTube recipes</span>
+                      </div>
+                      <div className="inline-flex space-x-2 align-middle items-center">
+                        <CheckIcon className="h-5 w-5 text-color-alt-green"/>
+                        <span className="text-gray-700">Max Video Length: 15 Minutes</span>
+                      </div>
+                      <div className="inline-flex space-x-2 align-middle items-center">
+                        <CheckIcon className="h-5 w-5 text-color-alt-green"/>
                         <span className="text-gray-700">Unlimited AI Generated Recipes</span>
                       </div>
                       <div className="inline-flex space-x-2 align-middle items-center">
                         <CheckIcon className="h-5 w-5 text-color-alt-green"/>
-                        <span className="text-gray-700">Unlimited Recipe Saves</span>
+                        <span className="text-gray-700">AI Cooking Support</span>
                       </div>
                       <div className="inline-flex space-x-2 align-middle items-center">
                         <CheckIcon className="h-5 w-5 text-color-alt-green"/>
-                        <span className="text-gray-700">Save Tiktok & YouTube Cooking Videos</span>
+                        <span className="text-gray-700">Customize Recipes</span>
                       </div>
                       <div className="inline-flex space-x-2 align-middle items-center">
                         <CheckIcon className="h-5 w-5 text-color-alt-green"/>
-                        <span className="text-gray-700">Website Recipe Transformation Tool</span>
-                      </div>
-                      <div className="inline-flex space-x-2 align-middle items-center">
-                        <CheckIcon className="h-5 w-5 text-color-alt-green"/>
-                        <span className="text-gray-700">Cooking Chat Assistant</span>
-                      </div>
-                      <div className="inline-flex space-x-2 align-middle items-center">
-                        <CheckIcon className="h-5 w-5 text-color-alt-green"/>
-                        <span className="text-gray-700">Edit Recipes</span>
+                        <span className="text-gray-700">No Advertisements</span>
                       </div>
                     </div>
                     :
                     <div className="space-y-2">
                       <div className="inline-flex space-x-2 align-middle items-center">
                         <CheckIcon className="h-5 w-5 text-color-alt-green"/>
-                        <span className="text-gray-700">3 Recipes Per Month</span>
+                        <span className="text-gray-700">Save 3 recipes per month</span>
                       </div>
                       <div className="inline-flex space-x-2 align-middle items-center">
                         <CheckIcon className="h-5 w-5 text-color-alt-green"/>
-                        <span className="text-gray-700">Save Tiktok & YouTube Cooking Videos</span>
+                        <span className="text-gray-700">Save TikTok & YouTube recipes</span>
                       </div>
                       <div className="inline-flex space-x-2 align-middle items-center">
                         <CheckIcon className="h-5 w-5 text-color-alt-green"/>
-                        <span className="text-gray-700">Website Recipe Transformation Tool</span>
+                        <span className="text-gray-700">Max Video Length: 5 Minutes</span>
                       </div>
                       <div className="inline-flex space-x-2 align-middle items-center">
                         <CheckIcon className="h-5 w-5 text-color-alt-green"/>
-                        <span className="text-gray-700">Cooking Chat Assistant</span>
+                        <span className="text-gray-700">AI Recipe Generator</span>
+                      </div>
+                      <div className="inline-flex space-x-2 align-middle items-center">
+                        <CheckIcon className="h-5 w-5 text-color-alt-green"/>
+                        <span className="text-gray-700">Customize Recipes</span>
                       </div>
                       <div className="inline-flex space-x-2 align-middle items-center">
                         <ChevronDoubleUpIcon className="h-5 w-5 text-color-alt-green"/>
-                        <span><InlineBtnLink href="/pricing" text="Try Premium Free"/></span>
-
+                        <span><InlineBtnLink href="/pricing" text="Upgrade to Premium"/></span>
                       </div>
                     </div>
                   }

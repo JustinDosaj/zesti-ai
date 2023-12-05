@@ -108,7 +108,7 @@ export function VideoHero({role, tokens}: any){
                         {role == 'premium' || tokens > 0 ?
                         `Find a recipe on Tiktok or YouTube and simply enter the video link to convert it to a text recipe`
                         :
-                        `Try a free 7-day trial of Zesti Premium to save more recipes this month`
+                        `No more recipes available. Try Zesti Premium free for 7 days to unlock more!`
                         }
                     </Paragraph>
                 </div>
