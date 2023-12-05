@@ -4,7 +4,6 @@ import { CheckIcon } from '@heroicons/react/20/solid'
 import { Title } from '@/components/shared/title'
 import { Button } from '@/components/shared/button'
 import { useAuth } from '../api/auth/auth'
-import { createFreeCheckoutSession } from '../api/stripe/stripeFree'
 import { useState } from 'react'
 import { useRouter } from 'next/router'
 import Head from 'next/head'
@@ -35,7 +34,7 @@ export default function Essential() {
 
     const FreeClick = async () => {
         setIsLoading(true);
-        await createFreeCheckoutSession(user?.uid)
+        router.push('/dashboard')
         setIsLoading(false)
     }
 
