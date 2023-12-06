@@ -1,6 +1,6 @@
 "use client";
 
-import { Button } from "../shared/button";
+import { Button, InlineBtnLink } from "../shared/button";
 import { CheckIcon } from "@heroicons/react/20/solid";
 import { Container } from "../shared/container";
 import { createPremiumCheckoutSession } from "@/pages/api/stripe/stripePremium";
@@ -26,6 +26,7 @@ export function PricingDisplay() {
           trial: false,
           priceMonthly: '$0',
           description: "The perfect plan if you're just getting started with Zesti",
+          learnhref: "/about/subscription/free",
           features: [
             'Save 3 recipes per month',
             'Save TikTok & YouTube recipes',
@@ -45,6 +46,7 @@ export function PricingDisplay() {
           trial: true,
           priceMonthly: '$2.99',
           description: 'Unlock the full potential of Zesti',
+          learnhref: "/about/subscription/premium",
           features: [
             'Save 30 recipes per month',
             'Save TikTok & YouTube recipes',
@@ -77,7 +79,7 @@ export function PricingDisplay() {
                     : tierIdx === 0
                     ? 'rounded-t-3xl sm:rounded-b-none lg:rounded-tr-none lg:rounded-bl-3xl'
                     : 'sm:rounded-t-none lg:rounded-tr-3xl lg:rounded-bl-none',
-                  'rounded-3xl p-8 ring-1 ring-gray-900/10 sm:p-10'
+                  'rounded-3xl pt-8 pl-8 pr-8 pb-4 ring-1 ring-gray-900/10 '
                 )}
               >
                 <div className="flex justify-between items-center">
@@ -136,6 +138,7 @@ export function PricingDisplay() {
                 :
                 <Button buttonType="button" onClick={() => {window.open(`${process.env.NEXT_PUBLIC_STRIPE_NO_CODE_PORATL}`)}} text="Manage Subscription" className="text-sm sm:text-base mt-4 text-center w-full"/>
                 }
+                <InlineBtnLink href={tier.learnhref} text="Learn More" className="flex justify-center mt-4 text-sm"></InlineBtnLink>
               </div>
             ))}
           </div>
