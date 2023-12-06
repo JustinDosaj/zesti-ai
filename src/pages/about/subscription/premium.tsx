@@ -3,30 +3,44 @@ import { Raleway } from 'next/font/google'
 import { CheckIcon } from '@heroicons/react/20/solid'
 import { Title } from '@/components/shared/title'
 import { Button } from '@/components/shared/button'
-import { useAuth } from '../api/auth/auth'
-import { createPremiumCheckoutSession } from '../api/stripe/stripePremium'
+import { useAuth } from '../../api/auth/auth'
+import { createPremiumCheckoutSession } from '../../api/stripe/stripePremium'
 import { useState } from 'react'
 import { useRouter } from 'next/router'
 import Head from 'next/head'
 import { Loader } from '@/components/shared/loader'
+import { PricingDisplay } from '@/components/pricing-sections/pricing'
 const raleway = Raleway({subsets: ['latin']})
 
 const features = [
     {
-    name: 'Save Recipes',
-    description: 'Save cooking videos by entering the link and receiving a easy-to-read text recipe',
+    name: 'Save 30 Recipes Per Month',
+    description: 'Premium users are limited to 30 Tiktok, YouTube or Website recipe saves, but does not limit the AI recipe generator',
     },
   {
-    name: '30 Recipes Per Month',
-    description: 'Transcribe 30 cooking videos to text recipes each month',
+    name: 'Save TikTok & YouTube Recipes',
+    description: 'Instantly save video recipes from TikTok or YouTube so you no longer have to pause, rewind or replay',
   },
   {
-    name: '30 Minute Videos',
-    description: 'Premium gets to upload the longest videos with a max length of 30 minutes for each video-to-text',
+    name: 'Max Video Length',
+    description: 'Premium users have a max video length of 15 minutes when saving TikTok or YouTube Recipes',
   },
-
-  { name: 'Edit Recipes', description: 'Some recipes are not perfect as is. Edit recipes to your liking and save them for later.' },
-  { name: 'More Coming Soon', description: 'New features will be announced soon' },
+  {
+    name: 'Unlimited AI Generated Recipes',
+    description: 'Use the AI Recipe Generator unlimited times so you will never run out of meal ideas',
+  },
+  {
+    name: 'AI Cooking Support',
+    description: 'Access an AI chat assistant while viewing a recipe so you can get all your cooking questions answered without losing your place',
+  },
+  {
+    name: 'Customize Recipes',
+    description: 'Freely edit ingredients and instructions of recipes to make them your own',
+  },
+  {
+    name: 'Ad-Free',
+    description: 'Get a 100% ad-free experience when you subscribe to Zesti premium',
+  },
 ]
 
 export default function Premium() {
@@ -67,17 +81,13 @@ export default function Premium() {
 
         {/* Header section */}
         <div className="px-6 pt-14 lg:px-8">
-        <div className="mx-auto max-w-2xl pt-24 text-center sm:pt-40">
+        <div className="mx-auto max-w-6xl pt-24 text-center sm:pt-40">
             <h1 className="text-4xl/tight sm:text-4xl/tight md:text-5xl/tight xl:text-6xl/tight font-bold text-heading-1 mt-6">     
                 <span className="text-black">Zesti</span>       
-                <span className="text-transparent bg-clip-text bg-gradient-to-br from-primary-main from-20% via-primary via-30% to-color-alt-red pl-2">Premium</span>
+                <span className="text-transparent bg-clip-text bg-gradient-to-br from-primary-main from-20% via-primary via-30% to-color-alt-red"> Premium</span>
             </h1>
             <div className="mt-6 text-lg leading-8 text-gray-700">
-                Zesti premium offers the most features for the best price. Use Zesti to easily save cooking videos as text recipes, edit recipes, and more!
-            </div>
-            <div className="mt-6 space-x-1 text-base">
-                <span className="text-gray-500">Curious about results? Check out this</span>
-                <Link href="/demo" className="underline text-primary-main hover:text-primary-alt font-bold">example</Link>
+                Zesti premium grants you access to every feature it has available and gives you 10x more recipe saves than our base version!
             </div>
         </div>
         </div>
@@ -90,7 +100,7 @@ export default function Premium() {
                     <h2 className="text-base font-semibold leading-7 text-primary-main">Premium</h2>
                     <p className="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">What You Get</p>
                     <p className="mt-6 text-base leading-7 text-gray-600">
-                    The premium subscription is the highest paid version of Zesti but comes with the most features.
+                        Zesti premium grants you access to all the features we have to offer!
                     </p>
                 </div>
                 <dl className="col-span-2 grid grid-cols-1 gap-x-8 gap-y-10 text-base leading-7 text-gray-600 sm:grid-cols-2 lg:gap-y-16">
@@ -107,42 +117,8 @@ export default function Premium() {
                 </div>
             </div>
         </div>
-        <div className="border w-full lg:w-1/2 rounded-2xl border-gray-300 mb-12">
-            <div className="px-6 py-20 sm:px-6 sm:py-12 lg:px-8">
-                <div className="mx-auto max-w-2xl text-center">
-                    <Title className="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-3xl">
-                        Get Started with
-                        <span className="text-transparent bg-clip-text bg-gradient-to-br from-primary-main from-20% via-primary via-30% to-color-alt-red pl-2 pr-2">Zesti</span>
-                    </Title>
-                <p className="mx-auto mt-6 max-w-xl text-lg leading-8 text-gray-600">
-                    Subscribe to the premium or if you are still not sure you can subscribe to the free version
-                </p>
-                {user ? 
-                <div className="inline-flex mt-10 space-x-6 items-center justify-center">
-                    { (isLoading == false) ?
-                    <Button buttonType="button" onClick={PremiumClick} text="Subscribe" className="text-center"/>
-                    : 
-                    <Loader/>
-                    }
-                    <Link href="/subscription/free" className="text-sm font-semibold leading-6 text-primary-main hover:text-primary-alt">
-                        Try for Free <span aria-hidden="true">→</span>
-                    </Link>
-                </div>
-                : (stripeRole == 'free' || stripeRole == 'essential') ?
-                <div className="mt-10 space-x-6 items-center justify-center">
-                    <Button buttonType="button" onClick={() => {window.open(`${process.env.NEXT_PUBLIC_STRIPE_NO_CODE_PORATL}`)}} text="Upgrade" className="mt-4 text-center"/>
-                </div>
-                :
-                <div className="mt-10 space-x-6 items-center justify-center">
-                    <Button buttonType="button" onClick={() => router.push("/login")} text="Get Started" className="mt-4 text-center"/>
-                    <Link href="/login" className="text-sm font-semibold leading-6 text-primary-main hover:text-primary-alt">
-                    Sign Up <span aria-hidden="true">→</span>
-                    </Link>
-                </div>
-                }
-                </div>
-            </div>
-        </div>
+        <PricingDisplay/>
+        <div className="pb-12"/>
     </main>
     </div>
     </>
