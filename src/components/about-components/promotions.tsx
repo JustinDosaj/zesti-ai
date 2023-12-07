@@ -48,7 +48,7 @@ export function HolidayDiscountPricingDisplay() {
           name: 'Premium',
           id: 'tier-premium',
           trial: true,
-          priceMonthly: '$1.50',
+          priceMonthly: '$1.49',
           pricingType: 'first month',
           description: 'Unlock the full potential of Zesti',
           learnhref: "/about/subscription/premium",
