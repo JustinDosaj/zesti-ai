@@ -19,7 +19,7 @@ export default function Login() {
 
     const [ email, setEmail ] = useState<string>('')
     const [ password, setPassword ] = useState<string>('')
-    const {user, signUpWithEmailPassword, login, sendPasswordReset} = useAuth();
+    const {user, signUpWithEmailPassword, login, sendPasswordReset, stripeRole } = useAuth();
     const router = useRouter()
 
     async function signUpOnClick() {
@@ -27,7 +27,8 @@ export default function Login() {
     }
     
     useEffect(() => {
-        if(user) { router.push('/dashboard') }
+        if(stripeRole == 'premium') { router.push('/dashboard') }
+        else if ( user ) { router.push('/welcome/newuser') }
     },[user])
 
     return(
