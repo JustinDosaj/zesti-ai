@@ -26,9 +26,9 @@ export function Hero(){
                         <Image width={20} height={20} src="/images/openaipng.png" alt="Powered by OpenAI Chatgpt AI Technology Tool" className=" "/>
                     </div>
                     <h1 className="text-4xl/tight sm:text-4xl/tight md:text-5xl/tight xl:text-6xl/tight font-bold text-heading-1 mt-6">          
-                        <span className="text-transparent bg-clip-text bg-gradient-to-br from-primary-main from-20% via-primary via-30% to-color-alt-red pr-2">Upgrade</span>
-                        <span className="text-black">Your Cooking Using</span>
-                        <span className="text-transparent bg-clip-text bg-gradient-to-br from-primary-main from-20% via-primary via-30% to-color-alt-red pl-2 pr-2">Zesti AI Assistant</span> 
+                        <span className="primary-orange-text-gradient">Upgrade</span>
+                        <span className="text-black"> Your Cooking Using </span>
+                        <span className="primary-orange-text-gradient">Zesti AI Assistant</span> 
                     </h1>
                     <Paragraph className="text-lg mt-8 text-black">
                         Get your questions answered on the fly, create delicious recipes with what you have available, generate new ideas and turn cooking videos into ad-free text recipe
@@ -77,9 +77,9 @@ export function Hero2(){
                     <Image width={20} height={20} src="/images/openaipng.png" alt="Powered by OpenAI Chatgpt AI Technology Tool" className=" "/>
                 </div>
                 <h1 className="text-4xl/tight sm:text-4xl/tight md:text-5xl/tight xl:text-6xl/tight font-bold text-heading-1 mt-6 grid text-center md:text-left">          
-                    <span className="text-transparent bg-clip-text bg-gradient-to-br from-primary-main from-20% via-primary via-30% to-color-alt-red pr-2">Upgrade</span>
+                    <span className="primary-orange-text-gradient">Upgrade </span>
                     <span className="text-black">Your Cooking Using</span>
-                    <span className="text-transparent bg-clip-text bg-gradient-to-br from-primary-main from-20% via-primary via-30% to-color-alt-red pl-2 pr-2">Zesti AI Assistant</span> 
+                    <span className="primary-orange-text-gradient"> Zesti AI Assistant</span> 
                 </h1>
                 <Paragraph className="text-base sm:text-lg mt-8 text-black text-center md:text-left">
                     Create AI generated recipes, instantly save recipes from YouTube & Tiktok, and get cooking questions answered instantly!
@@ -156,7 +156,7 @@ export function ZestiTools() {
                   <div className="mx-auto max-w-3xl text-center">
                       <Title className="mt-2 text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl">
                         No More
-                      <span className="text-transparent bg-clip-text bg-gradient-to-br from-primary-main from-20% via-primary via-30% to-color-alt-red pl-2 pr-2">Cluttered Recipes</span>
+                      <span className="primary-orange-text-gradient"> Cluttered Recipes</span>
                       </Title>
                       <Paragraph className="mt-6 text-lg leading-8 text-gray-800">
                         Start cooking more by discovering new recipes! Use Zesti to retrieve recipes from videos and websites, or just have Zesti create one for you!
@@ -208,9 +208,9 @@ export function HomeChat() {
 
                         <Title className="mt-2 text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl">
                         Ask
-                        <span className="text-transparent bg-clip-text bg-gradient-to-br from-primary-main from-20% via-primary via-30% to-color-alt-red"> Zesti </span>
+                        <span className="primary-orange-text-gradient"> Zesti </span>
                         Questions While
-                        <span className="text-transparent bg-clip-text bg-gradient-to-br from-primary-main from-20% via-primary via-30% to-color-alt-red"> Cooking</span>
+                        <span className="primary-orange-text-gradient"> Cooking</span>
                         </Title>
                         <Paragraph className="mt-6 text-lg leading-8 text-gray-800">
                             With cooking, time is everything. When you start cooking a recipe, Zesti will be ready to answer any of your questions.
@@ -264,9 +264,9 @@ export function HomeDashDisplay() {
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <div className="mx-auto max-w-2xl sm:text-center">
             <Title className="mt-2 text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl">
-            <span className="text-transparent bg-clip-text bg-gradient-to-br from-primary-main from-20% via-primary via-30% to-color-alt-red">Save, Edit & Create </span>
+            <span className="primary-orange-text-gradient">Save, Edit & Create </span>
             Recipes from the
-            <span className="text-transparent bg-clip-text bg-gradient-to-br from-primary-main from-20% via-primary via-30% to-color-alt-red"> Dashboard</span>
+            <span className="primary-orange-text-gradient"> Dashboard</span>
 
             </Title>
             <Paragraph className="mt-6 text-lg leading-8 text-gray-600">
@@ -307,7 +307,7 @@ export function HomeRecipeDisplay() {
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className="mx-auto max-w-2xl sm:text-center">
           <Title className="mt-2 text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl">
-          <span className="text-transparent bg-clip-text bg-gradient-to-br from-primary-main from-20% via-primary via-30% to-color-alt-red">Easy-to-follow </span>
+          <span className="primary-orange-text-gradient">Easy-to-follow </span>
           Recipes
           </Title>
           <Paragraph className="mt-6 text-lg leading-8 text-gray-600">

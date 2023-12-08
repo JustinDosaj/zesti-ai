@@ -33,7 +33,7 @@ export function AltCompare({name, priceMonthly, videoToRecipe, urlToRecipe, aiGe
                 <div className="relative flex flex-col items-center text-center lg:py-7 xl:py-8 lg:max-w-none max-w-3xl mx-auto lg:mx-0 lg:flex-1 p-8 md:p-16">
                     <h1 className="text-3xl/tight sm:text-3xl/tight md:text-4xl/tight xl:text-5xl/tight font-bold text-heading-1 mt-6">          
                         <span className="text-black">Comparing</span>
-                        <span className="text-transparent bg-clip-text bg-gradient-to-br from-primary-main from-20% via-primary via-30% to-color-alt-red pl-2 pr-2">Zesti vs {name}</span> 
+                        <span className="primary-orange-text-gradient"> Zesti vs {name} </span> 
                     </h1>
                 </div>
                 <div className="bg-white mt-4">
