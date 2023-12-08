@@ -2,6 +2,7 @@ import { Paragraph } from "../shared/paragraph"
 import { Container } from "../shared/container"
 import { SparklesIcon, VideoCameraIcon, LinkIcon, LockClosedIcon, ChevronDoubleRightIcon, ChevronDoubleLeftIcon } from '@heroicons/react/24/outline'
 import { useAuth } from "@/pages/api/auth/auth"
+import { BtnLink, InlineBtnLink } from "../shared/button"
 import React from "react"
 import Link from "next/link"
 
@@ -127,12 +128,11 @@ interface UsageProps {
 export function Usage({data, tokens}: UsageProps) {
 
     const { stripeRole } = useAuth()
-    console.log(tokens)
     
     const stats = [
         { name: 'Recipes Remaining', value: `${tokens ? tokens : 0 }`},
         { name: 'Saved Recipes', value: `${data.length}`},
-        { name: 'Account Status', value: `${stripeRole ? stripeRole : 'Free'}`},
+        { name: 'Account Status', value: `${stripeRole == 'premium' ? "Premium" : "Free"}`},
       ]
 
     return(
@@ -194,6 +194,38 @@ export function RecipeBookTitle() {
             <Paragraph className="mt-4 text-center text-gray-600">
                 View all the recipes you have saved and created with Zesti
             </Paragraph>
+        </Container>
+    )
+}
+
+
+export function TestUsage({data, tokens}: UsageProps) {
+
+    const { stripeRole } = useAuth()
+
+    return(
+        <Container className={"flex flex-col lg:flex-row gap-10 lg:gap-12"}>
+            <div className="p-4 py-10 sm:p-8 sm:pl-16 sm:pr-16 w-full bg-white rounded-xl shadow-md flex justify-between border border-gray-200 space-x-1.5">
+                <div className="w-1/3 flex flex-col items-center text-center">
+                    <p className="text-sm text-gray-600">Usage</p>
+                    {stripeRole == 'premium' ? 
+                    <p className="text-2xl sm:text-3xl font-semibold text-black">{tokens ? `${(30 - tokens)}/30` : '0/30'}</p>
+                    :
+                    <p className="text-2xl sm:text-3xl font-semibold text-black">{tokens ? `${(5 - tokens)}/5` : '0/5'}</p>
+                    }
+                </div>
+                <div className="w-1/3 flex flex-col items-center text-center">
+                    <p className="text-sm text-gray-600">Recipes</p>
+                    <p className="text-2xl sm:text-3xl font-semibold text-black">{data.length}</p>
+
+                </div>
+                <div className="w-1/3 flex flex-col items-center space-y-2 text-center">
+                    <span className="bg-color-alt-green text-white text-base sm:text-lg font-semibold px-2.5 py-0.5 rounded-3xl">{stripeRole == "premium" ? "Premium" : "Free"}</span>
+                    <Link className="text-sm sm:text-base text-primary-main hover:text-primary-alt" href="/profile">
+                        Manage Account 
+                    </Link>
+                </div>
+            </div>
         </Container>
     )
 }

@@ -21,7 +21,7 @@ export function AltHero({name}: HeroProps){
                     </div>
                     <h1 className="text-4xl/tight sm:text-4xl/tight md:text-5xl/tight xl:text-6xl/tight font-bold text-heading-1 mt-6">          
                         <span className="text-black">The Best</span>
-                        <span className="text-transparent bg-clip-text bg-gradient-to-br from-primary-main from-20% via-primary via-30% to-color-alt-red"> {name} Alternative </span> 
+                        <span className="primary-orange-text-gradient"> {name} Alternative </span> 
                         <span className="text-black">for AI Powered Cooking Assistance</span>
                     </h1>
                     <Paragraph className="text-lg mt-8 text-black">
