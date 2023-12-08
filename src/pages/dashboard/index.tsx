@@ -1,5 +1,5 @@
 import { Raleway } from 'next/font/google'
-import { DashboardPageTitle, Tools, Usage } from '@/components/dash-sections/dash';
+import { DashboardPageTitle, TestUsage, Tools, Usage } from '@/components/dash-sections/dash';
 import { useAuth } from "@/pages/api/auth/auth"
 import { useRouter } from "next/router";
 import { RecipeList } from '@/components/dash-sections/recipelist';
@@ -49,7 +49,7 @@ export default function Dashboard() {
 
         <DashboardPageTitle/>
         <div className="mt-8 lg:mt-0" />
-        <Usage data={recipes} tokens={tokens}/>
+        <TestUsage data={recipes} tokens={tokens}/>
         <div className="border-t border-gray-200 m-12" style={{ width: '35%' }} />
         <Tools/>
         <div className="border-t border-gray-200 m-12" style={{ width: '35%' }} />

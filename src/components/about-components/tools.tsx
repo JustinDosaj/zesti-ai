@@ -19,7 +19,7 @@ export function SocialMediaRecipeHero(){
                     </div>
                     <h1 className="text-4xl/tight sm:text-4xl/tight md:text-5xl/tight xl:text-6xl/tight font-bold text-heading-1 mt-6">          
                         <span className="text-black">Instantly Save</span>
-                        <span className="text-transparent bg-clip-text bg-gradient-to-br from-primary-main from-20% via-primary via-30% to-color-alt-red"> TikTok & YouTube </span> 
+                        <span className="primary-orange-text-gradient"> TikTok & YouTube </span> 
                         <span className="text-black">Recipes</span>
                     </h1>
                     <Paragraph className="text-lg mt-8 text-black">
@@ -95,7 +95,7 @@ export function CreateRecipeHero(){
                     </div>
                     <h1 className="text-4xl/tight sm:text-4xl/tight md:text-5xl/tight xl:text-6xl/tight font-bold text-heading-1 mt-6">          
                         <span className="text-black">Create Amazing</span>
-                        <span className="text-transparent bg-clip-text bg-gradient-to-br from-primary-main from-20% via-primary via-30% to-color-alt-red"> AI Generated </span> 
+                        <span className="primary-orange-text-gradient"> AI Generated </span> 
                         <span className="text-black">Recipes</span>
                     </h1>
                     <Paragraph className="text-lg mt-8 text-black">
@@ -136,7 +136,7 @@ export function CreateRecipeQuickGuide() {
                   <div className="mx-auto max-w-3xl text-center">
                       <Title className="mt-2 text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl">
                       <span className="text-black">Craft Up Delicious</span>
-                      <span className="text-transparent bg-clip-text bg-gradient-to-br from-primary-main from-20% via-primary via-30% to-color-alt-red"> AI Generated </span>
+                      <span className="primary-orange-text-gradient"> AI Generated </span>
                       <span className="text-black">Recipes</span>
                       </Title>
                       <Paragraph className="mt-6 text-lg leading-8 text-gray-800">
@@ -171,7 +171,7 @@ export function WebRecipeHero(){
                     </div>
                     <h1 className="text-4xl/tight sm:text-4xl/tight md:text-5xl/tight xl:text-6xl/tight font-bold text-heading-1 mt-6">          
                         <span className="text-black">Remove</span>
-                        <span className="text-transparent bg-clip-text bg-gradient-to-br from-primary-main from-20% via-primary via-30% to-color-alt-red"> Clutter & Ads </span> 
+                        <span className="primary-orange-text-gradient"> Clutter & Ads </span> 
                         <span className="text-black">From Website Recipes</span>
                     </h1>
                     <Paragraph className="text-lg mt-8 text-black">
