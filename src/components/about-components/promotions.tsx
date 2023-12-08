@@ -163,7 +163,7 @@ export function HolidayDiscountHero(){
                     </div>
                     <h1 className="text-4xl/tight sm:text-4xl/tight md:text-5xl/tight xl:text-6xl/tight font-bold text-heading-1 mt-6">          
                         <span className="text-black">Get</span>
-                        <span className="text-transparent bg-clip-text bg-gradient-to-br from-primary-main from-20% via-primary via-30% to-color-alt-red"> 50% Off </span> 
+                        <span className="primary-orange-text-gradient"> 50% Off </span> 
                         <span className="text-black">Zesti Premium</span>
                     </h1>
                     <Paragraph className="text-lg mt-8 text-black">
