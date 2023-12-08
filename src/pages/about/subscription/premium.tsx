@@ -2,7 +2,7 @@ import Link from 'next/link'
 import { Raleway } from 'next/font/google'
 import { CheckIcon } from '@heroicons/react/20/solid'
 import { Title } from '@/components/shared/title'
-import { Button } from '@/components/shared/button'
+import { BtnLink, Button } from '@/components/shared/button'
 import { useAuth } from '../../api/auth/auth'
 import { createPremiumCheckoutSession } from '../../api/stripe/stripePremium'
 import { useState } from 'react'
@@ -52,7 +52,6 @@ export default function Premium() {
     const PremiumClick = async () => {
         setIsLoading(true);
         await createPremiumCheckoutSession(user?.uid)
-        setIsLoading(false)
     }
 
   return (
@@ -81,14 +80,28 @@ export default function Premium() {
 
         {/* Header section */}
         <div className="px-6 pt-14 lg:px-8">
-        <div className="mx-auto max-w-6xl pt-24 text-center sm:pt-40">
-            <h1 className="text-4xl/tight sm:text-4xl/tight md:text-5xl/tight xl:text-6xl/tight font-bold text-heading-1 mt-6">     
-                <span className="text-black">Zesti</span>       
-                <span className="text-transparent bg-clip-text bg-gradient-to-br from-primary-main from-20% via-primary via-30% to-color-alt-red"> Premium</span>
+        <div className="mx-auto max-w-6xl pt-24 text-center sm:pt-40 space-y-8">
+            <h1 className="text-4xl/tight sm:text-4xl/tight md:text-5xl/tight xl:text-6xl/tight font-bold text-heading-1 mt-6">
+                    
+                <span className="text-black">Try</span>       
+                <span className="text-transparent bg-clip-text bg-gradient-to-br from-primary-main from-20% via-primary via-30% to-color-alt-red"> Zesti Premium </span>
+                <span className="text-black">Free for 7-Days</span> 
             </h1>
             <div className="mt-6 text-lg leading-8 text-gray-700">
                 Zesti premium grants you access to every feature it has available and gives you 10x more recipe saves than our base version!
             </div>
+            {isLoading == true ?
+            <div className="flex justify-center">
+              <Loader/>
+            </div>
+            :
+            user && stripeRole !== 'premium' ? 
+            <Button text="Start Free Trial!" onClick={PremiumClick} buttonType="button"/>
+            : !user ?
+            <Button text="Login to Begin Trial" onClick={() => router.push('/login')} buttonType="button" className=""/>
+            :
+            <Button text="Go to Dashboard" onClick={() => router.push('/dashboard')} buttonType="button" className=""/>
+            }
         </div>
         </div>
 
