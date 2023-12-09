@@ -30,4 +30,20 @@ body {
   .primary-orange-text-gradient {
     @apply text-transparent bg-clip-text bg-gradient-to-br from-primary-main from-20% via-30% to-color-alt-red
   }
+
+  .home-page-scroll-btn {
+    @apply text-white bg-primary-main/75 hover:bg-primary-main/50 rounded
+  }
+
+  .home-scroll-container {
+    @apply flex flex-col items-start py-12 bg-gradient-to-b from-orange-100 to-orange-200/50 xl:rounded-3xl
+  }
+
+  .section-title-text-size {
+    @apply text-4xl lg:text-5xl
+  }
+
+  .section-desc-text-size {
+    @apply text-base lg:text-lg
+  }
 }
