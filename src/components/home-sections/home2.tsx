@@ -132,9 +132,8 @@ export function HomePageHero(){
             <span className="primary-orange-text-gradient">Zesti AI</span>
           </p>
           <p className="section-desc-text-size font-medium text-gray-600">
-            Imagine you don't need a diet because we provide 
-            <br />
-            healthy and delicious food for you!
+          Create AI generated recipes, instantly save recipes from YouTube & Tiktok, 
+          and get cooking questions answered instantly!
           </p>
         </div>
         <div className="grid justify-center lg:justify-start">
