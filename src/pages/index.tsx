@@ -2,6 +2,7 @@ import { Raleway } from 'next/font/google'
 import Head from 'next/head';
 import GoogleTags from '@/components/google/conversion';
 import { FAQ, TryPremiumCTA, Hero2, ZestiTools, HomeChat, HomeDashDisplay, HomeRecipeDisplay } from '@/components/home-sections/home';
+import { HomePageScroller, HomePageTools } from '@/components/home-sections/home2';
 
 const raleway = Raleway({subsets: ['latin']})
 
@@ -18,7 +19,8 @@ export default function Home() {
       </Head>
       <main className={`flex min-h-screen flex-col items-center justify-between bg-background ${raleway.className}`}>
         <Hero2/>
-        <ZestiTools/>
+        <HomePageTools/>
+        <HomePageScroller/>
         <HomeChat/>
         <HomeDashDisplay/>
         <HomeRecipeDisplay/>
