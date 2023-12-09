@@ -120,45 +120,6 @@ interface Recipe {
     // other fields
   }
 
-interface UsageProps {
-    data: Recipe[];
-    tokens: number;
-  }
-
-export function Usage({data, tokens}: UsageProps) {
-
-    const { stripeRole } = useAuth()
-    
-    const stats = [
-        { name: 'Recipes Remaining', value: `${tokens ? tokens : 0 }`},
-        { name: 'Saved Recipes', value: `${data.length}`},
-        { name: 'Account Status', value: `${stripeRole == 'premium' ? "Premium" : "Free"}`},
-      ]
-
-    return(
-    <Container className={"flex flex-col lg:flex-row gap-10 lg:gap-12"}>
-        <div className="w-full rounded-2xl">
-            <dl className="mx-auto grid grid-cols-1 gap-px lg:grid-cols-3 shadow border border-gray-200 rounded-xl p-2">
-                {stats.map((stat) => (
-                    <div
-                    key={stat.name}
-                    className="flex flex-wrap items-baseline gap-x-4 gap-y-2 px-4 py-4 sm:px-6 xl:px-8 justify-center"
-                    >
-                    <dt className="text-sm font-medium leading-6 text-gray-500 text-center">{stat.name}</dt>
-                    <dd className="w-full flex-none text-xl font-medium leading-4 tracking-tight text-gray-900 text-center">
-                        {stat.value}
-                    </dd>
-                    <Link href={stripeRole == 'premium' ? `/profile` : `/pricing`}
-                        className={classNames(stat.name == 'Account Status' ? 'block' : 'hidden', 'text-sm underline text-primary-main hover:text-primary-alt')}>
-                            {stripeRole == 'premium' ? `Manage Account` : `Upgrade Account`}
-                    </Link>
-                    </div>
-                ))}
-            </dl>
-        </div>
-    </Container>
-)}
-
 export function DashboardRecipeTitle() {
     return(
       <Container className="relative sm:flex justify-center items-center lg:flex-wrap gap-10 lg:gap-4 w-full">
@@ -198,8 +159,12 @@ export function RecipeBookTitle() {
     )
 }
 
+interface UsageProps {
+    data: Recipe[];
+    tokens: number;
+}
 
-export function TestUsage({data, tokens}: UsageProps) {
+export function Usage({data, tokens}: UsageProps) {
 
     const { stripeRole } = useAuth()
 
@@ -219,10 +184,10 @@ export function TestUsage({data, tokens}: UsageProps) {
                     <p className="text-2xl sm:text-3xl font-semibold text-black">{data.length}</p>
 
                 </div>
-                <div className="w-1/3 flex flex-col items-center space-y-2 text-center">
-                    <span className="bg-color-alt-green text-white text-base sm:text-lg font-semibold px-2.5 py-0.5 rounded-3xl">{stripeRole == "premium" ? "Premium" : "Free"}</span>
-                    <Link className="text-sm sm:text-base text-primary-main hover:text-primary-alt" href="/profile">
-                        Manage Account 
+                <div className="w-1/3 flex flex-col items-center text-center space-y-1">
+                    <p className="text-sm text-gray-600">Status</p>
+                    <Link href={"/profile"} className="bg-color-alt-green text-white text-base sm:text-lg font-semibold px-2.5 py-0.5 rounded-3xl">
+                        Premium
                     </Link>
                 </div>
             </div>
