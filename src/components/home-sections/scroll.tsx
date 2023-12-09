@@ -13,7 +13,7 @@ export function ToolExamples() {
                 Works
                 </p>
                 <p className="section-desc-text-size text-gray-600 w-full">
-                    Click on any of the example below of people using Zesti to instantly save YouTube/TikTok videos or create unique AI recipes!
+                    Click on any of the example below of people using Zesti to instantly save YouTube & TikTok videos or create unique AI recipes!
                 </p>
             </div>
             </div>
