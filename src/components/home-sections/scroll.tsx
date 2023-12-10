@@ -21,22 +21,22 @@ export function ToolExamples() {
             <TestimonialCard
                 name="Fluffy Blueberry Muffins"
                 source="YouTube"
-                desc="Check out this recipe for blueberry muffins that one of our users found on YouTube!"
-                imageSrc="/images/stock-people/blue-shirt.jpg"
+                desc="This delicious blueberry muffin recipe was converted from a YouTube video to an easy-to-read recipe by one of our members"
+                imageSrc="/images/stock-food/fresh-muffins.jpg"
                 href="/about/demos/youtube"
             />
             <TestimonialCard
                 name="French Toast Recipe"
                 source="AI Generated"
-                desc="This user created a delicious French Toast breakfast using the Zesti AI Recipe Generator, check it out!"
-                imageSrc="/images/stock-people/smiley-man.jpg"
+                desc="Check out this simple French Toast recipe, created by Zesti AI"
+                imageSrc="/images/stock-food/french-toast.jpg"
                 href="/about/demos/creative"
             />
             <TestimonialCard
                 name="Hawaiian Roll Garlic Bread"
                 source="Tiktok"
-                desc="From Tiktok, to Zesti, then to your table. One of our users made amazing Hawaiian Roll Garlic Bread from a recipe they found on TikTok."
-                imageSrc="/images/stock-people/smiley-woman-couch.jpg"
+                desc="Tiktok is full of cooking ideas, which is why Zesti makes it easy to instantly save the recipes!"
+                imageSrc="/images/stock-food/Hawaiian-Roll.jpg"
                 href="/about/demos/tiktok"
             />
             </div>
