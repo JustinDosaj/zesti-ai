@@ -20,7 +20,9 @@ export default function Home() {
         <HomePageHero/>
         <HomePageTools/>
         <HomePageScroller/>
+        <div className="mt-24"/>
         <HomePageCTA/>
+        <div className="mt-24"/>
         <HomeFAQ/>
       </main>
     </>

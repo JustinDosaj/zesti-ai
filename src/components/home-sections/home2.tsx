@@ -125,12 +125,12 @@ export function HomePageHero(){
             <Image width={20} height={20} src="/images/openaipng.png" alt="Powered by OpenAI Chatgpt AI Technology Tool" className=" "/>
         </div>
         <div className="flex flex-col gap-8 text-center lg:text-left">
-          <p className="section-title-text-size xl:text-6xl font-bold primary-orange-text-gradient">
+          <h1 className="section-title-text-size xl:text-6xl font-bold text-gray-700">
             <span className="primary-orange-text-gradient">Upgrade</span>
             <span className="text-gray-700"> Your Cooking With </span>
             <br />
             <span className="primary-orange-text-gradient">Zesti AI</span>
-          </p>
+          </h1>
           <p className="section-desc-text-size font-medium text-gray-600">
           Create AI generated recipes, instantly save recipes from YouTube & Tiktok, 
           and get cooking questions answered instantly!
@@ -167,16 +167,15 @@ export function HomePageHero(){
 
 export function HomePageCTA() {
   return(
-    <Container className="relative w-full max-w-6xl mx-auto py-32 lg:py-48 px-5">
+    <Container className="relative w-full max-w-6xl mx-auto py-24 px-5">
       <div className="flex flex-col items-center gap-8 border rounded-3xl p-6 lg:p-12">
         <div className="flex flex-col items-center gap-6">
           <p className="w-full md:w-96 text-xl font-medium text-center primary-orange-text-gradient">
             Check Out Premium
           </p>
-          <p className="section-title-text-size font-semibold text-center text-gray-700">
+          <h1 className="section-title-text-size font-semibold text-center text-gray-700">
             Try Zesti Premium Free for 7-Days
-
-          </p>
+          </h1>
           <p className="w-full section-desc-text-size font-medium text-center text-gray-600 opacity-70">
             Get more out of Zesti when you use premium by gaining access to every feature Zesti offers and increased monthly usage! 
           </p>
