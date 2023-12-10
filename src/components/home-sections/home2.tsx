@@ -49,7 +49,7 @@ export function HomePageTools() {
             </div>
             <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3  gap-10">
                 {tools.map((tool) => (
-                <div key={tool.name} className="flex flex-col items-start p-6 rounded-3xl bg-white border border-orange-200 shadow-xl shadow-primary-main/10 gap-y-2">
+                <div key={tool.name} className="flex flex-col items-start p-6 rounded-3xl gap-y-2 bg-white orange-border-shadow">
                     <tool.icon className="h-12 w-12 bg-orange-100 p-2 rounded-2xl text-primary-main" aria-hidden="true" />
                     <div className="flex flex-col gap-3">
                         <p className="text-xl font-semibold text-gray-800 mb-2">{tool.name}</p>
@@ -136,13 +136,19 @@ export function HomePageHero(){
           and get cooking questions answered instantly!
           </p>
         </div>
-        <div className="grid justify-center lg:justify-start">
+        <div className="grid justify-center lg:justify-start space-y-1">
           {!user ?
-          <Button buttonType="button" text="Get Started" className="w-fit" onClick={() => router.push('/login')}/>
+          <div className="grid justify-center lg:justify-start space-y-0.5">
+            <Button buttonType="button" text="Get Started" className="w-fit" onClick={() => router.push('/login')}/>
+          </div>
           :
-          <Button buttonType="button" text="Go to Dashboard" className="w-fit" onClick={() => router.push('/dashboard')}/>
+          <div className="grid justify-center lg:justify-start space-y-0.5">
+            <Button buttonType="button" text="Go to Dashboard" className="w-fit" onClick={() => router.push('/dashboard')}/>
+          </div>
           }
+          <p className="text-sm text-gray-500/90 mx-auto lg:mx-1">Try for Free. No Credit Card Required</p>
         </div>
+
         <div className="grid grid-cols-3 lg:flex justify-center lg:justify-start lg:space-x-16">
           <StatisticItem number="3000+" label="Recipes" />
           <StatisticItem number="500+" label="Users" />

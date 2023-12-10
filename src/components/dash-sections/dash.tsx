@@ -2,7 +2,6 @@ import { Paragraph } from "../shared/paragraph"
 import { Container } from "../shared/container"
 import { SparklesIcon, VideoCameraIcon, LinkIcon, LockClosedIcon, ChevronDoubleRightIcon, ChevronDoubleLeftIcon } from '@heroicons/react/24/outline'
 import { useAuth } from "@/pages/api/auth/auth"
-import { BtnLink, InlineBtnLink } from "../shared/button"
 import React from "react"
 import Link from "next/link"
 
@@ -50,8 +49,6 @@ export function AddRecipePageTitle() {
 
 export function Tools() {
 
-    const { stripeRole } = useAuth()
-
     const stats = [
         { 
             id: 1, 
@@ -81,16 +78,16 @@ export function Tools() {
     <Container className={"flex flex-col lg:flex-row gap-10 lg:gap-12"}>
     <div className="w-full">
       <h3 className="text-2xl font-bold leading-6 text-gray-900 text-center">Tools</h3>
-      <dl className="mt-8 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+      <dl className="mt-8 grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-3">
         {stats.map((item) => (
         <div key={item.id}>
             <Link href={item.href} className="">
                 <div
                     key={item.id}
-                    className="relative overflow-hidden rounded-lg bg-white px-4 pb-12 pt-5 shadow border border-gray-200 sm:px-6 sm:pt-6 hover:bg-gray-200 hover:ease-in hover:duration-100"
+                    className="relative overflow-hidden rounded-3xl bg-white px-4 pb-12 pt-5 orange-border-shadow sm:px-6 sm:pt-6 hover:bg-gray-200 hover:ease-in hover:duration-100"
                 >
                     <dt>
-                    <div className={classNames(item.colorType == 'green' ? 'bg-color-alt-green bg-opacity-80' : item.colorType == 'yellow' ? 'bg-yellow-400' : item.colorType == 'red' ? 'bg-red-400' : 'bg-color-alt-green bg-opacity-80', `absolute rounded-md p-3`)}>
+                    <div className={classNames(item.colorType == 'green' ? 'bg-color-alt-green bg-opacity-80' : item.colorType == 'yellow' ? 'bg-yellow-400' : item.colorType == 'red' ? 'bg-red-400' : 'bg-color-alt-green bg-opacity-80', `absolute rounded-xl p-3`)}>
                         <item.icon className="h-6 w-6 text-white" aria-hidden="true" />
                     </div>
                     <p className="ml-16 truncate text-lg font-semibold text-black">{item.name}</p>
@@ -98,7 +95,7 @@ export function Tools() {
                     <dd className="ml-16 flex items-baseline pb-6 sm:pb-7">
                     <p className="text-sm sm:text-base text-gray-900">{item.desc}</p>
                     <div className="flex justify-center absolute inset-x-0 bottom-0 bg-gray-150 px-4 py-4 sm:px-6">
-                        <div className="flex justify-center font-medium cursor-pointer text-white bg-black w-full text-sm p-2 rounded-3xl hover:bg-gray-700 hover:ease-in hover:duration-100">
+                        <div className="flex justify-center font-medium cursor-pointer text-white bg-gray-900 w-full text-sm p-2 rounded-3xl hover:bg-gray-700 hover:ease-in hover:duration-100">
                             Add Recipe<span className="sr-only"> {item.name} stats</span>
                         </div>
                     </div>
@@ -170,24 +167,20 @@ export function Usage({data, tokens}: UsageProps) {
 
     return(
         <Container className={"flex flex-col lg:flex-row gap-10 lg:gap-12"}>
-            <div className="p-4 py-10 sm:p-8 sm:pl-16 sm:pr-16 w-full bg-white rounded-xl shadow-md flex justify-between border border-gray-200 space-x-1.5">
+            <div className="p-4 py-10 sm:p-8 sm:pl-16 sm:pr-16 w-full bg-white rounded-3xl shadow-lg border-gray-300 border flex justify-between  space-x-1.5">
                 <div className="w-1/3 flex flex-col items-center text-center">
-                    <p className="text-sm text-gray-600">Usage</p>
-                    {stripeRole == 'premium' ? 
-                    <p className="text-2xl sm:text-3xl font-semibold text-black">{tokens ? `${(30 - tokens)}/30` : '0/30'}</p>
-                    :
-                    <p className="text-2xl sm:text-3xl font-semibold text-black">{tokens ? `${(5 - tokens)}/5` : '0/5'}</p>
-                    }
+                    <p className="text-sm text-gray-600">Remaining</p>
+                    <p className="text-xl sm:text-3xl font-semibold text-black">{tokens ? tokens : '0'}</p>
                 </div>
                 <div className="w-1/3 flex flex-col items-center text-center">
-                    <p className="text-sm text-gray-600">Recipes</p>
-                    <p className="text-2xl sm:text-3xl font-semibold text-black">{data.length}</p>
+                    <p className="text-sm text-gray-600">Total Recipes</p>
+                    <p className="text-xl sm:text-3xl font-semibold text-black">{data.length}</p>
 
                 </div>
                 <div className="w-1/3 flex flex-col items-center text-center space-y-1">
                     <p className="text-sm text-gray-600">Status</p>
-                    <Link href={"/profile"} className="bg-color-alt-green text-white text-base sm:text-lg font-semibold px-2.5 py-0.5 rounded-3xl">
-                        Premium
+                    <Link href={"/profile"} className="bg-color-alt-green text-white text-sm sm:text-lg font-semibold px-2.5 py-0.5 rounded-3xl">
+                        {stripeRole == 'premium' ? 'Premium' : 'Base'}
                     </Link>
                 </div>
             </div>
