@@ -5,17 +5,16 @@ export function ToolExamples() {
 
     return(
         <>
-        <div className="flex flex-col lg:flex-row justify-center text-center lg:items-center w-full gap-8">
-            <div className="flex flex-col gap-6">
-                <p className="text-4xl lg:text-5xl font-semibold text-gray-800">
-                How 
-                <span className="text-orange-600"> Zesti </span>
-                Works
-                </p>
-                <p className="section-desc-text-size text-gray-600 w-full">
-                    Click on any of the example below of people using Zesti to instantly save YouTube & TikTok videos or create unique AI recipes!
-                </p>
-            </div>
+            <div className="flex flex-col lg:flex-row justify-center text-center lg:items-center w-full gap-8">
+                <div className="flex flex-col gap-6">
+                    <p className="text-4xl lg:text-5xl font-semibold text-gray-800">
+                        How Our Members Use
+                    <span className="primary-orange-text-gradient"> Zesti </span>
+                    </p>
+                    <p className="section-desc-text-size text-gray-600 w-full">
+                        Click on any of the example below of people using Zesti to instantly save YouTube & TikTok videos or create unique AI recipes!
+                    </p>
+                </div>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-8">
             {/* Testimonial cards */}
@@ -42,6 +41,46 @@ export function ToolExamples() {
             />
             </div>
         </>
+    )
+}
+
+export function DashboardExample() {
+    return(
+        <>
+        <div className="flex flex-col lg:flex-row justify-center text-center lg:items-center w-full gap-8">
+            <div className="flex flex-col gap-6">
+                <p className="text-4xl lg:text-5xl font-semibold text-gray-800">
+                How 
+                <span className="text-orange-600"> Zesti </span>
+                Works
+                </p>
+                <p className="section-desc-text-size text-gray-600 w-full">
+                    Click on any of the example below of people using Zesti to instantly save YouTube & TikTok videos or create unique AI recipes!
+                </p>
+            </div>
+        </div>
+        <div className="relative overflow-hidden pt-16">
+          <div className="mx-auto max-w-7xl px-6 lg:px-8">
+            <Image
+              src="/images/dashdeskcap.JPG"
+              alt="Ingredient and Instruction Screenshot for Recipe"
+              className="mb-[-4%] rounded-xl shadow-2xl ring-1 ring-gray-900/10 hidden sm:block"
+              width={2432}
+              height={1442}
+            />
+            <Image
+              src="/images/mobdashcap.JPG"
+              alt="Ingredient and Instruction Screenshot for Recipe"
+              className="mb-[-4%] rounded-xl shadow-2xl ring-1 ring-gray-900/10 block sm:hidden"
+              width={2432}
+              height={1442}
+            />
+            <div className="relative" aria-hidden="true">
+              <div className="absolute -inset-x-20 bottom-0 bg-gradient-to-t from-white pt-[7%]" />
+            </div>
+          </div>
+        </div>
+      </>
     )
 }
 
