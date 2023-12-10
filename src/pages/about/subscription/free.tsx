@@ -6,6 +6,7 @@ import { useState } from 'react'
 import { useRouter } from 'next/router'
 import Head from 'next/head'
 import { PricingDisplay } from '@/components/pricing-sections/pricing'
+import GoogleTags from '@/components/google/conversion'
 const raleway = Raleway({subsets: ['latin']})
 
 const features = [
@@ -49,6 +50,7 @@ export default function Essential() {
         <title>Zesti Free | AI Cooking Assistant | Free to Use</title>
         <meta name="title" content="Zesti Free | AI Cooking Assistant | Free to Use"/>
         <meta name="description" content="Subscribe to Zesti Free to gain no cost access to save cooking videos as text recipes. Plus gain access to the cooking chat AI assistant. Try for free. No credit card required."/>
+        <GoogleTags/>
     </Head>
     <div className="bg-white">
     {/* Header */}
