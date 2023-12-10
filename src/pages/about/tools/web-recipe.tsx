@@ -3,6 +3,7 @@ import Head from 'next/head';
 import { WebRecipeHero, WebRecipeQuickGuide } from '@/components/about-components/tools';
 import { FAQ, TryPremiumCTA, HomeChat, HomeDashDisplay, HomeRecipeDisplay } from '@/components/home-sections/home';
 import GoogleTags from '@/components/google/conversion';
+import { HomeFAQ, HomePageCTA } from '@/components/home-sections/home2';
 
 const raleway = Raleway({subsets: ['latin']})
 
@@ -19,11 +20,11 @@ export default function SocialMediaRecipe() {
       <main className={`flex min-h-screen flex-col items-center bg-background ${raleway.className}`}>
         <WebRecipeHero/>
         <WebRecipeQuickGuide/>
-        <HomeChat/>
         <HomeDashDisplay/>
         <HomeRecipeDisplay/>
-        <TryPremiumCTA/>
-        <FAQ/>
+        <HomePageCTA/>
+        <div className="mt-16"/>
+        <HomeFAQ/>
       </main>
     </>
   )
