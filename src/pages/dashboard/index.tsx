@@ -9,6 +9,7 @@ import { PageLoader } from "@/components/shared/loader";
 import Head from 'next/head';
 import { db } from '../api/firebase/firebase';
 import { getUserData } from '../api/firebase/functions';
+import GoogleTags from '@/components/google/conversion';
 
 const raleway = Raleway({subsets: ['latin']})
 
@@ -44,6 +45,7 @@ export default function Dashboard() {
     <Head>
       <title>Zesti | Your Dashboard</title>
       <meta name="robots" content="noindex" />
+      <GoogleTags/>
     </Head>
     <main className={`flex min-h-screen flex-col items-center justify-between bg-background ${raleway.className}`}>
 
