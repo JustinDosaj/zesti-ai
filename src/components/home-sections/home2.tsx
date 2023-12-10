@@ -2,7 +2,7 @@ import { Container } from "../shared/container"
 import { ArrowRightIcon, StarIcon, VideoCameraIcon, ComputerDesktopIcon, ChevronLeftIcon, ChevronRightIcon, MinusSmallIcon, PlusSmallIcon} from "@heroicons/react/20/solid"
 import Link from "next/link"
 import { useState } from "react"
-import { ToolExamples, Scroller } from "./scroll"
+import { ToolExamples, Scroller, DashboardExample } from "./scroll"
 import { Button, BtnLink } from "../shared/button"
 import Image from "next/image"
 import { Disclosure } from "@headlessui/react"
@@ -69,7 +69,7 @@ export function HomePageScroller() {
     const [ scrollPage, setScrollPage] = useState<number>(1)
 
     const onRightScrollClick = () => {
-      /*if(scrollPage >= 3) {
+      /*if(scrollPage >= 2) {
         setScrollPage(1)
       } else {
         setScrollPage(scrollPage + 1)
@@ -78,7 +78,7 @@ export function HomePageScroller() {
 
     const onLeftScrollClick = () => {
       /*if(scrollPage <= 1) {
-        setScrollPage(3)
+        setScrollPage(2)
       }
       else {
         setScrollPage(scrollPage - 1)
@@ -93,7 +93,7 @@ export function HomePageScroller() {
     )
     else if (scrollPage == 2) return (
       <Container className="home-scroll-container"> 
-        <ToolExamples/>
+        <DashboardExample/>
         <Scroller onRightScrollClick={onRightScrollClick} onLeftScrollClick={onLeftScrollClick} scrollPage={scrollPage}/>
       </Container>
     )
