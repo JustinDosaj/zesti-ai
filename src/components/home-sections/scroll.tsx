@@ -7,10 +7,10 @@ export function ToolExamples() {
         <>
             <div className="flex flex-col lg:flex-row justify-center text-center lg:items-center w-full gap-8">
                 <div className="flex flex-col gap-6">
-                    <p className="text-4xl lg:text-5xl font-semibold text-gray-800">
+                    <h1 className="text-4xl lg:text-5xl font-semibold text-gray-800">
                         How Our Members Use
                     <span className="primary-orange-text-gradient"> Zesti </span>
-                    </p>
+                    </h1>
                     <p className="section-desc-text-size text-gray-600 w-full">
                         Click on any of the example below of people using Zesti to instantly save YouTube & TikTok videos or create unique AI recipes!
                     </p>

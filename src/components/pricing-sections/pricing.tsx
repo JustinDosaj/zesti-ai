@@ -93,19 +93,19 @@ export function PricingDisplay() {
                     {tier.name} 
                   </h3>
                   <div className={tier.trial == true ? `` : `hidden`}>
-                    <div className="bg-gray-900 text-white rounded-xl pt-1 pb-1 pl-2 pr-2">Free 7-Day Trial</div>
+                    <div className="bg-gray-900 text-white text-sm lg:text-base rounded-xl pt-1 pb-1 pl-2 pr-2">Free 7-Day Trial</div>
                   </div>
                 </div>
                 <p className="mt-4 flex items-baseline gap-x-2">
                   <span
                     className={classNames(
                       tier.featured ? 'text-gray-900' : 'text-gray-900',
-                      'text-5xl font-bold tracking-tight'
+                      'section-title-text-size font-bold tracking-tight'
                     )}
                   >
                     {tier.priceMonthly}
                   </span>
-                  <span className={classNames(tier.featured ? 'text-gray-700' : 'text-gray-500', 'text-base')}>/month</span>
+                  <span className={classNames(tier.featured ? 'text-gray-700' : 'text-gray-500', 'lg:text-base')}>/month</span>
                 </p>
                 <p className={classNames(tier.featured ? 'text-gray-700' : 'text-gray-600', 'mt-6 text-base leading-7')}>
                   {tier.description}
@@ -154,10 +154,10 @@ export function PricingTitle() {
       <div className="bg-white mx-auto">
         <div className="mx-auto max-w-7xl md:px-6 lg:px-8"></div>
           <div className="mx-auto max-w-4xl text-center">
-            <h1 className="mt-2 text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl">
+            <h1 className="section-title-text-size mt-2 font-bold tracking-tight text-gray-900">
               Choose a plan
             </h1>
-            <p className="mx-auto mt-4 max-w-2xl text-center text-lg leading-8 text-gray-700">
+            <p className="mx-auto mt-4 max-w-2xl text-center section-desc-text-size leading-8 text-gray-700">
               Join hundreds of users creating their favorite home cooked meals!
             </p>
             <p className="mx-auto sm:mb-8 mt-4 sm:mt-6 max-w-xl w-fit pr-3 pl-3 text-center leading-8 border border-primary-main rounded-3xl text-gray-600">
