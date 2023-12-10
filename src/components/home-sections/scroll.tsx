@@ -22,7 +22,7 @@ export function ToolExamples() {
             <TestimonialCard
                 name="Fluffy Blueberry Muffins"
                 source="YouTube"
-                desc="Fluffy and moist blueberry muffins loaded with a ton of blueberries, topped with a simple and delicious brown sugar streusel. This is a quick and easy recipe everyone will love!"
+                desc="Fluffy and moist blueberry muffins loaded with a ton of blueberries, topped with a simple and delicious brown sugar streusel."
                 imageSrc="/images/stock-people/blue-shirt.jpg"
                 href="/about/demos/youtube"
             />
@@ -36,7 +36,7 @@ export function ToolExamples() {
             <TestimonialCard
                 name="Hawaiian Roll Garlic Bread"
                 source="Tiktok"
-                desc="A ridiculously good and addictive garlic bread made with Hawaiian rolls, stuffed with a flavorful garlic butter mixture, topped with melty mozzarella cheese, and baked to perfection."
+                desc="A ridiculously good and addictive garlic bread made with Hawaiian rolls, stuffed with a flavorful garlic butter mixture, topped with melty mozzarella cheese."
                 imageSrc="/images/stock-people/smiley-woman-couch.jpg"
                 href="/about/demos/tiktok"
             />

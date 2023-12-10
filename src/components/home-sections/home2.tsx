@@ -143,10 +143,10 @@ export function HomePageHero(){
           <Button buttonType="button" text="Go to Dashboard" className="w-fit" onClick={() => router.push('/dashboard')}/>
           }
         </div>
-        <div className="flex justify-center space-x-8 lg:justify-start lg:space-x-16">
-          <StatisticItem number="5.000+" label="Customer" />
-          <StatisticItem number="8.000+" label="Delivery" />
-          <StatisticItem number="1.000+" label="Ratings" />
+        <div className="grid grid-cols-3 lg:flex justify-center lg:justify-start lg:space-x-16">
+          <StatisticItem number="3000+" label="Recipes" />
+          <StatisticItem number="500+" label="Users" />
+          <StatisticItem number="$0" label="Price" />
         </div>
       </div>
 
