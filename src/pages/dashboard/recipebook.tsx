@@ -7,6 +7,7 @@ import { useAuth } from '../api/auth/auth'
 import { db } from '../api/firebase/firebase'
 import { PageLoader } from '@/components/shared/loader'
 import { RecipeList } from '@/components/dash-sections/recipelist'
+import GoogleTags from '@/components/google/conversion'
 
 const raleway = Raleway({subsets: ['latin']})
 
@@ -36,6 +37,7 @@ export default function RecipeBook() {
         <Head>
             <title>Zesti | Recipe Book</title>
             <meta name="robots" content="noindex"/>
+            <GoogleTags/>
         </Head>  
         <main className={`flex min-h-screen flex-col items-center bg-background ${raleway.className}`}>
             <RecipeBookTitle/>

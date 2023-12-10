@@ -10,6 +10,7 @@ import { useRouter } from 'next/router'
 import Head from 'next/head'
 import { Loader } from '@/components/shared/loader'
 import { PricingDisplay } from '@/components/pricing-sections/pricing'
+import GoogleTags from '@/components/google/conversion'
 const raleway = Raleway({subsets: ['latin']})
 
 const features = [
@@ -60,6 +61,7 @@ export default function Premium() {
         <title>Zesti Premium | Chatgpt Cooking Assistant | Best Value</title>
         <meta name="title" content="Zesti Premium | Best Chatgpt Cooking Assistant"/>
         <meta name="description" content="Subscribe to Zesti Premium to gain the best value access to edit and save cooking videos as text recipes. Plus gain access to the cooking chat AI assistant. Try for free. No credit card required."/>
+        <GoogleTags/>
     </Head>
     <div className="bg-white">
     {/* Header */}

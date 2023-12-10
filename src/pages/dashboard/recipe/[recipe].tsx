@@ -12,6 +12,7 @@ import { Chatbox } from "@/components/chat/chatbox";
 import { RecipePageAmazonProduct } from "@/components/google/ads";
 import { db } from "@/pages/api/firebase/firebase";
 import { AddToRecipeModal } from "@/components/shared/modals";
+import GoogleTags from "@/components/google/conversion";
 
 const raleway = Raleway({subsets: ['latin']})
 
@@ -230,6 +231,8 @@ const Recipe: React.FC = ({id, ad}: any) => {
     <>
     <Head>
       <title>{recipe.name}</title>
+      <meta name="robots" content="noindex" />
+      <GoogleTags/>
     </Head>  
     <main className={`flex min-h-screen flex-col items-center justify-between p-2 bg-background ${raleway.className}`}>
       {stripeRole == 'premium' ? <Chatbox/> : <></>}
