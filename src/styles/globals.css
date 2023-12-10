@@ -44,7 +44,7 @@ body {
   }
 
   .section-desc-text-size {
-    @apply text-base lg:text-lg
+    @apply text-base lg:text-lg text-gray-600
   }
 
   .orange-border-shadow {

@@ -1,5 +1,3 @@
-import { Title } from "@/components/shared/title"
-import { Paragraph } from "@/components/shared/paragraph"
 import { Container } from "@/components/shared/container"
 import { Button } from "@/components/shared/button"
 import { Raleway } from 'next/font/google'
@@ -24,12 +22,12 @@ export default function Contact() {
         <section className="relative my-auto ">
             <Container className={"grid md:grid-cols-2 lg:flex-row gap-10 lg:gap-12"}>
                 <div className="flex-1 flex flex-col">
-                    <Title className="text-black">
+                    <h1 className="section-title-text-size font-bold tracking-tight text-gray-900">
                         Contact Us
-                    </Title>
-                    <Paragraph className="mt-8 text-gray-600">
+                    </h1>
+                    <p className="mt-8 section-desc-text-size">
                         If you have any questions or require support, send us a message and we will respond as soon as possible!                
-                    </Paragraph>
+                    </p>
                 </div>
                 <form action="https://formspree.io/f/maygvonw" method="POST" target="_blank">
                     <div className="py-1 pl-6 w-full pr-1 flex gap-3 items-center text-heading-3 shadow-lg shadow-box-shadow border border-box-border bg-box-bg rounded-full ease-linear focus-within:bg-body  focus-within:border-primary">

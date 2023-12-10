@@ -263,15 +263,15 @@ export function HomeDashDisplay() {
       <div className="bg-white py-24 sm:py-32">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <div className="mx-auto max-w-2xl sm:text-center">
-            <Title className="mt-2 text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl">
+            <h1 className="section-title-text-size font-semibold text-center text-gray-700">
             <span className="primary-orange-text-gradient">Save, Edit & Create </span>
             Recipes from the
             <span className="primary-orange-text-gradient"> Dashboard</span>
 
-            </Title>
-            <Paragraph className="mt-6 text-lg leading-8 text-gray-600">
+            </h1>
+            <p className="section-desc-text-size font-medium text-gray-600 mt-6 text-center">
               Everything is accessible from our easy-to-use dashboard. Cooking has never been easier!
-            </Paragraph>
+            </p>
           </div>
         </div>
         <div className="relative overflow-hidden pt-16">
@@ -279,14 +279,14 @@ export function HomeDashDisplay() {
             <Image
               src="/images/dashdeskcap.JPG"
               alt="Ingredient and Instruction Screenshot for Recipe"
-              className="mb-[-4%] rounded-xl shadow-2xl ring-1 ring-gray-900/10 hidden sm:block"
+              className="mb-[-4%] rounded-3xl orange-border-shadow hidden sm:block"
               width={2432}
               height={1442}
             />
             <Image
               src="/images/mobdashcap.JPG"
               alt="Ingredient and Instruction Screenshot for Recipe"
-              className="mb-[-4%] rounded-xl shadow-2xl ring-1 ring-gray-900/10 block sm:hidden"
+              className="mb-[-4%] rounded-3xl orange-border-shadow block sm:hidden"
               width={2432}
               height={1442}
             />
@@ -306,13 +306,13 @@ export function HomeRecipeDisplay() {
     <div className="bg-white py-24 sm:py-32">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className="mx-auto max-w-2xl sm:text-center">
-          <Title className="mt-2 text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl">
-          <span className="primary-orange-text-gradient">Easy-to-follow </span>
-          Recipes
-          </Title>
-          <Paragraph className="mt-6 text-lg leading-8 text-gray-600">
+          <h1 className="text-4xl lg:text-5xl font-semibold text-gray-700">
+            <span className="primary-orange-text-gradient"> Easy-to-Follow </span>
+            Recipes
+          </h1>
+          <p className="section-desc-text-size text-gray-600 mt-6 w-full">
             Everything is accessible from our easy-to-use dashboard. Cooking has never been easier!
-          </Paragraph>
+          </p>
         </div>
       </div>
       <div className="relative overflow-hidden pt-16">
@@ -320,14 +320,14 @@ export function HomeRecipeDisplay() {
           <Image
             src="/images/deskreccap.JPG"
             alt="Ingredient and Instruction Screenshot for Recipe"
-            className="mb-[-4%] rounded-xl shadow-2xl ring-1 ring-gray-900/10 hidden sm:block"
+            className="mb-[-4%] orange-border-shadow rounded-3xl hidden sm:block"
             width={2432}
             height={1442}
           />
           <Image
             src="/images/mobreccap.JPG"
             alt="Ingredient and Instruction Screenshot for Recipe"
-            className="mb-[-4%] rounded-xl shadow-2xl ring-1 ring-gray-900/10 block sm:hidden"
+            className="mb-[-4%] orange-border-shadow rounded-3xl block sm:hidden"
             width={2432}
             height={1442}
           />
