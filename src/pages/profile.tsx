@@ -129,7 +129,7 @@ export default function Profile() {
                     </div>
                   }
                 </div>
-                <div className="grid grid-cols-1 md:grid-cols-2 space-x-0 md:space-x-4 space-y-2 md:space-y-0 mt-6 border-t px-6 py-6">
+                <div className="grid grid-cols-1 lg:grid-cols-2 space-x-0 lg:space-x-4 space-y-4 lg:space-y-0 mt-6 border-t px-6 py-6">
                     <AltButton buttonType="button" text="Manage Subscription" onClick={() => {window.open(`${process.env.NEXT_PUBLIC_STRIPE_NO_CODE_PORATL}`)}}/>
                     <Button buttonType="button" text='Logout' onClick={() => logout()}/>
                 </div>
