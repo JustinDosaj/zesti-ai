@@ -57,11 +57,12 @@ export function Chatbox() {
     setMessage(e.target.value);
   };
 
-  const handleSendMessage = async (e: MouseEvent<HTMLButtonElement>) => {
+  const handleSendMessage = async (e: React.MouseEvent<HTMLButtonElement> | React.KeyboardEvent<HTMLButtonElement>) => {
     e.preventDefault();
 
+    setMessage('') // Clear the message input after sending
+
     if (message.trim() === '' || !user ) return;
-  
 
     const messagesRef = collection(db, `users/${user?.uid}/messages`);
 
@@ -78,8 +79,7 @@ export function Chatbox() {
         text: message,
         timestamp: new Date()
       }, { merge: true });
-  
-      setMessage(''); // Clear the message input after sending
+      
       scrollToBottom();
 
     } catch (error) {
@@ -119,7 +119,7 @@ export function Chatbox() {
           : user && messages.length > 0 ?
           <div className="flex-1 p-4 overflow-y-auto">
             {messages.map(({ id, sender, text }) => (
-            <div key={id} className={`border p-2 rounded-xl message ${sender === 'user' ? 'user-message bg-primary-main bg-opacity-90 justify-items-end w-fit text-white mb-3' : 'bg-gray-100 bot-message mb-3 text-black'}`}>
+            <div key={id} className={`border p-2 rounded-xl message ${sender === 'user' ? 'user-message bg-primary-main bg-opacity-90 justify-items-end w-fit text-white mb-3' : 'bg-gray-100 bot-message w-fit mb-3 text-black'}`}>
               {text}
             </div>
             ))}
@@ -148,9 +148,14 @@ export function Chatbox() {
               className="w-full p-2 text-gray-700"
               value={message}
               onChange={handleInputChange}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter' && !e.shiftKey) { // Prevent sending on Shift+Enter
+                  handleSendMessage(e as unknown as React.MouseEvent<HTMLButtonElement>);
+                }
+              }}
             />
             <button
-              type="submit"
+              type="button"
               onClick={handleSendMessage}
               className={`bg-primary-main text-white rounded-r p-2 hover:bg-primary-alt transition ${!user ? `hover:cursor-not-allowed` : ``}`}
             >

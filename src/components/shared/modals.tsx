@@ -84,7 +84,7 @@ export function InputResponseModal({isOpen, setIsOpen, success, message}: Props)
                 {success == true ?
                 <div className="mt-5 sm:mt-6 sm:grid sm:grid-flow-row-dense sm:grid-cols-2 sm:gap-3">
                   <Link
-                    className="inline-flex w-full justify-center rounded-md bg-primary-main px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-primary-alt focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 sm:col-start-2"
+                    className="inline-flex w-full justify-center rounded-3xl bg-primary-main px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-primary-alt focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 sm:col-start-2"
                     href="/dashboard/recipebook"
                     onClick={() => setIsOpen(false)}
                   >
@@ -92,7 +92,7 @@ export function InputResponseModal({isOpen, setIsOpen, success, message}: Props)
                   </Link>
                   <button
                     type="button"
-                    className="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:col-start-1 sm:mt-0"
+                    className="mt-3 inline-flex w-full justify-center rounded-3xl bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:col-start-1 sm:mt-0"
                     onClick={() => {setIsOpen(false)}}
                     ref={cancelButtonRef}
                   >
@@ -102,7 +102,7 @@ export function InputResponseModal({isOpen, setIsOpen, success, message}: Props)
                 :
                 <div className="mt-5 sm:mt-6 sm:grid sm:grid-flow-row-dense sm:grid-cols-2 sm:gap-3">
                   <Link
-                    className="inline-flex w-full justify-center rounded-md bg-primary-main px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-primary-alt focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 sm:col-start-2"
+                    className="inline-flex w-full justify-center rounded-3xl bg-primary-main px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-primary-alt focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 sm:col-start-2"
                     href="/dashboard"
                     onClick={() => setIsOpen(false)}
                   >
@@ -110,7 +110,7 @@ export function InputResponseModal({isOpen, setIsOpen, success, message}: Props)
                   </Link>
                   <button
                     type="button"
-                    className="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:col-start-1 sm:mt-0"
+                    className="mt-3 inline-flex w-full justify-center rounded-3xl bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:col-start-1 sm:mt-0"
                     onClick={() => {setIsOpen(false)}}
                     ref={cancelButtonRef}
                   >
@@ -190,14 +190,14 @@ export function DeleteConfirmationModal({isOpen, setIsOpen, recipeId}: DeletePro
                   </div>
                 <div className="mt-5 sm:mt-6 sm:grid sm:grid-flow-row-dense sm:grid-cols-2 sm:gap-3">
                   <button
-                    className="inline-flex w-full justify-center rounded-md bg-primary-main px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-primary-alt sm:col-start-2"
+                    className="inline-flex w-full justify-center rounded-3xl bg-primary-main px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-primary-alt sm:col-start-2"
                     onClick={() => {setIsOpen(false)}}
                   >
                     Cancel
                   </button>
                   <button
                     type="button"
-                    className="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:col-start-1 sm:mt-0"
+                    className="mt-3 inline-flex w-full justify-center rounded-3xl bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:col-start-1 sm:mt-0"
                     onClick={() => onClick()}
                     ref={cancelButtonRef}
                   >
@@ -265,7 +265,7 @@ export function NotLoggedInModal({loginPrompt, setLoginPrompt}: LoginProps) {
                   </div>
                 <div className="mt-5 sm:mt-6 sm:grid sm:grid-flow-row-dense sm:grid-cols-2 sm:gap-3">
                   <Link
-                    className="inline-flex w-full justify-center rounded-md bg-primary-main px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-primary-alt focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 sm:col-start-2"
+                    className="inline-flex w-full justify-center rounded-3xl bg-primary-main px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-primary-alt focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 sm:col-start-2"
                     href="/login"
                     onClick={() => {setLoginPrompt(false)}}
                   >
@@ -273,7 +273,7 @@ export function NotLoggedInModal({loginPrompt, setLoginPrompt}: LoginProps) {
                   </Link>
                   <button
                     type="button"
-                    className="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:col-start-1 sm:mt-0"
+                    className="mt-3 inline-flex w-full justify-center rounded-3xl bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:col-start-1 sm:mt-0"
                     onClick={() => {setLoginPrompt(false)}}
                     ref={cancelButtonRef}
                   >
@@ -342,22 +342,23 @@ export function AddToRecipeModal({isOpen, setIsOpen, addType, onSubmit}: AddProp
                       {`Add ${addType}`}
                     </Dialog.Title>
                     <span className="text-sm">{`Enter new ${addType} below`}</span>
-                    <textarea
+                    <input
                         value={userInput}
                         onChange={(e) => {setUserInput(e.target.value)}}
-                        className="text-gray-500 whitespace-normal w-full bg-gray-100 mt-2"
+                        className="text-gray-500 whitespace-normal w-full bg-gray-100 mt-2 p-2 rounded-lg"
+                        placeholder={`Enter ${addType} here then click add`}
                     />
                   </div>
                 <div className="mt-5 sm:mt-6 sm:grid sm:grid-flow-row-dense sm:grid-cols-2 sm:gap-3">
                   <button
-                    className="inline-flex w-full justify-center rounded-md bg-primary-main px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-primary-alt sm:col-start-2"
+                    className="inline-flex w-full justify-center rounded-3xl bg-primary-main px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-primary-alt sm:col-start-2"
                     onClick={() => {onAddToRecipeClick()}}
                   >
                     {`Add ${addType}`}
                   </button>
                   <button
                     type="button"
-                    className="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:col-start-1 sm:mt-0"
+                    className="mt-3 inline-flex w-full justify-center rounded-3xl bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:col-start-1 sm:mt-0"
                     onClick={() => {
                       setUserInput('')
                       setIsOpen(false)
@@ -467,7 +468,7 @@ export function AdvancedControlsModal({isOptionsOpen, setIsOptionsOpen, setUserI
                     <Dialog.Title as="h3" className="text-xl font-semibold leading-6 text-gray-900">
                       Settings
                     </Dialog.Title>
-                    <div className="border p-1">
+                    <div className="border rounded-xl p-2">
                       <span className="text-base font-semibold text-primary-main">
                         Quick Tips
                       </span>
@@ -536,14 +537,14 @@ export function AdvancedControlsModal({isOptionsOpen, setIsOptionsOpen, setUserI
                 <div className="mt-5 sm:mt-6 sm:grid sm:grid-flow-row-dense sm:grid-cols-2 sm:gap-3">
                   <button
                     type="button"
-                    className="inline-flex w-full justify-center rounded-md bg-primary-main px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-primary-alt focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 sm:col-start-2"
+                    className="rounded-3xl inline-flex w-full justify-center bg-primary-main px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-primary-alt focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 sm:col-start-2"
                     onClick={handleAdvancedSubmit}
                   >
                     Create Recipe
                   </button>
                   <button
                     type="button"
-                    className="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:col-start-1 sm:mt-0"
+                    className="mt-3 inline-flex w-full justify-center rounded-3xl bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:col-start-1 sm:mt-0"
                     onClick={handleCloseModal}
                     ref={cancelButtonRef}
                   >
