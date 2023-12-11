@@ -8,22 +8,35 @@ import { XMarkIcon, TrashIcon, UserCircleIcon, SquaresPlusIcon, PlusIcon } from 
 import {PencilIcon} from '@heroicons/react/24/outline'
 import { deleteRecipe } from '@/pages/api/firebase/functions'
 import { useAuth } from '@/pages/api/auth/auth'
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 
 interface Props {
     isOpen: boolean,
     setIsOpen: any,
     success: boolean,
     message: any,
+    role: any,
 }
 
-export function InputResponseModal({isOpen, setIsOpen, success, message}: Props) {
+declare let adsbygoogle: any;
+
+export function InputResponseModal({isOpen, setIsOpen, success, message, role}: Props) {
 
   const cancelButtonRef = useRef(null)
 
+  useEffect(() => {
+    try {
+      if(adsbygoogle && !adsbygoogle.loaded) {
+        (adsbygoogle = window.adsbygoogle || []).push({});
+      }
+    } catch (error) {
+      console.error("Error pushing adsbygoogle", error);
+    }
+  }, []);
+
   return (
     <Transition.Root show={isOpen} as={Fragment}>
-      <Dialog as="div" className="relative z-10" initialFocus={cancelButtonRef} onClose={setIsOpen}>
+      <Dialog as="div" className="relative z-50" initialFocus={cancelButtonRef} onClose={setIsOpen}>
         <Transition.Child
           as={Fragment}
           enter="ease-out duration-300"
@@ -47,18 +60,18 @@ export function InputResponseModal({isOpen, setIsOpen, success, message}: Props)
               leaveFrom="opacity-100 translate-y-0 sm:scale-100"
               leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
             >
-              <Dialog.Panel className="relative transform overflow-hidden rounded-lg bg-white px-4 pb-4 pt-5 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg sm:p-6">
+              <Dialog.Panel className="relative transform overflow-hidden rounded-3xl bg-white px-4 pb-4 pt-5 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg sm:p-6">
                 { success == true ? 
                 <div>
                   <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-green-100">
                     <CheckIcon className="h-6 w-6 text-color-alt-green" aria-hidden="true" />
                   </div>
                   <div className="mt-3 text-center sm:mt-5">
-                    <Dialog.Title as="h3" className="text-base font-semibold leading-6 text-gray-900">
+                    <Dialog.Title as="h3" className="text-lg lg:text-xl font-semibold leading-6 text-gray-900">
                       Transcription Started
                     </Dialog.Title>
                     <div className="mt-2">
-                      <p className="text-sm text-gray-500">
+                      <p className="text-sm lg:text-base text-gray-00">
                         {message}
                       </p>
                     </div>
@@ -80,6 +93,19 @@ export function InputResponseModal({isOpen, setIsOpen, success, message}: Props)
                     </div>
                     </div>
                 </div>
+                }
+                { role !== 'premium' ?
+                <div className="mt-3 bg-gray-200 rounded-3xl">
+                  <ins className="adsbygoogle"
+                      style={{display: 'block'}}
+                      data-ad-client="ca-pub-5837655994202747"
+                      data-ad-slot="9250004753"
+                      data-ad-format="auto"
+                      data-full-width-responsive="true">
+                  </ins>
+                </div>
+                :
+                <div className="hidden"/>
                 }
                 {success == true ?
                 <div className="mt-5 sm:mt-6 sm:grid sm:grid-flow-row-dense sm:grid-cols-2 sm:gap-3">
@@ -140,7 +166,6 @@ export function DeleteConfirmationModal({isOpen, setIsOpen, recipeId}: DeletePro
   const [ isLoading, setIsLoading ] = useState<boolean>(false)
 
   async function  onClick() {
-    console.log("User and other: ", user?.uid, recipeId)
     setIsLoading(true)
     await deleteRecipe(user?.uid, recipeId)
     setIsLoading(false)
