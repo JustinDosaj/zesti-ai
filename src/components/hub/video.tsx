@@ -87,7 +87,7 @@ export function VideoComponent() {
                 }
             </form>
         </div>
-        <InputResponseModal isOpen={isOpen} setIsOpen={setIsOpen} success={success} message={message}/>
+        <InputResponseModal isOpen={isOpen} setIsOpen={setIsOpen} success={success} message={message} role={stripeRole}/>
         <NotLoggedInModal loginPrompt={loginPrompt} setLoginPrompt={setLoginPrompt}/>
     </div>
     )

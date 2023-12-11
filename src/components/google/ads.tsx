@@ -1,4 +1,5 @@
 import { Container } from "../shared/container"
+import React, { useEffect } from "react";
 import Image from "next/image";
 
 export function RecipePageAmazonProduct({ad}: any){
@@ -24,3 +25,4 @@ export function RecipePageAmazonProduct({ad}: any){
       </Container>
     )
 }
+

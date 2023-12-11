@@ -46,8 +46,6 @@ export function ChatComponent({role}: any) {
 
     async function onClick(input: any) {
 
-        console.log("User Input: ",  input)
-
         if (!user) {
             setLoginPrompt(true)
             return;
@@ -114,7 +112,7 @@ export function ChatComponent({role}: any) {
         :
         <></>
         }
-        <InputResponseModal isOpen={isOpen} setIsOpen={setIsOpen} success={success} message={message}/>
+        <InputResponseModal isOpen={isOpen} setIsOpen={setIsOpen} success={success} message={message} role={stripeRole}/>
         <NotLoggedInModal loginPrompt={loginPrompt} setLoginPrompt={setLoginPrompt}/>
         <AdvancedControlsModal isOptionsOpen={isOptionsOpen} setIsOptionsOpen={setIsOptionsOpen} setUserInput={setUserInput} onSubmit={async (updatedInput: any) => await onClick(updatedInput)}/>
     </div>
