@@ -9,6 +9,7 @@ import {PencilIcon} from '@heroicons/react/24/outline'
 import { deleteRecipe } from '@/pages/api/firebase/functions'
 import { useAuth } from '@/pages/api/auth/auth'
 import React, { useState, useEffect } from 'react'
+import AdSense from '../google/adsense'
 
 interface Props {
     isOpen: boolean,
@@ -18,21 +19,11 @@ interface Props {
     role: any,
 }
 
-declare let adsbygoogle: any;
+
 
 export function InputResponseModal({isOpen, setIsOpen, success, message, role}: Props) {
 
   const cancelButtonRef = useRef(null)
-
-  useEffect(() => {
-    try {
-      if(adsbygoogle && !adsbygoogle.loaded) {
-        (adsbygoogle = window.adsbygoogle || []).push({});
-      }
-    } catch (error) {
-      console.error("Error pushing adsbygoogle", error);
-    }
-  }, []);
 
   return (
     <Transition.Root show={isOpen} as={Fragment}>
@@ -96,13 +87,7 @@ export function InputResponseModal({isOpen, setIsOpen, success, message, role}: 
                 }
                 { role !== 'premium' ?
                 <div className="mt-3 bg-gray-200 rounded-3xl">
-                  <ins className="adsbygoogle"
-                      style={{display: 'block'}}
-                      data-ad-client="ca-pub-5837655994202747"
-                      data-ad-slot="9250004753"
-                      data-ad-format="auto"
-                      data-full-width-responsive="true">
-                  </ins>
+                  <AdSense adSlot="9250004753"/>
                 </div>
                 :
                 <div className="hidden"/>
