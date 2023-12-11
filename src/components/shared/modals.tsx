@@ -62,7 +62,7 @@ export function InputResponseModal({isOpen, setIsOpen, success, message, role}: 
                       Transcription Started
                     </Dialog.Title>
                     <div className="mt-2">
-                      <p className="text-sm lg:text-base text-gray-00">
+                      <p className="text-sm lg:text-base text-gray-600">
                         {message}
                       </p>
                     </div>
