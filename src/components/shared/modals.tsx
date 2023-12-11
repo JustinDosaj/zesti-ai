@@ -86,7 +86,7 @@ export function InputResponseModal({isOpen, setIsOpen, success, message, role}: 
                 </div>
                 }
                 { role !== 'premium' ?
-                <div className="py-4 overflow-hidden w-fit object-contain">
+                <div className="py-4">
                   <AdSense adSlot="9250004753"/>
                 </div>
                 :
