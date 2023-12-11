@@ -5,16 +5,17 @@ import { ChatComponent } from '@/components/hub/chat';
 import { FAQ } from '@/components/home-sections/home';
 import { useAuth } from '../api/auth/auth';
 import React, { useState, useEffect } from 'react';
-import { db } from '../api/firebase/firebase';
 import { getUserData } from '../api/firebase/functions';
 import { PricingDisplay } from '@/components/pricing-sections/pricing';
 import GoogleTags from '@/components/google/conversion';
+import { PageLoader } from '@/components/shared/loader';
 
 const raleway = Raleway({subsets: ['latin']})
 
 export default function Generator() {
   // Comment
   const { stripeRole, user, isLoading } = useAuth()
+  const [ waitForPage, setWaitForPage ] = useState<boolean>(true)
   const [ tokens, setTokens ] = useState<number>(0)
 
   useEffect( () => { 
@@ -23,12 +24,15 @@ export default function Generator() {
       if(user){
         const userData = await getUserData(user?.uid);
         setTokens(userData?.tokens);
+        setWaitForPage(false)
       }
     };
     
     fetchUserData();
   
   }, [user])
+
+  if (waitForPage == true) return <PageLoader/>
 
   return (
     <>

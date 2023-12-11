@@ -71,7 +71,7 @@ export function ChatComponent({role}: any) {
     };
 
     return(
-    <div className="w-full flex flex-col items-center p-4 sm:p-0 justify-center">
+    <div className="w-full flex flex-col items-center p-4 sm:p-0 justify-center animate-fadeIn">
         <ToastContainer/>
         <div className="flex sm:flex-row flex-col gap-5 w-full justify-center">
             <form action="" method="POST" className="pl-6 w-full max-w-md pr-1 flex gap-3 text-heading-3 shadow-lg shadow-box-shadow
@@ -123,7 +123,7 @@ export function ChatHero({role, tokens}: any){
 
     return(
         <section className="relative pt-24 lg:pt-36">
-            <Container className={"flex flex-col lg:flex-row gap-10 lg:gap-12"}>
+            <Container className={"flex flex-col lg:flex-row gap-10 lg:gap-12 animate-fadeIn"}>
                 <div className="relative flex flex-col items-center text-center lg:py-7 xl:py-8 lg:max-w-none max-w-3xl mx-auto lg:mx-0 lg:flex-1 lg:w-1/2 p-8 md:p-16">
                     <h1 className="text-3xl/tight sm:text-4xl/tight md:text-5xl/tight xl:text-6xl/tight font-bold text-heading-1 mt-6">
                         <span className="text-black">Create </span>          
@@ -181,7 +181,7 @@ export function ChatTips() {
       
 
     return (
-        <Container className={"flex flex-col lg:flex-row gap-10 lg:gap-12"}>
+        <Container className={"flex flex-col lg:flex-row gap-10 lg:gap-12 animate-fadeIn"}>
             <div className="mx-auto overflow-hidden bg-white mt-16">
             <div className="mx-auto max-w-7xl px-6 lg:px-8">
                 <div className="mx-auto grid w-full gap-x-8 gap-y-16 sm:gap-y-20 lg:mx-0 lg:max-w-none">
