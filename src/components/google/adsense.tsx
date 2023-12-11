@@ -18,16 +18,14 @@ const AdSense = ({ adSlot }: any) => {
       }
     }, []);
 
-  console.log("In adsense components")
-
   return (
     <ins
       className="adsbygoogle"
       style={{ display: "block" }}
       data-ad-client="ca-pub-5837655994202747" // Replace with your publisher ID
       data-ad-slot={adSlot}
-      data-ad-format="auto"
-      data-full-width-responsive="true"
+      data-ad-format="rectangle"
+      data-full-width-responsive="false"
     ></ins>
   );
 };
