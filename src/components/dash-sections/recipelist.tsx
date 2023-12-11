@@ -32,13 +32,21 @@ function classNames(...classes: (string | undefined | null | false)[]): string {
 
 export function RecipeList({data, maxDisplayCount = -1}:StackListProps & {maxDisplayCount?: number}) {
 
+
+  // Sort data to display most recent recipes first
+  const sortedData = data.sort((a, b) => {
+    const dateA = new Date(a.date).getTime();
+    const dateB = new Date(b.date).getTime();
+    return dateB - dateA;
+  });
+
   const [ isDeleteOpen, setIsDeleteOpen ] = useState<boolean>(false)
   const [ selectedRecipeId, setSelectedRecipeId ] = useState<string | null>(null);
 
   return(
     <Container className={"flex flex-col lg:flex-wrap gap-10 lg:gap-4 pb-28 mt-4"}>
       <ul role="list" className="divide-y divide-primary-main divide-opacity-50 sm:divide-gray-300 text-gray-700">
-        {data.slice(0, maxDisplayCount >= 0 ? maxDisplayCount : data.length).map((recipe) => (
+        {sortedData.slice(0, maxDisplayCount >= 0 ? maxDisplayCount : data.length).map((recipe) => (
             <li key={recipe.id} className="flex items-center justify-between gap-x-6 py-5">
               <div className="min-w-0">
                 <div className="flex items-start gap-x-3">
