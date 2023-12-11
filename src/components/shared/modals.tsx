@@ -23,8 +23,6 @@ declare let adsbygoogle: any;
 export function InputResponseModal({isOpen, setIsOpen, success, message, role}: Props) {
 
   const cancelButtonRef = useRef(null)
-  
-  console.log(role)
 
   useEffect(() => {
     try {
@@ -168,7 +166,6 @@ export function DeleteConfirmationModal({isOpen, setIsOpen, recipeId}: DeletePro
   const [ isLoading, setIsLoading ] = useState<boolean>(false)
 
   async function  onClick() {
-    console.log("User and other: ", user?.uid, recipeId)
     setIsLoading(true)
     await deleteRecipe(user?.uid, recipeId)
     setIsLoading(false)

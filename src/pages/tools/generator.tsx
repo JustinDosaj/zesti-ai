@@ -20,8 +20,10 @@ export default function Generator() {
   useEffect( () => { 
 
     const fetchUserData = async () => {
+      if(user){
         const userData = await getUserData(user?.uid);
         setTokens(userData?.tokens);
+      }
     };
     
     fetchUserData();
