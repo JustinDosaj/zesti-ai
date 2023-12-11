@@ -16,7 +16,8 @@ const raleway = Raleway({subsets: ['latin']})
 export default function Dashboard() {
 
     const { user, isLoading, stripeRole } = useAuth();
-    const [isLoadingRecipes, setIsLoadingRecipes] = useState(true);
+    const [isLoadingRecipes, setIsLoadingRecipes] = useState<boolean>(true);
+    const [ waitForPage, setWaitForPage ] = useState<boolean>(true)
     const [ tokens, setTokens ] = useState<number>(0)
     const [recipes, setRecipes] = useState<any[]>([]);
     const router = useRouter();
@@ -35,10 +36,13 @@ export default function Dashboard() {
           const fetchUserData = async () => {
               const userData = await getUserData(user.uid);
               setTokens(userData?.tokens);
+              setWaitForPage(false)
           };
           fetchUserData();
       }
     }, [user])
+
+  if (isLoading || waitForPage == true) return <PageLoader/>
     
   return (
     <>

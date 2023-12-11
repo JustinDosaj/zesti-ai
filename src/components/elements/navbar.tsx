@@ -11,6 +11,7 @@ import { BtnLink } from "../shared/button"
 import Link from "next/link"
 import Image from "next/image"
 import { db } from "@/pages/api/firebase/firebase"
+import { Loader } from "../shared/loader"
 
 const navItems = [
     {
@@ -53,7 +54,7 @@ function classNames(...classes: (string | undefined | null | false)[]): string {
 
 export function Navbar({_user}: any) {
     
-    const { user, stripeRole } = useAuth();
+    const { user, stripeRole, isLoading } = useAuth();
     const [tokens, setTokens] = useState<number>(0)
 
     useEffect(() => {
@@ -69,6 +70,8 @@ export function Navbar({_user}: any) {
             return () => unsubscribe();
         }
     }, [user?.uid]);
+
+    if (isLoading == true) return(<></>)
 
     return(
     <>
@@ -99,7 +102,8 @@ export function Navbar({_user}: any) {
                     }
                     </ul>
                     <div className="lg:min-w-max flex items-center sm:w-max w-full pb-6 lg:pb-0 border-b border-box-bg lg:border-0 px-6 lg:px-0">
-                    { !user ?
+                    {
+                    !user ?
                     <BtnLink text='Login' className="flex justify-center w-full sm:w-max" href='/login'/>
                     :
                     <div className="inline-flex">

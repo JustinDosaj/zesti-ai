@@ -2,11 +2,17 @@ import { Raleway } from 'next/font/google'
 import Head from 'next/head';
 import GoogleTags from '@/components/google/conversion';
 import { HomePageScroller, HomePageTools, HomePageHero, HomePageCTA, HomeFAQ } from '@/components/home-sections/home2';
+import { useAuth } from './api/auth/auth';
+import { PageLoader } from '@/components/shared/loader';
 
 const raleway = Raleway({subsets: ['latin']})
 
 export default function Home() {
-  // Comment
+  
+  
+  const { isLoading } = useAuth();
+
+  if (isLoading) return <PageLoader/>
 
   return (
     <>

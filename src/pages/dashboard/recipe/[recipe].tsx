@@ -236,7 +236,7 @@ const Recipe: React.FC = ({id, ad}: any) => {
     </Head>  
     <main className={`flex min-h-screen flex-col items-center justify-between p-2 bg-background ${raleway.className}`}>
       {stripeRole == 'premium' ? <Chatbox/> : <></>}
-      <Container className={"flex flex-col lg:flex-row gap-10 lg:gap-12 mt-36"}>
+      <Container className={"flex flex-col lg:flex-row gap-10 lg:gap-12 mt-36 animate-fadeInFast"}>
        <div className="bg-white py-5 border w-full rounded-lg p-4 md:p-12">
         <div className="md:flex md:space-x-4">
           <div className="min-w-0 flex-1 space-y-2">
@@ -275,7 +275,7 @@ const Recipe: React.FC = ({id, ad}: any) => {
         </div>
       </div>
       </Container>
-      <Container className={"flex flex-col lg:flex-row gap-10 lg:gap-12 mt-12"}>
+      <Container className={"flex flex-col lg:flex-row gap-10 lg:gap-12 mt-12 animate-fadeInFast"}>
         <div className="my-auto w-full bg-white py-5 border rounded-lg p-4 md:p-12">
           <div className="flex pt-4 pb-4 justify-between items-center">
             <h2 className="text-lg font-medium text-gray-500">Ingredients {`(${recipe?.ingredients?.length})`}</h2>
@@ -313,7 +313,7 @@ const Recipe: React.FC = ({id, ad}: any) => {
           </div>
         </div>
       </Container>
-      <Container className={"flex flex-col lg:flex-row gap-10 lg:gap-12 mt-12"}>
+      <Container className={"flex flex-col lg:flex-row gap-10 lg:gap-12 mt-12 animate-fadeInFast"}>
         <div className="my-auto bg-white py-5 border w-full rounded-lg p-4 md:p-12 ">
           <div className="flex pt-4 pb-4 justify-between items-center">
             <h2 className="text-lg font-medium text-gray-500">Instructions {`(${recipe?.instructions?.length})`}</h2>
