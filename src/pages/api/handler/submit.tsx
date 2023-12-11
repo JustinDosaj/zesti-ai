@@ -201,6 +201,10 @@ interface ChatProps {
 
 export const handleCreativeChatSubmit = async({input, user, setMessage, stripeRole, setNotify, recipes}: ChatProps) => {
 
+
+        //setMessage("The recipe began processing and will appear in your dashboard shortly.")
+        //return true
+
         // url check
         const urlCheck = await isValidUrl(input)
 

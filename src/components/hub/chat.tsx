@@ -46,8 +46,6 @@ export function ChatComponent({role}: any) {
 
     async function onClick(input: any) {
 
-        console.log("User Input: ",  input)
-
         if (!user) {
             setLoginPrompt(true)
             return;
@@ -73,13 +71,13 @@ export function ChatComponent({role}: any) {
     };
 
     return(
-    <div className="w-full flex flex-col items-center p-4 sm:p-0">
+    <div className="w-full flex flex-col items-center p-4 sm:p-0 justify-center">
         <ToastContainer/>
         <div className="flex sm:flex-row flex-col gap-5 w-full justify-center">
             <form action="" method="POST" className="pl-6 w-full max-w-md pr-1 flex gap-3 text-heading-3 shadow-lg shadow-box-shadow
             border border-box-border bg-box-bg rounded-lg ease-linear focus-within:bg-body focus-within:border-primary">
                 <PencilIcon className="text-gray-600 h-6 w-6 mt-4"/>
-                <textarea name="web-page" value={userInput} placeholder="Enter something..." rows={3} maxLength={1000} className="mt-4 w-full text-gray-500 outline-none bg-transparent" 
+                <textarea name="web-page" value={userInput} placeholder="Enter something..." rows={3} maxLength={1000} className="mt-4 w-full text-gray-500 outline-none bg-transparent " 
                 onChange={(e) => {
                     adjustTextAreaHeight
                     setUserInput(e.target.value)
@@ -88,7 +86,7 @@ export function ChatComponent({role}: any) {
         </div>
         <div className="mt-4">
         {isLoading == false ?
-            <div className="w-full space-x-4">
+            <div className="w-full space-x-2 sm:space-x-4">
             <Button buttonType="button" text="" className={"min-w-max text-white"}  
                 onClick={ async () => { await onClick(userInput) }}>                              
                 <span className="sm:flex relative z-[5]">
@@ -114,7 +112,7 @@ export function ChatComponent({role}: any) {
         :
         <></>
         }
-        <InputResponseModal isOpen={isOpen} setIsOpen={setIsOpen} success={success} message={message}/>
+        <InputResponseModal isOpen={isOpen} setIsOpen={setIsOpen} success={success} message={message} role={stripeRole}/>
         <NotLoggedInModal loginPrompt={loginPrompt} setLoginPrompt={setLoginPrompt}/>
         <AdvancedControlsModal isOptionsOpen={isOptionsOpen} setIsOptionsOpen={setIsOptionsOpen} setUserInput={setUserInput} onSubmit={async (updatedInput: any) => await onClick(updatedInput)}/>
     </div>
