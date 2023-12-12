@@ -352,8 +352,8 @@ const Recipe: React.FC = ({id, ad}: any) => {
           </div>
         </div>
       </Container>
-      {stripeRole == 'premium' ? 
-        <div className="mx-auto w-screen py-12 pl-2 pr-2 lg:pl-12 lg:pr-12">
+      {stripeRole !== 'premium' ? 
+        <div className="mx-auto w-full py-12 flex justify-center">
           <AdSenseDisplay adSlot="9326575118" adFormat="rectangle, horizontal" widthRes="true"/>
         </div>
       :
