@@ -71,7 +71,7 @@ export function HolidayDiscountPricingDisplay() {
     
 
     return (
-    <Container className={"flex flex-col lg:flex-row gap-10 lg:gap-12 justify-center mt-6 sm:mt-0 mb-12 sm:mb-16"}>
+    <Container className={"flex flex-col lg:flex-row gap-10 lg:gap-12 justify-center mt-6 sm:mt-0 mb-12 sm:mb-16 animate-fadeIn"}>
         <div className="relative isolate bg-white lg:px-8">
           <div className="mx-auto grid max-w-lg grid-cols-1 items-center gap-y-6 sm:gap-y-0 lg:max-w-4xl lg:grid-cols-2">
             {tiers.map((tier: any, tierIdx: number) => (
@@ -155,7 +155,7 @@ export function HolidayDiscountPricingDisplay() {
 export function HolidayDiscountHero(){
     return(
         <section className="relative pt-24 lg:pt-36">
-            <Container className={"flex flex-col lg:flex-row gap-10 lg:gap-12"}>
+            <Container className={"flex flex-col lg:flex-row gap-10 lg:gap-12 animate-fadeIn"}>
                 <div className="space-y-4 relative flex flex-col items-center text-center lg:py-7 xl:py-8 lg:max-w-none max-w-3xl mx-auto lg:mx-0 lg:flex-1 lg:w-1/2 p-8 md:p-16">
                     <div className="inline-flex items-center border border-gray-300 rounded-3xl p-2 space-x-1">
                         <div className="text-black font-bold text-sm">Powered By OpenAI</div>

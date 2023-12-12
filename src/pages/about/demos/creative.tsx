@@ -49,7 +49,7 @@ const Demo: React.FC = () => {
       <meta name="description" content="Check out our demo recipe so you can see the results of transforming a Youtube cooking video into a readible recipe!"/>
       <GoogleTags/>
     </Head>  
-    <main className={`flex min-h-screen flex-col items-center justify-between p-2 bg-background mt-12${raleway.className}`}>
+    <main className={`flex min-h-screen flex-col items-center justify-between p-2 bg-background ${raleway.className} animate-fadeIn`}>
       <div className="text-center space-y-2">
         <Title className="text-gray-900 text-3xl mt-36">AI Generated Recipe</Title>
         {user ? 
