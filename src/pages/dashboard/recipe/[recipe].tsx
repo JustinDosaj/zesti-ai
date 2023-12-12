@@ -352,12 +352,13 @@ const Recipe: React.FC = ({id, ad}: any) => {
           </div>
         </div>
       </Container>
+      <p className="text-sm xl:text-4xl">HIYA</p>
       {stripeRole !== 'premium' ? 
-        <div className="flex justify-center items-center py-12">
-          <div style={{ minWidth: '300px', width: '100%', textAlign: 'center' }}>
-            <AdSenseDisplay adSlot="9326575118" adFormat="rectangle, horizontal" widthRes="true"/>
-          </div>
+      <div className="flex justify-center items-center py-12">
+        <div className="w-full min-w-[300px] lg:min-w-[1240px] text-center">
+          <AdSenseDisplay adSlot="9326575118" adFormat="rectangle, horizontal" widthRes="true"/>
         </div>
+      </div>
       :
       <div className="mb-28"/>
       }
