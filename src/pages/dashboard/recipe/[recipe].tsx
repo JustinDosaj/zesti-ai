@@ -13,6 +13,7 @@ import { RecipePageAmazonProduct } from "@/components/google/ads";
 import { db } from "@/pages/api/firebase/firebase";
 import { AddToRecipeModal } from "@/components/shared/modals";
 import GoogleTags from "@/components/google/conversion";
+import AdSenseDisplay from "@/components/google/adsense";
 
 const raleway = Raleway({subsets: ['latin']})
 
@@ -351,7 +352,15 @@ const Recipe: React.FC = ({id, ad}: any) => {
           </div>
         </div>
       </Container>
-      {stripeRole !== 'premium' ? <RecipePageAmazonProduct ad={ad}/> : <div className="mb-36"/>}
+      {stripeRole !== 'premium' ? 
+      <Container className={"flex flex-col lg:flex-row gap-10 lg:gap-12 mt-12 animate-fadeInFast mb-12"}>
+          <div className="mx-auto">
+            <AdSenseDisplay adSlot="9326575118" adFormat="auto"/>
+          </div>
+      </Container>
+      :
+      <div className="mb-36"/>
+      }
     </main>
     <AddToRecipeModal isOpen={isOpen} setIsOpen={setIsOpen} addType={addType} onSubmit={handleAddToRecipeSubmit}/>
     </>
