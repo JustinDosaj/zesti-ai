@@ -352,7 +352,6 @@ const Recipe: React.FC = ({id, ad}: any) => {
           </div>
         </div>
       </Container>
-      <p className="text-sm xl:text-4xl">HIYA</p>
       {stripeRole !== 'premium' ? 
       <div className="flex justify-center items-center py-12">
         <div className="w-full min-w-[300px] lg:min-w-[1240px] text-center">
