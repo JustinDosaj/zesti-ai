@@ -165,7 +165,7 @@ export function Navbar({_user}: any) {
                                 navItemsLoggedInMobile.map((item)=> (
                                     <Menu.Item key={item.text}>
                                     {({ active }) => (
-                                        <a
+                                        <Link
                                         href={item.href}
                                         className={classNames(
                                             active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
@@ -176,7 +176,7 @@ export function Navbar({_user}: any) {
                                                 <item.icon className="h-5 w-5 text-primary-main"/>
                                                 {item.text}
                                             </span>
-                                        </a>
+                                        </Link>
                                         
                                     )}
                                     </Menu.Item>
