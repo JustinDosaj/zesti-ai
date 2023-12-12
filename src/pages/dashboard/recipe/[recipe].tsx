@@ -353,11 +353,9 @@ const Recipe: React.FC = ({id, ad}: any) => {
         </div>
       </Container>
       {stripeRole !== 'premium' ? 
-      <Container className={"flex flex-col lg:flex-row gap-10 lg:gap-12 mt-12 animate-fadeInFast mb-12"}>
-          <div className="mx-auto">
-            <AdSenseDisplay adSlot="9326575118" adFormat="auto"/>
-          </div>
-      </Container>
+        <div className="mx-auto w-screen">
+          <AdSenseDisplay adSlot="9326575118" adFormat="auto"/>
+        </div>
       :
       <div className="mb-36"/>
       }
