@@ -12,6 +12,7 @@ import Link from "next/link"
 import Image from "next/image"
 import { db } from "@/pages/api/firebase/firebase"
 import { Loader } from "../shared/loader"
+import { Cog6ToothIcon, HomeIcon, SparklesIcon, PaperAirplaneIcon, RectangleGroupIcon, SquaresPlusIcon, WalletIcon } from "@heroicons/react/20/solid"
 
 const navItems = [
     {
@@ -43,7 +44,35 @@ const navItemsLoggedIn = [
     },
     {
         href: "/profile",
-        text: "Profie",
+        text: "Settings",
+    },
+]
+
+const navItemsLoggedInMobile = [
+    {
+        href:"/",
+        text:"Home",
+        icon: HomeIcon,
+    },
+    {
+        href:"/dashboard",
+        text:"My Dashboard",
+        icon: SquaresPlusIcon,
+    },
+    {
+        href:"/pricing",
+        text:"Pricing",
+        icon: WalletIcon,
+    },
+    {
+        href:"/contact",
+        text: "Contact",
+        icon: PaperAirplaneIcon,
+    },
+    {
+        href: "/profile",
+        text: "Settings",
+        icon: Cog6ToothIcon,
     },
 ]
 
@@ -131,24 +160,9 @@ export function Navbar({_user}: any) {
                     >   
                         <Menu.Items className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                         <div className="py-1">
-                            <Menu.Item>
-                            {({ active }) => (
-                                <div>
-                                { !user ? 
-                                    <div className='block px-4 py-2 text-sm' >
-                                        <BtnLink text='Login' className="flex justify-center w-full sm:w-max" href={'/login'}/>        
-                                    </div>
-                                    :
-                                    <div className='block px-4 py-2 text-sm' >
-                                        <BtnLink text='Dashboard' className="flex justify-center w-full sm:w-max" href={'/dashboard'}/>        
-                                    </div>
-                                   }
-                                </div>
-                            )}
-                            </Menu.Item>
                             {
                                 user !== null ? 
-                                navItemsLoggedIn.map((item)=> (
+                                navItemsLoggedInMobile.map((item)=> (
                                     <Menu.Item key={item.text}>
                                     {({ active }) => (
                                         <a
@@ -158,8 +172,12 @@ export function Navbar({_user}: any) {
                                             'block px-4 py-2 text-sm'
                                         )}
                                         >
-                                        {item.text}
+                                            <span className="inline-flex gap-x-2 items-center">
+                                                <item.icon className="h-5 w-5 text-primary-main"/>
+                                                {item.text}
+                                            </span>
                                         </a>
+                                        
                                     )}
                                     </Menu.Item>
                                 ))
