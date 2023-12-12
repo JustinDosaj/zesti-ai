@@ -9,7 +9,7 @@ import {PencilIcon} from '@heroicons/react/24/outline'
 import { deleteRecipe } from '@/pages/api/firebase/functions'
 import { useAuth } from '@/pages/api/auth/auth'
 import React, { useState, useEffect } from 'react'
-import AdSense from '../google/adsense'
+import AdSenseDisplay from '../google/adsense'
 
 interface Props {
     isOpen: boolean,
@@ -87,7 +87,7 @@ export function InputResponseModal({isOpen, setIsOpen, success, message, role}: 
                 }
                 { role !== 'premium' ?
                 <div className="py-4">
-                  <AdSense adSlot="9250004753"/>
+                  <AdSenseDisplay adSlot="9250004753" adFormat="rectangle"/>
                 </div>
                 :
                 <div className="hidden"/>
