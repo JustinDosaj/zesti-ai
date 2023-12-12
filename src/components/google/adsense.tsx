@@ -2,7 +2,7 @@ import { useEffect, useRef } from "react";
 
 declare let adsbygoogle: any;
 
-const AdSenseDisplay = ({ adSlot, adFormat }: any) => {
+const AdSenseDisplay = ({ adSlot, adFormat, widthRes }: any) => {
     const isClientSide = useRef(false);
     useEffect(() => {
       if (window && typeof window != 'undefined')
