@@ -50,4 +50,5 @@ body {
   .orange-border-shadow {
     @apply border border-orange-200 shadow-lg shadow-primary-main/10
   }
+
 }

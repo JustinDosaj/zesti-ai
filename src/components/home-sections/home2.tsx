@@ -33,7 +33,7 @@ export function HomePageTools() {
       ]
 
     return(
-    <Container className={"py-32 lg:py-48 px-5"}>
+    <Container className={"py-32 lg:py-48 px-5 animate-fadeIn"}>
         <div className="w-full max-w-7xl mx-auto space-y-12">
             <div className="flex flex-col lg:flex-row justify-start lg:justify-between items-center gap-8 lg:gap-14 text-center lg:text-left">
                 <p className="section-title-text-size font-semibold text-gray-700 lg:w-1/3">
@@ -86,7 +86,7 @@ export function HomePageScroller() {
     }
 
     if (scrollPage == 1) return(
-      <Container className="home-scroll-container"> 
+      <Container className="home-scroll-container animate-fadeIn"> 
         <ToolExamples/>
         <Scroller onRightScrollClick={onRightScrollClick} onLeftScrollClick={onLeftScrollClick} scrollPage={scrollPage}/>
       </Container> 
@@ -118,7 +118,7 @@ export function HomePageHero(){
   const router = useRouter()
 
   return(
-    <Container className="flex flex-col lg:flex-row items-center justify-between pt-36 px-5 space-x-4 xl:pt-48">
+    <Container className="flex flex-col lg:flex-row items-center justify-between pt-36 px-5 space-x-4 xl:pt-48 animate-fadeIn">
       <div className="flex lg:w-1/2 flex-col gap-6 lg:gap-8">
         <div className="inline-flex w-fit mx-auto lg:mx-0 items-center border border-gray-300 rounded-3xl p-2 space-x-1 ">
             <div className="text-black font-bold text-sm">Powered By OpenAI</div>
@@ -167,7 +167,7 @@ export function HomePageHero(){
 
 export function HomePageCTA() {
   return(
-    <Container className="relative w-full max-w-6xl mx-auto py-24 px-5">
+    <Container className="relative w-full max-w-6xl mx-auto py-24 px-5 animate-fadeIn">
       <div className="flex flex-col items-center gap-8 border rounded-3xl p-6 lg:p-12">
         <div className="flex flex-col items-center gap-6">
           <p className="w-full md:w-96 text-xl font-medium text-center primary-orange-text-gradient">
@@ -212,7 +212,7 @@ export function HomeFAQ() {
     // More questions...
   ]
   return (
-    <Container className={"flex flex-col lg:flex-row gap-10 lg:gap-12"}>
+    <Container className={"flex flex-col lg:flex-row gap-10 lg:gap-12 animate-fadeIn"}>
     <div className="bg-white w-full">
       <div className="mx-auto max-w-7xl px-6 pb-32">
         <div className="mx-auto max-w-4xl divide-y divide-gray-900/10">

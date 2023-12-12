@@ -12,7 +12,7 @@ function classNames(...classes: (string | null | undefined)[]): string {
 export function DashboardPageTitle() {
     return(
         <section className="relative pt-32">
-            <Container className={"flex flex-col lg:flex-row gap-10 lg:gap-12"}>
+            <Container className={"flex flex-col lg:flex-row gap-10 lg:gap-12 animate-fadeIn"}>
                 <span className="w-4/12 lg:w-2/12 aspect-square bg-gradient-to-tr to-primary from-primaryteal absolute -top-5 lg:left-0 rounded-full skew-y-12 blur-2xl opacity-40 skew-x-12 rotate-90"></span>
                 <div className="relative flex flex-col items-center text-center lg:py-7 xl:py-8 lg:max-w-none max-w-3xl mx-auto lg:mx-0 lg:flex-1 lg:w-1/2">
                     <h1 className="text-3xl/tight sm:text-4xl/tight md:text-5xl/tight xl:text-5xl/tight
@@ -31,7 +31,7 @@ export function DashboardPageTitle() {
 export function AddRecipePageTitle() {
     return(
         <section className="relative pt-32">
-            <Container className={"flex flex-col lg:flex-row gap-10 lg:gap-12"}>
+            <Container className={"flex flex-col lg:flex-row gap-10 lg:gap-12 animate-fadeIn"}>
                 <span className="w-4/12 lg:w-2/12 aspect-square bg-gradient-to-tr to-primary from-primaryteal absolute -top-5 lg:left-0 rounded-full skew-y-12 blur-2xl opacity-40 skew-x-12 rotate-90"></span>
                 <div className="relative flex flex-col items-center text-center lg:py-7 xl:py-8 lg:max-w-none max-w-3xl mx-auto lg:mx-0 lg:flex-1 lg:w-1/2">
                     <h1 className="text-3xl/tight sm:text-4xl/tight md:text-5xl/tight xl:text-5xl/tight
@@ -75,7 +75,7 @@ export function Tools() {
       ]
 
     return(
-    <Container className={"flex flex-col lg:flex-row gap-10 lg:gap-12"}>
+    <Container className={"flex flex-col lg:flex-row gap-10 lg:gap-12 animate-fadeIn"}>
     <div className="w-full">
       <h3 className="text-2xl font-bold leading-6 text-gray-900 text-center">Tools</h3>
       <dl className="mt-8 grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-3">
@@ -119,7 +119,7 @@ interface Recipe {
 
 export function DashboardRecipeTitle() {
     return(
-      <Container className="relative sm:flex justify-center items-center lg:flex-wrap gap-10 lg:gap-4 w-full">
+      <Container className="relative sm:flex justify-center items-center lg:flex-wrap gap-10 lg:gap-4 w-full animate-fadeIn">
         <h3 className="text-2xl font-bold leading-6 text-gray-900 text-center">Recent Recipes</h3>
         <div className="grid justify-center pl-3 sm:absolute sm:right-0">
           <Link href="/dashboard/recipebook" passHref className="hover:bg-primary-dark text-gray-700 hover:text-gray-500 font-semibold py-2 px-4">
@@ -135,7 +135,7 @@ export function DashboardRecipeTitle() {
 
 export function RecipeBookTitle() {
     return(
-        <Container className="pt-32">
+        <Container className="pt-32 animate-fadeIn">
             <div className="flex lg:relative justify-center items-center lg:flex-wrap gap-10 lg:gap-4 w-full">
                 <div className="inline-flex items-center">
                     <h3 className="text-3xl/tight sm:text-4xl/tight md:text-5xl/tight xl:text-5xl/tight font-bold text-heading-1 text-black text-center">Recipe Book</h3>
@@ -166,7 +166,7 @@ export function Usage({data, tokens}: UsageProps) {
     const { stripeRole } = useAuth()
 
     return(
-        <Container className={"flex flex-col lg:flex-row gap-10 lg:gap-12"}>
+        <Container className={"flex flex-col lg:flex-row gap-10 lg:gap-12 animate-fadeIn"}>
             <div className="p-4 py-10 sm:p-8 sm:pl-16 sm:pr-16 w-full bg-white rounded-3xl shadow-lg border-gray-300 border flex justify-between  space-x-1.5">
                 <div className="w-1/3 flex flex-col items-center text-center">
                     <p className="text-sm text-gray-600">Remaining</p>

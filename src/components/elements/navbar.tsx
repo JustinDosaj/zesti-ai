@@ -11,6 +11,8 @@ import { BtnLink } from "../shared/button"
 import Link from "next/link"
 import Image from "next/image"
 import { db } from "@/pages/api/firebase/firebase"
+import { Loader } from "../shared/loader"
+import { Cog6ToothIcon, HomeIcon, SparklesIcon, PaperAirplaneIcon, RectangleGroupIcon, SquaresPlusIcon, WalletIcon } from "@heroicons/react/20/solid"
 
 const navItems = [
     {
@@ -42,7 +44,35 @@ const navItemsLoggedIn = [
     },
     {
         href: "/profile",
-        text: "Profie",
+        text: "Settings",
+    },
+]
+
+const navItemsLoggedInMobile = [
+    {
+        href:"/",
+        text:"Home",
+        icon: HomeIcon,
+    },
+    {
+        href:"/dashboard",
+        text:"My Dashboard",
+        icon: SquaresPlusIcon,
+    },
+    {
+        href:"/pricing",
+        text:"Pricing",
+        icon: WalletIcon,
+    },
+    {
+        href:"/contact",
+        text: "Contact",
+        icon: PaperAirplaneIcon,
+    },
+    {
+        href: "/profile",
+        text: "Settings",
+        icon: Cog6ToothIcon,
     },
 ]
 
@@ -53,7 +83,7 @@ function classNames(...classes: (string | undefined | null | false)[]): string {
 
 export function Navbar({_user}: any) {
     
-    const { user, stripeRole } = useAuth();
+    const { user, stripeRole, isLoading } = useAuth();
     const [tokens, setTokens] = useState<number>(0)
 
     useEffect(() => {
@@ -69,6 +99,8 @@ export function Navbar({_user}: any) {
             return () => unsubscribe();
         }
     }, [user?.uid]);
+
+    if (isLoading == true) return(<></>)
 
     return(
     <>
@@ -99,7 +131,8 @@ export function Navbar({_user}: any) {
                     }
                     </ul>
                     <div className="lg:min-w-max flex items-center sm:w-max w-full pb-6 lg:pb-0 border-b border-box-bg lg:border-0 px-6 lg:px-0">
-                    { !user ?
+                    {
+                    !user ?
                     <BtnLink text='Login' className="flex justify-center w-full sm:w-max" href='/login'/>
                     :
                     <div className="inline-flex">
@@ -127,35 +160,24 @@ export function Navbar({_user}: any) {
                     >   
                         <Menu.Items className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                         <div className="py-1">
-                            <Menu.Item>
-                            {({ active }) => (
-                                <div>
-                                { !user ? 
-                                    <div className='block px-4 py-2 text-sm' >
-                                        <BtnLink text='Login' className="flex justify-center w-full sm:w-max" href={'/login'}/>        
-                                    </div>
-                                    :
-                                    <div className='block px-4 py-2 text-sm' >
-                                        <BtnLink text='Dashboard' className="flex justify-center w-full sm:w-max" href={'/dashboard'}/>        
-                                    </div>
-                                   }
-                                </div>
-                            )}
-                            </Menu.Item>
                             {
                                 user !== null ? 
-                                navItemsLoggedIn.map((item)=> (
+                                navItemsLoggedInMobile.map((item)=> (
                                     <Menu.Item key={item.text}>
                                     {({ active }) => (
-                                        <a
+                                        <Link
                                         href={item.href}
                                         className={classNames(
                                             active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
                                             'block px-4 py-2 text-sm'
                                         )}
                                         >
-                                        {item.text}
-                                        </a>
+                                            <span className="inline-flex gap-x-2 items-center">
+                                                <item.icon className="h-5 w-5 text-primary-main"/>
+                                                {item.text}
+                                            </span>
+                                        </Link>
+                                        
                                     )}
                                     </Menu.Item>
                                 ))

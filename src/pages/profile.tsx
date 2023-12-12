@@ -49,7 +49,7 @@ export default function Profile() {
         <div className="lg:col-start-1 lg:row-end-1 mx-auto w-full md:w-1/2">
             <div className="mx-auto max-w-4xl text-center mb-12">
               <p className="mt-2 section-title-text-size font-bold tracking-tight text-gray-900">
-                Manage Profile
+                Manage Account
               </p>
             </div>
             <div className="rounded-2xl shadow-lg border border-gray-300">
