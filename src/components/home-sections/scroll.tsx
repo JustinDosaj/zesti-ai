@@ -1,4 +1,5 @@
 import { ChevronLeftIcon, ChevronRightIcon} from "@heroicons/react/20/solid"
+import Link from "next/link";
 import Image from "next/image";
 
 export function ToolExamples() {
@@ -96,7 +97,7 @@ export function Scroller({onRightScrollClick, onLeftScrollClick, scrollPage}: an
 
 function TestimonialCard({ name, source, desc, imageSrc, href }: any) {
     return (
-      <button onClick={() => window.open(href)} className="flex flex-col items-start bg-white hover:bg-gray-200 hover:duration-200 p-4 rounded-3xl shadow-lg">
+      <Link href={href} className="flex flex-col items-start bg-white hover:bg-gray-200 hover:duration-200 p-4 rounded-3xl shadow-lg">
         <Image src={imageSrc} alt="Profile" height={1000} width={1000} className="w-24 h-24 rounded-lg mb-4 object-fit" />
         <p className="text-2xl font-medium text-gray-800 mb-2">{name}</p>
         <p className="inline-flex text-sm font-medium text-gray-600 mb-4 space-x-1">
@@ -104,6 +105,6 @@ function TestimonialCard({ name, source, desc, imageSrc, href }: any) {
             <span className="text-primary-main">{source}</span>
         </p>
         <p className="text-base text-gray-700 text-left">{desc}</p>
-      </button>
+      </Link>
     );
 }
