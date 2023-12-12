@@ -4,7 +4,7 @@ import { UrlComponent, UrlHero, UrlTips } from '@/components/hub/url';
 import { useAuth } from '../api/auth/auth';
 import { PricingDisplay } from '@/components/pricing-sections/pricing';
 import { FAQ } from '@/components/home-sections/home';
-import { ToolLoader } from '@/components/shared/loader';
+import { PageLoader, ToolLoader } from '@/components/shared/loader';
 import React, { useState, useEffect } from 'react';
 import { db } from '../api/firebase/firebase';
 import { getUserData } from '../api/firebase/functions';
@@ -15,17 +15,21 @@ export default function Website() {
   
   const { user, stripeRole, isLoading } = useAuth()
   const [ tokens, setTokens ] = useState<number>(0)
+  const [ waitForPage, setWaitForPage ] = useState<boolean>(true)
 
   useEffect( () => { 
 
     const fetchUserData = async () => {
         const userData = await getUserData(user?.uid);
         setTokens(userData?.tokens);
+        setWaitForPage(false)
     };
     
     fetchUserData();
   
   }, [user])
+
+  if(waitForPage == true) return(<PageLoader/>)
 
   return (
     <>
