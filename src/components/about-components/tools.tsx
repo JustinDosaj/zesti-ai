@@ -1,17 +1,14 @@
 
 import { Container } from "../shared/container";
-import { Paragraph } from "../shared/paragraph";
 import React from 'react'
 import Image from "next/image";
 import 'react-toastify/dist/ReactToastify.css';
 import { BtnLink } from "../shared/button";
 import { VideoCameraIcon, ComputerDesktopIcon, LinkIcon, PencilIcon, Cog6ToothIcon, BookOpenIcon, StarIcon, ArrowRightIcon  } from "@heroicons/react/20/solid";
-import { Title } from "../shared/title";
-import Link from "next/link";
 
 export function SocialMediaRecipeHero(){
     return(
-        <section className="relative pt-24 lg:pt-36">
+        <section className="relative pt-24 lg:pt-36 animate-fadeIn">
             <Container className={"flex flex-col lg:flex-row gap-10 lg:gap-12"}>
                 <div className="space-y-6 relative flex flex-col items-center text-center lg:py-7 xl:py-8 lg:max-w-none max-w-3xl mx-auto lg:mx-0 lg:flex-1 lg:w-1/2 p-8 md:p-16">
                     <div className="inline-flex items-center border border-gray-300 rounded-3xl p-2 space-x-1">
@@ -60,7 +57,7 @@ export function SocialMediaRecipeQuickGuide() {
       ]
   
     return (
-    <Container className={"py-24 lg:py-36 px-5"}>
+    <Container className={"py-24 lg:py-36 px-5 animate-fadeIn"}>
         <div className="w-full max-w-7xl mx-auto space-y-12">
             <div className="flex flex-col justify-center lg:justify-between items-center gap-8 lg:gap-8 text-center lg:text-left">
                 <h1 className="section-title-text-size font-semibold text-gray-700 text-center">
@@ -93,7 +90,7 @@ export function SocialMediaRecipeQuickGuide() {
 export function CreateRecipeHero(){
     return(
         <section className="relative pt-24 lg:pt-36">
-            <Container className={"flex flex-col lg:flex-row gap-10 lg:gap-12"}>
+            <Container className={"flex flex-col lg:flex-row gap-10 lg:gap-12 animate-fadeIn"}>
                 <div className="space-y-6 relative flex flex-col items-center text-center lg:py-7 xl:py-8 lg:max-w-none max-w-3xl mx-auto lg:mx-0 lg:flex-1 lg:w-1/2 p-8 md:p-16">
                     <div className="inline-flex items-center border border-gray-300 rounded-3xl p-2 space-x-1">
                         <div className="text-black font-bold text-sm">Powered By OpenAI</div>
@@ -141,7 +138,7 @@ export function CreateRecipeQuickGuide() {
       ]
   
     return (
-    <Container className={"py-24 lg:py-36 px-5"}>
+    <Container className={"py-24 lg:py-36 px-5 animate-fadeIn"}>
         <div className="w-full max-w-7xl mx-auto space-y-12">
             <div className="flex flex-col justify-center lg:justify-between items-center gap-8 lg:gap-8 text-center lg:text-left">
                 <h1 className="section-title-text-size font-semibold text-gray-700 text-center">
@@ -174,7 +171,7 @@ export function CreateRecipeQuickGuide() {
 export function WebRecipeHero(){
     return(
         <section className="relative pt-24 lg:pt-36">
-            <Container className={"flex flex-col lg:flex-row gap-10 lg:gap-12"}>
+            <Container className={"flex flex-col lg:flex-row gap-10 lg:gap-12 animate-fadeIn"}>
                 <div className="space-y-6 relative flex flex-col items-center text-center lg:py-7 xl:py-8 lg:max-w-none max-w-3xl mx-auto lg:mx-0 lg:flex-1 lg:w-1/2 p-8 md:p-16">
                     <div className="inline-flex items-center border border-gray-300 rounded-3xl p-2 space-x-1">
                         <div className="text-black font-bold text-sm">Powered By OpenAI</div>
@@ -222,7 +219,7 @@ export function WebRecipeQuickGuide() {
       ]
   
     return (
-        <Container className={"py-24 lg:py-36 px-5"}>
+        <Container className={"py-24 lg:py-36 px-5 animate-fadeIn"}>
             <div className="w-full max-w-7xl mx-auto space-y-12">
                 <div className="flex flex-col justify-center lg:justify-between items-center gap-8 lg:gap-8 text-center lg:text-left">
                     <h1 className="section-title-text-size font-semibold text-gray-700 text-center">
