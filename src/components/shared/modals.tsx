@@ -405,6 +405,7 @@ export function AdvancedControlsModal({isOptionsOpen, setIsOptionsOpen, setUserI
   const [servings, setServings] = useState<string>('');
   const [skillLevel, setSkillLevel] = useState<string>('');
   const [additionalInfo, setAdditionalInfo] = useState<string>('')
+  const [ diet, setDiet ] = useState<string>('')
 
   const handleAddIngredient = () => {
     if (ingredientInput) {
@@ -431,8 +432,8 @@ export function AdvancedControlsModal({isOptionsOpen, setIsOptionsOpen, setUserI
 
   const handleAdvancedSubmit = () => {
     
-    const userInputValue = `Ingredients: ${ingredients.join(', ')}, Meal Type: ${mealType}, Recipe Time: ${recipeTime} minutes, Servings: ${servings}, Skill Level: ${skillLevel}, Additional Details: ${additionalInfo}`;
-
+    const userInputValue = `Ingredients: ${ingredients.join(', ')}, Meal Type: ${mealType}, Recipe Time: ${recipeTime} minutes, Servings: ${servings}, Skill Level: ${skillLevel}, Additional Details: ${additionalInfo}, Dietary Restriction: ${diet}`;
+    
     onSubmit(userInputValue)
 
     setIngredients([])
@@ -442,6 +443,7 @@ export function AdvancedControlsModal({isOptionsOpen, setIsOptionsOpen, setUserI
     setRecipeTime('')
     setServings('')
     setSkillLevel('')
+    setDiet('')
     setIsOptionsOpen(false)
   }
 
@@ -479,16 +481,6 @@ export function AdvancedControlsModal({isOptionsOpen, setIsOptionsOpen, setUserI
                     <Dialog.Title as="h3" className="text-xl font-semibold leading-6 text-gray-900">
                       Settings
                     </Dialog.Title>
-                    <div className="border rounded-xl p-2">
-                      <span className="text-base font-semibold text-primary-main">
-                        Quick Tips
-                      </span>
-                      <div className="text-sm text-left text-gray-700 pl-1">
-                        <li>We assume you have salt, pepper & water</li>
-                        <li>New ingredients are sometimes added to enchance recipe</li>
-                        <li>Recipe can be edited later to make it perfect just for you</li>
-                      </div>
-                    </div>
                   </div>
                   {/*Form Adjust STARTS*/}
                   <div className="space-y-5 pb-8">
@@ -527,7 +519,17 @@ export function AdvancedControlsModal({isOptionsOpen, setIsOptionsOpen, setUserI
                           <option value="professional">Professional</option>
                         </select>
                       </div>
-
+                      <div className="py-1 pl-6 w-full pr-1 flex gap-3 items-center text-heading-3 shadow-lg shadow-box-shadow border border-box-border bg-box-bg rounded-full ease-linear focus-within:bg-body focus-within:border-primary">
+                        <select value={diet} onChange={(e) => setDiet(e.target.value)} className="p-2 w-full bg-transparent mr-2 rounded-xl text-gray-700 outline-none">
+                          <option value="none">Diet</option>
+                          <option value="Vegetarian">Vegetarian</option>
+                          <option value="Vegan">Vegan</option>
+                          <option value="Paleo">Paleo</option>
+                          <option value="Keto">Keto</option>
+                          <option value="Raw Food Diet">Raw Food Diet</option>
+                          <option value="Carnivore">Carnivore</option>
+                        </select>
+                      </div>
                     <div className="flex justify-between space-x-4">
                       <div className="py-1 pl-6 w-full pr-1 flex gap-3 items-center text-heading-3 shadow-lg shadow-box-shadow border border-box-border bg-box-bg rounded-full ease-linear focus-within:bg-body focus-within:border-primary">
                         <input type="number" value={recipeTime} onChange={(e) => setRecipeTime(e.target.value)} placeholder="Time" className="p-2 w-full bg-transparent outline-none text-gray-700"/>

@@ -150,17 +150,22 @@ export function ChatTips() {
             description:
               'Results can vary. The AI recipe generator is still early in development and may not always output with perfect accuracy.',
             icon: ExclamationTriangleIcon,
-          },
-        {
-          name: 'Be Specific:',
-          description:
-            'The more descriptive you are, the better. For example, instead of asking for a tomato soup recipe, ask for a creamy tomato soup recipe that serves 4',
-          icon: LightBulbIcon,
         },
         {
-          name: 'Edit:',
-          description: 'Zesti is not always perfect, once the recipe is created you can access it in your dashboard. There, you can chat with Zesti and edit the recipe to your liking.',
-          icon: LightBulbIcon,
+            name: 'Be Specific:',
+            description:
+                'The more descriptive you are, the better. For example, instead of asking for a tomato soup recipe, ask for a creamy tomato soup recipe that serves 4',
+            icon: LightBulbIcon,
+        },
+        {
+            name: 'Advanced Settings:',
+            description: 'Select the More Settings button above to add additional information and get more control over your recipe.',
+            icon: LightBulbIcon,
+        },
+        {
+            name: 'Diet Type:',
+            description: 'If you follow a specific diet, select a diet type so Zesti can create a recipe that follows the restrictions. If your diet does not appear, let Zesti know in the additional details.',
+            icon: LightBulbIcon,
         },
         {
           name: 'Meal Type:',
@@ -170,11 +175,6 @@ export function ChatTips() {
         {
             name: 'Time & Servings:',
             description: 'Make sure to tell Zesti how long you expect to cook and how much you want to make to help eliminate waste.',
-            icon: LightBulbIcon,
-        },
-        {
-            name: 'Advanced Settings:',
-            description: 'Select the More Settings button above to add additional information and get more control over your recipe.',
             icon: LightBulbIcon,
         },
       ]
