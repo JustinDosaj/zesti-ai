@@ -119,10 +119,6 @@ export default function Profile() {
                         <span className="text-gray-700">AI Recipe Generator</span>
                       </div>
                       <div className="inline-flex space-x-2 align-middle items-center">
-                        <CheckIcon className="h-5 w-5 text-color-alt-green"/>
-                        <span className="text-gray-700">Customize Recipes</span>
-                      </div>
-                      <div className="inline-flex space-x-2 align-middle items-center">
                         <ChevronDoubleUpIcon className="h-5 w-5 text-color-alt-green"/>
                         <span><InlineBtnLink href="/pricing" text="Upgrade to Premium"/></span>
                       </div>

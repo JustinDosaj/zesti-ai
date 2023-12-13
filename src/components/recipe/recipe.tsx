@@ -1,37 +1,37 @@
 import { Fragment, useState } from 'react'
 import { Menu, Transition } from '@headlessui/react'
-import { EllipsisVerticalIcon, PencilSquareIcon, TrashIcon  } from '@heroicons/react/20/solid'
-
+import { EllipsisVerticalIcon, PencilSquareIcon, TrashIcon, VideoCameraIcon, PlusIcon, StarIcon  } from '@heroicons/react/20/solid'
+import { Container } from '../shared/container';
+import { UpgradeToPremiumModal } from '../shared/modals';
 
 function classNames(...classes: (string | undefined | null | false)[]): string {
     return classes.filter(Boolean).join(' ');
 }
 
-interface RecipePopOutProps {
-    edit: boolean,
-    setEdit: React.Dispatch<React.SetStateAction<boolean>>;
+interface IngredientPopOutMenuProps {
     setEditingIngredientIndex: React.Dispatch<React.SetStateAction<number | null>>;
     index: number,
-    role: string | null,
     onSave: (index: number) => void,
+    role: string | null,
+    setPremiumPrompt: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export function RecipePopOutMenu({edit, setEdit, setEditingIngredientIndex, index, role, onSave}: RecipePopOutProps) {
-
-    
-    const [confirm, setConfirm] = useState<boolean>(false)
+export function IngredientPopOutMenu({setEditingIngredientIndex, index, onSave, role, setPremiumPrompt}: IngredientPopOutMenuProps) {
 
     const handleEditClick = () => {
-        setEditingIngredientIndex(index)
+        if(role == 'premium') {
+            setEditingIngredientIndex(index)
+        }
+        else { setPremiumPrompt(true) }
     }
 
     const handleConfirmDeleteClick = () => {
-        onSave(index)
+        if(role == 'premium') {
+            onSave(index)
+        }
+        else { setPremiumPrompt(true) }
     }
   
-
-
-
     return(
     <>
     <Menu as="div" className="relative ml-auto">
@@ -59,7 +59,7 @@ export function RecipePopOutMenu({edit, setEdit, setEditingIngredientIndex, inde
                     )}
                     >
                     <div className="flex items-center gap-x-2">
-                        <PencilSquareIcon className="text-gray-600 h-4 w-4"/>
+                        {role == 'premium' ? <PencilSquareIcon className="text-gray-600 h-4 w-4"/> : <StarIcon className="text-yellow-400 h-4 w-4"/>}
                         <span className="text-sm text-gray-600">Edit</span>
                     </div>
                 </button>
@@ -88,9 +88,7 @@ export function RecipePopOutMenu({edit, setEdit, setEditingIngredientIndex, inde
     )
 }
 
-interface EditRecipeProps {
-    edit: boolean,
-    setEdit: React.Dispatch<React.SetStateAction<boolean>>;
+interface EditIngredientProps {
     ingredient: string,
     isEditing: boolean,
     setEditingIngredientIndex: React.Dispatch<React.SetStateAction<number | null>>;
@@ -98,7 +96,7 @@ interface EditRecipeProps {
     onSave: (index: number, newValue: string) => void,
 }
 
-export function EditRecipeInput({edit, setEdit, ingredient, isEditing, setEditingIngredientIndex, index, onSave}: EditRecipeProps) {
+export function EditIngredientInput({ingredient, isEditing, setEditingIngredientIndex, index, onSave,}: EditIngredientProps) {
 
     const [ input, setInput ] = useState<string>(ingredient)
 
@@ -143,22 +141,25 @@ export function EditRecipeInput({edit, setEdit, ingredient, isEditing, setEditin
 }
 
 interface InstructionPopOutProps {
-    edit: boolean,
-    setEdit: React.Dispatch<React.SetStateAction<boolean>>;
-    setEditingInstructionIndex: React.Dispatch<React.SetStateAction<number | null>>;
+    setEditingInstructionIndex: React.Dispatch<React.SetStateAction<number | null>>
     index: number,
-    role: string | null,
     onSave: (index: number) => void,
+    role: string | null,
+    setPremiumPrompt: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-export function InstructionPopOutMenu({edit, setEdit, setEditingInstructionIndex, index, role, onSave}: InstructionPopOutProps) {
+export function InstructionPopOutMenu({setEditingInstructionIndex, index, onSave, role, setPremiumPrompt}: InstructionPopOutProps) {
 
     const handleEditClick = () => {
-        setEditingInstructionIndex(index)
+        if(role == 'premium') {
+            setEditingInstructionIndex(index)
+        } else { setPremiumPrompt(true) }
     }
 
     const handleConfirmDeleteClick = () => {
-        onSave(index)
+        if(role == 'premium') {
+            onSave(index)
+        } else { setPremiumPrompt(true) }
     }
 
     return(
@@ -188,7 +189,7 @@ export function InstructionPopOutMenu({edit, setEdit, setEditingInstructionIndex
                 )}
                 >
                 <div className="flex items-center gap-x-2">
-                    <PencilSquareIcon className="text-gray-600 h-4 w-4"/>
+                    {role == 'premium' ? <PencilSquareIcon className="text-gray-600 h-4 w-4"/> : <StarIcon className="text-yellow-400 h-4 w-4"/>}
                     <span className="text-sm text-gray-600">Edit</span>
                 </div>
             </button>
@@ -218,8 +219,6 @@ export function InstructionPopOutMenu({edit, setEdit, setEditingInstructionIndex
 }
 
 interface EditInstructionProps {
-    edit: boolean,
-    setEdit: React.Dispatch<React.SetStateAction<boolean>>;
     instruction: string,
     isEditing: boolean,
     setEditingIngredientIndex: React.Dispatch<React.SetStateAction<number | null>>;
@@ -227,7 +226,7 @@ interface EditInstructionProps {
     onSave: (index: number, newValue: string) => void,
 }
 
-export function EditInstructionInput({edit, setEdit, instruction, isEditing, setEditingIngredientIndex, index, onSave}: EditInstructionProps) {
+export function EditInstructionInput({instruction, isEditing, setEditingIngredientIndex, index, onSave}: EditInstructionProps) {
 
     const [ input, setInput ] = useState<string>(instruction)
 
@@ -269,4 +268,205 @@ export function EditInstructionInput({edit, setEdit, instruction, isEditing, set
             </div>
         )
     }
+}
+
+interface RecipeTitleProps {
+    recipe: any,
+    url: string,
+}
+
+export function RecipeTitle({recipe, url}: RecipeTitleProps) {
+    return(
+    <Container className={"flex flex-col lg:flex-row gap-10 lg:gap-12 mt-36 animate-fadeInFast"}>
+        <div className="bg-white py-5 border w-full rounded-3xl p-4 md:p-12">
+         <div className="md:flex md:space-x-4">
+           <div className="min-w-0 flex-1 space-y-2">
+             <div className="gap-x-3 text-xl font-semibold text-gray-900 grid space-y-2 sm:inline-flex">
+                 {recipe?.name}
+                 <div className="mt-2 inline-flex sm:mt-0 sm:space-y-0 gap-x-2 text-center">
+                   { recipe.time == null ? 
+                   <div></div>
+                   :
+                   <p className="bg-green-600 rounded-xl text-white text-sm p-1">{`${recipe?.time} Minutes`}</p> 
+                   }
+                   { recipe.servings == null ? 
+                   <div></div>
+                   :
+                   <p className="bg-green-600 rounded-xl text-white text-sm p-1">{`${recipe?.servings} Servings`}</p>
+                   }
+                 </div>
+             </div>
+ 
+             <p className="text-gray-500">
+               {`${recipe?.description}`}
+             </p>
+           </div>
+           { url !== '' ?
+             <button onClick={() => window.open(url)}
+               className="mt-4 md:mt-0 inline-flex text-primary-main h-fit border-primary-main border rounded-lg p-2 transition bg-white hover:text-white hover:bg-primary-main"
+             >
+               <div className="flex gap-x-2">
+                 <VideoCameraIcon className="h-6 w-6"/>
+                 <p>Original Recipe</p>
+                 </div>
+             </button>
+             :
+             <div></div>
+           }
+         </div>
+       </div>
+    </Container>
+    )
+}
+
+interface IngredientListProps {
+    setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
+    setAddType: React.Dispatch<React.SetStateAction<string>>;
+    recipe: any,
+    editingIngredientIndex: number | null,
+    setEditingIngredientIndex: React.Dispatch<React.SetStateAction<number | null>>
+    handleDeleteIngredient: (index: number) => Promise<void>;
+    handleSaveIngredient: (index: number, newValue: string) => Promise<void>;
+    role: string | null,
+}
+
+export function IngredientList({setIsOpen, setAddType, recipe, editingIngredientIndex, setEditingIngredientIndex, handleDeleteIngredient, handleSaveIngredient, role}: IngredientListProps) {
+
+    const [premiumPrompt, setPremiumPrompt] = useState<boolean>(false)
+
+    return(
+    <Container className={"flex flex-col lg:flex-row gap-10 lg:gap-12 mt-12 animate-fadeInFast"}>
+        <UpgradeToPremiumModal premiumPrompt={premiumPrompt} setPremiumPrompt={setPremiumPrompt}/>
+        <div className="my-auto w-full bg-white py-5 border rounded-3xl p-4 md:p-12">
+          <div className="flex pt-4 pb-4 justify-between items-center">
+            <h2 className="text-lg sm:text-xl font-medium text-gray-500">Ingredients {`(${recipe?.ingredients?.length})`}</h2>
+            { role == 'premium' ? 
+            <button className="hidden xs:inline-flex space-x-1 add-ingredient-instuction-btn" onClick={() => {
+              setIsOpen(true)
+              setAddType('ingredient')
+            }}>
+              <PlusIcon className="text-gray-700 h-4 w-4"/>
+              <span className="text-gray-700">Add Ingredient</span>
+            </button>
+            :
+            <button className="hidden xs:inline-flex add-ingredient-instuction-btn" onClick={() => {
+                setPremiumPrompt(true)
+              }}>
+                <StarIcon className="text-yellow-400 h-4 w-4"/>
+                <span className="text-gray-700">Add Ingredient</span>
+            </button>
+            }
+          </div>
+          <ul role="list" className="mt-3 grid grid-cols-1 gap-5 sm:grid-cols-2 sm:gap-6 lg:grid-cols-4 capitalize">
+            {recipe?.ingredients?.map((ingred: any, index: any) => (
+              <li key={index} className="col-span-1 flex rounded-md shadow-sm">
+                <div className="flex rounded-md overflow-visible w-full">
+                  <div className="bg-green-600 flex w-16 flex-shrink-0 items-center justify-center rounded-l-xl font-md text-white" >
+                    {index + 1}
+                  </div>
+                  <div className="flex flex-1 items-center justify-between rounded-r-xl border-b border-r border-t border-gray-200 bg-white min-h-[4rem]">
+                    <EditIngredientInput ingredient={ingred} isEditing={editingIngredientIndex === index} setEditingIngredientIndex={setEditingIngredientIndex} index={index} onSave={handleSaveIngredient}/>
+                    <IngredientPopOutMenu setEditingIngredientIndex={setEditingIngredientIndex} index={index} onSave={handleDeleteIngredient} role={role} setPremiumPrompt={setPremiumPrompt}/>
+                  </div>
+                </div>
+              </li>
+            ))}
+          </ul>
+          <div className="xs:hidden flex pt-4 pb-4 justify-end">
+            { role == 'premium' ? 
+            <button className="inline-flex space-x-1 add-ingredient-instuction-btn" onClick={() => {
+                setIsOpen(true)
+                setAddType('ingredient')
+            }}>
+              <PlusIcon className="text-gray-700 h-4 w-4"/>
+              <span className="text-gray-700">Add Ingredient</span>
+            </button>
+            :
+            <button className="inline-flex space-x-1 add-ingredient-instuction-btn" onClick={() => {
+                setPremiumPrompt(true)
+              }}>
+                <StarIcon className="text-yellow-400 h-4 w-4"/>
+                <span className="text-gray-700">Add Ingredient</span>
+            </button>
+            }
+          </div>
+        </div>
+    </Container>
+    )
+}
+
+interface InstructionListProps {
+    setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
+    setAddType: React.Dispatch<React.SetStateAction<string>>;
+    recipe: any,
+    editingInstructionIndex: number | null,
+    setEditingInstructionIndex: React.Dispatch<React.SetStateAction<number | null>>
+    handleDeleteInstruction: (index: number) => Promise<void>;
+    handleSaveInstruction: (index: number, newValue: string) => Promise<void>;
+    role: string | null,
+}
+
+export function InstructionList({setIsOpen, setAddType, recipe, editingInstructionIndex, setEditingInstructionIndex, handleDeleteInstruction, handleSaveInstruction, role}: InstructionListProps) {
+
+    const [premiumPrompt, setPremiumPrompt] = useState<boolean>(false)
+    
+    return(
+    <Container className={"flex flex-col lg:flex-row gap-10 lg:gap-12 mt-12 animate-fadeInFast"}>
+        <UpgradeToPremiumModal premiumPrompt={premiumPrompt} setPremiumPrompt={setPremiumPrompt}/>
+        <div className="my-auto bg-white py-5 border w-full rounded-3xl p-4 md:p-12 ">
+          <div className="flex pt-4 pb-4 justify-between items-center">
+            <h2 className="text-lg sm:text-xl font-medium text-gray-500">Instructions {`(${recipe?.instructions?.length})`}</h2>
+            {role == 'premium' ? 
+            <button className="hidden xs:inline-flex space-x-1 add-ingredient-instuction-btn" onClick={() => {
+              setIsOpen(true)
+              setAddType('instruction')
+            }}>
+              <PlusIcon className="text-gray-700 h-4 w-4"/>
+              <span className="text-gray-700">Add Instruction</span>
+            </button>
+            :
+            <button className="hidden xs:inline-flex space-x-1 add-ingredient-instuction-btn" onClick={() => {
+                setPremiumPrompt(true)
+              }}>
+                <StarIcon className="text-yellow-400 h-4 w-4"/>
+                <span className="text-gray-700">Add Ingredient</span>
+            </button>
+            }
+          </div>
+          <ul role="list" className="mt-3 grid grid-cols-1 gap-5 sm:gap-6">
+            {recipe?.instructions?.map((instruct: any, index: any) => (
+              <li key={index} className="col-span-1 flex rounded-md shadow-sm">
+                <div className="flex rounded-md overflow-visible w-full">
+                  <div className="bg-[#F05B60] flex w-16 flex-shrink-0 items-center justify-center rounded-l-md font-medium text-white" >
+                    {index + 1}
+                  </div>
+                  <div className="flex flex-1 items-center justify-between rounded-r-xl border-b border-r border-t border-gray-200 bg-white min-h-[4rem]">
+                      <EditInstructionInput instruction={instruct} isEditing={editingInstructionIndex === index} setEditingIngredientIndex={setEditingInstructionIndex} index={index} onSave={handleSaveInstruction}/>
+                      <InstructionPopOutMenu setEditingInstructionIndex={setEditingInstructionIndex} index={index} onSave={handleDeleteInstruction} role={role} setPremiumPrompt={setPremiumPrompt}/>
+                  </div>
+                </div>
+              </li>
+            ))}
+          </ul>
+          <div className="xs:hidden flex pt-4 pb-4 justify-end">
+            {role == 'premium' ? 
+            <button className="inline-flex space-x-1 add-ingredient-instuction-btn" onClick={() => {
+              setIsOpen(true)
+              setAddType('instruction')
+            }}>
+              <PlusIcon className="text-gray-700 h-4 w-4"/>
+              <span className="text-gray-700 text-sm">Add Instruction</span>
+            </button>
+            :
+            <button className="inline-flex space-x-1 add-ingredient-instuction-btn" onClick={() => {
+                setPremiumPrompt(true)
+              }}>
+                <StarIcon className="text-yellow-400 h-4 w-4"/>
+                <span className="text-gray-700 text-sm">Add Ingredient</span>
+            </button>
+            }
+          </div>
+        </div>
+    </Container>
+    )
 }
