@@ -9,7 +9,6 @@ import { PageLoader } from "@/components/shared/loader";
 import Head from "next/head";
 import { RecipePopOutMenu, EditRecipeInput, InstructionPopOutMenu, EditInstructionInput } from "@/components/recipe/recipe";
 import { Chatbox } from "@/components/chat/chatbox";
-import { RecipePageAmazonProduct } from "@/components/google/ads";
 import { db } from "@/pages/api/firebase/firebase";
 import { AddToRecipeModal } from "@/components/shared/modals";
 import GoogleTags from "@/components/google/conversion";
