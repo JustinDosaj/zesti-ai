@@ -3,7 +3,6 @@ import { db } from '../firebase/firebase';
 
 export async function createPremiumCheckoutSession(id: any) {  // You might want to replace 'any' with the appropriate type for currentUser
 
-
     try {
         const checkoutSessionsCollection = collection(doc(collection(db, 'users'), id), 'checkout_sessions');
         const docRef = await addDoc(checkoutSessionsCollection, {
@@ -23,7 +22,7 @@ export async function createPremiumCheckoutSession(id: any) {  // You might want
                 }
                 if (url) {
                     // We have a Stripe Checkout URL, let's redirect.
-                    window.location.assign(url);
+                    window.location.assign(url)
                 }
             }
         });
