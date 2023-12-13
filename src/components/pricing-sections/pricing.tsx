@@ -136,7 +136,7 @@ export function PricingDisplay() {
                   <Loader/>
                 </div>
                 :
-                <Button buttonType="button" onClick={() => {window.open(`${process.env.NEXT_PUBLIC_STRIPE_NO_CODE_PORATL}`)}} text="Manage Subscription" className="text-sm sm:text-base mt-4 text-center w-full"/>
+                <Button buttonType="button" onClick={() => {router.push("/profile")}} text="Manage Account" className="text-sm sm:text-base mt-4 text-center w-full"/>
                 }
                 <InlineBtnLink href={tier.learnhref} text="Learn More" className="flex justify-center mt-4 text-sm"></InlineBtnLink>
               </div>
