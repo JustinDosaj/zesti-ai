@@ -608,7 +608,7 @@ export function UpgradeToPremiumModal({premiumPrompt, setPremiumPrompt}: Upgrade
             >
               <Dialog.Panel className="w-full relative transform overflow-hidden rounded-lg bg-white px-4 pb-4 pt-5 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg sm:p-6">
 
-                  <Image className="h-28 w-28 mx-auto" src="/images/zesti-logos/Zesti-Premium-2.png" width={1000} height={1000} alt="Zesti Premium Logo" />
+                  <Image className="h-28 w-28 mx-auto" priority={true} src="/images/zesti-logos/Zesti-Premium-2.png" width={1000} height={1000} alt="Zesti Premium Logo" />
 
                   <div className="text-center sm:mt-5">
                     <Dialog.Title as="h3" className="mt-3 sm:mt-0 text-lg sm:text-xl font-semibold leading-6 text-gray-900">
