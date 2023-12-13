@@ -11,7 +11,6 @@ export async function createPremiumCheckoutSession(id: any) {  // You might want
             success_url: `${window.location.origin}/dashboard`,
             cancel_url: `${window.location.origin}/dashboard`,
             mode: "subscription",
-            allow_promotion_codes: true,
         });
 
         onSnapshot(docRef, (snap) => {
