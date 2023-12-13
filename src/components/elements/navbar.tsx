@@ -104,8 +104,8 @@ export function Navbar({_user}: any) {
 
     return(
     <>
-    <header className="absolute inset-x-0 top-0 z-50 py-6">
-        <Container>
+    <header className="absolute inset-x-0 top-0 z-45 py-6">
+        <Container className="">
             <nav className="w-full flex justify-between relative">
                 <div className="min-w-max inline-flex relative">
                     <Link href="/" className="relative flex items-center gap-3">

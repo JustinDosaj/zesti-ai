@@ -379,14 +379,14 @@ export function IngredientList({setIsOpen, setAddType, recipe, editingIngredient
                 setAddType('ingredient')
             }}>
               <PlusIcon className="text-gray-700 h-4 w-4"/>
-              <span className="text-gray-700">Add Ingredient</span>
+              <span className="text-sm text-gray-700">Add Ingredient</span>
             </button>
             :
             <button className="inline-flex space-x-1 add-ingredient-instuction-btn" onClick={() => {
                 setPremiumPrompt(true)
               }}>
                 <StarIcon className="text-yellow-400 h-4 w-4"/>
-                <span className="text-gray-700">Add Ingredient</span>
+                <span className="text-sm text-gray-700">Add Ingredient</span>
             </button>
             }
           </div>

@@ -161,7 +161,7 @@ export function DeleteConfirmationModal({isOpen, setIsOpen, recipeId}: DeletePro
   return(
   <>
   <Transition.Root show={isOpen} as={Fragment}>
-      <Dialog as="div" className="relative z-20" initialFocus={cancelButtonRef} onClose={setIsOpen}>
+      <Dialog as="div" className="relative z-50" initialFocus={cancelButtonRef} onClose={setIsOpen}>
         <Transition.Child
           as={Fragment}
           enter="ease-out duration-300"
@@ -236,7 +236,7 @@ export function NotLoggedInModal({loginPrompt, setLoginPrompt}: LoginProps) {
 
   return (
     <Transition.Root show={loginPrompt} as={Fragment}>
-      <Dialog as="div" className="relative z-10" initialFocus={cancelButtonRef} onClose={setLoginPrompt}>
+      <Dialog as="div" className="relative z-50" initialFocus={cancelButtonRef} onClose={setLoginPrompt}>
         <Transition.Child
           as={Fragment}
           enter="ease-out duration-300"
@@ -320,7 +320,7 @@ export function AddToRecipeModal({isOpen, setIsOpen, addType, onSubmit}: AddProp
 
   return(
   <Transition.Root show={isOpen} as={Fragment}>
-      <Dialog as="div" className="relative z-20" initialFocus={cancelButtonRef} onClose={setIsOpen}>
+      <Dialog as="div" className="relative z-50" initialFocus={cancelButtonRef} onClose={setIsOpen}>
         <Transition.Child
           as={Fragment}
           enter="ease-out duration-300"
@@ -582,7 +582,7 @@ export function UpgradeToPremiumModal({premiumPrompt, setPremiumPrompt}: Upgrade
 
   return (
     <Transition.Root show={premiumPrompt} as={Fragment}>
-      <Dialog as="div" className="relative z-25" initialFocus={cancelButtonRef} onClose={setPremiumPrompt}>
+      <Dialog as="div" className="relative z-50" initialFocus={cancelButtonRef} onClose={setPremiumPrompt}>
         <Transition.Child
           as={Fragment}
           enter="ease-out duration-300"
