@@ -32,7 +32,6 @@ export function PricingDisplay() {
             'Save TikTok & YouTube recipes',
             'Max Video Length: 5 Minutes',
             'AI Recipe Generator',
-            'Customize Recipes',
         ],
           featured: false,
           checkout: () => {
