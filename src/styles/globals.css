@@ -51,4 +51,8 @@ body {
     @apply border border-orange-200 shadow-lg shadow-primary-main/10
   }
 
+  .add-ingredient-instuction-btn {
+    @apply orange-border-shadow pl-4 pr-4 pt-2 pb-2 items-center space-x-1 bg-white border rounded-3xl hover:bg-gray-100 hover:duration-200
+  }
+
 }
