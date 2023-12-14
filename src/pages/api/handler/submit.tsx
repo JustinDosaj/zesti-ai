@@ -114,7 +114,7 @@ export const handleYouTubeURLSubmit = async ({url, user, setMessage, stripeRole,
     if (tokens >= 1) {
         try {
             await db.collection('users').doc(user.uid).collection('youtubeurl').doc().set(falseObj)
-            setMessage("The recipe has begun progressing and will appear in your dashboard shortly.")
+            setMessage("Your recipe will appear in your dashboard shortly")
             await db.collection('users').doc(user.uid).update({
                 tokens: increment(-1)
             })
@@ -173,7 +173,7 @@ export const handleTikTokURLSubmit = async ({url, setUrl, user, setMessage, stri
     if (tokens >= 1) {
         try {
             await db.collection('users').doc(user.uid).collection('tiktokurl').doc().set(falseObj)
-            setMessage("The recipe has begun processing and will appear in your dashboard shortly.")
+            setMessage("Your recipe will appear in your dashboard shortly")
             await db.collection('users').doc(user.uid).update({
                 tokens: increment(-1)
             })
@@ -201,10 +201,6 @@ interface ChatProps {
 
 export const handleCreativeChatSubmit = async({input, user, setMessage, stripeRole, setNotify, recipes}: ChatProps) => {
 
-
-        //setMessage("The recipe began processing and will appear in your dashboard shortly.")
-        //return true
-
         // url check
         const urlCheck = await isValidUrl(input)
 
@@ -225,7 +221,7 @@ export const handleCreativeChatSubmit = async({input, user, setMessage, stripeRo
     if (stripeRole == 'premium') {
         try {
             await db.collection('users').doc(user.uid).collection('creative').doc().set(falseObj)
-            setMessage("The recipe began processing and will appear in your dashboard shortly.")
+            setMessage("Your recipe will appear in your dashboard shortly")
             return true
         } catch (err) {
             setNotify(true)
@@ -240,7 +236,7 @@ export const handleCreativeChatSubmit = async({input, user, setMessage, stripeRo
     if (tokens >= 1) {
         try {
             await db.collection('users').doc(user.uid).collection('creative').doc().set(falseObj)
-            setMessage("The recipe began processing and will appear in your dashboard shortly.")
+            setMessage("Your recipe will appear in your dashboard shortly")
             await db.collection('users').doc(user.uid).update({
                 tokens: increment(-1)
             })
@@ -295,7 +291,7 @@ export const handleWebURLSubmit = async ({url, user, setMessage, stripeRole, set
     if (tokens >= 1) {
         try {
             await db.collection('users').doc(user.uid).collection('weburl').doc().set(falseObj)
-            setMessage("The recipe has begun progressing and will appear in your dashboard shortly.")
+            setMessage("Your recipe will appear in your dashboard shortly")
             await db.collection('users').doc(user.uid).update({
                 tokens: increment(-1)
             })
