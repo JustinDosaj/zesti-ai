@@ -10,6 +10,7 @@ import Head from 'next/head';
 import { db } from '../api/firebase/firebase';
 import { getUserData } from '../api/firebase/functions';
 import GoogleTags from '@/components/google/conversion';
+import { RewardfulTag } from '@/components/tags/headertags';
 
 const raleway = Raleway({subsets: ['latin']})
 
@@ -50,6 +51,7 @@ export default function Dashboard() {
       <title>Zesti | Your Dashboard</title>
       <meta name="robots" content="noindex" />
       <GoogleTags/>
+      <RewardfulTag/>
     </Head>
     <main className={`flex min-h-screen flex-col items-center justify-between bg-background ${raleway.className}`}>
         <DashboardPageTitle/>

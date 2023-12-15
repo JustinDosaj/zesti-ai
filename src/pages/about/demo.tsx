@@ -8,6 +8,7 @@ import { InlineBtnLink } from '@/components/shared/button';
 import { useAuth } from '../api/auth/auth';
 
 import Head from "next/head";
+import { RewardfulTag } from '@/components/tags/headertags';
 
 const raleway = Raleway({subsets: ['latin']})
 
@@ -25,6 +26,7 @@ const Demo: React.FC = () => {
       <meta name="title" content="Zesti | Example Result of Zesti AI"/>
       <meta name="description" content="Check out our demo recipe so you can see the results of transforming a Youtube cooking video into a readible recipe!"/>
       <GoogleTags/>
+      <RewardfulTag/>
     </Head>  
     <main className={`flex min-h-screen flex-col items-center justify-between p-2 bg-background mt-12${raleway.className}`}>
       <div className="text-center space-y-2">

@@ -9,6 +9,7 @@ import { getUserData } from '../api/firebase/functions';
 import { PricingDisplay } from '@/components/pricing-sections/pricing';
 import GoogleTags from '@/components/google/conversion';
 import { PageLoader } from '@/components/shared/loader';
+import { RewardfulTag } from '@/components/tags/headertags';
 
 const raleway = Raleway({subsets: ['latin']})
 
@@ -41,6 +42,7 @@ export default function Generator() {
         <meta name="title" content="Zesti AI | Creative Recipe Generator | Try for Free"/>
         <meta name="description" content="Use AI to create recipes for free, and to help you through the process of making the dish you have chosen!"/>
         <GoogleTags/>
+        <RewardfulTag/>
       </Head>
       <main className={`flex min-h-screen flex-col items-center bg-background ${raleway.className}`}>
         <ChatHero role={stripeRole} tokens={tokens}/>
