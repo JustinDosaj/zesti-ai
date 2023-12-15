@@ -5,6 +5,7 @@ const navigation = {
       { name: 'Home', href: '/' },
       { name: 'Pricing', href: '/pricing' },
       { name: 'Contact', href: '/contact' },
+      { name: 'Affiliate Program', href: '/about/affiliate' },
       { name: 'Terms of Service', href: 'https://app.termly.io/document/terms-of-service/7fda3661-ebd6-42c4-9dfb-e66e58cd4253' },
       { name: 'Privacy Policy', href: 'https://app.termly.io/document/privacy-policy/728b76f9-24fe-480c-ad17-3c56ffa53417' },
     ],
