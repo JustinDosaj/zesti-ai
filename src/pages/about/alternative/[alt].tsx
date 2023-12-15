@@ -7,6 +7,7 @@ import { AltHero } from "@/components/alternatives/althero";
 import { AltCompare } from "@/components/alternatives/altCompare";
 import { FAQ, TryPremiumCTA, ZestiTools, HomeChat, HomeDashDisplay, HomeRecipeDisplay } from '@/components/home-sections/home';
 import GoogleTags from "@/components/google/conversion";
+import { RewardfulTag } from "@/components/tags/headertags";
 
 const raleway = Raleway({subsets: ['latin']})
 
@@ -27,6 +28,7 @@ const Alternative: React.FC = ({data}: any) => {
         <meta name="title" content={`Zesti | The AI alternative to ${data?.name}`}/>
         <meta name="description" content={`Find out what makes Zesti the best ${data?.name} alternative and learn about the unique things only Zesti can do`}/>
         <GoogleTags/>
+        <RewardfulTag/>
       </Head>
       <main className={`flex min-h-screen flex-col items-center justify-between p-2 bg-background ${raleway.className}`}>
         <AltHero name={data?.name}/>

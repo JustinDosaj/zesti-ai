@@ -11,6 +11,7 @@ import {useRouter} from "next/router"
 import { Notify } from "@/components/shared/notify"
 import { ToastContainer } from "react-toastify"
 import 'react-toastify/dist/ReactToastify.css';
+import { RewardfulTag } from "@/components/tags/headertags"
  
  
  
@@ -43,7 +44,8 @@ import 'react-toastify/dist/ReactToastify.css';
         <title>Zesti AI | Login or Sign Up | Try for Free </title>
         <meta name="description" content="Join Zesti to gain access to the best AI powered kitchen tool that helps you quickly save and edit recipes from cooking videos"/>
         <meta name="robots" content="noindex" />
-         <GoogleTags/>
+        <GoogleTags/>
+        <RewardfulTag/>
      </Head>
      <ToastContainer/>    
      <main className={`flex min-h-screen flex-col items-center justify-between bg-background h-screen ${raleway.className}`}>

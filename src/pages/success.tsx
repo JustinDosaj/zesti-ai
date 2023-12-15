@@ -3,6 +3,7 @@ import { FAQ, TryPremiumCTA, Hero, ZestiTools, HomeChat, HomeDashDisplay, HomeRe
 import Head from 'next/head';
 import GoogleTags from '@/components/google/conversion';
 import React from 'react';
+import { RewardfulTag } from '@/components/tags/headertags';
 
 const raleway = Raleway({subsets: ['latin']})
 
@@ -16,6 +17,7 @@ export default function Success() {
         <meta name="description" content="Transform YouTube cooking videos into easy-to-follow recipes with Zesti. Experience clutterless and easy-to-follow recipes with our AI-powered tool. Start now!"/>
         <meta name="robots" content="noindex" />
         <GoogleTags/>
+        <RewardfulTag/>
         <script dangerouslySetInnerHTML={{
           __html: `
             gtag('event', 'conversion', {'send_to': '${process.env.NEXT_PUBIC_GOOGLE_CONVERSION_ID}/${process.env.NEXT_PUBLIC_GOOGLE_SUBSCRIPTION_TRACKER}'});

@@ -4,6 +4,7 @@ import { NewUserHero, WelcomePricingTitle } from '@/components/about-components/
 import { FAQ, TryPremiumCTA, HomeChat, HomeDashDisplay, HomeRecipeDisplay } from '@/components/home-sections/home';
 import { PricingDisplay } from '@/components/pricing-sections/pricing';
 import GoogleTags from '@/components/google/conversion';
+import { RewardfulTag } from '@/components/tags/headertags';
 
 const raleway = Raleway({subsets: ['latin']})
 
@@ -16,6 +17,7 @@ export default function WelcomeNewUser() {
             <meta name="description" content="Join Zesti to gain access to the best AI powered kitchen tool that helps you quickly save and edit recipes from cooking videos"/>
             <meta name="robots" content="noindex" />
             <GoogleTags/>
+            <RewardfulTag/>
             <script dangerouslySetInnerHTML={{
             __html: `
                 gtag('event', 'conversion', {'send_to': '${process.env.NEXT_PUBIC_GOOGLE_CONVERSION_ID}/${process.env.NEXT_PUBLIC_GOOGLE_SUBSCRIPTION_TRACKER}'});

@@ -3,6 +3,7 @@ import Head from 'next/head';
 import { FAQ } from '@/components/home-sections/home';
 import { HolidayDiscountHero, HolidayDiscountPricingDisplay } from '@/components/about-components/promotions';
 import GoogleTags from '@/components/google/conversion';
+import { RewardfulTag } from '@/components/tags/headertags';
 
 const raleway = Raleway({subsets: ['latin']})
 
@@ -16,6 +17,7 @@ export default function HolidayPromotion() {
         <meta name="description" content="Let AI generate amazing recipe ideas just for you or take control use it to help create something amazing from scratch!"/>
         <meta name="robots" content="noindex"/>
         <GoogleTags/>
+        <RewardfulTag/>
       </Head>
       <main className={`flex min-h-screen flex-col items-center bg-background ${raleway.className}`}>
         <HolidayDiscountHero/>
