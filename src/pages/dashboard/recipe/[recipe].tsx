@@ -11,6 +11,7 @@ import { db } from "@/pages/api/firebase/firebase";
 import { AddToRecipeModal } from "@/components/shared/modals";
 import GoogleTags from "@/components/google/conversion";
 import AdSenseDisplay from "@/components/google/adsense";
+import { RewardfulTag } from "@/components/tags/headertags";
 
 const raleway = Raleway({subsets: ['latin']})
 
@@ -232,6 +233,7 @@ const Recipe: React.FC = ({id, ad}: any) => {
       <meta name="robots" content="noindex" />
       <link rel="preload" href="/images/zesti-logos/Zesti-Premium-2.png" as="image"></link>
       <GoogleTags/>
+      <RewardfulTag/>
     </Head>  
     <main className={`flex min-h-screen flex-col items-center justify-between p-2 bg-background ${raleway.className}`}>
       {stripeRole == 'premium' ? <Chatbox/> : <></>}

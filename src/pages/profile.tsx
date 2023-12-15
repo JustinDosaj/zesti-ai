@@ -9,6 +9,7 @@ import { db } from "./api/firebase/firebase"
 import React, { useState, useEffect } from 'react'
 import GoogleTags from "@/components/google/conversion"
 import Head from "next/head"
+import { RewardfulTag } from "@/components/tags/headertags"
 
 const raleway = Raleway({subsets: ['latin']})
 
@@ -42,6 +43,7 @@ export default function Profile() {
     <Head>
       <title>Zesti | Your Profile</title>
       <GoogleTags/>
+      <RewardfulTag/>
       <meta name="robots" content="noindex" />
     </Head>  
     <main className={`flex min-h-screen flex-col items-center justify-between bg-background ${raleway.className}`}>
