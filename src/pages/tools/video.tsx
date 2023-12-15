@@ -9,6 +9,7 @@ import React, { useState, useEffect } from 'react';
 import { db } from '../api/firebase/firebase';
 import { getUserData } from '../api/firebase/functions';
 import GoogleTags from '@/components/google/conversion';
+import { RewardfulTag } from '@/components/tags/headertags';
 
 const raleway = Raleway({subsets: ['latin']})
 
@@ -38,6 +39,7 @@ export default function Video() {
         <title>Zesti | Instantly Save YouTube & Tiktok Recipes as Text</title>
         <meta name="title" content="Zesti | Instantly Save YouTube & Tiktok Recipes as Text"/>
         <GoogleTags/>
+        <RewardfulTag/>
         <meta name="description" content="Say good by to pausing and rewinding, Zesti AI Video to Text Recipe creates an easy-to-follow ingredient and instruction list"/>
       </Head>
       <main className={`flex min-h-screen flex-col items-center bg-background ${raleway.className}`}>

@@ -8,6 +8,7 @@ import { InlineBtnLink } from '@/components/shared/button';
 import { useAuth } from '@/pages/api/auth/auth';
 
 import Head from "next/head";
+import { RewardfulTag } from '@/components/tags/headertags';
 
 const raleway = Raleway({subsets: ['latin']})
 
@@ -65,6 +66,7 @@ const Demo: React.FC = () => {
       <meta name="title" content="Zesti YouTube Demo | Instantly Save YouTube Cooking Videos"/>
       <meta name="description" content="Check out our demo recipe so you can see the results of transforming a Youtube cooking video into a readible recipe!"/>
       <GoogleTags/>
+      <RewardfulTag/>
     </Head>  
     <main className={`flex min-h-screen flex-col items-center justify-between p-2 bg-background animate-fadeIn ${raleway.className}`}>
       <div className="text-center space-y-2">
