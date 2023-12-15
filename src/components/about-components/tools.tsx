@@ -8,7 +8,7 @@ import { VideoCameraIcon, ComputerDesktopIcon, LinkIcon, PencilIcon, Cog6ToothIc
 
 export function SocialMediaRecipeHero(){
     return(
-        <section className="relative pt-24 lg:pt-36 animate-fadeIn">
+        <section className="pt-24 lg:pt-36 animate-fadeIn">
             <Container className={"flex flex-col lg:flex-row gap-10 lg:gap-12"}>
                 <div className="space-y-6 relative flex flex-col items-center text-center lg:py-7 xl:py-8 lg:max-w-none max-w-3xl mx-auto lg:mx-0 lg:flex-1 lg:w-1/2 p-8 md:p-16">
                     <div className="inline-flex items-center border border-gray-300 rounded-3xl p-2 space-x-1">
@@ -89,7 +89,7 @@ export function SocialMediaRecipeQuickGuide() {
 
 export function CreateRecipeHero(){
     return(
-        <section className="relative pt-24 lg:pt-36">
+        <section className="pt-24 lg:pt-36">
             <Container className={"flex flex-col lg:flex-row gap-10 lg:gap-12 animate-fadeIn"}>
                 <div className="space-y-6 relative flex flex-col items-center text-center lg:py-7 xl:py-8 lg:max-w-none max-w-3xl mx-auto lg:mx-0 lg:flex-1 lg:w-1/2 p-8 md:p-16">
                     <div className="inline-flex items-center border border-gray-300 rounded-3xl p-2 space-x-1">
@@ -170,7 +170,7 @@ export function CreateRecipeQuickGuide() {
 
 export function WebRecipeHero(){
     return(
-        <section className="relative pt-24 lg:pt-36">
+        <section className="pt-24 lg:pt-36">
             <Container className={"flex flex-col lg:flex-row gap-10 lg:gap-12 animate-fadeIn"}>
                 <div className="space-y-6 relative flex flex-col items-center text-center lg:py-7 xl:py-8 lg:max-w-none max-w-3xl mx-auto lg:mx-0 lg:flex-1 lg:w-1/2 p-8 md:p-16">
                     <div className="inline-flex items-center border border-gray-300 rounded-3xl p-2 space-x-1">
