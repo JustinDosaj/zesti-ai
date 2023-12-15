@@ -52,7 +52,6 @@ export default function Dashboard() {
       <GoogleTags/>
     </Head>
     <main className={`flex min-h-screen flex-col items-center justify-between bg-background ${raleway.className}`}>
-
         <DashboardPageTitle/>
         <div className="mt-8 lg:mt-0" />
         <Usage data={recipes} tokens={tokens}/>
