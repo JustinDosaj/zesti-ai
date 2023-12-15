@@ -256,7 +256,7 @@ export function HomeFAQ() {
   )
 }
 
-function StatisticItem({ number, label }: any) {
+export function StatisticItem({ number, label }: any) {
   return (
     <div className="flex flex-col items-center">
       <p className="text-2xl font-semibold text-gray-700">{number}</p>
