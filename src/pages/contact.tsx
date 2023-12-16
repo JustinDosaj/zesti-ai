@@ -20,14 +20,14 @@ export default function Contact() {
         <GoogleTags/>
         <RewardfulTag/>
     </Head>    
-    <main className={`flex min-h-screen flex-col items-center justify-between bg-background  h-screen ${raleway.className}`}>
+    <main className={`flex min-h-screen flex-col items-center justify-between bg-background h-screen ${raleway.className}`}>
         <section className="relative my-auto ">
-            <Container className={"grid md:grid-cols-2 lg:flex-row gap-10 lg:gap-12"}>
-                <div className="flex-1 flex flex-col">
-                    <h1 className="section-title-text-size font-bold tracking-tight text-gray-900">
+            <Container className={"grid md:grid-cols-2 lg:flex-row gap-10 lg:gap-12 mt-36"}>
+                <div className="flex-1 flex flex-col text-center md:text-left">
+                    <h1 className=" section-title-text-size mt-2 font-bold tracking-tight text-gray-900">
                         Contact Us
                     </h1>
-                    <p className="mt-8 section-desc-text-size">
+                    <p className="mx-auto mt-4 max-w-2xl section-desc-text-size leading-8 text-gray-700">
                         If you have any questions or require support, send us a message and we will respond as soon as possible!                
                     </p>
                 </div>
