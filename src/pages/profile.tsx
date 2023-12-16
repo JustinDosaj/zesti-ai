@@ -1,12 +1,8 @@
-import { Container } from "@/components/shared/container"
 import { Raleway } from 'next/font/google'
-import { Button, AltButton, InlineBtnLink } from "@/components/shared/button"
 import { useAuth } from "./api/auth/auth"
 import { useRouter } from "next/router"
-import { CheckIcon } from "@heroicons/react/20/solid"
-import { ChevronDoubleUpIcon } from "@heroicons/react/20/solid"
 import { db } from "./api/firebase/firebase"
-import React, { useState, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import GoogleTags from "@/components/google/conversion"
 import Head from "next/head"
 import { RewardfulTag } from "@/components/tags/headertags"
@@ -21,7 +17,6 @@ const raleway = Raleway({subsets: ['latin']})
 export default function Profile() {
 
     const { user, logout, isLoading, stripeRole } = useAuth();
-    const [tokens, setTokens] = useState<number>(0)
     const router = useRouter();
   
       useEffect(() => {
@@ -36,7 +31,6 @@ export default function Profile() {
             const unsubscribe = db.doc(`users/${user.uid}`)
                 .onSnapshot((doc: any) => {
                     const userData = doc.data();
-                    setTokens(userData?.tokens || 0);
                 });
 
             return () => unsubscribe();

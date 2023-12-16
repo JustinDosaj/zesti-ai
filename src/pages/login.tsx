@@ -5,9 +5,8 @@ import { Raleway } from 'next/font/google'
 import { EnvelopeIcon, KeyIcon } from "@heroicons/react/24/outline"
 import Head from 'next/head';
 import GoogleTags from "@/components/google/conversion"
-import React, { useState, useEffect } from "react"
+import React, { useState } from "react"
 import { useAuth } from "./api/auth/auth"
-import {useRouter} from "next/router"
 import { Notify } from "@/components/shared/notify"
 import { ToastContainer } from "react-toastify"
 import 'react-toastify/dist/ReactToastify.css';
@@ -22,16 +21,10 @@ export default function Login() {
     const [ email, setEmail ] = useState<string>('')
     const [ password, setPassword ] = useState<string>('')
     const {user, signUpWithEmailPassword, login, sendPasswordReset, stripeRole, isLoading } = useAuth();
-    const router = useRouter()
 
     async function signUpOnClick() {
         await signUpWithEmailPassword(email, password).catch((error) => {Notify("Error with credentials. If you are creating an account, your password must be 7 characters or longer")})
     }
-    
-    useEffect(() => {
-        if(stripeRole == 'premium') { router.push('/dashboard') }
-        else if ( user ) { router.push('/welcome/newuser') }
-    },[user])
 
     if (isLoading) return <PageLoader/>
 

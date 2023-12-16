@@ -1,6 +1,7 @@
 import { createContext, useContext, ReactNode, useEffect, useState } from 'react';
 import { User, getAuth, onAuthStateChanged, signOut, signInWithPopup, GoogleAuthProvider, createUserWithEmailAndPassword, signInWithEmailAndPassword, sendPasswordResetEmail } from "firebase/auth";
 import { db } from '../firebase/firebase';
+import { useRouter } from 'next/router';
 
 interface AuthContextType {
   user: User | null;
@@ -18,15 +19,19 @@ interface AuthContextType {
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
+
   const [user, setUser] = useState<User | null>(null);
   const [isLoading, setIsLoading] = useState(true);  // Default to loading
-  const auth = getAuth();
-  const provider = new GoogleAuthProvider();
   const [stripeRole, setStripeRole] = useState<string | null>(null);
+  const auth = getAuth();
+  const router = useRouter();
+  const provider = new GoogleAuthProvider();
+
 
   const login = async () => {
     try {
       const result = await signInWithPopup(auth, provider);
+      console.log("Result: ", result.user.metadata.creationTime)
       const user = result.user
 
       if(user) {
@@ -38,6 +43,9 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
             tokens: 3,
             email: user.email,
           })
+          router.push('/welcome/newuser')
+        } else {
+          router.push('/dashboard')
         }
       }
 
