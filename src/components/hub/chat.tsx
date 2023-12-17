@@ -24,7 +24,7 @@ export function ChatComponent({role}: any) {
     const [ loginPrompt, setLoginPrompt ] = useState<boolean>(false)
     const [ success, setSuccess ] = useState<boolean>(false)
     const [ message, setMessage] = useState<string>('');
-    const [userInput, setUserInput] = useState<string>('')
+    const [ userInput, setUserInput ] = useState<string>('')
     const [ notify, setNotify ] = useState<boolean | null>(null)
     const [ recipes, setRecipes] = useState<any[]>([]);
 
