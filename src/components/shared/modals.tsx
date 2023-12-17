@@ -4,7 +4,7 @@ import { Fragment, useRef } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 import { CheckIcon } from '@heroicons/react/24/outline'
 import Link from 'next/link'
-import { XMarkIcon, TrashIcon, UserCircleIcon, SquaresPlusIcon, PlusIcon } from '@heroicons/react/20/solid'
+import { XMarkIcon, TrashIcon, UserCircleIcon, SquaresPlusIcon, PlusIcon, Cog6ToothIcon } from '@heroicons/react/20/solid'
 import {PencilIcon} from '@heroicons/react/24/outline'
 import { deleteRecipe } from '@/pages/api/firebase/functions'
 import { useAuth } from '@/pages/api/auth/auth'
@@ -400,12 +400,12 @@ export function AdvancedControlsModal({isOptionsOpen, setIsOptionsOpen, setUserI
   const cancelButtonRef = useRef(null)
   const [ingredients, setIngredients] = useState<string[]>([]);
   const [ingredientInput, setIngredientInput] = useState<string>('');
-  const [mealType, setMealType] = useState<string>('');
-  const [recipeTime, setRecipeTime] = useState<string>('');
-  const [servings, setServings] = useState<string>('');
-  const [skillLevel, setSkillLevel] = useState<string>('');
+  const [mealType, setMealType] = useState<string>('dinner recipe');
+  const [recipeTime, setRecipeTime] = useState<string>('any');
+  const [servings, setServings] = useState<string>('4');
+  const [skillLevel, setSkillLevel] = useState<string>('any');
   const [additionalInfo, setAdditionalInfo] = useState<string>('')
-  const [ diet, setDiet ] = useState<string>('')
+  const [diet, setDiet] = useState<string>('none')
 
   const handleAddIngredient = () => {
     if (ingredientInput) {
@@ -433,8 +433,8 @@ export function AdvancedControlsModal({isOptionsOpen, setIsOptionsOpen, setUserI
   const handleAdvancedSubmit = () => {
     
     const userInputValue = `Ingredients: ${ingredients.join(', ')}, Meal Type: ${mealType}, Recipe Time: ${recipeTime} minutes, Servings: ${servings}, Skill Level: ${skillLevel}, Additional Details: ${additionalInfo}, Dietary Restriction: ${diet}`;
-    
-    onSubmit(userInputValue)
+    console.log(userInputValue)
+    //onSubmit(userInputValue)
 
     setIngredients([])
     setIngredientInput('')
@@ -475,7 +475,7 @@ export function AdvancedControlsModal({isOptionsOpen, setIsOptionsOpen, setUserI
             >
               <Dialog.Panel className="relative transform overflow-hidden rounded-lg bg-white px-4 pb-4 pt-5 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg sm:p-6 space-y-2">
                   <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-green-500">
-                    <UserCircleIcon className="h-8 w-8 text-white" aria-hidden="true" />
+                    <Cog6ToothIcon className="h-8 w-8 text-white" aria-hidden="true" />
                   </div>
                   <div className="mt-3 text-center sm:mt-5 space-y-5 pb-5">
                     <Dialog.Title as="h3" className="text-xl font-semibold leading-6 text-gray-900">
@@ -503,7 +503,7 @@ export function AdvancedControlsModal({isOptionsOpen, setIsOptionsOpen, setUserI
                     </div>
                       <div className="py-1 pl-6 w-full pr-1 flex gap-3 items-center text-heading-3 shadow-lg shadow-box-shadow border border-box-border bg-box-bg rounded-full ease-linear focus-within:bg-body focus-within:border-primary">
                         <select value={mealType} onChange={(e) => setMealType(e.target.value)} className="p-2 w-full bg-transparent mr-2 text-gray-700 outline-none">
-                          <option value="">Select Type</option>
+                          <option value="dinner recipe" disabled hidden>Select Meal Type</option>
                           <option value="breakfast">Breakfast</option>
                           <option value="lunch">Lunch</option>
                           <option value="dinner">Dinner</option>
@@ -512,16 +512,18 @@ export function AdvancedControlsModal({isOptionsOpen, setIsOptionsOpen, setUserI
                       </div>
                       <div className="py-1 pl-6 w-full pr-1 flex gap-3 items-center text-heading-3 shadow-lg shadow-box-shadow border border-box-border bg-box-bg rounded-full ease-linear focus-within:bg-body focus-within:border-primary">
                         <select value={skillLevel} onChange={(e) => setSkillLevel(e.target.value)} className="p-2 w-full bg-transparent mr-2 rounded-xl text-gray-700 outline-none">
-                          <option value="">Skill</option>
+                          <option value="any" disabled hidden>Select Skill Level</option>
                           <option value="beginner">Beginner</option>
                           <option value="intermediate">Intermediate</option>
                           <option value="expert">Expert</option>
                           <option value="professional">Professional</option>
+                          <option value="any skill level">Any</option>
                         </select>
                       </div>
                       <div className="py-1 pl-6 w-full pr-1 flex gap-3 items-center text-heading-3 shadow-lg shadow-box-shadow border border-box-border bg-box-bg rounded-full ease-linear focus-within:bg-body focus-within:border-primary">
                         <select value={diet} onChange={(e) => setDiet(e.target.value)} className="p-2 w-full bg-transparent mr-2 rounded-xl text-gray-700 outline-none">
-                          <option value="none">Diet</option>
+                          <option value="none" disabled hidden>Select Diet Type</option>
+                          <option value="no diet type">No Diet Type</option>
                           <option value="Vegetarian">Vegetarian</option>
                           <option value="Vegan">Vegan</option>
                           <option value="Paleo">Paleo</option>
