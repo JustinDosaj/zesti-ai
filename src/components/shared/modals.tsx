@@ -433,8 +433,8 @@ export function AdvancedControlsModal({isOptionsOpen, setIsOptionsOpen, setUserI
   const handleAdvancedSubmit = () => {
     
     const userInputValue = `Ingredients: ${ingredients.join(', ')}, Meal Type: ${mealType}, Recipe Time: ${recipeTime} minutes, Servings: ${servings}, Skill Level: ${skillLevel}, Additional Details: ${additionalInfo}, Dietary Restriction: ${diet}`;
-    console.log(userInputValue)
-    //onSubmit(userInputValue)
+
+    onSubmit(userInputValue)
 
     setIngredients([])
     setIngredientInput('')
