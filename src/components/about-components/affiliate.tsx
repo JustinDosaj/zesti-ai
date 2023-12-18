@@ -74,14 +74,15 @@ export function AffiliateDetails() {
         <div className="w-full max-w-7xl mx-auto space-y-12">
             <div className="flex flex-col lg:flex-row justify-start lg:justify-between items-center gap-8 lg:gap-14 text-center lg:text-left">
                 <p className="section-title-text-size font-semibold text-gray-700 lg:w-1/3">
-                USE THE BEST
+                SHARE ZESTI
                 <br />
-                <span className="primary-orange-text-gradient"> AI RECIPE TOOLS</span>
+                AND GET PAID
+                <br/>
+                <span className="primary-orange-text-gradient"> ITS THAT EASY</span>
                 <br />
-                AROUND
                 </p>
                 <p className="w-full lg:w-1/2 section-desc-text-size text-gray-600">
-                Zesti makes it easy for you to discover and try new recipes Instantly save video recipes or create your own using AI!
+                With our affiliate program, we make it possible for you to earn comission on every premium subscription you refer!
                 </p>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3  gap-10">
