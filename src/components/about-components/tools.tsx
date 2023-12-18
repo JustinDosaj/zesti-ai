@@ -179,11 +179,11 @@ export function WebRecipeHero(){
                     </div>
                     <h1 className="section-title-text-size xl:text-6xl font-bold text-gray-700">
                         <span className="text-gray-700">Remove</span>
-                        <span className="primary-orange-text-gradient"> Clutter & Ads </span>
+                        <span className="primary-orange-text-gradient"> Clutter </span>
                         <span className="text-gray-700">From Web Recipes</span>
                     </h1>
                     <p className="section-desc-text-size font-medium text-gray-600">
-                        Use Zesti to come up with recipe ideas from scratch or from ingredients you have on hand
+                        Use Zesti to remove excess stories, clutter & ads from webiste recipes
                     </p>
                     <div className="space-y-4">
                         <BtnLink text="Try for Free" href="/login" className="align-middle mt-4 text-lg"/>

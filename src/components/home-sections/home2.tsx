@@ -25,8 +25,8 @@ export function HomePageTools() {
           href: '/about/tools/social-media-recipe'
         },
         {
-          name: 'Ad-Free Web Recipe',
-          description: 'Remove clutter and invasive ads from website recipes using Zesti',
+          name: 'Clutterless Web Recipes',
+          description: 'Remove clutter and excess ads from website recipes using Zesti',
           icon: ComputerDesktopIcon,
           href: '/about/tools/web-recipe'
         },
@@ -174,7 +174,7 @@ export function HomePageCTA() {
             Check Out Premium
           </p>
           <h1 className="section-title-text-size font-semibold text-center text-gray-700">
-            Try Zesti Premium Free for 7-Days
+            Try Free for 7-Days
           </h1>
           <p className="w-full section-desc-text-size font-medium text-center text-gray-600 opacity-70">
             Get more out of Zesti when you use premium by gaining access to every feature Zesti offers and increased monthly usage! 
