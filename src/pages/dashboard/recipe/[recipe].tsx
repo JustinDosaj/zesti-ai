@@ -241,7 +241,7 @@ const Recipe: React.FC = ({id, ad}: any) => {
         <IngredientList setIsOpen={setIsOpen} setAddType={setAddType} recipe={recipe} editingIngredientIndex={editingIngredientIndex} setEditingIngredientIndex={setEditingIngredientIndex} handleDeleteIngredient={handleDeleteIngredient} handleSaveIngredient={handleSaveIngredient} role={stripeRole}/>
         <InstructionList setIsOpen={setIsOpen} setAddType={setAddType} recipe={recipe} editingInstructionIndex={editingInstructionIndex} setEditingInstructionIndex={setEditingInstructionIndex} handleDeleteInstruction={handleDeleteInstruction} handleSaveInstruction={handleSaveInstruction} role={stripeRole}/>
       {stripeRole !== 'premium' ? 
-      <div className="flex justify-center items-center py-12">
+      <div className="flex justify-center items-center py-12 bg-red-600">
         <div className="w-full min-w-[300px] max-w-[320px] lg:max-w-full lg:min-w-[1240px] text-center">
           <AdSenseDisplay adSlot="9326575118" adFormat="rectangle, horizontal" widthRes="true"/>
         </div>
