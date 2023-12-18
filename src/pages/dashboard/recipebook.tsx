@@ -9,6 +9,7 @@ import { PageLoader } from '@/components/shared/loader'
 import { RecipeList } from '@/components/dash-sections/recipelist'
 import GoogleTags from '@/components/google/conversion'
 import { RewardfulTag } from '@/components/tags/headertags'
+import AdSenseDisplay from '@/components/google/adsense'
 
 const raleway = Raleway({subsets: ['latin']})
 
@@ -44,6 +45,15 @@ export default function RecipeBook() {
         <main className={`flex min-h-screen flex-col items-center bg-background ${raleway.className}`}>
             <RecipeBookTitle/>
             {isLoadingRecipes ? <PageLoader/> : <RecipeList data={recipes}/>}
+            {stripeRole !== 'premium' && recipes.length > 0 ? 
+            <div className="flex justify-center items-center py-12 bg-red-600">
+              <div className="w-full min-w-[300px] max-w-[320px] lg:max-w-full lg:min-w-[1240px] text-center">
+                <AdSenseDisplay adSlot="9326575118" adFormat="rectangle, horizontal" widthRes="true"/>
+              </div>
+            </div>
+            :
+            <div className="mb-28"/>
+            }
         </main>
     </>
     )
