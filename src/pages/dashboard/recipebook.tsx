@@ -46,7 +46,7 @@ export default function RecipeBook() {
             <RecipeBookTitle/>
             {isLoadingRecipes ? <PageLoader/> : <RecipeList data={recipes}/>}
             {stripeRole !== 'premium' && recipes.length > 0 ? 
-            <div className="flex justify-center items-center py-12">
+            <div className="flex justify-center items-center py-16">
               <div className="w-full min-w-[300px] max-w-[320px] lg:max-w-full lg:min-w-[1240px] text-center">
                 <AdSenseDisplay adSlot="9326575118" adFormat="rectangle, horizontal" widthRes="true"/>
               </div>
