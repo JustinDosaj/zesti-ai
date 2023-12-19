@@ -4,7 +4,7 @@ import { Fragment, useRef } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 import { CheckIcon } from '@heroicons/react/24/outline'
 import Link from 'next/link'
-import { XMarkIcon, TrashIcon, UserCircleIcon, SquaresPlusIcon, PlusIcon, Cog6ToothIcon } from '@heroicons/react/20/solid'
+import { XMarkIcon, TrashIcon, UserCircleIcon, SquaresPlusIcon, PlusIcon, Cog6ToothIcon, StarIcon } from '@heroicons/react/20/solid'
 import {PencilIcon} from '@heroicons/react/24/outline'
 import { deleteRecipe } from '@/pages/api/firebase/functions'
 import { useAuth } from '@/pages/api/auth/auth'
@@ -612,11 +612,11 @@ export function UpgradeToPremiumModal({premiumPrompt, setPremiumPrompt}: Upgrade
             >
               <Dialog.Panel className="w-full relative transform overflow-hidden rounded-lg bg-white px-4 pb-4 pt-5 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg sm:p-6">
 
-                  <Image className="h-28 w-28 mx-auto" priority={true} src="/images/zesti-logos/Zesti-Premium-2.png" width={1000} height={1000} alt="Zesti Premium Logo" />
+                  <Image className=" mx-auto" priority={true} src="/images/zesti-logos/Zesti-Premium-2.png" width={125} height={125} alt="Zesti Premium Logo" />
 
                   <div className="text-center sm:mt-5">
                     <Dialog.Title as="h3" className="mt-3 sm:mt-0 text-lg sm:text-xl font-semibold leading-6 text-gray-900">
-                    Go Premium to Edit Recipes
+                      Unlock Premium to Edit Recipes
                     </Dialog.Title>
                     <div className="mt-2">
                       <p className="text-sm text-gray-500">
