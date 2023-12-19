@@ -580,7 +580,7 @@ interface UpgradeToPremiumProps {
   setPremiumPrompt: any,
 }
 
-export async function UpgradeToPremiumModal({premiumPrompt, setPremiumPrompt}: UpgradeToPremiumProps) {
+export function UpgradeToPremiumModal({premiumPrompt, setPremiumPrompt}: UpgradeToPremiumProps) {
 
   const cancelButtonRef = useRef(null)
 
