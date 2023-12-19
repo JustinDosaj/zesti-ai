@@ -4,7 +4,7 @@ import { Fragment, useRef } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 import { CheckIcon } from '@heroicons/react/24/outline'
 import Link from 'next/link'
-import { XMarkIcon, TrashIcon, UserCircleIcon, SquaresPlusIcon, PlusIcon, Cog6ToothIcon } from '@heroicons/react/20/solid'
+import { XMarkIcon, TrashIcon, UserCircleIcon, SquaresPlusIcon, PlusIcon, Cog6ToothIcon, StarIcon } from '@heroicons/react/20/solid'
 import {PencilIcon} from '@heroicons/react/24/outline'
 import { deleteRecipe } from '@/pages/api/firebase/functions'
 import { useAuth } from '@/pages/api/auth/auth'
@@ -580,7 +580,7 @@ interface UpgradeToPremiumProps {
   setPremiumPrompt: any,
 }
 
-export function UpgradeToPremiumModal({premiumPrompt, setPremiumPrompt}: UpgradeToPremiumProps) {
+export async function UpgradeToPremiumModal({premiumPrompt, setPremiumPrompt}: UpgradeToPremiumProps) {
 
   const cancelButtonRef = useRef(null)
 
@@ -611,16 +611,15 @@ export function UpgradeToPremiumModal({premiumPrompt, setPremiumPrompt}: Upgrade
               leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
             >
               <Dialog.Panel className="w-full relative transform overflow-hidden rounded-lg bg-white px-4 pb-4 pt-5 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg sm:p-6">
-
-                  <Image className="h-28 w-28 mx-auto" priority={true} src="/images/zesti-logos/Zesti-Premium-2.png" width={1000} height={1000} alt="Zesti Premium Logo" />
-
+                    {/*<StarIcon className="h-16 w-16 mx-auto items-center text-yellow-400 bg-yellow-400/20 m-2 p-2 rounded-full"/>*/}
+                    <Image className=" mx-auto" priority={true} src="/images/zesti-logos/Zesti-Premium-2.png" width={125} height={125} alt="Zesti Premium Logo" />
                   <div className="text-center sm:mt-5">
                     <Dialog.Title as="h3" className="mt-3 sm:mt-0 text-lg sm:text-xl font-semibold leading-6 text-gray-900">
-                    Go Premium to Edit Recipes
+                      This Feature Requires Zesti Premium
                     </Dialog.Title>
                     <div className="mt-2">
                       <p className="text-sm text-gray-500">
-                        Try for free. Cancel anytime.
+                        Try Free for 7-Days. Cancel anytime.
                       </p>
                     </div>
                   </div>
@@ -630,7 +629,7 @@ export function UpgradeToPremiumModal({premiumPrompt, setPremiumPrompt}: Upgrade
                     href="/pricing"
                     onClick={() => {setPremiumPrompt(false)}}
                   >
-                    Start 7-Day Trial
+                    Start Trial
                   </Link>
                   <button
                     type="button"
