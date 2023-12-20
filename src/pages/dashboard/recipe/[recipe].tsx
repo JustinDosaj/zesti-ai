@@ -35,6 +35,7 @@ const Recipe: React.FC = ({id, ad}: any) => {
     const [recipe, setRecipe] = useState<any>([])
     const [url, setUrl] = useState<string>('')
     const [edit, setEdit] = useState<boolean>(false)
+    const [newTitle, setNewTitle] = useState<string>('')
     const [editingIngredientIndex, setEditingIngredientIndex] = useState<number | null>(null);
     const [editingInstructionIndex, setEditingInstructionIndex] = useState<number | null>(null);
     const [isOpen, setIsOpen] = useState<boolean>(false)
@@ -222,7 +223,31 @@ const Recipe: React.FC = ({id, ad}: any) => {
             console.error('Error adding ingredient to Firestore:', error);
         }
       }
-    }                                                 
+    }
+    
+    const handleSaveTitle = async (newValue: string) => {
+
+      const recipeRef = db.collection(`users/${user?.uid}/recipes`).doc(id);
+      try {
+        await recipeRef.update({
+          'data.name': newValue // Directly updating the nested field
+        });
+        console.log('Ingredient updated successfully in Firestore!');
+    
+        // Optimistically update the local state right after sending the Firestore update
+        setRecipe((prevRecipe: any) => ({
+          ...prevRecipe,
+          data: {
+            ...prevRecipe.data,
+            name: newValue
+          }
+        }));
+      } catch (error) {
+        console.error('Error updating ingredient in Firestore:', error);
+        // Optionally handle the error here
+      }
+
+    }
 
     if(!recipe.name) return <PageLoader/>
 
@@ -237,7 +262,7 @@ const Recipe: React.FC = ({id, ad}: any) => {
     </Head>  
     <main className={`flex min-h-screen flex-col items-center justify-between p-2 bg-background ${raleway.className}`}>
       {stripeRole == 'premium' ? <Chatbox/> : <></>}
-        <RecipeTitle recipe={recipe} url={url}/>
+        <RecipeTitle recipe={recipe} url={url} handleSaveTitle={handleSaveTitle} role={stripeRole}/>
         <IngredientList setIsOpen={setIsOpen} setAddType={setAddType} recipe={recipe} editingIngredientIndex={editingIngredientIndex} setEditingIngredientIndex={setEditingIngredientIndex} handleDeleteIngredient={handleDeleteIngredient} handleSaveIngredient={handleSaveIngredient} role={stripeRole}/>
         <InstructionList setIsOpen={setIsOpen} setAddType={setAddType} recipe={recipe} editingInstructionIndex={editingInstructionIndex} setEditingInstructionIndex={setEditingInstructionIndex} handleDeleteInstruction={handleDeleteInstruction} handleSaveInstruction={handleSaveInstruction} role={stripeRole}/>
       {stripeRole !== 'premium' ? 
