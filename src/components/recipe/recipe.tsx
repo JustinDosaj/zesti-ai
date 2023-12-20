@@ -1,6 +1,6 @@
 import { Fragment, useState } from 'react'
 import { Menu, Transition } from '@headlessui/react'
-import { EllipsisVerticalIcon, PencilSquareIcon, TrashIcon, VideoCameraIcon, PlusIcon, StarIcon  } from '@heroicons/react/20/solid'
+import { EllipsisVerticalIcon, PencilSquareIcon, TrashIcon, VideoCameraIcon, PlusIcon, StarIcon, XMarkIcon, CheckIcon, XCircleIcon  } from '@heroicons/react/20/solid'
 import { Container } from '../shared/container';
 import { UpgradeToPremiumModal } from '../shared/modals';
 
@@ -273,48 +273,76 @@ export function EditInstructionInput({instruction, isEditing, setEditingIngredie
 interface RecipeTitleProps {
     recipe: any,
     url: string,
+    handleSaveTitle: (newValue: string) => Promise<void>,
+    role: string | null,
 }
 
-export function RecipeTitle({recipe, url}: RecipeTitleProps) {
+export function RecipeTitle({recipe, url, handleSaveTitle, role}: RecipeTitleProps) {
+
+    const [ editMode, setEditMode ] = useState<boolean>(false)
+    const [ newTitle, setNewTitle ] = useState<string>(recipe?.name)
+
     return(
     <Container className={"flex flex-col lg:flex-row gap-10 lg:gap-12 mt-36 animate-fadeInFast"}>
         <div className="bg-white py-5 border w-full rounded-3xl p-4 md:p-12">
-         <div className="md:flex md:space-x-4">
-           <div className="min-w-0 flex-1 space-y-2">
-             <div className="gap-x-3 text-xl font-semibold text-gray-900 grid space-y-2 sm:inline-flex">
-                 {recipe?.name}
-                 <div className="mt-2 inline-flex sm:mt-0 sm:space-y-0 gap-x-2 text-center">
-                   { recipe.time == null ? 
-                   <div></div>
-                   :
-                   <p className="bg-green-600 rounded-xl text-white text-sm p-1">{`${recipe?.time} Minutes`}</p> 
-                   }
-                   { recipe.servings == null ? 
-                   <div></div>
-                   :
-                   <p className="bg-green-600 rounded-xl text-white text-sm p-1">{`${recipe?.servings} Servings`}</p>
-                   }
-                 </div>
-             </div>
- 
-             <p className="text-gray-500">
-               {`${recipe?.description}`}
-             </p>
-           </div>
-           { url !== '' ?
-             <button onClick={() => window.open(url)}
-               className="mt-4 md:mt-0 inline-flex text-primary-main h-fit border-primary-main border rounded-lg p-2 transition bg-white hover:text-white hover:bg-primary-main"
-             >
-               <div className="flex gap-x-2">
-                 <VideoCameraIcon className="h-6 w-6"/>
-                 <p>Original Recipe</p>
-                 </div>
-             </button>
-             :
-             <div></div>
-           }
-         </div>
-       </div>
+            <div className="md:flex md:space-x-4">
+                <div className="min-w-0 flex-1 space-y-4 xs:space-y-3">
+                    <div className="flex justify-center xs:justify-start space-x-2">
+                        {editMode == false ?
+                            <div className="grid grid-cols-1 xs:inline-flex items-center gap-x-2 flex-wrap xs:flex-nowrap text-center xs:text-left gap-y-3 xs:space-y-0">
+                                <span className="text-2xl font-semibold text-gray-900">
+                                    {recipe?.name}
+                                </span>
+                                <button onClick={() => {setEditMode(true)}} className="inline-flex items-center gap-x-1 text-sm mx-auto text-gray-600 hover:text-gray-500">
+                                    <PencilSquareIcon className="h-5 w-5 cursor-pointer" />
+                                    <p className="xs:hidden">Edit Recipe Name</p>
+                                </button>
+                            </div>
+                        :
+                            <div className="inline-flex items-center gap-x-2 flex-wrap text-center space-y-1 xs:space-y-0">
+                                <input
+                                    value={newTitle}
+                                    onChange={(e) => {setNewTitle(e.target.value)}}
+                                    className="w-full sm:w-[500px] p-1 text-center font-semibold text-xl border rounded-3xl border-gray-700"
+                                    placeholder={recipe?.name}
+                                />
+                                <div className="mx-auto items-center inline-flex space-x-3">
+                                    <CheckIcon onClick={() => {
+                                        handleSaveTitle(newTitle)
+                                        setEditMode(false)
+                                    }} 
+                                        className="h-6 w-6 cursor-pointer text-green-600 hover:text-gray-500" />
+                                    <XMarkIcon onClick={() => {setEditMode(false)}} className="h-7 w-7 cursor-pointer text-red-600 hover:text-gray-500" />
+                                </div>
+                            </div>
+                        }
+                    </div>
+                    <div className="grid grid-cols-2 xs:inline-flex gap-x-2 text-center">
+                        {recipe.time != null && (
+                        <p className="bg-green-600 rounded-3xl text-white text-sm p-1 md:p-1.5">{`${recipe?.time} Minutes`}</p>
+                        )}
+                        {recipe.servings != null && (
+                        <p className="bg-green-600 rounded-3xl text-white text-sm p-1 md:p-1.5">{`${recipe?.servings} Servings`}</p>
+                        )}
+                    </div>
+                    <p className="text-gray-500 text-center sm:text-left">
+                        {`${recipe?.description}`}
+                    </p>
+                </div>
+                { url !== '' ?
+                    <button onClick={() => window.open(url)}
+                    className="mt-4 md:mt-0 inline-flex text-primary-main h-fit border-primary-main border rounded-lg p-2 transition bg-white hover:text-white hover:bg-primary-main"
+                    >
+                    <div className="flex gap-x-2">
+                        <VideoCameraIcon className="h-6 w-6"/>
+                        <p>Original Recipe</p>
+                        </div>
+                    </button>
+                    :
+                    <div></div>
+                }
+            </div>
+        </div>
     </Container>
     )
 }
