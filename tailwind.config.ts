@@ -30,7 +30,7 @@ const config: Config = {
         },
         'color-alt': {
           'black': "#333333",
-          'green': "#008E53",
+          'green': "#16a34a",
           'yellow': '#F9E308',
           'red': '#DA291C',
           'orange': '#f5821f'
