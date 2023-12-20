@@ -36,7 +36,7 @@ body {
   }
 
   .home-scroll-container {
-    @apply flex flex-col items-start py-12 bg-gradient-to-b from-orange-100 to-orange-200/50 xl:rounded-3xl
+    @apply flex flex-col items-start py-12 bg-gradient-to-b from-orange-50 to-orange-100/50 xl:rounded-3xl
   }
 
   .section-title-text-size {
