@@ -116,7 +116,9 @@ export const handleYouTubeURLSubmit = async ({url, user, setMessage, stripeRole,
             await db.collection('users').doc(user.uid).collection('youtubeurl').doc().set(falseObj)
             setMessage("Your recipe will appear in your dashboard shortly")
             await db.collection('users').doc(user.uid).update({
-                tokens: increment(-1)
+                tokens: increment(-1),
+                totalRecipes: increment(+1),
+                lifeTimeUsage: increment(+1)
             })
             return true
         } catch (err) {
@@ -175,7 +177,9 @@ export const handleTikTokURLSubmit = async ({url, setUrl, user, setMessage, stri
             await db.collection('users').doc(user.uid).collection('tiktokurl').doc().set(falseObj)
             setMessage("Your recipe will appear in your dashboard shortly")
             await db.collection('users').doc(user.uid).update({
-                tokens: increment(-1)
+                tokens: increment(-1),
+                totalRecipes: increment(+1),
+                lifeTimeUsage: increment(+1)  
             })
             return true
         } catch (err) {
@@ -222,6 +226,10 @@ export const handleCreativeChatSubmit = async({input, user, setMessage, stripeRo
         try {
             await db.collection('users').doc(user.uid).collection('creative').doc().set(falseObj)
             setMessage("Your recipe will appear in your dashboard shortly")
+            await db.collection('users').doc(user.uid).update({
+                totalRecipes: increment(+1),
+                lifeTimeUsage: increment(+1)
+            })
             return true
         } catch (err) {
             setNotify(true)
@@ -238,7 +246,9 @@ export const handleCreativeChatSubmit = async({input, user, setMessage, stripeRo
             await db.collection('users').doc(user.uid).collection('creative').doc().set(falseObj)
             setMessage("Your recipe will appear in your dashboard shortly")
             await db.collection('users').doc(user.uid).update({
-                tokens: increment(-1)
+                tokens: increment(-1),
+                totalRecipes: increment(+1),
+                lifeTimeUsage: increment(+1)
             })
             return true
         } catch (err) {
