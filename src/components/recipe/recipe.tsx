@@ -289,7 +289,7 @@ export function RecipeTitle({recipe, url, handleSaveTitle, role}: RecipeTitlePro
                 <div className="min-w-0 flex-1 space-y-4 xs:space-y-3">
                     <div className="flex justify-center xs:justify-start space-x-2">
                         {editMode == false ?
-                            <div className="grid grid-cols-1 xs:inline-flex items-center gap-x-2 flex-wrap xs:flex-nowrap text-center xs:text-left gap-y-3 xs:space-y-0">
+                            <div className="grid grid-cols-1 xs:inline-flex items-center gap-x-2 flex-wrap xs:flex-nowrap text-center xs:text-left gap-y-1 xs:space-y-0">
                                 <span className="text-2xl font-semibold text-gray-900">
                                     {recipe?.name}
                                 </span>
@@ -303,7 +303,7 @@ export function RecipeTitle({recipe, url, handleSaveTitle, role}: RecipeTitlePro
                                 <input
                                     value={newTitle}
                                     onChange={(e) => {setNewTitle(e.target.value)}}
-                                    className="w-full sm:w-[500px] p-1 text-center font-semibold text-xl border rounded-3xl border-gray-700"
+                                    className="w-full sm:w-[500px] p-1 text-center font-semibold text-xl border rounded-3xl border-gray-700 text-gray-600"
                                     placeholder={recipe?.name}
                                 />
                                 <div className="mx-auto items-center inline-flex space-x-3">
