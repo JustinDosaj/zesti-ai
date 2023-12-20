@@ -42,6 +42,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
           await userRef.set({
             tokens: 3,
             email: user.email,
+            totalRecipes: 0,
           })
           router.push('/welcome/newuser')
         } else {
@@ -107,6 +108,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
           await userRef.set({
             tokens: 3,
             email: user.email,
+            totalRecipes: 0,
           })
         }
       }

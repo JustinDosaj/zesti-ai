@@ -30,8 +30,11 @@ function classNames(...classes: (string | undefined | null | false)[]): string {
   return classes.filter(Boolean).join(' ');
 }
 
-export function RecipeList({data, maxDisplayCount = -1}:StackListProps & {maxDisplayCount?: number}) {
-
+export function RecipeList({data, maxDisplayCount = 10, incrementCount = 10}:StackListProps & {maxDisplayCount?: number, incrementCount?: number}) {
+  
+  const [ isDeleteOpen, setIsDeleteOpen ] = useState<boolean>(false)
+  const [ selectedRecipeId, setSelectedRecipeId ] = useState<string | null>(null);
+  const [ displayCount, setDisplayCount ] = useState(maxDisplayCount);
 
   // Sort data to display most recent recipes first
   const sortedData = data.sort((a, b) => {
@@ -40,13 +43,14 @@ export function RecipeList({data, maxDisplayCount = -1}:StackListProps & {maxDis
     return dateB - dateA;
   });
 
-  const [ isDeleteOpen, setIsDeleteOpen ] = useState<boolean>(false)
-  const [ selectedRecipeId, setSelectedRecipeId ] = useState<string | null>(null);
+  const handleLoadMore = () => {
+    setDisplayCount(prevCount => prevCount + incrementCount);
+  };
 
   return(
     <Container className={"flex flex-col lg:flex-wrap gap-10 lg:gap-4 mt-4 animate-fadeIn"}>
       <ul role="list" className="divide-y divide-primary-main divide-opacity-50 sm:divide-gray-300 text-gray-700">
-        {sortedData.slice(0, maxDisplayCount >= 0 ? maxDisplayCount : data.length).map((recipe) => (
+        {sortedData.slice(0, displayCount).map((recipe) => (
             <li key={recipe.id} className="flex items-center justify-between gap-x-6 py-5">
               <div className="min-w-0">
                 <div className="flex items-start gap-x-3">
@@ -165,6 +169,13 @@ export function RecipeList({data, maxDisplayCount = -1}:StackListProps & {maxDis
               </div>
             </li>
           ))}
+            {displayCount < data.length && (
+                <div className="flex justify-center py-6">
+                    <button onClick={handleLoadMore} className="bg-primary-main hover:bg-primary-alt text-white font-semibold py-2 px-4 rounded">
+                        Load More
+                    </button>
+                </div>
+            )}
           <DeleteConfirmationModal isOpen={isDeleteOpen} setIsOpen={setIsDeleteOpen} recipeId={selectedRecipeId}/>
         </ul>
     </Container>
