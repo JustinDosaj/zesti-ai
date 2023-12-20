@@ -169,9 +169,9 @@ export function RecipeList({data, maxDisplayCount = 10, incrementCount = 10}:Sta
               </div>
             </li>
           ))}
-            {displayCount < data.length && (
+            {displayCount < data.length && maxDisplayCount >= 10 && (
                 <div className="flex justify-center py-6">
-                    <button onClick={handleLoadMore} className="bg-primary-main hover:bg-primary-alt text-white font-semibold py-2 px-4 rounded">
+                    <button onClick={handleLoadMore} className="bg-primary-main rounded-3xl hover:bg-primary-alt text-white font-semibold py-2 px-4">
                         Load More
                     </button>
                 </div>
