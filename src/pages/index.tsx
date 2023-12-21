@@ -1,7 +1,7 @@
 import { Raleway } from 'next/font/google'
 import Head from 'next/head';
 import GoogleTags from '@/components/google/conversion';
-import { HomePageScroller, HomePageTools, HomePageHero, HomePageCTA, HomeFAQ } from '@/components/home-sections/home2';
+import { HomePageScroller, HomePageTools, HomePageHero, HomePageCTA, HomeFAQ, HomeVideoToRecipe } from '@/components/home-sections/home2';
 import { useAuth } from './api/auth/auth';
 import { PageLoader } from '@/components/shared/loader';
 import { RewardfulTag } from '@/components/tags/headertags';
@@ -27,7 +27,9 @@ export default function Home() {
         <HomePageHero/>
         <HomePageTools/>
         <HomePageScroller/>
-        <div className="mt-24"/>
+        <div className="mt-24 md:mt-36"/>
+        <HomeVideoToRecipe/>
+        <div className=""/>
         <HomePageCTA/>
         <div className="mt-24"/>
         <HomeFAQ/>
