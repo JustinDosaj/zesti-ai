@@ -1,5 +1,5 @@
 import { db } from "./firebase"
-import { doc, deleteDoc } from 'firebase/firestore';
+import { doc, deleteDoc, DocumentReference, getDoc, updateDoc } from 'firebase/firestore';
 
 export interface Props {
   url: any,
@@ -59,4 +59,21 @@ export async function getRecipe(user: any, id: any) {
 export async function deleteRecipe(user: any, id: any) {
   const recipeRef = doc(db, 'users', user, 'recipes', id);
   await deleteDoc(recipeRef);
+
+  const userRef: DocumentReference = doc(db, 'users', user);
+
+  const userDoc = await getDoc(userRef);
+  if (userDoc.exists()) {
+    const userData = userDoc.data();
+    let totalRecipes: number = userData.totalRecipes;
+
+    // Decrement totalRecipes and update the user document
+    if (totalRecipes && totalRecipes > 0) {
+      await updateDoc(userRef, {
+        totalRecipes: totalRecipes - 1
+      });
+    }
+  } else {
+    console.log("User document not found");
+  }
 }
