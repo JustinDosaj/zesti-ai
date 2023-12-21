@@ -63,7 +63,7 @@ export default function Dashboard() {
         <div className="border-t border-gray-200 m-12" style={{ width: '35%' }} />
         <DashboardRecipeTitle/>
         {isLoadingRecipes ? <PageLoader/> : <RecipeList data={recipes} maxDisplayCount={5}/>}
-        {stripeRole == 'premium' && recipes.length > 0 ? 
+        {stripeRole !== 'premium' && recipes.length > 0 ? 
         <div className="flex justify-center items-center py-16">
           <div className="w-full min-w-[300px] max-w-[320px] lg:max-w-full lg:min-w-[1240px] text-center">
             <AdSenseDisplay adSlot="5606229053" adFormat="rectangle, horizontal" widthRes="true"/>
