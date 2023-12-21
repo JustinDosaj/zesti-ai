@@ -126,33 +126,31 @@ export function HomePageHero(){
         </div>
         <div className="flex flex-col gap-8 text-center lg:text-left">
           <h1 className="section-title-text-size xl:text-6xl font-bold text-gray-700">
-            <span className="primary-orange-text-gradient">Upgrade</span>
-            <span className="text-gray-700"> Your Cooking With </span>
+            <span className="text-gray-700"> Save, Create & Customize</span>
+            <span className="primary-orange-text-gradient"> Recipes </span>
             <br />
-            <span className="primary-orange-text-gradient">Zesti AI</span>
           </h1>
           <p className="section-desc-text-size font-medium text-gray-600">
-          Create AI generated recipes, instantly save recipes from YouTube & Tiktok, 
-          and get cooking questions answered instantly!
+            Create AI generated recipes or instantly save your favorite recipes from YouTube & Tiktok!
           </p>
         </div>
         <div className="grid justify-center lg:justify-start space-y-1">
           {!user ?
           <div className="grid justify-center lg:justify-start space-y-0.5">
-            <Button buttonType="button" text="Get Started" className="w-fit" onClick={() => router.push('/login')}/>
+            <Button buttonType="button" text="Get Started for Free" className="w-fit" onClick={() => router.push('/login')}/>
           </div>
           :
           <div className="grid justify-center lg:justify-start space-y-0.5">
             <Button buttonType="button" text="Go to Dashboard" className="w-fit" onClick={() => router.push('/dashboard')}/>
           </div>
           }
-          <p className="text-sm text-gray-500/90 mx-auto lg:mx-1">Try for Free. No Credit Card Required</p>
+          <p className="text-sm text-center text-gray-500/90 mx-auto lg:mx-1">No Credit Card Required</p>
         </div>
 
         <div className="grid grid-cols-3 lg:flex justify-center lg:justify-start lg:space-x-16">
-          <StatisticItem number="3000+" label="Recipes" />
-          <StatisticItem number="500+" label="Users" />
-          <StatisticItem number="$0" label="Price" />
+          <StatisticItem number="3200+" label="Recipes" />
+          <StatisticItem number="540+" label="Users" />
+          <StatisticItem number="$0/mo." label="Price" />
         </div>
       </div>
 
