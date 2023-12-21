@@ -5,6 +5,7 @@ import { FAQ, TryPremiumCTA, HomeChat, HomeDashDisplay, HomeRecipeDisplay } from
 import { PricingDisplay } from '@/components/pricing-sections/pricing';
 import GoogleTags from '@/components/google/conversion';
 import { RewardfulTag } from '@/components/tags/headertags';
+import TikTikConversionTags from '@/components/google/tiktok';
 
 const raleway = Raleway({subsets: ['latin']})
 
@@ -17,6 +18,7 @@ export default function WelcomeNewUser() {
             <meta name="description" content="Join Zesti to gain access to the best AI powered kitchen tool that helps you quickly save and edit recipes from cooking videos"/>
             <meta name="robots" content="noindex" />
             <GoogleTags/>
+            <TikTikConversionTags/>
             <RewardfulTag/>
             <script dangerouslySetInnerHTML={{
             __html: `
