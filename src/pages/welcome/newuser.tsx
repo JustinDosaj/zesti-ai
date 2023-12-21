@@ -18,7 +18,6 @@ export default function WelcomeNewUser() {
             <meta name="description" content="Join Zesti to gain access to the best AI powered kitchen tool that helps you quickly save and edit recipes from cooking videos"/>
             <meta name="robots" content="noindex" />
             <GoogleTags/>
-            <TikTikConversionTags/>
             <RewardfulTag/>
             <script dangerouslySetInnerHTML={{
             __html: `
