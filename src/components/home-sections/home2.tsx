@@ -1,7 +1,7 @@
 import { Container } from "../shared/container"
-import { ArrowRightIcon, StarIcon, VideoCameraIcon, ComputerDesktopIcon, ChevronLeftIcon, ChevronRightIcon, MinusSmallIcon, PlusSmallIcon} from "@heroicons/react/20/solid"
+import { ArrowRightIcon, StarIcon, VideoCameraIcon, ComputerDesktopIcon, ChevronLeftIcon, ChevronRightIcon, MinusSmallIcon, PlusSmallIcon, ArrowsRightLeftIcon, ArrowsUpDownIcon, ArrowDownIcon} from "@heroicons/react/20/solid"
 import Link from "next/link"
-import { useState } from "react"
+import { useState, useEffect, useRef } from "react"
 import { ToolExamples, Scroller, DashboardExample } from "./scroll"
 import { Button, BtnLink } from "../shared/button"
 import Image from "next/image"
@@ -261,4 +261,62 @@ export function StatisticItem({ number, label }: any) {
       <p className="text-base font-medium text-gray-600">{label}</p>
     </div>
   );
+}
+
+export function HomeVideoToRecipe() {
+
+  const tikTokRef = useRef(null);
+
+  useEffect(() => {
+    // Function to load the TikTok embed script
+    const loadTikTokScript = () => {
+      const script = document.createElement('script');
+      script.src = 'https://www.tiktok.com/embed.js';
+      script.async = true;
+      document.body.appendChild(script);
+    };
+
+    // Insert the embed code and load the script
+    if (tikTokRef.current) {
+      (tikTokRef.current as HTMLDivElement).innerHTML = `
+        <blockquote class="tiktok-embed" cite="https://www.tiktok.com/@britscookin/video/7290713603299331374" data-video-id="7290713603299331374" style="max-width: 605px;min-width: 325px;">
+          <section>
+            <a target="_blank" title="@britscookin" href="https://www.tiktok.com/@britscookin?refer=embed">@britscookin</a>
+            <p>Cheesy Hawaiian Roll Garlic Bread!</p>
+            <a target="_blank" title="♬ original sound - britscookin" href="https://www.tiktok.com/music/original-sound-7290713636770646827?refer=embed">♬ original sound - britscookin</a>
+          </section>
+        </blockquote>
+      `;
+      loadTikTokScript();
+    }
+  }, []);
+
+  return(
+    <Container className="relative w-full max-w-6xl mx-auto py-12 px-5 animate-fadeIn ">
+        <div className="flex flex-col lg:flex-row justify-center text-center lg:items-center w-full gap-8 p-2 xl:orange-border-shadow rounded-3xl">
+            <div className="flex flex-col gap-6">
+                <h1 className="text-4xl lg:text-5xl font-semibold text-gray-800 mt-6">
+                    From Video to 
+                <span className="primary-orange-text-gradient"> Recipe </span>
+                </h1>
+                <p className="section-desc-text-size text-gray-600 w-full">
+                    Zesti can quickly create an ingredient list & instructions from your favorite TikTok & YouTube cooking videos!
+                </p>
+                <div className="grid grid-cols-1 xl:grid-cols-2 justify-center">
+                  <div className="mx-auto" ref={tikTokRef}></div>
+                  <div className="block xl:hidden mx-auto my-auto p-12 text-center">
+                      <ArrowDownIcon className="block xl:hidden h-20 w-20 text-white bg-primary-main p-4 rounded-full"/>
+                  </div>
+                  <div className="h-full mt-2 w-fit mx-auto">
+                    <Image src="/images/Hawaiian-Rolls-Ingredients.png" height={1920} width={1080} alt="Tiktok Hawaiian Garlic Rolls Ingredients" className="border rounded-lg p-2 lg:mt-2 mx-auto object-scale-down max-w-[340px] sm:max-w-sm"/>
+                  </div>
+                </div>
+            </div>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-8">
+        {/* Testimonial cards */}
+
+        </div>
+    </Container>
+  )
 }
