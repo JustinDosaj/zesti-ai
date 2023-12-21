@@ -320,12 +320,12 @@ export function RecipeTitle({recipe, url, handleSaveTitle, role}: RecipeTitlePro
                     { recipe.time !== null || recipe.servings !== null ? 
                         <div className="flex justify-center xs:inline-flex gap-x-2 text-center">
                             {recipe.time !== null ? 
-                            <p className="border-gray-400 border rounded-3xl text-gray-700 text-sm pt-1 pb-1 pl-3 pr-3">{`${recipe?.time} Minutes`}</p>
+                            <p className="border rounded-3xl text-white text-sm pt-1 pb-1 pl-3 pr-3 bg-green-600">{`${recipe?.time} Minutes`}</p>
                             :
                             <></>
                             }
                             { recipe.servings !== null ?
-                            <p className="border-gray-400 border rounded-3xl text-gray-700 text-sm pt-1 pb-1 pl-3 pr-3">{`${recipe?.servings} Servings`}</p>
+                            <p className="border rounded-3xl text-white text-sm pt-1 pb-1 pl-3 pr-3 bg-green-600">{`${recipe?.servings} Servings`}</p>
                             :
                             <></>
                             }    
