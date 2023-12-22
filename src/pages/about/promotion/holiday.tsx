@@ -1,9 +1,9 @@
 import { Raleway } from 'next/font/google'
 import Head from 'next/head';
-import { FAQ } from '@/components/home-sections/home';
 import { HolidayDiscountHero, HolidayDiscountPricingDisplay } from '@/components/about-components/promotions';
-import GoogleTags from '@/components/google/conversion';
+import GoogleTags from '@/components/tags/conversion';
 import { RewardfulTag } from '@/components/tags/headertags';
+import { HomeFAQ } from '@/components/home-sections/home';
 
 const raleway = Raleway({subsets: ['latin']})
 
@@ -22,7 +22,7 @@ export default function HolidayPromotion() {
       <main className={`flex min-h-screen flex-col items-center bg-background ${raleway.className}`}>
         <HolidayDiscountHero/>
         <HolidayDiscountPricingDisplay/>
-        <FAQ/>
+        <HomeFAQ/>
       </main>
     </>
   )

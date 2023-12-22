@@ -4,7 +4,7 @@ import { Button } from "@/components/shared/button"
 import { Raleway } from 'next/font/google'
 import { EnvelopeIcon } from "@heroicons/react/24/outline"
 import Head from 'next/head';
-import GoogleTags from "@/components/google/conversion"
+import GoogleTags from "@/components/tags/conversion"
 import React, { useState, useEffect } from "react"
 import { useAuth } from "./api/auth/auth"
 import {useRouter} from "next/router"

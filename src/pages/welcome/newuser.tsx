@@ -1,11 +1,10 @@
 import { Raleway } from 'next/font/google'
 import Head from 'next/head';
 import { NewUserHero, WelcomePricingTitle } from '@/components/about-components/welcome';
-import { FAQ, TryPremiumCTA, HomeChat, HomeDashDisplay, HomeRecipeDisplay } from '@/components/home-sections/home';
 import { PricingDisplay } from '@/components/pricing-sections/pricing';
-import GoogleTags from '@/components/google/conversion';
+import GoogleTags from '@/components/tags/conversion';
 import { RewardfulTag } from '@/components/tags/headertags';
-import TikTikConversionTags from '@/components/google/tiktok';
+import TikTikConversionTags from '@/components/tags/tiktok';
 
 const raleway = Raleway({subsets: ['latin']})
 
@@ -19,6 +18,7 @@ export default function WelcomeNewUser() {
             <meta name="robots" content="noindex" />
             <GoogleTags/>
             <RewardfulTag/>
+            <TikTikConversionTags/>
             <script dangerouslySetInnerHTML={{
             __html: `
                 gtag('event', 'conversion', {'send_to': '${process.env.NEXT_PUBIC_GOOGLE_CONVERSION_ID}/${process.env.NEXT_PUBLIC_GOOGLE_SUBSCRIPTION_TRACKER}'});

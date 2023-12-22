@@ -1,9 +1,8 @@
 import { Raleway } from 'next/font/google'
 import Head from 'next/head';
-import { WebRecipeHero, WebRecipeQuickGuide } from '@/components/about-components/tools';
-import { FAQ, TryPremiumCTA, HomeChat, HomeDashDisplay, HomeRecipeDisplay } from '@/components/home-sections/home';
-import GoogleTags from '@/components/google/conversion';
-import { HomeFAQ, HomePageCTA } from '@/components/home-sections/home2';
+import { CreateHero, WebRecipeQuickGuide } from '@/components/about-components/tools';
+import GoogleTags from '@/components/tags/conversion';
+import { HomeFAQ, HomePageCTA } from '@/components/home-sections/home';
 
 const raleway = Raleway({subsets: ['latin']})
 
@@ -18,10 +17,8 @@ export default function SocialMediaRecipe() {
         <GoogleTags/>
       </Head>
       <main className={`flex min-h-screen flex-col items-center bg-background ${raleway.className}`}>
-        <WebRecipeHero/>
+        <CreateHero titleStart='Remove' titleMiddle='Clutter' titleEnd='From Web Recipes' description="Use Zesti to remove excess stories, clutter & ads from webiste recipes"/>
         <WebRecipeQuickGuide/>
-        <HomeDashDisplay/>
-        <HomeRecipeDisplay/>
         <HomePageCTA/>
         <div className="mt-16"/>
         <HomeFAQ/>

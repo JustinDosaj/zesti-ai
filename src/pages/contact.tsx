@@ -3,7 +3,7 @@ import { Button } from "@/components/shared/button"
 import { Raleway } from 'next/font/google'
 import { EnvelopeIcon, UsersIcon, PaperAirplaneIcon } from "@heroicons/react/24/outline"
 import Head from 'next/head';
-import GoogleTags from "@/components/google/conversion"
+import GoogleTags from "@/components/tags/conversion"
 import { RewardfulTag } from "@/components/tags/headertags";
 
 
