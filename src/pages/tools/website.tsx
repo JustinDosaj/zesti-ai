@@ -3,7 +3,7 @@ import Head from 'next/head';
 import { UrlComponent, UrlHero, UrlTips } from '@/components/hub/url';
 import { useAuth } from '../api/auth/auth';
 import { PricingDisplay } from '@/components/pricing-sections/pricing';
-import { FAQ } from '@/components/home-sections/home';
+import { HomeFAQ } from '@/components/home-sections/home';
 import { PageLoader, ToolLoader } from '@/components/shared/loader';
 import React, { useState, useEffect } from 'react';
 import { db } from '../api/firebase/firebase';
@@ -54,7 +54,7 @@ export default function Website() {
           :
           <PricingDisplay/>
         }
-        <FAQ/>
+        <HomeFAQ/>
       </main>
     </>
   )
