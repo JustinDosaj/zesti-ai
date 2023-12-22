@@ -1,9 +1,39 @@
 
 import { Container } from "../shared/container";
+import { Paragraph } from "../shared/paragraph";
+import Image from "next/image";
 import 'react-toastify/dist/ReactToastify.css';
 import React from 'react'
 import { CheckIcon, XMarkIcon } from '@heroicons/react/20/solid'
 import { BtnLink } from "../shared/button";
+
+interface HeroProps {
+    name: string,
+}
+
+export function AltHero({name}: HeroProps){
+    return(
+        <section className="pt-24 lg:pt-36">
+            <Container className={"flex flex-col lg:flex-row gap-10 lg:gap-12 animate-fadeIn"}>
+                <div className="space-y-6 relative flex flex-col items-center text-center lg:py-7 xl:py-8 lg:max-w-none max-w-3xl mx-auto lg:mx-0 lg:flex-1 lg:w-1/2 p-8 md:p-16">
+                    <div className="inline-flex items-center border border-gray-300 rounded-3xl p-2 space-x-1">
+                        <div className="text-black font-bold text-sm">Powered By OpenAI</div>
+                        <Image width={20} height={20} src="/images/openaipng.png" alt="Powered by OpenAI Chatgpt AI Technology Tool" className=" "/>
+                    </div>
+                    <h1 className="text-4xl/tight sm:text-4xl/tight md:text-5xl/tight xl:text-6xl/tight font-bold text-heading-1 mt-6">          
+                        <span className="text-gray-700">The Best</span>
+                        <span className="primary-orange-text-gradient"> {name} Alternative </span> 
+                        <span className="text-gray-700">for AI Powered Cooking Assistance</span>
+                    </h1>
+                    <p className="mt-2 section-desc-text-size font-medium text-gray-600">
+                        Check out what makes Zesti stand out from {name}!
+                    </p>
+                    <BtnLink text="Try Zesti for Free" href="/login" className="align-middle mt-4 text-lg"/>
+                </div>
+            </Container>
+        </section>
+    )
+}
 
 interface CompetitorApp {
     name: string;

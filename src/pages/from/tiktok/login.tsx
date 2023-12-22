@@ -6,7 +6,7 @@ import { EnvelopeIcon, KeyIcon } from "@heroicons/react/24/outline"
 import Head from 'next/head';
 import GoogleTags from "@/components/tags/conversion"
 import React, { useState, useEffect } from "react"
-import { useAuth } from "./api/auth/auth"
+import { useAuth } from "@/pages/api/auth/auth"
 import { Notify } from "@/components/shared/notify"
 import { ToastContainer } from "react-toastify"
 import 'react-toastify/dist/ReactToastify.css';
@@ -36,8 +36,10 @@ export default function Login() {
         <title>Zesti AI | Login or Sign Up | Try for Free </title>
         <meta name="title" content="Zesti AI | Login or Sign Up | Try for Free"/>
         <meta name="description" content="Join Zesti to gain access to the best AI powered kitchen tool that helps you quickly save and edit recipes from cooking videos"/>
+        <meta name="robots" content="noindex" />
         <GoogleTags/>
         <RewardfulTag/>
+        <TikTikConversionTags/>
     </Head>
     <ToastContainer/>    
     <main className={`flex min-h-screen flex-col items-center justify-between bg-background h-screen ${raleway.className}`}>

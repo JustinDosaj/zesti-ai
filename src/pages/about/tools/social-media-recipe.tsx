@@ -1,9 +1,8 @@
 import { Raleway } from 'next/font/google'
 import Head from 'next/head';
-import { SocialMediaRecipeHero, SocialMediaRecipeQuickGuide } from '@/components/about-components/tools';
-import { HomeDashDisplay, HomeRecipeDisplay } from '@/components/home-sections/home';
-import GoogleTags from '@/components/google/conversion';
-import { HomeFAQ, HomePageCTA } from '@/components/home-sections/home2';
+import { CreateHero, SocialMediaRecipeQuickGuide } from '@/components/about-components/tools';
+import GoogleTags from '@/components/tags/conversion';
+import { HomeFAQ, HomePageCTA, HomeVideoToRecipe } from '@/components/home-sections/home';
 
 const raleway = Raleway({subsets: ['latin']})
 
@@ -18,10 +17,9 @@ export default function SocialMediaRecipe() {
         <GoogleTags/>
       </Head>
       <main className={`flex min-h-screen flex-col items-center bg-background ${raleway.className}`}>
-        <SocialMediaRecipeHero/>
+        <CreateHero titleStart='Instantly Save' titleMiddle='TikTok & YouTube' titleEnd='Recipes' description='Say goodbye to pausing, rewinding and restarting. Zesti Premium lets you transform a cooking video from TikTok or YouTube to an easy-to-follow text recipe!'/>
         <SocialMediaRecipeQuickGuide/>
-        <HomeDashDisplay/>
-        <HomeRecipeDisplay/>
+        <HomeVideoToRecipe/>
         <HomePageCTA/>
         <div className="mt-16"/>
         <HomeFAQ/>

@@ -1,9 +1,8 @@
 import { Raleway } from 'next/font/google'
 import Head from 'next/head';
-import { CreateRecipeHero, CreateRecipeQuickGuide } from '@/components/about-components/tools';
-import { HomeDashDisplay, HomeRecipeDisplay } from '@/components/home-sections/home';
-import GoogleTags from '@/components/google/conversion';
-import { HomeFAQ, HomePageCTA } from '@/components/home-sections/home2';
+import { CreateHero, CreateRecipeQuickGuide } from '@/components/about-components/tools';
+import GoogleTags from '@/components/tags/conversion';
+import { HomeFAQ, HomePageCTA } from '@/components/home-sections/home';
 
 const raleway = Raleway({subsets: ['latin']})
 
@@ -18,10 +17,8 @@ export default function SocialMediaRecipe() {
         <GoogleTags/>
       </Head>
       <main className={`flex min-h-screen flex-col items-center bg-background ${raleway.className}`}>
-        <CreateRecipeHero/>
+        <CreateHero titleStart="Create Amazing" titleMiddle="AI Generated" titleEnd="Recipes" description="Use Zesti to come up with recipe ideas from scratch or from ingredients you have on hand"/>
         <CreateRecipeQuickGuide/>
-        <HomeDashDisplay/>
-        <HomeRecipeDisplay/>
         <HomePageCTA/>
         <div className="mt-16"/>
         <HomeFAQ/>
