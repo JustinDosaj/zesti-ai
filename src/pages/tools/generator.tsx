@@ -2,12 +2,12 @@ import { Raleway } from 'next/font/google'
 import { ChatHero, ChatTips } from '@/components/hub/chat';
 import Head from 'next/head';
 import { ChatComponent } from '@/components/hub/chat';
-import { FAQ } from '@/components/home-sections/home';
+import { HomeFAQ } from '@/components/home-sections/home';
 import { useAuth } from '../api/auth/auth';
 import React, { useState, useEffect } from 'react';
 import { getUserData } from '../api/firebase/functions';
 import { PricingDisplay } from '@/components/pricing-sections/pricing';
-import GoogleTags from '@/components/google/conversion';
+import GoogleTags from '@/components/tags/conversion';
 import { PageLoader } from '@/components/shared/loader';
 import { RewardfulTag } from '@/components/tags/headertags';
 
@@ -54,7 +54,7 @@ export default function Generator() {
         :
         <PricingDisplay/>
         }
-        <FAQ/>
+        <HomeFAQ/>
       </main>
     </>
   )

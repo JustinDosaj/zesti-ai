@@ -6,30 +6,37 @@ import 'react-toastify/dist/ReactToastify.css';
 import { BtnLink } from "../shared/button";
 import { VideoCameraIcon, ComputerDesktopIcon, LinkIcon, PencilIcon, Cog6ToothIcon, BookOpenIcon, StarIcon, ArrowRightIcon  } from "@heroicons/react/20/solid";
 
-export function SocialMediaRecipeHero(){
+interface CreateHeroProps {
+    titleStart: string,
+    titleMiddle: string,
+    titleEnd: string,
+    description: string,
+}
+
+export function CreateHero({titleStart, titleMiddle, titleEnd, description}: CreateHeroProps) {
     return(
-        <section className="pt-24 lg:pt-36 animate-fadeIn">
-            <Container className={"flex flex-col lg:flex-row gap-10 lg:gap-12"}>
-                <div className="space-y-6 relative flex flex-col items-center text-center lg:py-7 xl:py-8 lg:max-w-none max-w-3xl mx-auto lg:mx-0 lg:flex-1 lg:w-1/2 p-8 md:p-16">
-                    <div className="inline-flex items-center border border-gray-300 rounded-3xl p-2 space-x-1">
-                        <div className="text-black font-bold text-sm">Powered By OpenAI</div>
-                        <Image width={20} height={20} src="/images/openaipng.png" alt="Powered by OpenAI Chatgpt AI Technology Tool" className=" "/>
-                    </div>
-                    <h1 className="section-title-text-size xl:text-6xl font-bold text-gray-700">
-                        <span className="text-gray-700">Instantly Save</span>
-                        <span className="primary-orange-text-gradient"> TikTok & YouTube </span>
-                        <span className="text-gray-700">Recipes</span>
-                    </h1>
-                    <p className="section-desc-text-size font-medium text-gray-600">
-                        Say goodbye to pausing, rewinding and restarting. Zesti Premium lets you transform a cooking video from TikTok or YouTube to an easy-to-follow text recipe!
-                    </p>
-                    <div className="space-y-4">
-                        <BtnLink text="Try for Free" href="/login" className="align-middle mt-4 text-lg"/>
-                        <p className="text-sm text-gray-500/90">Try for Free. No Credit Card Required.</p>
-                    </div>
+    <section className="pt-24 lg:pt-36 animate-fadeIn">
+        <Container className={"flex flex-col lg:flex-row gap-10 lg:gap-12"}>
+            <div className="space-y-6 relative flex flex-col items-center text-center lg:py-7 xl:py-8 lg:max-w-none max-w-3xl mx-auto lg:mx-0 lg:flex-1 lg:w-1/2 p-8 md:p-16">
+                <div className="inline-flex items-center border border-gray-300 rounded-3xl p-2 space-x-1">
+                    <div className="text-black font-bold text-sm">Powered By OpenAI</div>
+                    <Image width={20} height={20} src="/images/openaipng.png" alt="Powered by OpenAI Chatgpt AI Technology Tool" className=" "/>
                 </div>
-            </Container>
-        </section>
+                <h1 className="section-title-text-size xl:text-6xl font-bold text-gray-700">
+                    <span className="text-gray-700">{titleStart}</span>
+                    <span className="primary-orange-text-gradient"> {titleMiddle} </span>
+                    <span className="text-gray-700">{titleEnd}</span>
+                </h1>
+                <p className="section-desc-text-size font-medium text-gray-600">
+                    {description}
+                </p>
+                <div className="space-y-4">
+                    <BtnLink text="Try for Free" href="/login" className="align-middle mt-4 text-lg"/>
+                    <p className="text-sm text-gray-500/90">Try for Free. No Credit Card Required.</p>
+                </div>
+            </div>
+        </Container>
+    </section>
     )
 }
 
@@ -87,33 +94,6 @@ export function SocialMediaRecipeQuickGuide() {
     )
 }
 
-export function CreateRecipeHero(){
-    return(
-        <section className="pt-24 lg:pt-36">
-            <Container className={"flex flex-col lg:flex-row gap-10 lg:gap-12 animate-fadeIn"}>
-                <div className="space-y-6 relative flex flex-col items-center text-center lg:py-7 xl:py-8 lg:max-w-none max-w-3xl mx-auto lg:mx-0 lg:flex-1 lg:w-1/2 p-8 md:p-16">
-                    <div className="inline-flex items-center border border-gray-300 rounded-3xl p-2 space-x-1">
-                        <div className="text-black font-bold text-sm">Powered By OpenAI</div>
-                        <Image width={20} height={20} src="/images/openaipng.png" alt="Powered by OpenAI Chatgpt AI Technology Tool" className=" "/>
-                    </div>
-                    <h1 className="section-title-text-size xl:text-6xl font-bold text-gray-700">
-                        <span className="text-gray-700">Create Amazing</span>
-                        <span className="primary-orange-text-gradient"> AI Generated </span>
-                        <span className="text-gray-700">Recipes</span>
-                    </h1>
-                    <p className="section-desc-text-size font-medium text-gray-600">
-                        Use Zesti to come up with recipe ideas from scratch or from ingredients you have on hand
-                    </p>
-                    <div className="space-y-4">
-                        <BtnLink text="Try for Free" href="/login" className="align-middle mt-4 text-lg"/>
-                        <p className="text-sm text-gray-500/90">Try for Free. No Credit Card Required.</p>
-                    </div>
-                </div>
-            </Container>
-        </section>
-    )
-}
-
 export function CreateRecipeQuickGuide() {
 
     const tools = [
@@ -165,33 +145,6 @@ export function CreateRecipeQuickGuide() {
             </div>
         </div>
     </Container>
-    )
-}
-
-export function WebRecipeHero(){
-    return(
-        <section className="pt-24 lg:pt-36">
-            <Container className={"flex flex-col lg:flex-row gap-10 lg:gap-12 animate-fadeIn"}>
-                <div className="space-y-6 relative flex flex-col items-center text-center lg:py-7 xl:py-8 lg:max-w-none max-w-3xl mx-auto lg:mx-0 lg:flex-1 lg:w-1/2 p-8 md:p-16">
-                    <div className="inline-flex items-center border border-gray-300 rounded-3xl p-2 space-x-1">
-                        <div className="text-black font-bold text-sm">Powered By OpenAI</div>
-                        <Image width={20} height={20} src="/images/openaipng.png" alt="Powered by OpenAI Chatgpt AI Technology Tool" className=" "/>
-                    </div>
-                    <h1 className="section-title-text-size xl:text-6xl font-bold text-gray-700">
-                        <span className="text-gray-700">Remove</span>
-                        <span className="primary-orange-text-gradient"> Clutter </span>
-                        <span className="text-gray-700">From Web Recipes</span>
-                    </h1>
-                    <p className="section-desc-text-size font-medium text-gray-600">
-                        Use Zesti to remove excess stories, clutter & ads from webiste recipes
-                    </p>
-                    <div className="space-y-4">
-                        <BtnLink text="Try for Free" href="/login" className="align-middle mt-4 text-lg"/>
-                        <p className="text-sm text-gray-500/90">Try for Free. No Credit Card Required.</p>
-                    </div>
-                </div>
-            </Container>
-        </section>
     )
 }
 

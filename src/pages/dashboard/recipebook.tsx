@@ -7,9 +7,9 @@ import { useAuth } from '../api/auth/auth'
 import { db } from '../api/firebase/firebase'
 import { PageLoader } from '@/components/shared/loader'
 import { RecipeList } from '@/components/dash-sections/recipelist'
-import GoogleTags from '@/components/google/conversion'
+import GoogleTags from '@/components/tags/conversion'
 import { RewardfulTag } from '@/components/tags/headertags'
-import AdSenseDisplay from '@/components/google/adsense'
+import AdSenseDisplay from '@/components/tags/adsense'
 
 const raleway = Raleway({subsets: ['latin']})
 

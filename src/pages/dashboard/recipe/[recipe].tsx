@@ -9,8 +9,8 @@ import { RecipeTitle, IngredientList, InstructionList } from "@/components/recip
 import { Chatbox } from "@/components/chat/chatbox";
 import { db } from "@/pages/api/firebase/firebase";
 import { AddToRecipeModal } from "@/components/shared/modals";
-import GoogleTags from "@/components/google/conversion";
-import AdSenseDisplay from "@/components/google/adsense";
+import GoogleTags from "@/components/tags/conversion";
+import AdSenseDisplay from "@/components/tags/adsense";
 import { RewardfulTag } from "@/components/tags/headertags";
 
 const raleway = Raleway({subsets: ['latin']})

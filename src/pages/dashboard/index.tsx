@@ -9,9 +9,9 @@ import { PageLoader } from "@/components/shared/loader";
 import Head from 'next/head';
 import { db } from '../api/firebase/firebase';
 import { getUserData } from '../api/firebase/functions';
-import GoogleTags from '@/components/google/conversion';
+import GoogleTags from '@/components/tags/conversion';
 import { RewardfulTag } from '@/components/tags/headertags';
-import AdSenseDisplay from '@/components/google/adsense';
+import AdSenseDisplay from '@/components/tags/adsense';
 
 const raleway = Raleway({subsets: ['latin']})
 

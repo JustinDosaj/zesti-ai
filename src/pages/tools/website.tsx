@@ -8,7 +8,7 @@ import { PageLoader, ToolLoader } from '@/components/shared/loader';
 import React, { useState, useEffect } from 'react';
 import { db } from '../api/firebase/firebase';
 import { getUserData } from '../api/firebase/functions';
-import GoogleTags from '@/components/google/conversion';
+import GoogleTags from '@/components/tags/conversion';
 import { RewardfulTag } from '@/components/tags/headertags';
 const raleway = Raleway({subsets: ['latin']})
 
