@@ -3,7 +3,7 @@ import { useAuth } from "./api/auth/auth"
 import { useRouter } from "next/router"
 import { db } from "./api/firebase/firebase"
 import React, { useEffect } from 'react'
-import GoogleTags from "@/components/google/conversion"
+import GoogleTags from "@/components/tags/conversion"
 import Head from "next/head"
 import { RewardfulTag } from "@/components/tags/headertags"
 import ProfilePageComponent from "@/components/home-sections/profile"

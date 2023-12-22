@@ -1,6 +1,6 @@
 import { Raleway } from 'next/font/google'
 import Head from 'next/head';
-import GoogleTags from '@/components/google/conversion';
+import GoogleTags from '@/components/tags/conversion';
 import { useAuth } from '../api/auth/auth';
 import { PageLoader } from '@/components/shared/loader';
 import { RewardfulTag } from '@/components/tags/headertags';

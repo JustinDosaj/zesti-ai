@@ -3,11 +3,10 @@ import { Raleway } from 'next/font/google'
 import React from 'react'
 import Head from "next/head";
 import { db } from "@/pages/api/firebase/firebase";
-import { AltHero } from "@/components/alternatives/althero";
-import { AltCompare } from "@/components/alternatives/altCompare";
-import { FAQ, TryPremiumCTA, ZestiTools, HomeChat, HomeDashDisplay, HomeRecipeDisplay } from '@/components/home-sections/home';
-import GoogleTags from "@/components/google/conversion";
+import { AltHero, AltCompare } from "@/components/alternatives/altDesigns";
+import GoogleTags from "@/components/tags/conversion";
 import { RewardfulTag } from "@/components/tags/headertags";
+import { HomeFAQ, HomePageCTA, HomePageScroller, HomePageTools, HomeVideoToRecipe } from "@/components/home-sections/home";
 
 const raleway = Raleway({subsets: ['latin']})
 
@@ -40,12 +39,14 @@ const Alternative: React.FC = ({data}: any) => {
           aiGeneratedRecipe={data?.recipeGenerator}
           chatAssistance={data?.chatAssist}
         />
-        <ZestiTools/>
-        <HomeChat/>
-        <HomeDashDisplay/>
-        <HomeRecipeDisplay/>
-        <TryPremiumCTA/>
-        <FAQ/>
+        <HomePageTools/>
+        <HomePageScroller/>
+        <div className="mt-24 md:mt-36"/>
+        <HomeVideoToRecipe/>
+        <div className=""/>
+        <HomePageCTA/>
+        <div className="mt-24"/>
+        <HomeFAQ/>
       </main>
     </>
     )

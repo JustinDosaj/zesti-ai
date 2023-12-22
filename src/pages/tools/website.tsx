@@ -3,12 +3,12 @@ import Head from 'next/head';
 import { UrlComponent, UrlHero, UrlTips } from '@/components/hub/url';
 import { useAuth } from '../api/auth/auth';
 import { PricingDisplay } from '@/components/pricing-sections/pricing';
-import { FAQ } from '@/components/home-sections/home';
+import { HomeFAQ } from '@/components/home-sections/home';
 import { PageLoader, ToolLoader } from '@/components/shared/loader';
 import React, { useState, useEffect } from 'react';
 import { db } from '../api/firebase/firebase';
 import { getUserData } from '../api/firebase/functions';
-import GoogleTags from '@/components/google/conversion';
+import GoogleTags from '@/components/tags/conversion';
 import { RewardfulTag } from '@/components/tags/headertags';
 const raleway = Raleway({subsets: ['latin']})
 
@@ -54,7 +54,7 @@ export default function Website() {
           :
           <PricingDisplay/>
         }
-        <FAQ/>
+        <HomeFAQ/>
       </main>
     </>
   )

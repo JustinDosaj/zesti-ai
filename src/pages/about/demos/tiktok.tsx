@@ -2,7 +2,7 @@ import { Raleway } from 'next/font/google'
 import { VideoCameraIcon } from '@heroicons/react/20/solid'
 import React from 'react'
 import { Container } from "@/components/shared/container";
-import GoogleTags from '@/components/google/conversion';
+import GoogleTags from '@/components/tags/conversion';
 import { Title } from '@/components/shared/title';
 import { InlineBtnLink } from '@/components/shared/button';
 import { useAuth } from '@/pages/api/auth/auth';
