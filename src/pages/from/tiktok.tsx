@@ -25,12 +25,12 @@ export default function FromTikTokHome() {
         <meta name="robots" content="noindex" />
       </Head>
       <main className={`flex min-h-screen flex-col items-center justify-between bg-background ${raleway.className}`}>
-        <Hero titleStart={"Save, Create & Customize"} titleEnd={"Recipes"} description={"Create AI generated recipes or instantly save your favorite recipes from YouTube & Tiktok!"} loginURL={"/from/tiktok/login"}/>
-        <HomePageTools/>
-        <HomePageScroller/>
+        <Hero titleStart={"Save The Recipes You Love From"} titleEnd={"Tiktok"} description={"Tired of rewatching cooking videos over-and-over just because you missed something? Use Zesti to transform that video to an easy-to-follow recipe!"} loginURL={"/from/tiktok/login"}/>
         <div className="mt-24 md:mt-36"/>
         <HomeVideoToRecipe/>
-        <div className=""/>
+        <div className="mt-24"/>
+        <HomePageScroller/>
+        <div className="mt-24"/>
         <HomePageCTA/>
         <div className="mt-24"/>
         <HomeFAQ/>
