@@ -5,6 +5,7 @@ import { HomePageScroller, HomePageTools, HomePageCTA, HomeFAQ, HomeVideoToRecip
 import { useAuth } from './api/auth/auth';
 import { PageLoader } from '@/components/shared/loader';
 import { RewardfulTag } from '@/components/tags/headertags';
+import TikTikConversionTags2 from '@/components/tags/tiktok2';
 
 const raleway = Raleway({subsets: ['latin']})
 
@@ -22,6 +23,7 @@ export default function Home() {
         <meta name="description" content="Easily save & edit recipes found from cooking youtube & tiktok videos. Plus chat with our AI tool powered by OpenAI and ChatGPT. Try for free. No credit card required."/>
         <GoogleTags/>
         <RewardfulTag/>
+        <TikTikConversionTags2/>
       </Head>
       <main className={`flex min-h-screen flex-col items-center justify-between bg-background ${raleway.className}`}>
         <Hero titleStart={"Save, Create & Customize"} titleEnd={"Recipes"} description={"Create AI generated recipes or instantly save your favorite recipes from YouTube & Tiktok!"} loginURL={"/login"}/>
