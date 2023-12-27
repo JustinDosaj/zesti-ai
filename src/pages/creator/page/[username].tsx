@@ -1,14 +1,13 @@
 import { Raleway } from 'next/font/google'
-import { Tools, Search } from '@/components/dash-sections/dash';
+import { CreatorPageTitle, CreatorSearch, CreatorRecipeTitle } from '@/components/creator-profile/profile-components';
 import { useAuth } from "@/pages/api/auth/auth"
 import { useRouter } from "next/router";
 import { RecipeList } from '@/components/dash-sections/recipelist';
-import { DashboardRecipeTitle } from '@/components/dash-sections/dash';
 import { useState, useEffect } from "react";
 import { PageLoader } from "@/components/shared/loader";
 import Head from 'next/head';
-import { db } from '../api/firebase/firebase';
-import { getUserData } from '../api/firebase/functions';
+import { db } from '../../api/firebase/firebase';
+import { getUserData } from '../../api/firebase/functions';
 import GoogleTags from '@/components/tags/conversion';
 import { RewardfulTag } from '@/components/tags/headertags';
 import AdSenseDisplay from '@/components/tags/adsense';
@@ -27,9 +26,10 @@ export default function Dashboard() {
 
 
     useEffect( () => {
-      if(user == null && isLoading == false) {
-        router.replace('/')
-      } else if (user !== null && isLoading == false) {
+    
+        if (user !== null && isLoading == false) {
+
+        //  CHANGE WHERE WE ARE GETTING THE RECIPE COLLECTION //
         const unsubscribe = db.collection(`users/${user.uid}/recipes`)
           .onSnapshot((snapshot) => {
             const updatedRecipes = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
@@ -50,19 +50,16 @@ export default function Dashboard() {
   return (
     <>
     <Head>
-      <title>Zesti | Your Dashboard</title>
-      <meta name="robots" content="noindex" />
+      <title>Zesti | Creator Page</title> {/* Add Dynamic Title to display creator username for improved SEO*/}
       <GoogleTags/>
       <RewardfulTag/>
     </Head>
     <main className={`flex min-h-screen flex-col items-center justify-between bg-background ${raleway.className}`}>
-        <SharedPageTitle title="Dashboard" desc="Access all your saved recipes, and all the tools Zesti has available"/>
+        <SharedPageTitle title="Creator" desc="View & search all the recipes made by <username>"/>
         <div className="mt-8 lg:mt-0" />
-        <Search/>
+        <CreatorSearch/> {/* CHANGE THIS SEARCH TO ONLY SEARCH WITHIN THE ACCOUNT OF CURRENT USER*/}
         <div className="border-t border-gray-200 m-12" style={{ width: '35%' }} />
-        <Tools/>
-        <div className="border-t border-gray-200 m-12" style={{ width: '35%' }} />
-        <DashboardRecipeTitle/>
+        <CreatorRecipeTitle/>
         {isLoadingRecipes ? <PageLoader/> : <RecipeList data={recipes} maxDisplayCount={5}/>}
         {stripeRole !== 'premium' && recipes.length > 0 ? 
         <div className="flex justify-center items-center py-16">

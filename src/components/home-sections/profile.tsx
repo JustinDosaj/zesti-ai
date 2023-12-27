@@ -6,6 +6,7 @@ import { useRouter } from 'next/router';
 import { getUserData } from '@/pages/api/firebase/functions';
 import { db } from '@/pages/api/firebase/firebase';
 import { PageLoader } from '../shared/loader';
+import Link from 'next/link';
 
 function classNames(...classes: (string | undefined)[]): string {
     return classes.filter(Boolean).join(' ');
@@ -84,7 +85,7 @@ export default function ProfilePageComponent() {
                 </div>
 
                 <div>
-                    <h2 className="font-semibold leading-7 text-gray-900 section-desc-text-size">Other</h2>
+                    <h2 className="font-semibold leading-7 text-gray-900 section-desc-text-size">Creator Information</h2>
                     <p className="mt-1 text-sm leading-6 text-gray-500 lg:text-base">
                         More links and information
                     </p>
@@ -106,6 +107,24 @@ export default function ProfilePageComponent() {
                                     onClick={() => {window.open(`https://zesti.getrewardful.com/signup`)}}>
                                     Join or Manage
                                 </button>
+                            </dd>
+                        </div>
+                        <div className="pt-6 flex justify-between items-center">
+                            <dt className="font-semibold text-gray-900 sm:w-64 sm:flex-none sm:pr-6 text-sm lg:text-base">Manage Your Recipes</dt>
+                            <dd className="mt-1 flex gap-x-6 sm:mt-0">
+                                <Link type="button" className="font-semibold text-primary-main hover:text-primary-alt text-sm lg:text-base"
+                                    href={'/creator/recipes'}>
+                                    Manage
+                                </Link>
+                            </dd>
+                        </div>
+                        <div className="pt-6 flex justify-between items-center">
+                            <dt className="font-semibold text-gray-900 sm:w-64 sm:flex-none sm:pr-6 text-sm lg:text-base">Your Creator Page</dt>
+                            <dd className="mt-1 flex gap-x-6 sm:mt-0">
+                                <Link type="button" className="font-semibold text-primary-main hover:text-primary-alt text-sm lg:text-base"
+                                    href={'/creator/page/username'}>
+                                    View
+                                </Link>
                             </dd>
                         </div>
                     </dl>
