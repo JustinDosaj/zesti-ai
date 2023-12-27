@@ -110,11 +110,11 @@ export default function ProfilePageComponent() {
                             </dd>
                         </div>
                         <div className="pt-6 flex justify-between items-center">
-                            <dt className="font-semibold text-gray-900 sm:w-64 sm:flex-none sm:pr-6 text-sm lg:text-base">Manage Your Recipes</dt>
+                            <dt className="font-semibold text-gray-900 sm:w-64 sm:flex-none sm:pr-6 text-sm lg:text-base">Manage Recipes</dt>
                             <dd className="mt-1 flex gap-x-6 sm:mt-0">
                                 <Link type="button" className="font-semibold text-primary-main hover:text-primary-alt text-sm lg:text-base"
-                                    href={'/creator/recipes'}>
-                                    Manage
+                                    href={'/creator/manage'}>
+                                    Add/Remove
                                 </Link>
                             </dd>
                         </div>

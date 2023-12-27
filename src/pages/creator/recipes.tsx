@@ -1,26 +1,23 @@
 import { Raleway } from 'next/font/google'
-import { useAuth } from "@/pages/api/auth/auth"
-import { useRouter } from "next/router";
-import { RecipeList } from '@/components/dash-sections/recipelist';
-import { useState, useEffect } from "react";
-import { PageLoader } from "@/components/shared/loader";
-import Head from 'next/head';
-import { db } from '../api/firebase/firebase';
-import { getUserData } from '../api/firebase/functions';
-import GoogleTags from '@/components/tags/conversion';
-import { RewardfulTag } from '@/components/tags/headertags';
-import AdSenseDisplay from '@/components/tags/adsense';
-import { SharedPageTitle } from '@/components/shared/title';
-import { CreatorRecentVideosTitle } from '@/components/creator-profile/recipe-components';
+import Head from "next/head"
+import React, { useState, useEffect } from 'react'
+import { useRouter } from 'next/router'
+import { useAuth } from '../api/auth/auth'
+import { db } from '../api/firebase/firebase'
+import { PageLoader } from '@/components/shared/loader'
+import { RecipeList } from '@/components/dash-sections/recipelist'
+import GoogleTags from '@/components/tags/conversion'
+import { RewardfulTag } from '@/components/tags/headertags'
+import AdSenseDisplay from '@/components/tags/adsense'
+import { VideoList } from '@/components/dash-sections/videolist'
+import { SharedViewAllTitle } from '@/components/shared/title'
 
 const raleway = Raleway({subsets: ['latin']})
 
-export default function Dashboard() {
+export default function RecipeBook() {
 
     const { user, isLoading, stripeRole } = useAuth();
-    const [isLoadingRecipes, setIsLoadingRecipes] = useState<boolean>(true);
-    const [ waitForPage, setWaitForPage ] = useState<boolean>(true)
-    const [ tokens, setTokens ] = useState<number>(0)
+    const [isLoadingRecipes, setIsLoadingRecipes] = useState(true);
     const [recipes, setRecipes] = useState<any[]>([]);
     const router = useRouter();
 
@@ -35,32 +32,30 @@ export default function Dashboard() {
             setRecipes(updatedRecipes);
             setIsLoadingRecipes(false);
           });
-          const fetchUserData = async () => {
-              const userData = await getUserData(user.uid);
-              setTokens(userData?.tokens);
-              setWaitForPage(false)
-          };
-          fetchUserData();
       }
     }, [user])
 
-  if (isLoading || waitForPage == true) return <PageLoader/>
-    
-  return (
+    return(
     <>
-    <Head>
-      <title>Zesti | Your Dashboard</title>
-      <meta name="robots" content="noindex" />
-      <GoogleTags/>
-      <RewardfulTag/>
-    </Head>
-    <main className={`flex min-h-screen flex-col items-center justify-between bg-background ${raleway.className}`}>
-        <SharedPageTitle title="Manage Recipes" desc="Add your old or recent video recipes to display on your page"/>
-        <div className="border-t border-gray-200 m-12" style={{ width: '35%' }} />
-        <CreatorRecentVideosTitle/>
-        {isLoadingRecipes ? <PageLoader/> : <RecipeList data={recipes} maxDisplayCount={5}/>}
-        <div className="flex justify-center items-center py-16"></div>
-    </main>
+        <Head>
+            <title>Zesti | Recipe Book</title>
+            <meta name="robots" content="noindex"/>
+            <GoogleTags/>
+            <RewardfulTag/>
+        </Head>  
+        <main className={`flex min-h-screen flex-col items-center bg-background ${raleway.className}`}>
+            <SharedViewAllTitle title="Saved Recipes" desc={"View all the recipes you have transcribed from video to text with Zesti"} href={"/creator/manage"}/>
+            {isLoadingRecipes ? <PageLoader/> : <RecipeList data={recipes}/>}
+            {stripeRole !== 'premium' && recipes.length > 0 ? 
+            <div className="flex justify-center items-center py-16">
+              <div className="w-full min-w-[300px] max-w-[320px] lg:max-w-full lg:min-w-[1240px] text-center">
+                <AdSenseDisplay adSlot="4616527110" adFormat="rectangle, horizontal" widthRes="true"/>
+              </div>
+            </div>
+            :
+            <div className="mb-28"/>
+            }
+        </main>
     </>
-  )
+    )
 }
