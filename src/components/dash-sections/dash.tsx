@@ -1,8 +1,11 @@
 import { Paragraph } from "../shared/paragraph"
 import { Container } from "../shared/container"
-import { SparklesIcon, VideoCameraIcon, LinkIcon, LockClosedIcon, ChevronDoubleRightIcon, ChevronDoubleLeftIcon } from '@heroicons/react/24/outline'
+import { SparklesIcon, VideoCameraIcon, LinkIcon, ChevronDoubleRightIcon, ChevronDoubleLeftIcon, MagnifyingGlassIcon } from '@heroicons/react/24/outline'
 import { useAuth } from "@/pages/api/auth/auth"
-import React from "react"
+import { Button } from "../shared/button"
+import { Loader } from "../shared/loader"
+import { Notify } from "../shared/notify"
+import React, { useState, useEffect } from "react"
 import Link from "next/link"
 
 function classNames(...classes: (string | null | undefined)[]): string {
@@ -77,7 +80,7 @@ export function Tools() {
     return(
     <Container className={"flex flex-col lg:flex-row gap-10 lg:gap-12 animate-fadeIn"}>
     <div className="w-full">
-      <h3 className="text-2xl font-bold leading-6 text-gray-900 text-center">Tools</h3>
+      <h3 className="text-2xl font-bold leading-6 text-gray-900 text-center">Other Tools</h3>
       <dl className="mt-8 grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-3">
         {stats.map((item) => (
         <div key={item.id}>
@@ -110,17 +113,10 @@ export function Tools() {
     )
 }
 
-interface Recipe {
-    id: string;
-    complete: boolean;
-    failed?: boolean;
-    // other fields
-  }
-
 export function DashboardRecipeTitle() {
     return(
       <Container className="relative sm:flex justify-center items-center lg:flex-wrap gap-10 lg:gap-4 w-full animate-fadeIn">
-        <h3 className="text-2xl font-bold leading-6 text-gray-900 text-center">Recent Recipes</h3>
+        <h3 className="text-2xl font-bold leading-6 text-gray-900 text-center">Recent Saved Recipes</h3>
         <div className="grid justify-center pl-3 sm:absolute sm:right-0">
           <Link href="/dashboard/recipebook" passHref className="hover:bg-primary-dark text-gray-700 hover:text-gray-500 font-semibold py-2 px-4">
             <span className="inline-flex items-center gap-x-1.5">
@@ -138,7 +134,7 @@ export function RecipeBookTitle() {
         <Container className="pt-32 animate-fadeIn">
             <div className="flex lg:relative justify-center items-center lg:flex-wrap gap-10 lg:gap-4 w-full">
                 <div className="inline-flex items-center">
-                    <h3 className="text-3xl/tight sm:text-4xl/tight md:text-5xl/tight xl:text-5xl/tight font-bold text-heading-1 text-black text-center">Recipe Book</h3>
+                    <h3 className="text-3xl/tight sm:text-4xl/tight md:text-5xl/tight xl:text-5xl/tight font-bold text-heading-1 text-black text-center">Saved Recipes</h3>
                     <div className="absolute left-0">
                         <Link href="/dashboard" passHref className="hover:bg-primary-dark text-gray-700 hover:text-gray-500 font-semibold py-2 px-4 lg:px-0">
                             <span className="inline-flex items-center mt-2 gap-x-1.5 px-0 sm:px-4 md:px-8 lg:px-0">
@@ -156,35 +152,40 @@ export function RecipeBookTitle() {
     )
 }
 
-interface UsageProps {
-    data: Recipe[];
-    tokens: number;
-}
+export function Search() {
+    
+    const { user, stripeRole } = useAuth()
+    const [ url, setUrl ] = useState<string>('');
+    const [ message, setMessage ] = useState<string>('')
+    const [ notify, setNotify ] = useState<boolean | null>(null)
 
-export function Usage({data, tokens}: UsageProps) {
+    useEffect(() => {
+        if (notify == true) {
+            Notify(message)
+            setNotify(false)
+        }
+    },[notify])
 
-    const { stripeRole } = useAuth()
+    async function onClick() {
+
+    }
 
     return(
-        <Container className={"flex flex-col lg:flex-row gap-10 lg:gap-12 animate-fadeIn"}>
-            <div className="p-4 py-10 sm:p-8 sm:pl-16 sm:pr-16 w-full bg-white rounded-3xl shadow-lg border-gray-300 border flex justify-between  space-x-1.5">
-                <div className="w-1/3 flex flex-col items-center text-center">
-                    <p className="text-sm text-gray-600">Remaining</p>
-                    <p className="text-xl sm:text-3xl font-semibold text-black">{tokens ? tokens : '0'}</p>
-                </div>
-                <div className="w-1/3 flex flex-col items-center text-center">
-                    <p className="text-sm text-gray-600">Total Recipes</p>
-                    <p className="text-xl sm:text-3xl font-semibold text-black">{data.length}</p>
-
-                </div>
-                <div className="w-1/3 flex flex-col items-center text-center space-y-1">
-                    <p className="text-sm text-gray-600">Status</p>
-                    <Link href={"/profile"} className="bg-color-alt-green text-white text-sm sm:text-lg font-semibold px-2.5 py-0.5 rounded-3xl">
-                        {stripeRole == 'premium' ? 'Premium' : 'Base'}
-                    </Link>
+    <Container className={"flex flex-col lg:flex-row gap-10 lg:gap-12 animate-fadeIn"}>
+        <div className="w-full flex-col ">
+            <dl className="grid grid-cols-1 gap-10">
+            <div className="w-full flex flex-col items-center animate-fadeIn ">
+                <div className="flex sm:flex-row flex-col gap-5">
+                    <form action="" method="POST" className="py-1 pl-6 pr-6 flex  gap-3 items-center text-heading-3 shadow-lg shadow-box-shadow
+                    border border-box-border bg-box-bg rounded-full ease-linear focus-within:bg-body  focus-within:border-primary">
+                        <MagnifyingGlassIcon className="text-gray-600 h-6 w-6"/>
+                        <input type="text" name="web-page" value={url} placeholder="Search TikTok Username or Recipe" className="text-left w-64 lg:w-96 text-gray-500 py-3 outline-none bg-transparent" onChange={(e) => setUrl(e.target.value)}/>
+                    </form>
                 </div>
             </div>
-        </Container>
+            </dl>
+        </div>
+    </Container>
     )
 }
   
