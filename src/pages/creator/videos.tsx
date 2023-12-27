@@ -5,11 +5,11 @@ import { useRouter } from 'next/router'
 import { useAuth } from '../api/auth/auth'
 import { db } from '../api/firebase/firebase'
 import { PageLoader } from '@/components/shared/loader'
-import { RecipeList } from '@/components/dash-sections/recipelist'
+import { SharedViewAllTitle } from '@/components/shared/title'
 import GoogleTags from '@/components/tags/conversion'
 import { RewardfulTag } from '@/components/tags/headertags'
 import AdSenseDisplay from '@/components/tags/adsense'
-import { SharedViewAllTitle } from '@/components/shared/title'
+import { VideoList } from '@/components/dash-sections/videolist'
 
 const raleway = Raleway({subsets: ['latin']})
 
@@ -43,8 +43,8 @@ export default function RecipeBook() {
             <RewardfulTag/>
         </Head>  
         <main className={`flex min-h-screen flex-col items-center bg-background ${raleway.className}`}>
-            <SharedViewAllTitle title="Saved Recipes" desc="View all the recipes you have saved with Zesti" href={'/dashboard'}/>
-            {isLoadingRecipes ? <PageLoader/> : <RecipeList data={recipes}/>}
+            <SharedViewAllTitle title="Saved Recipes" desc={"View all the recipes you have transcribed from video to text with Zesti"} href={"/creator/manage"}/>
+            {isLoadingRecipes ? <PageLoader/> : <VideoList data={recipes}/>}
             {stripeRole !== 'premium' && recipes.length > 0 ? 
             <div className="flex justify-center items-center py-16">
               <div className="w-full min-w-[300px] max-w-[320px] lg:max-w-full lg:min-w-[1240px] text-center">

@@ -6,7 +6,9 @@ import { Fragment } from 'react'
 import { Menu, Transition } from '@headlessui/react'
 import { EllipsisVerticalIcon, TrashIcon, EyeIcon } from '@heroicons/react/20/solid'
 import { WhiteLoader } from '../shared/loader'
+import { useRouter } from 'next/router'
 import Link from 'next/link'
+import { SharedListTitle } from '../shared/title'
 
 interface Recipe {
   id: string;
@@ -24,17 +26,19 @@ interface Recipe {
 
 interface StackListProps {
   data: Recipe[];
+  title?: any,
 }
 
 function classNames(...classes: (string | undefined | null | false)[]): string {
   return classes.filter(Boolean).join(' ');
 }
 
-export function RecipeList({data, maxDisplayCount = 10, incrementCount = 10}:StackListProps & {maxDisplayCount?: number, incrementCount?: number}) {
+export function RecipeList({data, title, maxDisplayCount = 10, incrementCount = 10}:StackListProps & {maxDisplayCount?: number, incrementCount?: number}) {
   
   const [ isDeleteOpen, setIsDeleteOpen ] = useState<boolean>(false)
   const [ selectedRecipeId, setSelectedRecipeId ] = useState<string | null>(null);
   const [ displayCount, setDisplayCount ] = useState(maxDisplayCount);
+  const router = useRouter()
 
   // Sort data to display most recent recipes first
   const sortedData = data.sort((a, b) => {
@@ -49,6 +53,7 @@ export function RecipeList({data, maxDisplayCount = 10, incrementCount = 10}:Sta
 
   return(
     <Container className={"flex flex-col lg:flex-wrap gap-10 lg:gap-4 mt-4 animate-fadeIn"}>
+      <SharedListTitle title={title}/>
       <ul role="list" className="divide-y divide-primary-main divide-opacity-50 sm:divide-gray-300 text-gray-700">
         {sortedData.slice(0, displayCount).map((recipe) => (
             <li key={recipe.id} className="flex items-center justify-between gap-x-6 py-5">
