@@ -1,7 +1,6 @@
 import { Raleway } from 'next/font/google'
-import { ChatHero, ChatTips } from '@/components/hub/chat';
+import { ChatTips, ChatComponent, ToolHero } from '@/components/tools/general';
 import Head from 'next/head';
-import { ChatComponent } from '@/components/hub/chat';
 import { HomeFAQ } from '@/components/home-sections/home';
 import { useAuth } from '../api/auth/auth';
 import React, { useState, useEffect } from 'react';
@@ -45,7 +44,7 @@ export default function Generator() {
         <RewardfulTag/>
       </Head>
       <main className={`flex min-h-screen flex-col items-center bg-background ${raleway.className}`}>
-        <ChatHero role={stripeRole} tokens={tokens}/>
+        <ToolHero role={stripeRole} tokens={tokens} titleStart="Create" titleEnd='AI Generated Recipes'/>
         {tokens > 0 || stripeRole == 'premium' ?
         <div> 
           <ChatComponent role={stripeRole}/>

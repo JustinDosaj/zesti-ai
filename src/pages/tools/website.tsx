@@ -1,6 +1,6 @@
 import { Raleway } from 'next/font/google'
 import Head from 'next/head';
-import { UrlComponent, UrlHero, UrlTips } from '@/components/hub/url';
+import { UrlComponent, UrlTips, ToolHero } from '@/components/tools/general';
 import { useAuth } from '../api/auth/auth';
 import { PricingDisplay } from '@/components/pricing-sections/pricing';
 import { HomeFAQ } from '@/components/home-sections/home';
@@ -42,7 +42,7 @@ export default function Website() {
         <RewardfulTag/>
       </Head>
       <main className={` flex min-h-screen flex-col items-center bg-background ${raleway.className}`}>
-        <UrlHero role={stripeRole} tokens={tokens}/>
+        <ToolHero role={stripeRole} tokens={tokens} titleStart="Get Web Recipes That Are" titleEnd='Clutterless'/>
         { isLoading == true ?
         <ToolLoader/>
         : 
