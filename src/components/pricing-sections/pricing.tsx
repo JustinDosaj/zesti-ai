@@ -47,7 +47,7 @@ export function PricingDisplay() {
           description: 'Unlock the full potential of Zesti',
           learnhref: "/about/subscription/premium",
           features: [
-            'Save 30 recipes per month',
+            'Unlimited recipe saves per month',
             'Save TikTok & YouTube recipes',
             'Max Video Length: 15 Minutes',
             'Unlimited AI Generated Recipes',
