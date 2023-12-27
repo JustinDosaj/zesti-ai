@@ -14,7 +14,7 @@ function classNames(...classes: (string | undefined)[]): string {
 
 export default function ProfilePageComponent() {
 
-    const { user, stripeRole, logout, isLoading } = useAuth()
+    const { user, stripeRole, logout, isLoading, loginWithTikTok, handleTikTokCallback } = useAuth()
     const [ tokens, setTokens ] = useState<number>(0)
     const router = useRouter();
 
@@ -32,8 +32,18 @@ export default function ProfilePageComponent() {
               setTokens(userData?.tokens);
           };
           fetchUserData();
+
+          const urlParams = new URLSearchParams(window.location.search);
+          const tikTokCode = urlParams.get('code');
+          const decodedTikTokCode = decodeURIComponent(tikTokCode!);
+          console.log("Tiktok Code: ", decodedTikTokCode)
+        
+          if(tikTokCode) {
+            handleTikTokCallback(decodedTikTokCode)
+          }
       }
-    }, [user])
+    }, [user, isLoading, handleTikTokCallback, router])
+
 
     if (isLoading) return <PageLoader/>
 
@@ -95,7 +105,7 @@ export default function ProfilePageComponent() {
                             <dt className="font-semibold text-gray-900 sm:w-64 sm:flex-none sm:pr-6 text-sm lg:text-base">Connect Tiktok Account</dt>
                             <dd className="mt-1 flex gap-x-6 sm:mt-0">
                                 <button type="button" className="font-semibold text-primary-main hover:text-primary-alt text-sm lg:text-base"
-                                    onClick={() => {() => console.log("Put connect to tiktok button here or contact?")}}>
+                                    onClick={loginWithTikTok}>
                                     Connect
                                 </button>
                             </dd>
