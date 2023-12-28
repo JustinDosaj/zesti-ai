@@ -9,7 +9,7 @@ import { SharedViewAllTitle } from '@/components/shared/title'
 import GoogleTags from '@/components/tags/conversion'
 import { RewardfulTag } from '@/components/tags/headertags'
 import AdSenseDisplay from '@/components/tags/adsense'
-import { VideoList } from '@/components/dash-sections/videolist'
+import { VideoList } from '@/components/dashboard/videolist'
 
 const raleway = Raleway({subsets: ['latin']})
 

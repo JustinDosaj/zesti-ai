@@ -3,10 +3,10 @@ import { useAuth } from '../../api/auth/auth'
 import { useState } from 'react'
 import { useRouter } from 'next/router'
 import Head from 'next/head'
-import { PricingDisplay } from '@/components/pricing-sections/pricing'
+import { PricingDisplay } from '@/components/pricing'
 import GoogleTags from '@/components/tags/conversion'
 import { RewardfulTag } from '@/components/tags/headertags'
-import { FreeSubscriptionHero, HomePageCTA, HomePageScroller, HomePageTools, HomeVideoToRecipe, HomeFAQ } from '@/components/home-sections/home'
+import { FreeSubscriptionHero, HomePageCTA, HomePageScroller, HomePageTools, HomeVideoToRecipe, HomeFAQ } from '@/components/home'
 const raleway = Raleway({subsets: ['latin']})
 
 export default function Essential() {

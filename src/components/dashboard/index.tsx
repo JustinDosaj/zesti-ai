@@ -1,4 +1,3 @@
-import { Paragraph } from "../shared/paragraph"
 import { Container } from "../shared/container"
 import { SparklesIcon, VideoCameraIcon, LinkIcon, ChevronDoubleRightIcon, MagnifyingGlassIcon } from '@heroicons/react/24/outline'
 import { useAuth } from "@/pages/api/auth/auth"

@@ -1,18 +1,14 @@
-import { Title } from "@/components/shared/title"
-import { Container } from "@/components/shared/container"
-import { AltButton, Button } from "@/components/shared/button"
 import { Raleway } from 'next/font/google'
-import { EnvelopeIcon, KeyIcon } from "@heroicons/react/24/outline"
 import Head from 'next/head';
 import GoogleTags from "@/components/tags/conversion"
-import React, { useState, useEffect } from "react"
+import React, { useState } from "react"
 import { useAuth } from "./api/auth/auth"
 import { Notify } from "@/components/shared/notify"
 import { ToastContainer } from "react-toastify"
 import 'react-toastify/dist/ReactToastify.css';
 import { PageLoader } from "@/components/shared/loader"
 import { RewardfulTag } from "@/components/tags/headertags"
-import { LoginComponent } from "@/components/home-sections/login"
+import { LoginComponent } from "@/components/home/login"
 
 const raleway = Raleway({subsets: ['latin']})
 
@@ -21,7 +17,7 @@ export default function Login() {
 
     const [ email, setEmail ] = useState<string>('')
     const [ password, setPassword ] = useState<string>('')
-    const {user, signUpWithEmailPassword, login, sendPasswordReset, stripeRole, isLoading } = useAuth();
+    const { signUpWithEmailPassword, isLoading } = useAuth();
 
     async function signUpOnClick() {
         await signUpWithEmailPassword(email, password).catch((error) => {Notify("Error with credentials. If you are creating an account, your password must be 7 characters or longer")})
