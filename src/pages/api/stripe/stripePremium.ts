@@ -15,6 +15,9 @@ interface CheckoutSessionData {
     cancel_url: string;
     mode: string;
     clientReferenceId?: string; // Make sure this line is included
+    metadata: {
+        promotekit_referral: string,
+    }
 }
 
 const stripe = new Stripe(process.env.NEXT_PUBLIC_STRIPE_SECRET!);
@@ -22,12 +25,15 @@ const stripe = new Stripe(process.env.NEXT_PUBLIC_STRIPE_SECRET!);
 export async function createPremiumCheckoutSession(id: any) {  // You might want to replace 'any' with the appropriate type for currentUser
 
     try {
-        const checkoutSessionData: CheckoutSessionData  = {
+        /*const checkoutSessionData: CheckoutSessionData  = {
             price: process.env.NEXT_PUBLIC_STRIPE_PREMIUM_PRICE,
             success_url: `${window.location.origin}/dashboard`,
             cancel_url: `${window.location.origin}/dashboard`,
             mode: "subscription",
-        };
+            metadata: {
+                promotekit_referral: window.promotekit_referral || 'justin2'
+            }
+        };*/
 
         // FINISH PROMOTE KIT REFERRAL LATER WHEN I CAN DEPLOY TO PRODUCTION
         const referralId = window.promotekit_referral || 'justin2';
@@ -47,8 +53,8 @@ export async function createPremiumCheckoutSession(id: any) {  // You might want
             mode: 'subscription',
         });
    
-        const checkoutSessionsCollection = collection(doc(collection(db, 'users'), id), 'checkout_sessions');
-        const docRef = await addDoc(checkoutSessionsCollection, checkoutSessionData);
+        //const checkoutSessionsCollection = collection(doc(collection(db, 'users'), id), 'checkout_sessions');
+        //const docRef = await addDoc(checkoutSessionsCollection, checkoutSessionData);
 
 
         /*onSnapshot(docRef, (snap) => {
