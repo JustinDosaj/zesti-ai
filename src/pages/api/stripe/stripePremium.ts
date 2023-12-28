@@ -39,7 +39,7 @@ export async function createPremiumCheckoutSession(id: any) {  // You might want
             success_url: `${window.location.origin}/dashboard`,
             cancel_url: `${window.location.origin}/dashboard`,
             metadata: {
-                promotekit_referral: window.promotekit_referral || 'default-value'
+                promotekit_referral: window.promotekit_referral || 'justin2'
             },
             line_items: [
             {price: process.env.NEXT_PUBLIC_STRIPE_PREMIUM_PRICE, quantity: 1},
