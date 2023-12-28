@@ -1,7 +1,7 @@
 import { Raleway } from 'next/font/google'
 import { useAuth } from "@/pages/api/auth/auth"
 import { useRouter } from "next/router";
-import { RecipeList } from '@/components/dash-sections/recipelist';
+import { RecipeList } from '@/components/dashboard/recipelist';
 import { useState, useEffect } from "react";
 import { PageLoader } from "@/components/shared/loader";
 import { db } from '../api/firebase/firebase';
@@ -9,7 +9,7 @@ import { getUserData } from '../api/firebase/functions';
 import GoogleTags from '@/components/tags/conversion';
 import { RewardfulTag } from '@/components/tags/headertags';
 import { SharedPageTitle } from '@/components/shared/title';
-import { VideoList } from '@/components/dash-sections/videolist';
+import { VideoList } from '@/components/dashboard/videolist';
 import { Button } from '@/components/shared/button';
 import Head from 'next/head';
 import AdSenseDisplay from '@/components/tags/adsense';

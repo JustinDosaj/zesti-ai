@@ -6,7 +6,7 @@ import React, { useEffect } from 'react'
 import GoogleTags from "@/components/tags/conversion"
 import Head from "next/head"
 import { RewardfulTag } from "@/components/tags/headertags"
-import ProfilePageComponent from "@/components/home-sections/profile"
+import ProfilePageComponent from "@/components/home/profile"
 
 const raleway = Raleway({subsets: ['latin']})
 

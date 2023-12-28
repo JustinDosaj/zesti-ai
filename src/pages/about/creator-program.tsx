@@ -4,7 +4,7 @@ import GoogleTags from '@/components/tags/conversion';
 import { useAuth } from '../api/auth/auth';
 import { PageLoader } from '@/components/shared/loader';
 import { RewardfulTag } from '@/components/tags/headertags';
-import { AffiliateHero, AffiliateDetails } from '@/components/about-components/affiliate';
+import { AffiliateHero, AffiliateDetails } from '@/components/about/affiliate';
 
 const raleway = Raleway({subsets: ['latin']})
 

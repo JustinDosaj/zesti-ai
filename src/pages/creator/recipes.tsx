@@ -5,11 +5,11 @@ import { useRouter } from 'next/router'
 import { useAuth } from '../api/auth/auth'
 import { db } from '../api/firebase/firebase'
 import { PageLoader } from '@/components/shared/loader'
-import { RecipeList } from '@/components/dash-sections/recipelist'
+import { RecipeList } from '@/components/dashboard/recipelist'
 import GoogleTags from '@/components/tags/conversion'
 import { RewardfulTag } from '@/components/tags/headertags'
 import AdSenseDisplay from '@/components/tags/adsense'
-import { VideoList } from '@/components/dash-sections/videolist'
+import { VideoList } from '@/components/dashboard/videolist'
 import { SharedViewAllTitle } from '@/components/shared/title'
 
 const raleway = Raleway({subsets: ['latin']})

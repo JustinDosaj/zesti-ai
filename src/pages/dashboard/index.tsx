@@ -1,9 +1,9 @@
 import { Raleway } from 'next/font/google'
-import { Tools, Search } from '@/components/dash-sections/dash';
+import { Tools, Search } from '@/components/dashboard';
 import { useAuth } from "@/pages/api/auth/auth"
 import { useRouter } from "next/router";
-import { RecipeList } from '@/components/dash-sections/recipelist';
-import { DashboardRecipeTitle } from '@/components/dash-sections/dash';
+import { RecipeList } from '@/components/dashboard/recipelist';
+import { DashboardRecipeTitle } from '@/components/dashboard';
 import { useState, useEffect } from "react";
 import { PageLoader } from "@/components/shared/loader";
 import Head from 'next/head';
@@ -18,32 +18,32 @@ const raleway = Raleway({subsets: ['latin']})
 
 export default function Dashboard() {
 
-    const { user, isLoading, stripeRole } = useAuth();
-    const [isLoadingRecipes, setIsLoadingRecipes] = useState<boolean>(true);
-    const [ waitForPage, setWaitForPage ] = useState<boolean>(true)
-    const [ tokens, setTokens ] = useState<number>(0)
-    const [recipes, setRecipes] = useState<any[]>([]);
-    const router = useRouter();
+  const { user, isLoading, stripeRole } = useAuth();
+  const [isLoadingRecipes, setIsLoadingRecipes] = useState<boolean>(true);
+  const [ waitForPage, setWaitForPage ] = useState<boolean>(true)
+  const [ tokens, setTokens ] = useState<number>(0)
+  const [recipes, setRecipes] = useState<any[]>([]);
+  const router = useRouter();
 
 
-    useEffect( () => {
-      if(user == null && isLoading == false) {
-        router.replace('/')
-      } else if (user !== null && isLoading == false) {
-        const unsubscribe = db.collection(`users/${user.uid}/recipes`)
-          .onSnapshot((snapshot) => {
-            const updatedRecipes = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
-            setRecipes(updatedRecipes);
-            setIsLoadingRecipes(false);
-          });
-          const fetchUserData = async () => {
-              const userData = await getUserData(user.uid);
-              setTokens(userData?.tokens);
-              setWaitForPage(false)
-          };
-          fetchUserData();
-      }
-    }, [user])
+  useEffect( () => {
+    if(user == null && isLoading == false) {
+      router.replace('/')
+    } else if (user !== null && isLoading == false) {
+      const unsubscribe = db.collection(`users/${user.uid}/recipes`)
+        .onSnapshot((snapshot) => {
+          const updatedRecipes = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+          setRecipes(updatedRecipes);
+          setIsLoadingRecipes(false);
+        });
+        const fetchUserData = async () => {
+            const userData = await getUserData(user.uid);
+            setTokens(userData?.tokens);
+            setWaitForPage(false)
+        };
+        fetchUserData();
+    }
+  }, [user])
 
   if (isLoading || waitForPage == true) return <PageLoader/>
     

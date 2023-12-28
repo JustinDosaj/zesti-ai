@@ -1,8 +1,8 @@
 import { Raleway } from 'next/font/google'
-import { CreatorPageTitle, CreatorSearch, CreatorRecipeTitle } from '@/components/creator-profile/profile-components';
+import { CreatorPageTitle, CreatorSearch, CreatorRecipeTitle } from '@/components/creator/profile';
 import { useAuth } from "@/pages/api/auth/auth"
 import { useRouter } from "next/router";
-import { RecipeList } from '@/components/dash-sections/recipelist';
+import { RecipeList } from '@/components/dashboard/recipelist';
 import { useState, useEffect } from "react";
 import { PageLoader } from "@/components/shared/loader";
 import Head from 'next/head';

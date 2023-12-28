@@ -2,8 +2,8 @@ import { Raleway } from 'next/font/google'
 import Head from 'next/head';
 import { UrlComponent, UrlTips, ToolHero } from '@/components/tools/general';
 import { useAuth } from '../api/auth/auth';
-import { PricingDisplay } from '@/components/pricing-sections/pricing';
-import { HomeFAQ } from '@/components/home-sections/home';
+import { PricingDisplay } from '@/components/pricing';
+import { HomeFAQ } from '@/components/home';
 import { PageLoader, ToolLoader } from '@/components/shared/loader';
 import React, { useState, useEffect } from 'react';
 import { db } from '../api/firebase/firebase';
@@ -54,6 +54,7 @@ export default function Website() {
           :
           <PricingDisplay/>
         }
+        <div className="mt-24"/>
         <HomeFAQ/>
       </main>
     </>
