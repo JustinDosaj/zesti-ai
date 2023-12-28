@@ -31,7 +31,10 @@ export async function createPremiumCheckoutSession(id: any) {  // You might want
 
         // FINISH PROMOTE KIT REFERRAL LATER WHEN I CAN DEPLOY TO PRODUCTION
         const referralId = window.promotekit_referral || 'default-value';
+        
 
+        // Getting meta data passed to checkout session in stripe --> however referral id is set to default value from global
+        // could be because the stripe tag is not on the page therefore the referral isnt being recognized
         const session = await stripe.checkout.sessions.create({
             success_url: `${window.location.origin}/dashboard`,
             cancel_url: `${window.location.origin}/dashboard`,
