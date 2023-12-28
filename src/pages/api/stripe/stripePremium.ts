@@ -57,7 +57,7 @@ export async function createPremiumCheckoutSession(id: any) {  // You might want
         const docRef = await addDoc(checkoutSessionsCollection, checkoutSessionData);
 
 
-        /*onSnapshot(docRef, (snap) => {
+        onSnapshot(docRef, (snap) => {
             const data = snap.data();
             if (data) {
                 const { error, url } = data;
@@ -70,7 +70,7 @@ export async function createPremiumCheckoutSession(id: any) {  // You might want
                     window.location.assign(url)
                 }
             }
-        });*/
+        });
     } catch (error) {
         console.error("Error creating checkout session: ", error);
     }
