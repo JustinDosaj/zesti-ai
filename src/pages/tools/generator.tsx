@@ -1,12 +1,11 @@
 import { Raleway } from 'next/font/google'
-import { ChatHero, ChatTips } from '@/components/hub/chat';
+import { ChatTips, ChatComponent, ToolHero } from '@/components/tools/general';
 import Head from 'next/head';
-import { ChatComponent } from '@/components/hub/chat';
-import { HomeFAQ } from '@/components/home-sections/home';
+import { HomeFAQ } from '@/components/home';
 import { useAuth } from '../api/auth/auth';
 import React, { useState, useEffect } from 'react';
 import { getUserData } from '../api/firebase/functions';
-import { PricingDisplay } from '@/components/pricing-sections/pricing';
+import { PricingDisplay } from '@/components/pricing';
 import GoogleTags from '@/components/tags/conversion';
 import { PageLoader } from '@/components/shared/loader';
 import { RewardfulTag } from '@/components/tags/headertags';
@@ -45,7 +44,7 @@ export default function Generator() {
         <RewardfulTag/>
       </Head>
       <main className={`flex min-h-screen flex-col items-center bg-background ${raleway.className}`}>
-        <ChatHero role={stripeRole} tokens={tokens}/>
+        <ToolHero role={stripeRole} tokens={tokens} titleStart="Create" titleEnd='AI Generated Recipes'/>
         {tokens > 0 || stripeRole == 'premium' ?
         <div> 
           <ChatComponent role={stripeRole}/>
@@ -54,6 +53,7 @@ export default function Generator() {
         :
         <PricingDisplay/>
         }
+        <div className="mt-24"/>
         <HomeFAQ/>
       </main>
     </>

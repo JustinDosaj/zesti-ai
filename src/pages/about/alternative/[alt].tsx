@@ -3,10 +3,10 @@ import { Raleway } from 'next/font/google'
 import React from 'react'
 import Head from "next/head";
 import { db } from "@/pages/api/firebase/firebase";
-import { AltHero, AltCompare } from "@/components/alternatives/altDesigns";
+import { AltHero, AltCompare } from "@/components/alternatives/index";
 import GoogleTags from "@/components/tags/conversion";
 import { RewardfulTag } from "@/components/tags/headertags";
-import { HomeFAQ, HomePageCTA, HomePageScroller, HomePageTools, HomeVideoToRecipe } from "@/components/home-sections/home";
+import { HomeFAQ, HomePageCTA, HomePageScroller, HomePageTools, HomeVideoToRecipe } from "@/components/home";
 
 const raleway = Raleway({subsets: ['latin']})
 

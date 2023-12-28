@@ -1,7 +1,7 @@
 import { Raleway } from 'next/font/google'
 import Head from 'next/head';
-import { NewUserHero, WelcomePricingTitle } from '@/components/about-components/welcome';
-import { PricingDisplay } from '@/components/pricing-sections/pricing';
+import { NewUserHero, WelcomePricingTitle } from '@/components/about/welcome';
+import { PricingDisplay } from '@/components/pricing';
 import GoogleTags from '@/components/tags/conversion';
 import { RewardfulTag } from '@/components/tags/headertags';
 import TikTikConversionTags from '@/components/tags/tiktok';

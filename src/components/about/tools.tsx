@@ -4,7 +4,7 @@ import React from 'react'
 import Image from "next/image";
 import 'react-toastify/dist/ReactToastify.css';
 import { BtnLink } from "../shared/button";
-import { VideoCameraIcon, ComputerDesktopIcon, LinkIcon, PencilIcon, Cog6ToothIcon, BookOpenIcon, StarIcon, ArrowRightIcon  } from "@heroicons/react/20/solid";
+import { VideoCameraIcon, ComputerDesktopIcon, LinkIcon, PencilIcon, Cog6ToothIcon, BookOpenIcon } from "@heroicons/react/20/solid";
 
 interface CreateHeroProps {
     titleStart: string,

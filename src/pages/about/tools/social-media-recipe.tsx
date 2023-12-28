@@ -1,8 +1,8 @@
 import { Raleway } from 'next/font/google'
 import Head from 'next/head';
-import { CreateHero, SocialMediaRecipeQuickGuide } from '@/components/about-components/tools';
+import { CreateHero, SocialMediaRecipeQuickGuide } from '@/components/about/tools';
 import GoogleTags from '@/components/tags/conversion';
-import { HomeFAQ, HomePageCTA, HomeVideoToRecipe } from '@/components/home-sections/home';
+import { HomeFAQ, HomePageCTA, HomeVideoToRecipe } from '@/components/home';
 
 const raleway = Raleway({subsets: ['latin']})
 

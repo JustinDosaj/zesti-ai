@@ -1,6 +1,6 @@
 import { Fragment, useState } from 'react'
 import { Menu, Transition } from '@headlessui/react'
-import { EllipsisVerticalIcon, PencilSquareIcon, TrashIcon, VideoCameraIcon, PlusIcon, StarIcon, XMarkIcon, CheckIcon, XCircleIcon, CheckCircleIcon  } from '@heroicons/react/20/solid'
+import { EllipsisVerticalIcon, PencilSquareIcon, TrashIcon, VideoCameraIcon, PlusIcon, StarIcon, XMarkIcon, CheckIcon } from '@heroicons/react/20/solid'
 import { Container } from '../shared/container';
 import { UpgradeToPremiumModal } from '../shared/modals';
 

@@ -1,9 +1,9 @@
 import { Raleway } from 'next/font/google'
-import { DashboardPageTitle, Tools, Usage } from '@/components/dash-sections/dash';
+import { Tools, Search } from '@/components/dashboard';
 import { useAuth } from "@/pages/api/auth/auth"
 import { useRouter } from "next/router";
-import { RecipeList } from '@/components/dash-sections/recipelist';
-import { DashboardRecipeTitle } from '@/components/dash-sections/dash';
+import { RecipeList } from '@/components/dashboard/recipelist';
+import { DashboardRecipeTitle } from '@/components/dashboard';
 import { useState, useEffect } from "react";
 import { PageLoader } from "@/components/shared/loader";
 import Head from 'next/head';
@@ -12,37 +12,38 @@ import { getUserData } from '../api/firebase/functions';
 import GoogleTags from '@/components/tags/conversion';
 import { RewardfulTag } from '@/components/tags/headertags';
 import AdSenseDisplay from '@/components/tags/adsense';
+import { SharedPageTitle } from '@/components/shared/title';
 
 const raleway = Raleway({subsets: ['latin']})
 
 export default function Dashboard() {
 
-    const { user, isLoading, stripeRole } = useAuth();
-    const [isLoadingRecipes, setIsLoadingRecipes] = useState<boolean>(true);
-    const [ waitForPage, setWaitForPage ] = useState<boolean>(true)
-    const [ tokens, setTokens ] = useState<number>(0)
-    const [recipes, setRecipes] = useState<any[]>([]);
-    const router = useRouter();
+  const { user, isLoading, stripeRole } = useAuth();
+  const [isLoadingRecipes, setIsLoadingRecipes] = useState<boolean>(true);
+  const [ waitForPage, setWaitForPage ] = useState<boolean>(true)
+  const [ tokens, setTokens ] = useState<number>(0)
+  const [recipes, setRecipes] = useState<any[]>([]);
+  const router = useRouter();
 
 
-    useEffect( () => {
-      if(user == null && isLoading == false) {
-        router.replace('/')
-      } else if (user !== null && isLoading == false) {
-        const unsubscribe = db.collection(`users/${user.uid}/recipes`)
-          .onSnapshot((snapshot) => {
-            const updatedRecipes = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
-            setRecipes(updatedRecipes);
-            setIsLoadingRecipes(false);
-          });
-          const fetchUserData = async () => {
-              const userData = await getUserData(user.uid);
-              setTokens(userData?.tokens);
-              setWaitForPage(false)
-          };
-          fetchUserData();
-      }
-    }, [user])
+  useEffect( () => {
+    if(user == null && isLoading == false) {
+      router.replace('/')
+    } else if (user !== null && isLoading == false) {
+      const unsubscribe = db.collection(`users/${user.uid}/recipes`)
+        .onSnapshot((snapshot) => {
+          const updatedRecipes = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+          setRecipes(updatedRecipes);
+          setIsLoadingRecipes(false);
+        });
+        const fetchUserData = async () => {
+            const userData = await getUserData(user.uid);
+            setTokens(userData?.tokens);
+            setWaitForPage(false)
+        };
+        fetchUserData();
+    }
+  }, [user])
 
   if (isLoading || waitForPage == true) return <PageLoader/>
     
@@ -55,9 +56,9 @@ export default function Dashboard() {
       <RewardfulTag/>
     </Head>
     <main className={`flex min-h-screen flex-col items-center justify-between bg-background ${raleway.className}`}>
-        <DashboardPageTitle/>
+        <SharedPageTitle title="Dashboard" desc="Access all your saved recipes, and all the tools Zesti has available"/>
         <div className="mt-8 lg:mt-0" />
-        <Usage data={recipes} tokens={tokens}/>
+        <Search/>
         <div className="border-t border-gray-200 m-12" style={{ width: '35%' }} />
         <Tools/>
         <div className="border-t border-gray-200 m-12" style={{ width: '35%' }} />
