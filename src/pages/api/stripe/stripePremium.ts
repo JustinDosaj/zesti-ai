@@ -1,6 +1,13 @@
 import { collection, doc, addDoc, onSnapshot } from 'firebase/firestore';
 import { db } from '../firebase/firebase';
+import axios from 'axios';
+import Stripe from 'stripe'
 
+declare global {
+    interface Window {
+      promotekit_referral?: string;
+    }
+  }
 
 interface CheckoutSessionData {
     price: string | undefined;
@@ -9,6 +16,8 @@ interface CheckoutSessionData {
     mode: string;
     clientReferenceId?: string; // Make sure this line is included
 }
+
+const stripe = new Stripe(process.env.NEXT_PUBLIC_STRIPE_SECRET!);
 
 export async function createPremiumCheckoutSession(id: any) {  // You might want to replace 'any' with the appropriate type for currentUser
 
@@ -20,16 +29,26 @@ export async function createPremiumCheckoutSession(id: any) {  // You might want
             mode: "subscription",
         };
 
-        if (window.Rewardful?.referral) {
-            checkoutSessionData.clientReferenceId = window.Rewardful.referral;
-        }
+        // FINISH PROMOTE KIT REFERRAL LATER WHEN I CAN DEPLOY TO PRODUCTION
+        const referralId = window.promotekit_referral || 'default-value';
 
-
+        const session = await stripe.checkout.sessions.create({
+            success_url: `${window.location.origin}/dashboard`,
+            cancel_url: `${window.location.origin}/dashboard`,
+            metadata: {
+                referralId,
+            },
+            line_items: [
+            {price: process.env.NEXT_PUBLIC_STRIPE_PREMIUM_PRICE, quantity: 1},
+            ],
+            mode: 'subscription',
+        });
+   
         const checkoutSessionsCollection = collection(doc(collection(db, 'users'), id), 'checkout_sessions');
         const docRef = await addDoc(checkoutSessionsCollection, checkoutSessionData);
 
 
-        onSnapshot(docRef, (snap) => {
+        /*onSnapshot(docRef, (snap) => {
             const data = snap.data();
             if (data) {
                 const { error, url } = data;
@@ -42,7 +61,7 @@ export async function createPremiumCheckoutSession(id: any) {  // You might want
                     window.location.assign(url)
                 }
             }
-        });
+        });*/
     } catch (error) {
         console.error("Error creating checkout session: ", error);
     }

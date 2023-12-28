@@ -329,7 +329,6 @@ export function Hero({titleStart, titleEnd, description, loginURL}: HeroProps) {
   )
 }
 
-
 export function PremiumSubscriptionHero() {
 
   const features = [

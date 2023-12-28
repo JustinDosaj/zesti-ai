@@ -9,6 +9,7 @@ import { RecipeList } from '@/components/dashboard/recipelist'
 import GoogleTags from '@/components/tags/conversion'
 import { RewardfulTag } from '@/components/tags/headertags'
 import AdSenseDisplay from '@/components/tags/adsense'
+import { VideoList } from '@/components/dashboard/videolist'
 import { SharedViewAllTitle } from '@/components/shared/title'
 
 const raleway = Raleway({subsets: ['latin']})
@@ -43,7 +44,7 @@ export default function RecipeBook() {
             <RewardfulTag/>
         </Head>  
         <main className={`flex min-h-screen flex-col items-center bg-background ${raleway.className}`}>
-            <SharedViewAllTitle title="Saved Recipes" desc="View all the recipes you have saved with Zesti" href={'/dashboard'}/>
+            <SharedViewAllTitle title="Saved Recipes" desc={"View all the recipes you have transcribed from video to text with Zesti"} href={"/creator/manage"}/>
             {isLoadingRecipes ? <PageLoader/> : <RecipeList data={recipes}/>}
             {stripeRole !== 'premium' && recipes.length > 0 ? 
             <div className="flex justify-center items-center py-16">

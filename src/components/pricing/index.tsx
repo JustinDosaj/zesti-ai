@@ -1,11 +1,8 @@
 "use client";
-import { Container } from "../shared/container";
-import { Paragraph } from "../shared/paragraph";
-import React from 'react'
-import Image from "next/image";
-import 'react-toastify/dist/ReactToastify.css';
+
 import { Button, InlineBtnLink } from "../shared/button";
 import { CheckIcon } from "@heroicons/react/20/solid";
+import { Container } from "../shared/container";
 import { createPremiumCheckoutSession } from "@/pages/api/stripe/stripePremium";
 import { useAuth } from "@/pages/api/auth/auth";
 import { Loader } from "../shared/loader";
@@ -16,7 +13,7 @@ function classNames(...classes: (string | undefined | null | false)[]): string {
   return classes.filter(Boolean).join(' ');
 }
 
-export function HolidayDiscountPricingDisplay() {
+export function PricingDisplay() {
 
     const { user, stripeRole } = useAuth();
     const [ isLoading, setIsLoading ] = useState<boolean>(false);
@@ -28,7 +25,6 @@ export function HolidayDiscountPricingDisplay() {
           id: 'tier-basic',
           trial: false,
           priceMonthly: '$0',
-          pricingType: '/month',
           description: "The perfect plan if you're just getting started with Zesti",
           learnhref: "/about/subscription/free",
           features: [
@@ -36,7 +32,6 @@ export function HolidayDiscountPricingDisplay() {
             'Save TikTok & YouTube recipes',
             'Max Video Length: 5 Minutes',
             'AI Recipe Generator',
-            'Customize Recipes',
         ],
           featured: false,
           checkout: () => {
@@ -49,11 +44,10 @@ export function HolidayDiscountPricingDisplay() {
           id: 'tier-premium',
           trial: true,
           priceMonthly: '$2.99',
-          pricingType: 'first month',
           description: 'Unlock the full potential of Zesti',
           learnhref: "/about/subscription/premium",
           features: [
-            'Save 30 recipes per month',
+            'Unlimited recipe saves per month',
             'Save TikTok & YouTube recipes',
             'Max Video Length: 15 Minutes',
             'Unlimited AI Generated Recipes',
@@ -98,19 +92,19 @@ export function HolidayDiscountPricingDisplay() {
                     {tier.name} 
                   </h3>
                   <div className={tier.trial == true ? `` : `hidden`}>
-                    <div className="bg-gray-900 text-white rounded-xl pt-1 pb-1 pl-2 pr-2">Free 7-Day Trial</div>
+                    <div className="bg-gray-900 text-white text-sm lg:text-base rounded-xl pt-1 pb-1 pl-2 pr-2">Free 7-Day Trial</div>
                   </div>
                 </div>
                 <p className="mt-4 flex items-baseline gap-x-2">
                   <span
                     className={classNames(
                       tier.featured ? 'text-gray-900' : 'text-gray-900',
-                      'text-5xl font-bold tracking-tight'
+                      'section-title-text-size font-bold tracking-tight'
                     )}
                   >
                     {tier.priceMonthly}
                   </span>
-                  <span className={classNames(tier.featured ? 'text-gray-700' : 'text-gray-500', 'text-base')}>{tier.pricingType}</span>
+                  <span className={classNames(tier.featured ? 'text-gray-700' : 'text-gray-500', 'lg:text-base')}>/month</span>
                 </p>
                 <p className={classNames(tier.featured ? 'text-gray-700' : 'text-gray-600', 'mt-6 text-base leading-7')}>
                   {tier.description}
@@ -134,14 +128,14 @@ export function HolidayDiscountPricingDisplay() {
                 </ul>
                 {!user ?
                 <Button buttonType="button" onClick={() => router.push('/login')} text="Sign Up to Get Started" className="mt-4 text-center w-full"/>
-                : (stripeRole == null && isLoading == false && stripeRole !== 'premium') ?
+                : (isLoading == false && stripeRole !== 'premium') ?
                 <Button buttonType="button" onClick={tier.checkout} text="Get Started" className="mt-4 text-center w-full"/>
                 : (isLoading == true) ?
                 <div className="mt-4 w-full grid">
                   <Loader/>
                 </div>
                 :
-                <Button buttonType="button" onClick={() => {window.open(`${process.env.NEXT_PUBLIC_STRIPE_NO_CODE_PORATL}`)}} text="Manage Subscription" className="text-sm sm:text-base mt-4 text-center w-full"/>
+                <Button buttonType="button" onClick={() => {router.push("/profile")}} text="Manage Account" className="text-sm sm:text-base mt-4 text-center w-full"/>
                 }
                 <InlineBtnLink href={tier.learnhref} text="Learn More" className="flex justify-center mt-4 text-sm"></InlineBtnLink>
               </div>
@@ -152,27 +146,24 @@ export function HolidayDiscountPricingDisplay() {
       )
 }
 
-export function HolidayDiscountHero(){
-    return(
-        <section className="relative pt-24 lg:pt-36">
-            <Container className={"flex flex-col lg:flex-row gap-10 lg:gap-12 animate-fadeIn"}>
-                <div className="space-y-4 relative flex flex-col items-center text-center lg:py-7 xl:py-8 lg:max-w-none max-w-3xl mx-auto lg:mx-0 lg:flex-1 lg:w-1/2 p-8 md:p-16">
-                    <div className="inline-flex items-center border border-gray-300 rounded-3xl p-2 space-x-1">
-                        <div className="text-black font-bold text-sm">Powered By OpenAI</div>
-                        <Image width={20} height={20} src="/images/openaipng.png" alt="Powered by OpenAI Chatgpt AI Technology Tool" className=" "/>
-                    </div>
-                    <h1 className="text-4xl/tight sm:text-4xl/tight md:text-5xl/tight xl:text-6xl/tight font-bold text-heading-1 mt-6">          
-                        <span className="text-black">Get</span>
-                        <span className="primary-orange-text-gradient"> 50% Off </span> 
-                        <span className="text-black">Zesti Premium</span>
-                    </h1>
-                    <Paragraph className="text-lg mt-8 text-black">
-                        To celebrate the holidays, Zesti is offering half off your first month of Premium 
-                    </Paragraph>
-                    <p className="text-gray-600 text-xl border p-2 rounded-3xl">Use Code: <span className="text-gray-700 font-bold font-sans text-2xl"> DEC25 </span> at checkout</p>
-                </div>
-            </Container>
-        </section>
-    )
-}
+export function PricingTitle() {
 
+  return(
+    <Container className={"flex flex-col lg:flex-row gap-10 lg:gap-12 mt-36"}>
+      <div className="bg-white mx-auto">
+        <div className="mx-auto max-w-7xl md:px-6 lg:px-8"></div>
+          <div className="mx-auto max-w-4xl text-center">
+            <h1 className="section-title-text-size mt-2 font-bold tracking-tight text-gray-900">
+              Choose a plan
+            </h1>
+            <p className="mx-auto mt-4 max-w-2xl text-center section-desc-text-size leading-8 text-gray-700">
+              Join hundreds of users creating their favorite home cooked meals!
+            </p>
+            <p className="mx-auto sm:mb-8 mt-4 sm:mt-6 max-w-xl w-fit pr-3 pl-3 text-center leading-8 border border-primary-main rounded-3xl text-gray-600">
+              Try for Free. Cancel anytime.
+            </p>
+          </div>
+        </div>
+    </Container>
+  )
+}

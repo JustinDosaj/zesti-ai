@@ -1,5 +1,5 @@
 import { Raleway } from 'next/font/google'
-import { PricingDisplay, PricingTitle } from '@/components/pricing-sections/pricing'
+import { PricingDisplay, PricingTitle } from '@/components/pricing'
 import Head from 'next/head'
 import GoogleTags from '@/components/tags/conversion'
 import { RewardfulTag } from '@/components/tags/headertags'
