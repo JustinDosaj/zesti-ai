@@ -30,7 +30,7 @@ export async function createPremiumCheckoutSession(id: any) {  // You might want
         };
 
         // FINISH PROMOTE KIT REFERRAL LATER WHEN I CAN DEPLOY TO PRODUCTION
-        const referralId = window.promotekit_referral || 'default-value';
+        const referralId = window.promotekit_referral || 'justin2';
         
 
         // Getting meta data passed to checkout session in stripe --> however referral id is set to default value from global
@@ -39,7 +39,7 @@ export async function createPremiumCheckoutSession(id: any) {  // You might want
             success_url: `${window.location.origin}/dashboard`,
             cancel_url: `${window.location.origin}/dashboard`,
             metadata: {
-                referralId,
+                promotekit_referral: window.promotekit_referral || 'justin2'
             },
             line_items: [
             {price: process.env.NEXT_PUBLIC_STRIPE_PREMIUM_PRICE, quantity: 1},
