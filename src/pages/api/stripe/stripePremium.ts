@@ -25,7 +25,7 @@ const stripe = new Stripe(process.env.NEXT_PUBLIC_STRIPE_SECRET!);
 export async function createPremiumCheckoutSession(id: any) {  // You might want to replace 'any' with the appropriate type for currentUser
 
     try {
-        /*const checkoutSessionData: CheckoutSessionData  = {
+        const checkoutSessionData: CheckoutSessionData  = {
             price: process.env.NEXT_PUBLIC_STRIPE_PREMIUM_PRICE,
             success_url: `${window.location.origin}/dashboard`,
             cancel_url: `${window.location.origin}/dashboard`,
@@ -33,7 +33,7 @@ export async function createPremiumCheckoutSession(id: any) {  // You might want
             metadata: {
                 promotekit_referral: window.promotekit_referral || 'justin2'
             }
-        };*/
+        };
 
         // FINISH PROMOTE KIT REFERRAL LATER WHEN I CAN DEPLOY TO PRODUCTION
         const referralId = window.promotekit_referral || 'justin2';
@@ -41,7 +41,7 @@ export async function createPremiumCheckoutSession(id: any) {  // You might want
 
         // Getting meta data passed to checkout session in stripe --> however referral id is set to default value from global
         // could be because the stripe tag is not on the page therefore the referral isnt being recognized
-        const session = await stripe.checkout.sessions.create({
+        /*const session = await stripe.checkout.sessions.create({
             success_url: `${window.location.origin}/dashboard`,
             cancel_url: `${window.location.origin}/dashboard`,
             metadata: {
@@ -51,10 +51,10 @@ export async function createPremiumCheckoutSession(id: any) {  // You might want
             {price: process.env.NEXT_PUBLIC_STRIPE_PREMIUM_PRICE, quantity: 1},
             ],
             mode: 'subscription',
-        });
+        });*/
    
-        //const checkoutSessionsCollection = collection(doc(collection(db, 'users'), id), 'checkout_sessions');
-        //const docRef = await addDoc(checkoutSessionsCollection, checkoutSessionData);
+        const checkoutSessionsCollection = collection(doc(collection(db, 'users'), id), 'checkout_sessions');
+        const docRef = await addDoc(checkoutSessionsCollection, checkoutSessionData);
 
 
         /*onSnapshot(docRef, (snap) => {
