@@ -1,13 +1,7 @@
 import { collection, doc, addDoc, onSnapshot } from 'firebase/firestore';
 import { db } from '../firebase/firebase';
-import axios from 'axios';
+import { getCookie } from '../handler/cookies';
 import Stripe from 'stripe'
-
-declare global {
-    interface Window {
-      promotekit_referral?: string;
-    }
-  }
 
 interface CheckoutSessionData {
     price: string | undefined;
@@ -24,6 +18,8 @@ const stripe = new Stripe(process.env.NEXT_PUBLIC_STRIPE_SECRET!);
 
 export async function createPremiumCheckoutSession(id: any) {  // You might want to replace 'any' with the appropriate type for currentUser
 
+    const affiliateCode = getCookie('affiliate_code') || 'default-value';
+
     try {
         const checkoutSessionData: CheckoutSessionData  = {
             price: process.env.NEXT_PUBLIC_STRIPE_PREMIUM_PRICE,
@@ -31,27 +27,10 @@ export async function createPremiumCheckoutSession(id: any) {  // You might want
             cancel_url: `${window.location.origin}/dashboard`,
             mode: "subscription",
             metadata: {
-                promotekit_referral: window.promotekit_referral || 'justin2'
+                //promotekit_referral: window.promotekit_referral || 'default-value'
+                promotekit_referral: affiliateCode
             }
         };
-
-        // FINISH PROMOTE KIT REFERRAL LATER WHEN I CAN DEPLOY TO PRODUCTION
-        const referralId = window.promotekit_referral || 'justin2';
-        
-
-        // Getting meta data passed to checkout session in stripe --> however referral id is set to default value from global
-        // could be because the stripe tag is not on the page therefore the referral isnt being recognized
-        /*const session = await stripe.checkout.sessions.create({
-            success_url: `${window.location.origin}/dashboard`,
-            cancel_url: `${window.location.origin}/dashboard`,
-            metadata: {
-                promotekit_referral: window.promotekit_referral || 'justin2'
-            },
-            line_items: [
-            {price: process.env.NEXT_PUBLIC_STRIPE_PREMIUM_PRICE, quantity: 1},
-            ],
-            mode: 'subscription',
-        });*/
    
         const checkoutSessionsCollection = collection(doc(collection(db, 'users'), id), 'checkout_sessions');
         const docRef = await addDoc(checkoutSessionsCollection, checkoutSessionData);

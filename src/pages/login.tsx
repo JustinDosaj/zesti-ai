@@ -7,7 +7,7 @@ import { Notify } from "@/components/shared/notify"
 import { ToastContainer } from "react-toastify"
 import 'react-toastify/dist/ReactToastify.css';
 import { PageLoader } from "@/components/shared/loader"
-import { RewardfulTag } from "@/components/tags/headertags"
+import { PromoteKitTag } from "@/components/tags/headertags"
 import { LoginComponent } from "@/components/home/login"
 
 const raleway = Raleway({subsets: ['latin']})
@@ -32,7 +32,7 @@ export default function Login() {
         <meta name="title" content="Zesti AI | Login or Sign Up | Try for Free"/>
         <meta name="description" content="Join Zesti to gain access to the best AI powered kitchen tool that helps you quickly save and edit recipes from cooking videos"/>
         <GoogleTags/>
-        <RewardfulTag/>
+        <PromoteKitTag/>
     </Head>
     <ToastContainer/>    
     <main className={`flex min-h-screen flex-col items-center justify-between bg-background h-screen ${raleway.className}`}>

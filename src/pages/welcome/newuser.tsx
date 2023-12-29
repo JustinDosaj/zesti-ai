@@ -3,7 +3,7 @@ import Head from 'next/head';
 import { NewUserHero, WelcomePricingTitle } from '@/components/about/welcome';
 import { PricingDisplay } from '@/components/pricing';
 import GoogleTags from '@/components/tags/conversion';
-import { RewardfulTag } from '@/components/tags/headertags';
+import { PromoteKitTag } from '@/components/tags/headertags';
 import TikTikConversionTags from '@/components/tags/tiktok';
 
 const raleway = Raleway({subsets: ['latin']})
@@ -17,7 +17,7 @@ export default function WelcomeNewUser() {
             <meta name="description" content="Join Zesti to gain access to the best AI powered kitchen tool that helps you quickly save and edit recipes from cooking videos"/>
             <meta name="robots" content="noindex" />
             <GoogleTags/>
-            <RewardfulTag/>
+            <PromoteKitTag/>
             <TikTikConversionTags/>
             <script dangerouslySetInnerHTML={{
             __html: `

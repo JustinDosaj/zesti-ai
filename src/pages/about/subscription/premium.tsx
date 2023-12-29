@@ -11,7 +11,7 @@ import Head from 'next/head'
 import { Loader } from '@/components/shared/loader'
 import { PricingDisplay } from '@/components/pricing'
 import GoogleTags from '@/components/tags/conversion'
-import { RewardfulTag } from '@/components/tags/headertags'
+import { PromoteKitTag } from '@/components/tags/headertags'
 import { HomeFAQ, HomePageCTA, HomePageScroller, HomePageTools, HomeVideoToRecipe, PremiumSubscriptionHero } from '@/components/home'
 const raleway = Raleway({subsets: ['latin']})
 
@@ -64,7 +64,7 @@ export default function Premium() {
         <meta name="title" content="Zesti Premium | Best Chatgpt Cooking Assistant"/>
         <meta name="description" content="Subscribe to Zesti Premium to gain the best value access to edit and save cooking videos as text recipes. Plus gain access to the cooking chat AI assistant. Try for free. No credit card required."/>
         <GoogleTags/>
-        <RewardfulTag/>
+        <PromoteKitTag/>
     </Head>
     <div className="bg-white">
     {/* Header */}

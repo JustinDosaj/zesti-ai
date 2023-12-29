@@ -4,7 +4,7 @@ import { Raleway } from 'next/font/google'
 import { EnvelopeIcon, UsersIcon, PaperAirplaneIcon } from "@heroicons/react/24/outline"
 import Head from 'next/head';
 import GoogleTags from "@/components/tags/conversion"
-import { RewardfulTag } from "@/components/tags/headertags";
+import { PromoteKitTag } from "@/components/tags/headertags";
 
 
 const raleway = Raleway({subsets: ['latin']})
@@ -18,7 +18,7 @@ export default function Contact() {
         <meta name="title" content="Zesti AI | Get in Touch for Support & Inquiries"/>
         <meta name="description" content="Have questions or need assistance? Reach out to the Zesti support team through our contact page. We are here to help with all your recipe conversion needs!"/>
         <GoogleTags/>
-        <RewardfulTag/>
+        <PromoteKitTag/>
     </Head>    
     <main className={`flex min-h-screen flex-col items-center justify-between bg-background h-screen ${raleway.className}`}>
             <Container className={"grid md:grid-cols-1 lg:flex-row gap-10 lg:gap-12 mt-36 mb-36"}>
