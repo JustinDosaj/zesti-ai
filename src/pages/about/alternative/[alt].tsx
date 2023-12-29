@@ -5,7 +5,7 @@ import Head from "next/head";
 import { db } from "@/pages/api/firebase/firebase";
 import { AltHero, AltCompare } from "@/components/alternatives/index";
 import GoogleTags from "@/components/tags/conversion";
-import { RewardfulTag } from "@/components/tags/headertags";
+import { PromoteKitTag } from "@/components/tags/headertags";
 import { HomeFAQ, HomePageCTA, HomePageScroller, HomePageTools, HomeVideoToRecipe } from "@/components/home";
 
 const raleway = Raleway({subsets: ['latin']})
@@ -27,7 +27,7 @@ const Alternative: React.FC = ({data}: any) => {
         <meta name="title" content={`Zesti | The AI alternative to ${data?.name}`}/>
         <meta name="description" content={`Find out what makes Zesti the best ${data?.name} alternative and learn about the unique things only Zesti can do`}/>
         <GoogleTags/>
-        <RewardfulTag/>
+        <PromoteKitTag/>
       </Head>
       <main className={`flex min-h-screen flex-col items-center justify-between p-2 bg-background ${raleway.className}`}>
         <AltHero name={data?.name}/>

@@ -7,7 +7,7 @@ import { PageLoader } from "@/components/shared/loader";
 import { db } from '../api/firebase/firebase';
 import { getUserData } from '../api/firebase/functions';
 import GoogleTags from '@/components/tags/conversion';
-import { RewardfulTag } from '@/components/tags/headertags';
+import { PromoteKitTag } from '@/components/tags/headertags';
 import { SharedPageTitle } from '@/components/shared/title';
 import { VideoList } from '@/components/dashboard/videolist';
 import { Button } from '@/components/shared/button';
@@ -53,7 +53,7 @@ export default function Dashboard() {
       <title>Zesti | Your Dashboard</title>
       <meta name="robots" content="noindex" />
       <GoogleTags/>
-      <RewardfulTag/>
+      <PromoteKitTag/>
     </Head>
     <main className={`flex min-h-screen flex-col items-center justify-between bg-background ${raleway.className}`}>
         <SharedPageTitle title="Manage Recipes" desc="Add your old or recent video recipes to display on your page"/>

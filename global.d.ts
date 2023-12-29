@@ -1,9 +1,7 @@
 declare global {
     interface Window {
       adsbygoogle: any[];
-      Rewardful?:{
-        referral?:string;
-      }
+      promotekit_referral?: string;
     }
 
     interface CheckoutSessionData {
