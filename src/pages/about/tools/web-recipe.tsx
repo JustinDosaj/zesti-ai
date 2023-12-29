@@ -3,6 +3,7 @@ import Head from 'next/head';
 import { CreateHero, WebRecipeQuickGuide } from '@/components/about/tools';
 import GoogleTags from '@/components/tags/conversion';
 import { HomeFAQ, HomePageCTA } from '@/components/home';
+import { PromoteKitTag } from '@/components/tags/headertags';
 
 const raleway = Raleway({subsets: ['latin']})
 
@@ -22,6 +23,7 @@ export default function SocialMediaRecipe() {
         <HomePageCTA/>
         <div className="mt-16"/>
         <HomeFAQ/>
+        <PromoteKitTag/>
       </main>
     </>
   )

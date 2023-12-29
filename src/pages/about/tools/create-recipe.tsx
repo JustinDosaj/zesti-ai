@@ -3,6 +3,7 @@ import Head from 'next/head';
 import { CreateHero, CreateRecipeQuickGuide } from '@/components/about/tools';
 import GoogleTags from '@/components/tags/conversion';
 import { HomeFAQ, HomePageCTA } from '@/components/home';
+import { PromoteKitTag } from '@/components/tags/headertags';
 
 const raleway = Raleway({subsets: ['latin']})
 
@@ -15,6 +16,7 @@ export default function SocialMediaRecipe() {
         <meta name="title" content="Zesti | Best AI Recipe Idea Generator"/>
         <meta name="description" content="Let AI generate amazing recipe ideas just for you or take control use it to help create something amazing from scratch!"/>
         <GoogleTags/>
+        <PromoteKitTag/>
       </Head>
       <main className={`flex min-h-screen flex-col items-center bg-background ${raleway.className}`}>
         <CreateHero titleStart="Create Amazing" titleMiddle="AI Generated" titleEnd="Recipes" description="Use Zesti to come up with recipe ideas from scratch or from ingredients you have on hand"/>

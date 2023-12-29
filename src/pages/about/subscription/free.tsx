@@ -5,7 +5,7 @@ import { useRouter } from 'next/router'
 import Head from 'next/head'
 import { PricingDisplay } from '@/components/pricing'
 import GoogleTags from '@/components/tags/conversion'
-import { RewardfulTag } from '@/components/tags/headertags'
+import { PromoteKitTag } from '@/components/tags/headertags'
 import { FreeSubscriptionHero, HomePageCTA, HomePageScroller, HomePageTools, HomeVideoToRecipe, HomeFAQ } from '@/components/home'
 const raleway = Raleway({subsets: ['latin']})
 
@@ -28,7 +28,7 @@ export default function Essential() {
         <meta name="title" content="Zesti Free | AI Cooking Assistant | Free to Use"/>
         <meta name="description" content="Subscribe to Zesti Free to gain no cost access to save cooking videos as text recipes. Plus gain access to the cooking chat AI assistant. Try for free. No credit card required."/>
         <GoogleTags/>
-        <RewardfulTag/>
+        <PromoteKitTag/>
     </Head>
     <div className="bg-white">
     {/* Header */}

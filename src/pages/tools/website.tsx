@@ -9,7 +9,7 @@ import React, { useState, useEffect } from 'react';
 import { db } from '../api/firebase/firebase';
 import { getUserData } from '../api/firebase/functions';
 import GoogleTags from '@/components/tags/conversion';
-import { RewardfulTag } from '@/components/tags/headertags';
+import { PromoteKitTag } from '@/components/tags/headertags';
 const raleway = Raleway({subsets: ['latin']})
 
 export default function Website() {
@@ -39,7 +39,7 @@ export default function Website() {
         <meta name="title" content="Zesti AI | Ad-Free Web Recipe"/>
         <meta name="description" content="Tired of Ads? Avoid searching through endless clutter and simply input the web URL into Zesti for a recipe you want to enjoy!"/>
         <GoogleTags/>
-        <RewardfulTag/>
+        <PromoteKitTag/>
       </Head>
       <main className={` flex min-h-screen flex-col items-center bg-background ${raleway.className}`}>
         <ToolHero role={stripeRole} tokens={tokens} titleStart="Get Web Recipes That Are" titleEnd='Clutterless'/>

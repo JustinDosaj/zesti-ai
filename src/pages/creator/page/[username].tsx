@@ -9,7 +9,7 @@ import Head from 'next/head';
 import { db } from '../../api/firebase/firebase';
 import { getUserData } from '../../api/firebase/functions';
 import GoogleTags from '@/components/tags/conversion';
-import { RewardfulTag } from '@/components/tags/headertags';
+import { PromoteKitTag } from '@/components/tags/headertags';
 import AdSenseDisplay from '@/components/tags/adsense';
 import { SharedPageTitle } from '@/components/shared/title';
 
@@ -52,7 +52,7 @@ export default function Dashboard() {
     <Head>
       <title>Zesti | Creator Page</title> {/* Add Dynamic Title to display creator username for improved SEO*/}
       <GoogleTags/>
-      <RewardfulTag/>
+      <PromoteKitTag/>
     </Head>
     <main className={`flex min-h-screen flex-col items-center justify-between bg-background ${raleway.className}`}>
         <SharedPageTitle title="Creator" desc="View & search all the recipes made by <username>"/>
