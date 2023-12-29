@@ -14,9 +14,8 @@ export default function Home() {
   const { isLoading, isCreator } = useAuth();
 
   useEffect(() => {
-    const urlParams = new URLSearchParams(window.location.search);
-
-    const affiliateCode = urlParams.get('via');
+    
+    const affiliateCode = window.promotekit_referral;
 
     if (affiliateCode) {
       setCookie('affiliate_code', affiliateCode, 30);
