@@ -9,22 +9,19 @@ import { useEffect } from 'react';
 import { setCookie } from './api/handler/cookies';
 const raleway = Raleway({subsets: ['latin']})
 
-export async function getServerSideProps(context: any) {
-  const affiliateCode = context.query.via || null;
-  return { props: { affiliateCode } };
-}
-
-export default function Home({affiliateCode}: any) {
+export default function Home() {
   
   const { isLoading, isCreator } = useAuth();
 
   useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+
+    const affiliateCode = urlParams.get('via');
+
     if (affiliateCode) {
       setCookie('affiliate_code', affiliateCode, 30);
     }
-  }, [affiliateCode]);
-
-  console.log("CODE: ", affiliateCode)
+  }, []);
 
   if (isLoading) return <PageLoader/>
 
