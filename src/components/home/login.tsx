@@ -1,18 +1,9 @@
-import { Title } from "@/components/shared/title"
 import { Container } from "@/components/shared/container"
-import { AltButton, Button } from "@/components/shared/button"
-import { Raleway } from 'next/font/google'
-import { EnvelopeIcon, KeyIcon } from "@heroicons/react/24/outline"
-import Head from 'next/head';
-import GoogleTags from "@/components/tags/conversion"
-import React, { useState, useEffect } from "react"
+import React, { useState } from "react"
 import { useAuth } from "@/pages/api/auth/auth"
 import { Notify } from "@/components/shared/notify"
-import { ToastContainer } from "react-toastify"
 import 'react-toastify/dist/ReactToastify.css';
 import { PageLoader } from "@/components/shared/loader"
-import { RewardfulTag } from "@/components/tags/headertags"
-import TikTikConversionTags from "@/components/tags/tiktok"
 
 export function LoginComponent() {
 
