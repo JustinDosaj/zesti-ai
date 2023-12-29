@@ -6,6 +6,7 @@ import { Footer } from '@/components/elements/footer'
 import { AuthProvider } from './api/auth/auth'
 import { Analytics } from '@vercel/analytics/react';
 
+
 export default function App({ Component, pageProps }: AppProps) {
 
   return (

@@ -10,7 +10,7 @@ import Head from 'next/head';
 import { db } from '../api/firebase/firebase';
 import { getUserData } from '../api/firebase/functions';
 import GoogleTags from '@/components/tags/conversion';
-import { RewardfulTag } from '@/components/tags/headertags';
+import { PromoteKitTag } from '@/components/tags/headertags';
 import AdSenseDisplay from '@/components/tags/adsense';
 import { SharedPageTitle } from '@/components/shared/title';
 
@@ -53,7 +53,7 @@ export default function Dashboard() {
       <title>Zesti | Your Dashboard</title>
       <meta name="robots" content="noindex" />
       <GoogleTags/>
-      <RewardfulTag/>
+      <PromoteKitTag/>
     </Head>
     <main className={`flex min-h-screen flex-col items-center justify-between bg-background ${raleway.className}`}>
         <SharedPageTitle title="Dashboard" desc="Access all your saved recipes, and all the tools Zesti has available"/>
