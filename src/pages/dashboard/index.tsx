@@ -25,7 +25,7 @@ export default function Dashboard() {
   const router = useRouter();
 
 
-  useEffect( () => {
+  /*useEffect( () => {
     if(user == null && isLoading == false) {
       router.replace('/')
     } else if (user !== null && isLoading == false) {
@@ -41,7 +41,26 @@ export default function Dashboard() {
         };
         fetchUserData();
     }
-  }, [user])
+
+
+  }, [user, recipes])*/
+
+  useEffect(() => {
+    const fetchRecipes = async () => {
+      if (user) {
+        const recipeSnapshot = await db.collection(`users/${user.uid}/recipes`).get();
+        const updatedRecipes = recipeSnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+        setRecipes(updatedRecipes);
+        setIsLoadingRecipes(false);
+      }
+    };
+
+    if (user == null && !isLoading) {
+      router.replace('/');
+    } else if (user !== null && !isLoading) {
+      fetchRecipes();
+    }
+  }, [user, isLoading, router]);
 
   if (isLoading) return <PageLoader/>
     
@@ -61,7 +80,7 @@ export default function Dashboard() {
         <Tools/>
         <div className="border-t border-gray-200 m-12" style={{ width: '35%' }} />
         <DashboardRecipeTitle/>
-        {isLoadingRecipes ? <PageLoader/> : <RecipeList data={recipes} maxDisplayCount={5}/>}
+        <RecipeList data={recipes} maxDisplayCount={5}/>
         {stripeRole !== 'premium' && recipes.length > 0 ? 
         <div className="flex justify-center items-center py-16">
           <div className="w-full min-w-[300px] max-w-[320px] lg:max-w-full lg:min-w-[1240px] text-center">
