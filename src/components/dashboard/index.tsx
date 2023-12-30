@@ -4,73 +4,11 @@ import { useAuth } from "@/pages/api/auth/auth"
 import { Notify } from "../shared/notify"
 import React, { useState, useEffect } from "react"
 import Link from "next/link"
+import { InlineBtnLink } from "../shared/button"
 
 function classNames(...classes: (string | null | undefined)[]): string {
     return classes.filter(Boolean).join(' ')
   }
-
-export function Tools() {
-
-    const stats = [
-        { 
-            id: 1, 
-            name: 'AI Recipe Generator', 
-            icon: SparklesIcon, 
-            colorType: 'green', 
-            href: '/tools/generator', 
-            desc: "Create new recipes just for you" },
-        { 
-            id: 2, 
-            name: 'Save Cooking Video', 
-            icon: VideoCameraIcon, 
-            colorType: 'red', 
-            href: '/tools/video', 
-            desc: "Save recipes from YouTube or TikTok" },
-        { 
-            id: 3, 
-            name: 'Website Recipe', 
-            icon: LinkIcon, 
-            colorType: 'yellow', 
-            href: '/tools/website', 
-            desc: "Remove clutter from recipe websites"
-                },
-      ]
-
-    return(
-    <Container className={"flex flex-col lg:flex-row gap-10 lg:gap-12 animate-fadeIn"}>
-    <div className="w-full">
-      <h3 className="text-2xl font-bold leading-6 text-gray-900 text-center">Other Tools</h3>
-      <dl className="mt-8 grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-3">
-        {stats.map((item) => (
-        <div key={item.id}>
-            <Link href={item.href} className="">
-                <div
-                    key={item.id}
-                    className="relative overflow-hidden rounded-3xl bg-white px-4 pb-12 pt-5 orange-border-shadow sm:px-6 sm:pt-6 hover:bg-gray-200 hover:ease-in hover:duration-100"
-                >
-                    <dt>
-                    <div className={classNames(item.colorType == 'green' ? 'bg-color-alt-green bg-opacity-80' : item.colorType == 'yellow' ? 'bg-yellow-400' : item.colorType == 'red' ? 'bg-red-400' : 'bg-color-alt-green bg-opacity-80', `absolute rounded-xl p-3`)}>
-                        <item.icon className="h-6 w-6 text-white" aria-hidden="true" />
-                    </div>
-                    <p className="ml-16 truncate text-lg font-semibold text-black">{item.name}</p>
-                    </dt>
-                    <dd className="ml-16 flex items-baseline pb-6 sm:pb-7">
-                    <p className="text-sm sm:text-base text-gray-900">{item.desc}</p>
-                    <div className="flex justify-center absolute inset-x-0 bottom-0 bg-gray-150 px-4 py-4 sm:px-6">
-                        <div className="flex justify-center font-medium cursor-pointer text-white bg-gray-900 w-full text-sm p-2 rounded-3xl hover:bg-gray-700 hover:ease-in hover:duration-100">
-                            Add Recipe<span className="sr-only"> {item.name} stats</span>
-                        </div>
-                    </div>
-                    </dd>
-                </div>
-            </Link>
-          </div>
-        ))}
-      </dl>
-    </div>
-    </Container>
-    )
-}
 
 export function DashboardRecipeTitle() {
     return(
@@ -117,6 +55,11 @@ export function Search() {
                         <MagnifyingGlassIcon className="text-gray-600 h-6 w-6"/>
                         <input type="text" name="web-page" value={url} placeholder="Search TikTok Username or Recipe" className="text-left w-64 lg:w-96 text-gray-500 py-3 outline-none bg-transparent" onChange={(e) => setUrl(e.target.value)}/>
                     </form>
+                </div>
+                <div className="text-gray-500 mt-4">
+                    <span>Can&apos;t find a recipe? </span>
+                    <InlineBtnLink href={'/tools/video'} text="Click here"/>
+                    <span> to save any TikTok recipe</span>
                 </div>
             </div>
             </dl>

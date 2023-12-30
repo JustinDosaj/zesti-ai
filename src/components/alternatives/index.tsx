@@ -89,11 +89,6 @@ export function AltCompare({name, priceMonthly, videoToRecipe, urlToRecipe, aiGe
                                         <td className="px-4 py-2">{aiGeneratedRecipe ? <CheckIcon className="mx-auto h-5 w-5 text-color-alt-green" aria-hidden="true" /> : <XMarkIcon className="mx-auto h-5 w-5 text-gray-400" aria-hidden="true" />}</td>
                                     </tr>
                                     <tr>
-                                        <td className="px-4 py-2 capitalize border-r border-gray-200">{"Save Tiktok & YouTube Recipes"}</td>
-                                        <td className="px-4 py-2">{<CheckIcon className="mx-auto h-5 w-5 text-color-alt-green" aria-hidden="true" />}</td>
-                                        <td className="px-4 py-2">{urlToRecipe ? <CheckIcon className="mx-auto h-5 w-5 text-color-alt-green" aria-hidden="true" /> : <XMarkIcon className="mx-auto h-5 w-5 text-gray-400" aria-hidden="true" />}</td>
-                                    </tr>
-                                    <tr>
                                         <td className="px-4 py-2 capitalize border-r border-gray-200">{"AI Chat Assistant"}</td>
                                         <td className="px-4 py-2">{<CheckIcon className="mx-auto h-5 w-5 text-color-alt-green" aria-hidden="true" />}</td>
                                         <td className="px-4 py-2">{chatAssistance ? <CheckIcon className="mx-auto h-5 w-5 text-color-alt-green" aria-hidden="true" /> : <XMarkIcon className="mx-auto h-5 w-5 text-gray-400" aria-hidden="true" />}</td>

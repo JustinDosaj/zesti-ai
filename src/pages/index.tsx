@@ -5,22 +5,11 @@ import { HomePageScroller, HomePageTools, HomePageCTA, HomeFAQ, HomeVideoToRecip
 import { useAuth } from './api/auth/auth';
 import { PageLoader } from '@/components/shared/loader';
 import { PromoteKitTag } from '@/components/tags/headertags';
-import { useEffect } from 'react';
-import { setCookie } from './api/handler/cookies';
 const raleway = Raleway({subsets: ['latin']})
 
 export default function Home() {
   
-  const { isLoading, isCreator } = useAuth();
-
-  useEffect(() => {
-    
-    const affiliateCode = window.promotekit_referral;
-
-    if (affiliateCode) {
-      setCookie('affiliate_code', affiliateCode, 30);
-    }
-  }, []);
+  const { isLoading, isCreator, user } = useAuth();
 
   if (isLoading) return <PageLoader/>
 
