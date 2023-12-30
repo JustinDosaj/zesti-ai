@@ -1,18 +1,15 @@
 import { Paragraph } from "../shared/paragraph"
 import { Container } from "../shared/container"
 import { useAuth } from "@/pages/api/auth/auth";
-import { AdvancedControlsModal, InputResponseModal, NotLoggedInModal } from "../shared/modals";
-import { PencilIcon } from '@heroicons/react/24/outline';
-import { AltButton, Button } from "../shared/button";
+import { InputResponseModal, NotLoggedInModal } from "../shared/modals";
+import { Button } from "../shared/button";
 import { Loader } from "../shared/loader";
 import { Notify } from '../shared/notify';
 import { ToastContainer } from 'react-toastify';
-import { db } from "@/pages/api/firebase/firebase";
 import { LightBulbIcon, ExclamationTriangleIcon } from '@heroicons/react/20/solid'
 import { LinkIcon } from "@heroicons/react/24/outline"
 import { handleYouTubeURLSubmit, handleTikTokURLSubmit } from "@/pages/api/handler/submit";
 import React, { useState, useEffect } from 'react';
-import Link from "next/link";
 import 'react-toastify/dist/ReactToastify.css';
 
 
@@ -36,7 +33,7 @@ export function ToolHero({role, tokens, titleStart, titleEnd, description}: Tool
                     </h1>
                     <Paragraph className="text-base sm:text-lg mt-4 sm:mt-8 text-black">
                         {role == 'premium' || tokens > 0 ?
-                        `Enter ingredients you have, describe a recipe the best you can, or enter a name of a dish. Then watch Zesti cook up a delicious recipe to follow.`
+                        `${description}`
                         :
                         `No more recipes available. Try Zesti Premium free for 7 days to unlock more!`
                         }
