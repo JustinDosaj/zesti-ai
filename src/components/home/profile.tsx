@@ -94,7 +94,7 @@ export default function ProfilePageComponent() {
                 <div>
                     <h2 className="font-semibold leading-7 text-gray-900 section-desc-text-size">Creator Information</h2>
                     <p className="mt-1 text-sm leading-6 text-gray-500 lg:text-base">
-                        More links and information
+                        Connect your TikTok & store recipes in place for your viewers
                     </p>
 
                     <dl className="mt-6 space-y-6 divide-y divide-gray-100 border-t border-gray-200 text-sm leading-6">
