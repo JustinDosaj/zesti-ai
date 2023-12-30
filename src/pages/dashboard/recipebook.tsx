@@ -21,18 +21,22 @@ export default function RecipeBook() {
     const router = useRouter();
 
 
-    useEffect( () => {
-      if(user == null && isLoading == false) {
-        router.replace('/')
-      } else if (user !== null && isLoading == false) {
-        const unsubscribe = db.collection(`users/${user.uid}/recipes`)
-          .onSnapshot((snapshot) => {
-            const updatedRecipes = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
-            setRecipes(updatedRecipes);
-            setIsLoadingRecipes(false);
-          });
+    useEffect(() => {
+      const fetchRecipes = async () => {
+        if (user) {
+          const recipeSnapshot = await db.collection(`users/${user.uid}/recipes`).get();
+          const updatedRecipes = recipeSnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+          setRecipes(updatedRecipes);
+          setIsLoadingRecipes(false);
+        }
+      };
+
+      if (user == null && !isLoading) {
+        router.replace('/');
+      } else if (user !== null && !isLoading) {
+        fetchRecipes();
       }
-    }, [user])
+    }, [user, isLoading, router]);
 
     return(
     <>

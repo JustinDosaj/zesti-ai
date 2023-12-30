@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react'
 import { Container } from '../shared/container'
-import { Switch } from '@headlessui/react'
 import { useAuth } from '@/pages/api/auth/auth';
 import { useRouter } from 'next/router';
 import { getUserData } from '@/pages/api/firebase/functions';
@@ -8,41 +7,39 @@ import { db } from '@/pages/api/firebase/firebase';
 import { PageLoader } from '../shared/loader';
 import Link from 'next/link';
 
-function classNames(...classes: (string | undefined)[]): string {
-    return classes.filter(Boolean).join(' ');
-  }
-
 export default function ProfilePageComponent() {
 
-    const { user, stripeRole, logout, isLoading, loginWithTikTok, handleTikTokCallback } = useAuth()
+    const { user, stripeRole, logout, isLoading, loginWithTikTok } = useAuth()
     const [ tokens, setTokens ] = useState<number>(0)
     const router = useRouter();
 
 
-    useEffect( () => {
-      if(user == null && isLoading == false) {
-        router.replace('/')
-      } else if (user !== null && isLoading == false) {
-        const unsubscribe = db.collection(`users/${user.uid}/recipes`)
-          .onSnapshot((snapshot) => {
+    useEffect(() => {
+        if (user == null && !isLoading) {
+          router.replace('/');
+        } else if (user && !isLoading) {
+          const unsubscribe = db.collection(`users/${user.uid}/recipes`).onSnapshot((snapshot) => {
             const updatedRecipes = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
           });
+      
           const fetchUserData = async () => {
-              const userData = await getUserData(user.uid);
-              setTokens(userData?.tokens);
+            const userData = await getUserData(user.uid);
+            setTokens(userData?.tokens);
           };
           fetchUserData();
+    
+          return () => unsubscribe(); // Cleanup subscription
+        }
+      }, [user, isLoading, router]);
 
-          const urlParams = new URLSearchParams(window.location.search);
-          const tikTokCode = urlParams.get('code');
-          const decodedTikTokCode = decodeURIComponent(tikTokCode!);
-          console.log("Tiktok Code: ", decodedTikTokCode)
-        
-          if(tikTokCode) {
-            handleTikTokCallback(decodedTikTokCode)
-          }
-      }
-    }, [user, isLoading, handleTikTokCallback, router])
+      /*useEffect(() => {
+        const urlParams = new URLSearchParams(window.location.search);
+        const code = urlParams.get('code');
+        const decodedCode = decodeURIComponent(code!);
+        if (decodedCode) {
+          handleTikTokCallback(decodedCode);
+        }
+      }, []);*/
 
 
     if (isLoading) return <PageLoader/>

@@ -36,7 +36,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
 // Function to initiate TikTok login
   const loginWithTikTok = async () => {
 
-    const tikTokUrl = `https://www.tiktok.com/v2/auth/authorize/?client_key=${process.env.NEXT_PUBLIC_TIKTOK_CLIENT_KEY}&scope=user.info.basic&response_type=code&redirect_uri=https://www.zesti.ai/profile&state=true`;
+    const tikTokUrl = `https://www.tiktok.com/v2/auth/authorize/?client_key=${process.env.NEXT_PUBLIC_TIKTOK_CLIENT_KEY}&scope=user.info.basic&response_type=code&redirect_uri=${"https://zesti.ngrok.app/profile"}&state=true`;
 
     // Redirect the user
     window.location.href = tikTokUrl;
@@ -44,48 +44,30 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
 
   // Function to handle TikTok callback
   const handleTikTokCallback = async (code: string) => {
-    // Exchange the code for a token
 
-    const formData = new URLSearchParams();
-    formData.append('client_key', process.env.NEXT_PUBLIC_TIKTOK_CLIENT_KEY!);
-    formData.append('client_secret', process.env.NEXT_PUBLIC_TIKTOK_CLIENT_SECRET!);
-    formData.append('code', code);
-    formData.append('grant_type', 'authorization_code');
-    formData.append('redirect_uri', 'https://www.zesti.ai/profile');
-
-    console.log("Form Data:", formData.toString())
-    
     try {
-      // Make the POST request
-      const tokenResponse = await fetch('https://open.tiktokapis.com/v2/oauth/token/', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
-        },
-        body: formData.toString()
-      });
+        const tokenResponse = await fetch('/api/tiktokaccesstoken', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+                "Cache-Control": "no-cache",
+            },
+            body: JSON.stringify({ code })
+        });
 
-      const tokenData = await tokenResponse.json();
-
-      if (tokenResponse.ok) {
-        // Set the token in state and store it in Firestore
-        setTikTokToken(tokenData.access_token);
-        if (user) {
-          db.collection('users').doc(user.uid).update({
-            tikTokToken: tokenData.access_token,
-            tikTokRefreshToken: tokenData.refresh_token, // Storing refresh token as well
-            tikTokOpenId: tokenData.open_id, // Store open_id if necessary
-            isCreator: true,
-          });
+        if (!tokenResponse.ok) {
+            console.error("HTTP Error Response:", tokenResponse.status, tokenResponse.statusText);
+            const errorResponse = await tokenResponse.text();
+            console.error("Error Response Body:", errorResponse);
+            throw new Error(`HTTP error ${tokenResponse.status}: ${errorResponse}`);
         }
-      } else {
-        // Handle errors
-        console.error("Error fetching TikTok token:", tokenData.error_description);
-        throw new Error(tokenData.error_description);
-      }
+
+        const tokenData = await tokenResponse.json();
+        console.log("Token Data:", tokenData);
+        // ... (rest of your code)
     } catch (error) {
-      console.error("Error in handleTikTokCallback:", error);
-      throw error;
+        console.error("Error in handleTikTokCallback:", error);
+        // Optionally, rethrow or handle the error further
     }
   };
 
