@@ -2,7 +2,7 @@ import { Raleway } from 'next/font/google'
 import { CreatorPageTitle, CreatorSearch, CreatorRecipeTitle } from '@/components/creator/profile';
 import { useAuth } from "@/pages/api/auth/auth"
 import { useRouter } from "next/router";
-import { RecipeList } from '@/components/dashboard/recipelist';
+import { CreatorRecipeList } from '@/components/dashboard/creatorlist';
 import { useState, useEffect } from "react";
 import { PageLoader } from "@/components/shared/loader";
 import Head from 'next/head';
@@ -12,6 +12,7 @@ import GoogleTags from '@/components/tags/conversion';
 import { PromoteKitTag } from '@/components/tags/headertags';
 import AdSenseDisplay from '@/components/tags/adsense';
 import { SharedPageTitle } from '@/components/shared/title';
+import { setCookie } from '@/pages/api/handler/cookies';
 
 const raleway = Raleway({subsets: ['latin']})
 
@@ -45,6 +46,15 @@ export default function Dashboard() {
       }
     }, [user])
 
+    useEffect(() => {
+    
+      const affiliateCode = window.promotekit_referral;
+  
+      if (affiliateCode) {
+        setCookie('affiliate_code', affiliateCode, 30);
+      }
+    }, []);
+
   if (isLoading || waitForPage == true) return <PageLoader/>
     
   return (
@@ -60,7 +70,7 @@ export default function Dashboard() {
         <CreatorSearch/> {/* CHANGE THIS SEARCH TO ONLY SEARCH WITHIN THE ACCOUNT OF CURRENT USER*/}
         <div className="border-t border-gray-200 m-12" style={{ width: '35%' }} />
         <CreatorRecipeTitle/>
-        {isLoadingRecipes ? <PageLoader/> : <RecipeList data={recipes} maxDisplayCount={10}/>}
+        {isLoadingRecipes ? <PageLoader/> : <CreatorRecipeList data={recipes} maxDisplayCount={10}/>}
         {stripeRole !== 'premium' && recipes.length > 0 ? 
         <div className="flex justify-center items-center py-16">
           <div className="w-full min-w-[300px] max-w-[320px] lg:max-w-full lg:min-w-[1240px] text-center">

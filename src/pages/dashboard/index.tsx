@@ -1,5 +1,5 @@
 import { Raleway } from 'next/font/google'
-import { Tools, Search } from '@/components/dashboard';
+import {  Search } from '@/components/dashboard';
 import { useAuth } from "@/pages/api/auth/auth"
 import { useRouter } from "next/router";
 import { RecipeList } from '@/components/dashboard/recipelist';
@@ -76,8 +76,6 @@ export default function Dashboard() {
         <SharedPageTitle title="Dashboard" desc="Access all your saved recipes, and all the tools Zesti has available"/>
         <div className="mt-8 lg:mt-0" />
         <Search/>
-        <div className="border-t border-gray-200 m-12" style={{ width: '35%' }} />
-        <Tools/>
         <div className="border-t border-gray-200 m-12" style={{ width: '35%' }} />
         <DashboardRecipeTitle/>
         <RecipeList data={recipes} maxDisplayCount={5}/>

@@ -4,19 +4,8 @@ import { db } from "../firebase/firebase";
 import { getUserData } from "../firebase/functions";
 import axios from 'axios'
 import { increment } from 'firebase/firestore';
-import React, { useState } from "react";
 import { getCurrentDate } from "./general";
 
-
-
-async function isValidUrl(string: string) {
-    try {
-        new URL(string);
-        return true;
-    } catch (error) {
-        return false;
-    }
-}
 
 async function convertISO8601ToMinutesAndSeconds(isoDuration: any) {
     const regex = /PT(?:(\d+)H)?(?:(\d+)M)?(?:(\d+)S)?/;
@@ -187,131 +176,6 @@ export const handleTikTokURLSubmit = async ({url, setUrl, user, setMessage, stri
             console.log(err)
             return false
         }
-    } else {  
-        setNotify(true)
-        setMessage("Uh oh! You ran out of recipes for the month!") 
-        return false; 
-    }
-}
-
-interface ChatProps {
-    input: string,
-    user: any,
-    setMessage: any,
-    stripeRole: any,
-    setNotify: any,
-    recipes: any,
-}
-
-export const handleCreativeChatSubmit = async({input, user, setMessage, stripeRole, setNotify, recipes}: ChatProps) => {
-
-        // url check
-        const urlCheck = await isValidUrl(input)
-
-        if (input == '') {
-            setNotify(true) 
-            setMessage("Oops! The input cannot be blank!")
-            return false;
-        }
-
-        const date = await getCurrentDate()
-
-        const falseObj = {
-            "userMessage": `${input}`,
-            "source": "creative",
-            "date": date
-        }
-
-    if (stripeRole == 'premium') {
-        try {
-            await db.collection('users').doc(user.uid).collection('creative').doc().set(falseObj)
-            setMessage("Your recipe will appear in your dashboard shortly")
-            await db.collection('users').doc(user.uid).update({
-                totalRecipes: increment(+1),
-                lifeTimeUsage: increment(+1)
-            })
-            return true
-        } catch (err) {
-            setNotify(true)
-            setMessage("Something went wrong. Please try again later. If the problem persists, feel free to contact us.")
-            return false
-        }
-    }
-
-    let tokens = 0;
-    await getUserData(user?.uid).then((res) => {tokens = res?.tokens})
-            
-    if (tokens >= 1) {
-        try {
-            await db.collection('users').doc(user.uid).collection('creative').doc().set(falseObj)
-            setMessage("Your recipe will appear in your dashboard shortly")
-            await db.collection('users').doc(user.uid).update({
-                tokens: increment(-1),
-                totalRecipes: increment(+1),
-                lifeTimeUsage: increment(+1)
-            })
-            return true
-        } catch (err) {
-            setNotify(true)
-            setMessage("Something went wrong. Please try again later. If the problem persists, feel free to contact us.")
-            return false
-        }
-    } else { 
-        setNotify(true)
-        setMessage("Uh oh! You ran out of recipes for the month!") 
-        return false; 
-    }
-
-}
-
-interface WebURLProps {
-    url: string,
-    user: any,
-    setMessage: any,
-    stripeRole: any,
-    setNotify: any,
-}
-
-export const handleWebURLSubmit = async ({url, user, setMessage, stripeRole, setNotify}: WebURLProps): Promise<boolean> => {
-
-    // URL CHecks
-    const urlCheck = await isValidUrl(url)
-
-    if (url == '') {
-        setNotify(true) 
-        setMessage("Oops! You must input a valid website URL!")
-        return false;
-    } else if (urlCheck == false) {
-        setNotify(true)
-        setMessage("Oops! That isn't a valid URL!")
-        return false;
-    }
-
-    const date = await getCurrentDate()
-
-    const falseObj = {
-        "url": `${url}`,
-        "source": "url",
-        "date": date
-    }
-
-    let tokens = 0;
-    await getUserData(user?.uid).then((res) => {tokens = res?.tokens})
-    
-    if (tokens >= 1) {
-        try {
-            await db.collection('users').doc(user.uid).collection('weburl').doc().set(falseObj)
-            setMessage("Your recipe will appear in your dashboard shortly")
-            await db.collection('users').doc(user.uid).update({
-                tokens: increment(-1)
-            })
-            return true
-        } catch (err) {
-            setNotify(true)
-            setMessage("Something went wrong. Please try again later. If the problem persists, please contact us.")
-            console.log(err)
-            return false
-        }   
     } else {  
         setNotify(true)
         setMessage("Uh oh! You ran out of recipes for the month!") 

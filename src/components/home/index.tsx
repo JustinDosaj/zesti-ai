@@ -18,7 +18,7 @@ export function HomePageTools() {
           name: 'AI Recipe Generator',
           description: 'Create a recipe from a list of ingredients, description or dish name.',
           icon: StarIcon,
-          href: '/about/tools/create-recipe'
+          href: '/about/tools/social-media-recipe'
         },
         {
           name: 'Save Tiktok & YouTube Recipes',
@@ -30,7 +30,7 @@ export function HomePageTools() {
           name: 'Clutterless Web Recipes',
           description: 'Remove clutter and excess ads from website recipes using Zesti',
           icon: ComputerDesktopIcon,
-          href: '/about/tools/web-recipe'
+          href: '/about/tools/social-media-recipe'
         },
       ]
 
