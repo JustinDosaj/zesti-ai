@@ -90,52 +90,7 @@ export default function ProfilePageComponent() {
                         </div>
                     </dl>
                 </div>
-
-                <div>
-                    <h2 className="font-semibold leading-7 text-gray-900 section-desc-text-size">Creator Information</h2>
-                    <p className="mt-1 text-sm leading-6 text-gray-500 lg:text-base">
-                        Connect your TikTok & store recipes in place for your viewers
-                    </p>
-
-                    <dl className="mt-6 space-y-6 divide-y divide-gray-100 border-t border-gray-200 text-sm leading-6">
-                        <div className="pt-6 flex justify-between items-center">
-                            <dt className="font-semibold text-gray-900 sm:w-64 sm:flex-none sm:pr-6 text-sm lg:text-base">Connect Tiktok Account</dt>
-                            <dd className="mt-1 flex gap-x-6 sm:mt-0">
-                                <button type="button" className="font-semibold text-primary-main hover:text-primary-alt text-sm lg:text-base"
-                                    onClick={loginWithTikTok}>
-                                    Connect
-                                </button>
-                            </dd>
-                        </div>
-                        <div className="pt-6 flex justify-between items-center">
-                            <dt className="font-semibold text-gray-900 sm:w-64 sm:flex-none sm:pr-6 text-sm lg:text-base">Affiliate Program</dt>
-                            <dd className="mt-1 flex gap-x-6 sm:mt-0">
-                                <button type="button" className="font-semibold text-primary-main hover:text-primary-alt text-sm lg:text-base"
-                                    onClick={() => {window.open(`https://zesti.getrewardful.com/signup`)}}>
-                                    Join or Manage
-                                </button>
-                            </dd>
-                        </div>
-                        <div className="pt-6 flex justify-between items-center">
-                            <dt className="font-semibold text-gray-900 sm:w-64 sm:flex-none sm:pr-6 text-sm lg:text-base">Manage Recipes</dt>
-                            <dd className="mt-1 flex gap-x-6 sm:mt-0">
-                                <Link type="button" className="font-semibold text-primary-main hover:text-primary-alt text-sm lg:text-base"
-                                    href={'/creator/manage'}>
-                                    Add/Remove
-                                </Link>
-                            </dd>
-                        </div>
-                        <div className="pt-6 flex justify-between items-center">
-                            <dt className="font-semibold text-gray-900 sm:w-64 sm:flex-none sm:pr-6 text-sm lg:text-base">Your Creator Page</dt>
-                            <dd className="mt-1 flex gap-x-6 sm:mt-0">
-                                <Link type="button" className="font-semibold text-primary-main hover:text-primary-alt text-sm lg:text-base"
-                                    href={'/creator/page/username'}>
-                                    View
-                                </Link>
-                            </dd>
-                        </div>
-                    </dl>
-                </div>
+                <CreatorProfileComponent/>
                 <div>
                     <h2 className="font-semibold leading-7 text-gray-900 section-desc-text-size">Usage</h2>
                     <p className="mt-1 text-sm leading-6 text-gray-500 lg:text-base">
@@ -154,5 +109,76 @@ export default function ProfilePageComponent() {
             </main>
         </div>
         </Container>
+    )
+}
+
+export function CreatorProfileComponent() {
+    
+    const { user, stripeRole, logout, isLoading, loginWithTikTok, isCreator } = useAuth()
+    const [ tokens, setTokens ] = useState<number>(0)
+    const router = useRouter();
+
+    if(isCreator == true) return (
+        <div>
+            <h2 className="font-semibold leading-7 text-gray-900 section-desc-text-size">Creator Page</h2>
+            <p className="mt-1 text-sm leading-6 text-gray-500 lg:text-base">
+                Control your creator page from here
+            </p>
+            <dl className="mt-6 space-y-6 divide-y divide-gray-100 border-t border-gray-200 text-sm leading-6">
+                <div className="pt-6 flex justify-between items-center">
+                    <dt className="font-semibold text-gray-900 sm:w-64 sm:flex-none sm:pr-6 text-sm lg:text-base">Connect Tiktok Account</dt>
+                    <dd className="mt-1 flex gap-x-6 sm:mt-0">
+                        <button type="button" className="font-semibold text-primary-main hover:text-primary-alt text-sm lg:text-base"
+                            onClick={loginWithTikTok}>
+                            Connect
+                        </button>
+                        {/* *CHANGE TO SOMETHING ELSE AFTER FIRST TIKTOK CONNECTION --> OPTION TO RECONNECT OR CHANGE ACCOUNTS WILL DELETE CURRENT PAGE
+                            *POSSIBLE REQUIRE TIKTOK ACCOUNT AUTHROIZATION BEFORE APPLICATION SUBMISSION TO ENSURE WE KNOW THIS PERSON OWNS A TIKTOK 
+                        */}
+                    </dd>
+                </div>
+                <div className="pt-6 flex justify-between items-center">
+                    <dt className="font-semibold text-gray-900 sm:w-64 sm:flex-none sm:pr-6 text-sm lg:text-base">Affiliate Program</dt>
+                    <dd className="mt-1 flex gap-x-6 sm:mt-0">
+                        <button type="button" className="font-semibold text-primary-main hover:text-primary-alt text-sm lg:text-base"
+                            onClick={() => {window.open(`https://zesti.promotekit.com/`)}}>
+                            Setup
+                        </button>
+                        {/* TRACK AFFILIATE CODE INSIDE FIRESTORE THEN DISPLAY MANAGE AFFILIATE PROGRAM IF IT IS AVAILABLE*/}
+                    </dd>
+                </div>
+                <div className="pt-6 flex justify-between items-center">
+                    <dt className="font-semibold text-gray-900 sm:w-64 sm:flex-none sm:pr-6 text-sm lg:text-base">Your Creator Page</dt>
+                    <dd className="mt-1 flex gap-x-6 sm:mt-0">
+                        <Link type="button" className="font-semibold text-primary-main hover:text-primary-alt text-sm lg:text-base"
+                            href={'/creator'}>
+                            View/Edit
+                        </Link>
+                            {/* *USER WILL HAVE TO INITIATE CREATE AFTER AFFILAITE PROGRAM AND TIKTOK ACCOUNT HAVE BEEN SETUP
+                            *ONCE SETUP CHANGE TO SAY VIEW/EDIT CREATOR PAGE*/}
+                    </dd>
+                </div>
+            </dl>
+        </div>
+    )
+
+    else return (
+        <div>
+            <h2 className="font-semibold leading-7 text-gray-900 section-desc-text-size">Creator Page</h2>
+            <p className="mt-1 text-sm leading-6 text-gray-500 lg:text-base">
+                Create recipes on TikTok? Easily showcase them for your users with Zesti
+            </p>
+            <dl className="mt-6 space-y-6 divide-y divide-gray-100 border-t border-gray-200 text-sm leading-6">
+                <div className="pt-6 flex justify-between items-center">
+                    <dt className="font-semibold text-gray-900 sm:w-64 sm:flex-none sm:pr-6 text-sm lg:text-base">Join Creator Program</dt>
+                    <dd className="mt-1 flex gap-x-6 sm:mt-0">
+                        <button type="button" className="font-semibold text-primary-main hover:text-primary-alt text-sm lg:text-base"
+                            onClick={loginWithTikTok}>
+                            Contact Us
+                        </button>
+                    </dd>
+                </div>
+            </dl>
+        </div>
     )
 }

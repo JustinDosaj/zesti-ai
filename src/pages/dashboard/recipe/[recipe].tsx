@@ -17,18 +17,11 @@ const raleway = Raleway({subsets: ['latin']})
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
     const id = context.query?.recipe as string
-
-    const collectionSnapshot = await db.collection('amazonproducts').get();
-    const totalProducts = collectionSnapshot.size
-    const randIdx = Math.floor(Math.random() * totalProducts)
-    const docSnapshot = await db.doc(`amazonproducts/${randIdx}`).get()
-    const ad = docSnapshot.exists ? docSnapshot.data() : null
-
-    return {props: {id, ad}}
+    return {props: {id}}
 }
 
 
-const Recipe: React.FC = ({id, ad}: any) => {
+const Recipe: React.FC = ({id}: any) => {
 
     const { user, isLoading, stripeRole } = useAuth();
 
@@ -50,7 +43,7 @@ const Recipe: React.FC = ({id, ad}: any) => {
         const unsubscribe = db.doc(`users/${user.uid}/recipes/${id}`)
           .onSnapshot((docSnapshot) => {
             if (docSnapshot.exists) {
-              setRecipe(docSnapshot.data()?.data);
+              setRecipe(docSnapshot.data());
               setUrl(docSnapshot.data()?.url ? docSnapshot.data()?.url : '')
             } else {
               console.log("Doc doesnt exist")
@@ -69,17 +62,14 @@ const Recipe: React.FC = ({id, ad}: any) => {
       const recipeRef = db.collection(`users/${user?.uid}/recipes`).doc(id);
       try {
         await recipeRef.update({
-          'data.ingredients': updatedIngredients // Directly updating the nested field
+          'ingredients': updatedIngredients // Directly updating the nested field
         });
         console.log('Ingredient updated successfully in Firestore!');
     
         // Optimistically update the local state right after sending the Firestore update
         setRecipe((prevRecipe: any) => ({
           ...prevRecipe,
-          data: {
-            ...prevRecipe.data,
-            ingredients: updatedIngredients
-          }
+          ingredients: updatedIngredients,
         }));
       } catch (error) {
         console.error('Error updating ingredient in Firestore:', error);
@@ -95,17 +85,14 @@ const Recipe: React.FC = ({id, ad}: any) => {
       const recipeRef = db.collection(`users/${user?.uid}/recipes`).doc(id);
       try {
         await recipeRef.update({
-          'data.instructions': updatedInstructions // Directly updating the nested field
+          'instructions': updatedInstructions // Directly updating the nested field
         });
         console.log('Instruction updated successfully in Firestore!');
     
         // Optimistically update the local state right after sending the Firestore update
         setRecipe((prevRecipe: any) => ({
           ...prevRecipe,
-          data: {
-            ...prevRecipe.data,
-            instructions: updatedInstructions
-          }
+          instructions: updatedInstructions
         }));
       } catch (error) {
         console.error('Error updating instructions in Firestore:', error);
@@ -123,17 +110,14 @@ const Recipe: React.FC = ({id, ad}: any) => {
       // Update the local state
       setRecipe((prevRecipe: any) => ({
           ...prevRecipe,
-          data: {
-              ...prevRecipe.data,
-              ingredients: updatedIngredients,
-          },
+          ingredients: updatedIngredients,
       }));
   
       // Update Firestore
       const recipeRef = db.collection(`users/${user?.uid}/recipes`).doc(id);
       try {
           await recipeRef.update({
-              'data.ingredients': updatedIngredients,
+              'ingredients': updatedIngredients,
           });
           console.log('Ingredient deleted successfully from Firestore');
       } catch (error) {
@@ -151,17 +135,14 @@ const Recipe: React.FC = ({id, ad}: any) => {
       // Update the local state
       setRecipe((prevRecipe: any) => ({
           ...prevRecipe,
-          data: {
-              ...prevRecipe.data,
-              instructions: updatedInstructions,
-          },
+          instructions: updatedInstructions,
       }));
   
       // Update Firestore
       const recipeRef = db.collection(`users/${user?.uid}/recipes`).doc(id);
       try {
           await recipeRef.update({
-              'data.instructions': updatedInstructions,
+              'instructions': updatedInstructions,
           });
           console.log('Instruction deleted successfully from Firestore');
       } catch (error) {
@@ -182,10 +163,7 @@ const Recipe: React.FC = ({id, ad}: any) => {
         // Update the local state
         setRecipe((prevRecipe: any) => ({
             ...prevRecipe,
-            data: {
-                ...prevRecipe.data,
-                ingredients: updatedIngredients,
-            },
+            ingredients: updatedIngredients,
         }));
         
 
@@ -193,7 +171,7 @@ const Recipe: React.FC = ({id, ad}: any) => {
         const recipeRef = db.collection(`users/${user?.uid}/recipes`).doc(id);
         try {
             await recipeRef.update({
-                'data.ingredients': updatedIngredients,
+                'ingredients': updatedIngredients,
             });
             console.log('Ingredient added successfully to Firestore');
         } catch (error) {
