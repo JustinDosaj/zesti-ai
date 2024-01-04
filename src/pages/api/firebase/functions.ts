@@ -77,3 +77,39 @@ export async function deleteRecipe(user: any, id: any) {
     console.log("User document not found");
   }
 }
+
+interface TikTokTokenData {
+  access_token: string;
+  refresh_token: string;
+  open_id: string;
+  expires_in: number;
+  refresh_expires_in: number;
+}
+
+export async function updateUserWithTikTokTokens(tokenData: TikTokTokenData, userId: string,) {
+  try {
+    const userRef = db.collection('users').doc(userId);
+
+    if (!tokenData.access_token || !tokenData.refresh_token || !tokenData.open_id) {
+      throw new Error('Token data is incomplete or undefined');
+    }
+
+    // Prepare the data to be updated
+    const updateData = {
+      tiktokAccessToken: tokenData.access_token,
+      tiktokRefreshToken: tokenData.refresh_token,
+      tiktokOpenId: tokenData.open_id,
+      // You can also store expiration times if needed
+    };
+
+    console.log("updateData", updateData)
+
+    // Update the user's document
+    await userRef.set(updateData, { merge: true });
+
+    console.log(`User ${userId} updated with TikTok tokens.`);
+  } catch (error) {
+    console.error('Error updating user with TikTok tokens:', error);
+    throw error; // You can handle the error as per your application's needs
+  }
+}
