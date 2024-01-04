@@ -1,5 +1,5 @@
 import { Container } from "../shared/container"
-import { SparklesIcon, VideoCameraIcon, LinkIcon, ChevronDoubleRightIcon, MagnifyingGlassIcon } from '@heroicons/react/24/outline'
+import { ChevronDoubleRightIcon, MagnifyingGlassIcon } from '@heroicons/react/24/outline'
 import { useAuth } from "@/pages/api/auth/auth"
 import { Notify } from "../shared/notify"
 import React, { useState, useEffect } from "react"

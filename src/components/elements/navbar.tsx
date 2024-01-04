@@ -44,7 +44,7 @@ const navItemsLoggedIn = [
     },
     {
         href: "/profile",
-        text: "Settings",
+        text: "Profile",
     },
 ]
 
@@ -71,7 +71,7 @@ const navItemsLoggedInMobile = [
     },
     {
         href: "/profile",
-        text: "Settings",
+        text: "Profile",
         icon: Cog6ToothIcon,
     },
 ]

@@ -1,10 +1,10 @@
-import { Raleway } from 'next/font/google'
 import Head from 'next/head';
 import GoogleTags from '@/components/tags/conversion';
 import { HomePageScroller, HomePageTools, HomePageCTA, HomeFAQ, HomeVideoToRecipe, Hero } from '@/components/home';
 import { useAuth } from './api/auth/auth';
 import { PageLoader } from '@/components/shared/loader';
 import { PromoteKitTag } from '@/components/tags/headertags';
+import { Raleway } from 'next/font/google'
 const raleway = Raleway({subsets: ['latin']})
 
 export default function Home() {

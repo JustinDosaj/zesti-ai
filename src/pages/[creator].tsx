@@ -70,7 +70,7 @@ export default function Dashboard() {
         <CreatorSearch/> {/* CHANGE THIS SEARCH TO ONLY SEARCH WITHIN THE ACCOUNT OF CURRENT USER*/}
         <div className="border-t border-gray-200 m-12" style={{ width: '35%' }} />
         <CreatorRecipeTitle/>
-        {isLoadingRecipes ? <PageLoader/> : <CreatorRecipeList data={recipes} maxDisplayCount={10}/>}
+        {/*isLoadingRecipes ? <PageLoader/> : <CreatorRecipeList data={recipes} maxDisplayCount={10}/>*/}
         {stripeRole !== 'premium' && recipes.length > 0 ? 
         <div className="flex justify-center items-center py-16">
           <div className="w-full min-w-[300px] max-w-[320px] lg:max-w-full lg:min-w-[1240px] text-center">
