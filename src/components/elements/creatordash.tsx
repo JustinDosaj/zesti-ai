@@ -29,8 +29,6 @@ export function CreatorDashboard({ children }: CreatorDashboardProps) {
     const router = useRouter();
     const currentPath = router.pathname;
 
-    console.log(currentPath)
-
     return (
         <>
         {/*
