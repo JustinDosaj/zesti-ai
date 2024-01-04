@@ -125,33 +125,12 @@ export function CreatorProfileComponent() {
                 Control your creator page from here
             </p>
             <dl className="mt-6 space-y-6 divide-y divide-gray-100 border-t border-gray-200 text-sm leading-6">
+
                 <div className="pt-6 flex justify-between items-center">
-                    <dt className="font-semibold text-gray-900 sm:w-64 sm:flex-none sm:pr-6 text-sm lg:text-base">Connect Tiktok Account</dt>
-                    <dd className="mt-1 flex gap-x-6 sm:mt-0">
-                        <button type="button" className="font-semibold text-primary-main hover:text-primary-alt text-sm lg:text-base"
-                            onClick={loginWithTikTok}>
-                            Connect
-                        </button>
-                        {/* *CHANGE TO SOMETHING ELSE AFTER FIRST TIKTOK CONNECTION --> OPTION TO RECONNECT OR CHANGE ACCOUNTS WILL DELETE CURRENT PAGE
-                            *POSSIBLE REQUIRE TIKTOK ACCOUNT AUTHROIZATION BEFORE APPLICATION SUBMISSION TO ENSURE WE KNOW THIS PERSON OWNS A TIKTOK 
-                        */}
-                    </dd>
-                </div>
-                <div className="pt-6 flex justify-between items-center">
-                    <dt className="font-semibold text-gray-900 sm:w-64 sm:flex-none sm:pr-6 text-sm lg:text-base">Affiliate Program</dt>
-                    <dd className="mt-1 flex gap-x-6 sm:mt-0">
-                        <button type="button" className="font-semibold text-primary-main hover:text-primary-alt text-sm lg:text-base"
-                            onClick={() => {window.open(`https://zesti.promotekit.com/`)}}>
-                            Setup
-                        </button>
-                        {/* TRACK AFFILIATE CODE INSIDE FIRESTORE THEN DISPLAY MANAGE AFFILIATE PROGRAM IF IT IS AVAILABLE*/}
-                    </dd>
-                </div>
-                <div className="pt-6 flex justify-between items-center">
-                    <dt className="font-semibold text-gray-900 sm:w-64 sm:flex-none sm:pr-6 text-sm lg:text-base">Your Creator Page</dt>
+                    <dt className="font-semibold text-gray-900 sm:w-64 sm:flex-none sm:pr-6 text-sm lg:text-base">Open Creator Dashboard</dt>
                     <dd className="mt-1 flex gap-x-6 sm:mt-0">
                         <Link type="button" className="font-semibold text-primary-main hover:text-primary-alt text-sm lg:text-base"
-                            href={'/creator'}>
+                            href={'/creator/home'}>
                             View/Edit
                         </Link>
                             {/* *USER WILL HAVE TO INITIATE CREATE AFTER AFFILAITE PROGRAM AND TIKTOK ACCOUNT HAVE BEEN SETUP
@@ -169,6 +148,7 @@ export function CreatorProfileComponent() {
                 Create recipes on TikTok? Easily showcase them for your users with Zesti
             </p>
             <dl className="mt-6 space-y-6 divide-y divide-gray-100 border-t border-gray-200 text-sm leading-6">
+
                 <div className="pt-6 flex justify-between items-center">
                     <dt className="font-semibold text-gray-900 sm:w-64 sm:flex-none sm:pr-6 text-sm lg:text-base">Join Creator Program</dt>
                     <dd className="mt-1 flex gap-x-6 sm:mt-0">

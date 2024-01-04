@@ -5,17 +5,21 @@ import { Footer } from '@/components/elements/footer'
 //import { initFirebase } from './api/firebase/firebase'
 import { AuthProvider } from './api/auth/auth'
 import { Analytics } from '@vercel/analytics/react';
+import { useRouter } from 'next/router'
 
 
 export default function App({ Component, pageProps }: AppProps) {
 
+  const router = useRouter()
+  const isCreatorPage = router.pathname.includes('/creator/');
+
   return (
   <>
     <AuthProvider>
-        <Navbar/>
+        {!isCreatorPage && <Navbar/>}
           <Component {...pageProps}/>
           <Analytics/>
-        <Footer/>
+        {!isCreatorPage && <Footer/>}
     </AuthProvider>
   </>
   )
