@@ -115,7 +115,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
           })
           router.push('/welcome/newuser')
         } else {
-          router.push('/dashboard')
+          router.push('/profile')
         }
       }
 
@@ -205,18 +205,25 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
       setUser(currentUser);
       if ((currentUser as any)?.reloadUserInfo?.customAttributes) {
-        setStripeRole(JSON.parse((currentUser as any)?.reloadUserInfo.customAttributes).stripeRole);
-        
-        const creatorStatus = await checkIsCreatorStatus(currentUser?.uid!);
-        setIsCreator(creatorStatus);
 
-        const token = await fetchTikTokToken(currentUser?.uid!);
-        setTikTokAccessToken(token)
-    } else {
-        setStripeRole(null);
+          setStripeRole(JSON.parse((currentUser as any)?.reloadUserInfo.customAttributes).stripeRole);
+
+      } else {
+          setStripeRole(null);
+      }
+
+      if ((currentUser as any)) {
+          
+        const creatorStatus = await checkIsCreatorStatus(currentUser?.uid!);
+          setIsCreator(creatorStatus);
+
+          const token = await fetchTikTokToken(currentUser?.uid!);
+          setTikTokAccessToken(token)
+      } else {
         setIsCreator(false);
         setTikTokAccessToken(null)
-    }
+      }
+
       setIsLoading(false);  // Once the user state is updated, set isLoading to false
     });
 

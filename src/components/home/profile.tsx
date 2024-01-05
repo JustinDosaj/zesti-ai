@@ -118,6 +118,10 @@ export function CreatorProfileComponent() {
     const [ tokens, setTokens ] = useState<number>(0)
     const router = useRouter();
 
+    console.log(stripeRole)
+    console.log(isCreator)
+    console.log(user?.uid)
+
     if(isCreator == true) return (
         <div>
             <h2 className="font-semibold leading-7 text-gray-900 section-desc-text-size">Creator Page</h2>
