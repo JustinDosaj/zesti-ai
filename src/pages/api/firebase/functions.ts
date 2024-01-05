@@ -102,8 +102,6 @@ export async function updateUserWithTikTokTokens(tokenData: TikTokTokenData, use
       // You can also store expiration times if needed
     };
 
-    console.log("updateData", updateData)
-
     // Update the user's document
     await userRef.set(updateData, { merge: true });
 
@@ -111,5 +109,28 @@ export async function updateUserWithTikTokTokens(tokenData: TikTokTokenData, use
   } catch (error) {
     console.error('Error updating user with TikTok tokens:', error);
     throw error; // You can handle the error as per your application's needs
+  }
+}
+
+export async function saveAffiliateLink(affiliateLink: string, userId: string) {
+  
+  const url = new URL(affiliateLink)
+  const params = new URLSearchParams(url.search)
+  const affiliateCode = params.get('via')
+
+  console.log("Affiliate Code: ", affiliateCode)
+
+  try{
+    const userRef = db.collection('users').doc(userId);
+
+    const updateAffiliateLink = {
+      affiliate_link: affiliateLink,
+      affiliate_code: affiliateCode,
+    }
+
+    await userRef.set(updateAffiliateLink, {merge: true});
+
+  } catch (err) {
+    console.log(err)
   }
 }

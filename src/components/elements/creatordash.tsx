@@ -12,7 +12,6 @@ const navigation = [
   { name: 'Home', href: '/creator/home', icon: HomeIcon, current: true },
   { name: 'Add Recipe', href: '/creator/add-recipe', icon: DocumentPlusIcon, current: false },
   { name: 'Settings', href: '/creator/settings', icon: Cog6ToothIcon, current: false },
-  { name: 'Your Page', href: '/creator/page', icon: UserIcon, current: false },
 ]
 
 function classNames(...classes: (string | null | undefined)[]): string {
@@ -31,14 +30,6 @@ export function CreatorDashboard({ children }: CreatorDashboardProps) {
 
     return (
         <>
-        {/*
-            This example requires updating your template:
-
-            ```
-            <html class="h-full bg-white">
-            <body class="h-full">
-            ```
-        */}
         <div>
             <Transition.Root show={sidebarOpen} as={Fragment}>
             <Dialog as="div" className="relative z-50 lg:hidden" onClose={setSidebarOpen}>

@@ -12,6 +12,8 @@ export default function Home() {
   
   const { isLoading, isCreator, user } = useAuth();
 
+  if(isLoading) return <PageLoader/>
+
   return (
     <>
         <Head>
