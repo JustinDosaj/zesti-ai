@@ -1,62 +1,67 @@
 import { Raleway } from 'next/font/google'
-import { CreatorPageTitle, CreatorSearch, CreatorRecipeTitle } from '@/components/creator/profile';
+import { CreatorSearch, CreatorRecipeTitle, CreatorPageTitle, CreatorInformation } from '@/components/creator/profile';
 import { useAuth } from "@/pages/api/auth/auth"
-import { useRouter } from "next/router";
-import { CreatorRecipeList } from '@/components/dashboard/creatorlist';
-import { useState, useEffect } from "react";
+import { GetServerSideProps, NextPage } from 'next';
+import { useEffect } from "react";
 import { PageLoader } from "@/components/shared/loader";
 import Head from 'next/head';
 import { db } from './api/firebase/firebase';
-import { getUserData } from './api/firebase/functions';
 import GoogleTags from '@/components/tags/conversion';
 import { PromoteKitTag } from '@/components/tags/headertags';
-import AdSenseDisplay from '@/components/tags/adsense';
-import { SharedPageTitle } from '@/components/shared/title';
 import { setCookie } from '@/pages/api/handler/cookies';
+import firebase from 'firebase/compat/app';
 
 const raleway = Raleway({subsets: ['latin']})
 
-export default function Dashboard() {
 
-    const { user, isLoading, stripeRole } = useAuth();
-    const [isLoadingRecipes, setIsLoadingRecipes] = useState<boolean>(true);
-    const [ waitForPage, setWaitForPage ] = useState<boolean>(true)
-    const [ tokens, setTokens ] = useState<number>(0)
-    const [recipes, setRecipes] = useState<any[]>([]);
-    const router = useRouter();
+interface CreatorProps {
+  creatorData: firebase.firestore.DocumentData | null;
+}
 
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const { creator } = context.params as { creator: string };
+  console.log("DM", creator)
+  let creatorData = null;
 
-    useEffect( () => {
+  try {
+    const querySnapshot = await db.collection('creators').where('display_name', '==', creator).get();
+    console.log("Query Snapshot:", querySnapshot);
+    if (!querySnapshot.empty) {
+      const doc = querySnapshot.docs[0];
+      creatorData = { userId: doc.id, ...doc.data() };
+      console.log("Creator Data:", creatorData);
+    }
+  } catch (error) {
+    console.error('Error fetching creator:', error);
+  }
+
+  return {
+    props: {
+      creatorData,
+    },
+  };
+};
+
+const CreatorPage: NextPage<CreatorProps> = ({ creatorData }) => {
+
+  const { user, isLoading } = useAuth()
+
+  useEffect(() => {
     
-        if (user !== null && isLoading == false) {
+    const affiliateCode = window.promotekit_referral;
 
-        //  CHANGE WHERE WE ARE GETTING THE RECIPE COLLECTION //
-        const unsubscribe = db.collection(`users/${user.uid}/recipes`)
-          .onSnapshot((snapshot) => {
-            const updatedRecipes = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
-            setRecipes(updatedRecipes);
-            setIsLoadingRecipes(false);
-          });
-          const fetchUserData = async () => {
-              const userData = await getUserData(user.uid);
-              setTokens(userData?.tokens);
-              setWaitForPage(false)
-          };
-          fetchUserData();
-      }
-    }, [user])
+    if (affiliateCode) {
+      setCookie('affiliate_code', affiliateCode, 30);
+    }
+  }, []);
 
-    useEffect(() => {
-    
-      const affiliateCode = window.promotekit_referral;
-  
-      if (affiliateCode) {
-        setCookie('affiliate_code', affiliateCode, 30);
-      }
-    }, []);
+  if (isLoading) return <PageLoader/>
 
-  if (isLoading || waitForPage == true) return <PageLoader/>
-    
+  if (!creatorData) {
+    return <div>No creator found</div>;
+  }
+
+  // Render your creator data here
   return (
     <>
     <Head>
@@ -64,23 +69,13 @@ export default function Dashboard() {
       <GoogleTags/>
       <PromoteKitTag/>
     </Head>
-    <main className={`flex min-h-screen flex-col items-center justify-between bg-background ${raleway.className}`}>
-        <SharedPageTitle title="Creator" desc="View & search all the recipes made by <username>"/>
-        <div className="mt-8 lg:mt-0" />
-        <CreatorSearch/> {/* CHANGE THIS SEARCH TO ONLY SEARCH WITHIN THE ACCOUNT OF CURRENT USER*/}
-        <div className="border-t border-gray-200 m-12" style={{ width: '35%' }} />
-        <CreatorRecipeTitle/>
-        {/*isLoadingRecipes ? <PageLoader/> : <CreatorRecipeList data={recipes} maxDisplayCount={10}/>*/}
-        {stripeRole !== 'premium' && recipes.length > 0 ? 
-        <div className="flex justify-center items-center py-16">
-          <div className="w-full min-w-[300px] max-w-[320px] lg:max-w-full lg:min-w-[1240px] text-center">
-            <AdSenseDisplay adSlot="5606229053" adFormat="rectangle, horizontal" widthRes="true"/>
-          </div>
-        </div>
-        :
-        <div className="mb-28"/>
-        }
+    <main className={`flex min-h-screen flex-col items-center bg-background ${raleway.className}`}>
+      <CreatorPageTitle creatorData={creatorData}/>
+      <CreatorSearch/>
+      {/* other creator data */}
     </main>
     </>
-  )
-}
+  );
+};
+
+export default CreatorPage

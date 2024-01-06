@@ -5,6 +5,7 @@ const nextConfig = {
     domains: 
     [
       "m.media-amazon.com", 
+      "p16-sign.tiktokcdn-us.com"
     ],
   },
 }
