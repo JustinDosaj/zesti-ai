@@ -6,6 +6,7 @@ import GoogleTags from '@/components/tags/conversion';
 import { useAuth } from "../api/auth/auth";
 import { PageLoader } from '@/components/shared/loader';
 import { PromoteKitTag } from '@/components/tags/headertags';
+import { CreatorTools } from "@/components/dashboard/creator";
 const raleway = Raleway({subsets: ['latin']})
 
 export default function Home() {
@@ -25,6 +26,7 @@ export default function Home() {
         </Head>
         <CreatorDashboard>
           <CreatorHomeComponent/>
+          <CreatorTools/>
         </CreatorDashboard>
     </>
   )

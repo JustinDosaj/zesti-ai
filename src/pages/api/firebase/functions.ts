@@ -102,6 +102,12 @@ export async function updateUserWithTikTokTokens(tokenData: TikTokTokenData, use
       // You can also store expiration times if needed
     };
 
+    const createPageData = {
+      owner_id: userId,
+    }
+
+    await db.collection('creators').doc(userId).set(createPageData)
+
     // Update the user's document
     await userRef.set(updateData, { merge: true });
 
