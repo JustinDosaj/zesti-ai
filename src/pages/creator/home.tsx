@@ -1,17 +1,33 @@
 import { CreatorHomeComponent } from "@/components/dashboard/creator";
 import { CreatorDashboard } from "@/components/elements/creatordash";
-import { Raleway } from 'next/font/google'
 import Head from 'next/head';
 import GoogleTags from '@/components/tags/conversion';
 import { useAuth } from "../api/auth/auth";
 import { PageLoader } from '@/components/shared/loader';
 import { PromoteKitTag } from '@/components/tags/headertags';
 import { CreatorTools } from "@/components/dashboard/creator";
-const raleway = Raleway({subsets: ['latin']})
+import { useEffect, useState } from "react";
+import { db } from "../api/firebase/firebase";
+import { getUserData } from "../api/firebase/functions";
 
 export default function Home() {
   
   const { isLoading, isCreator, user } = useAuth();
+  const [ displayName, setDisplayName ] = useState<string>('')
+
+  useEffect(() => {
+    try { 
+      const fetchUserData = async () => {
+        const userData = await getUserData(user?.uid);
+        console.log(userData)
+        setDisplayName(userData?.tiktok)
+      };
+      fetchUserData();
+
+    } catch (err) {
+
+    }
+  },[isLoading])
 
   if(isLoading) return <PageLoader/>
 
@@ -26,7 +42,7 @@ export default function Home() {
         </Head>
         <CreatorDashboard>
           <CreatorHomeComponent/>
-          <CreatorTools/>
+          <CreatorTools tiktokDisplayName={displayName}/>
         </CreatorDashboard>
     </>
   )

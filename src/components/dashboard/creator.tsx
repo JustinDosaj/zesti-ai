@@ -107,7 +107,7 @@ export function CreatorSettingsComponent({userData}: any) {
                 </div>
                 <div className="pt-6 flex justify-end items-center">
                     <dd className="mt-1 flex gap-x-6 sm:mt-0">
-                        <Button buttonType="button" className="font-semibold text-sm lg:text-base" text="Create Page"
+                        <Button buttonType="button" className="font-semibold text-sm lg:text-base" text="Update"
                             onClick={() => {window.open(`https://zesti.promotekit.com/`)}}>
                         </Button>
                         {/* TRACK AFFILIATE CODE INSIDE FIRESTORE THEN DISPLAY MANAGE AFFILIATE PROGRAM IF IT IS AVAILABLE*/}
@@ -132,7 +132,7 @@ export function AddRecipeCreatorComponent() {
     )
 }
 
-export function CreatorTools() {
+export function CreatorTools({tiktokDisplayName}: any) {
 
     const stats = [
         { 
@@ -141,7 +141,8 @@ export function CreatorTools() {
             icon: SparklesIcon, 
             colorType: 'green', 
             href: '/tools/generator', 
-            desc: "Create new recipes just for you" 
+            desc: "Create new recipes just for you",
+            buttonText: 'Add Recipe', 
         },
         { 
             id: 2, 
@@ -149,15 +150,17 @@ export function CreatorTools() {
             icon: VideoCameraIcon, 
             colorType: 'red', 
             href: '/tools/video', 
-            desc: "Save recipes from YouTube or TikTok" 
+            desc: "Save recipes from YouTube or TikTok",
+            buttonText: 'Temp', 
         },
         { 
             id: 3, 
             name: 'View Page', 
             icon: LinkIcon, 
             colorType: 'yellow', 
-            href: '/tools/website', 
-            desc: "Remove clutter from recipe websites"
+            href: `/${tiktokDisplayName}`, 
+            desc: "Remove clutter from recipe websites",
+            buttonText: 'View Your Page',
         },
       ]
 
@@ -183,7 +186,7 @@ export function CreatorTools() {
                     <p className="text-sm sm:text-base text-gray-900">{item.desc}</p>
                     <div className="flex justify-center absolute inset-x-0 bottom-0 bg-gray-150 px-4 py-4 sm:px-6">
                         <div className="flex justify-center font-medium cursor-pointer text-white bg-gray-900 w-full text-sm p-2 rounded-3xl hover:bg-gray-700 hover:ease-in hover:duration-100">
-                            Add Recipe<span className="sr-only"> {item.name} stats</span>
+                            {item.buttonText}<span className="sr-only"> {item.name} stats</span>
                         </div>
                     </div>
                     </dd>
