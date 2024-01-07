@@ -1,11 +1,4 @@
-import React, { useState, ReactNode } from 'react'
-import {
-  CalendarIcon,
-  FolderIcon,
-  HomeIcon,
-  UsersIcon,
-} from '@heroicons/react/24/outline'
-import { Raleway } from 'next/font/google'
+import React, { useState, useEffect, ReactNode } from 'react'
 import { PageLoader } from '../shared/loader'
 import { Button } from '../shared/button'
 import { useAuth } from '@/pages/api/auth/auth'
@@ -13,23 +6,10 @@ import { saveAffiliateLink } from '@/pages/api/firebase/functions'
 import { SparklesIcon, VideoCameraIcon, LinkIcon } from "@heroicons/react/20/solid"
 import { Container } from '../shared/container'
 import Link from 'next/link'
-const raleway = Raleway({subsets: ['latin']})
-
-
-const navigation = [
-  { name: 'Home', href: '/creator/home', icon: HomeIcon, current: true },
-  { name: 'Add Recipe', href: '/creator/add-recipe', icon: UsersIcon, current: false },
-  { name: 'Settings', href: '/creator/settings', icon: FolderIcon, current: false },
-  { name: 'Profile', href: '#', icon: CalendarIcon, current: false },
-]
 
 function classNames(...classes: (string | null | undefined)[]): string {
     return classes.filter(Boolean).join(' ')
   }
-
-  type CreatorDashboardProps = {
-    children: ReactNode; // Accepts any valid React node
-};
 
 export function CreatorHomeComponent() {
 
@@ -46,10 +26,12 @@ export function CreatorHomeComponent() {
     )
 }
 
-export function CreatorSettingsComponent({userData}: any) {
+export function CreatorSettingsComponent({userData, creatorData}: any) {
 
     const { user, isLoading, loginWithTikTok, tikTokAccessToken } = useAuth()
     const [ affiliateLink, setAffiliateLink ] = useState<string>(userData?.affiliate_link) 
+
+    console.log(creatorData)
 
     if (isLoading) return <PageLoader/>
 
@@ -64,6 +46,15 @@ export function CreatorSettingsComponent({userData}: any) {
                     <dt className="font-semibold text-gray-900 sm:w-64 sm:flex-none sm:pr-6 text-sm lg:text-base">Email</dt>
                     <dd className="mt-1 flex gap-x-6 sm:mt-0">
                         <div className="text-gray-700 text-sm lg:text-base">{user?.email}</div>
+                        {/* *CHANGE TO SOMETHING ELSE AFTER FIRST TIKTOK CONNECTION --> OPTION TO RECONNECT OR CHANGE ACCOUNTS WILL DELETE CURRENT PAGE
+                            *POSSIBLE REQUIRE TIKTOK ACCOUNT AUTHROIZATION BEFORE APPLICATION SUBMISSION TO ENSURE WE KNOW THIS PERSON OWNS A TIKTOK 
+                        */}
+                    </dd>
+                </div>
+                <div className="pt-6 flex justify-between items-center">
+                    <dt className="font-semibold text-gray-900 sm:w-64 sm:flex-none sm:pr-6 text-sm lg:text-base">Page Link</dt>
+                    <dd className="mt-1 flex gap-x-6 sm:mt-0">
+                        <div className="text-gray-700 text-sm lg:text-base">{`https://www.zesti.ai/${creatorData?.display_name}/?via=${userData?.affiliate_code}`}</div>
                         {/* *CHANGE TO SOMETHING ELSE AFTER FIRST TIKTOK CONNECTION --> OPTION TO RECONNECT OR CHANGE ACCOUNTS WILL DELETE CURRENT PAGE
                             *POSSIBLE REQUIRE TIKTOK ACCOUNT AUTHROIZATION BEFORE APPLICATION SUBMISSION TO ENSURE WE KNOW THIS PERSON OWNS A TIKTOK 
                         */}
@@ -105,11 +96,91 @@ export function CreatorSettingsComponent({userData}: any) {
                         {/* TRACK AFFILIATE CODE INSIDE FIRESTORE THEN DISPLAY MANAGE AFFILIATE PROGRAM IF IT IS AVAILABLE*/}
                     </dd>
                 </div>
+            </dl>
+        </div>
+    )
+}
+
+export function CreatorProfileComponent({creatorData}: any) {
+
+    const { user, isLoading } = useAuth()
+    const [ bio, setBio ] = useState<string>(creatorData?.bio_description)
+    const [ tiktok, setTikTok ] = useState<string>(creatorData?.profile_deep_link)
+    const [ youtube, setYouTube ] = useState<string>('')
+    const [ twitter, setTwitter ] = useState<string>('')
+    const [ instagram, setInstagram ] = useState<string>('')
+    const [ website, setWebsite ] = useState<string>('')
+    const [ edit, setEdit ] = useState<boolean>(false)
+    const [ saving, setSaving ] = useState<boolean>(false)
+
+    let socialLinks = [
+        { name: 'Tiktok', value: tiktok, function: setTikTok},
+        { name: 'YouTube', value: youtube, function: setYouTube},
+        { name: 'Twitter/X', value: twitter, function: setTwitter},
+        { name: 'Instagram', value: instagram, function: setInstagram},
+        { name: 'Website', value: website, function: setWebsite},
+    ]
+
+    useEffect(() => {
+        setBio(creatorData?.bio_description)
+        setTikTok(creatorData?.profile_deep_link || '');
+        // ... do this for other social media states
+    }, [creatorData]);
+
+    if (isLoading) return <PageLoader/>
+
+    return(
+        <div>
+            <h2 className="font-semibold leading-7 text-gray-900 section-desc-text-size">Your Profile</h2>
+            <p className="mt-1 text-sm leading-6 text-gray-500 lg:text-base">
+                View & edit what your viewers will see on your recipe page
+            </p>
+            <dl className="mt-6 space-y-6 divide-y divide-gray-100 border-t border-gray-200 text-sm leading-6">
+                <div className="pt-6 flex justify-between items-center">
+                    <dt className="font-semibold text-gray-900 sm:w-64 sm:flex-none sm:pr-6 text-sm lg:text-base">Display Name</dt>
+                    <dd className="mt-1 flex gap-x-6 sm:mt-0">
+                        <div className="text-gray-700 text-sm lg:text-base">{creatorData?.display_name}</div>
+                        {/* *CHANGE TO SOMETHING ELSE AFTER FIRST TIKTOK CONNECTION --> OPTION TO RECONNECT OR CHANGE ACCOUNTS WILL DELETE CURRENT PAGE
+                            *POSSIBLE REQUIRE TIKTOK ACCOUNT AUTHROIZATION BEFORE APPLICATION SUBMISSION TO ENSURE WE KNOW THIS PERSON OWNS A TIKTOK 
+                        */}
+                    </dd>
+                </div>
+                <div className="pt-6 justify-between items-center">
+                    <dt className="font-semibold text-gray-900 sm:w-64 sm:flex-none sm:pr-6 text-sm lg:text-base">Biography</dt>
+                    <textarea className="border border-gray-300 p-2 rounded-3xl font-semibold text-gray-700 w-full sm:flex-none sm:pr-6 mt-4"
+                        disabled={!edit} 
+                        placeholder={creatorData?.bio_description}
+                        value={bio}
+                        onChange={(e) => setBio(e.target.value)}
+                    />
+                </div>
+                {socialLinks.map((social) => (
+                    <div className="pt-6 flex justify-between items-center">
+                        <dt className="font-semibold text-gray-900 sm:w-64 sm:flex-none sm:pr-6 text-sm lg:text-base">{social.name}</dt>
+                        <dd className="mt-1 flex gap-x-6 sm:mt-0">
+                            <input className="border border-gray-300 p-2 rounded-3xl w-3/4 font-semibold text-gray-700 sm:w-64 sm:flex-none sm:pr-6"
+                                disabled={!edit} 
+                                placeholder={social.value}
+                                value={social.value}
+                                onChange={(e) => social.function(e.target.value)}
+                            />
+                            {/* TRACK AFFILIATE CODE INSIDE FIRESTORE THEN DISPLAY MANAGE AFFILIATE PROGRAM IF IT IS AVAILABLE*/}
+                        </dd>
+                    </div>
+                ))
+
+                }
                 <div className="pt-6 flex justify-end items-center">
                     <dd className="mt-1 flex gap-x-6 sm:mt-0">
-                        <Button buttonType="button" className="font-semibold text-sm lg:text-base" text="Update"
-                            onClick={() => {window.open(`https://zesti.promotekit.com/`)}}>
+                        { edit == true ?
+                        <Button buttonType="button" className="font-semibold text-sm lg:text-base" text="Save"
+                            onClick={() => setEdit(false)}>
                         </Button>
+                        :
+                        <Button buttonType="button" className="font-semibold text-sm lg:text-base" text="Edit"
+                            onClick={() => setEdit(true)}>
+                        </Button>
+                        }
                         {/* TRACK AFFILIATE CODE INSIDE FIRESTORE THEN DISPLAY MANAGE AFFILIATE PROGRAM IF IT IS AVAILABLE*/}
                     </dd>
                 </div>
