@@ -19,20 +19,35 @@ interface CreatorProps {
 }
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
+  
   const { creator } = context.params as { creator: string };
-  console.log("DM", creator)
+
   let creatorData = null;
 
   try {
     const querySnapshot = await db.collection('creators').where('display_name', '==', creator).get();
-    console.log("Query Snapshot:", querySnapshot);
+
     if (!querySnapshot.empty) {
       const doc = querySnapshot.docs[0];
       creatorData = { userId: doc.id, ...doc.data() };
-      console.log("Creator Data:", creatorData);
+
+      console.log(creatorData)
+    } else {
+      return {
+        redirect: {
+          destination: '/',
+          permanent: false,
+        }
+      }
     }
   } catch (error) {
     console.error('Error fetching creator:', error);
+      return {
+        redirect: {
+          destination: '/',
+          permanent: false,
+        }
+    }
   }
 
   return {
@@ -48,18 +63,20 @@ const CreatorPage: NextPage<CreatorProps> = ({ creatorData }) => {
 
   useEffect(() => {
     
+    if (creatorData?.affiliate_code) {
+      window.promotekit_referral = creatorData.affiliate_code
+    }
+
     const affiliateCode = window.promotekit_referral;
 
-    if (affiliateCode) {
+    setCookie('affiliate_code', affiliateCode!, 30);
+
+    /*if (affiliateCode) {
       setCookie('affiliate_code', affiliateCode, 30);
-    }
+    }*/
   }, []);
 
-  if (isLoading) return <PageLoader/>
-
-  if (!creatorData) {
-    return <div>No creator found</div>;
-  }
+  if (isLoading || !creatorData) return <PageLoader/>
 
   // Render your creator data here
   return (

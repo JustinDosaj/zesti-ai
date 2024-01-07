@@ -44,6 +44,17 @@ export async function getUserData(user: any) {
   } catch(error) { console.log(error) }
 }
 
+export async function getCreatorData(user: any) {
+  try {
+    const ref = db.collection('creators').doc(user)
+    const doc = await ref.get()
+    const res = doc.data()
+    return res
+  } catch (error) {
+    console.log(error)
+  }
+}
+
 export async function getRecipe(user: any, id: any) {
     try {
       const ref = await db.collection('users').doc(user).collection('recipes').doc(id)

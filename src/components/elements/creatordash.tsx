@@ -11,6 +11,7 @@ const raleway = Raleway({subsets: ['latin']})
 const navigation = [
   { name: 'Home', href: '/creator/home', icon: HomeIcon, current: true },
   { name: 'Add Recipe', href: '/creator/add-recipe', icon: DocumentPlusIcon, current: false },
+  { name: 'Profile', href: '/creator/profile', icon: UserIcon, current: false },
   { name: 'Settings', href: '/creator/settings', icon: Cog6ToothIcon, current: false },
 ]
 

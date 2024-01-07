@@ -1,4 +1,4 @@
-import { CreatorSettingsComponent } from "@/components/dashboard/creator";
+import { CreatorProfileComponent } from "@/components/dashboard/creator";
 import { CreatorDashboard } from "@/components/elements/creatordash";
 import Head from 'next/head';
 import GoogleTags from '@/components/tags/conversion';
@@ -21,15 +21,15 @@ export default function Settings() {
 
   useEffect(() => {
       const fetchUserData = async () => {
-      if (user) {
-          const userData = await getUserData(user.uid)
-          setUserData(userData)
+        if (user) {
+            const userData = await getUserData(user.uid)
+            setUserData(userData)
 
-          if (isCreator == true) {
-            const creatorData = await getCreatorData(user.uid)
-            setCreatorData(creatorData)
+            if (isCreator == true) {
+                const creatorData = await getCreatorData(user.uid)
+                setCreatorData(creatorData)
+            }
         }
-      }
       };
 
       if (user == null && !isLoading) {
@@ -54,7 +54,7 @@ export default function Settings() {
         </Head>
         <main className={`${raleway.className}`}>
           <CreatorDashboard>
-            <CreatorSettingsComponent userData={userData} creatorData={creatorData}/>
+            <CreatorProfileComponent creatorData={creatorData}/>
           </CreatorDashboard>
         </main>
     </>
