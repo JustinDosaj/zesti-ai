@@ -31,8 +31,6 @@ export function CreatorSettingsComponent({userData, creatorData}: any) {
     const { user, isLoading, loginWithTikTok, tikTokAccessToken } = useAuth()
     const [ affiliateLink, setAffiliateLink ] = useState<string>(userData?.affiliate_link) 
 
-    console.log(creatorData)
-
     if (isLoading) return <PageLoader/>
 
     return(
@@ -155,7 +153,7 @@ export function CreatorProfileComponent({creatorData}: any) {
                     />
                 </div>
                 {socialLinks.map((social) => (
-                    <div className="pt-6 flex justify-between items-center">
+                    <div key={social.name} className="pt-6 flex justify-between items-center">
                         <dt className="font-semibold text-gray-900 sm:w-64 sm:flex-none sm:pr-6 text-sm lg:text-base">{social.name}</dt>
                         <dd className="mt-1 flex gap-x-6 sm:mt-0">
                             <input className="border border-gray-300 p-2 rounded-3xl w-3/4 font-semibold text-gray-700 sm:w-64 sm:flex-none sm:pr-6"
