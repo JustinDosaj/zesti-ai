@@ -135,8 +135,6 @@ export async function saveAffiliateLink(affiliateLink: string, userId: string) {
   const params = new URLSearchParams(url.search)
   const affiliateCode = params.get('via')
 
-  console.log("Affiliate Code: ", affiliateCode)
-
   try{
     const userRef = db.collection('users').doc(userId);
 
@@ -150,4 +148,15 @@ export async function saveAffiliateLink(affiliateLink: string, userId: string) {
   } catch (err) {
     console.log(err)
   }
+}
+
+export async function saveBioDataToFireStore(bioObj: any, userId: string){
+
+  try {
+    const creatorRef = db.collection('creators').doc(userId)
+    await creatorRef.set(bioObj, {merge: true});
+  } catch (error) {
+    console.log(error)
+  }
+
 }

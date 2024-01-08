@@ -46,7 +46,7 @@ export function Search() {
 
     return(
     <Container className={"flex flex-col lg:flex-row gap-10 lg:gap-12 animate-fadeIn"}>
-        <div className="w-full flex-col ">
+        <div className="w-full flex-col">
             <dl className="grid grid-cols-1 gap-10">
             <div className="w-full flex flex-col items-center animate-fadeIn ">
                 <div className="flex sm:flex-row flex-col gap-5">
