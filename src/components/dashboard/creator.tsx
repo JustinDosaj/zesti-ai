@@ -1,4 +1,4 @@
-import React, { useState, useEffect, ReactNode } from 'react'
+import React, { useState, useEffect } from 'react'
 import { PageLoader } from '../shared/loader'
 import { Button } from '../shared/button'
 import { useAuth } from '@/pages/api/auth/auth'
@@ -7,6 +7,7 @@ import { SparklesIcon, VideoCameraIcon, LinkIcon } from "@heroicons/react/20/sol
 import { saveBioDataToFireStore } from '@/pages/api/firebase/functions'
 import { Container } from '../shared/container'
 import Link from 'next/link'
+import { handleCreatorTikTokURLSubmit } from '@/pages/api/handler/submit'
 
 function classNames(...classes: (string | null | undefined)[]): string {
     return classes.filter(Boolean).join(' ')
@@ -30,7 +31,12 @@ export function CreatorHomeComponent() {
 export function CreatorSettingsComponent({userData, creatorData}: any) {
 
     const { user, isLoading, loginWithTikTok, tikTokAccessToken } = useAuth()
-    const [ affiliateLink, setAffiliateLink ] = useState<string>(userData?.affiliate_link) 
+    const [ affiliateLink, setAffiliateLink ] = useState<string>('')
+    const [ edit, setEdit ] = useState<boolean>(false) 
+
+    useEffect(() => {
+        setAffiliateLink(userData?.affiliate_link)
+    },[userData])
 
     if (isLoading) return <PageLoader/>
 
@@ -53,7 +59,7 @@ export function CreatorSettingsComponent({userData, creatorData}: any) {
                 <div className="pt-6 flex justify-between items-center">
                     <dt className="font-semibold text-gray-900 sm:w-64 sm:flex-none sm:pr-6 text-sm lg:text-base">Page Link</dt>
                     <dd className="mt-1 flex gap-x-6 sm:mt-0">
-                        <div className="text-gray-700 text-sm lg:text-base">{`https://www.zesti.ai/${creatorData?.display_name}/?via=${userData?.affiliate_code}`}</div>
+                        <div className="text-gray-700 text-sm lg:text-base">{`https://www.zesti.ai/${creatorData?.display_name}`}</div>
                         {/* *CHANGE TO SOMETHING ELSE AFTER FIRST TIKTOK CONNECTION --> OPTION TO RECONNECT OR CHANGE ACCOUNTS WILL DELETE CURRENT PAGE
                             *POSSIBLE REQUIRE TIKTOK ACCOUNT AUTHROIZATION BEFORE APPLICATION SUBMISSION TO ENSURE WE KNOW THIS PERSON OWNS A TIKTOK 
                         */}
@@ -74,24 +80,43 @@ export function CreatorSettingsComponent({userData, creatorData}: any) {
                 <div className="pt-6 flex justify-between items-center">
                     <dt className="font-semibold text-gray-900 sm:w-64 sm:flex-none sm:pr-6 text-sm lg:text-base">Affiliate Program</dt>
                     <dd className="mt-1 flex gap-x-6 sm:mt-0">
+                        { affiliateLink !== '' ?
+                        <button type="button" className="font-semibold text-primary-main hover:text-primary-alt text-sm lg:text-base"
+                            onClick={() => {window.open(`https://zesti.promotekit.com/`)}}>
+                            Manage
+                        </button>
+                        :
                         <button type="button" className="font-semibold text-primary-main hover:text-primary-alt text-sm lg:text-base"
                             onClick={() => {window.open(`https://zesti.promotekit.com/`)}}>
                             Setup
                         </button>
+                        }
                         {/* TRACK AFFILIATE CODE INSIDE FIRESTORE THEN DISPLAY MANAGE AFFILIATE PROGRAM IF IT IS AVAILABLE*/}
                     </dd>
                 </div>
                 <div className="pt-6 flex justify-between items-center">
                     <input className="border border-gray-300 p-2 rounded-3xl w-3/4 font-semibold text-gray-700 sm:w-64 sm:flex-none sm:pr-6" 
                         placeholder="Copy & Paste Affiliate Link Here"
-                        value={userData?.affiliate_link}
+                        disabled={!edit}
+                        value={affiliateLink}
                         onChange={(val: any) => setAffiliateLink(val.target.value)}
                     />
                     <dd className="mt-1 flex gap-x-6 sm:mt-0">
+                        { edit == false ? 
                         <button type="button" className="font-semibold text-primary-main hover:text-primary-alt text-sm lg:text-base"
-                            onClick={() => {saveAffiliateLink(affiliateLink, user?.uid!)}}>
+                            onClick={() => setEdit(true)}>
+                            {"Edit"}
+                        </button>
+                        :
+                        <button type="button" className="font-semibold text-primary-main hover:text-primary-alt text-sm lg:text-base"
+                            onClick={() => {
+                                console.log(affiliateLink)
+                                saveAffiliateLink(affiliateLink, user?.uid!)
+                                setEdit(false)
+                                }}>
                             {"Save"}
                         </button>
+                        }
                         {/* TRACK AFFILIATE CODE INSIDE FIRESTORE THEN DISPLAY MANAGE AFFILIATE PROGRAM IF IT IS AVAILABLE*/}
                     </dd>
                 </div>
@@ -209,16 +234,34 @@ export function CreatorProfileComponent({creatorData}: any) {
     )
 }
 
-export function AddRecipeCreatorComponent() {
+export function RecentTikTokVideos({data, displayName}: any) {
 
-    const { user, isLoading } = useAuth() 
+    const { user, isLoading } = useAuth()
+    const [ notify, setNotify ] = useState<boolean | null>(null)
+    
+    const addRecipeToCreatorPage = async (url_id: string) => {
+
+        const url = `https://www.tiktok.com/@${displayName}/video/${url_id}`
+        await handleCreatorTikTokURLSubmit({url, user, setNotify, url_id}).then((val) => {
+            console.log(val)
+        })
+    
+    }
 
     if (isLoading) return <PageLoader/>
 
     return(
-        <div className="bg-yellow-200">
-            <p className="text-xl text-gray-600">ADD RECIPE</p>
-            <p className="text-lg text-gray-600">Recipe navigation to add custom recipe or tiktok recipe</p>
+        <div className="">
+            {data?.videos?.map((item: any) => (
+                <div className="space-y-4">
+                    <div className="text-center section-title-text-size">Recent TikTok Videos</div>
+                    <div className="inline-flex items-center space-x-4 border-gray-300 border rounded-r rounded-l">
+                        <img src={item.cover_image_url} className="h-16 w-16 rounded-l" alt={""}/>
+                        <span className="section-desc-text-size pr-4">{item.title}</span>
+                        <button className="" onClick={() => addRecipeToCreatorPage(item.id)}>Add Recipe</button>
+                    </div>
+                </div>
+            ))}
         </div>
     )
 }
@@ -231,7 +274,7 @@ export function CreatorTools({tiktokDisplayName}: any) {
             name: 'Add Recipe', 
             icon: SparklesIcon, 
             colorType: 'green', 
-            href: '/tools/generator', 
+            href: '/creator/add-recipe', 
             desc: "Create new recipes just for you",
             buttonText: 'Add Recipe', 
         },

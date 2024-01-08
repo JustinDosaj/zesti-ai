@@ -152,3 +152,19 @@ export function CreatorSocials({creatorData}: any) {
         </Container>
     )
 }
+
+export function CreatorPageRecentRecipes({recipes}: any) {
+  
+  console.log("Creator Recipes: ", recipes)
+
+  return(
+  <div className="space-y-2">
+    <div className="mt-6">
+      <h2 className="text-center text-2xl font-semibold">Recent Recipes</h2>
+    </div>
+      {recipes.map((item: any) => (
+        <div>{item.name}</div>
+      ))}
+  </div>
+  )
+}
