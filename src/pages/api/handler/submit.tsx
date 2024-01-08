@@ -125,11 +125,12 @@ export const handleYouTubeURLSubmit = async ({url, user, setMessage, stripeRole,
 
 export interface TikTokProps {
     url: any,
-    setUrl: any,
+    setUrl?: any,
     user: any,
-    setMessage: any,
-    stripeRole: any,
-    setNotify: any, 
+    setMessage?: any,
+    stripeRole?: any,
+    setNotify?: any,
+    url_id?: string, 
 }
 
 export const handleTikTokURLSubmit = async ({url, setUrl, user, setMessage, stripeRole, setNotify}: TikTokProps): Promise<boolean> => {
@@ -181,4 +182,26 @@ export const handleTikTokURLSubmit = async ({url, setUrl, user, setMessage, stri
         setMessage("Uh oh! You ran out of recipes for the month!") 
         return false; 
     }
+}
+
+export const handleCreatorTikTokURLSubmit = async ({url, user, setNotify, url_id}: TikTokProps): Promise<boolean> => {
+
+    // Check if URL is empty   
+    const date = await getCurrentDate()
+
+    const falseObj = {
+        "url": `${url}`,
+        "url_id": url_id,
+        "source": "tiktok",
+        "date": date
+    }
+
+    try {
+        await db.collection('creators').doc(user?.uid).collection('tiktokurl').doc().set(falseObj)
+        return true
+    } catch (err) {
+        console.log(err)
+        return false
+    }
+
 }

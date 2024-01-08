@@ -1,8 +1,8 @@
 import { Raleway } from 'next/font/google'
-import { CreatorSearch, CreatorRecipeTitle, CreatorPageTitle, CreatorSocials } from '@/components/creator/profile';
+import { CreatorSearch, CreatorRecipeTitle, CreatorPageTitle, CreatorSocials, CreatorPageRecentRecipes } from '@/components/creator/profile';
 import { useAuth } from "@/pages/api/auth/auth"
 import { GetServerSideProps, NextPage } from 'next';
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { PageLoader } from "@/components/shared/loader";
 import Head from 'next/head';
 import { db } from './api/firebase/firebase';
@@ -10,6 +10,7 @@ import GoogleTags from '@/components/tags/conversion';
 import { PromoteKitTag } from '@/components/tags/headertags';
 import { setCookie } from '@/pages/api/handler/cookies';
 import firebase from 'firebase/compat/app';
+import { useRouter } from 'next/router';
 
 const raleway = Raleway({subsets: ['latin']})
 
@@ -64,7 +65,28 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
 const CreatorPage: NextPage<CreatorProps> = ({ creatorData, referer }) => {
 
-  const { user, isLoading } = useAuth()
+  const { user, isLoading, stripeRole } = useAuth();
+  const [isLoadingRecipes, setIsLoadingRecipes] = useState<boolean>(true);
+  const [recipes, setRecipes] = useState<any[]>([]);
+  const router = useRouter();
+  console.log(creatorData)
+
+  useEffect(() => {
+    const fetchRecipes = async () => {
+      if (user) {
+        const recipeSnapshot = await db.collection(`users/${creatorData?.owner_id}/recipes`).get();
+        const updatedRecipes = recipeSnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+        setRecipes(updatedRecipes);
+        setIsLoadingRecipes(false);
+      }
+    };
+
+    if (user == null && !isLoading) {
+      router.replace('/');
+    } else if (user !== null && !isLoading) {
+      fetchRecipes();
+    }
+  }, [user, isLoading, router]);
 
   useEffect(() => {
 
@@ -96,6 +118,7 @@ const CreatorPage: NextPage<CreatorProps> = ({ creatorData, referer }) => {
       <CreatorPageTitle creatorData={creatorData}/>
       <CreatorSocials creatorData={creatorData}/>
       <CreatorSearch creatorData={creatorData}/>
+      <CreatorPageRecentRecipes recipes={recipes}/>
       {/* other creator data */}
     </main>
     </>
