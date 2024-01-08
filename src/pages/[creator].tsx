@@ -16,11 +16,15 @@ const raleway = Raleway({subsets: ['latin']})
 
 interface CreatorProps {
   creatorData: firebase.firestore.DocumentData | null;
+  referer: string | null,
 }
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   
   const { creator } = context.params as { creator: string };
+
+
+  let referer = context.req.headers.referer || null
 
   let creatorData = null;
 
@@ -53,28 +57,30 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   return {
     props: {
       creatorData,
+      referer,
     },
   };
 };
 
-const CreatorPage: NextPage<CreatorProps> = ({ creatorData }) => {
+const CreatorPage: NextPage<CreatorProps> = ({ creatorData, referer }) => {
 
   const { user, isLoading } = useAuth()
 
   useEffect(() => {
-    
-    if (creatorData?.affiliate_code) {
-      window.promotekit_referral = creatorData.affiliate_code
+
+    if (typeof window !== 'undefined') {
+
+      if (creatorData?.affiliate_code && referer !== null) {
+        
+        window.promotekit_referral = creatorData.affiliate_code
+        const affiliateCode = window.promotekit_referral;
+        setCookie('affiliate_code', affiliateCode!, 30);
+
+      }
+
     }
 
-    const affiliateCode = window.promotekit_referral;
-
-    setCookie('affiliate_code', affiliateCode!, 30);
-
-    /*if (affiliateCode) {
-      setCookie('affiliate_code', affiliateCode, 30);
-    }*/
-  }, []);
+  }, [creatorData, referer]);
 
   if (isLoading || !creatorData) return <PageLoader/>
 
