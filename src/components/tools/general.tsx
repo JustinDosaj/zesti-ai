@@ -24,23 +24,21 @@ interface ToolHeroProps {
 export function ToolHero({role, tokens, titleStart, titleEnd, description}: ToolHeroProps){
 
     return(
-        <section className="pt-24 lg:pt-36">
-            <Container className={"flex flex-col lg:flex-row gap-10 lg:gap-12 animate-fadeIn"}>
-                <div className="relative flex flex-col items-center text-center lg:py-7 xl:py-8 lg:max-w-none max-w-3xl mx-auto lg:mx-0 lg:flex-1 lg:w-1/2 p-8 md:p-16">
-                    <h1 className="text-3xl/tight sm:text-4xl/tight md:text-5xl/tight xl:text-6xl/tight font-bold text-heading-1 mt-6">
-                        <span className="text-black">{titleStart} </span>          
-                        <span className="primary-orange-text-gradient">{titleEnd}</span>
-                    </h1>
-                    <Paragraph className="text-base sm:text-lg mt-4 sm:mt-8 text-black">
-                        {role == 'premium' || tokens > 0 ?
-                        `${description}`
-                        :
-                        `No more recipes available. Try Zesti Premium free for 7 days to unlock more!`
-                        }
-                    </Paragraph>
-                </div>
-            </Container>
-        </section>
+        <Container className={"flex flex-col lg:flex-row gap-10 lg:gap-12 animate-fadeIn mt-36"}>
+            <div className="relative flex flex-col items-center text-center lg:max-w-none max-w-3xl mx-auto lg:mx-0 lg:flex-1 lg:w-1/2">
+                <h1 className="section-title-text-size font-bold text-heading-1 mt-6">
+                    <span className="text-black">{titleStart} </span>          
+                    <span className="primary-orange-text-gradient">{titleEnd}</span>
+                </h1>
+                <Paragraph className="text-base sm:text-lg mt-4 text-black">
+                    {role == 'premium' || tokens > 0 ?
+                    `${description}`
+                    :
+                    `No more recipes available. Try Zesti Premium free for 7 days to unlock more!`
+                    }
+                </Paragraph>
+            </div>
+        </Container>
     )
 }
 
@@ -94,7 +92,7 @@ export function VideoComponent() {
     }
 
     return(
-    <div className="p-4 w-full flex flex-col items-center animate-fadeIn">
+    <div className="p-4 w-full flex flex-col items-center animate-fadeIn mt-2">
         <ToastContainer/>
         <div className="flex sm:flex-row flex-col gap-5 w-full justify-center">
             <form action="" method="POST" className="py-1 pl-6 w-full max-w-md pr-1 flex gap-3 items-center text-heading-3 shadow-lg shadow-box-shadow

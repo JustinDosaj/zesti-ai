@@ -1,5 +1,5 @@
 import { Raleway } from 'next/font/google'
-import { CreatorSearch, CreatorRecipeTitle, CreatorPageTitle, CreatorInformation } from '@/components/creator/profile';
+import { CreatorSearch, CreatorRecipeTitle, CreatorPageTitle, CreatorSocials } from '@/components/creator/profile';
 import { useAuth } from "@/pages/api/auth/auth"
 import { GetServerSideProps, NextPage } from 'next';
 import { useEffect } from "react";
@@ -70,7 +70,7 @@ const CreatorPage: NextPage<CreatorProps> = ({ creatorData, referer }) => {
 
     if (typeof window !== 'undefined') {
 
-      if (creatorData?.affiliate_code && referer !== null) {
+      if (creatorData?.affiliate_code && referer !== null && !referer.includes("zesti.ngrok.app")) {
         
         window.promotekit_referral = creatorData.affiliate_code
         const affiliateCode = window.promotekit_referral;
@@ -92,9 +92,10 @@ const CreatorPage: NextPage<CreatorProps> = ({ creatorData, referer }) => {
       <GoogleTags/>
       <PromoteKitTag/>
     </Head>
-    <main className={`flex min-h-screen flex-col items-center bg-background ${raleway.className}`}>
+    <main className={`flex min-h-screen flex-col items-center bg-background space-y-4 ${raleway.className}`}>
       <CreatorPageTitle creatorData={creatorData}/>
-      <CreatorSearch/>
+      <CreatorSocials creatorData={creatorData}/>
+      <CreatorSearch creatorData={creatorData}/>
       {/* other creator data */}
     </main>
     </>

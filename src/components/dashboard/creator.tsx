@@ -4,6 +4,7 @@ import { Button } from '../shared/button'
 import { useAuth } from '@/pages/api/auth/auth'
 import { saveAffiliateLink } from '@/pages/api/firebase/functions'
 import { SparklesIcon, VideoCameraIcon, LinkIcon } from "@heroicons/react/20/solid"
+import { saveBioDataToFireStore } from '@/pages/api/firebase/functions'
 import { Container } from '../shared/container'
 import Link from 'next/link'
 
@@ -102,12 +103,12 @@ export function CreatorSettingsComponent({userData, creatorData}: any) {
 export function CreatorProfileComponent({creatorData}: any) {
 
     const { user, isLoading } = useAuth()
-    const [ bio, setBio ] = useState<string>(creatorData?.bio_description)
-    const [ tiktok, setTikTok ] = useState<string>(creatorData?.profile_deep_link)
-    const [ youtube, setYouTube ] = useState<string>('')
-    const [ twitter, setTwitter ] = useState<string>('')
-    const [ instagram, setInstagram ] = useState<string>('')
-    const [ website, setWebsite ] = useState<string>('')
+    const [ bio, setBio ] = useState<string>(creatorData?.bio_description ? creatorData.bio_description : '')
+    const [ tiktok, setTikTok ] = useState<string>(creatorData?.profile_deep_link ? creatorData.profile_deep_link : '')
+    const [ youtube, setYouTube ] = useState<string>(creatorData?.youtube_link ? creatorData.youtube_link : '')
+    const [ twitter, setTwitter ] = useState<string>(creatorData?.twitter_link ? creatorData.twitter_link : '')
+    const [ instagram, setInstagram ] = useState<string>(creatorData?.instagram_link ? creatorData.instagram_link : '')
+    const [ website, setWebsite ] = useState<string>(creatorData?.website_link ? creatorData.website_link : '')
     const [ edit, setEdit ] = useState<boolean>(false)
     const [ saving, setSaving ] = useState<boolean>(false)
 
@@ -122,8 +123,29 @@ export function CreatorProfileComponent({creatorData}: any) {
     useEffect(() => {
         setBio(creatorData?.bio_description)
         setTikTok(creatorData?.profile_deep_link || '');
-        // ... do this for other social media states
+        setYouTube(creatorData?.youtube_link || '')
+        setTwitter(creatorData?.twitter_link || '')
+        setInstagram(creatorData?.instagram_link || '')
+        setWebsite(creatorData?.website_link || '')
     }, [creatorData]);
+
+    const saveBioData = async () => {
+
+        setEdit(false)
+        setSaving(true)
+
+        if (user) {
+            const bioObject = {
+                bio_description: bio,
+                instagram_link: instagram,
+                twitter_link: twitter,
+                youtube_link: youtube,
+                website_link: website,
+            }
+
+            const res = await saveBioDataToFireStore(bioObject, user?.uid)
+        }
+    }
 
     if (isLoading) return <PageLoader/>
 
@@ -172,7 +194,7 @@ export function CreatorProfileComponent({creatorData}: any) {
                     <dd className="mt-1 flex gap-x-6 sm:mt-0">
                         { edit == true ?
                         <Button buttonType="button" className="font-semibold text-sm lg:text-base" text="Save"
-                            onClick={() => setEdit(false)}>
+                            onClick={saveBioData}>
                         </Button>
                         :
                         <Button buttonType="button" className="font-semibold text-sm lg:text-base" text="Edit"
