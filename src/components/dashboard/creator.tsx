@@ -7,7 +7,6 @@ import { SparklesIcon, VideoCameraIcon, LinkIcon, PlusCircleIcon } from "@heroic
 import { saveBioDataToFireStore } from '@/pages/api/firebase/functions'
 import { Container } from '../shared/container'
 import Link from 'next/link'
-import { handleCreatorTikTokURLSubmit } from '@/pages/api/handler/submit'
 
 function classNames(...classes: (string | null | undefined)[]): string {
     return classes.filter(Boolean).join(' ')
@@ -254,7 +253,7 @@ export function RecentTikTokVideos({data, displayName, setIsOpen, setUrlId, setU
     return(
         <div className="">
             {data?.videos?.map((item: any) => (
-                <div className="space-y-4">
+                <div key={item.title} className="space-y-4">
                     <div className="text-center section-title-text-size">Recent TikTok Videos</div>
                     <div className="inline-flex items-center space-x-4 border-gray-300 border rounded-r rounded-l">
                         <img src={item.cover_image_url} className="h-16 w-16 rounded-l" alt={item.title}/>
