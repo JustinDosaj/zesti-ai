@@ -61,15 +61,16 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       referer,
     },
   };
+
 };
 
 const CreatorPage: NextPage<CreatorProps> = ({ creatorData, referer }) => {
 
   const { user, isLoading, stripeRole } = useAuth();
   const [isLoadingRecipes, setIsLoadingRecipes] = useState<boolean>(true);
-  const [recipes, setRecipes] = useState<any[]>([]);
+  const [ recipes, setRecipes ] = useState<any[]>([]);
+
   const router = useRouter();
-  console.log(creatorData)
 
   useEffect(() => {
     const fetchRecipes = async () => {
