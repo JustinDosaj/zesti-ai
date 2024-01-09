@@ -14,17 +14,13 @@ const raleway = Raleway({subsets: ['latin']})
 
 export default function Settings() {
   
-  const { isLoading, user, isCreator } = useAuth();
-  const [ userData, setUserData] = useState<any>()
+  const { isLoading, user, isCreator, tikTokAccessToken } = useAuth();
   const [ creatorData, setCreatorData ] = useState<any>()
   const router = useRouter()
 
   useEffect(() => {
       const fetchUserData = async () => {
         if (user) {
-            const userData = await getUserData(user.uid)
-            setUserData(userData)
-
             if (isCreator == true) {
                 const creatorData = await getCreatorData(user.uid)
                 setCreatorData(creatorData)
@@ -38,8 +34,6 @@ export default function Settings() {
         fetchUserData();
       }
   },[user, isLoading])
-
-  if (isLoading) return <PageLoader/>
 
   return (
     <>

@@ -39,10 +39,6 @@ export default function Settings() {
       }
   },[user, isLoading])
 
-  console.log("USER DATA: ", userData)
-
-  if (isLoading) return <PageLoader/>
-
   return (
     <>
         <Head>

@@ -55,6 +55,8 @@ export default function AddRecipe() {
             } else if (user !== null && !isLoading) {
               fetchUserData();
             }
+      } else {
+        router.push('/creator/settings')
       }
   }, [tikTokAccessToken]);
 
@@ -65,8 +67,6 @@ export default function AddRecipe() {
   }
 
   console.log("Vid Object: ", videoObject)
-
-  if (isLoading) return <PageLoader/>
 
   return (
     <>

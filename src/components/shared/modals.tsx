@@ -508,19 +508,18 @@ export function CreatorAddRecipeModal({isOpen, setIsOpen, addRecipe, setRawText,
               leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
             >
               <Dialog.Panel className="space-y-4 my-auto relative transform overflow-hidden rounded-lg bg-white px-4 pb-4 pt-5 text-left shadow-xl transition-all sm:my-8 w-full sm:max-w-lg sm:p-6">
-                  <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-primary-main/20">
-                    <VideoCameraIcon className="h-6 w-6 text-primary-main" aria-hidden="true" />
-                  </div>
-                <div className="mt-3 text-center sm:mt-5 ">
-                    <Dialog.Title as="h3" className="text-base font-semibold leading-6 text-gray-900">
-                      {`Add this recipe to your page?`}
-                    </Dialog.Title>
-                </div>
-
                 {/* Video Object */}
-                <div className="inline-flex items-center space-x-4 border-gray-300 border rounded-r-xl rounded-l-xl mt-2">
-                    <img src={videoObject?.cover_image_url} className="h-16 w-16 rounded-l-xl" alt={""}/>
-                    <span className="text-sm lg:text-base pr-4">{videoObject?.title}</span>
+                <div className="p-3">
+                    {/* Use flexbox for the container */}
+                    <div className="flex items-center justify-start space-x-4 border-gray-300 border rounded-r-xl rounded-l-xl p-4">
+                        {/* Image */}
+                        <img src={videoObject?.cover_image_url} className="h-[136px] w-[96px] rounded-xl" alt={videoObject?.title}/>
+                        
+                        {/* Title Wrapper - flex-grow ensures it takes up available space */}
+                        <div className="flex-grow">
+                            <span className="section-desc-text-size">{videoObject?.title}</span>
+                        </div>
+                    </div>
                 </div>
 
                 {/* Checkbox */}
@@ -532,7 +531,7 @@ export function CreatorAddRecipeModal({isOpen, setIsOpen, addRecipe, setRawText,
                       onChange={() => setIsChecked(!isChecked)}
                       className="h-5 w-5 accent-gray-600"
                     />
-                    <label className="text-gray-600">Check here if video does not contain audible instructions</label>
+                    <label className="text-gray-600 text-xs xs:text-sm">Check here if video does not contain audible instructions</label>
                   </div>
                   <textarea
                           value={rawText}
@@ -550,7 +549,7 @@ export function CreatorAddRecipeModal({isOpen, setIsOpen, addRecipe, setRawText,
                     className="inline-flex w-full justify-center rounded-3xl bg-primary-main px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-primary-alt sm:col-start-2"
                     onClick={() => {onAddToRecipeClick()}}
                   >
-                    {`Submit`}
+                    {`Add to Creator Page`}
                   </button>
                   <button
                     type="button"

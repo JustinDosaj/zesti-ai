@@ -1,31 +1,17 @@
 import React, { useState, useEffect } from 'react'
-import { PageLoader } from '../shared/loader'
+import { PageLoader, RecipeListLoader } from '../shared/loader'
 import { Button } from '../shared/button'
 import { useAuth } from '@/pages/api/auth/auth'
 import { saveAffiliateLink } from '@/pages/api/firebase/functions'
-import { SparklesIcon, VideoCameraIcon, LinkIcon, PlusCircleIcon } from "@heroicons/react/20/solid"
+import { SparklesIcon, VideoCameraIcon, LinkIcon, PlusCircleIcon, PencilIcon, ComputerDesktopIcon, Cog6ToothIcon } from "@heroicons/react/20/solid"
 import { saveBioDataToFireStore } from '@/pages/api/firebase/functions'
 import { Container } from '../shared/container'
+import { Paragraph } from '../shared/paragraph'
 import Link from 'next/link'
 
 function classNames(...classes: (string | null | undefined)[]): string {
     return classes.filter(Boolean).join(' ')
   }
-
-export function CreatorHomeComponent() {
-
-    const { user, isLoading } = useAuth() 
-
-    if (isLoading) return <PageLoader/>
-
-    return(
-        <div className="bg-yellow-200">
-            <p className="text-xl text-gray-600">HOME</p>
-            <p className="text-lg text-gray-600">Show links (view page, etc.)</p>
-            <p className="text-lg text-gray-600">Show basic navigation options like add recipe or view page</p>
-        </div>
-    )
-}
 
 export function CreatorSettingsComponent({userData, creatorData}: any) {
 
@@ -34,16 +20,48 @@ export function CreatorSettingsComponent({userData, creatorData}: any) {
     const [ edit, setEdit ] = useState<boolean>(false) 
 
     useEffect(() => {
-        setAffiliateLink(userData?.affiliate_link)
-    },[userData])
+        setAffiliateLink(creatorData?.affiliate_link)
+    },[creatorData])
 
-    if (isLoading) return <PageLoader/>
+    if (isLoading || !userData || !creatorData) return <PageLoader/>
+
+    if (!tikTokAccessToken) return (
+        <div>
+            <h2 className="font-semibold leading-7 text-gray-900 section-desc-text-size">Creator Page</h2>
+            <p className="mt-1 text-sm leading-6 text-gray-500 lg:text-base">
+                Please connect your tiktok to create your page
+            </p>
+            <dl className="mt-6 space-y-6 divide-y divide-gray-100 border-t border-gray-200 text-sm leading-6">
+                <div className="pt-6 flex justify-between items-center">
+                    <dt className="font-semibold text-gray-900 sm:w-64 sm:flex-none sm:pr-6 text-sm lg:text-base">Email</dt>
+                    <dd className="mt-1 flex gap-x-6 sm:mt-0">
+                        <div className="text-gray-700 text-sm lg:text-base">{user?.email}</div>
+                        {/* *CHANGE TO SOMETHING ELSE AFTER FIRST TIKTOK CONNECTION --> OPTION TO RECONNECT OR CHANGE ACCOUNTS WILL DELETE CURRENT PAGE
+                            *POSSIBLE REQUIRE TIKTOK ACCOUNT AUTHROIZATION BEFORE APPLICATION SUBMISSION TO ENSURE WE KNOW THIS PERSON OWNS A TIKTOK 
+                        */}
+                    </dd>
+                </div>
+                <div className="pt-6 flex justify-between items-center">
+                    <dt className="font-semibold text-gray-900 sm:w-64 sm:flex-none sm:pr-6 text-sm lg:text-base">Connect Tiktok Account</dt>
+                    <dd className="mt-1 flex gap-x-6 sm:mt-0">
+                        <button type="button" className="font-semibold text-primary-main hover:text-primary-alt text-sm lg:text-base"
+                            onClick={loginWithTikTok}>
+                            {"Connect"}
+                        </button>
+                        {/* *CHANGE TO SOMETHING ELSE AFTER FIRST TIKTOK CONNECTION --> OPTION TO RECONNECT OR CHANGE ACCOUNTS WILL DELETE CURRENT PAGE
+                            *POSSIBLE REQUIRE TIKTOK ACCOUNT AUTHROIZATION BEFORE APPLICATION SUBMISSION TO ENSURE WE KNOW THIS PERSON OWNS A TIKTOK 
+                        */}
+                    </dd>
+                </div>
+            </dl>
+        </div>
+    )
 
     return(
         <div>
             <h2 className="font-semibold leading-7 text-gray-900 section-desc-text-size">Creator Page</h2>
             <p className="mt-1 text-sm leading-6 text-gray-500 lg:text-base">
-                Create recipes on TikTok? Easily showcase them for your users with Zesti
+                Get page link, affilaite code & more
             </p>
             <dl className="mt-6 space-y-6 divide-y divide-gray-100 border-t border-gray-200 text-sm leading-6">
                 <div className="pt-6 flex justify-between items-center">
@@ -69,7 +87,7 @@ export function CreatorSettingsComponent({userData, creatorData}: any) {
                     <dd className="mt-1 flex gap-x-6 sm:mt-0">
                         <button type="button" className="font-semibold text-primary-main hover:text-primary-alt text-sm lg:text-base"
                             onClick={loginWithTikTok}>
-                            {tikTokAccessToken == null ? "Connect" : "Reconnect"}
+                            {"Reconnect"}
                         </button>
                         {/* *CHANGE TO SOMETHING ELSE AFTER FIRST TIKTOK CONNECTION --> OPTION TO RECONNECT OR CHANGE ACCOUNTS WILL DELETE CURRENT PAGE
                             *POSSIBLE REQUIRE TIKTOK ACCOUNT AUTHROIZATION BEFORE APPLICATION SUBMISSION TO ENSURE WE KNOW THIS PERSON OWNS A TIKTOK 
@@ -109,7 +127,6 @@ export function CreatorSettingsComponent({userData, creatorData}: any) {
                         :
                         <button type="button" className="font-semibold text-primary-main hover:text-primary-alt text-sm lg:text-base"
                             onClick={() => {
-                                console.log(affiliateLink)
                                 saveAffiliateLink(affiliateLink, user?.uid!)
                                 setEdit(false)
                                 }}>
@@ -171,13 +188,13 @@ export function CreatorProfileComponent({creatorData}: any) {
         }
     }
 
-    if (isLoading) return <PageLoader/>
+    if (isLoading || !creatorData) return <PageLoader/>
 
     return(
-        <div>
-            <h2 className="font-semibold leading-7 text-gray-900 section-desc-text-size">Your Profile</h2>
+        <div className="animate-fadeIn">
+            <h2 className="font-semibold leading-7 text-gray-900 section-desc-text-size">Your Creator Page</h2>
             <p className="mt-1 text-sm leading-6 text-gray-500 lg:text-base">
-                View & edit what your viewers will see on your recipe page
+                Add more information to your creator page
             </p>
             <dl className="mt-6 space-y-6 divide-y divide-gray-100 border-t border-gray-200 text-sm leading-6">
                 <div className="pt-6 flex justify-between items-center">
@@ -233,77 +250,43 @@ export function CreatorProfileComponent({creatorData}: any) {
     )
 }
 
-export function RecentTikTokVideos({data, displayName, setIsOpen, setUrlId, setUrl, setVideoObject}: any) {
-
-    const { user, isLoading } = useAuth()
-    const [ notify, setNotify ] = useState<boolean | null>(null)
-    
-    const addRecipeToCreatorPage = async (url_id: string, item: any) => {
-        
-        const url = `https://www.tiktok.com/@${displayName}/video/${url_id}`
-        setUrlId(url_id)
-        setUrl(url)
-        setIsOpen(true)
-        setVideoObject(item)
-    
-    }
-
-    if (isLoading) return <PageLoader/>
-
-    return(
-        <div className="">
-            {data?.videos?.map((item: any) => (
-                <div key={item.title} className="space-y-4">
-                    <div className="text-center section-title-text-size">Recent TikTok Videos</div>
-                    <div className="inline-flex items-center space-x-4 border-gray-300 border rounded-r rounded-l">
-                        <img src={item.cover_image_url} className="h-16 w-16 rounded-l" alt={item.title}/>
-                        <span className="section-desc-text-size">{item.title}</span>
-                        <button className="" onClick={() => addRecipeToCreatorPage(item.id, item)}>
-                            <PlusCircleIcon className="text-primary-main h-8 w-8 hover:text-primary-alt mr-4"/>
-                        </button>
-                    </div>
-                </div>
-            ))}
-        </div>
-    )
-}
-
 export function CreatorTools({tiktokDisplayName}: any) {
 
     const stats = [
         { 
             id: 1, 
-            name: 'Add Recipe', 
-            icon: SparklesIcon, 
-            colorType: 'green', 
-            href: '/creator/add-recipe', 
-            desc: "Create new recipes just for you",
-            buttonText: 'Add Recipe', 
+            name: tiktokDisplayName !== '' ? 'View Page' : 'Setup Page', 
+            icon: tiktokDisplayName !== '' ? ComputerDesktopIcon : Cog6ToothIcon, 
+            colorType: 'yellow', 
+            href: tiktokDisplayName !== '' ? `/${tiktokDisplayName}` : `/creator/settings`, 
+            desc: tiktokDisplayName !== '' ? "See what your page looks like to others" : 'Setup your creator page by connecting tiktok',
+            buttonText: tiktokDisplayName !== '' ? `View Your Page` : `Setup`,
         },
         { 
             id: 2, 
-            name: 'Edit Settings', 
-            icon: VideoCameraIcon, 
+            name: 'Edit Creator Page', 
+            icon: PencilIcon, 
             colorType: 'red', 
-            href: '/tools/video', 
-            desc: "Save recipes from YouTube or TikTok",
-            buttonText: 'Temp', 
+            href: '/creator/page', 
+            desc: "Make changes to your bio, social links and more",
+            buttonText: 'Edit', 
         },
         { 
             id: 3, 
-            name: 'View Page', 
-            icon: LinkIcon, 
-            colorType: 'yellow', 
-            href: `/${tiktokDisplayName}`, 
-            desc: "Remove clutter from recipe websites",
-            buttonText: 'View Your Page',
+            name: 'Add Recipe', 
+            icon: ComputerDesktopIcon, 
+            colorType: 'green', 
+            href: '/creator/add-recipe', 
+            desc: "Quickly showcase readilbe recipes for your users",
+            buttonText: 'Add Recipe', 
         },
       ]
+    
+      if (!tiktokDisplayName) return <PageLoader/>
 
     return(
     <Container className={"flex flex-col lg:flex-row gap-10 lg:gap-12 animate-fadeIn"}>
     <div className="w-full">
-      <h3 className="text-2xl font-bold leading-6 text-gray-900 text-center">Other Tools</h3>
       <dl className="mt-8 grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-3">
         {stats.map((item) => (
         <div key={item.id}>
@@ -333,5 +316,81 @@ export function CreatorTools({tiktokDisplayName}: any) {
       </dl>
     </div>
     </Container>
+    )
+}
+
+export function RecentTikTokVideos({data, displayName, setIsOpen, setUrlId, setUrl, setVideoObject}: any) {
+
+    const { user, isLoading } = useAuth()
+    const [ notify, setNotify ] = useState<boolean | null>(null)
+    
+    const addRecipeToCreatorPage = async (url_id: string, item: any) => {
+        
+        const url = `https://www.tiktok.com/@${displayName}/video/${url_id}`
+        setUrlId(url_id)
+        setUrl(url)
+        setIsOpen(true)
+        setVideoObject(item)
+    
+    }
+
+
+    return(
+        <div className="grid justify-center">
+        
+        <CreatorDashboardTitle title={"Recent TikTok Videos"} desc="Click the plus icon next to the video to add it to your creator page"/>
+        {!data?.videos ?
+        <div className="mt-36"> 
+            <RecipeListLoader/>
+        </div>
+        : 
+        <div className="animate-fadeIn">
+            {data?.videos?.map((item: any) => (
+                <div key={item.title} className="mt-5">
+                    {/* Use flexbox for the container */}
+                    <div className="flex items-center justify-start space-x-2 sm:space-x-4 border-gray-300 border rounded-r-xl rounded-l-xl p-3 sm:p-4">
+                        {/* Image */}
+                        <img src={item.cover_image_url} className="h-[136px] w-[96px] rounded-xl" alt={item.title}/>
+                        
+                        {/* Title Wrapper - flex-grow ensures it takes up available space */}
+                        <div className="flex-grow">
+                            <span className="section-desc-text-size">{item.title}</span>
+                        </div>
+                        
+                        {/* Button */}
+                        <button className="" onClick={() => addRecipeToCreatorPage(item.id, item)}>
+                            <PlusCircleIcon className="text-primary-main h-10 w-10 hover:text-primary-alt"/>
+                        </button>
+                    </div>
+                </div>
+            ))}
+        </div>
+        }
+        <Button buttonType="button" text="Load More" className="w-fit mx-auto mt-5"/>
+    </div>
+    )
+}
+
+interface CreatorDashboardTitleProps {
+    title: string,
+    desc?: string,
+    href?: any,
+    img?: any,
+}
+
+export function CreatorDashboardTitle({title, desc}: CreatorDashboardTitleProps) {
+    return(
+            <Container className={"flex flex-col lg:flex-row gap-10 lg:gap-12 animate-fadeIn"}>
+                <span className="w-4/12 lg:w-2/12 aspect-square bg-gradient-to-tr to-primary from-primaryteal absolute -top-5 lg:left-0 rounded-full skew-y-12 blur-2xl opacity-40 skew-x-12 rotate-90"></span>
+                <div className="relative flex flex-col items-center text-center lg:py-7 xl:py-8 lg:max-w-none max-w-3xl mx-auto lg:mx-0 lg:flex-1 lg:w-1/2">
+                    <h1 className="text-3xl/tight sm:text-4xl/tight md:text-5xl/tight xl:text-5xl/tight
+                    font-bold text-heading-1 text-black capitalize">
+                    {title}
+                    </h1>
+                    <Paragraph className="mt-4 text-gray-600">
+                        {desc}
+                    </Paragraph>
+                </div>
+            </Container>
     )
 }

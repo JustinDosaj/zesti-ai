@@ -9,7 +9,7 @@ const raleway = Raleway({subsets: ['latin']})
 
 export default function Home() {
   
-  const { isLoading } = useAuth();
+  const { isLoading, tikTokAccessToken } = useAuth();
 
   if (isLoading) return <PageLoader/>
 

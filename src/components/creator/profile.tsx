@@ -71,8 +71,6 @@ export function CreatorRecipeTitle() {
 
 export function CreatorSocials({creatorData}: any) {
 
-    console.log("Creator Data from Social Page: ", creatorData?.youtube_link)
-
     const navigation = {
         social: [
           {
@@ -158,7 +156,7 @@ export function CreatorPageRecentRecipes({recipes}: any) {
   console.log("Creator Recipes: ", recipes)
 
   return(
-  <div className="space-y-2">
+  <div className="space-y-2 animate-fadeIn">
     <div className="mt-6">
       <h2 className="text-center text-2xl font-semibold">Recent Recipes</h2>
     </div>
