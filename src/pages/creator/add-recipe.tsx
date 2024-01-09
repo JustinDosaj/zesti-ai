@@ -10,6 +10,8 @@ import { Raleway } from 'next/font/google'
 import { PageLoader } from "@/components/shared/loader";
 import { getCreatorData, getUserData } from "../api/firebase/functions";
 import { useRouter } from "next/router";
+import { CreatorAddRecipeModal } from "@/components/shared/modals";
+import { handleCreatorTikTokURLSubmit } from "../api/handler/submit";
 const raleway = Raleway({subsets: ['latin']})
 
 
@@ -20,6 +22,12 @@ export default function AddRecipe() {
   const [ userData, setUserData] = useState<any>()
   const [ creatorData, setCreatorData ] = useState<any>()
   const [ videos, setVideos ] = useState<any>([])
+  const [ isOpen, setIsOpen ] = useState<boolean>(false)
+  const [ urlId, setUrlId ] = useState<string>('')
+  const [ url, setUrl ] = useState<string>('')
+  const [ notify, setNotify ] = useState<boolean>(false)
+  const [ rawText, setRawText ] = useState<string>('')
+  const [ videoObject, setVideoObject ] = useState<any>()
 
   useEffect(() => {
       if (tikTokAccessToken && user && !isLoading) {
@@ -50,7 +58,13 @@ export default function AddRecipe() {
       }
   }, [tikTokAccessToken]);
 
-  console.log("Creator Data: ", creatorData)
+  const addRecipe = async () => {
+    await handleCreatorTikTokURLSubmit({url, user, setNotify, urlId, rawText}).then((val) => {
+ 
+    })
+  }
+
+  console.log("Vid Object: ", videoObject)
 
   if (isLoading) return <PageLoader/>
 
@@ -65,7 +79,8 @@ export default function AddRecipe() {
         </Head>
         <main className={`${raleway.className}`}>
         <CreatorDashboard>
-          <RecentTikTokVideos data={videos?.data} displayName={creatorData?.display_name}/>
+          <RecentTikTokVideos data={videos?.data} displayName={creatorData?.display_name} setIsOpen={setIsOpen} setUrlId={setUrlId} setUrl={setUrl} setVideoObject={setVideoObject}/>
+          <CreatorAddRecipeModal isOpen={isOpen} setIsOpen={setIsOpen} addRecipe={addRecipe} setRawText={setRawText} rawText={rawText} videoObject={videoObject}/>
         </CreatorDashboard>
         </main>
     </>

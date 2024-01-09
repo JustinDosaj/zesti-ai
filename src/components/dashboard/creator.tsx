@@ -3,7 +3,7 @@ import { PageLoader } from '../shared/loader'
 import { Button } from '../shared/button'
 import { useAuth } from '@/pages/api/auth/auth'
 import { saveAffiliateLink } from '@/pages/api/firebase/functions'
-import { SparklesIcon, VideoCameraIcon, LinkIcon } from "@heroicons/react/20/solid"
+import { SparklesIcon, VideoCameraIcon, LinkIcon, PlusCircleIcon } from "@heroicons/react/20/solid"
 import { saveBioDataToFireStore } from '@/pages/api/firebase/functions'
 import { Container } from '../shared/container'
 import Link from 'next/link'
@@ -234,17 +234,18 @@ export function CreatorProfileComponent({creatorData}: any) {
     )
 }
 
-export function RecentTikTokVideos({data, displayName}: any) {
+export function RecentTikTokVideos({data, displayName, setIsOpen, setUrlId, setUrl, setVideoObject}: any) {
 
     const { user, isLoading } = useAuth()
     const [ notify, setNotify ] = useState<boolean | null>(null)
     
-    const addRecipeToCreatorPage = async (url_id: string) => {
-
+    const addRecipeToCreatorPage = async (url_id: string, item: any) => {
+        
         const url = `https://www.tiktok.com/@${displayName}/video/${url_id}`
-        await handleCreatorTikTokURLSubmit({url, user, setNotify, url_id}).then((val) => {
-            console.log(val)
-        })
+        setUrlId(url_id)
+        setUrl(url)
+        setIsOpen(true)
+        setVideoObject(item)
     
     }
 
@@ -256,9 +257,11 @@ export function RecentTikTokVideos({data, displayName}: any) {
                 <div className="space-y-4">
                     <div className="text-center section-title-text-size">Recent TikTok Videos</div>
                     <div className="inline-flex items-center space-x-4 border-gray-300 border rounded-r rounded-l">
-                        <img src={item.cover_image_url} className="h-16 w-16 rounded-l" alt={""}/>
-                        <span className="section-desc-text-size pr-4">{item.title}</span>
-                        <button className="" onClick={() => addRecipeToCreatorPage(item.id)}>Add Recipe</button>
+                        <img src={item.cover_image_url} className="h-16 w-16 rounded-l" alt={item.title}/>
+                        <span className="section-desc-text-size">{item.title}</span>
+                        <button className="" onClick={() => addRecipeToCreatorPage(item.id, item)}>
+                            <PlusCircleIcon className="text-primary-main h-8 w-8 hover:text-primary-alt mr-4"/>
+                        </button>
                     </div>
                 </div>
             ))}
