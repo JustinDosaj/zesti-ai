@@ -68,7 +68,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         }
 
         const tokenData = await tokenResponse.json();
-        console.log("Token Data:", tokenData);
+
         if (tokenData.access_token && tokenData.refresh_token && tokenData.open_id) {
           await updateUserWithTikTokTokens(tokenData, user!.uid);
         } else {

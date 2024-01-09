@@ -101,6 +101,7 @@ export async function updateUserWithTikTokTokens(tokenData: TikTokTokenData, use
   try {
     const userRef = db.collection('users').doc(userId);
 
+
     if (!tokenData.access_token || !tokenData.refresh_token || !tokenData.open_id) {
       throw new Error('Token data is incomplete or undefined');
     }
@@ -122,7 +123,6 @@ export async function updateUserWithTikTokTokens(tokenData: TikTokTokenData, use
     // Update the user's document
     await userRef.set(updateData, { merge: true });
 
-    console.log(`User ${userId} updated with TikTok tokens.`);
   } catch (error) {
     console.error('Error updating user with TikTok tokens:', error);
     throw error; // You can handle the error as per your application's needs
@@ -137,6 +137,7 @@ export async function saveAffiliateLink(affiliateLink: string, userId: string) {
 
   try{
     const userRef = db.collection('users').doc(userId);
+    const creatorRef = db.collection('creators').doc(userId);
 
     const updateAffiliateLink = {
       affiliate_link: affiliateLink,
@@ -144,6 +145,7 @@ export async function saveAffiliateLink(affiliateLink: string, userId: string) {
     }
 
     await userRef.set(updateAffiliateLink, {merge: true});
+    await creatorRef.set(updateAffiliateLink, {merge: true});
 
   } catch (err) {
     console.log(err)

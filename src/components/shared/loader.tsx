@@ -67,3 +67,15 @@ export function ToolLoader() {
     </>
     )
 }
+
+export function RecipeListLoader() {
+    return(
+        <main className={`flex min-h-screen flex-col items-center justify-between p-2 bg-background ${raleway.className} my-auto`}>
+            <div className="grid justify-center bg-white px-6 py-3 outline-none relative overflow-hidden duration-300 ease-linear">
+                <div className="animate-spin flex justify-center w-10 h-10 border-[3px] border-current border-t-transparent text-orange-600 rounded-full" role="status" aria-label="loading">
+                    <span className="sr-only">Loading...</span>
+                </div>
+            </div>
+        </main>
+    )
+}
