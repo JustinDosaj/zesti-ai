@@ -163,7 +163,7 @@ export function CreatorPageRecentRecipes({recipes}: any) {
       <h2 className="text-center text-2xl font-semibold">Recent Recipes</h2>
     </div>
       {recipes.map((item: any) => (
-        <div>{item.name}</div>
+        <div key={item.name}>{item.name}</div>
       ))}
   </div>
   )
