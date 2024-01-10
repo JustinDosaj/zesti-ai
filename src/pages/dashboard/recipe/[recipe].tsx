@@ -20,7 +20,6 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     return {props: {id}}
 }
 
-
 const Recipe: React.FC = ({id}: any) => {
 
     const { user, isLoading, stripeRole } = useAuth();

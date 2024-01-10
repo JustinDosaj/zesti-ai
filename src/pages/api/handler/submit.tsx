@@ -133,6 +133,7 @@ export interface TikTokProps {
     urlId?: string, 
     rawText?: string,
     videoObject?: any,
+    creatorData?: any,
 }
 
 export const handleTikTokURLSubmit = async ({url, setUrl, user, setMessage, stripeRole, setNotify}: TikTokProps): Promise<boolean> => {
@@ -186,10 +187,12 @@ export const handleTikTokURLSubmit = async ({url, setUrl, user, setMessage, stri
     }
 }
 
-export const handleCreatorTikTokURLSubmit = async ({url, user, setNotify, rawText, videoObject}: TikTokProps): Promise<boolean> => {
+export const handleCreatorTikTokURLSubmit = async ({url, user, setNotify, rawText, videoObject, creatorData}: TikTokProps): Promise<boolean> => {
 
     // Check if URL is empty   
     const date = await getCurrentDate()
+
+    console.log('creator', creatorData)
 
     const falseObj = {
         "url": `${url}`,
@@ -199,6 +202,8 @@ export const handleCreatorTikTokURLSubmit = async ({url, user, setNotify, rawTex
         "rawData": rawText,
         "cover_image_url": videoObject?.cover_image_url,
         "title": videoObject?.title,
+        "display_name": creatorData?.display_name,
+        "owner_id": creatorData?.owner_id,
     }
 
     try {

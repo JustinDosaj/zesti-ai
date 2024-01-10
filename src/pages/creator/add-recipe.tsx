@@ -60,7 +60,7 @@ export default function AddRecipe() {
   }, [tikTokAccessToken]);
 
   const addRecipe = async () => {
-    await handleCreatorTikTokURLSubmit({url, user, setNotify, rawText, videoObject}).then((val) => {
+    await handleCreatorTikTokURLSubmit({url, user, setNotify, rawText, videoObject, creatorData}).then((val) => {
  
     })
   }

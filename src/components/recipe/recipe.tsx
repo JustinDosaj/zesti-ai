@@ -32,6 +32,7 @@ export function IngredientPopOutMenu({setEditingIngredientIndex, index, onSave, 
         else { setPremiumPrompt(true) }
     }
   
+    
     return(
     <>
     <Menu as="div" className="relative ml-auto">
