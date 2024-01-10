@@ -1,6 +1,8 @@
 import { Container } from "@/components/shared/container"
 import { ArrowDownTrayIcon, EyeIcon } from "@heroicons/react/20/solid"
 import { useRouter } from "next/router"
+import { db } from "@/pages/api/firebase/firebase"
+import { useAuth } from "@/pages/api/auth/auth"
 
 
 interface CreatorRecipeProps {
@@ -52,6 +54,7 @@ export function CreatorRecipeTitle({recipe, url}: CreatorRecipeProps) {
 export function CreatorRecipeLinks({recipe}: any) {
 
     const router = useRouter()
+    const { isLoading, user } = useAuth()
 
     const navigation = [
         { 
@@ -76,7 +79,12 @@ export function CreatorRecipeLinks({recipe}: any) {
         },
         { 
             name: 'Save',
-            onClick: console.log("Save Recipe Function Not Yet Added"),
+            onClick: async () => {
+                if (!isLoading) {
+                    const userRef = db.collection('users').doc(user?.uid).collection('recipes').doc(recipe.id)
+                    await userRef.set(recipe)
+                }
+            },
             icon: ArrowDownTrayIcon,
         },
     ]
