@@ -3,6 +3,7 @@ import { Container } from "../shared/container"
 import { MagnifyingGlassIcon } from '@heroicons/react/24/outline'
 import { useAuth } from "@/pages/api/auth/auth"
 import { Notify } from "../shared/notify"
+import Link from "next/link"
 import React, { useState, useEffect } from "react"
 import Image from "next/image"
 
@@ -151,7 +152,7 @@ export function CreatorSocials({creatorData}: any) {
     )
 }
 
-export function CreatorPageRecentRecipes({recipes}: any) {
+export function CreatorPageRecentRecipes({recipes, creatorName}: any) {
   
   console.log("Creator Recipes: ", recipes)
 
@@ -161,7 +162,10 @@ export function CreatorPageRecentRecipes({recipes}: any) {
       <h2 className="text-center text-2xl font-semibold">Recent Recipes</h2>
     </div>
       {recipes.map((item: any) => (
-        <div key={item.name}>{item.name}</div>
+        <Link 
+          href={`/${creatorName}/${item.id}`}>
+          <div key={item.name}>{item.name}</div>
+        </Link>
       ))}
   </div>
   )

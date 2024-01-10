@@ -105,6 +105,8 @@ const CreatorPage: NextPage<CreatorProps> = ({ creatorData, referer }) => {
 
   }, [creatorData, referer]);
 
+  console.log(creatorData)
+
   if (isLoading || !creatorData) return <PageLoader/>
 
   // Render your creator data here
@@ -119,7 +121,7 @@ const CreatorPage: NextPage<CreatorProps> = ({ creatorData, referer }) => {
       <CreatorPageTitle creatorData={creatorData}/>
       <CreatorSocials creatorData={creatorData}/>
       <CreatorSearch creatorData={creatorData}/>
-      <CreatorPageRecentRecipes recipes={recipes}/>
+      <CreatorPageRecentRecipes recipes={recipes} creatorName={creatorData?.display_name}/>
       {/* other creator data */}
     </main>
     </>

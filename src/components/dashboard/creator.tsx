@@ -287,7 +287,7 @@ export function CreatorTools({tiktokDisplayName}: any) {
     return(
     <Container className={"flex flex-col lg:flex-row gap-10 lg:gap-12 animate-fadeIn"}>
     <div className="w-full">
-      <dl className="mt-8 grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-3">
+      <dl className="mt-8 grid grid-cols-1 gap-10 sm:grid-cols-1 xl:grid-cols-3">
         {stats.map((item) => (
         <div key={item.id}>
             <Link href={item.href} className="">
@@ -366,7 +366,7 @@ export function RecentTikTokVideos({data, displayName, setIsOpen, setUrlId, setU
             ))}
         </div>
         }
-        <Button buttonType="button" text="Load More" className="w-fit mx-auto mt-5"/>
+        <Button buttonType="button" text="View All" className="w-fit mx-auto mt-5"/>
     </div>
     )
 }
