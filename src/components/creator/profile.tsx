@@ -163,8 +163,8 @@ export function CreatorPageRecentRecipes({recipes, creatorName}: any) {
     </div>
       {recipes.map((item: any) => (
         <Link 
-          href={`/${creatorName}/${item.id}`}>
-          <div key={item.name}>{item.name}</div>
+          key={item.name} href={`/${creatorName}/${item.id}`}>
+          <div>{item.name}</div>
         </Link>
       ))}
   </div>
