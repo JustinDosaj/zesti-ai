@@ -35,7 +35,6 @@ export default function AddRecipe() {
         fetchTikTokVideoList(tikTokAccessToken)
             .then(userVideos => {
               // Do something
-              console.log("userVideos", userVideos)
               setVideos(userVideos)
             })
             const fetchUserData = async () => {
@@ -61,12 +60,10 @@ export default function AddRecipe() {
   }, [tikTokAccessToken]);
 
   const addRecipe = async () => {
-    await handleCreatorTikTokURLSubmit({url, user, setNotify, urlId, rawText}).then((val) => {
+    await handleCreatorTikTokURLSubmit({url, user, setNotify, rawText, videoObject}).then((val) => {
  
     })
   }
-
-  console.log("Vid Object: ", videoObject)
 
   return (
     <>

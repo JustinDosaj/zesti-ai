@@ -132,6 +132,7 @@ export interface TikTokProps {
     setNotify?: any,
     urlId?: string, 
     rawText?: string,
+    videoObject?: any,
 }
 
 export const handleTikTokURLSubmit = async ({url, setUrl, user, setMessage, stripeRole, setNotify}: TikTokProps): Promise<boolean> => {
@@ -185,21 +186,23 @@ export const handleTikTokURLSubmit = async ({url, setUrl, user, setMessage, stri
     }
 }
 
-export const handleCreatorTikTokURLSubmit = async ({url, user, setNotify, urlId, rawText}: TikTokProps): Promise<boolean> => {
+export const handleCreatorTikTokURLSubmit = async ({url, user, setNotify, rawText, videoObject}: TikTokProps): Promise<boolean> => {
 
     // Check if URL is empty   
     const date = await getCurrentDate()
 
     const falseObj = {
         "url": `${url}`,
-        "url_id": urlId,
+        "url_id": videoObject?.id,
         "source": "tiktok",
         "date": date,
         "rawData": rawText,
+        "cover_image_url": videoObject?.cover_image_url,
+        "title": videoObject?.title,
     }
 
     try {
-        await db.collection('creators').doc(user?.uid).collection('tiktokurl').doc(urlId).set(falseObj)
+        await db.collection('creators').doc(user?.uid).collection('tiktokurl').doc(videoObject?.id).set(falseObj)
         return true
     } catch (err) {
         console.log(err)

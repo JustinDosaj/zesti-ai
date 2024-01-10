@@ -157,14 +157,18 @@ export function CreatorPageRecentRecipes({recipes, creatorName}: any) {
   console.log("Creator Recipes: ", recipes)
 
   return(
-  <div className="space-y-2 animate-fadeIn">
-    <div className="mt-6">
+  <div className="space-y-2 animate-fadeIn p-4 sm:p-0">
+    <div className="mt-6 mb-6">
       <h2 className="text-center text-2xl font-semibold">Recent Recipes</h2>
     </div>
       {recipes.map((item: any) => (
-        <Link 
-          key={item.name} href={`/${creatorName}/${item.id}`}>
-          <div>{item.name}</div>
+        <Link key={item.name} href={`/${creatorName}/${item.id}`}>
+          <div className="flex items-center justify-start space-x-4 border-gray-300 border rounded-r-xl rounded-l-xl p-3 sm:p-4">
+            <img src={`https://firebasestorage.googleapis.com/v0/b/${process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET}/o/${encodeURIComponent(item.cover_image_url)}?alt=media`} className="h-[136px] w-[96px] rounded-xl" alt={item.title}/>
+            <div className="flex-grow">
+                <span className="section-desc-text-size">{item.title}</span>
+            </div>
+          </div>
         </Link>
       ))}
   </div>
