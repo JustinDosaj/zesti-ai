@@ -62,14 +62,6 @@ export function CreatorSearch({creatorData}: any) {
     )
 }
 
-export function CreatorRecipeTitle() {
-    return(
-        <Container className="relative sm:flex justify-center items-center lg:flex-wrap gap-10 lg:gap-4 w-full animate-fadeIn">
-            <h3 className="text-2xl font-bold leading-6 text-gray-900 text-center">{"<USERNAME> Recently Uploaded Recipes"}</h3>
-        </Container>
-    )
-}
-
 export function CreatorSocials({creatorData}: any) {
 
     const navigation = {

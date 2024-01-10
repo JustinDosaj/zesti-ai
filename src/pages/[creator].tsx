@@ -1,5 +1,5 @@
 import { Raleway } from 'next/font/google'
-import { CreatorSearch, CreatorRecipeTitle, CreatorPageTitle, CreatorSocials, CreatorPageRecentRecipes } from '@/components/creator/profile';
+import { CreatorSearch, CreatorPageTitle, CreatorSocials, CreatorPageRecentRecipes } from '@/components/creator/profile';
 import { useAuth } from "@/pages/api/auth/auth"
 import { GetServerSideProps, NextPage } from 'next';
 import { useEffect, useState } from "react";

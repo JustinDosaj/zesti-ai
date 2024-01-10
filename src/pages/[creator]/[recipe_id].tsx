@@ -12,6 +12,7 @@ import { AddToRecipeModal } from "@/components/shared/modals";
 import GoogleTags from "@/components/tags/conversion";
 import AdSenseDisplay from "@/components/tags/adsense";
 import { PromoteKitTag } from "@/components/tags/headertags";
+import { CreatorRecipeTitle } from "@/components/recipe/creator_recipe";
 
 const raleway = Raleway({subsets: ['latin']})
 
@@ -19,7 +20,6 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     const id = context.query?.recipe_id as string
     return {props: {id}}
 }
-
 
 const Recipe: React.FC = ({id}: any) => {
 
@@ -238,22 +238,9 @@ const Recipe: React.FC = ({id}: any) => {
       <GoogleTags/>
       <PromoteKitTag/>
     </Head>  
-    <main className={`flex min-h-screen flex-col items-center justify-between p-2 bg-background ${raleway.className}`}>
-      {stripeRole == 'premium' ? <Chatbox/> : <></>}
-        <RecipeTitle recipe={recipe} url={url} handleSaveTitle={handleSaveTitle} role={stripeRole}/>
-        <IngredientList setIsOpen={setIsOpen} setAddType={setAddType} recipe={recipe} editingIngredientIndex={editingIngredientIndex} setEditingIngredientIndex={setEditingIngredientIndex} handleDeleteIngredient={handleDeleteIngredient} handleSaveIngredient={handleSaveIngredient} role={stripeRole}/>
-        <InstructionList setIsOpen={setIsOpen} setAddType={setAddType} recipe={recipe} editingInstructionIndex={editingInstructionIndex} setEditingInstructionIndex={setEditingInstructionIndex} handleDeleteInstruction={handleDeleteInstruction} handleSaveInstruction={handleSaveInstruction} role={stripeRole}/>
-      {stripeRole !== 'premium' ? 
-      <div className="flex justify-center items-center py-12">
-        <div className="w-full min-w-[300px] max-w-[320px] lg:max-w-full lg:min-w-[1240px] text-center">
-          <AdSenseDisplay adSlot="9326575118" adFormat="rectangle, horizontal" widthRes="true"/>
-        </div>
-      </div>
-      :
-      <div className="mb-28"/>
-      }
+    <main className={`flex min-h-screen flex-col items-center justify-between p-6 bg-background ${raleway.className}`}>
+          <CreatorRecipeTitle recipe={recipe} url={url}/>
     </main>
-    <AddToRecipeModal isOpen={isOpen} setIsOpen={setIsOpen} addType={addType} onSubmit={handleAddToRecipeSubmit}/>
     </>
     )
 }
