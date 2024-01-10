@@ -11,7 +11,7 @@ const raleway = Raleway({subsets: ['latin']})
 const navigation = [
   { name: 'Home', href: '/creator/home', icon: HomeIcon, current: true },
   { name: 'Add Recipe', href: '/creator/add-recipe', icon: DocumentPlusIcon, current: false },
-  { name: 'Profile', href: '/creator/profile', icon: UserIcon, current: false },
+  { name: 'Your Page', href: '/creator/page', icon: UserIcon, current: false },
   { name: 'Settings', href: '/creator/settings', icon: Cog6ToothIcon, current: false },
 ]
 
@@ -162,7 +162,7 @@ export function CreatorDashboard({ children }: CreatorDashboardProps) {
                 </button>
             </div>
             <main className={`flex min-h-screen flex-col items-center justify-between bg-background ${raleway.className}`}>
-                <div className="px-4 sm:px-6 lg:px-8 my-24">{children}</div>
+                <div className="px-4 sm:px-6 lg:pl-72 my-24 mx-auto">{children}</div>
             </main>
         </div>
         </>

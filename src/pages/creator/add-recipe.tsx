@@ -79,7 +79,10 @@ export default function AddRecipe() {
         </Head>
         <main className={`${raleway.className}`}>
         <CreatorDashboard>
-          <RecentTikTokVideos data={videos?.data} displayName={creatorData?.display_name} setIsOpen={setIsOpen} setUrlId={setUrlId} setUrl={setUrl} setVideoObject={setVideoObject}/>
+          <div className="grid grid-cols-2 gap-4 pl-4">
+            <RecentTikTokVideos data={videos?.data} displayName={creatorData?.display_name} setIsOpen={setIsOpen} setUrlId={setUrlId} setUrl={setUrl} setVideoObject={setVideoObject}/>
+            <RecentTikTokVideos data={videos?.data} displayName={creatorData?.display_name} setIsOpen={setIsOpen} setUrlId={setUrlId} setUrl={setUrl} setVideoObject={setVideoObject}/>
+          </div>
           <CreatorAddRecipeModal isOpen={isOpen} setIsOpen={setIsOpen} addRecipe={addRecipe} setRawText={setRawText} rawText={rawText} videoObject={videoObject}/>
         </CreatorDashboard>
         </main>

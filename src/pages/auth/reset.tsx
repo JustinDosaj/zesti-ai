@@ -6,7 +6,7 @@ import { EnvelopeIcon } from "@heroicons/react/24/outline"
 import Head from 'next/head';
 import GoogleTags from "@/components/tags/conversion"
 import React, { useState, useEffect } from "react"
-import { useAuth } from "./api/auth/auth"
+import { useAuth } from "../api/auth/auth"
 import {useRouter} from "next/router"
 import { Notify } from "@/components/shared/notify"
 import { ToastContainer } from "react-toastify"
