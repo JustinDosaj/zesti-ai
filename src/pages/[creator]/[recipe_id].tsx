@@ -1,18 +1,14 @@
 import { GetServerSideProps } from "next";
 import { Raleway } from 'next/font/google'
-import React, {useEffect, useState} from 'react'
 import { useAuth } from "@/pages/api/auth/auth";
 import { useRouter } from 'next/router';
 import { PageLoader } from "@/components/shared/loader";
-import Head from "next/head";
-import { RecipeTitle, IngredientList, InstructionList } from "@/components/recipe/recipe";
-import { Chatbox } from "@/components/chat/chatbox";
 import { db } from "@/pages/api/firebase/firebase";
-import { AddToRecipeModal } from "@/components/shared/modals";
-import GoogleTags from "@/components/tags/conversion";
-import AdSenseDisplay from "@/components/tags/adsense";
 import { PromoteKitTag } from "@/components/tags/headertags";
-import { CreatorRecipeTitle } from "@/components/recipe/creator_recipe";
+import { CreatorRecipeTitle } from "@/components/creator/recipe";
+import React, {useEffect, useState} from 'react'
+import GoogleTags from "@/components/tags/conversion";
+import Head from "next/head";
 
 const raleway = Raleway({subsets: ['latin']})
 
@@ -28,9 +24,6 @@ const Recipe: React.FC = ({id}: any) => {
     const [recipe, setRecipe] = useState<any>([])
     const [url, setUrl] = useState<string>('')
     const [edit, setEdit] = useState<boolean>(false)
-    const [newTitle, setNewTitle] = useState<string>('')
-    const [editingIngredientIndex, setEditingIngredientIndex] = useState<number | null>(null);
-    const [editingInstructionIndex, setEditingInstructionIndex] = useState<number | null>(null);
     const [isOpen, setIsOpen] = useState<boolean>(false)
     const [addType, setAddType] = useState<string>('')
     const router = useRouter();

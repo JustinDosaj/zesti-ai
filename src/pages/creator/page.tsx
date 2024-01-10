@@ -1,14 +1,13 @@
-import { CreatorProfileComponent } from "@/components/dashboard/creator";
-import { CreatorDashboard } from "@/components/elements/creatordash";
+import { CreatorPageComponent } from "@/components/creator/profile";
+import { CreatorDashboard } from "@/components/creator/dashboard/dashboard";
 import Head from 'next/head';
 import GoogleTags from '@/components/tags/conversion';
 import { useAuth } from "../api/auth/auth";
 import { PromoteKitTag } from '@/components/tags/headertags';
 import { Raleway } from 'next/font/google'
-import { PageLoader } from "@/components/shared/loader";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react"
-import { getUserData, getCreatorData } from "../api/firebase/functions";
+import { getCreatorData } from "../api/firebase/functions";
 const raleway = Raleway({subsets: ['latin']})
 
 
@@ -46,7 +45,7 @@ export default function Settings() {
         </Head>
         <main className={`${raleway.className}`}>
           <CreatorDashboard>
-            <CreatorProfileComponent creatorData={creatorData}/>
+            <CreatorPageComponent creatorData={creatorData}/>
           </CreatorDashboard>
         </main>
     </>

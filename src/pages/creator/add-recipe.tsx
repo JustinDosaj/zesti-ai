@@ -1,5 +1,5 @@
-import { RecentTikTokVideos } from "@/components/dashboard/creator";
-import { CreatorDashboard } from "@/components/elements/creatordash";
+import { RecentTikTokVideos } from "@/components/creator/add";
+import { CreatorDashboard } from "@/components/creator/dashboard/dashboard";
 import Head from 'next/head';
 import GoogleTags from '@/components/tags/conversion';
 import { useEffect, useState } from "react";
@@ -7,7 +7,6 @@ import { useAuth } from "../api/auth/auth";
 import { PromoteKitTag } from '@/components/tags/headertags';
 import { fetchTikTokVideoList } from "../api/handler/tiktok";
 import { Raleway } from 'next/font/google'
-import { PageLoader } from "@/components/shared/loader";
 import { getCreatorData, getUserData } from "../api/firebase/functions";
 import { useRouter } from "next/router";
 import { CreatorAddRecipeModal } from "@/components/shared/modals";

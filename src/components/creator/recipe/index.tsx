@@ -1,4 +1,5 @@
-import { Container } from "../shared/container"
+import { Container } from "@/components/shared/container"
+
 
 interface CreatorRecipeProps {
     recipe: any,

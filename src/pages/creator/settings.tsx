@@ -1,5 +1,5 @@
-import { CreatorSettingsComponent } from "@/components/dashboard/creator";
-import { CreatorDashboard } from "@/components/elements/creatordash";
+import { CreatorSettingsComponent } from "@/components/creator/settings";
+import { CreatorDashboard } from "@/components/creator/dashboard/dashboard";
 import Head from 'next/head';
 import GoogleTags from '@/components/tags/conversion';
 import { useAuth } from "../api/auth/auth";

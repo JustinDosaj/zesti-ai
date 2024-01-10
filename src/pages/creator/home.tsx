@@ -1,9 +1,10 @@
-import { CreatorDashboard } from "@/components/elements/creatordash";
+import { CreatorDashboard } from "@/components/creator/dashboard/dashboard";
 import Head from 'next/head';
 import GoogleTags from '@/components/tags/conversion';
 import { useAuth } from "../api/auth/auth";
 import { PromoteKitTag } from '@/components/tags/headertags';
-import { CreatorDashboardTitle, CreatorTools } from "@/components/dashboard/creator";
+import { CreatorTools } from "@/components/creator/home";
+import { CreatorDashboardTitle } from "@/components/creator/dashboard";
 import { useEffect, useState } from "react";
 import { getCreatorData, getUserData } from "../api/firebase/functions";
 import { SharedPageTitle } from "@/components/shared/title";
