@@ -75,7 +75,7 @@ const CreatorPage: NextPage<CreatorProps> = ({ creatorData, referer }) => {
   useEffect(() => {
     const fetchRecipes = async () => {
       if (user) {
-        const recipeSnapshot = await db.collection(`users/${creatorData?.owner_id}/recipes`).get();
+        const recipeSnapshot = await db.collection(`creators/${creatorData?.owner_id}/recipes`).get();
         const updatedRecipes = recipeSnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
         setRecipes(updatedRecipes);
         setIsLoadingRecipes(false);
@@ -105,7 +105,7 @@ const CreatorPage: NextPage<CreatorProps> = ({ creatorData, referer }) => {
 
   }, [creatorData, referer]);
 
-  console.log(creatorData)
+  console.log("Recipes:, ", recipes)
 
   if (isLoading || !creatorData) return <PageLoader/>
 

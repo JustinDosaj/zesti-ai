@@ -40,7 +40,7 @@ const Recipe: React.FC = ({id}: any) => {
       if (user == null && isLoading == false) {
         router.replace('/');
       } else if (user !== null && isLoading == false) {
-        const unsubscribe = db.doc(`users/${user.uid}/recipes/${id}`)
+        const unsubscribe = db.doc(`creators/${user.uid}/recipes/${id}`)
           .onSnapshot((docSnapshot) => {
             if (docSnapshot.exists) {
               setRecipe(docSnapshot.data());
