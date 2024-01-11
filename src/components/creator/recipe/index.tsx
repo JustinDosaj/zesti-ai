@@ -8,9 +8,10 @@ import { useAuth } from "@/pages/api/auth/auth"
 interface CreatorRecipeProps {
     recipe: any,
     url?: string,
+    setLoginPrompt?: any
 }
 
-export function CreatorRecipeTitle({recipe, url}: CreatorRecipeProps) {
+export function CreatorRecipeTitle({recipe, url, setLoginPrompt}: CreatorRecipeProps) {
 
     return(
     <Container className={"flex flex-col gap-6 animate-fadeInFast alternate-orange-bg mt-36 rounded-3xl md:w-[599px] p-8 mb-16"}>
@@ -18,7 +19,7 @@ export function CreatorRecipeTitle({recipe, url}: CreatorRecipeProps) {
             <span className="section-desc-title-size text-center">{recipe.name}</span>
             <p className="text-center text-gray-500 text-sm">{recipe.title}</p>
         </div>
-        <CreatorRecipeLinks recipe={recipe}/>
+        <CreatorRecipeLinks recipe={recipe} setLoginPrompt={setLoginPrompt}/>
         <div className="space-y-2">
             <h2 className="section-desc-text-size font-semibold">Ingredients ({recipe.ingredients.length})</h2>
             <ul className="space-y-2 list-disc pl-6">
@@ -51,7 +52,7 @@ export function CreatorRecipeTitle({recipe, url}: CreatorRecipeProps) {
     )
 }
 
-export function CreatorRecipeLinks({recipe}: any) {
+export function CreatorRecipeLinks({recipe, setLoginPrompt}: any) {
 
     const router = useRouter()
     const { isLoading, user } = useAuth()
@@ -80,9 +81,11 @@ export function CreatorRecipeLinks({recipe}: any) {
         { 
             name: 'Save',
             onClick: async () => {
-                if (!isLoading) {
+                if (user && !isLoading) {
                     const userRef = db.collection('users').doc(user?.uid).collection('recipes').doc(recipe.id)
                     await userRef.set(recipe)
+                } else {
+                    setLoginPrompt(true)
                 }
             },
             icon: ArrowDownTrayIcon,

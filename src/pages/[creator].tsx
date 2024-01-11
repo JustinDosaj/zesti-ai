@@ -66,28 +66,23 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
 const CreatorPage: NextPage<CreatorProps> = ({ creatorData, referer }) => {
 
-  const { user, isLoading, stripeRole } = useAuth();
   const [isLoadingRecipes, setIsLoadingRecipes] = useState<boolean>(true);
   const [ recipes, setRecipes ] = useState<any[]>([]);
 
   const router = useRouter();
 
   useEffect(() => {
+    
     const fetchRecipes = async () => {
-      if (user) {
         const recipeSnapshot = await db.collection(`creators/${creatorData?.owner_id}/recipes`).get();
         const updatedRecipes = recipeSnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
         setRecipes(updatedRecipes);
         setIsLoadingRecipes(false);
-      }
     };
 
-    if (user == null && !isLoading) {
-      router.replace('/');
-    } else if (user !== null && !isLoading) {
-      fetchRecipes();
-    }
-  }, [user, isLoading, router]);
+    fetchRecipes();
+
+  }, [router]);
 
   useEffect(() => {
 
@@ -107,7 +102,7 @@ const CreatorPage: NextPage<CreatorProps> = ({ creatorData, referer }) => {
 
   console.log("Recipes:, ", recipes)
 
-  if (isLoading || !creatorData) return <PageLoader/>
+  if (!creatorData) return <PageLoader/>
 
   // Render your creator data here
   return (
