@@ -36,6 +36,8 @@ export function CreatorPageComponent({creatorData}: any) {
         setTwitter(creatorData?.twitter_link || '')
         setInstagram(creatorData?.instagram_link || '')
         setWebsite(creatorData?.website_link || '')
+
+
     }, [creatorData]);
 
     const saveBioData = async () => {

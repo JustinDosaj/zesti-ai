@@ -14,7 +14,7 @@ export function CreatorSettingsComponent({userData, creatorData}: any) {
         setAffiliateLink(creatorData?.affiliate_link)
     },[creatorData])
 
-    if (isLoading || !userData || !creatorData) return <PageLoader/>
+    if (isLoading || !userData ) return <PageLoader/>
 
     if (!tikTokAccessToken) return (
         <div>
