@@ -5,7 +5,7 @@ import { useRouter } from 'next/router';
 import { PageLoader } from "@/components/shared/loader";
 import { db } from "@/pages/api/firebase/firebase";
 import { PromoteKitTag } from "@/components/tags/headertags";
-import { CreatorRecipeTitle } from "@/components/creator/recipe";
+import { CreatorRecipe, EditCreatorRecipe } from "@/components/creator/recipe";
 import React, {useEffect, useState} from 'react'
 import { LoginModal } from "@/components/shared/modals";
 import GoogleTags from "@/components/tags/conversion";
@@ -38,6 +38,7 @@ const Recipe: React.FC = ({id, owner_uid}: any) => {
     const [recipe, setRecipe] = useState<any>([])
     const [url, setUrl] = useState<string>('')
     const [loginPrompt, setLoginPrompt] = useState<boolean>(false)
+    const [ isEditMode, setEditMode ] = useState<boolean>(false)
     const router = useRouter();
 
 
@@ -70,8 +71,12 @@ const Recipe: React.FC = ({id, owner_uid}: any) => {
       <PromoteKitTag/>
     </Head>  
     <main className={`flex min-h-screen flex-col items-center justify-between p-6 bg-background ${raleway.className}`}>
-          <CreatorRecipeTitle recipe={recipe} url={url} setLoginPrompt={setLoginPrompt}/>
-          <LoginModal loginPrompt={loginPrompt} setLoginPrompt={setLoginPrompt} title={"Create Account"} message={"You must create an account to save recipes"}/>
+        {isEditMode == false || !user || user?.uid !== owner_uid ? 
+        <CreatorRecipe recipe={recipe} url={url} setLoginPrompt={setLoginPrompt} owner_id={owner_uid} setEditMode={setEditMode}/>
+        :
+        <EditCreatorRecipe recipe={recipe} url={url} setLoginPrompt={setLoginPrompt} owner_id={owner_uid} setEditMode={setEditMode}/>
+        }
+        <LoginModal loginPrompt={loginPrompt} setLoginPrompt={setLoginPrompt} title={"Create Account"} message={"You must create an account to save recipes"}/>
     </main>
     </>
     )
