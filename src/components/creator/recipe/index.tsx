@@ -3,6 +3,9 @@ import { ArrowDownTrayIcon, EyeIcon } from "@heroicons/react/20/solid"
 import { useRouter } from "next/router"
 import { db } from "@/pages/api/firebase/firebase"
 import { useAuth } from "@/pages/api/auth/auth"
+import { Notify } from '@/components/shared/notify';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 interface CreatorRecipeProps {
@@ -83,7 +86,9 @@ export function CreatorRecipeLinks({recipe, setLoginPrompt}: any) {
             onClick: async () => {
                 if (user && !isLoading) {
                     const userRef = db.collection('users').doc(user?.uid).collection('recipes').doc(recipe.id)
-                    await userRef.set(recipe)
+                    await userRef.set(recipe).then((val: any) => {
+                        Notify("Recipe saved to your dashboard")
+                    })
                 } else {
                     setLoginPrompt(true)
                 }
