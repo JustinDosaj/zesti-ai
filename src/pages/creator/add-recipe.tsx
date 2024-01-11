@@ -11,6 +11,7 @@ import { getCreatorData, getUserData } from "../api/firebase/functions";
 import { useRouter } from "next/router";
 import { CreatorAddRecipeModal } from "@/components/shared/modals";
 import { handleCreatorTikTokURLSubmit } from "../api/handler/submit";
+import { db } from "../api/firebase/firebase";
 const raleway = Raleway({subsets: ['latin']})
 
 
@@ -27,6 +28,7 @@ export default function AddRecipe() {
   const [ notify, setNotify ] = useState<boolean>(false)
   const [ rawText, setRawText ] = useState<string>('')
   const [ videoObject, setVideoObject ] = useState<any>()
+  const [recipes, setRecipes] = useState<any[]>([]);
 
   useEffect(() => {
       if (tikTokAccessToken && user && !isLoading) {
@@ -57,6 +59,22 @@ export default function AddRecipe() {
         router.push('/creator/settings')
       }
   }, [tikTokAccessToken]);
+
+  useEffect(() => {
+    const fetchRecipes = async () => {
+      if (user) {
+        const recipeSnapshot = await db.collection(`creators/${user.uid}/recipes`).get();
+        const updatedRecipes = recipeSnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+        setRecipes(updatedRecipes);
+      }
+    };
+
+    if (user == null && !isLoading) {
+      router.replace('/');
+    } else if (user !== null && !isLoading) {
+      fetchRecipes();
+    }
+  }, [user, isLoading, router]);
 
   const addRecipe = async () => {
     await handleCreatorTikTokURLSubmit({url, user, setNotify, rawText, videoObject, creatorData}).then((val) => {
