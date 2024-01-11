@@ -19,7 +19,6 @@ const raleway = Raleway({subsets: ['latin']})
 export default function Dashboard() {
 
   const { user, isLoading, stripeRole } = useAuth();
-  const [isLoadingRecipes, setIsLoadingRecipes] = useState<boolean>(true);
   const [ tokens, setTokens ] = useState<number>(0)
   const [recipes, setRecipes] = useState<any[]>([]);
   const router = useRouter();
@@ -51,7 +50,6 @@ export default function Dashboard() {
         const recipeSnapshot = await db.collection(`users/${user.uid}/recipes`).get();
         const updatedRecipes = recipeSnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
         setRecipes(updatedRecipes);
-        setIsLoadingRecipes(false);
       }
     };
 

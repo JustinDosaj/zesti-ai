@@ -1,8 +1,9 @@
+"use client;"
 import React, { useState, useEffect, useRef } from 'react'
 import { RecipeListLoader } from '@/components/shared/loader'
 import { useAuth } from '@/pages/api/auth/auth'
 import { PlusCircleIcon } from "@heroicons/react/20/solid"
-import { CreatorDashboardTitle } from '../dashboard'
+import { CreatorDashboardTitleSmall } from '../dashboard'
 
 interface RecentTikTokVideos {
     videoList: any,
@@ -61,7 +62,7 @@ export function RecentTikTokVideos({videoList, displayName, setIsOpen, setUrlId,
     return(
         <div className="grid justify-center">
         
-            <CreatorDashboardTitle title={"Recent TikTok Videos"} desc="Select one of your recent TikTok cooking videos to add to your page"/>
+            <CreatorDashboardTitleSmall title={"Recent TikTok Videos"} desc="Select one of your recent TikTok cooking videos to add to your page"/>
             {!videoList?.videos ?
             <div className="mt-36"> 
                 <RecipeListLoader/>
