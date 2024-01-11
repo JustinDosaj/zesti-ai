@@ -27,8 +27,8 @@ export default function Settings() {
         }
       };
 
-      if (user == null && !isLoading) {
-        router.replace('/');
+      if (!tikTokAccessToken && !isLoading) {
+        router.replace('/creator/settings');
       } else if (user !== null && !isLoading) {
         fetchUserData();
       }

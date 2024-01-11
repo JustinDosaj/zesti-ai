@@ -13,11 +13,24 @@ import Head from "next/head";
 const raleway = Raleway({subsets: ['latin']})
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
+    
+    const creatorName = context.query.creator as string
     const id = context.query?.recipe_id as string
-    return {props: {id}}
+
+    let owner_uid = '';
+
+    const querySnapshot = await db.collection('creators').where('display_name', '==', creatorName).get()
+    if(!querySnapshot.empty) {
+      owner_uid = querySnapshot.docs[0].id
+    } else {
+      return { notFound: true }
+    }
+
+
+    return {props: {id, owner_uid}}
 }
 
-const Recipe: React.FC = ({id}: any) => {
+const Recipe: React.FC = ({id, owner_uid}: any) => {
 
     const { user, isLoading, stripeRole } = useAuth();
 
@@ -27,10 +40,8 @@ const Recipe: React.FC = ({id}: any) => {
 
 
     useEffect(() => {
-      if (user == null && isLoading == false) {
-        router.replace('/');
-      } else if (user !== null && isLoading == false) {
-        const unsubscribe = db.doc(`creators/${user.uid}/recipes/${id}`)
+
+        const unsubscribe = db.doc(`creators/${owner_uid}/recipes/${id}`)
           .onSnapshot((docSnapshot) => {
             if (docSnapshot.exists) {
               setRecipe(docSnapshot.data());
@@ -41,7 +52,7 @@ const Recipe: React.FC = ({id}: any) => {
           });
     
         return () => unsubscribe();
-      }
+      
     }, [user, isLoading, id, router]);
 
 
