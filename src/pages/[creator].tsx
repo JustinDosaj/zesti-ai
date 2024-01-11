@@ -122,6 +122,8 @@ const CreatorPage: NextPage<CreatorProps> = ({ creatorData, referer }) => {
       <CreatorSocials creatorData={creatorData}/>
       <CreatorSearch creatorData={creatorData}/>
       <CreatorPageRecentRecipes recipes={recipes} creatorName={creatorData?.display_name}/>
+      <br/>
+      <br/>
       {/* other creator data */}
     </main>
     </>
