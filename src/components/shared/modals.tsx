@@ -3,7 +3,7 @@ import { Fragment, useRef } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 import { CheckIcon } from '@heroicons/react/24/outline'
 import Link from 'next/link'
-import { XMarkIcon, TrashIcon, UserCircleIcon, SquaresPlusIcon, StarIcon, ExclamationCircleIcon, VideoCameraIcon, UserIcon } from '@heroicons/react/20/solid'
+import { XMarkIcon, TrashIcon, SquaresPlusIcon, StarIcon, ExclamationCircleIcon, UserIcon } from '@heroicons/react/20/solid'
 import { deleteRecipe } from '@/pages/api/firebase/functions'
 import { useAuth } from '@/pages/api/auth/auth'
 import React, { useState } from 'react'
@@ -17,6 +17,7 @@ interface InputResponseProps {
     role: any,
 }
 
+// MUST STAY TO DISPLAY ADS ON FREE USER MODAL SUCCESS
 export function InputResponseModal({isOpen, setIsOpen, success, message, role}: InputResponseProps) {
 
   const cancelButtonRef = useRef(null)
@@ -134,12 +135,90 @@ export function InputResponseModal({isOpen, setIsOpen, success, message, role}: 
   )
 }
 
+interface LoginProps {
+  loginPrompt: boolean,
+  setLoginPrompt: any,
+  title: string,
+  message: string,
+}
+
+// MUST STAY | NEW WAY TO DISPLAY LOGIN MODAL TO USER
+export function LoginModal({loginPrompt, setLoginPrompt, title, message}: LoginProps ) {
+  
+  const cancelButtonRef = useRef(null)
+
+  return (
+    <Transition.Root show={loginPrompt} as={Fragment}>
+      <Dialog as="div" className="relative z-50" initialFocus={cancelButtonRef} onClose={setLoginPrompt}>
+        <Transition.Child
+          as={Fragment}
+          enter="ease-out duration-300"
+          enterFrom="opacity-0"
+          enterTo="opacity-100"
+          leave="ease-in duration-200"
+          leaveFrom="opacity-100"
+          leaveTo="opacity-0"
+        >
+          <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
+        </Transition.Child>
+
+        <div className="fixed inset-0 z-25 w-screen overflow-y-auto">
+          <div className="flex min-h-screen items-center justify-center p-4 text-center sm:min-h-full">
+            <Transition.Child
+              as={Fragment}
+              enter="ease-out duration-300"
+              enterFrom="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+              enterTo="opacity-100 translate-y-0 sm:scale-100"
+              leave="ease-in duration-200"
+              leaveFrom="opacity-100 translate-y-0 sm:scale-100"
+              leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+            >
+              <Dialog.Panel className="w-full relative transform overflow-hidden rounded-lg bg-white px-4 pb-4 pt-5 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg sm:p-6">
+                    {/*<Image className=" mx-auto" priority={true} src="/images/zesti-logos/Zesti-Premium-2.png" width={125} height={125} alt="Zesti Premium Logo" />*/}
+                    <UserIcon className="h-16 w-16 mx-auto items-center text-green-500 bg-green-500/20 m-2 p-2 rounded-full"/>
+                  <div className="text-center sm:mt-5">
+                    <Dialog.Title as="h3" className="mt-3 sm:mt-0 text-lg sm:text-xl font-semibold leading-6 text-gray-900">
+                      {title}
+                    </Dialog.Title>
+                    <div className="mt-2">
+                      <p className="text-sm text-gray-500">
+                        {message}
+                      </p>
+                    </div>
+                  </div>
+                <div className="mt-5 sm:mt-6 sm:grid sm:grid-flow-row-dense sm:grid-cols-2 sm:gap-3">
+                  <Link
+                    className="inline-flex w-full justify-center rounded-3xl bg-primary-main px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-primary-alt focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 sm:col-start-2"
+                    href="/login"
+                    onClick={() => {setLoginPrompt(false)}}
+                  >
+                    Create Account
+                  </Link>
+                  <button
+                    type="button"
+                    className="mt-3 inline-flex w-full justify-center rounded-3xl bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:col-start-1 sm:mt-0"
+                    onClick={() => {setLoginPrompt(false)}}
+                    ref={cancelButtonRef}
+                  >
+                    Return
+                  </button>
+                </div>
+              </Dialog.Panel>
+            </Transition.Child>
+          </div>
+        </div>
+      </Dialog>
+    </Transition.Root>
+  )
+}
+
 interface DeleteProps {
   isOpen: boolean,
   setIsOpen: any,
   recipeId: any,
 }
 
+// MUST HAVE TO PREVENT ACCIDENTAL DELETION FOR USER RECIPE -- CAN CHANGE TO BE USED FOR CREATOR TOO
 export function DeleteConfirmationModal({isOpen, setIsOpen, recipeId}: DeleteProps) {
 
   const cancelButtonRef = useRef(null)
@@ -227,6 +306,7 @@ interface AddProps {
   onSubmit: any,
 }
 
+// MUST HAVE TO ADD INGREDIENT OR INSTRUCTION
 export function AddToRecipeModal({isOpen, setIsOpen, addType, onSubmit}: AddProps) {
 
   const cancelButtonRef = useRef(null)
@@ -313,6 +393,7 @@ interface UpgradeToPremiumProps {
   setPremiumPrompt: any,
 }
 
+// MUST HAVE AS POP UP TO ENCOURAGE PREMIUM UPGRADE
 export function UpgradeToPremiumModal({premiumPrompt, setPremiumPrompt}: UpgradeToPremiumProps) {
 
   const cancelButtonRef = useRef(null)
@@ -392,6 +473,7 @@ interface CreatorAddRecipeProps {
   videoObject: any,
 }
 
+// MUST HAVE FOR CREATOR RECIPE INPUT INCASE THE VIDEO DOES NOT HAVE VOICE OVER INSTRUCTION
 export function CreatorAddRecipeModal({isOpen, setIsOpen, addRecipe, setRawText, rawText, videoObject}: CreatorAddRecipeProps) {
 
 
@@ -497,78 +579,3 @@ export function CreatorAddRecipeModal({isOpen, setIsOpen, addRecipe, setRawText,
 }
 
 
-interface LoginProps {
-  loginPrompt: boolean,
-  setLoginPrompt: any,
-  title: string,
-  message: string,
-}
-
-export function LoginModal({loginPrompt, setLoginPrompt, title, message}: LoginProps ) {
-  
-  const cancelButtonRef = useRef(null)
-
-  return (
-    <Transition.Root show={loginPrompt} as={Fragment}>
-      <Dialog as="div" className="relative z-50" initialFocus={cancelButtonRef} onClose={setLoginPrompt}>
-        <Transition.Child
-          as={Fragment}
-          enter="ease-out duration-300"
-          enterFrom="opacity-0"
-          enterTo="opacity-100"
-          leave="ease-in duration-200"
-          leaveFrom="opacity-100"
-          leaveTo="opacity-0"
-        >
-          <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
-        </Transition.Child>
-
-        <div className="fixed inset-0 z-25 w-screen overflow-y-auto">
-          <div className="flex min-h-screen items-center justify-center p-4 text-center sm:min-h-full">
-            <Transition.Child
-              as={Fragment}
-              enter="ease-out duration-300"
-              enterFrom="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
-              enterTo="opacity-100 translate-y-0 sm:scale-100"
-              leave="ease-in duration-200"
-              leaveFrom="opacity-100 translate-y-0 sm:scale-100"
-              leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
-            >
-              <Dialog.Panel className="w-full relative transform overflow-hidden rounded-lg bg-white px-4 pb-4 pt-5 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg sm:p-6">
-                    {/*<Image className=" mx-auto" priority={true} src="/images/zesti-logos/Zesti-Premium-2.png" width={125} height={125} alt="Zesti Premium Logo" />*/}
-                    <UserIcon className="h-16 w-16 mx-auto items-center text-green-500 bg-green-500/20 m-2 p-2 rounded-full"/>
-                  <div className="text-center sm:mt-5">
-                    <Dialog.Title as="h3" className="mt-3 sm:mt-0 text-lg sm:text-xl font-semibold leading-6 text-gray-900">
-                      {title}
-                    </Dialog.Title>
-                    <div className="mt-2">
-                      <p className="text-sm text-gray-500">
-                        {message}
-                      </p>
-                    </div>
-                  </div>
-                <div className="mt-5 sm:mt-6 sm:grid sm:grid-flow-row-dense sm:grid-cols-2 sm:gap-3">
-                  <Link
-                    className="inline-flex w-full justify-center rounded-3xl bg-primary-main px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-primary-alt focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 sm:col-start-2"
-                    href="/login"
-                    onClick={() => {setLoginPrompt(false)}}
-                  >
-                    Create Account
-                  </Link>
-                  <button
-                    type="button"
-                    className="mt-3 inline-flex w-full justify-center rounded-3xl bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:col-start-1 sm:mt-0"
-                    onClick={() => {setLoginPrompt(false)}}
-                    ref={cancelButtonRef}
-                  >
-                    Return
-                  </button>
-                </div>
-              </Dialog.Panel>
-            </Transition.Child>
-          </div>
-        </div>
-      </Dialog>
-    </Transition.Root>
-  )
-}

@@ -165,6 +165,7 @@ export function CreatorDashboard({ children }: CreatorDashboardProps) {
                 <div className="px-4 sm:px-6 lg:pl-72 my-24 mx-auto">{children}</div>
             </main>
         </div>
+
         </>
     )
 }

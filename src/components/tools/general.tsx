@@ -4,13 +4,12 @@ import { useAuth } from "@/pages/api/auth/auth";
 import { InputResponseModal, LoginModal } from "../shared/modals";
 import { Button } from "../shared/button";
 import { Loader } from "../shared/loader";
-import { Notify } from '../shared/notify';
-import { ToastContainer } from 'react-toastify';
 import { LightBulbIcon, ExclamationTriangleIcon } from '@heroicons/react/20/solid'
 import { LinkIcon } from "@heroicons/react/24/outline"
 import { handleYouTubeURLSubmit, handleTikTokURLSubmit } from "@/pages/api/handler/submit";
 import React, { useState, useEffect } from 'react';
-import 'react-toastify/dist/ReactToastify.css';
+import { Notify } from '../shared/notify';
+
 
 
 interface ToolHeroProps {
@@ -71,14 +70,12 @@ export function VideoComponent() {
         const tiktokPattern = /^(https?:\/\/)?(www\.)?tiktok\.com\/.+$/;
         
         if(youtubePattern.test(url)) {
-            console.log("YouTube Link") 
             await handleYouTubeURLSubmit({url, user, setMessage, stripeRole, setNotify}).then((val) => {
                 setSuccess(val)
                 setIsOpen(val)
             });
         }
         else if (tiktokPattern.test(url)) {
-            console.log("TikTok Link") 
             await handleTikTokURLSubmit({url, setUrl, user, setMessage, stripeRole, setNotify}).then((val) => {
                 setSuccess(val)
                 setIsOpen(val)
@@ -93,7 +90,6 @@ export function VideoComponent() {
 
     return(
     <div className="p-4 w-full flex flex-col items-center animate-fadeIn mt-2">
-        <ToastContainer/>
         <div className="flex sm:flex-row flex-col gap-5 w-full justify-center">
             <form action="" method="POST" className="py-1 pl-6 w-full max-w-md pr-1 flex gap-3 items-center text-heading-3 shadow-lg shadow-box-shadow
             border border-box-border bg-box-bg rounded-full ease-linear focus-within:bg-body  focus-within:border-primary">

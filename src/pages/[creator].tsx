@@ -1,6 +1,5 @@
 import { Raleway } from 'next/font/google'
 import { CreatorSearch, CreatorPageTitle, CreatorSocials, CreatorPageRecentRecipes } from '@/components/creator/page';
-import { useAuth } from "@/pages/api/auth/auth"
 import { GetServerSideProps, NextPage } from 'next';
 import { useEffect, useState } from "react";
 import { PageLoader } from "@/components/shared/loader";
@@ -9,8 +8,8 @@ import { db } from './api/firebase/firebase';
 import GoogleTags from '@/components/tags/conversion';
 import { PromoteKitTag } from '@/components/tags/headertags';
 import { setCookie } from '@/pages/api/handler/cookies';
-import firebase from 'firebase/compat/app';
 import { useRouter } from 'next/router';
+import firebase from 'firebase/compat/app';
 
 const raleway = Raleway({subsets: ['latin']})
 
