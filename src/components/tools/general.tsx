@@ -1,7 +1,7 @@
 import { Paragraph } from "../shared/paragraph"
 import { Container } from "../shared/container"
 import { useAuth } from "@/pages/api/auth/auth";
-import { InputResponseModal, NotLoggedInModal } from "../shared/modals";
+import { InputResponseModal, LoginModal } from "../shared/modals";
 import { Button } from "../shared/button";
 import { Loader } from "../shared/loader";
 import { Notify } from '../shared/notify';
@@ -118,7 +118,7 @@ export function VideoComponent() {
             </form>
         </div>
         <InputResponseModal isOpen={isOpen} setIsOpen={setIsOpen} success={success} message={message} role={stripeRole}/>
-        <NotLoggedInModal loginPrompt={loginPrompt} setLoginPrompt={setLoginPrompt}/>
+        <LoginModal loginPrompt={loginPrompt} setLoginPrompt={setLoginPrompt} title={"Feature Requires Account"} message={"Please create an account to continue"}/>
     </div>
     )
 }
