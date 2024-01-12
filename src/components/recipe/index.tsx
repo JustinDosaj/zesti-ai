@@ -7,20 +7,19 @@ import { Notify } from '@/components/shared/notify';
 import React, { useState, useEffect } from "react"
 import { Button, AltButton } from "@/components/shared/button"
 
-
 interface CreatorRecipeProps {
     recipe: any,
     url?: string,
-    setLoginPrompt?: any
-    owner_id: string,
+    setPremiumPrompt?: any
+    owner_id?: string,
     setEditMode?: any,
+    role?: any,
 }
 
-export function CreatorRecipe({recipe, url, setLoginPrompt, owner_id, setEditMode}: CreatorRecipeProps) {
+
+export function UserRecipe({recipe, setPremiumPrompt, owner_id, setEditMode, role}: CreatorRecipeProps) {
 
     const {user, isCreator} = useAuth()
-
-    console.log(recipe)
 
     return(
     <Container className={"flex flex-col gap-6 animate-fadeInFast alternate-orange-bg mt-36 rounded-3xl md:w-[599px] p-8 mb-16"}>
@@ -28,7 +27,7 @@ export function CreatorRecipe({recipe, url, setLoginPrompt, owner_id, setEditMod
             <span className="section-desc-title-size text-center">{recipe.name}</span>
             <p className="text-center text-gray-500 text-sm">{recipe.title}</p>
         </div>
-        <CreatorRecipeLinks recipe={recipe} setLoginPrompt={setLoginPrompt}/>
+        <UserRecipeLinks recipe={recipe} setPremiumPrompt={setPremiumPrompt}/>
         <div className="space-y-2">
             <h2 className="section-desc-text-size font-semibold">Ingredients ({recipe.ingredients.length})</h2>
             <ul className="space-y-2 list-disc pl-6">
@@ -57,14 +56,14 @@ export function CreatorRecipe({recipe, url, setLoginPrompt, owner_id, setEditMod
                 ))}
             </ul>
         </div>
-        <div className={user?.uid == owner_id ? `grid justify-center` : 'hidden'}>
+        <div className={user?.uid ? `grid justify-center` : 'hidden'}>
             <Button buttonType="button" text="Edit Recipe" className="w-fit" onClick={() => {setEditMode(true)}}/>
         </div>
     </Container>
     )
 }
 
-export function EditCreatorRecipe({recipe, url, setLoginPrompt, owner_id, setEditMode}:CreatorRecipeProps) {
+export function EditUserRecipe({recipe, setPremiumPrompt, setEditMode, role}:CreatorRecipeProps) {
 
     const {user, isCreator} = useAuth()
     const [editedIngredients, setEditedIngredients] = useState<string[]>([]);
@@ -72,14 +71,13 @@ export function EditCreatorRecipe({recipe, url, setLoginPrompt, owner_id, setEdi
     const [newIngredient, setNewIngredient] = useState<string>('');
     const [newInstruction, setNewInstruction] = useState<string>('');
     const [editedName, setEditedName] = useState<string>('')
+    const router = useRouter()
 
     useEffect(() => {
         setEditedIngredients(recipe.ingredients || []);
         setEditedInstructions(recipe.instructions || [])
         setEditedName(recipe.name || '')
     }, [recipe.ingredients, recipe.instructions, recipe.name]);
-
-    console.log(editedName)
 
     const handleIngredientChange = (index: number, newValue: string) => {
         const updatedIngredients = [...editedIngredients];
@@ -128,16 +126,14 @@ export function EditCreatorRecipe({recipe, url, setLoginPrompt, owner_id, setEdi
     const handleSave = async () => {
 
         try{
-            if(owner_id == user?.uid) {
-                await db.doc(`creators/${owner_id}/recipes/${recipe.url_id}`).update({
-                    ingredients: editedIngredients,
-                    instructions: editedInstructions,
-                    name: editedName,
-                })
+            await db.doc(`users/${user?.uid}/recipes/${recipe.url_id}`).update({
+                ingredients: editedIngredients,
+                instructions: editedInstructions,
+                name: editedName,
+            })
 
-                setEditMode(false)
-                Notify("Recipe changes saved")
-            }
+            setEditMode(false)
+            Notify("Recipe changes saved")
         } catch(err) {
             console.log(err)
         }
@@ -159,7 +155,7 @@ export function EditCreatorRecipe({recipe, url, setLoginPrompt, owner_id, setEdi
             
             <p className="text-center text-gray-500 text-sm">{recipe.title}</p>
         </div>
-        <CreatorRecipeLinks recipe={recipe} setLoginPrompt={setLoginPrompt}/>
+        <UserRecipeLinks recipe={recipe} setPremiumPrompt={setPremiumPrompt}/>
         <div className="space-y-2">
             <h2 className="section-desc-text-size font-semibold">Ingredients</h2>
             <ul className="list-disc pl-6">
@@ -241,17 +237,15 @@ export function EditCreatorRecipe({recipe, url, setLoginPrompt, owner_id, setEdi
     )
 }
 
-export function CreatorRecipeLinks({recipe, setLoginPrompt}: any) {
+export function UserRecipeLinks({recipe, setPremiumPrompt}: any) {
 
     const router = useRouter()
     const { isLoading, user } = useAuth()
 
-    console.log(recipe)
-
     const navigation = [
         { 
             name: recipe.owner_display_name,
-            onClick: () => router.push(`/${recipe.owner_display_name}`),
+            onClick: () => window.open(`/${recipe.owner_display_name}`),
             icon: EyeIcon,
         },
         { 
@@ -268,20 +262,6 @@ export function CreatorRecipeLinks({recipe, setLoginPrompt}: any) {
                         d="M448,209.91a210.06,210.06,0,0,1-122.77-39.25V349.38A162.55,162.55,0,1,1,185,188.31V278.2a74.62,74.62,0,1,0,52.23,71.18V0l88,0a121.18,121.18,0,0,0,1.86,22.17h0A122.18,122.18,0,0,0,381,102.39a121.43,121.43,0,0,0,67,20.14Z" />
                 </svg>
             ),
-        },
-        { 
-            name: 'Save',
-            onClick: async () => {
-                if (user && !isLoading) {
-                    const userRef = db.collection('users').doc(user?.uid).collection('recipes').doc()
-                    await userRef.set(recipe).then(() => {
-                        Notify("Recipe saved to your dashboard")
-                    })
-                } else {
-                    setLoginPrompt(true)
-                }
-            },
-            icon: ArrowDownTrayIcon,
         },
     ]
 

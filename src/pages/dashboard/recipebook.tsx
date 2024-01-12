@@ -5,7 +5,7 @@ import { useRouter } from 'next/router'
 import { useAuth } from '../api/auth/auth'
 import { db } from '../api/firebase/firebase'
 import { PageLoader } from '@/components/shared/loader'
-import { RecipeList } from '@/components/dashboard/recipelist'
+import { UserSavedRecipeList } from '@/components/dashboard/recipelist'
 import GoogleTags from '@/components/tags/conversion'
 import { PromoteKitTag } from '@/components/tags/headertags'
 import AdSenseDisplay from '@/components/tags/adsense'
@@ -48,7 +48,7 @@ export default function RecipeBook() {
         </Head>  
         <main className={`flex min-h-screen flex-col items-center bg-background ${raleway.className}`}>
             <SharedViewAllTitle title="Saved Recipes" desc="View all the recipes you have saved with Zesti" href={'/dashboard'}/>
-            {isLoadingRecipes ? <PageLoader/> : <RecipeList data={recipes}/>}
+            {isLoadingRecipes ? <PageLoader/> : <UserSavedRecipeList recipes={recipes} maxDisplayCount={5}/>}
             {stripeRole !== 'premium' && recipes.length > 0 ? 
             <div className="flex justify-center items-center py-16">
               <div className="w-full min-w-[300px] max-w-[320px] lg:max-w-full lg:min-w-[1240px] text-center">
