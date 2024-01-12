@@ -2,13 +2,12 @@ import { Raleway } from 'next/font/google'
 import {  Search } from '@/components/dashboard';
 import { useAuth } from "@/pages/api/auth/auth"
 import { useRouter } from "next/router";
-import { RecipeList } from '@/components/dashboard/recipelist';
+import { UserSavedRecipeList } from '@/components/dashboard/recipelist';
 import { DashboardRecipeTitle } from '@/components/dashboard';
 import { useState, useEffect } from "react";
 import { PageLoader } from "@/components/shared/loader";
 import Head from 'next/head';
 import { db } from '../api/firebase/firebase';
-import { getUserData } from '../api/firebase/functions';
 import GoogleTags from '@/components/tags/conversion';
 import { PromoteKitTag } from '@/components/tags/headertags';
 import AdSenseDisplay from '@/components/tags/adsense';
@@ -76,7 +75,7 @@ export default function Dashboard() {
         <Search/>
         <div className="border-t border-gray-200 m-12" style={{ width: '35%' }} />
         <DashboardRecipeTitle/>
-        <RecipeList data={recipes} maxDisplayCount={5}/>
+        <UserSavedRecipeList recipes={recipes} maxDisplayCount={5} max={3}/>
         {stripeRole !== 'premium' && recipes.length > 0 ? 
         <div className="flex justify-center items-center py-16">
           <div className="w-full min-w-[300px] max-w-[320px] lg:max-w-full lg:min-w-[1240px] text-center">

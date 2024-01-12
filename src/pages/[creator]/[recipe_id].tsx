@@ -37,7 +37,7 @@ const Recipe: React.FC = ({id, owner_uid}: any) => {
 
     const [recipe, setRecipe] = useState<any>([])
     const [url, setUrl] = useState<string>('')
-    const [loginPrompt, setLoginPrompt] = useState<boolean>(false)
+    const [ loginPrompt, setLoginPrompt ] = useState<boolean>(false)
     const [ isEditMode, setEditMode ] = useState<boolean>(false)
     const router = useRouter();
 
