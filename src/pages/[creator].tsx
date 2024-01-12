@@ -99,8 +99,6 @@ const CreatorPage: NextPage<CreatorProps> = ({ creatorData, referer }) => {
 
   }, [creatorData, referer]);
 
-  console.log("Recipes:, ", recipes)
-
   if (!creatorData) return <PageLoader/>
 
   // Render your creator data here
