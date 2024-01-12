@@ -201,7 +201,7 @@ export const handleCreatorTikTokURLSubmit = async ({url, user, setNotify, rawTex
         "date": date,
         "rawData": rawText,
         "cover_image_url": videoObject?.cover_image_url,
-        "title": videoObject?.title,
+        "title": videoObject?.title.replace(/#[\w]+/g, '').trim().slice(0, 70),
         "display_name": creatorData?.display_name,
         "owner_id": creatorData?.owner_id,
     }
