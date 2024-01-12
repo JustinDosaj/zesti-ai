@@ -11,6 +11,7 @@ import GoogleTags from "@/components/tags/conversion";
 import AdSenseDisplay from "@/components/tags/adsense";
 import { PromoteKitTag } from "@/components/tags/headertags";
 import { UserRecipe, EditUserRecipe } from "@/components/recipe";
+import { UpgradeToPremiumModal } from "@/components/shared/modals";
 
 const raleway = Raleway({subsets: ['latin']})
 
@@ -76,6 +77,7 @@ const Recipe: React.FC = ({id}: any) => {
       :
       <div className="mb-28"/>
       }
+      <UpgradeToPremiumModal premiumPrompt={premiumPrompt} setPremiumPrompt={setPremiumPrompt}/>
     </main>
     </>
     )
