@@ -7,7 +7,7 @@ import Link from "next/link"
 import React, { useState, useEffect, useRef  } from "react"
 import Image from "next/image"
 import { Button } from "../shared/button"
-import { EyeIcon } from "@heroicons/react/20/solid"
+import { EyeIcon, TrashIcon } from "@heroicons/react/20/solid"
 
 export function CreatorPageTitle({creatorData}: any) {
     return(
@@ -151,11 +151,13 @@ interface CreatorPageRecentRecipesProps {
   creatorName: string,
   maxDisplayCount?: number,
   incrementCount?: number
+  owner_id?: string,
 }
 
 export function CreatorPageRecentRecipes({recipes, creatorName, maxDisplayCount = 5, incrementCount = 10}: CreatorPageRecentRecipesProps) {
   
   const [ displayCount, setDisplayCount ] = useState(maxDisplayCount)
+  const { user, isLoading } = useAuth() 
   const containerRef = useRef<HTMLDivElement>(null);
 
   const handleLoadMore = () => {
@@ -202,12 +204,10 @@ export function CreatorPageRecentRecipes({recipes, creatorName, maxDisplayCount 
                         </div>
                     </div>
                     {/* Overlay Icon */}
-                    <Link
-                        className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-40 opacity-0 group-hover:opacity-100 rounded-3xl hover:animate-fadeInExtraFast"
-                        href={`/${creatorName}/${item.id}`}
-                    >
-                        <EyeIcon className="text-white h-10 w-10 hover:text-gray-300"/>
-                    </Link>
+                      <Link href={`/${creatorName}/${item.id}`} className="absolute space-x-4 inset-0 flex items-center justify-center bg-black bg-opacity-40 opacity-0 group-hover:opacity-100 rounded-3xl hover:animate-fadeInExtraFast">
+                          <EyeIcon className="text-white h-10 w-10 hover:text-gray-300 hover:bg-gray-500 bg-gray-700 rounded-xl p-1"/>
+                      </Link>
+      
                 </div>
             </div>
         ))}

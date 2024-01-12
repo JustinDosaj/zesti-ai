@@ -1,11 +1,13 @@
 import { Container } from "@/components/shared/container"
-import { ArrowDownTrayIcon, EyeIcon, PlusIcon, TrashIcon } from "@heroicons/react/20/solid"
+import { EyeIcon, PlusIcon, TrashIcon, CheckIcon, XMarkIcon } from "@heroicons/react/20/solid"
 import { useRouter } from "next/router"
 import { db } from "@/pages/api/firebase/firebase"
 import { useAuth } from "@/pages/api/auth/auth"
 import { Notify } from '@/components/shared/notify';
 import React, { useState, useEffect } from "react"
 import { Button, AltButton } from "@/components/shared/button"
+import { ExclamationTriangleIcon } from "@heroicons/react/24/outline"
+
 
 interface CreatorRecipeProps {
     recipe: any,
@@ -20,6 +22,22 @@ interface CreatorRecipeProps {
 export function UserRecipe({recipe, setPremiumPrompt, owner_id, setEditMode, role}: CreatorRecipeProps) {
 
     const {user, isCreator} = useAuth()
+    const [startDelete, setStartDelete] = useState<boolean>(false);
+    const router = useRouter()
+
+    const deleteRecipe = async (recipeId: string) => {
+        try {
+            if(user?.uid) {
+                await db.doc(`users/${user?.uid}/recipes/${recipeId}`).delete();
+                await db.doc(`users/${user?.uid}/tiktokurl/${recipeId}`).delete();
+                setEditMode(false)
+                Notify("Recipe Deleted")
+                router.push('/dashboard')
+            }
+        } catch(err) {
+        
+        }
+    }
 
     return(
     <Container className={"flex flex-col gap-6 animate-fadeInFast alternate-orange-bg mt-36 rounded-3xl md:w-[599px] p-8 mb-16"}>
@@ -56,8 +74,37 @@ export function UserRecipe({recipe, setPremiumPrompt, owner_id, setEditMode, rol
                 ))}
             </ul>
         </div>
-        <div className={user?.uid ? `grid justify-center` : 'hidden'}>
-            <Button buttonType="button" text="Edit Recipe" className="w-fit" onClick={() => {setEditMode(true)}}/>
+        {/*EDIT BUTTON */}
+        <div className="grid justify-center">
+            <Button buttonType="button" text="Edit Recipe" className="w-fit" onClick={() => {
+                if (role == 'premium') {
+                    setEditMode(true)
+                } else {
+                    setPremiumPrompt(true)
+                }
+                }}/>
+        </div>
+        <div className="inline-flex justify-center items-center gap-1">
+            <ExclamationTriangleIcon className="h-5 w-5 text-red-600"/>
+            { startDelete == false ?
+            <button onClick={() => setStartDelete(true)}>
+                <span className="underline text-red-600 hover:text-red-400">Delete Recipe</span>
+            </button>
+            :
+            <div className="inline-flex">
+                <span className="text-gray-700  mr-1">Confirm Deletion:</span>
+                <div className="inline-flex space-x-4">
+                    <button onClick={() => setStartDelete(false)} className="inline-flex items-center gap-0.5">
+                        <XMarkIcon className="h-6 w-6 text-red-600"/>
+                        <span className="text-sm md:text-base underline">Cancel</span>
+                    </button>
+                    <button onClick={() => deleteRecipe(recipe.url_id)} className="inline-flex items-center gap-0.5">
+                        <CheckIcon className="h-5 w-5 text-green-600  "/>
+                        <span className="text-sm md:text-base underline">Delete</span>
+                    </button>
+                </div>
+            </div>
+            }
         </div>
     </Container>
     )
@@ -70,8 +117,7 @@ export function EditUserRecipe({recipe, setPremiumPrompt, setEditMode, role}:Cre
     const [editedInstructions, setEditedInstructions] = useState<string[]>([]);
     const [newIngredient, setNewIngredient] = useState<string>('');
     const [newInstruction, setNewInstruction] = useState<string>('');
-    const [editedName, setEditedName] = useState<string>('')
-    const router = useRouter()
+    const [editedName, setEditedName] = useState<string>('');
 
     useEffect(() => {
         setEditedIngredients(recipe.ingredients || []);
@@ -140,8 +186,6 @@ export function EditUserRecipe({recipe, setPremiumPrompt, setEditMode, role}:Cre
         // Logic to save updatedRecipe to the database
         // ...
     };
-
-
 
     return(
     <Container className={"flex flex-col gap-6 animate-fadeInFast alternate-orange-bg mt-36 rounded-3xl md:w-[599px] p-8 mb-16"}>
