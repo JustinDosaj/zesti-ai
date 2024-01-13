@@ -194,7 +194,7 @@ export function CreatorPageRecentRecipes({recipes, creatorName, maxDisplayCount 
       <h2 className="text-center text-2xl font-semibold">Recent Recipes</h2>
     </div>
         {recipes.slice(0,displayCount).map((item: any) => (
-            <CreatorRecipeListCard creatorName={creatorName} item={item}/>
+            <CreatorRecipeListCard creatorName={creatorName} item={item} key={item.name}/>
         ))}
          {displayCount < recipes.length && (
             <div className="flex justify-center py-6">
@@ -208,11 +208,12 @@ export function CreatorPageRecentRecipes({recipes, creatorName, maxDisplayCount 
 interface RecipeCardProps {
   item: any,
   creatorName: string,
+  key?: any,
 }
 
-export function CreatorRecipeListCard({item, creatorName}: RecipeCardProps) {
+export function CreatorRecipeListCard({item, creatorName, key}: RecipeCardProps) {
   return(
-  <div className="group relative">
+  <div key={key} className="group relative">
         {/* Image and Details */}
         <div className="flex items-center space-x-4 border p-4 rounded-3xl max-w-2xl">
             <img src={`https://firebasestorage.googleapis.com/v0/b/${process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET}/o/${encodeURIComponent(item.cover_image_url)}?alt=media`} className="h-[136px] w-[96px] rounded-xl object-cover" alt={item.title}/>
