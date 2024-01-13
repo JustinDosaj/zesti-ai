@@ -21,23 +21,22 @@ export default function Settings() {
 
   useEffect(() => {
       const fetchUserData = async () => {
-      if (user) {
-          const userData = await getUserData(user.uid)
-          setUserData(userData)
+          if (user && isCreator == true) {
+              
+              const userData = await getUserData(user.uid)
+              setUserData(userData)
 
-          if (isCreator == true) {
-            const creatorData = await getCreatorData(user.uid)
-            setCreatorData(creatorData)
-        }
-      }
+              const creatorData = await getCreatorData(user.uid)
+              setCreatorData(creatorData)
+          }
       };
 
-      if (user == null && !isLoading) {
+      if ((user == null || !isCreator) && !isLoading) {
         router.replace('/');
       } else if (user !== null && !isLoading) {
         fetchUserData();
       }
-  },[user, isLoading])
+  },[user, isLoading, isCreator])
 
   return (
     <>

@@ -7,7 +7,7 @@ import Link from "next/link"
 import React, { useState, useEffect, useRef  } from "react"
 import Image from "next/image"
 import { Button } from "../shared/button"
-import { EyeIcon, TrashIcon } from "@heroicons/react/20/solid"
+import { EyeIcon } from "@heroicons/react/20/solid"
 
 export function CreatorPageTitle({creatorData}: any) {
     return(
@@ -28,21 +28,7 @@ export function CreatorPageTitle({creatorData}: any) {
 
 export function CreatorSearch({creatorData}: any) {
     
-    const { user, stripeRole } = useAuth()
     const [ url, setUrl ] = useState<string>('');
-    const [ message, setMessage ] = useState<string>('')
-    const [ notify, setNotify ] = useState<boolean | null>(null)
-
-    useEffect(() => {
-        if (notify == true) {
-            Notify(message)
-            setNotify(false)
-        }
-    },[notify])
-
-    async function onClick() {
-
-    }
 
     return(
     <Container className={"flex flex-col lg:flex-row gap-10 lg:gap-12 animate-fadeIn"}>
@@ -157,7 +143,6 @@ interface CreatorPageRecentRecipesProps {
 export function CreatorPageRecentRecipes({recipes, creatorName, maxDisplayCount = 5, incrementCount = 10}: CreatorPageRecentRecipesProps) {
   
   const [ displayCount, setDisplayCount ] = useState(maxDisplayCount)
-  const { user, isLoading } = useAuth() 
   const containerRef = useRef<HTMLDivElement>(null);
 
   const handleLoadMore = () => {
@@ -185,9 +170,7 @@ export function CreatorPageRecentRecipes({recipes, creatorName, maxDisplayCount 
         }
     };
   }, [displayCount, recipes]);
-
-  console.log(recipes)
-
+  
   return(
   <div className="space-y-2 animate-fadeIn p-4 sm:p-0">
     <div className="mt-6 mb-6">

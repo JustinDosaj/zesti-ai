@@ -10,6 +10,7 @@ import React, {useEffect, useState} from 'react'
 import { LoginModal } from "@/components/shared/modals";
 import GoogleTags from "@/components/tags/conversion";
 import Head from "next/head";
+import { getCreatorByDisplayName } from "../api/firebase/functions";
 
 const raleway = Raleway({subsets: ['latin']})
 
@@ -20,13 +21,12 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
     let owner_uid = '';
 
-    const querySnapshot = await db.collection('creators').where('display_name', '==', creatorName).get()
-    if(!querySnapshot.empty) {
-      owner_uid = querySnapshot.docs[0].id
-    } else {
-      return { notFound: true }
-    }
-
+    const querySnapshot = await getCreatorByDisplayName(creatorName)
+      if(!querySnapshot.empty) {
+        owner_uid = querySnapshot.docs[0].id
+      } else {
+        return { notFound: true }
+      }
 
     return {props: {id, owner_uid}}
 }

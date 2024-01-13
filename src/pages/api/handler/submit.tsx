@@ -187,7 +187,7 @@ export const handleTikTokURLSubmit = async ({url, setUrl, user, setMessage, stri
     }
 }
 
-export const handleCreatorTikTokURLSubmit = async ({url, user, setNotify, rawText, videoObject, creatorData}: TikTokProps): Promise<boolean> => {
+export const handleCreatorTikTokURLSubmit = async ({url, user, rawText, videoObject, creatorData}: TikTokProps): Promise<boolean> => {
 
     // Check if URL is empty   
     const date = await getCurrentDate()

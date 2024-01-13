@@ -1,5 +1,5 @@
 import { Raleway } from 'next/font/google'
-import {  Search } from '@/components/dashboard';
+import { Search } from '@/components/dashboard';
 import { useAuth } from "@/pages/api/auth/auth"
 import { useRouter } from "next/router";
 import { UserSavedRecipeList } from '@/components/dashboard/recipelist';
@@ -7,11 +7,11 @@ import { DashboardRecipeTitle } from '@/components/dashboard';
 import { useState, useEffect } from "react";
 import { PageLoader } from "@/components/shared/loader";
 import Head from 'next/head';
-import { db } from '../api/firebase/firebase';
 import GoogleTags from '@/components/tags/conversion';
 import { PromoteKitTag } from '@/components/tags/headertags';
 import AdSenseDisplay from '@/components/tags/adsense';
 import { SharedPageTitle } from '@/components/shared/title';
+import { getAllRecipes } from '../api/firebase/functions';
 
 const raleway = Raleway({subsets: ['latin']})
 
@@ -22,39 +22,18 @@ export default function Dashboard() {
   const [recipes, setRecipes] = useState<any[]>([]);
   const router = useRouter();
 
-
-  /*useEffect( () => {
-    if(user == null && isLoading == false) {
-      router.replace('/')
-    } else if (user !== null && isLoading == false) {
-      const unsubscribe = db.collection(`users/${user.uid}/recipes`)
-        .onSnapshot((snapshot) => {
-          const updatedRecipes = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
-          setRecipes(updatedRecipes);
-          setIsLoadingRecipes(false);
-        });
-        const fetchUserData = async () => {
-            const userData = await getUserData(user.uid);
-            setTokens(userData?.tokens);
-        };
-        fetchUserData();
-    }
-
-
-  }, [user, recipes])*/
-
   useEffect(() => {
     const fetchRecipes = async () => {
       if (user) {
-        const recipeSnapshot = await db.collection(`users/${user.uid}/recipes`).get();
-        const updatedRecipes = recipeSnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
-        setRecipes(updatedRecipes);
+        const recipes = await getAllRecipes(user?.uid)
+        setRecipes(recipes)
       }
     };
 
     if (user == null && !isLoading) {
       router.replace('/');
-    } else if (user !== null && !isLoading) {
+    } 
+    else if (user !== null && !isLoading) {
       fetchRecipes();
     }
   }, [user, isLoading, router]);

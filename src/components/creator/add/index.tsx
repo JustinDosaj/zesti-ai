@@ -9,24 +9,21 @@ interface RecentTikTokVideos {
     videoList: any,
     displayName: string,
     setIsOpen: any,
-    setUrlId: any,
+    setUrlId?: any,
     setUrl: any,
     setVideoObject: any,
     maxDisplayCount?: number,
     incrementCount?: number,
 }
 
-export function RecentTikTokVideos({videoList, displayName, setIsOpen, setUrlId, setUrl, setVideoObject, maxDisplayCount = 5, incrementCount = 5}: RecentTikTokVideos) {
+export function RecentTikTokVideos({videoList, displayName, setIsOpen, setUrl, setVideoObject, maxDisplayCount = 5, incrementCount = 5}: RecentTikTokVideos) {
 
-    const { user, isLoading } = useAuth()
-    const [ notify, setNotify ] = useState<boolean | null>(null)
     const [ displayCount, setDisplayCount ] = useState(maxDisplayCount)
     const containerRef = useRef<HTMLDivElement>(null);
     
     const addRecipeToCreatorPage = async (url_id: string, item: any) => {
         
         const url = `https://www.tiktok.com/@${displayName}/video/${url_id}`
-        setUrlId(url_id)
         setUrl(url)
         setIsOpen(true)
         setVideoObject(item)
@@ -84,14 +81,13 @@ export function RecentTikTokVideos({videoList, displayName, setIsOpen, setUrlId,
                             <button
                                 className="hover:animate-fadeInExtraFast absolute inset-0 flex items-center justify-center bg-black bg-opacity-40 opacity-0 group-hover:opacity-100 rounded-3xl"
                                 onClick={() => addRecipeToCreatorPage(item.id, item)}
-                            >
+                                >
                                 <PlusCircleIcon className="text-white h-10 w-10 hover:text-gray-300"/>
                             </button>
                         </div>
                     </div>
                 ))}
             </div>
-            
             }
         </div>
     )

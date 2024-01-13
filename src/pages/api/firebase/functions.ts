@@ -7,19 +7,24 @@ export interface Props {
 }
 
 export async function getAllRecipes(user: any) {
-    try {
-      const snapshot = await db.collection('users').doc(user).collection('recipes').get()
-      const pages = snapshot.docs.map((doc: any) => {
-        return {
-          id: doc.id,
-          ...doc.data()
-        }
-      })
-      return pages
-    } catch (err) {
-        console.log(err)
-        return
-    }
+    
+  const recipeSnapshot = await db.collection(`users/${user}/recipes`).get();
+  const updatedRecipes = recipeSnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+  return updatedRecipes
+
+}
+
+export async function getAllCreatorRecipes(id: string) {
+  
+  const recipeSnapshot = await db.collection(`creators/${id}/recipes`).get();
+  const updatedRecipes = recipeSnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+  return updatedRecipes
+
+}
+
+export async function getCreatorByDisplayName(creatorName: string) {
+  const querySnapshot = await db.collection('creators').where('display_name', '==', creatorName).get()
+  return querySnapshot
 }
 
 export async function getSubscription(user: any) {
@@ -67,26 +72,15 @@ export async function getRecipe(user: any, id: any) {
     }
 }
 
-export async function deleteRecipe(user: any, id: any) {
-  const recipeRef = doc(db, 'users', user, 'recipes', id);
-  await deleteDoc(recipeRef);
-
-  const userRef: DocumentReference = doc(db, 'users', user);
-
-  const userDoc = await getDoc(userRef);
-  if (userDoc.exists()) {
-    const userData = userDoc.data();
-    let totalRecipes: number = userData.totalRecipes;
-
-    // Decrement totalRecipes and update the user document
-    if (totalRecipes && totalRecipes > 0) {
-      await updateDoc(userRef, {
-        totalRecipes: totalRecipes - 1
-      });
-    }
-  } else {
-    console.log("User document not found");
+export async function deleteUserRecipe(user: any, id: any) {
+  try {
+    await db.doc(`users/${user}/recipes/${id}`).delete();
+    await db.doc(`users/${user}/tiktokurl/${id}`).delete();
+    return "Recipe Deleted Successfully"
+  } catch (error) {
+    return "Problem Deleting Recipe"
   }
+
 }
 
 interface TikTokTokenData {
@@ -161,4 +155,9 @@ export async function saveBioDataToFireStore(bioObj: any, userId: string){
     console.log(error)
   }
 
+}
+
+export async function saveFromCreatorToUser(user: any, id: any, recipe: any) {
+  const userRef = db.collection('users').doc(user).collection('recipes').doc(id)
+  await userRef.set(recipe)
 }
