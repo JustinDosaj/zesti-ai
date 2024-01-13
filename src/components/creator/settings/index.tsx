@@ -14,6 +14,11 @@ export function CreatorSettingsComponent({userData, creatorData}: any) {
         setAffiliateLink(creatorData?.affiliate_link)
     },[creatorData])
 
+    const onAffiliateSave = () => {
+        saveAffiliateLink(affiliateLink, user?.uid!)
+        setEdit(false)
+    }
+
     if (isLoading || !userData ) return <PageLoader/>
 
     if (!tikTokAccessToken) return (
@@ -27,9 +32,6 @@ export function CreatorSettingsComponent({userData, creatorData}: any) {
                     <dt className="font-semibold text-gray-900 sm:w-64 sm:flex-none sm:pr-6 text-sm lg:text-base">Email</dt>
                     <dd className="mt-1 flex gap-x-6 sm:mt-0">
                         <div className="text-gray-700 text-sm lg:text-base">{user?.email}</div>
-                        {/* *CHANGE TO SOMETHING ELSE AFTER FIRST TIKTOK CONNECTION --> OPTION TO RECONNECT OR CHANGE ACCOUNTS WILL DELETE CURRENT PAGE
-                            *POSSIBLE REQUIRE TIKTOK ACCOUNT AUTHROIZATION BEFORE APPLICATION SUBMISSION TO ENSURE WE KNOW THIS PERSON OWNS A TIKTOK 
-                        */}
                     </dd>
                 </div>
                 <div className="pt-6 flex justify-between items-center">
@@ -39,9 +41,6 @@ export function CreatorSettingsComponent({userData, creatorData}: any) {
                             onClick={loginWithTikTok}>
                             {"Connect"}
                         </button>
-                        {/* *CHANGE TO SOMETHING ELSE AFTER FIRST TIKTOK CONNECTION --> OPTION TO RECONNECT OR CHANGE ACCOUNTS WILL DELETE CURRENT PAGE
-                            *POSSIBLE REQUIRE TIKTOK ACCOUNT AUTHROIZATION BEFORE APPLICATION SUBMISSION TO ENSURE WE KNOW THIS PERSON OWNS A TIKTOK 
-                        */}
                     </dd>
                 </div>
             </dl>
@@ -59,18 +58,12 @@ export function CreatorSettingsComponent({userData, creatorData}: any) {
                     <dt className="font-semibold text-gray-900 sm:w-64 sm:flex-none sm:pr-6 text-sm lg:text-base">Email</dt>
                     <dd className="mt-1 flex gap-x-6 sm:mt-0">
                         <div className="text-gray-700 text-sm lg:text-base">{user?.email}</div>
-                        {/* *CHANGE TO SOMETHING ELSE AFTER FIRST TIKTOK CONNECTION --> OPTION TO RECONNECT OR CHANGE ACCOUNTS WILL DELETE CURRENT PAGE
-                            *POSSIBLE REQUIRE TIKTOK ACCOUNT AUTHROIZATION BEFORE APPLICATION SUBMISSION TO ENSURE WE KNOW THIS PERSON OWNS A TIKTOK 
-                        */}
                     </dd>
                 </div>
                 <div className="pt-6 flex justify-between items-center">
                     <dt className="font-semibold text-gray-900 sm:w-64 sm:flex-none sm:pr-6 text-sm lg:text-base">Page Link</dt>
                     <dd className="mt-1 flex gap-x-6 sm:mt-0">
                         <div className="text-gray-700 text-sm lg:text-base">{`https://www.zesti.ai/${creatorData?.display_name}`}</div>
-                        {/* *CHANGE TO SOMETHING ELSE AFTER FIRST TIKTOK CONNECTION --> OPTION TO RECONNECT OR CHANGE ACCOUNTS WILL DELETE CURRENT PAGE
-                            *POSSIBLE REQUIRE TIKTOK ACCOUNT AUTHROIZATION BEFORE APPLICATION SUBMISSION TO ENSURE WE KNOW THIS PERSON OWNS A TIKTOK 
-                        */}
                     </dd>
                 </div>
                 <div className="pt-6 flex justify-between items-center">
@@ -80,25 +73,15 @@ export function CreatorSettingsComponent({userData, creatorData}: any) {
                             onClick={loginWithTikTok}>
                             {"Reconnect"}
                         </button>
-                        {/* *CHANGE TO SOMETHING ELSE AFTER FIRST TIKTOK CONNECTION --> OPTION TO RECONNECT OR CHANGE ACCOUNTS WILL DELETE CURRENT PAGE
-                            *POSSIBLE REQUIRE TIKTOK ACCOUNT AUTHROIZATION BEFORE APPLICATION SUBMISSION TO ENSURE WE KNOW THIS PERSON OWNS A TIKTOK 
-                        */}
                     </dd>
                 </div>
                 <div className="pt-6 flex justify-between items-center">
                     <dt className="font-semibold text-gray-900 sm:w-64 sm:flex-none sm:pr-6 text-sm lg:text-base">Affiliate Program</dt>
                     <dd className="mt-1 flex gap-x-6 sm:mt-0">
-                        { affiliateLink !== '' ?
                         <button type="button" className="font-semibold text-primary-main hover:text-primary-alt text-sm lg:text-base"
                             onClick={() => {window.open(`https://zesti.promotekit.com/`)}}>
-                            Manage
+                            {affiliateLink == '' ? `Setup` : `Manage`}
                         </button>
-                        :
-                        <button type="button" className="font-semibold text-primary-main hover:text-primary-alt text-sm lg:text-base"
-                            onClick={() => {window.open(`https://zesti.promotekit.com/`)}}>
-                            Setup
-                        </button>
-                        }
                         {/* TRACK AFFILIATE CODE INSIDE FIRESTORE THEN DISPLAY MANAGE AFFILIATE PROGRAM IF IT IS AVAILABLE*/}
                     </dd>
                 </div>
@@ -117,10 +100,7 @@ export function CreatorSettingsComponent({userData, creatorData}: any) {
                         </button>
                         :
                         <button type="button" className="font-semibold text-primary-main hover:text-primary-alt text-sm lg:text-base"
-                            onClick={() => {
-                                saveAffiliateLink(affiliateLink, user?.uid!)
-                                setEdit(false)
-                                }}>
+                            onClick={onAffiliateSave}>
                             {"Save"}
                         </button>
                         }

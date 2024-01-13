@@ -7,6 +7,7 @@ import { useAuth } from "@/pages/api/auth/auth"
 import { Notify } from '@/components/shared/notify';
 import React, { useState, useEffect } from "react"
 import { Button, AltButton } from "@/components/shared/button"
+import { saveFromCreatorToUser } from "@/pages/api/firebase/functions"
 
 
 interface CreatorRecipeProps {
@@ -20,8 +21,6 @@ interface CreatorRecipeProps {
 export function CreatorRecipe({recipe, url, setLoginPrompt, owner_id, setEditMode}: CreatorRecipeProps) {
 
     const {user, isCreator} = useAuth()
-
-    console.log(recipe)
 
     return(
     <Container className={"flex flex-col gap-6 animate-fadeInFast alternate-orange-bg mt-36 rounded-3xl md:w-[599px] p-8 mb-16"}>
@@ -82,8 +81,6 @@ export function EditCreatorRecipe({recipe, url, setLoginPrompt, owner_id, setEdi
         setEditedName(recipe.name || '')
     }, [recipe.ingredients, recipe.instructions, recipe.name]);
 
-    console.log(editedName)
-
     const handleIngredientChange = (index: number, newValue: string) => {
         const updatedIngredients = [...editedIngredients];
         updatedIngredients[index] = newValue;
@@ -137,7 +134,6 @@ export function EditCreatorRecipe({recipe, url, setLoginPrompt, owner_id, setEdi
                     instructions: editedInstructions,
                     name: editedName,
                 })
-
                 setEditMode(false)
                 Notify("Recipe changes saved")
             }
@@ -308,10 +304,7 @@ export function CreatorRecipeLinks({recipe, setLoginPrompt}: any) {
             name: 'Save',
             onClick: async () => {
                 if (user && !isLoading) {
-                    const userRef = db.collection('users').doc(user?.uid).collection('recipes').doc(recipe.url_id)
-                    await userRef.set(recipe).then(() => {
-                        Notify("Recipe saved to your dashboard")
-                    })
+                    await saveFromCreatorToUser(user?.uid, recipe.url_id, recipe).then(() => { Notify("Recipe saved to your dashboard")})
                 } else {
                     setLoginPrompt(true)
                 }

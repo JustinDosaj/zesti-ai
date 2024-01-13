@@ -9,6 +9,7 @@ import GoogleTags from '@/components/tags/conversion';
 import { PromoteKitTag } from '@/components/tags/headertags';
 import { setCookie } from '@/pages/api/handler/cookies';
 import { useRouter } from 'next/router';
+import { getCreatorByDisplayName } from './api/firebase/functions';
 import firebase from 'firebase/compat/app';
 
 const raleway = Raleway({subsets: ['latin']})
@@ -29,7 +30,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   let creatorData = null;
 
   try {
-    const querySnapshot = await db.collection('creators').where('display_name', '==', creator).get();
+    const querySnapshot = await getCreatorByDisplayName(creator)
 
     if (!querySnapshot.empty) {
       const doc = querySnapshot.docs[0];

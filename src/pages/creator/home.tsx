@@ -6,20 +6,18 @@ import { PromoteKitTag } from '@/components/tags/headertags';
 import { CreatorTools } from "@/components/creator/home";
 import { CreatorDashboardTitle } from "@/components/creator/dashboard";
 import { useEffect, useState } from "react";
-import { getCreatorData, getUserData } from "../api/firebase/functions";
-import { SharedPageTitle } from "@/components/shared/title";
+import { getCreatorData } from "../api/firebase/functions";
 import { useRouter } from "next/router";
 
 export default function Home() {
   
-  const { isLoading, isCreator, user, tikTokAccessToken } = useAuth();
+  const { isLoading, user, tikTokAccessToken } = useAuth();
   const [ displayName, setDisplayName ] = useState<string>('')
   const router = useRouter()
 
   useEffect(() => {
     try { 
       const fetchUserData = async () => {
-        const userData = await getUserData(user?.uid);
 
         if (!tikTokAccessToken && !isLoading) {
           router.push('/creator/settings')

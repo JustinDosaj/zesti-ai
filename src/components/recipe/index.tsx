@@ -7,6 +7,7 @@ import { Notify } from '@/components/shared/notify';
 import React, { useState, useEffect } from "react"
 import { Button, AltButton } from "@/components/shared/button"
 import { ExclamationTriangleIcon } from "@heroicons/react/24/outline"
+import { deleteUserRecipe } from "@/pages/api/firebase/functions"
 
 
 interface CreatorRecipeProps {
@@ -21,18 +22,17 @@ interface CreatorRecipeProps {
 
 export function UserRecipe({recipe, setPremiumPrompt, owner_id, setEditMode, role}: CreatorRecipeProps) {
 
-    const {user, isCreator} = useAuth()
+    const { user } = useAuth()
     const [startDelete, setStartDelete] = useState<boolean>(false);
     const router = useRouter()
 
     const deleteRecipe = async (recipeId: string) => {
         try {
             if(user?.uid) {
-                await db.doc(`users/${user?.uid}/recipes/${recipeId}`).delete();
-                await db.doc(`users/${user?.uid}/tiktokurl/${recipeId}`).delete();
+                await deleteUserRecipe(user?.uid, recipeId)
                 setEditMode(false)
                 Notify("Recipe Deleted")
-                router.push('/dashboard')
+                //router.push('/dashboard')
             }
         } catch(err) {
         

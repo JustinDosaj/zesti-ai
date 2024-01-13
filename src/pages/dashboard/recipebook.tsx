@@ -3,13 +3,13 @@ import Head from "next/head"
 import React, { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
 import { useAuth } from '../api/auth/auth'
-import { db } from '../api/firebase/firebase'
 import { PageLoader } from '@/components/shared/loader'
 import { UserSavedRecipeList } from '@/components/dashboard/recipelist'
 import GoogleTags from '@/components/tags/conversion'
 import { PromoteKitTag } from '@/components/tags/headertags'
 import AdSenseDisplay from '@/components/tags/adsense'
 import { SharedViewAllTitle } from '@/components/shared/title'
+import { getAllRecipes } from '../api/firebase/functions'
 
 const raleway = Raleway({subsets: ['latin']})
 
@@ -24,8 +24,7 @@ export default function RecipeBook() {
     useEffect(() => {
       const fetchRecipes = async () => {
         if (user) {
-          const recipeSnapshot = await db.collection(`users/${user.uid}/recipes`).get();
-          const updatedRecipes = recipeSnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+          const updatedRecipes = await getAllRecipes(user?.uid)
           setRecipes(updatedRecipes);
           setIsLoadingRecipes(false);
         }

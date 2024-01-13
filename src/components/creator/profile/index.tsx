@@ -4,11 +4,6 @@ import { Button } from '@/components/shared/button'
 import { useAuth } from '@/pages/api/auth/auth'
 import { saveBioDataToFireStore } from '@/pages/api/firebase/functions'
 
-
-function classNames(...classes: (string | null | undefined)[]): string {
-    return classes.filter(Boolean).join(' ')
-  }
-
 export function CreatorPageComponent({creatorData}: any) {
 
     const { user, isLoading } = useAuth()
@@ -19,7 +14,6 @@ export function CreatorPageComponent({creatorData}: any) {
     const [ instagram, setInstagram ] = useState<string>(creatorData?.instagram_link ? creatorData.instagram_link : '')
     const [ website, setWebsite ] = useState<string>(creatorData?.website_link ? creatorData.website_link : '')
     const [ edit, setEdit ] = useState<boolean>(false)
-    const [ saving, setSaving ] = useState<boolean>(false)
 
     let socialLinks = [
         { name: 'Tiktok', value: tiktok, function: setTikTok},
@@ -43,7 +37,6 @@ export function CreatorPageComponent({creatorData}: any) {
     const saveBioData = async () => {
 
         setEdit(false)
-        setSaving(true)
 
         if (user) {
             const bioObject = {
@@ -54,7 +47,7 @@ export function CreatorPageComponent({creatorData}: any) {
                 website_link: website,
             }
 
-            const res = await saveBioDataToFireStore(bioObject, user?.uid)
+            await saveBioDataToFireStore(bioObject, user?.uid)
         }
     }
 

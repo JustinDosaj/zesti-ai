@@ -19,18 +19,16 @@ export default function Settings() {
 
   useEffect(() => {
       const fetchUserData = async () => {
-        if (user) {
-            if (isCreator == true) {
-                const creatorData = await getCreatorData(user.uid)
-                setCreatorData(creatorData)
-            }
+        if (user && isCreator == true) {
+            const creatorData = await getCreatorData(user.uid)
+            setCreatorData(creatorData)           
         }
       };
 
       if (!tikTokAccessToken && !isLoading) {
-        router.replace('/creator/settings');
+          router.replace('/creator/settings');
       } else if (user !== null && !isLoading) {
-        fetchUserData();
+          fetchUserData();
       }
   },[user, isLoading])
 

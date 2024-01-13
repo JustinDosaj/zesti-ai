@@ -32,9 +32,11 @@ const Recipe: React.FC = ({id}: any) => {
 
 
     useEffect(() => {
+
       if (user == null && isLoading == false) {
         router.replace('/');
       } else if (user !== null && isLoading == false) {
+
         const unsubscribe = db.doc(`users/${user.uid}/recipes/${id}`)
           .onSnapshot((docSnapshot) => {
             if (docSnapshot.exists) {
@@ -48,6 +50,7 @@ const Recipe: React.FC = ({id}: any) => {
     
         return () => unsubscribe();
       }
+
     }, [user, isLoading, id, router]);
 
     if(!recipe.name) return <PageLoader/>
