@@ -5,10 +5,7 @@ import { Notify } from "../shared/notify"
 import React, { useState, useEffect } from "react"
 import Link from "next/link"
 import { InlineBtnLink } from "../shared/button"
-
-function classNames(...classes: (string | null | undefined)[]): string {
-    return classes.filter(Boolean).join(' ')
-  }
+import algoliasearch from 'algoliasearch/lite';
 
 export function DashboardRecipeTitle() {
     return(
@@ -27,22 +24,61 @@ export function DashboardRecipeTitle() {
 }
 
 export function Search() {
+
+    const searchClient = algoliasearch(`${process.env.NEXT_PUBLIC_ALGOLIA_APPLICATION_ID}`, `${process.env.NEXT_PUBLIC_ALGOLIA_SEARCH_ONLY_KEY}`);
+    const creatorsIndex = searchClient.initIndex('test_CREATORS');
+    const recipesIndex = searchClient.initIndex('test_RECIPES');
     
-    const { user, stripeRole } = useAuth()
     const [ url, setUrl ] = useState<string>('');
     const [ message, setMessage ] = useState<string>('')
     const [ notify, setNotify ] = useState<boolean | null>(null)
+    const [searchResults, setSearchResults] = useState<any>({ creators: [], recipes: [] });
 
     useEffect(() => {
         if (notify == true) {
             Notify(message)
             setNotify(false)
         }
-    },[notify])
+    },[notify, message])
 
-    async function onClick() {
+    useEffect(() => {
+        if (url.trim()) {
+            handleSearch(url);
+        }
+    }, [url]);
 
-    }
+    const handleSearch = async (query: any) => {
+        try {
+            const [creators, recipes] = await Promise.all([
+                creatorsIndex.search(query),
+                recipesIndex.search(query)
+            ]);
+            setSearchResults({ creators: creators.hits, recipes: recipes.hits });
+        } catch (error) {
+            console.error("Algolia search error:", error);
+            setMessage("Error occurred during search");
+            setNotify(true);
+        }
+    };
+
+    const renderSearchResults = () => {
+        // Combine and limit results
+        const combinedResults = [...searchResults.creators.slice(0, 5), ...searchResults.recipes.slice(0, 5)].slice(0, 5);
+
+        if (combinedResults.length === 0) {
+            return null;
+        }
+
+        return (
+            <div className="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-white shadow-lg">
+                {combinedResults.map((result, index) => (
+                    <Link key={index} href={`/${result.display_name}`} className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                        {result.display_name}
+                    </Link>
+                ))}
+            </div>
+        );
+    };
 
     return(
     <Container className={"flex flex-col lg:flex-row gap-10 lg:gap-12 animate-fadeIn"}>
@@ -64,6 +100,7 @@ export function Search() {
             </div>
             </dl>
         </div>
+        {url && renderSearchResults()}
     </Container>
     )
 }
