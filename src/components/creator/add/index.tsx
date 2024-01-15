@@ -21,9 +21,9 @@ export function RecentTikTokVideos({videoList, displayName, setIsOpen, setUrl, s
     const [ displayCount, setDisplayCount ] = useState(maxDisplayCount)
     const containerRef = useRef<HTMLDivElement>(null);
     
-    const addRecipeToCreatorPage = async (url_id: string, item: any) => {
+    const addRecipeToCreatorPage = async (id: string, item: any) => {
         
-        const url = `https://www.tiktok.com/@${displayName}/video/${url_id}`
+        const url = `https://www.tiktok.com/@${displayName}/video/${id}`
         setUrl(url)
         setIsOpen(true)
         setVideoObject(item)

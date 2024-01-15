@@ -37,12 +37,12 @@ export interface Props {
     setNotify: any, 
 }
 
-export async function getVideoLength(url_id: any) {
+export async function getVideoLength(id: any) {
     
     const apiKey = process.env.NEXT_PUBLIC_VIDEO_LENGTH_API_KEY;
 
     try {
-        const response = await axios.get(`https://www.googleapis.com/youtube/v3/videos?part=contentDetails&id=${url_id}&key=${apiKey}`);
+        const response = await axios.get(`https://www.googleapis.com/youtube/v3/videos?part=contentDetails&id=${id}&key=${apiKey}`);
         const duration = response.data.items[0].contentDetails.duration; // Duration in ISO 8601 format, like "PT1H15M32S"
         const result = await convertISO8601ToMinutesAndSeconds(duration);
         return result; 
@@ -61,14 +61,14 @@ export const handleYouTubeURLSubmit = async ({url, user, setMessage, stripeRole,
     }
 
     // Ensure video length is equal or below user sub usage rate
-    const url_id = url?.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|shorts\/))([a-zA-Z0-9_-]{11})/);
+    const id = url?.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|shorts\/))([a-zA-Z0-9_-]{11})/);
 
     const date = await getCurrentDate()
     
 
     const falseObj = {
         "url": `${url}`,
-        "url_id": url_id ? url_id[1] : null,
+        "id": id ? id[1] : null,
         "source": "youtube",
         "date": date,
     }
@@ -79,7 +79,7 @@ export const handleYouTubeURLSubmit = async ({url, user, setMessage, stripeRole,
     * Check if video length is too large for role
     * Free Users - Max 5 Minutes | Premium Users - Max 15 Minutes
     */
-    const result = await getVideoLength(url_id ? url_id[1] : null)
+    const result = await getVideoLength(id ? id[1] : null)
 
     if (stripeRole == 'premium') {
         if((result?.minutes || 0) > 15) {
@@ -145,19 +145,19 @@ export const handleTikTokURLSubmit = async ({url, setUrl, user, setMessage, stri
         return false;
     }
 
-    var url_id;
+    var id;
 
     if(url.includes('tiktok.com/t/')) {
-        url_id = url?.match(/^https:\/\/www\.tiktok\.com\/t\/([A-Za-z0-9_-]+)\/?$/);
+        id = url?.match(/^https:\/\/www\.tiktok\.com\/t\/([A-Za-z0-9_-]+)\/?$/);
     } else {
-        url_id = url?.match(/tiktok\.com\/@[^\/]+\/video\/(\d+)/);
+        id = url?.match(/tiktok\.com\/@[^\/]+\/video\/(\d+)/);
     }
 
     const date = await getCurrentDate()
 
     const falseObj = {
         "url": `${url}`,
-        "url_id": url_id ? url_id[1] : null,
+        "id": id ? id[1] : null,
         "source": "tiktok",
         "date": date
     }
@@ -196,7 +196,7 @@ export const handleCreatorTikTokURLSubmit = async ({url, user, rawText, videoObj
 
     const falseObj = {
         "url": `${url}`,
-        "url_id": videoObject?.id,
+        "id": videoObject?.id,
         "source": "tiktok",
         "date": date,
         "rawData": rawText,

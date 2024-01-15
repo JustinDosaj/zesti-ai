@@ -129,7 +129,7 @@ export function EditCreatorRecipe({recipe, url, setLoginPrompt, owner_id, setEdi
 
         try{
             if(owner_id == user?.uid) {
-                await db.doc(`creators/${owner_id}/recipes/${recipe.url_id}`).update({
+                await db.doc(`creators/${owner_id}/recipes/${recipe.id}`).update({
                     ingredients: editedIngredients,
                     instructions: editedInstructions,
                     name: editedName,
@@ -262,7 +262,7 @@ export function EditCreatorRecipe({recipe, url, setLoginPrompt, owner_id, setEdi
                         <XMarkIcon className="h-6 w-6 text-red-600"/>
                         <span className="text-sm md:text-base underline">Cancel</span>
                     </button>
-                    <button onClick={() => deleteRecipe(recipe.url_id)} className="inline-flex items-center gap-0.5">
+                    <button onClick={() => deleteRecipe(recipe.id)} className="inline-flex items-center gap-0.5">
                         <CheckIcon className="h-5 w-5 text-green-600  "/>
                         <span className="text-sm md:text-base underline">Delete</span>
                     </button>
@@ -304,7 +304,7 @@ export function CreatorRecipeLinks({recipe, setLoginPrompt}: any) {
             name: 'Save',
             onClick: async () => {
                 if (user && !isLoading) {
-                    await saveFromCreatorToUser(user?.uid, recipe.url_id, recipe).then(() => { Notify("Recipe saved to your dashboard")})
+                    await saveFromCreatorToUser(user?.uid, recipe.id, recipe).then(() => { Notify("Recipe saved to your dashboard")})
                 } else {
                     setLoginPrompt(true)
                 }

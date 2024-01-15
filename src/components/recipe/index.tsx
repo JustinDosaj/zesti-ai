@@ -98,7 +98,7 @@ export function UserRecipe({recipe, setPremiumPrompt, owner_id, setEditMode, rol
                         <XMarkIcon className="h-6 w-6 text-red-600"/>
                         <span className="text-sm md:text-base underline">Cancel</span>
                     </button>
-                    <button onClick={() => deleteRecipe(recipe.url_id)} className="inline-flex items-center gap-0.5">
+                    <button onClick={() => deleteRecipe(recipe.id)} className="inline-flex items-center gap-0.5">
                         <CheckIcon className="h-5 w-5 text-green-600  "/>
                         <span className="text-sm md:text-base underline">Delete</span>
                     </button>
@@ -172,7 +172,7 @@ export function EditUserRecipe({recipe, setPremiumPrompt, setEditMode, role}:Cre
     const handleSave = async () => {
 
         try{
-            await db.doc(`users/${user?.uid}/recipes/${recipe.url_id}`).update({
+            await db.doc(`users/${user?.uid}/recipes/${recipe.id}`).update({
                 ingredients: editedIngredients,
                 instructions: editedInstructions,
                 name: editedName,
