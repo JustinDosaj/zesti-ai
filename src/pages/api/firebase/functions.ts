@@ -112,7 +112,7 @@ export async function updateUserWithTikTokTokens(tokenData: TikTokTokenData, use
       owner_id: userId,
     }
 
-    await db.collection('creators').doc(userId).set(createPageData)
+    await db.collection('creators').doc(userId).set(createPageData, {merge: true})
 
     // Update the user's document
     await userRef.set(updateData, { merge: true });

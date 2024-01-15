@@ -69,11 +69,16 @@ export function Search() {
             return null;
         }
 
+        console.log(combinedResults)
+
         return (
-            <div className="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-white shadow-lg">
+            <div className="absolute z-20 mt-16 w-full max-w-xs lg:max-w-md bg-white shadow-lg border border-gray-200 rounded-3xl">
                 {combinedResults.map((result, index) => (
-                    <Link key={index} href={`/${result.display_name}`} className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
-                        {result.display_name}
+                    <Link key={index} href={`/${result.display_name}`} className="block px-4  text-gray-700 hover:bg-gray-100 rounded-3xl">
+                        <div className="inline-flex space-x-2 items-center py-3">
+                            <img src={result.avatar_url} alt={result.display_name} className="h-8 w-8 rounded-full"></img>
+                            <span className="text-sm lg:text-base capitalize">{result.display_name}</span>
+                        </div>
                     </Link>
                 ))}
             </div>
@@ -90,9 +95,10 @@ export function Search() {
                     border border-box-border bg-box-bg rounded-full ease-linear focus-within:bg-body  focus-within:border-primary">
                         <MagnifyingGlassIcon className="text-gray-600 h-6 w-6"/>
                         <input type="text" name="web-page" value={url} placeholder="Search TikTok Username or Recipe" className="text-left w-64 lg:w-96 text-gray-500 py-3 outline-none bg-transparent" onChange={(e) => setUrl(e.target.value)}/>
-                    </form>
+                    </form>  
                 </div>
-                <div className="text-gray-500 mt-4">
+                {url && renderSearchResults()}
+                <div className="text-gray-500 mt-4 text-center">
                     <span>Can&apos;t find a recipe? </span>
                     <InlineBtnLink href={'/tools/video'} text="Click here"/>
                     <span> to save any TikTok recipe</span>
@@ -100,7 +106,6 @@ export function Search() {
             </div>
             </dl>
         </div>
-        {url && renderSearchResults()}
     </Container>
     )
 }
