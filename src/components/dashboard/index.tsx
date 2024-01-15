@@ -1,6 +1,5 @@
 import { Container } from "../shared/container"
 import { ChevronDoubleRightIcon, MagnifyingGlassIcon } from '@heroicons/react/24/outline'
-import { useAuth } from "@/pages/api/auth/auth"
 import { Notify } from "../shared/notify"
 import React, { useState, useEffect } from "react"
 import Link from "next/link"
@@ -27,7 +26,7 @@ export function Search() {
 
     const searchClient = algoliasearch(`${process.env.NEXT_PUBLIC_ALGOLIA_APPLICATION_ID}`, `${process.env.NEXT_PUBLIC_ALGOLIA_SEARCH_ONLY_KEY}`);
     const creatorsIndex = searchClient.initIndex('test_CREATORS');
-    const recipesIndex = searchClient.initIndex('test_RECIPES');
+    const recipesIndex = searchClient.initIndex('test_RECIPES_TIKTOK');
     
     const [ url, setUrl ] = useState<string>('');
     const [ message, setMessage ] = useState<string>('')
