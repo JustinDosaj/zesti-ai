@@ -6,7 +6,7 @@ import { Footer } from '@/components/elements/footer'
 import { AuthProvider } from './api/auth/auth'
 import { Analytics } from '@vercel/analytics/react';
 import { useRouter } from 'next/router'
-import { ToastContainer, toast } from 'react-toastify'
+import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
 import React from 'react'
 

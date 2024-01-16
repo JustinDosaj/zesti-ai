@@ -2,7 +2,7 @@ import { Raleway } from 'next/font/google'
 import Head from 'next/head';
 import GoogleTags from "@/components/tags/conversion"
 import React, { useState } from "react"
-import { useAuth } from "./api/auth/auth"
+import { useAuth } from '../api/auth/auth';
 import { Notify } from "@/components/shared/notify"
 import { ToastContainer } from "react-toastify"
 import 'react-toastify/dist/ReactToastify.css';

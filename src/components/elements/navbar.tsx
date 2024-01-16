@@ -133,7 +133,7 @@ export function Navbar({_user}: any) {
                     <div className="lg:min-w-max flex items-center sm:w-max w-full pb-6 lg:pb-0 border-b border-box-bg lg:border-0 px-6 lg:px-0">
                     {
                     !user ?
-                    <BtnLink text='Login' className="flex justify-center w-full sm:w-max" href='/login'/>
+                    <BtnLink text='Login' className="flex justify-center w-full sm:w-max" href='/auth/login'/>
                     :
                     <div className="inline-flex">
                         <BtnLink href="/dashboard" text={'Dashboard'}/>

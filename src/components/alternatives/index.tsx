@@ -28,7 +28,7 @@ export function AltHero({name}: HeroProps){
                     <p className="mt-2 section-desc-text-size font-medium text-gray-600">
                         Check out what makes Zesti stand out from {name}!
                     </p>
-                    <BtnLink text="Try Zesti for Free" href="/login" className="align-middle mt-4 text-lg"/>
+                    <BtnLink text="Try Zesti for Free" href="/auth/login" className="align-middle mt-4 text-lg"/>
                 </div>
             </Container>
         </section>
@@ -104,7 +104,7 @@ export function AltCompare({name, priceMonthly, videoToRecipe, urlToRecipe, aiGe
                         </div>
                     </div>
                     <div className="grid justify-center mt-4">
-                        <BtnLink text="Try Zesti for Free" href="/login" className="align-middle mt-4 text-lg"/>
+                        <BtnLink text="Try Zesti for Free" href="/auth/login" className="align-middle mt-4 text-lg"/>
                     </div>
             </Container>
    

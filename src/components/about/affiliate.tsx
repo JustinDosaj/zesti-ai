@@ -1,18 +1,15 @@
 
 import { Button } from "../shared/button"
 import { useAuth } from "@/pages/api/auth/auth"
-import { useRouter } from "next/router"
 import Image from "next/image"
 import { Container } from "../shared/container"
 import { PageLoader } from "../shared/loader"
 import { StarIcon, CurrencyDollarIcon, CalendarDaysIcon } from "@heroicons/react/20/solid"
-import Link from "next/link"
 
 
 export function AffiliateHero(){
 
-    const { user, stripeRole, isLoading } = useAuth()
-    const router = useRouter()
+    const { isLoading } = useAuth()
 
     if (isLoading) return <PageLoader/>
 

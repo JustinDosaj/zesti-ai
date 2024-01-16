@@ -1,11 +1,10 @@
 import { Raleway } from 'next/font/google'
 import Head from 'next/head';
-import { VideoComponent, VideoTips, ToolHero } from '@/components/tools/general';
+import { VideoComponent, VideoTips, ToolHero } from '@/components/about/tools';
 import { useAuth } from '../api/auth/auth';
-import { PricingDisplay } from '@/components/pricing';
+import { PricingDisplay } from '@/components/about/pricing';
 import { PageLoader, ToolLoader } from '@/components/shared/loader';
 import React, { useState, useEffect } from 'react';
-import { db } from '../api/firebase/firebase';
 import { getUserData } from '../api/firebase/functions';
 import GoogleTags from '@/components/tags/conversion';
 import { PromoteKitTag } from '@/components/tags/headertags';
