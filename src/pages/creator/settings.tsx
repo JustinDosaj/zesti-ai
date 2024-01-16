@@ -5,7 +5,6 @@ import GoogleTags from '@/components/tags/conversion';
 import { useAuth } from "../api/auth/auth";
 import { PromoteKitTag } from '@/components/tags/headertags';
 import { Raleway } from 'next/font/google'
-import { PageLoader } from "@/components/shared/loader";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react"
 import { getUserData, getCreatorData } from "../api/firebase/functions";

@@ -30,20 +30,3 @@ export function NewUserHero(){
   
     )
 }
-
-export function WelcomePricingTitle(){
-    return(
-
-        <Container className={"flex flex-col lg:flex-row gap-10 lg:gap-12 my-auto animate-fadeIn"}>
-            <div className="pb-6 space-y-4 relative flex flex-col items-center text-center lg:py-7 xl:py-8 lg:max-w-none max-w-3xl mx-auto lg:mx-0 lg:flex-1 lg:w-1/2">
-                <h1 className="text-3xl/tight sm:text-3xl/tight md:text-4xl/tight xl:text-5xl/tight font-bold text-heading-1 mt-6">          
-                    <span className="text-black">Check out</span>
-                    <span className="primary-orange-text-gradient"> Zesti Premium!</span>
-                </h1>
-                <Paragraph className="text-lg mt-8 text-black">
-                    Join hundreds of users creating delicious recipes with Zesti Premium!
-                </Paragraph>
-            </div>
-        </Container>
-    )
-}

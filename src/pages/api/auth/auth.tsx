@@ -99,7 +99,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   const login = async () => {
     try {
       const result = await signInWithPopup(auth, provider);
-      console.log("Result: ", result.user.metadata.creationTime)
+
       const user = result.user
 
       if(user) {
@@ -113,9 +113,9 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
             totalRecipes: 0,
             isCreator: false,
           })
-          router.push('/welcome/newuser')
+          router.push('/dashboard')
         } else {
-          router.push('/profile')
+          router.push('/dashboard')
         }
       }
 
