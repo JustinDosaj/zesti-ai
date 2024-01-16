@@ -10,7 +10,7 @@ import Head from 'next/head';
 import GoogleTags from '@/components/tags/conversion';
 import { PromoteKitTag } from '@/components/tags/headertags';
 import AdSenseDisplay from '@/components/tags/adsense';
-import { SharedHomeSectionTitle, SharedPageTitle } from '@/components/shared/title';
+import { SharedHomeSectionTitle } from '@/components/shared/title';
 import { getAllRecipes } from '../api/firebase/functions';
 
 const raleway = Raleway({subsets: ['latin']})
