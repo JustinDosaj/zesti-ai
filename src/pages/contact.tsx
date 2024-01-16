@@ -5,6 +5,7 @@ import { EnvelopeIcon, UsersIcon, PaperAirplaneIcon } from "@heroicons/react/24/
 import Head from 'next/head';
 import GoogleTags from "@/components/tags/conversion"
 import { PromoteKitTag } from "@/components/tags/headertags";
+import { SharedHomeSectionTitle } from "@/components/shared/title";
 
 
 const raleway = Raleway({subsets: ['latin']})
@@ -23,12 +24,7 @@ export default function Contact() {
     <main className={`flex min-h-screen flex-col items-center justify-between bg-background h-screen ${raleway.className}`}>
             <Container className={"grid md:grid-cols-1 lg:flex-row gap-10 lg:gap-12 mt-36 mb-36"}>
                 <div className="flex-1 flex flex-col text-center">
-                    <h1 className=" section-title-text-size mt-2 font-bold tracking-tight text-gray-900">
-                        Contact Us
-                    </h1>
-                    <p className="mx-auto mt-4 max-w-2xl section-desc-text-size leading-8 text-gray-700">
-                        If you have any questions or require support, send us a message and we will respond as soon as possible!                
-                    </p>
+                    <SharedHomeSectionTitle titleBlack="Contact Us" desc="If you have any questions or require support, send us a message and we will respond as soon possible!"/>
                 </div>
                 <form action="https://formspree.io/f/maygvonw" method="POST" target="_blank" className="mx-auto w-full sm:w-[550px]">
                     <div className="py-1 pl-6 w-full pr-1 flex gap-3 items-center text-heading-3 shadow-lg shadow-box-shadow border border-box-border bg-box-bg rounded-full ease-linear focus-within:bg-body  focus-within:border-primary">

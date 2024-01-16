@@ -10,7 +10,7 @@ import Head from 'next/head';
 import GoogleTags from '@/components/tags/conversion';
 import { PromoteKitTag } from '@/components/tags/headertags';
 import AdSenseDisplay from '@/components/tags/adsense';
-import { SharedPageTitle } from '@/components/shared/title';
+import { SharedHomeSectionTitle, SharedPageTitle } from '@/components/shared/title';
 import { getAllRecipes } from '../api/firebase/functions';
 
 const raleway = Raleway({subsets: ['latin']})
@@ -49,7 +49,9 @@ export default function Dashboard() {
       <PromoteKitTag/>
     </Head>
     <main className={`flex min-h-screen flex-col items-center justify-between bg-background ${raleway.className}`}>
-        <SharedPageTitle title="Dashboard" desc="Access all your saved recipes, and all the tools Zesti has available"/>
+        <div className="mt-36"/>
+          <SharedHomeSectionTitle titleBlack="Dashboard" desc="Access all your saved recipes, and all the tools Zesti has available"/>
+        <div/>
         <div className="mt-8 lg:mt-0" />
         <Search/>
         <div className="border-t border-gray-200 m-12" style={{ width: '35%' }} />

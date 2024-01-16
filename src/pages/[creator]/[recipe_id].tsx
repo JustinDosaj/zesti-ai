@@ -59,7 +59,7 @@ const Recipe: React.FC = ({id, owner_uid}: any) => {
     }, [owner_uid, isLoading, id, router]);
 
 
-    if(!recipe.name) return <PageLoader/>
+    if(!recipe) return <PageLoader/>
 
     return(
     <>

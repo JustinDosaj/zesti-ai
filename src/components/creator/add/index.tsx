@@ -57,11 +57,10 @@ export function RecentTikTokVideos({videoList, displayName, setIsOpen, setUrl, s
     }, [displayCount, videoList]);
 
     return(
-        <div className="grid justify-center">
-        
-            <CreatorDashboardTitleSmall title={"Recent TikTok Videos"} desc="Select one of your recent TikTok cooking videos to add to your page"/>
+        <div className="grid justify-center border rounded-3xl">
+            <CreatorDashboardTitleSmall title={"Recent TikTok Videos"} desc="Select from your recently uploaded videos"/>
             {!videoList?.videos ?
-            <div className="mt-36"> 
+            <div className="mt-36 w-full"> 
                 <RecipeListLoader/>
             </div>
             : 

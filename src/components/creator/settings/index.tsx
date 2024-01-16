@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react'
 import { PageLoader } from '@/components/shared/loader'
 import { useAuth } from '@/pages/api/auth/auth'
 import { saveAffiliateLink } from '@/pages/api/firebase/functions'
+import { SharedHomeSectionTitle } from '@/components/shared/title'
+import { Notify } from '@/components/shared/notify'
 
 
 export function CreatorSettingsComponent({userData, creatorData}: any) {
@@ -17,16 +19,14 @@ export function CreatorSettingsComponent({userData, creatorData}: any) {
     const onAffiliateSave = () => {
         saveAffiliateLink(affiliateLink, user?.uid!)
         setEdit(false)
+        Notify("Affiliate code saved!")
     }
 
     if (isLoading || !userData ) return <PageLoader/>
 
     if (!tikTokAccessToken) return (
         <div>
-            <h2 className="font-semibold leading-7 text-gray-900 section-desc-text-size">Creator Page</h2>
-            <p className="mt-1 text-sm leading-6 text-gray-500 lg:text-base">
-                Please connect your tiktok to create your page
-            </p>
+            <SharedHomeSectionTitle titleBlack="Creator Page" desc="Please connect your tiktok to create your page"/>
             <dl className="mt-6 space-y-6 divide-y divide-gray-100 border-t border-gray-200 text-sm leading-6">
                 <div className="pt-6 flex justify-between items-center">
                     <dt className="font-semibold text-gray-900 sm:w-64 sm:flex-none sm:pr-6 text-sm lg:text-base">Email</dt>
@@ -49,11 +49,8 @@ export function CreatorSettingsComponent({userData, creatorData}: any) {
 
     return(
         <div>
-            <h2 className="font-semibold leading-7 text-gray-900 section-desc-text-size">Creator Page</h2>
-            <p className="mt-1 text-sm leading-6 text-gray-500 lg:text-base">
-                Get page link, affilaite code & more
-            </p>
-            <dl className="mt-6 space-y-6 divide-y divide-gray-100 border-t border-gray-200 text-sm leading-6">
+            <SharedHomeSectionTitle titleBlack="Settings" desc="Get page link, affiliate code & more"/>
+            <dl className="mt-6 space-y-6 divide-y divide-gray-100 border-t border-gray-200 text-sm leading-6 animate-fadeIn">
                 <div className="pt-6 flex justify-between items-center">
                     <dt className="font-semibold text-gray-900 sm:w-64 sm:flex-none sm:pr-6 text-sm lg:text-base">Email</dt>
                     <dd className="mt-1 flex gap-x-6 sm:mt-0">

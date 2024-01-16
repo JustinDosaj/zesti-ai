@@ -10,6 +10,7 @@ import { useAuth } from "@/pages/api/auth/auth"
 import { useRouter } from "next/router"
 import { Loader } from "../shared/loader"
 import { createPremiumCheckoutSession } from "@/pages/api/stripe/stripePremium"
+import { SharedHomeSectionTitle } from "../shared/title"
 
 export function HomePageTools() {
 
@@ -118,16 +119,11 @@ export function HomePageCTA() {
   return(
     <Container className="relative w-full max-w-6xl mx-auto py-24 px-5 animate-fadeIn">
       <div className="flex flex-col items-center gap-8 orange-border-shadow rounded-3xl p-6 lg:p-12">
-        <div className="flex flex-col items-center gap-6">
-          <p className="w-full md:w-96 text-xl font-medium text-center primary-orange-text-gradient">
+        <div className="flex flex-col items-center text-center">
+          <p className="w-full md:w-96 text-xl font-medium text-center primary-orange-text-gradient mb-3">
             Check Out Premium
           </p>
-          <h1 className="section-title-text-size font-semibold text-center text-gray-700">
-            Try Free for 7-Days
-          </h1>
-          <p className="w-full section-desc-text-size font-medium text-center text-gray-600 opacity-70">
-            Get more out of Zesti when you use premium by gaining access to every feature Zesti offers and increased monthly usage! 
-          </p>
+          <SharedHomeSectionTitle titleBlack="Try Free for 7-Days" desc="Get more out of Zesti when you use premium by gaining access to every feature Zesti offers and increased monthly usage!"/>
         </div>
         <BtnLink href='/pricing' text="Get Started" className="text-lg font-medium text-center text-white"/>
       </div>
@@ -165,13 +161,8 @@ export function HomeFAQ() {
     <div className="bg-white w-full">
       <div className="mx-auto max-w-7xl px-6 pb-32">
         <div className="mx-auto max-w-4xl divide-y divide-gray-900/10">
-          <div className="flex flex-col items-center gap-6">
-            <p className="section-title-text-size font-semibold text-center text-gray-700">
-              FAQ
-            </p>
-            <p className="w-full section-desc-text-size font-medium text-center text-gray-600 opacity-70">
-              Get some of the most common questions we are asked answered right away!
-            </p>
+          <div className="flex flex-col items-center text-center">
+            <SharedHomeSectionTitle titleBlack="FAQ" desc="Get some of the most common questions we are asked answered right away!"/>
           </div>
           <dl className="mt-10 space-y-6 divide-y divide-gray-900/10">
             {faqs.map((faq) => (
@@ -219,7 +210,7 @@ export function HomeVideoToRecipe() {
   const tikTokRef = useRef(null);
 
   useEffect(() => {
-    // Function to load the TikTok embed script
+    // Function to load tFe TikTok embed script
     const loadTikTokScript = () => {
       const script = document.createElement('script');
       script.src = 'https://www.tiktok.com/embed.js';
@@ -245,15 +236,9 @@ export function HomeVideoToRecipe() {
   return(
     <Container className="relative w-full max-w-6xl mx-auto py-12 px-5 animate-fadeIn ">
         <div className="flex flex-col lg:flex-row justify-center text-center lg:items-center w-full gap-8 p-2 xl:orange-border-shadow rounded-3xl">
-            <div className="flex flex-col gap-6">
-                <h1 className="text-4xl lg:text-5xl font-semibold text-gray-800 mt-6">
-                    From Video to 
-                <span className="primary-orange-text-gradient"> Recipe </span>
-                </h1>
-                <p className="section-desc-text-size text-gray-600 w-full">
-                    Zesti can quickly create an ingredient list & instructions from your favorite TikTok & YouTube cooking videos!
-                </p>
-                <div className="grid grid-cols-1 xl:grid-cols-2 justify-center">
+            <div className="flex flex-col mt-8">
+                <SharedHomeSectionTitle titleBlack="From Video to" titleOrange="Recipe" desc="Zesti can quickly create an ingredient list & instructions from your favorite TikTok & YouTube cooking videos!"/>
+                <div className="grid grid-cols-1 xl:grid-cols-2 justify-center mt-4">
                   <div className="mx-auto" ref={tikTokRef}></div>
                   <div className="block xl:hidden mx-auto my-auto p-12 text-center">
                       <ArrowDownIcon className="block xl:hidden h-20 w-20 text-white bg-primary-main p-4 rounded-full"/>
@@ -291,7 +276,7 @@ export function Hero({titleStart, titleEnd, description, loginURL}: HeroProps) {
               <Image width={20} height={20} src="/images/openaipng.png" alt="Powered by OpenAI Chatgpt AI Technology Tool" className=" "/>
           </div>
           <div className="flex flex-col gap-8 text-center lg:text-left">
-            <h1 className="section-title-text-size xl:text-6xl font-bold text-gray-700">
+            <h1 className="section-title-text-size xl:text-6xl font-bold text-gray-800">
               <span className="text-gray-700"> {titleStart} </span>
               <span className="primary-orange-text-gradient"> {titleEnd} </span>
               <br />
