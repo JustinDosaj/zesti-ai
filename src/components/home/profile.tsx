@@ -6,6 +6,7 @@ import { getUserData } from '@/pages/api/firebase/functions';
 import { db } from '@/pages/api/firebase/firebase';
 import { PageLoader } from '../shared/loader';
 import Link from 'next/link';
+import { SharedHomeSectionTitle } from '../shared/title';
 
 export default function ProfilePageComponent() {
 
@@ -49,9 +50,7 @@ export default function ProfilePageComponent() {
         <div className="mx-auto max-w-7xl lg:flex lg:gap-x-16 lg:px-8">
             <main className="px-4 sm:px-6 lg:flex-auto lg:px-0 ">
             <div className="mx-auto max-w-4xl text-center mb-12">
-              <p className="mt-2 section-title-text-size font-bold tracking-tight text-gray-900">
-                Account Settings
-              </p>
+              <SharedHomeSectionTitle titleBlack="Account Settings"/>
             </div>
             <div className="mx-auto max-w-2xl space-y-16 sm:space-y-20 lg:mx-0 lg:max-w-none">
                 <div>

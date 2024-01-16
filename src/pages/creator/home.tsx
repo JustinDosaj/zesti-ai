@@ -8,6 +8,7 @@ import { CreatorDashboardTitle } from "@/components/creator/dashboard";
 import { useEffect, useState } from "react";
 import { getCreatorData } from "../api/firebase/functions";
 import { useRouter } from "next/router";
+import { SharedHomeSectionTitle } from "@/components/shared/title";
 
 export default function Home() {
   
@@ -46,7 +47,7 @@ export default function Home() {
             <PromoteKitTag/>
         </Head>
         <CreatorDashboard>
-          <CreatorDashboardTitle title={`Creator Dashboard`} desc={"Welcome to Zesti for Creators. Begin adding recipes to your page to let your users easily replicate them at home!"}/>
+          <SharedHomeSectionTitle titleBlack="Creator Dashboard" desc="Welcome to Zesti for Creators. Begin adding recipes to your page to let your users easily replicate them at home!"/>
           <CreatorTools tiktokDisplayName={displayName}/>
         </CreatorDashboard>
     </>

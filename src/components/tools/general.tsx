@@ -9,6 +9,7 @@ import { LinkIcon } from "@heroicons/react/24/outline"
 import { handleYouTubeURLSubmit, handleTikTokURLSubmit } from "@/pages/api/handler/submit";
 import React, { useState, useEffect } from 'react';
 import { Notify } from '../shared/notify';
+import { SharedHomeSectionTitle } from "../shared/title";
 
 
 
@@ -25,17 +26,7 @@ export function ToolHero({role, tokens, titleStart, titleEnd, description}: Tool
     return(
         <Container className={"flex flex-col lg:flex-row gap-10 lg:gap-12 animate-fadeIn mt-36"}>
             <div className="relative flex flex-col items-center text-center lg:max-w-none max-w-3xl mx-auto lg:mx-0 lg:flex-1 lg:w-1/2">
-                <h1 className="section-title-text-size font-bold text-heading-1 mt-6">
-                    <span className="text-black">{titleStart} </span>          
-                    <span className="primary-orange-text-gradient">{titleEnd}</span>
-                </h1>
-                <Paragraph className="text-base sm:text-lg mt-4 text-black">
-                    {role == 'premium' || tokens > 0 ?
-                    `${description}`
-                    :
-                    `No more recipes available. Try Zesti Premium free for 7 days to unlock more!`
-                    }
-                </Paragraph>
+                <SharedHomeSectionTitle titleBlack={titleStart} titleOrange={titleEnd} desc={role == 'premium' || tokens > 0 ? `${description}` : `No more recipes available. Try Zesti Premiium free for 7-days to unlock more!`}/>
             </div>
         </Container>
     )

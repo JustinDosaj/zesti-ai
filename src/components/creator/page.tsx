@@ -1,10 +1,8 @@
 import { Paragraph } from "../shared/paragraph"
 import { Container } from "../shared/container"
 import { MagnifyingGlassIcon } from '@heroicons/react/24/outline'
-import { useAuth } from "@/pages/api/auth/auth"
-import { Notify } from "../shared/notify"
 import Link from "next/link"
-import React, { useState, useEffect, useRef  } from "react"
+import React, { useState, useEffect, useRef } from "react"
 import Image from "next/image"
 import { Button } from "../shared/button"
 import { EyeIcon } from "@heroicons/react/20/solid"
@@ -28,8 +26,6 @@ export function CreatorPageTitle({creatorData}: any) {
 }
 
 export function CreatorSearch({creatorData}: any) {
-
-    console.log("SEARCH ", creatorData)
 
     const searchClient = algoliasearch(`${process.env.NEXT_PUBLIC_ALGOLIA_APPLICATION_ID}`, `${process.env.NEXT_PUBLIC_ALGOLIA_SEARCH_ONLY_KEY}`);
     const recipesIndex = searchClient.initIndex('test_RECIPES_TIKTOK');
@@ -63,15 +59,13 @@ export function CreatorSearch({creatorData}: any) {
               return null;
           }
 
-          console.log(combinedResults)
-
           return (
               <div className="absolute z-20 mt-16 w-full max-w-xs lg:max-w-md bg-white shadow-lg border border-gray-200 rounded-3xl">
                   {combinedResults.map((result, index) => (
                       <Link key={index} href={`/${result.owner_display_name}/${result.objectID}`} className="block px-4  text-gray-700 hover:bg-gray-100 rounded-3xl">
                           <div className="inline-flex space-x-2 items-center py-3">
-                              <img src={result.avatar_url} alt={result.display_name} className="h-8 w-8 rounded-full"></img>
-                              <span className="text-sm lg:text-base capitalize">{result.display_name}</span>
+                              <img src={`https://firebasestorage.googleapis.com/v0/b/${process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET}/o/${encodeURIComponent(result.cover_image_url)}?alt=media`} alt={result.name} className="h-8 w-8 rounded-full"></img>
+                              <span className="text-sm lg:text-base capitalize">{result.name}</span>
                           </div>
                       </Link>
                   ))}

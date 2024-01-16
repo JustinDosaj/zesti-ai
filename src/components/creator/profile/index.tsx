@@ -4,6 +4,8 @@ import { Button } from '@/components/shared/button'
 import { useAuth } from '@/pages/api/auth/auth'
 import { saveBioDataToFireStore } from '@/pages/api/firebase/functions'
 import { useRouter } from 'next/router'
+import { SharedHomeSectionTitle } from '@/components/shared/title'
+import { Notify } from '@/components/shared/notify'
 
 export function CreatorPageComponent({creatorData}: any) {
 
@@ -50,6 +52,7 @@ export function CreatorPageComponent({creatorData}: any) {
             }
 
             await saveBioDataToFireStore(bioObject, user?.uid)
+            Notify("Page information saved!")
         }
     }
 
@@ -57,10 +60,7 @@ export function CreatorPageComponent({creatorData}: any) {
 
     return(
         <div className="animate-fadeIn">
-            <h2 className="font-semibold leading-7 text-gray-900 section-desc-text-size">Your Creator Page</h2>
-            <p className="mt-1 text-sm leading-6 text-gray-500 lg:text-base">
-                Add more information to your creator page
-            </p>
+            <SharedHomeSectionTitle titleBlack="Your Creator Page" desc="Add more information to your creator pages"/>
             <dl className="mt-6 space-y-6 divide-y divide-gray-100 border-t border-gray-200 text-sm leading-6">
                 <div className="pt-6 flex justify-between items-center">
                     <dt className="font-semibold text-gray-900 sm:w-64 sm:flex-none sm:pr-6 text-sm lg:text-base">Name</dt>

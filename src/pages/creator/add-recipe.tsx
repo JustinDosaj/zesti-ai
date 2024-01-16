@@ -11,6 +11,7 @@ import { getCreatorData } from "../api/firebase/functions";
 import { useRouter } from "next/router";
 import { CreatorAddRecipeModal } from "@/components/shared/modals";
 import { handleCreatorTikTokURLSubmit } from "../api/handler/submit";
+import { SharedHomeSectionTitle } from "@/components/shared/title";
 const raleway = Raleway({subsets: ['latin']})
 
 
@@ -63,8 +64,10 @@ export default function AddRecipe() {
         </Head>
         <main className={`${raleway.className}`}>
         <CreatorDashboard>
-          <div className="grid grid-cols-1 gap-4 pl-4">
+          <SharedHomeSectionTitle titleBlack="Add Recipes" desc="Select a recipe to add to your creator page"/>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 pl-4 mt-8">
             <RecentTikTokVideos videoList={videos?.data} displayName={creatorData?.display_name} setIsOpen={setIsOpen} setUrl={setUrl} setVideoObject={setVideoObject}/>
+            <div className="text-2xl mx-auto my-auto bg-gray-300 rounded-3xl p-4 border w-full h-full text-center">Something else will go here</div>
           </div>
           <CreatorAddRecipeModal isOpen={isOpen} setIsOpen={setIsOpen} addRecipe={addRecipe} setRawText={setRawText} rawText={rawText} videoObject={videoObject}/>
         </CreatorDashboard>

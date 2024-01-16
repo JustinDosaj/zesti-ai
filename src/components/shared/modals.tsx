@@ -2,10 +2,11 @@
 import { Fragment, useRef } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 import { CheckIcon } from '@heroicons/react/24/outline'
-import Link from 'next/link'
+import { Notify } from './notify'
 import { XMarkIcon, SquaresPlusIcon, StarIcon, ExclamationCircleIcon, UserIcon } from '@heroicons/react/20/solid'
 import React, { useState } from 'react'
 import AdSenseDisplay from '../tags/adsense'
+import Link from 'next/link'
 
 interface InputResponseProps {
     isOpen: boolean,
@@ -396,6 +397,7 @@ export function CreatorAddRecipeModal({isOpen, setIsOpen, addRecipe, setRawText,
     //onSubmit(userInput)
     setIsOpen(false)
     addRecipe()
+    Notify("Adding recipe to your page")
   }
 
   return(

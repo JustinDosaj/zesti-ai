@@ -8,6 +8,7 @@ import { useAuth } from "@/pages/api/auth/auth";
 import { Loader } from "../shared/loader";
 import { useState } from "react";
 import { useRouter } from "next/router";
+import { SharedHomeSectionTitle } from "../shared/title";
 
 function classNames(...classes: (string | undefined | null | false)[]): string {
   return classes.filter(Boolean).join(' ');
@@ -153,12 +154,7 @@ export function PricingTitle() {
       <div className="bg-white mx-auto">
         <div className="mx-auto max-w-7xl md:px-6 lg:px-8"></div>
           <div className="mx-auto max-w-4xl text-center">
-            <h1 className="section-title-text-size mt-2 font-bold tracking-tight text-gray-900">
-              Choose a plan
-            </h1>
-            <p className="mx-auto mt-4 max-w-2xl text-center section-desc-text-size leading-8 text-gray-700">
-              Join hundreds of users creating their favorite home cooked meals!
-            </p>
+            <SharedHomeSectionTitle titleBlack="Choose a plan" desc="Join hundreds of users creating their favorite home cooked meals!"/>
             <p className="mx-auto sm:mb-8 mt-4 sm:mt-6 max-w-xl w-fit pr-3 pl-3 text-center leading-8 border border-primary-main rounded-3xl text-gray-600">
               Try for Free. Cancel anytime.
             </p>

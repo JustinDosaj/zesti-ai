@@ -1,20 +1,15 @@
 import { ChevronLeftIcon, ChevronRightIcon} from "@heroicons/react/20/solid"
 import Link from "next/link";
 import Image from "next/image";
+import { SharedHomeSectionTitle } from "../shared/title";
 
 export function ToolExamples() {
 
     return(
         <>
             <div className="flex flex-col lg:flex-row justify-center text-center lg:items-center w-full gap-8">
-                <div className="flex flex-col gap-6">
-                    <h1 className="text-4xl lg:text-5xl font-semibold text-gray-800">
-                        How Our Members Use
-                    <span className="primary-orange-text-gradient"> Zesti </span>
-                    </h1>
-                    <p className="section-desc-text-size text-gray-600 w-full">
-                        Click on any of the example below of people using Zesti to instantly save YouTube & TikTok videos or create unique AI recipes!
-                    </p>
+                <div className="flex flex-col">
+                    <SharedHomeSectionTitle titleBlack="How Our Members Use" titleOrange="Zesti" desc="Click on any of the example below of people using Zesti to instantly save YouTube & TikTok videos or create unique AI recipes!"/>
                 </div>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-8">

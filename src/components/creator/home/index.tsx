@@ -46,10 +46,10 @@ export function CreatorTools({tiktokDisplayName}: any) {
         {stats.map((item) => (
         <div key={item.id}>
             <Link href={item.href} className="">
-                <div key={item.id} className="h-[175px] lg:h-[200px] grid grid-cols-1 overflow-hidden rounded-3xl pb-6 bg-white pt-6 border-2 sm:px-6 sm:pt-6 hover:shadow-xl hover:ease-in hover:duration-100">
-                        <item.icon className="h-10 w-10 text-gray-700 mx-auto" aria-hidden="true" />
-                        <p className="truncate text-lg font-semibold text-black text-center">{item.name}</p>
-                        <p className="text-sm sm:text-base text-gray-900 text-center">{item.desc}</p>
+                <div key={item.id} className="h-[175px] lg:h-[200px] grid grid-cols-1 overflow-hidden rounded-3xl pb-6 bg-gray-100 pt-6 border-2 sm:px-6 sm:pt-6 hover:shadow-xl hover:ease-in hover:duration-100">
+                    <item.icon className="h-10 w-10 text-gray-700 mx-auto" aria-hidden="true" />
+                    <p className="truncate text-lg font-semibold text-black text-center">{item.name}</p>
+                    <p className="text-sm sm:text-base text-gray-900 text-center">{item.desc}</p>
                 </div>
             </Link>
           </div>
