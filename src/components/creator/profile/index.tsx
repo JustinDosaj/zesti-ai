@@ -3,6 +3,7 @@ import { PageLoader } from '@/components/shared/loader'
 import { Button } from '@/components/shared/button'
 import { useAuth } from '@/pages/api/auth/auth'
 import { saveBioDataToFireStore } from '@/pages/api/firebase/functions'
+import { useRouter } from 'next/router'
 
 export function CreatorPageComponent({creatorData}: any) {
 
@@ -14,6 +15,7 @@ export function CreatorPageComponent({creatorData}: any) {
     const [ instagram, setInstagram ] = useState<string>(creatorData?.instagram_link ? creatorData.instagram_link : '')
     const [ website, setWebsite ] = useState<string>(creatorData?.website_link ? creatorData.website_link : '')
     const [ edit, setEdit ] = useState<boolean>(false)
+    const router = useRouter()
 
     let socialLinks = [
         { name: 'Tiktok', value: tiktok, function: setTikTok},
@@ -61,12 +63,15 @@ export function CreatorPageComponent({creatorData}: any) {
             </p>
             <dl className="mt-6 space-y-6 divide-y divide-gray-100 border-t border-gray-200 text-sm leading-6">
                 <div className="pt-6 flex justify-between items-center">
-                    <dt className="font-semibold text-gray-900 sm:w-64 sm:flex-none sm:pr-6 text-sm lg:text-base">Display Name</dt>
+                    <dt className="font-semibold text-gray-900 sm:w-64 sm:flex-none sm:pr-6 text-sm lg:text-base">Name</dt>
                     <dd className="mt-1 flex gap-x-6 sm:mt-0">
-                        <div className="text-gray-700 text-sm lg:text-base">{creatorData?.display_name}</div>
-                        {/* *CHANGE TO SOMETHING ELSE AFTER FIRST TIKTOK CONNECTION --> OPTION TO RECONNECT OR CHANGE ACCOUNTS WILL DELETE CURRENT PAGE
-                            *POSSIBLE REQUIRE TIKTOK ACCOUNT AUTHROIZATION BEFORE APPLICATION SUBMISSION TO ENSURE WE KNOW THIS PERSON OWNS A TIKTOK 
-                        */}
+                        <div className="text-gray-700 text-sm lg:text-base capitalize">{creatorData?.display_name}</div>
+                    </dd>
+                    <dd className="mt-1 flex gap-x-6 sm:mt-0">
+                        <button type="button" className="font-semibold text-primary-main hover:text-primary-alt text-sm lg:text-base"
+                            onClick={() => router.push(`/${creatorData?.display_name}`)}>
+                            {"View Page"}
+                        </button>
                     </dd>
                 </div>
                 <div className="pt-6 justify-between items-center">
