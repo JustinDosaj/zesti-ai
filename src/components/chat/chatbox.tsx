@@ -135,7 +135,7 @@ export function Chatbox() {
             </div>
             <div className={`border p-2 rounded-xl message bg-gray-100 bg-opacity-90 justify-items-end w-fit text-black mb-3`}>
               <span className="text-black">   
-              <InlineBtnLink href="/login" text="Click Here to login" className="text-black mr-1 hover:primary-alt"/>
+              <InlineBtnLink href="/auth/login" text="Click Here to login" className="text-black mr-1 hover:primary-alt"/>
               and start chatting
               </span>
             </div>

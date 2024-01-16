@@ -188,7 +188,7 @@ export function LoginModal({loginPrompt, setLoginPrompt, title, message}: LoginP
                 <div className="mt-5 sm:mt-6 sm:grid sm:grid-flow-row-dense sm:grid-cols-2 sm:gap-3">
                   <Link
                     className="inline-flex w-full justify-center rounded-3xl bg-primary-main px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-primary-alt focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 sm:col-start-2"
-                    href="/login"
+                    href="/auth/login"
                     onClick={() => {setLoginPrompt(false)}}
                   >
                     Create Account

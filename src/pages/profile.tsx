@@ -10,10 +10,6 @@ import ProfilePageComponent from "@/components/home/profile"
 
 const raleway = Raleway({subsets: ['latin']})
 
-// Linked to Add
-// https://zesti.getrewardful.com/login
-// https://zesti.getrewardful.com/signup
-
 export default function Profile() {
 
     const { user, logout, isLoading, stripeRole } = useAuth();

@@ -128,7 +128,7 @@ export function PricingDisplay() {
                   ))}
                 </ul>
                 {!user ?
-                <Button buttonType="button" onClick={() => router.push('/login')} text="Sign Up to Get Started" className="mt-4 text-center w-full"/>
+                <Button buttonType="button" onClick={() => router.push('/auth/login')} text="Sign Up to Get Started" className="mt-4 text-center w-full"/>
                 : (isLoading == false && stripeRole !== 'premium') ?
                 <Button buttonType="button" onClick={tier.checkout} text="Get Started" className="mt-4 text-center w-full"/>
                 : (isLoading == true) ?

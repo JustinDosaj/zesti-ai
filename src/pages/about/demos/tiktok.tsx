@@ -60,7 +60,7 @@ const Demo: React.FC = () => {
         {user ? 
         <p className="text-gray-700 pl-5 pr-5">This is a demo output of Zesti. Visit <InlineBtnLink href='/dashboard' text="Your Dashboard"/> to start using Zesti</p>
         :
-        <p className="text-gray-700 pl-5 pr-5">This is a demo output of Zesti. To start using Zesti please <InlineBtnLink href='/login' text="Login or Sign Up"/></p>
+        <p className="text-gray-700 pl-5 pr-5">This is a demo output of Zesti. To start using Zesti please <InlineBtnLink href='/auth/login' text="Login or Sign Up"/></p>
         }
       </div>
       <Container className={"flex flex-col lg:flex-row gap-10 lg:gap-12 mt-20 animate-fadeInFast"}>

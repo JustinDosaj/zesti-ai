@@ -1,61 +1,19 @@
-import Link from 'next/link'
 import { Raleway } from 'next/font/google'
-import { CheckIcon } from '@heroicons/react/20/solid'
-import { Title } from '@/components/shared/title'
-import { BtnLink, Button } from '@/components/shared/button'
 import { useAuth } from '../../api/auth/auth'
 import { createPremiumCheckoutSession } from '../../api/stripe/stripePremium'
 import { useState } from 'react'
 import { useRouter } from 'next/router'
 import Head from 'next/head'
-import { Loader } from '@/components/shared/loader'
-import { PricingDisplay } from '@/components/pricing'
+import { PricingDisplay } from '@/components/about/pricing'
 import GoogleTags from '@/components/tags/conversion'
 import { PromoteKitTag } from '@/components/tags/headertags'
 import { HomeFAQ, HomePageCTA, HomePageScroller, HomePageTools, HomeVideoToRecipe, PremiumSubscriptionHero } from '@/components/home'
 const raleway = Raleway({subsets: ['latin']})
 
-const features = [
-    {
-    name: 'Save 30 Recipes Per Month',
-    description: 'Premium users are limited to 30 Tiktok, YouTube or Website recipe saves, but does not limit the AI recipe generator',
-    },
-  {
-    name: 'Save TikTok & YouTube Recipes',
-    description: 'Instantly save video recipes from TikTok or YouTube so you no longer have to pause, rewind or replay',
-  },
-  {
-    name: 'Max Video Length',
-    description: 'Premium users have a max video length of 15 minutes when saving TikTok or YouTube Recipes',
-  },
-  {
-    name: 'Unlimited AI Generated Recipes',
-    description: 'Use the AI Recipe Generator unlimited times so you will never run out of meal ideas',
-  },
-  {
-    name: 'AI Cooking Support',
-    description: 'Access an AI chat assistant while viewing a recipe so you can get all your cooking questions answered without losing your place',
-  },
-  {
-    name: 'Customize Recipes',
-    description: 'Freely edit ingredients and instructions of recipes to make them your own',
-  },
-  {
-    name: 'Ad-Free',
-    description: 'Get a 100% ad-free experience when you subscribe to Zesti premium',
-  },
-]
-
 export default function Premium() {
     
     const { user, stripeRole } = useAuth()
-    const [ isLoading, setIsLoading ] = useState<boolean>(false)
-    const router = useRouter();
-
-    const PremiumClick = async () => {
-        setIsLoading(true);
-        await createPremiumCheckoutSession(user?.uid)
-    }
+    const [ setIsLoading ] = useState<boolean>(false)
 
   return (
     <>

@@ -377,7 +377,7 @@ export function PremiumSubscriptionHero() {
           user && stripeRole !== 'premium' ? 
           <Button text="Start Free Trial!" onClick={PremiumClick} buttonType="button"/>
           : !user ?
-          <Button text="Login to Begin Trial" onClick={() => router.push('/login')} buttonType="button" className=""/>
+          <Button text="Login to Begin Trial" onClick={() => router.push('/auth/login')} buttonType="button" className=""/>
           :
           <Button text="Go to Dashboard" onClick={() => router.push('/dashboard')} buttonType="button" className=""/>
           }
