@@ -43,7 +43,7 @@ export default function Dashboard() {
   return (
     <>
     <Head>
-      <title>Zesti | Your Dashboard</title>
+      <title>Zesti | Your Recipes</title>
       <meta name="robots" content="noindex" />
       <GoogleTags/>
       <PromoteKitTag/>

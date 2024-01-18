@@ -37,7 +37,7 @@ export function PricingDisplay() {
           featured: false,
           checkout: () => {
             setIsLoading(true)
-            router.push('/dashboard')
+            router.push('/cookbook')
           }
         },
         {
