@@ -30,8 +30,8 @@ export function CreatorRecipe({recipe, url, setLoginPrompt, owner_id, setEditMod
         </div>
         <CreatorRecipeLinks recipe={recipe} setLoginPrompt={setLoginPrompt}/>
         <div className="space-y-2">
-            <h2 className="section-desc-text-size font-semibold">Ingredients ({recipe.ingredients.length})</h2>
-            <ul className="space-y-2 list-disc pl-6">
+            <h2 className="section-desc-text-size font-semibold">Ingredients</h2>
+            <ul className="space-y-2 list-disc pl-6 text-black">
                 {recipe?.ingredients?.map((ingredient: any, index: number) => (
                 <li key={index} className="col-span-1 rounded-xl">
                     <div className="flex rounded-md overflow-visible w-full">
@@ -44,8 +44,8 @@ export function CreatorRecipe({recipe, url, setLoginPrompt, owner_id, setEditMod
             </ul>
         </div>
         <div className="space-y-2">
-            <h2 className="section-desc-text-size font-semibold">Instructions ({recipe.instructions.length})</h2>
-            <ul className="list-decimal pl-5">
+            <h2 className="section-desc-text-size font-semibold">Instructions</h2>
+            <ul className="list-decimal pl-5 text-black">
                 {recipe?.instructions?.map((instruction: any, index: number) => (
                     <li key={index} className="col-span-1 rounded-xl">
                         <div className="flex rounded-md overflow-wrap w-full">
@@ -134,6 +134,11 @@ export function EditCreatorRecipe({recipe, url, setLoginPrompt, owner_id, setEdi
                     instructions: editedInstructions,
                     name: editedName,
                 })
+                await db.doc(`recipes-tiktok/${recipe.id}`).update({
+                    ingredients: editedIngredients,
+                    instructions: editedInstructions,
+                    name: editedName,
+                })
                 setEditMode(false)
                 Notify("Recipe changes saved")
             }
@@ -163,7 +168,7 @@ export function EditCreatorRecipe({recipe, url, setLoginPrompt, owner_id, setEdi
         <div className="grid justify-center items-center">
             <input 
                 type="text"
-                className="w-full rounded-lg border border-gray-300 px-2 py-1 text-sm md:text-base pr-10 text-center"
+                className="w-full rounded-lg border border-gray-300 px-2 py-1 text-sm md:text-base pr-10 text-center text-gray-600"
                 value={editedName}
                 onChange={(e) => setEditedName(e.target.value)}
             />
@@ -173,12 +178,12 @@ export function EditCreatorRecipe({recipe, url, setLoginPrompt, owner_id, setEdi
         <CreatorRecipeLinks recipe={recipe} setLoginPrompt={setLoginPrompt}/>
         <div className="space-y-2">
             <h2 className="section-desc-text-size font-semibold">Ingredients</h2>
-            <ul className="list-disc pl-6">
+            <ul className="list-disc pl-6 text-black">
                 {editedIngredients.map((ingredient, index) => (
                     <li key={index} className="mb-2 relative">
                         <input 
                             type="text"
-                            className="w-full rounded-lg border border-gray-300 px-2 py-1 text-sm md:text-base"
+                            className="w-full rounded-lg border border-gray-300 px-2 py-1 text-sm md:text-base text-gray-600"
                             value={ingredient}
                             onChange={(e) => handleIngredientChange(index, e.target.value)}
                         />
@@ -193,7 +198,7 @@ export function EditCreatorRecipe({recipe, url, setLoginPrompt, owner_id, setEdi
                     <li className="relative mb-2">
                         <input 
                             type="text"
-                            className="w-full rounded-lg border border-gray-300 px-2 py-1 text-sm md:text-base pr-10"
+                            className="w-full rounded-lg border border-gray-300 px-2 py-1 text-sm md:text-base pr-10 text-gray-600"
                             value={newIngredient}
                             placeholder="Add new ingredient"
                             onChange={(e: any) => setNewIngredient(e.target.value)}
@@ -215,7 +220,7 @@ export function EditCreatorRecipe({recipe, url, setLoginPrompt, owner_id, setEdi
                     <li key={index} className="relative mb-2">
                         <input 
                             type="text"
-                            className="w-full rounded-lg border border-gray-300 px-2 py-1 text-sm md:text-base pr-10"
+                            className="w-full rounded-lg border border-gray-300 px-2 py-1 text-sm md:text-base pr-10 text-gray-600"
                             value={instruction}
                             onChange={(e) => handleInstructionChange(index, e.target.value)}
                         />
@@ -230,7 +235,7 @@ export function EditCreatorRecipe({recipe, url, setLoginPrompt, owner_id, setEdi
                     <li className="relative mb-2">
                         <input 
                             type="text"
-                            className="w-full rounded-lg border border-gray-300 px-2 py-1 text-sm md:text-base pr-10"
+                            className="w-full rounded-lg border border-gray-300 px-2 py-1 text-sm md:text-base pr-10 text-gray-600"
                             value={newInstruction}
                             placeholder="Add new instruction"
                             onChange={(e: any) => setNewInstruction(e.target.value)}
