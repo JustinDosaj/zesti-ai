@@ -15,7 +15,7 @@ import { getAllRecipes } from '../api/firebase/functions';
 
 const raleway = Raleway({subsets: ['latin']})
 
-export default function Dashboard() {
+export default function Cookbook() {
 
   const { user, isLoading, stripeRole } = useAuth();
   const [ tokens, setTokens ] = useState<number>(0)
