@@ -1,9 +1,8 @@
 import { Raleway } from 'next/font/google'
-import { Search } from '@/components/dashboard';
 import { useAuth } from "@/pages/api/auth/auth"
 import { useRouter } from "next/router";
 import { UserSavedRecipeList } from '@/components/dashboard/recipelist';
-import { DashboardRecipeTitle } from '@/components/dashboard';
+import { DashboardRecipeTitle, Search } from '@/components/dashboard';
 import { useState, useEffect } from "react";
 import { PageLoader } from "@/components/shared/loader";
 import Head from 'next/head';
@@ -18,7 +17,6 @@ const raleway = Raleway({subsets: ['latin']})
 export default function Cookbook() {
 
   const { user, isLoading, stripeRole } = useAuth();
-  const [ tokens, setTokens ] = useState<number>(0)
   const [recipes, setRecipes] = useState<any[]>([]);
   const router = useRouter();
 
@@ -50,7 +48,7 @@ export default function Cookbook() {
     </Head>
     <main className={`flex min-h-screen flex-col items-center justify-between bg-background ${raleway.className}`}>
         <div className="mt-36"/>
-          <SharedHomeSectionTitle titleBlack="Dashboard" desc="Access all your saved recipes, and all the tools Zesti has available"/>
+          <SharedHomeSectionTitle titleBlack="Your Cookbook" desc="Access all your saved recipes, and all the tools Zesti has available"/>
         <div/>
         <div className="mt-8 lg:mt-0" />
         <Search/>

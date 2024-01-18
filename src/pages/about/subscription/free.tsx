@@ -17,7 +17,7 @@ export default function Essential() {
 
     const FreeClick = async () => {
         setIsLoading(true);
-        router.push('/dashboard')
+        router.push('/cookbook')
         setIsLoading(false)
     }
 
