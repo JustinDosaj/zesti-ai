@@ -78,9 +78,9 @@ interface UserRecipeCardProps {
 
 export function UserRecipeListCard({item, key}: UserRecipeCardProps) {
   return(
-  <div key={key} className="group relative">
+  <div key={key} className="group relative ">
         {/* Image and Details */}
-        <div className="flex items-center space-x-4 border p-4 rounded-3xl max-w-2xl">
+        <div className="flex items-center space-x-4 border p-4 rounded-3xl max-w-2xl mt-4">
             <img src={`https://firebasestorage.googleapis.com/v0/b/${process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET}/o/${encodeURIComponent(item.cover_image_url)}?alt=media`} className="h-[136px] w-[96px] rounded-xl object-cover" alt={item.title}/>
             <div className="flex-grow space-y-1 lg:space-y-2">
                 <h3 className="text-lg lg:text-xl font-semibold text-gray-700">{item.name}</h3> {/* Video Title */}

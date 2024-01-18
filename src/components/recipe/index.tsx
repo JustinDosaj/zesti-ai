@@ -48,7 +48,7 @@ export function UserRecipe({recipe, setPremiumPrompt, owner_id, setEditMode, rol
         <UserRecipeLinks recipe={recipe} setPremiumPrompt={setPremiumPrompt}/>
         <div className="space-y-2">
             <h2 className="section-desc-text-size font-semibold">Ingredients ({recipe.ingredients.length})</h2>
-            <ul className="space-y-2 list-disc pl-6">
+            <ul className="space-y-2 list-disc pl-6 text-black">
                 {recipe?.ingredients?.map((ingredient: any, index: number) => (
                 <li key={index} className="col-span-1 rounded-xl">
                     <div className="flex rounded-md overflow-visible w-full">
@@ -62,7 +62,7 @@ export function UserRecipe({recipe, setPremiumPrompt, owner_id, setEditMode, rol
         </div>
         <div className="space-y-2">
             <h2 className="section-desc-text-size font-semibold">Instructions ({recipe.instructions.length})</h2>
-            <ul className="list-decimal pl-5">
+            <ul className="list-decimal pl-5 text-black">
                 {recipe?.instructions?.map((instruction: any, index: number) => (
                     <li key={index} className="col-span-1 rounded-xl">
                         <div className="flex rounded-md overflow-wrap w-full">
@@ -202,7 +202,7 @@ export function EditUserRecipe({recipe, setPremiumPrompt, setEditMode, role}:Cre
         <UserRecipeLinks recipe={recipe} setPremiumPrompt={setPremiumPrompt}/>
         <div className="space-y-2">
             <h2 className="section-desc-text-size font-semibold">Ingredients</h2>
-            <ul className="list-disc pl-6">
+            <ul className="list-disc pl-6 text-black">
                 {editedIngredients.map((ingredient, index) => (
                     <li key={index} className="mb-2 relative">
                         <input 
@@ -239,7 +239,7 @@ export function EditUserRecipe({recipe, setPremiumPrompt, setEditMode, role}:Cre
         </div>
         <div className="space-y-2">
             <h2 className="section-desc-text-size font-semibold">Ingredients</h2>
-            <ul className="list-disc pl-6">
+            <ul className="list-disc pl-6 text-black">
                 {editedInstructions.map((instruction, index) => (
                     <li key={index} className="relative mb-2">
                         <input 
