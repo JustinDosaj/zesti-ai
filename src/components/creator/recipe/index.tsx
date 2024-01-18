@@ -215,7 +215,7 @@ export function EditCreatorRecipe({recipe, url, setLoginPrompt, owner_id, setEdi
         </div>
         <div className="space-y-2">
             <h2 className="section-desc-text-size font-semibold">Ingredients</h2>
-            <ul className="list-disc pl-6">
+            <ul className="list-disc pl-6 text-black">
                 {editedInstructions.map((instruction, index) => (
                     <li key={index} className="relative mb-2">
                         <input 

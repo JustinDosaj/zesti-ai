@@ -50,7 +50,7 @@ export default function Cookbook() {
         <div className="mt-36"/>
           <SharedHomeSectionTitle titleBlack="Your Cookbook" desc="Access all your saved recipes, and all the tools Zesti has available"/>
         <div/>
-        <div className="mt-8 lg:mt-0" />
+        <br/>
         <Search/>
         <div className="border-t border-gray-200 m-12" style={{ width: '35%' }} />
         <DashboardRecipeTitle/>
