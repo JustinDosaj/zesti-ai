@@ -46,7 +46,7 @@ export default function RecipeBook() {
             <PromoteKitTag/>
         </Head>  
         <main className={`flex min-h-screen flex-col items-center bg-background ${raleway.className}`}>
-            <SharedViewAllTitle title="Saved Recipes" desc="View all the recipes you have saved with Zesti" href={'/dashboard'}/>
+            <SharedViewAllTitle title="Saved Recipes" desc="View all the recipes you have saved with Zesti" href={'/cookbook'}/>
             {isLoadingRecipes ? <PageLoader/> : <UserSavedRecipeList recipes={recipes} maxDisplayCount={5}/>}
             {stripeRole !== 'premium' && recipes.length > 0 ? 
             <div className="flex justify-center items-center py-16">

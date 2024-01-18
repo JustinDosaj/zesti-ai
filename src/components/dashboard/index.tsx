@@ -11,7 +11,7 @@ export function DashboardRecipeTitle() {
     <Container className="relative sm:flex justify-center items-center lg:flex-wrap gap-10 lg:gap-4 w-full animate-fadeIn">
         <h3 className="text-2xl font-bold leading-6 text-gray-900 text-center">Recent Saved Recipes</h3>
         <div className="grid justify-center pl-3 sm:absolute sm:right-0">
-          <Link href="/dashboard/recipebook" passHref className="hover:bg-primary-dark text-gray-700 hover:text-gray-500 font-semibold py-2 px-4">
+          <Link href="/cookbook/all" passHref className="hover:bg-primary-dark text-gray-700 hover:text-gray-500 font-semibold py-2 px-4">
             <span className="inline-flex items-center gap-x-1.5">
               <span className="underline">View All Recipes</span>
               <ChevronDoubleRightIcon className="h-5 w-5"/>

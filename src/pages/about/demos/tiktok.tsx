@@ -58,7 +58,7 @@ const Demo: React.FC = () => {
       <div className="text-center space-y-2">
         <Title className="text-gray-900 text-3xl mt-36">Tiktok Recipe</Title>
         {user ? 
-        <p className="text-gray-700 pl-5 pr-5">This is a demo output of Zesti. Visit <InlineBtnLink href='/dashboard' text="Your Dashboard"/> to start using Zesti</p>
+        <p className="text-gray-700 pl-5 pr-5">This is a demo output of Zesti. Visit <InlineBtnLink href='/cookbook' text="Your Dashboard"/> to start using Zesti</p>
         :
         <p className="text-gray-700 pl-5 pr-5">This is a demo output of Zesti. To start using Zesti please <InlineBtnLink href='/auth/login' text="Login or Sign Up"/></p>
         }

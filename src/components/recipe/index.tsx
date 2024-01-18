@@ -32,7 +32,7 @@ export function UserRecipe({recipe, setPremiumPrompt, owner_id, setEditMode, rol
                 await deleteUserRecipe(user?.uid, recipeId)
                 setEditMode(false)
                 Notify("Recipe Deleted")
-                //router.push('/dashboard')
+                //router.push('/cookbook')
             }
         } catch(err) {
         

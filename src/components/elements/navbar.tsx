@@ -21,7 +21,7 @@ const userDesktopNavItems = [
 
 const creatorDesktopNavItems = [
     {
-        href: "/dashboard",
+        href: "/cookbook",
         text: "My Recipes",
         icon: BookOpenIcon,
     },
@@ -39,7 +39,7 @@ const navItemsLoggedInMobile = [
         icon: HomeIcon,
     },
     {
-        href:"/dashboard",
+        href:"/cookbook",
         text:"My Recipes",
         icon: BookOpenIcon,
     },
@@ -72,7 +72,7 @@ const creatorItemsLoggedInMobile = [
         icon: SquaresPlusIcon, 
     },
     {
-        href:"/dashboard",
+        href:"/cookbook",
         text:"My Recipes",
         icon: BookOpenIcon,
     },
@@ -154,7 +154,7 @@ export function Navbar() {
                     </div>
                     : 
                     <div className="inline-flex items-center space-x-4">
-                        <BtnLink href="/dashboard" text={'My Recipes'}/>
+                        <BtnLink href="/cookbook" text={'My Recipes'}/>
                         <DropDownMenuDesktop navItems={userDesktopNavItems}/>
                     </div>
                     }
