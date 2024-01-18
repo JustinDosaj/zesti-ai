@@ -8,16 +8,16 @@ function classNames(...classes: (string | null | undefined)[]): string {
     return classes.filter(Boolean).join(' ')
   }
 
-export function CreatorTools({tiktokDisplayName}: any) {
+export function CreatorTools({tiktokDisplayNameURL}: any) {
 
     const stats = [
         { 
             id: 1, 
-            name: tiktokDisplayName !== '' ? 'View Page' : 'Setup Page', 
-            icon: tiktokDisplayName !== '' ? ComputerDesktopIcon : Cog6ToothIcon, 
-            href: tiktokDisplayName !== '' ? `/${tiktokDisplayName}` : `/creator/settings`, 
-            desc: tiktokDisplayName !== '' ? "See how your page looks to viewers" : 'Setup your creator page by connecting tiktok',
-            buttonText: tiktokDisplayName !== '' ? `View Your Page` : `Setup`,
+            name: tiktokDisplayNameURL !== '' ? 'View Page' : 'Setup Page', 
+            icon: tiktokDisplayNameURL !== '' ? ComputerDesktopIcon : Cog6ToothIcon, 
+            href: tiktokDisplayNameURL !== '' ? `/${tiktokDisplayNameURL}` : `/creator/settings`, 
+            desc: tiktokDisplayNameURL !== '' ? "See how your page looks to viewers" : 'Setup your creator page by connecting tiktok',
+            buttonText: tiktokDisplayNameURL !== '' ? `View Your Page` : `Setup`,
         },
         { 
             id: 2, 
@@ -37,7 +37,7 @@ export function CreatorTools({tiktokDisplayName}: any) {
         },
       ]
     
-      if (!tiktokDisplayName) return <PageLoader/>
+      if (!tiktokDisplayNameURL) return <PageLoader/>
 
     return(
     <Container className={"flex flex-col lg:flex-row gap-10 lg:gap-12 animate-fadeIn"}>

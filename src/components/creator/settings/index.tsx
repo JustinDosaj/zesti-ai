@@ -60,7 +60,7 @@ export function CreatorSettingsComponent({userData, creatorData}: any) {
                 <div className="pt-6 flex justify-between items-center">
                     <dt className="font-semibold text-gray-900 sm:w-64 sm:flex-none sm:pr-6 text-sm lg:text-base">Page Link</dt>
                     <dd className="mt-1 flex gap-x-6 sm:mt-0">
-                        <div className="text-gray-700 text-sm lg:text-base">{`https://www.zesti.ai/${creatorData?.display_name}`}</div>
+                        <div className="text-gray-700 text-sm lg:text-base">{`https://www.zesti.ai/${creatorData?.display_url}`}</div>
                     </dd>
                 </div>
                 <div className="pt-6 flex justify-between items-center">

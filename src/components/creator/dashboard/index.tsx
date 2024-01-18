@@ -1,13 +1,6 @@
-import React, { useState, useEffect } from 'react'
-import { PageLoader, RecipeListLoader } from '@/components/shared/loader'
-import { Button } from '@/components/shared/button'
-import { useAuth } from '@/pages/api/auth/auth'
-import { saveAffiliateLink } from '@/pages/api/firebase/functions'
-import { PlusCircleIcon, PencilIcon, ComputerDesktopIcon, Cog6ToothIcon } from "@heroicons/react/20/solid"
-import { saveBioDataToFireStore } from '@/pages/api/firebase/functions'
+import React from 'react'
 import { Container } from '@/components/shared/container'
 import { Paragraph } from '@/components/shared/paragraph'
-import Link from 'next/link'
 
 interface CreatorDashboardTitleProps {
     title: string,

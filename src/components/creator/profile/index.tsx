@@ -69,7 +69,7 @@ export function CreatorPageComponent({creatorData}: any) {
                     </dd>
                     <dd className="mt-1 flex gap-x-6 sm:mt-0">
                         <button type="button" className="font-semibold text-primary-main hover:text-primary-alt text-sm lg:text-base"
-                            onClick={() => router.push(`/${creatorData?.display_name}`)}>
+                            onClick={() => router.push(`/${creatorData?.display_url}`)}>
                             {"View Page"}
                         </button>
                     </dd>
