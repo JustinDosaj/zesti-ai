@@ -23,7 +23,7 @@ export async function getAllCreatorRecipes(id: string) {
 }
 
 export async function getCreatorByDisplayName(creatorName: string) {
-  const querySnapshot = await db.collection('creators').where('display_name', '==', creatorName).get()
+  const querySnapshot = await db.collection('creators').where('display_url', '==', creatorName).get()
   return querySnapshot
 }
 

@@ -13,8 +13,9 @@ export function CreatorPageTitle({creatorData}: any) {
             <span className="w-4/12 lg:w-2/12 aspect-square bg-gradient-to-tr to-primary from-primaryteal absolute -top-5 lg:left-0 rounded-full skew-y-12 blur-2xl opacity-40 skew-x-12 rotate-90"></span>
             <div className="relative flex flex-col items-center text-center lg:max-w-none max-w-3xl mx-auto lg:mx-0 lg:flex-1 lg:w-1/2">
                 <img height={125} width={125} src={creatorData.avatar_url} alt={creatorData.display_name} className="rounded-3xl"/>
+                <p className="mt-2 text-gray-600 text-lg font-semibold underline">Recipes by</p>
                 <h1 className="text-3xl/tight sm:text-4xl/tight md:text-5xl/tight xl:text-5xl/tight font-bold text-heading-1 text-black capitalize mt-2">
-                    {creatorData.display_name} Recipes
+                  {creatorData.display_name}
                 </h1>
                 <Paragraph className="mt-2 text-gray-600">
                         {creatorData.bio_description}
@@ -61,7 +62,7 @@ export function CreatorSearch({creatorData}: any) {
           return (
               <div className="absolute z-20 mt-16 w-full max-w-xs lg:max-w-md bg-white shadow-lg border border-gray-200 rounded-3xl">
                   {combinedResults.map((result, index) => (
-                      <Link key={index} href={`/${result.owner_display_name}/${result.objectID}`} className="block px-4  text-gray-700 hover:bg-gray-100 rounded-3xl">
+                      <Link key={index} href={`/${result.owner_display_url}/${result.objectID}`} className="block px-4  text-gray-700 hover:bg-gray-100 rounded-3xl">
                           <div className="inline-flex space-x-2 items-center py-3">
                               <img src={`https://firebasestorage.googleapis.com/v0/b/${process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET}/o/${encodeURIComponent(result.cover_image_url)}?alt=media`} alt={result.name} className="h-8 w-8 rounded-full"></img>
                               <span className="text-sm lg:text-base capitalize">{result.name}</span>

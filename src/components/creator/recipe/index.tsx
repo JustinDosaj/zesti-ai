@@ -287,7 +287,7 @@ export function CreatorRecipeLinks({recipe, setLoginPrompt}: any) {
     const navigation = [
         { 
             name: recipe.owner_display_name,
-            onClick: () => router.push(`/${recipe.owner_display_name}`),
+            onClick: () => router.push(`/${recipe.owner_display_url}`),
             icon: EyeIcon,
         },
         { 

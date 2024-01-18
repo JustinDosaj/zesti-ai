@@ -433,7 +433,6 @@ export function CreatorAddRecipeModal({isOpen, setIsOpen, addRecipe, setRawText,
                     <div className="flex items-center justify-start space-x-4 border-gray-300 border rounded-r-xl rounded-l-xl p-4">
                         {/* Image */}
                         <img src={videoObject?.cover_image_url} className="h-[136px] w-[96px] rounded-xl" alt={videoObject?.title}/>
-                        
                         {/* Title Wrapper - flex-grow ensures it takes up available space */}
                         <div className="flex-grow">
                             <span className="section-desc-text-size">{videoObject?.title}</span>

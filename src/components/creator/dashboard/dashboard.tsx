@@ -11,8 +11,8 @@ const raleway = Raleway({subsets: ['latin']})
 const navigation = [
   { name: 'Home', href: '/creator/home', icon: HomeIcon, current: true },
   { name: 'Add Recipe', href: '/creator/add-recipe', icon: DocumentPlusIcon, current: false },
-  { name: 'Your Page', href: '/creator/page', icon: UserIcon, current: false },
-  { name: 'Settings', href: '/creator/settings', icon: Cog6ToothIcon, current: false },
+  { name: 'Page Information', href: '/creator/page', icon: UserIcon, current: false },
+  { name: 'Creator Settings', href: '/creator/settings', icon: Cog6ToothIcon, current: false },
 ]
 
 function classNames(...classes: (string | null | undefined)[]): string {
@@ -120,7 +120,9 @@ export function CreatorDashboard({ children }: CreatorDashboardProps) {
                 {/* Sidebar component, swap this element with another sidebar if you like */}
                 <div className="flex grow flex-col gap-y-5 overflow-y-auto border-r border-gray-200 bg-gray-100 px-6">
                     <div className="flex h-16 shrink-0 items-center">
-                        <Image src="/images/Zesti-Logo.png" alt="Zesti Artificial Intelligence Recipe Helper Logo" width={60} height={30}/>
+                        <Link href={"/"}>
+                            <Image src="/images/Zesti-Logo.png" alt="Zesti Artificial Intelligence Recipe Helper Logo" width={60} height={30}/>
+                        </Link>
                     </div>
                     <nav className="flex flex-1 flex-col">
                     <ul role="list" className="flex flex-1 flex-col gap-y-7">

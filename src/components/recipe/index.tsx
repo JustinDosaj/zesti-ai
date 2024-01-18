@@ -289,7 +289,7 @@ export function UserRecipeLinks({recipe, setPremiumPrompt}: any) {
     const navigation = [
         { 
             name: recipe.owner_display_name,
-            onClick: () => window.open(`/${recipe.owner_display_name}`),
+            onClick: () => window.open(`/${recipe.owner_display_url}`),
             icon: EyeIcon,
         },
         { 

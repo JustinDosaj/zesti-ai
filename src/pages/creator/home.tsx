@@ -12,7 +12,7 @@ import { SharedHomeSectionTitle } from "@/components/shared/title";
 export default function Home() {
   
   const { isLoading, user, tikTokAccessToken } = useAuth();
-  const [ displayName, setDisplayName ] = useState<string>('')
+  const [ displayNameURL, setDisplayNameURL] = useState<string>('')
   const router = useRouter()
 
   useEffect(() => {
@@ -23,7 +23,7 @@ export default function Home() {
           router.push('/creator/settings')
         } else {
           const creatorData = await getCreatorData(user?.uid)
-          setDisplayName(creatorData?.display_name ? creatorData?.display_name : '')
+          setDisplayNameURL(creatorData?.display_url ? creatorData?.display_url : '')
         }
       };
       fetchUserData();
@@ -47,7 +47,7 @@ export default function Home() {
         </Head>
         <CreatorDashboard>
           <SharedHomeSectionTitle titleBlack="Creator Dashboard" desc="Welcome to Zesti for Creators. Begin adding recipes to your page to let your users easily replicate them at home!"/>
-          <CreatorTools tiktokDisplayName={displayName}/>
+          <CreatorTools tiktokDisplayNameURL={displayNameURL}/>
         </CreatorDashboard>
     </>
   )
