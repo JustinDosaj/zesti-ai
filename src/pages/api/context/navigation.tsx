@@ -42,18 +42,23 @@ export const NavigationProvider: React.FC<NavigationProviderProps> = ({ children
   const addPageToHistory = async (path: string) => {
 
     try {
+      console.log('path: ', path)
       let segments = path.split('/')
       let recipeId = segments.pop()
-      const doc = await db.collection('recipes-tiktok').doc(recipeId).get()
-      if(doc.exists) { 
-
-        const name = doc.data()?.name
-        setHistory((prevHistory) => [...prevHistory, path])
-        setHistoryName((prevHistory) => [...prevHistory, name])
-      } else { 
-        
-        setHistory((prevHistory) => [...prevHistory, path]);
-        setHistoryName((prevHistory) => [...prevHistory, path]);
+      console.log("Test: ", recipeId)
+      if (path !== '/') {
+        const doc = await db.collection('recipes-tiktok').doc(recipeId).get()
+        if(doc.exists) { 
+            const name = doc.data()?.name
+            setHistory((prevHistory) => [...prevHistory, path])
+            setHistoryName((prevHistory) => [...prevHistory, name])
+          } else {   
+            setHistory((prevHistory) => [...prevHistory, path]);
+            setHistoryName((prevHistory) => [...prevHistory, path]);
+          }
+      } else {
+          setHistory((prevHistory) => [...prevHistory, path]);
+          setHistoryName((prevHistory) => [...prevHistory, path]);
       }
     } catch (err) {
       console.log("Failed to save history: ", err)

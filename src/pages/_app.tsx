@@ -22,12 +22,12 @@ export default function App({ Component, pageProps }: AppProps) {
 
     <NavigationProvider>
       <AuthProvider>
-          {!isCreatorPage && <Navbar/>}
+          {<Navbar/>}
             <RouteChangeHandler/>
             <Component {...pageProps}/>
             <Analytics/>
             <ToastContainer/>
-          {!isCreatorPage && <Footer/>}
+          {<Footer/>}
       </AuthProvider>
     </NavigationProvider>
 

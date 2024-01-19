@@ -150,7 +150,7 @@ export function PricingDisplay() {
 export function PricingTitle() {
 
   return(
-    <Container className={"flex flex-col lg:flex-row gap-10 lg:gap-12 mt-36"}>
+    <Container className={"flex flex-col lg:flex-row gap-10 lg:gap-12 mt-4"}>
       <div className="bg-white mx-auto">
         <div className="mx-auto max-w-7xl md:px-6 lg:px-8"></div>
           <div className="mx-auto max-w-4xl text-center">
