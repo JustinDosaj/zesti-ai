@@ -85,7 +85,7 @@ export function DropDownMenuDesktop({navItems}: MenuProps) {
     return(
     <Menu as="div" className="relative">
         <Menu.Button as="div" className="flex items-center cursor-pointer">
-            <ChevronDownIcon className="w-7 h-7 text-gray-500 hover:text-gray-300" />
+            <ChevronDownIcon className="w-9 h-9 text-gray-500 hover:text-gray-300" />
         </Menu.Button>
         <Transition
             as={Fragment}

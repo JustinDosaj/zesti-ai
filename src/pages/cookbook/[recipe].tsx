@@ -12,6 +12,7 @@ import AdSenseDisplay from "@/components/tags/adsense";
 import { PromoteKitTag } from "@/components/tags/headertags";
 import { UserRecipe, EditUserRecipe } from "@/components/recipe";
 import { UpgradeToPremiumModal } from "@/components/shared/modals";
+import Breadcrumbs from "@/components/shared/breadcrumb";
 
 const raleway = Raleway({subsets: ['latin']})
 
@@ -66,6 +67,7 @@ const Recipe: React.FC = ({id}: any) => {
     </Head>  
     <main className={`flex min-h-screen flex-col items-center justify-between p-2 bg-background ${raleway.className}`}>
       {stripeRole == 'premium' ? <Chatbox/> : <></>}
+      <Breadcrumbs/>
       { isEditMode == false || !user ?
         <UserRecipe recipe={recipe} setPremiumPrompt={setPremiumPrompt} owner_id={''} setEditMode={setEditMode} role={stripeRole}/>
       :

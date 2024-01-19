@@ -11,6 +11,7 @@ import { PromoteKitTag } from '@/components/tags/headertags';
 import AdSenseDisplay from '@/components/tags/adsense';
 import { SharedHomeSectionTitle } from '@/components/shared/title';
 import { getAllRecipes } from '../api/firebase/functions';
+import Breadcrumbs from '@/components/shared/breadcrumb';
 
 const raleway = Raleway({subsets: ['latin']})
 
@@ -47,9 +48,8 @@ export default function Cookbook() {
       <PromoteKitTag/>
     </Head>
     <main className={`flex min-h-screen flex-col items-center justify-between bg-background ${raleway.className}`}>
-        <div className="mt-36"/>
-          <SharedHomeSectionTitle titleBlack="Your Cookbook" desc="Access all your saved recipes, and all the tools Zesti has available"/>
-        <div/>
+        <Breadcrumbs/>
+        <SharedHomeSectionTitle titleBlack="Your Cookbook" desc="Access all your saved recipes, and all the tools Zesti has available"/>
         <br/>
         <Search/>
         <div className="border-t border-gray-200 m-12" style={{ width: '35%' }} />

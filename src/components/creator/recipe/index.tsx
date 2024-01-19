@@ -23,12 +23,12 @@ export function CreatorRecipe({recipe, url, setLoginPrompt, owner_id, setEditMod
     const {user, isCreator} = useAuth()
 
     return(
-    <Container className={"flex flex-col gap-6 animate-fadeInFast alternate-orange-bg mt-36 rounded-3xl md:w-[599px] p-8 mb-16"}>
+    <Container className={"flex flex-col gap-6 animate-fadeInFast alternate-orange-bg rounded-3xl md:w-[599px] p-8 mb-16"}>
         <div className="grid justify-center items-center">
             <span className="section-desc-title-size text-center">{recipe.name}</span>
             <p className="text-center text-gray-500 text-sm">{recipe.title}</p>
         </div>
-        <CreatorRecipeLinks recipe={recipe} setLoginPrompt={setLoginPrompt}/>
+        <CreatorRecipeLinks recipe={recipe} setLoginPrompt={setLoginPrompt} isEdit={false}/>
         <div className="space-y-2">
             <h2 className="section-desc-text-size font-semibold">Ingredients</h2>
             <ul className="space-y-2 list-disc pl-6 text-black">
@@ -164,18 +164,18 @@ export function EditCreatorRecipe({recipe, url, setLoginPrompt, owner_id, setEdi
     }
 
     return(
-    <Container className={"flex flex-col gap-6 animate-fadeInFast alternate-orange-bg mt-36 rounded-3xl md:w-[599px] p-8 mb-16"}>
+    <Container className={"flex flex-col gap-6 animate-fadeInFast alternate-orange-bg rounded-3xl md:w-[599px] p-8 mb-16"}>
         <div className="grid justify-center items-center">
             <input 
                 type="text"
-                className="w-full rounded-lg border border-gray-300 px-2 py-1 text-sm md:text-base pr-10 text-center text-gray-600"
+                className="w-full rounded-lg border border-gray-300 px-2 py-1 text-sm md:text-base text-center text-gray-600"
                 value={editedName}
                 onChange={(e) => setEditedName(e.target.value)}
             />
             
             <p className="text-center text-gray-500 text-sm">{recipe.title}</p>
         </div>
-        <CreatorRecipeLinks recipe={recipe} setLoginPrompt={setLoginPrompt}/>
+        <CreatorRecipeLinks recipe={recipe} setLoginPrompt={setLoginPrompt} isEdit={true}/>
         <div className="space-y-2">
             <h2 className="section-desc-text-size font-semibold">Ingredients</h2>
             <ul className="list-disc pl-6 text-black">
@@ -279,7 +279,13 @@ export function EditCreatorRecipe({recipe, url, setLoginPrompt, owner_id, setEdi
     )
 }
 
-export function CreatorRecipeLinks({recipe, setLoginPrompt}: any) {
+interface CreatorRecipeLinksProps {
+    recipe: any,
+    setLoginPrompt: any,
+    isEdit: boolean,
+}
+
+export function CreatorRecipeLinks({recipe, setLoginPrompt, isEdit}: CreatorRecipeLinksProps) {
 
     const router = useRouter()
     const { isLoading, user } = useAuth()
@@ -305,18 +311,31 @@ export function CreatorRecipeLinks({recipe, setLoginPrompt}: any) {
                 </svg>
             ),
         },
-        { 
-            name: 'Save',
-            onClick: async () => {
-                if (user && !isLoading) {
-                    await saveFromCreatorToUser(user?.uid, recipe.id, recipe).then(() => { Notify("Recipe saved to your dashboard")})
-                } else {
-                    setLoginPrompt(true)
-                }
-            },
-            icon: ArrowDownTrayIcon,
-        },
     ]
+
+        if(isEdit == false) {
+            navigation.push({
+                name: 'Save',
+                onClick: async () => {
+                    if (user && !isLoading) {
+                        try {
+                            await saveFromCreatorToUser(user?.uid, recipe.id, recipe);
+                            Notify("Recipe saved to your dashboard");
+                            return true; // Explicitly returning a boolean value
+                        } catch (error) {
+                            console.error("Error saving recipe:", error);
+                            return false;
+                        }
+                    } else {
+                        setLoginPrompt(true);
+                        return false; // Or some appropriate boolean value based on your logic
+                    }
+                },
+                icon: ArrowDownTrayIcon,
+            });
+        }
+
+
 
     return(
     <div className="flex justify-evenly">

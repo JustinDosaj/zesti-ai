@@ -10,6 +10,7 @@ import { PromoteKitTag } from '@/components/tags/headertags'
 import AdSenseDisplay from '@/components/tags/adsense'
 import { SharedViewAllTitle } from '@/components/shared/title'
 import { getAllRecipes } from '../api/firebase/functions'
+import Breadcrumbs from '@/components/shared/breadcrumb'
 
 const raleway = Raleway({subsets: ['latin']})
 
@@ -46,6 +47,7 @@ export default function RecipeBook() {
             <PromoteKitTag/>
         </Head>  
         <main className={`flex min-h-screen flex-col items-center bg-background ${raleway.className}`}>
+            <Breadcrumbs/>
             <SharedViewAllTitle title="Saved Recipes" desc="View all the recipes you have saved with Zesti" href={'/cookbook'}/>
             {isLoadingRecipes ? <PageLoader/> : <UserSavedRecipeList recipes={recipes} maxDisplayCount={5}/>}
             {stripeRole !== 'premium' && recipes.length > 0 ? 
