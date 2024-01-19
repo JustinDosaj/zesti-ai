@@ -40,7 +40,7 @@ export function UserRecipe({recipe, setPremiumPrompt, owner_id, setEditMode, rol
     }
 
     return(
-    <Container className={"flex flex-col gap-6 animate-fadeInFast alternate-orange-bg mt-36 rounded-3xl md:w-[599px] p-8 mb-16"}>
+    <Container className={"flex flex-col gap-6 animate-fadeInFast alternate-orange-bg rounded-3xl md:w-[599px] p-8 mb-16"}>
         <div className="grid justify-center items-center">
             <span className="section-desc-title-size text-center">{recipe.name}</span>
             <p className="text-center text-gray-500 text-sm">{recipe.title}</p>
@@ -188,7 +188,7 @@ export function EditUserRecipe({recipe, setPremiumPrompt, setEditMode, role}:Cre
     };
 
     return(
-    <Container className={"flex flex-col gap-6 animate-fadeInFast alternate-orange-bg mt-36 rounded-3xl md:w-[599px] p-8 mb-16"}>
+    <Container className={"flex flex-col gap-6 animate-fadeInFast alternate-orange-bg rounded-3xl md:w-[599px] p-8 mb-16"}>
         <div className="grid justify-center items-center">
             <input 
                 type="text"
@@ -284,12 +284,11 @@ export function EditUserRecipe({recipe, setPremiumPrompt, setEditMode, role}:Cre
 export function UserRecipeLinks({recipe, setPremiumPrompt}: any) {
 
     const router = useRouter()
-    const { isLoading, user } = useAuth()
 
     const navigation = [
         { 
             name: recipe.owner_display_name,
-            onClick: () => window.open(`/${recipe.owner_display_url}`),
+            onClick: () => router.push(`/${recipe.owner_display_url}`),
             icon: EyeIcon,
         },
         { 

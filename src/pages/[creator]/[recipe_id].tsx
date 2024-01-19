@@ -11,6 +11,7 @@ import { LoginModal } from "@/components/shared/modals";
 import GoogleTags from "@/components/tags/conversion";
 import Head from "next/head";
 import { getCreatorByDisplayName } from "../api/firebase/functions";
+import Breadcrumbs from "@/components/shared/breadcrumb";
 
 const raleway = Raleway({subsets: ['latin']})
 
@@ -71,6 +72,7 @@ const Recipe: React.FC = ({id, owner_uid}: any) => {
       <PromoteKitTag/>
     </Head>  
     <main className={`flex min-h-screen flex-col items-center justify-between p-6 bg-background ${raleway.className}`}>
+        <Breadcrumbs/>
         {isEditMode == false || !user || user?.uid !== owner_uid ? 
         <CreatorRecipe recipe={recipe} url={url} setLoginPrompt={setLoginPrompt} owner_id={owner_uid} setEditMode={setEditMode}/>
         :

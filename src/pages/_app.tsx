@@ -9,7 +9,8 @@ import { useRouter } from 'next/router'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
 import React from 'react'
-
+import { NavigationProvider } from './api/context/navigation'
+import RouteChangeHandler from './api/context/routechanger'
 
 
 export default function App({ Component, pageProps }: AppProps) {
@@ -18,14 +19,17 @@ export default function App({ Component, pageProps }: AppProps) {
   const isCreatorPage = router.pathname.includes('/creator/');
 
   return (
-  <>
-    <AuthProvider>
-        {!isCreatorPage && <Navbar/>}
-          <Component {...pageProps}/>
-          <Analytics/>
-          <ToastContainer/>
-        {!isCreatorPage && <Footer/>}
-    </AuthProvider>
-  </>
+
+    <NavigationProvider>
+      <AuthProvider>
+          {!isCreatorPage && <Navbar/>}
+            <RouteChangeHandler/>
+            <Component {...pageProps}/>
+            <Analytics/>
+            <ToastContainer/>
+          {!isCreatorPage && <Footer/>}
+      </AuthProvider>
+    </NavigationProvider>
+
   )
 }

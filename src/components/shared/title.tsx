@@ -27,7 +27,7 @@ interface SharedPageTitleProps {
 
 export function SharedViewAllTitle({title, href, desc}: SharedPageTitleProps) {
     return(
-        <Container className="pt-32 animate-fadeIn">
+        <Container className="animate-fadeIn">
             <div className="flex lg:relative justify-center items-center lg:flex-wrap gap-10 lg:gap-4 w-full">
                 <div className="inline-flex items-center">
                     <h3 className="text-4xl lg:text-5xl font-semibold text-gray-800 text-center">{title}</h3>

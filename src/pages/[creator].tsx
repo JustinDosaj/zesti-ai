@@ -10,6 +10,7 @@ import { PromoteKitTag } from '@/components/tags/headertags';
 import { setCookie } from '@/pages/api/handler/cookies';
 import { useRouter } from 'next/router';
 import { getCreatorByDisplayName } from './api/firebase/functions';
+import Breadcrumbs from '@/components/shared/breadcrumb';
 import firebase from 'firebase/compat/app';
 
 const raleway = Raleway({subsets: ['latin']})
@@ -36,7 +37,6 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       const doc = querySnapshot.docs[0];
       creatorData = { userId: doc.id, ...doc.data() };
 
-      console.log(creatorData)
     } else {
       return {
         redirect: {
@@ -68,7 +68,6 @@ const CreatorPage: NextPage<CreatorProps> = ({ creatorData, referer }) => {
 
   const [isLoadingRecipes, setIsLoadingRecipes] = useState<boolean>(true);
   const [ recipes, setRecipes ] = useState<any[]>([]);
-
   const router = useRouter();
 
   useEffect(() => {
@@ -100,6 +99,7 @@ const CreatorPage: NextPage<CreatorProps> = ({ creatorData, referer }) => {
 
   }, [creatorData, referer]);
 
+
   if (!creatorData) return <PageLoader/>
 
   // Render your creator data here
@@ -111,6 +111,7 @@ const CreatorPage: NextPage<CreatorProps> = ({ creatorData, referer }) => {
       <PromoteKitTag/>
     </Head>
     <main className={`flex min-h-screen flex-col items-center bg-background space-y-4 ${raleway.className}`}>
+      <Breadcrumbs/>
       <CreatorPageTitle creatorData={creatorData}/>
       <CreatorSocials creatorData={creatorData}/>
       <CreatorSearch creatorData={creatorData}/>
