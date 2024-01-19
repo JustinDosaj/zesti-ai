@@ -1,18 +1,25 @@
 import { Raleway } from 'next/font/google'
 import { useAuth } from "./api/auth/auth"
 import { useRouter } from "next/router"
-import { db } from "./api/firebase/firebase"
-import React, { useEffect } from 'react'
+import { SharedHomeSectionTitle } from '@/components/shared/title'
+import React, { useEffect, useState } from 'react'
 import GoogleTags from "@/components/tags/conversion"
 import Head from "next/head"
 import { PromoteKitTag } from "@/components/tags/headertags"
-import ProfilePageComponent from "@/components/home/profile"
+import { ProfilePageComponent, CreatorProfileComponent } from "@/components/home/profile"
+import { getUserData, getCreatorData } from './api/firebase/functions'
+import { Notify } from '@/components/shared/notify'
+import Breadcrumbs from '@/components/shared/breadcrumb'
+import { PageLoader } from '@/components/shared/loader'
 
 const raleway = Raleway({subsets: ['latin']})
 
 export default function Profile() {
 
-    const { user, logout, isLoading, stripeRole } = useAuth();
+    const { user, isLoading, stripeRole, isCreator } = useAuth();
+    const [ creatorData, setCreatorData ] = useState<any>()
+    const [ userData, setUserData ] = useState<any>()
+    const [ firstLoad, setFirstLoad ] = useState<boolean>(true)
     const router = useRouter();
   
       useEffect(() => {
@@ -23,15 +30,34 @@ export default function Profile() {
     }, [user, isLoading, router]);
 
       useEffect(() => {
-        if (user?.uid) {
-            const unsubscribe = db.doc(`users/${user.uid}`)
-                .onSnapshot((doc: any) => {
-                    const userData = doc.data();
-                });
 
-            return () => unsubscribe();
+        const fetchUserDataFromFirebase = async () => {
+          if (user && isCreator == true) {
+              const fetchUserData = await getUserData(user.uid)
+              setUserData(fetchUserData)
+
+              const fetchCreatorData = await getCreatorData(user?.uid)
+              setCreatorData(fetchCreatorData)
+
+              setFirstLoad(false)
+
+          } else if (user) {
+              const fetchUserData = await getUserData(user.uid)
+              setUserData(fetchUserData)
+              setCreatorData(null)
+              setFirstLoad(false)
+          }
         }
-    }, [user?.uid]);
+
+        if (user == null && !isLoading) {
+          router.replace('/')
+          Notify("Please login to continue")
+        } else if ( user!== null && !isLoading) {
+          fetchUserDataFromFirebase();
+        }
+    }, [user?.uid, isLoading]);
+
+    if(isLoading || firstLoad == true) return <PageLoader/>
 
     return(
     <>
@@ -41,9 +67,14 @@ export default function Profile() {
       <PromoteKitTag/>
       <meta name="robots" content="noindex" />
     </Head>  
-    <main className={`flex min-h-screen flex-col items-center justify-between bg-background ${raleway.className}`}>
-      <ProfilePageComponent/>
-     </main>
+    <main className={`flex min-h-screen flex-col items-center bg-background ${raleway.className}`}>
+      <Breadcrumbs/>
+      <SharedHomeSectionTitle titleBlack="Your Profile"/>
+      <div className={creatorData == null ? `mx-auto` : `grid grid-cols-1 lg:grid-cols-2` }>
+        <ProfilePageComponent/>
+        <CreatorProfileComponent userData={userData} creatorData={creatorData}/>
+      </div>
+    </main>
     </>
     )
 }

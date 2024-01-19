@@ -18,9 +18,9 @@ interface CreatorRecipeProps {
     setEditMode?: any,
 }
 
-export function CreatorRecipe({recipe, url, setLoginPrompt, owner_id, setEditMode}: CreatorRecipeProps) {
+export function CreatorRecipe({recipe, setLoginPrompt, owner_id, setEditMode}: CreatorRecipeProps) {
 
-    const {user, isCreator} = useAuth()
+    const { user } = useAuth()
 
     return(
     <Container className={"flex flex-col gap-6 animate-fadeInFast alternate-orange-bg rounded-3xl md:w-[599px] p-8 mb-16"}>

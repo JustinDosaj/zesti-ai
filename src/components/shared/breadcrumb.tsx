@@ -11,6 +11,8 @@ const Breadcrumbs = () => {
       return { path, key: index };
     });
 
+    console.log(history)
+
     const breadCrumbItemNames = historyName.slice(-4, -1).map((path, index) => {
       
       let name = path.split('/').pop()?.replace(/-/g, ' ') || 'Home';
@@ -19,14 +21,14 @@ const Breadcrumbs = () => {
     })
 
     return (
-      <nav aria-label="breadcrumb" className="mt-36">
-        <ol className={ breadcrumbItems.length > 0 ? `list-none p-0 pb-4 inline-flex items-center"` : 'hidden'}>
-            <p className={`text-gray-500 pr-1`}>Recents Pages:</p>
+      <nav aria-label="breadcrumb" className="mt-32">
+        <ol className={ breadcrumbItems.length > 0 ? `list-none p-0 inline-flex items-center pb-4` : 'hidden'}>
+            <p className={`text-gray-500 pr-1 hidden lg:block`}>Recents Pages:</p>
             {breadcrumbItems.map(({ path, key }) => (
                 <li key={key} className="">
                     <Link href={path}>
-                        <span className="text-primary-main hover:text-primary-alt pl-1 pr-1 lowercase">{breadCrumbItemNames[key]?.name}</span>
-                        <span className={key > 1 ? `hidden` : `text-gray-700`}> / </span>
+                        <span className="text-primary-main hover:text-primary-alt pl-1 lowercase">{breadCrumbItemNames[key]?.name}</span>
+                        <span className={key == breadcrumbItems.length - 1 ? `hidden` : `text-gray-700`}> / </span>
                     </Link>
                 </li>
             ))}

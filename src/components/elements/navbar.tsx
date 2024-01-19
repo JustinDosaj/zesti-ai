@@ -3,13 +3,13 @@
 import { Container } from "../shared/container"
 import { Navitem } from "../shared/navitem"
 import { useAuth } from "@/pages/api/auth/auth"
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 import { BtnLink } from "../shared/button"
 import Link from "next/link"
 import Image from "next/image"
-import { db } from "@/pages/api/firebase/firebase"
-import { BookOpenIcon, Cog6ToothIcon, HomeIcon, PaperAirplaneIcon, SquaresPlusIcon, WalletIcon, UserIcon } from "@heroicons/react/20/solid"
+import { BookOpenIcon, HomeIcon, PaperAirplaneIcon, WalletIcon, UserIcon, PencilSquareIcon } from "@heroicons/react/20/solid"
 import { DropDownMenuDesktop, DropDownMenuMobile } from "./menus"
+import { getCreatorData } from "@/pages/api/firebase/functions"
 
 const userDesktopNavItems = [
     {
@@ -29,6 +29,11 @@ const creatorDesktopNavItems = [
         href: "/profile",
         text: "Profile",
         icon: UserIcon,
+    },
+    {
+        href: "/creator/settings",
+        text: "Edit Page Settings",
+        icon: PencilSquareIcon,
     },
 ]
 
@@ -56,7 +61,7 @@ const navItemsLoggedInMobile = [
     {
         href: "/profile",
         text: "Profile",
-        icon: Cog6ToothIcon,
+        icon: UserIcon,
     },
 ]
 
@@ -66,15 +71,20 @@ const creatorItemsLoggedInMobile = [
         text:"Home",
         icon: HomeIcon,
     },
-    { 
-        href:"/creator/home",
-        text: "Creator Dashboard",
-        icon: SquaresPlusIcon, 
-    },
     {
         href:"/cookbook",
         text:"My Recipes",
         icon: BookOpenIcon,
+    },
+    { 
+        href:"/creator/settings",
+        text: "Edit Page Settings",
+        icon: PencilSquareIcon, 
+    },
+    {
+        href: "/profile",
+        text: "Profile",
+        icon: UserIcon,
     },
     {
         href:"/pricing",
@@ -86,16 +96,12 @@ const creatorItemsLoggedInMobile = [
         text: "Contact",
         icon: PaperAirplaneIcon,
     },
-    {
-        href: "/profile",
-        text: "Profile",
-        icon: Cog6ToothIcon,
-    },
 ]
 
 export function Navbar() {
     
     const { user, isLoading, isCreator } = useAuth();
+    const [creatorData, setCreatorData] = useState<any>()
 
     const navItemsDesktop = [
         { href: "/", text: "Home" },
@@ -105,18 +111,19 @@ export function Navbar() {
     ];
 
     useEffect(() => {
-        if (user?.uid) {
-            // Set up a real-time listener to the user's tokens
-            const unsubscribe = db.doc(`users/${user.uid}`)
-                .onSnapshot(doc => {
-                    const userData = doc.data();
-                });
 
-            // Clean up the listener when the component unmounts
-            return () => unsubscribe();
+        const fetchData = async () => {
+            const fetchCreatorData = await getCreatorData(user?.uid)
+            setCreatorData(fetchCreatorData)
         }
-    }, [user?.uid]);
 
+        if(user && isCreator == true) {
+            fetchData()
+        }   
+
+    }, [user?.uid, isLoading]);    
+
+    
     if (isLoading == true) return(<></>)
 
     return(
@@ -149,7 +156,7 @@ export function Navbar() {
                     :
                     user && isCreator == true ? 
                     <div className="inline-flex items-center space-x-4">
-                        <BtnLink href="/creator/home" text={'Dashboard'}/>
+                        <BtnLink href={`/${creatorData?.display_url}`} text={'View Creator Page'}/>
                         <DropDownMenuDesktop navItems={creatorDesktopNavItems}/>  
                     </div>
                     : 

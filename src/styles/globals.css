@@ -63,4 +63,8 @@ body {
     @apply orange-border-shadow pl-4 pr-4 pt-2 pb-2 items-center space-x-1 bg-white border rounded-3xl hover:bg-gray-100 hover:duration-200
   }
 
+  .standard-component-border {
+    @apply border p-4 rounded-3xl border-gray-300
+  }
+
 }
