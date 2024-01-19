@@ -40,9 +40,11 @@ export function CreatorSearch({creatorData}: any) {
       try {
           const [ recipes ] = await Promise.all([
               recipesIndex.search(query, {
-                filters: `owner_display_name:"${creatorData.display_name}"` // Adding filter for owner_display_name
+                filters: `owner_display_url:"${creatorData.display_url}"` // Adding filter for owner_display_name
             })
           ]);
+          console.log("Search Query:", query);
+          console.log("Search Results:", recipes?.hits);
           setSearchResults({ recipes: recipes?.hits });
       } catch (error) {
           console.error("Algolia search error:", error);

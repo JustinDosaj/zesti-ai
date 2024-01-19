@@ -7,14 +7,14 @@ import { useEffect, useState } from "react"
 import { BtnLink } from "../shared/button"
 import Link from "next/link"
 import Image from "next/image"
-import { BookOpenIcon, HomeIcon, PaperAirplaneIcon, WalletIcon, UserIcon, PencilSquareIcon } from "@heroicons/react/20/solid"
+import { BookOpenIcon, HomeIcon, PaperAirplaneIcon, WalletIcon, UserIcon, PencilSquareIcon, VideoCameraIcon } from "@heroicons/react/20/solid"
 import { DropDownMenuDesktop, DropDownMenuMobile } from "./menus"
 import { getCreatorData } from "@/pages/api/firebase/functions"
 
 const userDesktopNavItems = [
     {
         href: "/profile",
-        text: "Profile",
+        text: "Profile Settings",
         icon: UserIcon,
     },
 ]
@@ -27,13 +27,13 @@ const creatorDesktopNavItems = [
     },
     {
         href: "/profile",
-        text: "Profile",
+        text: "Profile Settings",
         icon: UserIcon,
     },
     {
         href: "/creator/settings",
-        text: "Edit Page Settings",
-        icon: PencilSquareIcon,
+        text: "Creator Settings",
+        icon: VideoCameraIcon,
     },
 ]
 
@@ -78,12 +78,12 @@ const creatorItemsLoggedInMobile = [
     },
     { 
         href:"/creator/settings",
-        text: "Edit Page Settings",
-        icon: PencilSquareIcon, 
+        text: "Creator Settings",
+        icon: VideoCameraIcon, 
     },
     {
         href: "/profile",
-        text: "Profile",
+        text: "Profile Settings",
         icon: UserIcon,
     },
     {
