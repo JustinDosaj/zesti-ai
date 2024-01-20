@@ -1,15 +1,15 @@
 import { Raleway } from 'next/font/google'
 import { useAuth } from "@/pages/api/auth/auth"
 import { useRouter } from "next/router";
-import { UserSavedRecipeList } from '@/components/dashboard/recipelist';
-import { DashboardRecipeTitle, Search } from '@/components/dashboard';
+import { UserSavedRecipeList } from '@/components/my-recipes';
+import { Search } from '@/components/my-recipes';
 import { useState, useEffect } from "react";
 import { PageLoader } from "@/components/shared/loader";
 import Head from 'next/head';
 import GoogleTags from '@/components/tags/conversion';
 import { PromoteKitTag } from '@/components/tags/headertags';
 import AdSenseDisplay from '@/components/tags/adsense';
-import { SharedHomeSectionTitle } from '@/components/shared/title';
+import { SharedHomeSectionTitle, SharedSectionHeadingTitle } from '@/components/shared/title';
 import { getAllRecipes } from '../api/firebase/functions';
 import Breadcrumbs from '@/components/shared/breadcrumb';
 
@@ -49,11 +49,11 @@ export default function Cookbook() {
     </Head>
     <main className={`flex min-h-screen flex-col items-center justify-between bg-background ${raleway.className}`}>
         <Breadcrumbs/>
-        <SharedHomeSectionTitle titleBlack="Your Cookbook" desc="Access all your saved recipes, and all the tools Zesti has available"/>
+        <SharedHomeSectionTitle titleBlack="Your Saved Recipes" desc="Access all the recipes you saved from others or videos you transcribed yourself"/>
         <br/>
         <Search/>
         <div className="border-t border-gray-200 m-12" style={{ width: '35%' }} />
-        <DashboardRecipeTitle/>
+        <SharedSectionHeadingTitle title={"Recent Saved Recipes"}/>
         <UserSavedRecipeList recipes={recipes} maxDisplayCount={5} max={3}/>
         {stripeRole !== 'premium' && recipes.length > 0 ? 
         <div className="flex justify-center items-center py-16">

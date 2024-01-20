@@ -4,7 +4,7 @@ import { Container } from "../shared/container"
 import { Navitem } from "../shared/navitem"
 import { useAuth } from "@/pages/api/auth/auth"
 import { useEffect, useState } from "react"
-import { BtnLink } from "../shared/button"
+import { BtnLink, Button } from "../shared/button"
 import Link from "next/link"
 import Image from "next/image"
 import { BookOpenIcon, HomeIcon, PaperAirplaneIcon, WalletIcon, UserIcon, PencilSquareIcon, VideoCameraIcon } from "@heroicons/react/20/solid"
@@ -21,7 +21,7 @@ const userDesktopNavItems = [
 
 const creatorDesktopNavItems = [
     {
-        href: "/cookbook",
+        href: "/my-recipes",
         text: "My Recipes",
         icon: BookOpenIcon,
     },
@@ -31,7 +31,7 @@ const creatorDesktopNavItems = [
         icon: UserIcon,
     },
     {
-        href: "/creator/settings",
+        href: "/settings",
         text: "Creator Settings",
         icon: VideoCameraIcon,
     },
@@ -44,7 +44,7 @@ const navItemsLoggedInMobile = [
         icon: HomeIcon,
     },
     {
-        href:"/cookbook",
+        href:"/my-recipes",
         text:"My Recipes",
         icon: BookOpenIcon,
     },
@@ -72,12 +72,12 @@ const creatorItemsLoggedInMobile = [
         icon: HomeIcon,
     },
     {
-        href:"/cookbook",
+        href:"/my-recipes",
         text:"My Recipes",
         icon: BookOpenIcon,
     },
     { 
-        href:"/creator/settings",
+        href:"/settings",
         text: "Creator Settings",
         icon: VideoCameraIcon, 
     },
@@ -100,7 +100,7 @@ const creatorItemsLoggedInMobile = [
 
 export function Navbar() {
     
-    const { user, isLoading, isCreator } = useAuth();
+    const { user, isLoading, isCreator,tikTokAccessToken, loginWithTikTok } = useAuth();
     const [creatorData, setCreatorData] = useState<any>()
 
     const navItemsDesktop = [
@@ -153,17 +153,23 @@ export function Navbar() {
                     (
                         <BtnLink text='Login' href='/auth/login'/>
                     ) 
+
+                    : user && isCreator == true && !tikTokAccessToken ? 
+                        <div className="inline-flex items-center space-x-4">
+                            <Button buttonType="button" onClick={loginWithTikTok} text={'Connect TikTok'}/>
+                            <DropDownMenuDesktop navItems={creatorDesktopNavItems}/>  
+                        </div>
+
+                    : user && isCreator == true && tikTokAccessToken ? 
+                        <div className="inline-flex items-center space-x-4">
+                            <BtnLink href={`/${creatorData?.display_url}`} text={'View Your Page'}/>
+                            <DropDownMenuDesktop navItems={creatorDesktopNavItems}/>  
+                        </div>
                     :
-                    user && isCreator == true ? 
-                    <div className="inline-flex items-center space-x-4">
-                        <BtnLink href={`/${creatorData?.display_url}`} text={'View Creator Page'}/>
-                        <DropDownMenuDesktop navItems={creatorDesktopNavItems}/>  
-                    </div>
-                    : 
-                    <div className="inline-flex items-center space-x-4">
-                        <BtnLink href="/cookbook" text={'My Recipes'}/>
-                        <DropDownMenuDesktop navItems={userDesktopNavItems}/>
-                    </div>
+                       <div className="inline-flex items-center space-x-4">
+                            <BtnLink href="/my-recipes" text={'My Recipes'}/>
+                            <DropDownMenuDesktop navItems={userDesktopNavItems}/>
+                        </div>
                     }
                 </div>
                 { isCreator == false || !isCreator ? 

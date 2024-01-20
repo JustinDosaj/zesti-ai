@@ -1,5 +1,4 @@
 import { Container } from "./container"
-import { Paragraph } from "./paragraph"
 import { ChevronDoubleLeftIcon } from "@heroicons/react/20/solid"
 import Link from "next/link"
 export interface Props {
@@ -61,6 +60,12 @@ export function SharedHomeSectionTitle({titleBlack, titleOrange, desc}: SharedPa
             {desc}
         </p>
     </>
+    )
+}
+
+export function SharedSectionHeadingTitle({title, className}: SharedPageTitleProps) {
+    return(
+        <h3 className={`text-center text-2xl font-semibold text-gray-700 ${className}`}>{title}</h3>
     )
 }
 

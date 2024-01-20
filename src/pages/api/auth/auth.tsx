@@ -113,9 +113,9 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
             totalRecipes: 0,
             isCreator: false,
           })
-          router.push('/cookbook')
+          router.push('/my-recipes')
         } else {
-          router.push('/cookbook')
+          router.push('/my-recipes')
         }
       }
 
