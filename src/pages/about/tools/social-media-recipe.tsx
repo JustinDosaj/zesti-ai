@@ -1,6 +1,6 @@
 import { Raleway } from 'next/font/google'
 import Head from 'next/head';
-import { CreateHero } from '@/components/about/tools';
+import { Hero } from '@/components/home';
 import GoogleTags from '@/components/tags/conversion';
 import { HomeFAQ, HomePageCTA, HomeVideoToRecipe } from '@/components/home';
 import { PromoteKitTag } from '@/components/tags/headertags';
@@ -18,8 +18,9 @@ export default function SocialMediaRecipe() {
         <GoogleTags/>
         <PromoteKitTag/>
       </Head>
-      <main className={`flex min-h-screen flex-col items-center bg-background ${raleway.className}`}>
-        <CreateHero titleStart='Instantly Save' titleMiddle='TikTok & YouTube' titleEnd='Recipes' description='Say goodbye to pausing, rewinding and restarting. Zesti Premium lets you transform a cooking video from TikTok or YouTube to an easy-to-follow text recipe!'/>
+      <main className={`flex min-h-screen flex-col items-center justify-between bg-background ${raleway.className}`}>
+        <Hero titleStart={"Find & Save"} titleEnd={"TikTok Recipes"} description={"Say goodbye to pausing, rewinding and restarting. Zesti Premium lets you transform a cooking video from TikTok or YouTube to an easy-to-follow text recipe!"} loginURL={"/auth/login"}/>
+        <div className="mt-24 md:mt-36"/>
         <HomeVideoToRecipe/>
         <HomePageCTA/>
         <div className="mt-16"/>

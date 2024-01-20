@@ -1,11 +1,12 @@
 import { db } from "./firebase"
-import { doc, deleteDoc, DocumentReference, getDoc, updateDoc } from 'firebase/firestore';
 
 export interface Props {
   url: any,
   user: any, 
 }
 
+
+// Used to get all user recipes on my-recipes page
 export async function getAllRecipes(user: any) {
     
   const recipeSnapshot = await db.collection(`users/${user}/recipes`).get();
@@ -27,6 +28,8 @@ export async function getCreatorByDisplayName(creatorName: string) {
   return querySnapshot
 }
 
+
+// NOT CURRENTLY USED BUT WORKS TO GET SUBSCRIPTION FROM FIREBASE USER
 export async function getSubscription(user: any) {
   try{
     const snapshot = await db.collection('users').doc(user).collection('subscriptions').get()

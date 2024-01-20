@@ -8,8 +8,6 @@ import Image from "next/image"
 import { Disclosure } from "@headlessui/react"
 import { useAuth } from "@/pages/api/auth/auth"
 import { useRouter } from "next/router"
-import { Loader } from "../shared/loader"
-import { createPremiumCheckoutSession } from "@/pages/api/stripe/stripePremium"
 import { SharedHomeSectionTitle } from "../shared/title"
 
 export function HomePageTools() {
@@ -258,9 +256,9 @@ export function HomeVideoToRecipe() {
 }
 
 interface HeroProps {
-  titleStart: string,
-  titleEnd: string,
-  description: string,
+  titleStart?: string,
+  titleEnd?: string,
+  description?: string,
   loginURL: string,
 }
 
@@ -314,77 +312,40 @@ export function Hero({titleStart, titleEnd, description, loginURL}: HeroProps) {
   )
 }
 
-export function PremiumSubscriptionHero() {
+export function PremiumSubscriptionBenefits() {
 
   const features = [
     {
     name: 'Save 30 Recipes Per Month',
     description: 'Premium users are limited to 30 Tiktok, YouTube or Website recipe saves, but does not limit the AI recipe generator',
     },
-  {
-    name: 'Save TikTok & YouTube Recipes',
-    description: 'Instantly save video recipes from TikTok or YouTube so you no longer have to pause, rewind or replay',
-  },
-  {
-    name: 'Max Video Length',
-    description: 'Premium users have a max video length of 15 minutes when saving TikTok or YouTube Recipes',
-  },
-  {
-    name: 'Unlimited AI Generated Recipes',
-    description: 'Use the AI Recipe Generator unlimited times so you will never run out of meal ideas',
-  },
-  {
-    name: 'AI Cooking Support',
-    description: 'Access an AI chat assistant while viewing a recipe so you can get all your cooking questions answered without losing your place',
-  },
-  {
-    name: 'Customize Recipes',
-    description: 'Freely edit ingredients and instructions of recipes to make them your own',
-  },
-  {
-    name: 'Ad-Free',
-    description: 'Get a 100% ad-free experience when you subscribe to Zesti premium',
-  },
+    {
+      name: 'Save TikTok & YouTube Recipes',
+      description: 'Instantly save video recipes from TikTok or YouTube so you no longer have to pause, rewind or replay',
+    },
+    {
+      name: 'Max Video Length',
+      description: 'Premium users have a max video length of 15 minutes when saving TikTok or YouTube Recipes',
+    },
+    {
+      name: 'Unlimited AI Generated Recipes',
+      description: 'Use the AI Recipe Generator unlimited times so you will never run out of meal ideas',
+    },
+    {
+      name: 'AI Cooking Support',
+      description: 'Access an AI chat assistant while viewing a recipe so you can get all your cooking questions answered without losing your place',
+    },
+    {
+      name: 'Customize Recipes',
+      description: 'Freely edit ingredients and instructions of recipes to make them your own',
+    },
+    {
+      name: 'Ad-Free',
+      description: 'Get a 100% ad-free experience when you subscribe to Zesti premium',
+    },
   ]
 
-  const { user, stripeRole } = useAuth()
-  const [ isLoading, setIsLoading ] = useState<boolean>(false)
-  const router = useRouter();
-
-  const PremiumClick = async () => {
-      setIsLoading(true);
-      await createPremiumCheckoutSession(user?.uid)
-  }
-
   return(
-  <>
-    <div className="px-6 pt-14 lg:px-8">
-      <div className="mx-auto max-w-6xl pt-24 text-center sm:pt-40 space-y-8">
-          <h1 className="text-4xl/tight sm:text-4xl/tight md:text-5xl/tight xl:text-6xl/tight font-bold text-heading-1 mt-6">
-                  
-              <span className="text-gray-700">Try</span>       
-              <span className="primary-orange-text-gradient"> Zesti Premium </span>
-              <span className="text-gray-700">Free for 7-Days</span> 
-          </h1>
-          <div className="mt-6 text-lg leading-8 text-gray-700 section-desc-text-size ">
-              Save 10x more recipes & access every feature available!
-          </div>
-          {isLoading == true ?
-          <div className="flex justify-center">
-            <Loader/>
-          </div>
-          :
-          user && stripeRole !== 'premium' ? 
-          <Button text="Start Free Trial!" onClick={PremiumClick} buttonType="button"/>
-          : !user ?
-          <Button text="Login to Begin Trial" onClick={() => router.push('/auth/login')} buttonType="button" className=""/>
-          :
-          <Button text="Go to Dashboard" onClick={() => router.push('/my-recipes')} buttonType="button" className=""/>
-          }
-      </div>
-    </div>
-
-    {/* Description Section */}
     <div className="bg-white py-24 sm:py-32">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
             <div className="mx-auto grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 sm:gap-y-20 lg:mx-0 lg:max-w-none lg:grid-cols-3">
@@ -409,50 +370,35 @@ export function PremiumSubscriptionHero() {
             </div>
         </div>
     </div>
-  </>
   )
 }
 
-export function FreeSubscriptionHero() {
+export function FreeSubscriptionBenefits() {
+
   const features = [
     {
     name: 'Save 3 Recipes Per Month',
     description: 'Save or create up to 3 recipes per month from the AI recipe generator, a website, YouTube, or TikTok',
     },
-  {
-    name: 'Save TikTok & YouTube Recipes',
-    description: 'Instantly save video recipes from TikTok or YouTube so you no longer have to pause, rewind or replay',
-  },
-  {
-    name: 'Max Video Length',
-    description: 'Base users have a max video length of 5 minutes when saving TikTok or YouTube Recipes',
-  },
-  {
-    name: 'AI Recipe Generator',
-    description: 'Use Zesti AI to generate recipe ideas out of nothing or from ingredients you have around the kitchen',
-  },
-  {
-    name: 'Customize Recipes',
-    description: 'Freely edit ingredients and instructions of recipes to make them your own',
-  },
+    {
+      name: 'Save TikTok & YouTube Recipes',
+      description: 'Instantly save video recipes from TikTok or YouTube so you no longer have to pause, rewind or replay',
+    },
+    {
+      name: 'Max Video Length',
+      description: 'Base users have a max video length of 5 minutes when saving TikTok or YouTube Recipes',
+    },
+    {
+      name: 'AI Recipe Generator',
+      description: 'Use Zesti AI to generate recipe ideas out of nothing or from ingredients you have around the kitchen',
+    },
+    {
+      name: 'Customize Recipes',
+      description: 'Freely edit ingredients and instructions of recipes to make them your own',
+    },
   ]
 
-return(
-  <>
-    {/* Header section */}
-    <div className="px-6 pt-14 lg:px-8">
-      <div className="mx-auto max-w-5xl pt-24 text-center sm:pt-40">
-          <h1 className="text-4xl/tight sm:text-4xl/tight md:text-5xl/tight xl:text-6xl/tight font-bold text-heading-1 mt-6">     
-              <span className="text-gray-700">Zesti</span>       
-              <span className="primary-orange-text-gradient"> Base</span>
-          </h1>
-          <div className="mt-6 leading-8 text-gray-700 section-desc-text-size">
-              Zesti Base is our free-to-use version that grants users access to some of our most popular features
-          </div>
-      </div>
-    </div>
-
-    {/* Description Section */}
+  return(
     <div className="bg-white py-24 sm:py-32">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
             <div className="mx-auto grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 sm:gap-y-20 lg:mx-0 lg:max-w-none lg:grid-cols-3">
@@ -477,6 +423,5 @@ return(
             </div>
         </div>
     </div>
-  </>
   )
 }
