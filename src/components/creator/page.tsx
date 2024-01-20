@@ -6,6 +6,7 @@ import React, { useState, useEffect, useRef } from "react"
 import { Button } from "../shared/button"
 import { EyeIcon } from "@heroicons/react/20/solid"
 import algoliasearch from 'algoliasearch/lite';
+import { SharedSectionHeadingTitle } from "../shared/title"
 
 export function CreatorPageTitle({creatorData}: any) {
     return(
@@ -217,9 +218,7 @@ export function CreatorPageRecentRecipes({recipes, creatorName, maxDisplayCount 
   
   return(
   <div className="space-y-2 animate-fadeIn p-4 sm:p-0">
-    <div className="mt-6 mb-6">
-      <h2 className="text-center text-2xl font-semibold">Recent Recipes</h2>
-    </div>
+        <SharedSectionHeadingTitle title={"Recipes"} className="py-3"/>
         {recipes.slice(0,displayCount).map((item: any) => (
             <CreatorRecipeListCard creatorName={creatorName} item={item} key={item.name}/>
         ))}

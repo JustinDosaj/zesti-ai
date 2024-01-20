@@ -292,7 +292,7 @@ export function Hero({titleStart, titleEnd, description, loginURL}: HeroProps) {
             </div>
             :
             <div className="grid justify-center lg:justify-start space-y-0.5">
-              <Button buttonType="button" text="Go to Dashboard" className="w-fit" onClick={() => router.push('/cookbook')}/>
+              <Button buttonType="button" text="Go to Dashboard" className="w-fit" onClick={() => router.push('/my-recipes')}/>
             </div>
             }
             <p className="text-sm text-center text-gray-500/90 mx-auto lg:mx-1">No Credit Card Required</p>
@@ -379,7 +379,7 @@ export function PremiumSubscriptionHero() {
           : !user ?
           <Button text="Login to Begin Trial" onClick={() => router.push('/auth/login')} buttonType="button" className=""/>
           :
-          <Button text="Go to Dashboard" onClick={() => router.push('/cookbook')} buttonType="button" className=""/>
+          <Button text="Go to Dashboard" onClick={() => router.push('/my-recipes')} buttonType="button" className=""/>
           }
       </div>
     </div>

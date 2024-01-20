@@ -10,7 +10,7 @@ import { db } from "@/pages/api/firebase/firebase";
 import GoogleTags from "@/components/tags/conversion";
 import AdSenseDisplay from "@/components/tags/adsense";
 import { PromoteKitTag } from "@/components/tags/headertags";
-import { UserRecipe, EditUserRecipe } from "@/components/recipe";
+import { UserRecipe, EditUserRecipe } from "@/components/my-recipes/recipe";
 import { UpgradeToPremiumModal } from "@/components/shared/modals";
 import Breadcrumbs from "@/components/shared/breadcrumb";
 

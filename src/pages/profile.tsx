@@ -6,7 +6,8 @@ import React, { useEffect, useState } from 'react'
 import GoogleTags from "@/components/tags/conversion"
 import Head from "next/head"
 import { PromoteKitTag } from "@/components/tags/headertags"
-import { ProfilePageComponent, CreatorProfileComponent } from "@/components/home/profile"
+import { ProfilePageComponent } from "@/components/home/profile"
+import { CreatorProfileComponent } from '@/components/creator/profile'
 import { getUserData, getCreatorData } from './api/firebase/functions'
 import { Notify } from '@/components/shared/notify'
 import Breadcrumbs from '@/components/shared/breadcrumb'
@@ -70,7 +71,7 @@ export default function Profile() {
     <main className={`flex min-h-screen flex-col items-center bg-background ${raleway.className}`}>
       <Breadcrumbs/>
       <SharedHomeSectionTitle titleBlack="Your Profile"/>
-      <div className={creatorData == null ? `mx-auto` : `grid grid-cols-1 lg:grid-cols-2` }>
+      <div className={(isCreator == false || !isCreator) ? `mx-auto` : `grid grid-cols-1 lg:grid-cols-2` }>
         <ProfilePageComponent/>
         <CreatorProfileComponent userData={userData} creatorData={creatorData}/>
       </div>

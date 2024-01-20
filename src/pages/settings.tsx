@@ -2,15 +2,15 @@
 import { SharedHomeSectionTitle } from "@/components/shared/title";
 import Head from 'next/head';
 import GoogleTags from '@/components/tags/conversion';
-import { useAuth } from "../api/auth/auth";
+import { useAuth } from "./api/auth/auth";
 import { PromoteKitTag } from '@/components/tags/headertags';
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react"
-import { getCreatorData } from "../api/firebase/functions";
+import { getCreatorData } from "./api/firebase/functions";
 import Breadcrumbs from "@/components/shared/breadcrumb";
-import { fetchTikTokVideoList } from "../api/handler/tiktok";
+import { fetchTikTokVideoList } from "./api/handler/tiktok";
 import { CreatorAddRecipeModal } from "@/components/shared/modals";
-import { handleCreatorTikTokURLSubmit } from "../api/handler/submit";
+import { handleCreatorTikTokURLSubmit } from "./api/handler/submit";
 import { Raleway } from "next/font/google";
 import { CreatorPageComponent } from "@/components/creator/profile";
 import { RecentTikTokVideos } from "@/components/creator/profile";
@@ -47,7 +47,7 @@ export default function Settings() {
             fetchUserData();
           }
       } else {
-        router.push('/creator/settings')
+        router.push('/settings')
       }
   }, [tikTokAccessToken]);
 
@@ -60,7 +60,7 @@ export default function Settings() {
       };
 
       if (!tikTokAccessToken && !isLoading) {
-          router.replace('/creator/settings');
+          router.replace('/settings');
       } else if (user !== null && !isLoading) {
           fetchUserData();
       }
