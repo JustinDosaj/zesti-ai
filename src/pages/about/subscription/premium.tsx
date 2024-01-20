@@ -1,20 +1,12 @@
 import { Raleway } from 'next/font/google'
-import { useAuth } from '../../api/auth/auth'
-import { createPremiumCheckoutSession } from '../../api/stripe/stripePremium'
-import { useState } from 'react'
-import { useRouter } from 'next/router'
 import Head from 'next/head'
 import { PricingDisplay } from '@/components/about/pricing'
 import GoogleTags from '@/components/tags/conversion'
 import { PromoteKitTag } from '@/components/tags/headertags'
-import { HomeFAQ, HomePageCTA, HomePageScroller, HomePageTools, HomeVideoToRecipe, PremiumSubscriptionHero } from '@/components/home'
+import { Hero, HomeFAQ, HomePageCTA, HomePageScroller, HomePageTools, HomeVideoToRecipe, PremiumSubscriptionBenefits } from '@/components/home'
 const raleway = Raleway({subsets: ['latin']})
 
 export default function Premium() {
-    
-    const { user, stripeRole } = useAuth()
-    const [ setIsLoading ] = useState<boolean>(false)
-
   return (
     <>
     <Head>
@@ -28,7 +20,8 @@ export default function Premium() {
     {/* Header */}
     <main className={`flex min-h-screen flex-col items-center justify-between bg-background ${raleway.className} animate-fadeIn`}>
         {/* Header section */}
-        <PremiumSubscriptionHero/>
+        <Hero titleStart={"Start Your Free 7-Day Trial for"} titleEnd={"Zesti Premium"} loginURL={"/auth/login"} description={"Get the most out of Zesti with premium to edit recipes, ask AI questions fly and more"}/>
+        <PremiumSubscriptionBenefits/>
         <PricingDisplay/>
         <HomePageTools/>
         <HomePageScroller/>
