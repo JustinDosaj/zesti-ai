@@ -19,23 +19,7 @@ const userDesktopNavItems = [
     },
 ]
 
-const creatorDesktopNavItems = [
-    {
-        href: "/my-recipes",
-        text: "My Recipes",
-        icon: BookOpenIcon,
-    },
-    {
-        href: "/profile",
-        text: "Profile Settings",
-        icon: UserIcon,
-    },
-    {
-        href: "/settings",
-        text: "Creator Settings",
-        icon: VideoCameraIcon,
-    },
-]
+
 
 const navItemsLoggedInMobile = [
     {
@@ -109,6 +93,27 @@ export function Navbar() {
         { href: "/contact", text: "Contact"},
         // Add more items as needed
     ];
+
+    const creatorDesktopNavItems = [
+        {
+            href: "/my-recipes",
+            text: "My Recipes",
+            icon: BookOpenIcon,
+        },
+        {
+            href: "/profile",
+            text: "Profile Settings",
+            icon: UserIcon,
+        },
+    ]
+
+    if(tikTokAccessToken) {
+        creatorDesktopNavItems.push({
+            href: "/settings",
+            text: "Creator Settings",
+            icon: VideoCameraIcon,
+        })
+    }
 
     useEffect(() => {
 
