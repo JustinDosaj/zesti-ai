@@ -11,6 +11,7 @@ import { setCookie } from '@/pages/api/handler/cookies';
 import { useRouter } from 'next/router';
 import { getCreatorByDisplayName } from './api/firebase/functions';
 import Breadcrumbs from '@/components/shared/breadcrumb';
+import useSetBreadcrumbs from '@/components/shared/setBreadcrumbs';
 import firebase from 'firebase/compat/app';
 
 const raleway = Raleway({subsets: ['latin']})
@@ -65,6 +66,8 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 };
 
 const CreatorPage: NextPage<CreatorProps> = ({ creatorData, referer }) => {
+
+  useSetBreadcrumbs();
 
   const [isLoadingRecipes, setIsLoadingRecipes] = useState<boolean>(true);
   const [ recipes, setRecipes ] = useState<any[]>([]);

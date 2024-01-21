@@ -80,7 +80,7 @@ export default function Settings() {
             <PromoteKitTag/>
         </Head>
         <main className={`flex min-h-screen flex-col items-center bg-background ${raleway.className}`}>
-            <Breadcrumbs/>
+            <div className="mt-36"/>
             <SharedHomeSectionTitle titleBlack="Creator Page Settings" desc="Add more information to your creator pages"/>
             <div className="grid grid-cols-1 lg:grid-cols-2 pb-36 mt-6 gap-x-3">
                 <CreatorPageComponent creatorData={creatorData}/>

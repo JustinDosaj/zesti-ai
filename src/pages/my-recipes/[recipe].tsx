@@ -13,7 +13,7 @@ import { PromoteKitTag } from "@/components/tags/headertags";
 import { UserRecipe, EditUserRecipe } from "@/components/my-recipes/recipe";
 import { UpgradeToPremiumModal } from "@/components/shared/modals";
 import Breadcrumbs from "@/components/shared/breadcrumb";
-
+import useSetBreadcrumbs from '@/components/shared/setBreadcrumbs';
 const raleway = Raleway({subsets: ['latin']})
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
@@ -23,8 +23,8 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
 const Recipe: React.FC = ({id}: any) => {
 
+    useSetBreadcrumbs()
     const { user, isLoading, stripeRole } = useAuth();
-
     const [recipe, setRecipe] = useState<any>([])
     const [url, setUrl] = useState<string>('')
     const [isEditMode, setEditMode] = useState<boolean>(false)
@@ -33,7 +33,6 @@ const Recipe: React.FC = ({id}: any) => {
 
 
     useEffect(() => {
-
       if (user == null && isLoading == false) {
         router.replace('/');
       } else if (user !== null && isLoading == false) {

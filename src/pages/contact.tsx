@@ -6,7 +6,6 @@ import Head from 'next/head';
 import GoogleTags from "@/components/tags/conversion"
 import { PromoteKitTag } from "@/components/tags/headertags";
 import { SharedHomeSectionTitle } from "@/components/shared/title";
-import Breadcrumbs from "@/components/shared/breadcrumb";
 
 
 const raleway = Raleway({subsets: ['latin']})
@@ -23,8 +22,7 @@ export default function Contact() {
         <PromoteKitTag/>
     </Head>    
     <main className={`flex min-h-screen flex-col items-center bg-background h-screen ${raleway.className}`}>
-        <Breadcrumbs/>
-        <Container className={"grid md:grid-cols-1 lg:flex-row gap-10 lg:gap-12 mb-36"}>
+        <Container className={"grid md:grid-cols-1 lg:flex-row gap-10 lg:gap-12 mb-36 mt-36"}>
             <div className="flex-1 flex flex-col text-center mt-4">
                 <SharedHomeSectionTitle titleBlack="Contact Us" desc="If you have any questions or require support, send us a message and we will respond as soon possible!"/>
             </div>

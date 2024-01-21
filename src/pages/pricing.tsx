@@ -3,7 +3,6 @@ import { PricingDisplay, PricingTitle } from '@/components/about/pricing'
 import Head from 'next/head'
 import GoogleTags from '@/components/tags/conversion'
 import { PromoteKitTag } from '@/components/tags/headertags'
-import Breadcrumbs from '@/components/shared/breadcrumb'
 
 
 const raleway = Raleway({subsets: ['latin']})
@@ -20,7 +19,7 @@ export default function Pricing() {
       <PromoteKitTag/>
     </Head>
     <main className={`flex min-h-screen flex-col items-center justify-between p-2 bg-background ${raleway.className}`}>
-      <Breadcrumbs/>
+      <div className="mt-36"/>
       <PricingTitle/>
       <PricingDisplay/>
     </main>

@@ -69,7 +69,7 @@ export default function Profile() {
       <meta name="robots" content="noindex" />
     </Head>  
     <main className={`flex min-h-screen flex-col items-center bg-background ${raleway.className}`}>
-      <Breadcrumbs/>
+      <div className="mt-36"/>
       <SharedHomeSectionTitle titleBlack="Your Profile"/>
       <div className={(isCreator == false || !isCreator) ? `mx-auto` : `grid grid-cols-1 lg:grid-cols-2` }>
         <ProfilePageComponent/>
