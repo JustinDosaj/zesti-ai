@@ -12,6 +12,7 @@ import AdSenseDisplay from '@/components/tags/adsense';
 import { SharedHomeSectionTitle, SharedSectionHeadingTitle } from '@/components/shared/title';
 import { getAllRecipes } from '../api/firebase/functions';
 import Breadcrumbs from '@/components/shared/breadcrumb';
+import useSetBreadcrumbs from '@/components/shared/setBreadcrumbs';
 
 const raleway = Raleway({subsets: ['latin']})
 
@@ -20,6 +21,8 @@ export default function Cookbook() {
   const { user, isLoading, stripeRole } = useAuth();
   const [recipes, setRecipes] = useState<any[]>([]);
   const router = useRouter();
+
+  useSetBreadcrumbs();
 
   useEffect(() => {
     const fetchRecipes = async () => {

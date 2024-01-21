@@ -12,6 +12,7 @@ import GoogleTags from "@/components/tags/conversion";
 import Head from "next/head";
 import { getCreatorByDisplayName } from "../api/firebase/functions";
 import Breadcrumbs from "@/components/shared/breadcrumb";
+import useSetBreadcrumbs from "@/components/shared/setBreadcrumbs";
 
 const raleway = Raleway({subsets: ['latin']})
 
@@ -34,8 +35,9 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
 const Recipe: React.FC = ({id, owner_uid}: any) => {
 
-    const { user, isLoading } = useAuth();
+    useSetBreadcrumbs()
 
+    const { user, isLoading } = useAuth();
     const [recipe, setRecipe] = useState<any>([])
     const [url, setUrl] = useState<string>('')
     const [ loginPrompt, setLoginPrompt ] = useState<boolean>(false)
