@@ -24,7 +24,6 @@ export function UserRecipe({recipe, setPremiumPrompt, owner_id, setEditMode, rol
 
     const { user } = useAuth()
     const [startDelete, setStartDelete] = useState<boolean>(false);
-    const router = useRouter()
 
     const deleteRecipe = async (recipeId: string) => {
         try {
@@ -51,7 +50,7 @@ export function UserRecipe({recipe, setPremiumPrompt, owner_id, setEditMode, rol
             <ul className="space-y-2 list-disc pl-6 text-black">
                 {recipe?.ingredients?.map((ingredient: any, index: number) => (
                 <li key={index} className="col-span-1 rounded-xl">
-                    <div className="flex rounded-md overflow-visible w-full">
+                    <div className="grid justify-start rounded-md overflow-visible w-full">
                         <div className="flex ml-1 mr-1.5 flex-shrink-0 items-center justify-center font-md text-gray-900 text-sm md:text-base">
                             {ingredient}
                         </div>
@@ -65,7 +64,7 @@ export function UserRecipe({recipe, setPremiumPrompt, owner_id, setEditMode, rol
             <ul className="list-decimal pl-5 text-black">
                 {recipe?.instructions?.map((instruction: any, index: number) => (
                     <li key={index} className="col-span-1 rounded-xl">
-                        <div className="flex rounded-md overflow-wrap w-full">
+                        <div className="grid justify-start rounded-md overflow-wrap w-full">
                             <div className="flex w-fit ml-1 mr-1.5 flex-shrink-0 items-center justify-center font-md text-gray-900 text-sm md:text-base">
                                 {instruction}
                             </div>
@@ -192,7 +191,7 @@ export function EditUserRecipe({recipe, setPremiumPrompt, setEditMode, role}:Cre
         <div className="grid justify-center items-center">
             <input 
                 type="text"
-                className="w-full rounded-lg border border-gray-300 px-2 py-1 text-sm md:text-base pr-10 text-center"
+                className="w-full rounded-lg border border-gray-300 px-2 py-1 text-sm md:text-base text-center"
                 value={editedName}
                 onChange={(e) => setEditedName(e.target.value)}
             />
@@ -207,7 +206,7 @@ export function EditUserRecipe({recipe, setPremiumPrompt, setEditMode, role}:Cre
                     <li key={index} className="mb-2 relative">
                         <input 
                             type="text"
-                            className="w-full rounded-lg border border-gray-300 px-2 py-1 text-sm md:text-base"
+                            className="w-full rounded-lg border border-gray-300 px-2 py-1 text-sm pr-8 md:text-base"
                             value={ingredient}
                             onChange={(e) => handleIngredientChange(index, e.target.value)}
                         />
@@ -244,7 +243,7 @@ export function EditUserRecipe({recipe, setPremiumPrompt, setEditMode, role}:Cre
                     <li key={index} className="relative mb-2">
                         <input 
                             type="text"
-                            className="w-full rounded-lg border border-gray-300 px-2 py-1 text-sm md:text-base pr-10"
+                            className="w-full rounded-lg border border-gray-300 px-2 py-1 text-sm md:text-base pr-8"
                             value={instruction}
                             onChange={(e) => handleInstructionChange(index, e.target.value)}
                         />

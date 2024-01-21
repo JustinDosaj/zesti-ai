@@ -50,7 +50,7 @@ export default function Cookbook() {
       <GoogleTags/>
       <PromoteKitTag/>
     </Head>
-    <main className={`flex min-h-screen flex-col items-center justify-between bg-background ${raleway.className}`}>
+    <main className={`flex min-h-screen flex-col items-center bg-background ${raleway.className}`}>
         <Breadcrumbs/>
         <SharedHomeSectionTitle titleBlack="Your Saved Recipes" desc="Access all the recipes you saved from others or videos you transcribed yourself"/>
         <br/>

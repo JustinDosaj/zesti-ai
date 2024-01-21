@@ -34,7 +34,7 @@ export function CreatorRecipe({recipe, setLoginPrompt, owner_id, setEditMode}: C
             <ul className="space-y-2 list-disc pl-6 text-black">
                 {recipe?.ingredients?.map((ingredient: any, index: number) => (
                 <li key={index} className="col-span-1 rounded-xl">
-                    <div className="flex rounded-md overflow-visible w-full">
+                    <div className="grid justify-start rounded-md overflow-visible w-full">
                         <div className="flex ml-1 mr-1.5 flex-shrink-0 items-center justify-center font-md text-gray-900 text-sm md:text-base">
                             {ingredient}
                         </div>
@@ -48,7 +48,7 @@ export function CreatorRecipe({recipe, setLoginPrompt, owner_id, setEditMode}: C
             <ul className="list-decimal pl-5 text-black">
                 {recipe?.instructions?.map((instruction: any, index: number) => (
                     <li key={index} className="col-span-1 rounded-xl">
-                        <div className="flex rounded-md overflow-wrap w-full">
+                        <div className="grid justify-start rounded-md overflow-wrap w-full">
                             <div className="flex w-fit ml-1 mr-1.5 flex-shrink-0 items-center justify-center font-md text-gray-900 text-sm md:text-base">
                                 {instruction}
                             </div>
@@ -183,13 +183,13 @@ export function EditCreatorRecipe({recipe, url, setLoginPrompt, owner_id, setEdi
                     <li key={index} className="mb-2 relative">
                         <input 
                             type="text"
-                            className="w-full rounded-lg border border-gray-300 px-2 py-1 text-sm md:text-base text-gray-600"
+                            className="w-full rounded-lg border border-gray-300 px-2 py-1 text-sm pr-8 md:text-base text-gray-600"
                             value={ingredient}
                             onChange={(e) => handleIngredientChange(index, e.target.value)}
                         />
                         <button 
                             onClick={() => handleDeleteIngredient(index)}
-                            className="absolute inset-y-0 right-0 flex items-center pr-2"
+                            className="absolute inset-y-0 right-0 flex items-center pr-2 pl-2"
                         >
                             <TrashIcon className="h-5 w-5 text-red-500 hover:text-red-300"/>
                         </button>
@@ -220,7 +220,7 @@ export function EditCreatorRecipe({recipe, url, setLoginPrompt, owner_id, setEdi
                     <li key={index} className="relative mb-2">
                         <input 
                             type="text"
-                            className="w-full rounded-lg border border-gray-300 px-2 py-1 text-sm md:text-base pr-10 text-gray-600"
+                            className="w-full rounded-lg border border-gray-300 px-2 py-1 text-sm md:text-base pr-8 text-gray-600"
                             value={instruction}
                             onChange={(e) => handleInstructionChange(index, e.target.value)}
                         />

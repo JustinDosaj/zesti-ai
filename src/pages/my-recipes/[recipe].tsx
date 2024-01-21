@@ -64,7 +64,7 @@ const Recipe: React.FC = ({id}: any) => {
       <GoogleTags/>
       <PromoteKitTag/>
     </Head>  
-    <main className={`flex min-h-screen flex-col items-center justify-between p-2 bg-background ${raleway.className}`}>
+    <main className={`flex min-h-screen flex-col items-center justify-between p-4 bg-background ${raleway.className}`}>
       {stripeRole == 'premium' ? <Chatbox/> : <></>}
       <Breadcrumbs/>
       { isEditMode == false || !user ?
