@@ -111,7 +111,7 @@ export function UserRecipe({recipe, setPremiumPrompt, owner_id, setEditMode, rol
 
 export function EditUserRecipe({recipe, setPremiumPrompt, setEditMode, role}:CreatorRecipeProps) {
 
-    const {user, isCreator} = useAuth()
+    const {user} = useAuth()
     const [editedIngredients, setEditedIngredients] = useState<string[]>([]);
     const [editedInstructions, setEditedInstructions] = useState<string[]>([]);
     const [newIngredient, setNewIngredient] = useState<string>('');

@@ -9,7 +9,9 @@ const raleway = Raleway({subsets: ['latin']})
 
 export default function Home() {
   
-  const { isLoading } = useAuth();
+  const { isLoading, creatorData } = useAuth();
+
+  console.log("Test: ", creatorData)
 
   if (isLoading) return <PageLoader/>
 

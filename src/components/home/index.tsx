@@ -123,7 +123,7 @@ export function HomePageCTA() {
           </p>
           <SharedHomeSectionTitle titleBlack="Try Free for 7-Days" desc="Get more out of Zesti when you use premium by gaining access to every feature Zesti offers and increased monthly usage!"/>
         </div>
-        <BtnLink href='/pricing' text="Get Started" className="text-lg font-medium text-center text-white"/>
+        <BtnLink href='/nav/pricing' text="Get Started" className="text-lg font-medium text-center text-white"/>
       </div>
     </Container>
   )
