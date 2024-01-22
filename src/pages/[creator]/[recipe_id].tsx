@@ -44,7 +44,6 @@ const Recipe: React.FC = ({id, owner_uid}: any) => {
     const [ isEditMode, setEditMode ] = useState<boolean>(false)
     const router = useRouter();
 
-
     useEffect(() => {
 
         const unsubscribe = db.doc(`creators/${owner_uid}/recipes/${id}`)

@@ -84,7 +84,7 @@ const creatorItemsLoggedInMobile = [
 
 export function Navbar() {
     
-    const { user, isLoading, isCreator,tikTokAccessToken, loginWithTikTok } = useAuth();
+    const { user, isLoading, isCreator, tikTokAccessToken, loginWithTikTok, activeToken } = useAuth();
     const [creatorData, setCreatorData] = useState<any>()
 
     const navItemsDesktop = [
@@ -159,13 +159,13 @@ export function Navbar() {
                         <BtnLink text='Login' href='/auth/login'/>
                     ) 
 
-                    : user && isCreator == true && !tikTokAccessToken ? 
+                    : user && isCreator == true && (!tikTokAccessToken || activeToken == false) ? 
                         <div className="inline-flex items-center space-x-4">
                             <Button buttonType="button" onClick={loginWithTikTok} text={'Connect TikTok'}/>
                             <DropDownMenuDesktop navItems={creatorDesktopNavItems}/>  
                         </div>
 
-                    : user && isCreator == true && tikTokAccessToken ? 
+                    : user && isCreator == true && (tikTokAccessToken && activeToken == true) ? 
                         <div className="inline-flex items-center space-x-4">
                             <BtnLink href={`/${creatorData?.display_url}`} text={'View Your Page'}/>
                             <DropDownMenuDesktop navItems={creatorDesktopNavItems}/>  

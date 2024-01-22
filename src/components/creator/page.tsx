@@ -97,6 +97,8 @@ export function CreatorSearch({creatorData}: any) {
 
 export function CreatorSocials({creatorData}: any) {
 
+    console.log("Socials: ", creatorData.instagram_link)
+
     const navigation = {
         social: [
           {

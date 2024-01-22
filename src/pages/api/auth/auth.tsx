@@ -19,6 +19,7 @@ interface AuthContextType {
   handleTikTokCallback: (code: string) => Promise<void>;
   isCreator: boolean;
   tikTokAccessToken: string | null;
+  activeToken: boolean;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -30,6 +31,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   const [stripeRole, setStripeRole] = useState<string | null>(null);
   const [tikTokAccessToken, setTikTokAccessToken] = useState(null);
   const [isCreator, setIsCreator] = useState<boolean>(false);
+  const [activeToken, setActiveToken] = useState<boolean>(false);
   const auth = getAuth();
   const router = useRouter();
   const provider = new GoogleAuthProvider();
@@ -95,6 +97,20 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
       throw error;
     }
   };
+
+  const checkActiveTokenStatus = async(userId: string) => {
+    try {
+      const userRef = db.collection('users').doc(userId);
+      const doc = await userRef.get();
+      if (doc.exists && doc.data()?.activeToken) {
+        return doc.data()?.activeToken;
+      }
+      return false;
+    } catch (error) {
+      console.error("Error checking isCreator status:", error);
+      throw error;
+    }
+  }
 
   const login = async () => {
     try {
@@ -214,13 +230,17 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
 
       if ((currentUser as any)) {
           
-        const creatorStatus = await checkIsCreatorStatus(currentUser?.uid!);
+          const creatorStatus = await checkIsCreatorStatus(currentUser?.uid!);
           setIsCreator(creatorStatus);
+
+          const checkActiveToken = await checkActiveTokenStatus(currentUser?.uid!)
+          setActiveToken(checkActiveToken)
 
           const token = await fetchTikTokToken(currentUser?.uid!);
           setTikTokAccessToken(token)
       } else {
         setIsCreator(false);
+        setActiveToken(false);
         setTikTokAccessToken(null)
       }
 
@@ -231,7 +251,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   }, [auth]);
 
   return (
-    <AuthContext.Provider value={{ user, isLoading, auth, provider, login, logout, stripeRole, loginWithEmailPassword, signUpWithEmailPassword, sendPasswordReset, loginWithTikTok, handleTikTokCallback, isCreator, tikTokAccessToken }}>
+    <AuthContext.Provider value={{ user, isLoading, auth, provider, login, logout, stripeRole, loginWithEmailPassword, signUpWithEmailPassword, sendPasswordReset, loginWithTikTok, handleTikTokCallback, isCreator, tikTokAccessToken, activeToken }}>
       {children}
     </AuthContext.Provider>
   );
