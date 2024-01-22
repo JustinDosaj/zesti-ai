@@ -196,11 +196,11 @@ return(
                 <div className="flex gap-4 text-xs lg:text-sm text-gray-600">
                     <span className="inline-flex gap-1 items-center">
                     <p className="font-bold">Ingredients:</p>
-                    <p>{item.ingredients.length}</p>
+                    <p>{item.ingredients?.length}</p>
                     </span>
                     <span className="inline-flex gap-1 items-center">
                     <p className="font-bold">Steps:</p>
-                    <p>{item.instructions.length}</p>
+                    <p>{item.instructions?.length}</p>
                     </span>
                 </div>
                 <div className="flex gap-1 text-xs lg:text-sm text-gray-600 items-center">

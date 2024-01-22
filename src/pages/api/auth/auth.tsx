@@ -2,7 +2,23 @@ import { createContext, useContext, ReactNode, useEffect, useState } from 'react
 import { User, getAuth, onAuthStateChanged, signOut, signInWithPopup, GoogleAuthProvider, createUserWithEmailAndPassword, signInWithEmailAndPassword, sendPasswordResetEmail } from "firebase/auth";
 import { db } from '../firebase/firebase';
 import { useRouter } from 'next/router';
-import { updateUserWithTikTokTokens } from '../firebase/functions';
+import { getUserData, updateUserWithTikTokTokens } from '../firebase/functions';
+
+interface UserData {
+  activeToken?: boolean;
+  affiliate_code?: string;
+  affiliate_link?: string;
+  email?: string;
+  isCreator?: boolean;
+  lifeTimeUsage?: number;
+  stripeId?: string;
+  stripeLink?: string;
+  tiktokAccessToken?: string;
+  tiktokOpenId?: string;
+  tiktokRefreshToken?: string;
+  tokens?: number;
+  totalRecipes?: number;
+}
 
 interface AuthContextType {
   user: User | null;
@@ -20,6 +36,7 @@ interface AuthContextType {
   isCreator: boolean;
   tikTokAccessToken: string | null;
   activeToken: boolean;
+  userData: UserData  | null;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -32,6 +49,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   const [tikTokAccessToken, setTikTokAccessToken] = useState(null);
   const [isCreator, setIsCreator] = useState<boolean>(false);
   const [activeToken, setActiveToken] = useState<boolean>(false);
+  const [userData, setUserData] = useState<UserData | null>(null)
   const auth = getAuth();
   const router = useRouter();
   const provider = new GoogleAuthProvider();
@@ -230,6 +248,9 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
 
       if ((currentUser as any)) {
           
+          const data = await getUserData(currentUser?.uid!)
+          setUserData(data!)
+
           const creatorStatus = await checkIsCreatorStatus(currentUser?.uid!);
           setIsCreator(creatorStatus);
 
@@ -251,7 +272,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   }, [auth]);
 
   return (
-    <AuthContext.Provider value={{ user, isLoading, auth, provider, login, logout, stripeRole, loginWithEmailPassword, signUpWithEmailPassword, sendPasswordReset, loginWithTikTok, handleTikTokCallback, isCreator, tikTokAccessToken, activeToken }}>
+    <AuthContext.Provider value={{ user, isLoading, auth, provider, login, logout, stripeRole, loginWithEmailPassword, signUpWithEmailPassword, sendPasswordReset, loginWithTikTok, handleTikTokCallback, isCreator, tikTokAccessToken, activeToken, userData }}>
       {children}
     </AuthContext.Provider>
   );

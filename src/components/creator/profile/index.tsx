@@ -202,7 +202,7 @@ export function RecentTikTokVideos({videoList, displayName, setIsOpen, setUrl, s
                                 Add recipe to your page from your recent videos
                             </p>
                             <dl className="mt-6 space-y-6 divide-y divide-gray-100 border-t border-gray-200 text-sm leading-6">
-                                <div ref={containerRef} className="animate-fadeIn f-full overflow-y-scroll">
+                                <div ref={containerRef} className="animate-fadeIn f-full">
                                     {videoList?.videos?.slice(0, displayCount).map((item: any) => (
                                         <div key={item.title} className="group h-full max-w-[500px]">
                                             {/* Container for the image and the overlay icon */}
