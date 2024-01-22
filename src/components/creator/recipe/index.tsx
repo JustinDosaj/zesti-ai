@@ -66,7 +66,7 @@ export function CreatorRecipe({recipe, setLoginPrompt, owner_id, setEditMode}: C
 
 export function EditCreatorRecipe({recipe, url, setLoginPrompt, owner_id, setEditMode}:CreatorRecipeProps) {
 
-    const {user, isCreator} = useAuth()
+    const {user} = useAuth()
     const [editedIngredients, setEditedIngredients] = useState<string[]>([]);
     const [editedInstructions, setEditedInstructions] = useState<string[]>([]);
     const [newIngredient, setNewIngredient] = useState<string>('');

@@ -2,7 +2,7 @@ import { createContext, useContext, ReactNode, useEffect, useState } from 'react
 import { User, getAuth, onAuthStateChanged, signOut, signInWithPopup, GoogleAuthProvider, createUserWithEmailAndPassword, signInWithEmailAndPassword, sendPasswordResetEmail } from "firebase/auth";
 import { db } from '../firebase/firebase';
 import { useRouter } from 'next/router';
-import { getUserData, updateUserWithTikTokTokens } from '../firebase/functions';
+import { getCreatorData, getUserData, updateUserWithTikTokTokens } from '../firebase/functions';
 
 interface UserData {
   activeToken?: boolean;
@@ -20,6 +20,28 @@ interface UserData {
   totalRecipes?: number;
 }
 
+interface CreatorData {
+  affiliate_code?: string;
+  affiliate_link?: string;
+  avatar_url?: string;
+  bio_description?: string;
+  display_name?: string;
+  display_url?: string;
+  follower_count?: number;
+  is_verified?: boolean;
+  likes_count?: number;
+  open_id?: string,
+  profile_deep_link?: string;
+  socials?: {
+    instagram_link?: string,
+    twitter_link?: string,
+    website_link?: string,
+    youtube_link?:string
+  },
+  union_id?: string,
+  video_count?: number,
+}
+
 interface AuthContextType {
   user: User | null;
   isLoading: boolean;
@@ -33,10 +55,8 @@ interface AuthContextType {
   sendPasswordReset: (email: string) => Promise<void>;
   loginWithTikTok: () => void;
   handleTikTokCallback: (code: string) => Promise<void>;
-  isCreator: boolean;
-  tikTokAccessToken: string | null;
-  activeToken: boolean;
   userData: UserData  | null;
+  creatorData: CreatorData | null;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -46,10 +66,8 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   const [user, setUser] = useState<User | null>(null);
   const [isLoading, setIsLoading] = useState(true);  // Default to loading
   const [stripeRole, setStripeRole] = useState<string | null>(null);
-  const [tikTokAccessToken, setTikTokAccessToken] = useState(null);
-  const [isCreator, setIsCreator] = useState<boolean>(false);
-  const [activeToken, setActiveToken] = useState<boolean>(false);
-  const [userData, setUserData] = useState<UserData | null>(null)
+  const [userData, setUserData] = useState<UserData | null>(null);
+  const [creatorData, setCreatorData] = useState<CreatorData | null>(null);
   const auth = getAuth();
   const router = useRouter();
   const provider = new GoogleAuthProvider();
@@ -102,34 +120,6 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     }
   };
 
-  const checkIsCreatorStatus = async (userId: string) => {
-    try {
-      const userRef = db.collection('users').doc(userId);
-      const doc = await userRef.get();
-      if (doc.exists && doc.data()?.isCreator) {
-        return true;
-      }
-      return false;
-    } catch (error) {
-      console.error("Error checking isCreator status:", error);
-      throw error;
-    }
-  };
-
-  const checkActiveTokenStatus = async(userId: string) => {
-    try {
-      const userRef = db.collection('users').doc(userId);
-      const doc = await userRef.get();
-      if (doc.exists && doc.data()?.activeToken) {
-        return doc.data()?.activeToken;
-      }
-      return false;
-    } catch (error) {
-      console.error("Error checking isCreator status:", error);
-      throw error;
-    }
-  }
-
   const login = async () => {
     try {
       const result = await signInWithPopup(auth, provider);
@@ -165,25 +155,6 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     } catch (error) {
       console.error("Error logging out:", error);
       throw error;
-    }
-  };
-
-  const fetchTikTokToken = async (userId: string) => {
-    if (!userId) return null;
-  
-    try {
-      const userRef = db.collection('users').doc(userId);
-      const doc = await userRef.get();
-  
-      if (doc.exists) {
-        return doc.data()?.tiktokAccessToken || null;
-      } else {
-        console.log(`No user found with ID: ${userId}`);
-        return null;
-      }
-    } catch (error) {
-      console.error(`Error fetching TikTok token for user ${userId}:`, error);
-      return null;
     }
   };
 
@@ -248,21 +219,25 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
 
       if ((currentUser as any)) {
           
+        try {
           const data = await getUserData(currentUser?.uid!)
           setUserData(data!)
+        } catch (error) {
+          console.log("Error: Could not fetch user data | ", error)
+        }
 
-          const creatorStatus = await checkIsCreatorStatus(currentUser?.uid!);
-          setIsCreator(creatorStatus);
+        try {
+          const creatorDoc = await getCreatorData(currentUser?.uid!)
+          setCreatorData(creatorDoc!)
 
-          const checkActiveToken = await checkActiveTokenStatus(currentUser?.uid!)
-          setActiveToken(checkActiveToken)
+        } catch (error) {
+          console.log("Error: Could not fetch creator data | ", error)
+        }
 
-          const token = await fetchTikTokToken(currentUser?.uid!);
-          setTikTokAccessToken(token)
+
       } else {
-        setIsCreator(false);
-        setActiveToken(false);
-        setTikTokAccessToken(null)
+        setUserData(null)
+        setCreatorData(null)
       }
 
       setIsLoading(false);  // Once the user state is updated, set isLoading to false
@@ -272,7 +247,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   }, [auth]);
 
   return (
-    <AuthContext.Provider value={{ user, isLoading, auth, provider, login, logout, stripeRole, loginWithEmailPassword, signUpWithEmailPassword, sendPasswordReset, loginWithTikTok, handleTikTokCallback, isCreator, tikTokAccessToken, activeToken, userData }}>
+    <AuthContext.Provider value={{ user, isLoading, auth, provider, login, logout, stripeRole, loginWithEmailPassword, signUpWithEmailPassword, sendPasswordReset, loginWithTikTok, handleTikTokCallback, userData, creatorData }}>
       {children}
     </AuthContext.Provider>
   );

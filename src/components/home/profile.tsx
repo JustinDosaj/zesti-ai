@@ -1,15 +1,13 @@
-import React, { useState, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import { Container } from '../shared/container'
 import { useRouter } from 'next/router';
-import { getUserData } from '@/pages/api/firebase/functions';
 import { db } from '@/pages/api/firebase/firebase';
 import { PageLoader } from '@/components/shared/loader';
 import { useAuth } from '@/pages/api/auth/auth'
 
 export function ProfilePageComponent() {
 
-    const { user, stripeRole, logout, isLoading, isCreator } = useAuth()
-    const [ tokens, setTokens ] = useState<number>(0)
+    const { user, stripeRole, logout, isLoading, userData } = useAuth()
     const router = useRouter();
 
 
@@ -20,12 +18,6 @@ export function ProfilePageComponent() {
           const unsubscribe = db.collection(`users/${user.uid}/recipes`).onSnapshot((snapshot) => {
             const updatedRecipes = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
           });
-      
-          const fetchUserData = async () => {
-            const userData = await getUserData(user.uid);
-            setTokens(userData?.tokens);
-          };
-          fetchUserData();
     
           return () => unsubscribe(); // Cleanup subscription
         }
@@ -66,7 +58,7 @@ export function ProfilePageComponent() {
                                         </button>
                                         :
                                         <button type="button" className="font-semibold text-primary-main hover:text-primary-alt text-sm lg:text-base"
-                                            onClick={() => router.push('/pricing')}>
+                                            onClick={() => router.push('/nav/pricing')}>
                                             Upgrade
                                         </button>
                                         }
@@ -79,18 +71,18 @@ export function ProfilePageComponent() {
                                 <div className="pt-6 flex justify-between items-center">
                                     <dt className="font-semibold text-gray-900 sm:w-64 sm:flex-none sm:pr-6 text-sm lg:text-base">Monthly Usage Remaining</dt>
                                     <dd className=" flex gap-x-6 sm:mt-0">
-                                        <div className="text-gray-700 text-sm lg:text-base">{tokens}</div>
+                                        <div className="text-gray-700 text-sm lg:text-base">{userData?.tokens}</div>
                                     </dd>
                                 </div>
                             </dl>
                         </div>
-                        <div className={isCreator == true ? `hidden` : `block`}>
+                        <div className={userData?.isCreator == true ? `hidden` : `block`}>
                             <dl className="mt-6 space-y-6 divide-y divide-gray-100 border-t border-gray-200 text-sm leading-6">
                                 <div className="pt-6 flex justify-between items-center">
                                     <dt className="font-semibold text-gray-900 sm:w-64 sm:flex-none sm:pr-6 text-sm lg:text-base">Join Creator Program</dt>
                                     <dd className=" flex gap-x-6 sm:mt-0">
                                     <button type="button" className="font-semibold text-primary-main hover:text-primary-alt text-sm lg:text-base"
-                                            onClick={() => router.push('/contact')}>
+                                            onClick={() => router.push('/nav/contact')}>
                                             Contact Us
                                         </button>
                                     </dd>

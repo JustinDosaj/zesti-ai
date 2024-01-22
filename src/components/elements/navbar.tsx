@@ -3,23 +3,19 @@
 import { Container } from "../shared/container"
 import { Navitem } from "../shared/navitem"
 import { useAuth } from "@/pages/api/auth/auth"
-import { useEffect, useState } from "react"
 import { BtnLink, Button } from "../shared/button"
 import Link from "next/link"
 import Image from "next/image"
-import { BookOpenIcon, HomeIcon, PaperAirplaneIcon, WalletIcon, UserIcon, PencilSquareIcon, VideoCameraIcon } from "@heroicons/react/20/solid"
+import { BookOpenIcon, HomeIcon, PaperAirplaneIcon, WalletIcon, UserIcon, VideoCameraIcon } from "@heroicons/react/20/solid"
 import { DropDownMenuDesktop, DropDownMenuMobile } from "./menus"
-import { getCreatorData } from "@/pages/api/firebase/functions"
 
 const userDesktopNavItems = [
     {
-        href: "/profile",
+        href: "/nav/profile",
         text: "Profile Settings",
         icon: UserIcon,
     },
 ]
-
-
 
 const navItemsLoggedInMobile = [
     {
@@ -33,17 +29,17 @@ const navItemsLoggedInMobile = [
         icon: BookOpenIcon,
     },
     {
-        href:"/pricing",
+        href:"/nav/pricing",
         text:"Pricing",
         icon: WalletIcon,
     },
     {
-        href:"/contact",
+        href:"/nav/contact",
         text: "Contact",
         icon: PaperAirplaneIcon,
     },
     {
-        href: "/profile",
+        href: "/nav/profile",
         text: "Profile",
         icon: UserIcon,
     },
@@ -61,22 +57,22 @@ const creatorItemsLoggedInMobile = [
         icon: BookOpenIcon,
     },
     { 
-        href:"/settings",
+        href:"/nav/settings",
         text: "Creator Settings",
         icon: VideoCameraIcon, 
     },
     {
-        href: "/profile",
+        href: "/nav/profile",
         text: "Profile Settings",
         icon: UserIcon,
     },
     {
-        href:"/pricing",
+        href:"/nav/pricing",
         text:"Pricing",
         icon: WalletIcon,
     },
     {
-        href:"/contact",
+        href:"/nav/contact",
         text: "Contact",
         icon: PaperAirplaneIcon,
     },
@@ -84,13 +80,12 @@ const creatorItemsLoggedInMobile = [
 
 export function Navbar() {
     
-    const { user, isLoading, isCreator, tikTokAccessToken, loginWithTikTok, activeToken } = useAuth();
-    const [creatorData, setCreatorData] = useState<any>()
+    const { user, isLoading, loginWithTikTok, userData, creatorData } = useAuth();
 
     const navItemsDesktop = [
         { href: "/", text: "Home" },
-        { href: "/pricing", text: "Pricing"},
-        { href: "/contact", text: "Contact"},
+        { href: "/nav/pricing", text: "Pricing"},
+        { href: "/nav/contact", text: "Contact"},
         // Add more items as needed
     ];
 
@@ -101,32 +96,19 @@ export function Navbar() {
             icon: BookOpenIcon,
         },
         {
-            href: "/profile",
+            href: "/nav/profile",
             text: "Profile Settings",
             icon: UserIcon,
         },
     ]
 
-    if(tikTokAccessToken) {
+    if(userData?.tiktokAccessToken) {
         creatorDesktopNavItems.push({
-            href: "/settings",
+            href: "/nav/settings",
             text: "Creator Settings",
             icon: VideoCameraIcon,
         })
     }
-
-    useEffect(() => {
-
-        const fetchData = async () => {
-            const fetchCreatorData = await getCreatorData(user?.uid)
-            setCreatorData(fetchCreatorData)
-        }
-
-        if(user && isCreator == true) {
-            fetchData()
-        }   
-
-    }, [user?.uid, isLoading]);    
 
     
     if (isLoading == true) return(<></>)
@@ -159,13 +141,13 @@ export function Navbar() {
                         <BtnLink text='Login' href='/auth/login'/>
                     ) 
 
-                    : user && isCreator == true && (!tikTokAccessToken || activeToken == false) ? 
+                    : user && userData?.isCreator == true && (!userData?.tiktokAccessToken || userData?.activeToken == false) ? 
                         <div className="inline-flex items-center space-x-4">
                             <Button buttonType="button" onClick={loginWithTikTok} text={'Connect TikTok'}/>
                             <DropDownMenuDesktop navItems={creatorDesktopNavItems}/>  
                         </div>
 
-                    : user && isCreator == true && (tikTokAccessToken && activeToken == true) ? 
+                    : user && userData?.isCreator == true && (userData?.tiktokAccessToken && userData?.activeToken == true) ? 
                         <div className="inline-flex items-center space-x-4">
                             <BtnLink href={`/${creatorData?.display_url}`} text={'View Your Page'}/>
                             <DropDownMenuDesktop navItems={creatorDesktopNavItems}/>  
@@ -177,7 +159,7 @@ export function Navbar() {
                         </div>
                     }
                 </div>
-                { isCreator == false || !isCreator ? 
+                { userData?.isCreator == false || !userData?.isCreator ? 
                     <DropDownMenuMobile navItems={navItemsLoggedInMobile}/>
                 :
                     <DropDownMenuMobile navItems={creatorItemsLoggedInMobile}/>

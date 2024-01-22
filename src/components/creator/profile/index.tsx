@@ -12,12 +12,13 @@ import { saveAffiliateLink } from '@/pages/api/firebase/functions'
 export function CreatorPageComponent({creatorData}: any) {
 
     const { user, isLoading } = useAuth()
+    
     const [ bio, setBio ] = useState<string>(creatorData?.bio_description ? creatorData.bio_description : '')
     const [ tiktok, setTikTok ] = useState<string>(creatorData?.profile_deep_link ? creatorData.profile_deep_link : '')
-    const [ youtube, setYouTube ] = useState<string>(creatorData?.youtube_link ? creatorData.youtube_link : '')
-    const [ twitter, setTwitter ] = useState<string>(creatorData?.twitter_link ? creatorData.twitter_link : '')
-    const [ instagram, setInstagram ] = useState<string>(creatorData?.instagram_link ? creatorData.instagram_link : '')
-    const [ website, setWebsite ] = useState<string>(creatorData?.website_link ? creatorData.website_link : '')
+    const [ youtube, setYouTube ] = useState<string>(creatorData?.socials?.youtube_link ? creatorData.socials.youtube_link : '')
+    const [ twitter, setTwitter ] = useState<string>(creatorData?.socials?.twitter_link ? creatorData.socials.twitter_link : '')
+    const [ instagram, setInstagram ] = useState<string>(creatorData?.socials?.instagram_link ? creatorData.socials.instagram_link : '')
+    const [ website, setWebsite ] = useState<string>(creatorData?.socials?.website_link ? creatorData.socials.website_link : '')
     const [ edit, setEdit ] = useState<boolean>(false)
     const router = useRouter()
 
@@ -32,12 +33,10 @@ export function CreatorPageComponent({creatorData}: any) {
     useEffect(() => {
         setBio(creatorData?.bio_description)
         setTikTok(creatorData?.profile_deep_link || '');
-        setYouTube(creatorData?.youtube_link || '')
-        setTwitter(creatorData?.twitter_link || '')
-        setInstagram(creatorData?.instagram_link || '')
-        setWebsite(creatorData?.website_link || '')
-
-
+        setYouTube(creatorData?.socials.youtube_link || '')
+        setTwitter(creatorData?.socials.twitter_link || '')
+        setInstagram(creatorData?.socials.instagram_link || '')
+        setWebsite(creatorData?.socials.website_link || '')
     }, [creatorData]);
 
     const saveBioData = async () => {
@@ -47,10 +46,13 @@ export function CreatorPageComponent({creatorData}: any) {
         if (user) {
             const bioObject = {
                 bio_description: bio,
-                instagram_link: instagram,
-                twitter_link: twitter,
-                youtube_link: youtube,
-                website_link: website,
+                socials: 
+                    {
+                        instagram_link: instagram,
+                        twitter_link: twitter,
+                        youtube_link: youtube,
+                        website_link: website,
+                    },
             }
 
             await saveBioDataToFireStore(bioObject, user?.uid)
@@ -142,7 +144,7 @@ export function CreatorPageComponent({creatorData}: any) {
 
 interface RecentTikTokVideos {
     videoList: any,
-    displayName: string,
+    creatorData: any,
     setIsOpen: any,
     setUrlId?: any,
     setUrl: any,
@@ -151,14 +153,14 @@ interface RecentTikTokVideos {
     incrementCount?: number,
 }
 
-export function RecentTikTokVideos({videoList, displayName, setIsOpen, setUrl, setVideoObject, maxDisplayCount = 5, incrementCount = 5}: RecentTikTokVideos) {
+export function RecentTikTokVideos({videoList, creatorData, setIsOpen, setUrl, setVideoObject, maxDisplayCount = 5, incrementCount = 5}: RecentTikTokVideos) {
 
     const [ displayCount, setDisplayCount ] = useState(maxDisplayCount)
     const containerRef = useRef<HTMLDivElement>(null);
     
     const addRecipeToCreatorPage = async (id: string, item: any) => {
         
-        const url = `https://www.tiktok.com/@${displayName}/video/${id}`
+        const url = `https://www.tiktok.com/@${creatorData?.display_name}/video/${id}`
         setUrl(url)
         setIsOpen(true)
         setVideoObject(item)
@@ -234,9 +236,9 @@ export function RecentTikTokVideos({videoList, displayName, setIsOpen, setUrl, s
     )
 }
 
-export function CreatorProfileComponent({userData, creatorData}: any) {
+export function CreatorProfileComponent({creatorData}: any) {
 
-    const { user, isLoading, loginWithTikTok, tikTokAccessToken, isCreator } = useAuth()
+    const { user, isLoading, loginWithTikTok, userData } = useAuth()
     const [ affiliateLink, setAffiliateLink ] = useState<string>('')
     const [ edit, setEdit ] = useState<boolean>(false) 
 
@@ -250,11 +252,11 @@ export function CreatorProfileComponent({userData, creatorData}: any) {
         Notify("Affiliate code saved!")
     }
 
-    if(!isCreator || isCreator == null) return <div className="hidden"/>
+    if(!userData?.isCreator || userData?.isCreator == null) return <div className="hidden"/>
 
     if (isLoading ) return <PageLoader/>
 
-    if (!tikTokAccessToken) return (
+    if (!userData?.tiktokAccessToken) return (
         <Container className={"mt-8 flex flex-col lg:flex-row gap-10 lg:gap-12 animate-fadeIn pb-24"}>
              <div className="mx-auto max-w-7xl lg:flex lg:gap-x-16 lg:px-8 py-8 standard-component-border w-full">
                 <main className="px-4 sm:px-6 lg:flex-auto lg:px-0 ">
