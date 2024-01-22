@@ -167,7 +167,7 @@ export const handleTikTokURLSubmit = async ({url, setUrl, user, setMessage, stri
 
     if (tokens >= 1) {
         try {
-            await db.collection('users').doc(user.uid).collection('tiktokurl').doc().set(falseObj)
+            await db.collection('users').doc(user.uid).collection('tiktokurl').doc(id[1]).set(falseObj)
             setMessage("Your recipe will appear in your dashboard shortly")
             await db.collection('users').doc(user.uid).update({
                 tokens: increment(-1),
@@ -201,7 +201,7 @@ export const handleCreatorTikTokURLSubmit = async ({url, user, rawText, videoObj
         "date": date,
         "rawData": rawText,
         "cover_image_url": videoObject?.cover_image_url,
-        "title": videoObject?.title.replace(/#[\w]+/g, '').trim().slice(0, 70),
+        "title": videoObject?.title.replace(/#[\w#]+/g, '').trim().slice(0, 70),
         "display_name": creatorData?.display_name,
         "display_url": creatorData?.display_url,
         "owner_id": creatorData?.owner_id,

@@ -10,7 +10,6 @@ import { ProfilePageComponent } from "@/components/home/profile"
 import { CreatorProfileComponent } from '@/components/creator/profile'
 import { getUserData, getCreatorData } from './api/firebase/functions'
 import { Notify } from '@/components/shared/notify'
-import Breadcrumbs from '@/components/shared/breadcrumb'
 import { PageLoader } from '@/components/shared/loader'
 
 const raleway = Raleway({subsets: ['latin']})
@@ -22,7 +21,8 @@ export default function Profile() {
     const [ userData, setUserData ] = useState<any>()
     const [ firstLoad, setFirstLoad ] = useState<boolean>(true)
     const router = useRouter();
-  
+    
+    console.log(userData)
       useEffect(() => {
         if(user == null && isLoading == false) {
             router.push('/');
