@@ -14,8 +14,9 @@ export default function Video() {
 
   const { user, stripeRole, isLoading, userData } = useAuth()
 
+  console.log(userData)
 
-  if(!isLoading && user && userData) return <PageLoader/>
+  if(isLoading && user && userData) return <PageLoader/>
 
   return (
     <>

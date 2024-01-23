@@ -2,20 +2,24 @@
 import { SharedHomeSectionTitle } from "@/components/shared/title";
 import Head from 'next/head';
 import GoogleTags from '@/components/tags/conversion';
-import { useAuth } from "../api/auth/auth";
+import { useAuth } from "@/pages/api/auth/auth";
 import { PromoteKitTag } from '@/components/tags/headertags';
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react"
-import { fetchTikTokVideoList } from "../api/handler/tiktok";
+import { fetchTikTokVideoList } from "@/pages/api/handler/tiktok";
 import { CreatorAddRecipeModal } from "@/components/shared/modals";
-import { handleCreatorTikTokURLSubmit } from "../api/handler/submit";
+import { handleCreatorTikTokURLSubmit } from "@/pages/api/handler/submit";
 import { Raleway } from "next/font/google";
 import { CreatorPageComponent } from "@/components/creator/profile";
 import { RecentTikTokVideos } from "@/components/creator/profile";
+import Breadcrumbs from "@/components/shared/breadcrumb";
+import useSetBreadcrumbs from "@/components/shared/setBreadcrumbs";
 
 const raleway = Raleway({subsets: ['latin']})
 
 export default function Settings() {
+
+  useSetBreadcrumbs()
 
   const router = useRouter()
   const { isLoading, user, userData, creatorData } = useAuth();
@@ -34,7 +38,7 @@ export default function Settings() {
           router.replace('/');
         }
       } else {
-        router.push('/nav/settings')
+        router.push('/settings')
       }
   }, [userData?.tiktokAccessToken]);
 
@@ -52,9 +56,9 @@ export default function Settings() {
             <PromoteKitTag/>
         </Head>
         <main className={`flex min-h-screen flex-col items-center bg-background ${raleway.className}`}>
-            <div className="mt-36"/>
+            <Breadcrumbs/>
             <SharedHomeSectionTitle titleBlack="Creator Settings" desc="Add more information to your creator pages"/>
-            <div className="grid grid-cols-1 lg:grid-cols-2 pb-36 mt-6 gap-x-3">
+            <div className="grid grid-cols-1 xl:grid-cols-2 pb-36 mt-6 gap-x-3">
                 <CreatorPageComponent creatorData={creatorData}/>
                 <RecentTikTokVideos videoList={videos?.data} creatorData={creatorData} setIsOpen={setIsOpen} setUrl={setUrl} setVideoObject={setVideoObject}/>
             </div>

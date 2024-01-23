@@ -170,7 +170,7 @@ return(
         ))}
         {max == 0 && (recipes.length > maxDisplayCount) && (
             <div className="flex justify-center py-6">
-            <Button onClick={handleLoadMore} className="bg-primary-main rounded-3xl hover:bg-primary-alt text-white font-semibold py-2 px-4" buttonType="button" text="Load More"/>
+                <Button onClick={handleLoadMore} className="bg-primary-main rounded-3xl hover:bg-primary-alt text-white font-semibold py-2 px-4" buttonType="button" text="Load More"/>
             </div>
         )}
     </div>
@@ -187,8 +187,17 @@ export function UserRecipeListCard({item, key}: UserRecipeCardProps) {
 return(
 <div key={key} className="group relative ">
         {/* Image and Details */}
-        <div className="flex items-center space-x-4 border p-4 rounded-3xl max-w-2xl mt-4">
-            <img src={`https://firebasestorage.googleapis.com/v0/b/${process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET}/o/${encodeURIComponent(item.cover_image_url)}?alt=media`} className="h-[136px] w-[96px] rounded-xl object-cover" alt={item.title}/>
+        <div className="flex items-center space-x-4 border border-gray-300 p-4 rounded-3xl max-w-2xl mt-4">
+            {item.status == "Complete" ? 
+                <img src={`https://firebasestorage.googleapis.com/v0/b/${process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET}/o/${encodeURIComponent(item.cover_image_url)}?alt=media`} className="h-[136px] w-[96px] rounded-xl object-cover" alt={item.title}/>
+            :
+                <div className="grid justify-center lg:inline-flex items-center lg:gap-4 h-[136px] w-[96px] rounded-xl object-cover border">
+                    <div className="animate-spin flex justify-center w-6 h-6 border-[2px] border-current border-t-transparent text-orange-600 rounded-full " role="status" aria-label="loading">
+                        <span className="sr-only">Loading...</span>
+                    </div>
+                </div>
+            }
+            { item.status == "Complete" ?
             <div className="flex-grow space-y-1 lg:space-y-2">
                 <h3 className="text-lg lg:text-xl font-semibold text-gray-700">{item.name}</h3> {/* Video Title */}
                 
@@ -208,9 +217,16 @@ return(
                 <p className="text-sm text-gray-600">{item.title}</p> {/* Recipe Name */}
                 </div>
             </div>
+            :
+            <div className="flex-grow space-y-1 lg:space-y-2">
+                <div className="grid justify-center lg:inline-flex items-center lg:gap-4">
+                    <h3 className="text-lg lg:text-xl font-semibold text-gray-700 hidden lg:flex">Loading Recipe...</h3> 
+                </div>
+            </div>
+            }
         </div>
         {/* Overlay Icon */}
-        <Link className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-40 opacity-0 group-hover:opacity-100 rounded-3xl hover:animate-fadeInExtraFast" href={`/my-recipes/${item?.id}`} >
+        <Link className={item.status == "Complete" ? `absolute inset-0 flex items-center justify-center bg-black bg-opacity-40 opacity-0 group-hover:opacity-100 rounded-3xl hover:animate-fadeInExtraFast` : `hidden`} href={`/my-recipes/${item?.id}`} >
             <EyeIcon className="text-white h-10 w-10 hover:text-gray-300 hover:bg-gray-500 bg-gray-700 rounded-xl p-1"/>
         </Link>
     </div>

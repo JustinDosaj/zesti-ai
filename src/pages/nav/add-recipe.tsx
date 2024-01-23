@@ -6,14 +6,16 @@ import React, { useEffect } from 'react'
 import GoogleTags from "@/components/tags/conversion"
 import Head from "next/head"
 import { PromoteKitTag } from "@/components/tags/headertags"
-import { ProfilePageComponent } from "@/components/home/profile"
-import { CreatorProfileComponent } from '@/components/creator/profile'
 import { Notify } from '@/components/shared/notify'
 import { PageLoader } from '@/components/shared/loader'
+import Breadcrumbs from '@/components/shared/breadcrumb'
+import useSetBreadcrumbs from "@/components/shared/setBreadcrumbs";
 
 const raleway = Raleway({subsets: ['latin']})
 
 export default function Profile() {
+
+    useSetBreadcrumbs()
 
     const { user, isLoading, userData, creatorData } = useAuth();
     const router = useRouter();
@@ -36,11 +38,12 @@ export default function Profile() {
       <meta name="robots" content="noindex" />
     </Head>  
     <main className={`flex min-h-screen flex-col items-center bg-background ${raleway.className}`}>
-      <div className="mt-36"/>
-      <SharedHomeSectionTitle titleBlack="Your Profile"/>
-      <div className={(userData?.isCreator == false || !userData?.isCreator) ? `mx-auto` : `grid grid-cols-1 xl:grid-cols-2 gap-x-3` }>
-        <ProfilePageComponent/>
-        <CreatorProfileComponent userData={userData} creatorData={creatorData}/>
+      <Breadcrumbs/>
+      <SharedHomeSectionTitle titleBlack="Add Recipe" desc="Add a new recipe to your creator page"/>
+      <div className="h-96 w-96 border rounded-3xl mt-4">
+        <div className="grid justify-center my-auto">
+            <span>Advanced Recipe Settings Go Here</span>
+        </div>
       </div>
     </main>
     </>

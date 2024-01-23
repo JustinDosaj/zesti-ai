@@ -217,34 +217,27 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
           setStripeRole(null);
       }
 
-      if ((currentUser as any)) {
-          
-        try {
-          const data = await getUserData(currentUser?.uid!)
-          setUserData(data!)
-        } catch (error) {
-          console.log("Error: Could not fetch user data | ", error)
-        }
-
-        try {
-          const creatorDoc = await getCreatorData(currentUser?.uid!)
-          setCreatorData(creatorDoc!)
-
-        } catch (error) {
-          console.log("Error: Could not fetch creator data | ", error)
-        }
-
-
-      } else {
-        setUserData(null)
-        setCreatorData(null)
-      }
-
-      setIsLoading(false);  // Once the user state is updated, set isLoading to false
+      if (currentUser) {
+        // User Firestore listener
+        const userRef = db.collection('users').doc(currentUser.uid);
+        const unsubscribeUser = userRef.onSnapshot(doc => {
+          const data = doc.data();
+          setUserData(data!);
+        });
+  
+        // Creator Firestore listener
+        const creatorRef = db.collection('creators').doc(currentUser.uid);
+        const unsubscribeCreator = creatorRef.onSnapshot(doc => {
+          const data = doc.data();
+          setCreatorData(data!);
+        });
+      } 
+      setIsLoading(false);
     });
 
     return () => unsubscribe();
   }, [auth]);
+
 
   return (
     <AuthContext.Provider value={{ user, isLoading, auth, provider, login, logout, stripeRole, loginWithEmailPassword, signUpWithEmailPassword, sendPasswordReset, loginWithTikTok, handleTikTokCallback, userData, creatorData }}>
