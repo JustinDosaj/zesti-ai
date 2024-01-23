@@ -13,10 +13,12 @@ import { SharedHomeSectionTitle, SharedSectionHeadingTitle } from '@/components/
 import { getAllRecipes } from '../api/firebase/functions';
 import Breadcrumbs from '@/components/shared/breadcrumb';
 import useSetBreadcrumbs from '@/components/shared/setBreadcrumbs';
+import { db } from '../api/firebase/firebase';
+import { onSnapshot } from "firebase/firestore";
 
 const raleway = Raleway({subsets: ['latin']})
 
-export default function Cookbook() {
+export default function MyRecipes() {
 
   const { user, isLoading, stripeRole } = useAuth();
   const [recipes, setRecipes] = useState<any[]>([]);
@@ -25,18 +27,18 @@ export default function Cookbook() {
   useSetBreadcrumbs();
 
   useEffect(() => {
-    const fetchRecipes = async () => {
-      if (user) {
-        const recipes = await getAllRecipes(user?.uid)
-        setRecipes(recipes)
-      }
-    };
-
     if (user == null && !isLoading) {
       router.replace('/');
     } 
-    else if (user !== null && !isLoading) {
-      fetchRecipes();
+    else if (user) {
+      const recipesRef = db.collection('users').doc(user.uid).collection('recipes');
+      const unsubscribe = onSnapshot(recipesRef, (querySnapshot) => {
+        const updatedRecipes = querySnapshot.docs.map(doc => ({ ...doc.data(), id: doc.id }));
+        setRecipes(updatedRecipes);
+      });
+
+      // Cleanup subscription on unmount
+      return () => unsubscribe();
     }
   }, [user, isLoading, router]);
 

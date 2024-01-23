@@ -5,7 +5,7 @@ import { useAuth } from '@/pages/api/auth/auth'
 import { saveBioDataToFireStore } from '@/pages/api/firebase/functions'
 import { useRouter } from 'next/router'
 import { Notify } from '@/components/shared/notify'
-import { PlusCircleIcon } from "@heroicons/react/20/solid"
+import { PlusCircleIcon, PlusIcon } from "@heroicons/react/20/solid"
 import { Container } from '@/components/shared/container'
 import { saveAffiliateLink } from '@/pages/api/firebase/functions'
 
@@ -64,7 +64,7 @@ export function CreatorPageComponent({creatorData}: any) {
 
     return(
         <Container className={"mt-8 flex flex-col lg:flex-row gap-10 lg:gap-12 animate-fadeIn"}>
-            <div className="mx-auto max-w-7xl lg:flex lg:gap-x-16 lg:px-8 py-8 standard-component-border">
+            <div className="mx-auto max-w-7xl lg:flex lg:gap-x-16 lg:px-8 py-8 standard-component-border w-full">
                 <main className="px-4 sm:px-6 lg:flex-auto lg:px-0 ">
                     <div className="mx-auto max-w-2xl space-y-10 lg:mx-0 lg:max-w-none">
                         <div>
@@ -157,6 +157,7 @@ export function RecentTikTokVideos({videoList, creatorData, setIsOpen, setUrl, s
 
     const [ displayCount, setDisplayCount ] = useState(maxDisplayCount)
     const containerRef = useRef<HTMLDivElement>(null);
+    const router = useRouter()
     
     const addRecipeToCreatorPage = async (id: string, item: any) => {
         
@@ -194,26 +195,34 @@ export function RecentTikTokVideos({videoList, creatorData, setIsOpen, setUrl, s
     }, [displayCount, videoList]);
 
     return(
-        <Container className={"mt-8 flex flex-col lg:flex-row gap-10 lg:gap-12 animate-fadeIn"}>
-            <div className="mx-auto max-w-7xl lg:flex lg:gap-x-16 lg:px-8 py-8 standard-component-border">
+        <Container className={"mt-8 flex flex-grow flex-col lg:flex-row gap-10 lg:gap-12 animate-fadeIn"}>
+            <div className="mx-auto max-w-7xl lg:flex lg:gap-x-16 lg:px-8 py-8 standard-component-border w-full">
                 <main className="px-4 sm:px-6 lg:flex-auto lg:px-0 ">
                     <div className="mx-auto max-w-2xl space-y-10 lg:mx-0 lg:max-w-none">
                         <div>
-                            <h2 className="font-semibold leading-7 text-gray-900 section-desc-text-size">Recent Tiktok Videos</h2>
-                            <p className="mt-1 text-sm leading-6 text-gray-500 lg:text-base">
-                                Add recipe to your page from your recent videos
-                            </p>
+                            <div className="inline-flex w-full justify-between items-center">
+                                <div>
+                                    <h2 className="font-semibold leading-7 text-gray-900 section-desc-text-size">Add Recipes from TikTok</h2>
+                                    <p className="mt-1 text-sm leading-6 text-gray-500 lg:text-base">
+                                        Select from recent videos or add other recipe
+                                    </p>
+                                </div>
+                                <Button buttonType="button" className="font-semibold text-sm lg:text-base inline-flex items-center" onClick={() => router.push('/settings/add-recipe')} text="">
+                                    <span>Add Recipe</span>
+                                    <PlusIcon className="w-6 h-6"/>
+                                </Button>
+                            </div>
                             <dl className="mt-6 space-y-6 divide-y divide-gray-100 border-t border-gray-200 text-sm leading-6">
-                                <div ref={containerRef} className="animate-fadeIn f-full">
+                                <div ref={containerRef} className="animate-fadeIn w-full">
                                     {videoList?.videos?.slice(0, displayCount).map((item: any) => (
-                                        <div key={item.title} className="group h-full max-w-[500px]">
+                                        <div key={item.title} className="group h-full">
                                             {/* Container for the image and the overlay icon */}
                                             <div className="relative p-4 border-b">
                                                 {/* Image */}
                                                 <div className="inline-flex items-center">
-                                                    <img src={item.cover_image_url} className="h-[136px] w-[96px] rounded-xl" alt={item.title}/>
+                                                    <img src={item.cover_image_url} className="h-[115px] w-[85px] rounded-xl" alt={item.title}/>
                                                     <div className="flex-grow ml-2 sm:ml-4">
-                                                        <span className="section-desc-text-size">{item.title}</span>
+                                                        <span className="text-sm lg:text-base">{item.title}</span>
                                                     </div>
                                                 </div>
                                                 {/* Overlay Icon */}
@@ -226,6 +235,11 @@ export function RecentTikTokVideos({videoList, creatorData, setIsOpen, setUrl, s
                                             </div>
                                         </div>
                                     ))}
+                                    {!videoList?.videos?.length && (
+                                        <div className="items-center mx-auto my-auto">
+                                            <PageLoader/>
+                                        </div>
+                                    )}
                                 </div>
                             </dl>
                         </div>
