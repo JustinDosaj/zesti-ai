@@ -22,6 +22,7 @@ export default function MyRecipes() {
 
   const { user, isLoading, stripeRole } = useAuth();
   const [recipes, setRecipes] = useState<any[]>([]);
+  const [ loading, setLoading ] = useState<boolean>(true)
   const router = useRouter();
 
   useSetBreadcrumbs();
@@ -35,14 +36,13 @@ export default function MyRecipes() {
       const unsubscribe = onSnapshot(recipesRef, (querySnapshot) => {
         const updatedRecipes = querySnapshot.docs.map(doc => ({ ...doc.data(), id: doc.id }));
         setRecipes(updatedRecipes);
+        setLoading(false)
       });
 
       // Cleanup subscription on unmount
       return () => unsubscribe();
     }
   }, [user, isLoading, router]);
-
-  if (isLoading) return <PageLoader/>
     
   return (
     <>
@@ -59,7 +59,7 @@ export default function MyRecipes() {
         <Search/>
         <div className="border-t border-gray-200 m-12" style={{ width: '35%' }} />
         <SharedSectionHeadingTitle title={"Recent Saved Recipes"}/>
-        <UserSavedRecipeList recipes={recipes} maxDisplayCount={5} max={3}/>
+        <UserSavedRecipeList recipes={recipes} maxDisplayCount={5} max={3} loading={loading}/>
         {stripeRole !== 'premium' && recipes.length > 0 ? 
         <div className="flex justify-center items-center py-16">
           <div className="w-full min-w-[300px] max-w-[320px] lg:max-w-full lg:min-w-[1240px] text-center">
