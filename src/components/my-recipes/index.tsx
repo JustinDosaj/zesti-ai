@@ -7,6 +7,7 @@ import { EyeIcon } from '@heroicons/react/20/solid'
 import Link from 'next/link'
 import React, { useState, useEffect, useRef  } from "react"
 import { Button } from "../shared/button"
+import { RecipeListLoader } from "../shared/loader";
 
 export function Search() {
 
@@ -87,10 +88,10 @@ export function Search() {
     };
 
     return(
-    <Container className={"flex flex-col lg:flex-row gap-10 lg:gap-12 animate-fadeIn"}>
+    <Container className={"flex flex-col lg:flex-row gap-10 lg:gap-12"}>
         <div className="w-full flex-col">
             <dl className="grid grid-cols-1 gap-10">
-                <div className="w-full flex flex-col items-center animate-fadeIn ">
+                <div className="w-full flex flex-col items-center ">
                     <div className="flex sm:flex-row flex-col gap-5">
                         <form action="" method="POST" className="py-1 pl-6 pr-6 flex  gap-3 items-center text-heading-3 shadow-lg shadow-box-shadow
                         border border-box-border bg-box-bg rounded-full ease-linear focus-within:bg-body  focus-within:border-primary">
@@ -117,9 +118,10 @@ interface UserSavedRecipeListProps {
     maxDisplayCount?: number,
     incrementCount?: number,
     max?: number,
+    loading?: boolean,
   }
   
-export function UserSavedRecipeList({recipes, maxDisplayCount = 5, incrementCount = 10, max = 0}: UserSavedRecipeListProps) {
+export function UserSavedRecipeList({recipes, maxDisplayCount = 5, incrementCount = 10, max = 0, loading}: UserSavedRecipeListProps) {
 
 const [ displayCount, setDisplayCount ] = useState(maxDisplayCount)
 const containerRef = useRef<HTMLDivElement>(null);
@@ -161,6 +163,7 @@ useEffect(() => {
     };
 }, [displayCount, recipes]);
 
+if(loading) return <RecipeListLoader/>
 
 return(
 <div className="space-y-2 animate-fadeIn p-4 sm:p-0">

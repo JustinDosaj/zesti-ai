@@ -34,11 +34,16 @@ export default function Settings() {
 
   useEffect(() => {
       if (userData?.tiktokAccessToken && user && !isLoading && loading == true) {
-        fetchTikTokVideoList(userData?.tiktokAccessToken).then(userVideos => { setVideos(userVideos)})
-        if (user == null && !isLoading) {
+        if ((user == null || !userData.isCreator) && !isLoading) {
           router.replace('/');
         }
+        if(!userData.activeToken && !isLoading) {
+          router.push('/nav/profile')
+        }
+        
+        fetchTikTokVideoList(userData?.tiktokAccessToken).then(userVideos => { setVideos(userVideos)})
         setLoading(false)
+        
       } else {
         router.push('/settings')
       }
