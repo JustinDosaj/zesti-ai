@@ -14,6 +14,7 @@ import { CreatorPageComponent } from "@/components/creator/profile";
 import { RecentTikTokVideos } from "@/components/creator/profile";
 import Breadcrumbs from "@/components/shared/breadcrumb";
 import useSetBreadcrumbs from "@/components/shared/setBreadcrumbs";
+import { PageLoader } from "@/components/shared/loader";
 
 const raleway = Raleway({subsets: ['latin']})
 
@@ -29,14 +30,15 @@ export default function Settings() {
   const [ url, setUrl ] = useState<string>('')
   const [ rawText, setRawText ] = useState<string>('')
   const [ videoObject, setVideoObject ] = useState<any>()
+  const [loading, setLoading] = useState<boolean>(true)
 
   useEffect(() => {
-      if (userData?.tiktokAccessToken && user && !isLoading) {
-
+      if (userData?.tiktokAccessToken && user && !isLoading && loading == true) {
         fetchTikTokVideoList(userData?.tiktokAccessToken).then(userVideos => { setVideos(userVideos)})
         if (user == null && !isLoading) {
           router.replace('/');
         }
+        setLoading(false)
       } else {
         router.push('/settings')
       }
@@ -45,6 +47,8 @@ export default function Settings() {
   const addRecipe = async () => {
     await handleCreatorTikTokURLSubmit({url, user, rawText, videoObject, creatorData})
   }
+
+  if (loading == true) return <PageLoader/>
   
   return (
     <>
@@ -58,7 +62,7 @@ export default function Settings() {
         <main className={`flex min-h-screen flex-col items-center bg-background ${raleway.className}`}>
             <Breadcrumbs/>
             <SharedHomeSectionTitle titleBlack="Creator Settings" desc="Add more information to your creator pages"/>
-            <div className="grid grid-cols-1 xl:grid-cols-2 pb-36 mt-6 gap-x-3">
+            <div className="grid grid-cols-1 xl:grid-cols-2 pb-36 mt-6">
                 <CreatorPageComponent creatorData={creatorData}/>
                 <RecentTikTokVideos videoList={videos?.data} creatorData={creatorData} setIsOpen={setIsOpen} setUrl={setUrl} setVideoObject={setVideoObject}/>
             </div>
