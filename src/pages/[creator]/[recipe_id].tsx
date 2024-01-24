@@ -42,6 +42,7 @@ const Recipe: React.FC = ({id, owner_uid}: any) => {
     const [url, setUrl] = useState<string>('')
     const [ loginPrompt, setLoginPrompt ] = useState<boolean>(false)
     const [ isEditMode, setEditMode ] = useState<boolean>(false)
+    const [ loading, setLoading ] = useState<boolean>(true)
     const router = useRouter();
 
     useEffect(() => {
@@ -51,6 +52,7 @@ const Recipe: React.FC = ({id, owner_uid}: any) => {
             if (docSnapshot.exists) {
               setRecipe(docSnapshot.data());
               setUrl(docSnapshot.data()?.url ? docSnapshot.data()?.url : '')
+              setLoading(false)
             } else {
               console.log("Doc doesnt exist")
             }
@@ -61,7 +63,7 @@ const Recipe: React.FC = ({id, owner_uid}: any) => {
     }, [owner_uid, isLoading, id, router]);
 
 
-    if(!recipe) return <PageLoader/>
+    if(loading) return <PageLoader/>
 
     return(
     <>
