@@ -64,7 +64,7 @@ export function CreatorPageComponent({creatorData}: any) {
 
     return(
         <Container className={"mt-8 flex flex-col lg:flex-row gap-10 lg:gap-12 animate-fadeIn"}>
-            <div className="mx-auto max-w-7xl lg:flex lg:gap-x-16 lg:px-8 py-8 standard-component-border w-full">
+            <div className="mx-auto max-w-2xl lg:flex lg:gap-x-16 lg:px-8 py-8 standard-component-border w-full">
                 <main className="px-4 sm:px-6 lg:flex-auto lg:px-0 ">
                     <div className="mx-auto max-w-2xl space-y-10 lg:mx-0 lg:max-w-none">
                         <div>
@@ -196,7 +196,7 @@ export function RecentTikTokVideos({videoList, creatorData, setIsOpen, setUrl, s
 
     return(
         <Container className={"mt-8 flex flex-grow flex-col lg:flex-row gap-10 lg:gap-12 animate-fadeIn"}>
-            <div className="mx-auto max-w-7xl lg:flex lg:gap-x-16 lg:px-8 py-8 standard-component-border w-full">
+            <div className="mx-auto max-w-2xl lg:flex lg:gap-x-16 lg:px-8 py-8 standard-component-border w-full">
                 <main className="px-4 sm:px-6 lg:flex-auto lg:px-0 ">
                     <div className="mx-auto max-w-2xl space-y-10 lg:mx-0 lg:max-w-none">
                         <div>
@@ -207,8 +207,8 @@ export function RecentTikTokVideos({videoList, creatorData, setIsOpen, setUrl, s
                                         Select from recent videos or add other recipe
                                     </p>
                                 </div>
-                                <Button buttonType="button" className="font-semibold text-sm lg:text-base inline-flex items-center" onClick={() => router.push('/settings/add-recipe')} text="">
-                                    <span>Add Recipe</span>
+                                <Button buttonType="button" className="font-semibold text-sm lg:text-base inline-flex items-center" onClick={() => router.push('/creator/edit/add-recipe')} text="">
+                                    <span className="hidden">Add Recipe</span>
                                     <PlusIcon className="w-6 h-6"/>
                                 </Button>
                             </div>
@@ -222,7 +222,7 @@ export function RecentTikTokVideos({videoList, creatorData, setIsOpen, setUrl, s
                                                 <div className="inline-flex items-center">
                                                     <img src={item.cover_image_url} className="h-[115px] w-[85px] rounded-xl" alt={item.title}/>
                                                     <div className="flex-grow ml-2 sm:ml-4">
-                                                        <span className="text-sm lg:text-base">{item.title}</span>
+                                                        <span className="text-sm lg:text-base text-gray-700">{item.title}</span>
                                                     </div>
                                                 </div>
                                                 {/* Overlay Icon */}
@@ -272,7 +272,7 @@ export function CreatorProfileComponent({creatorData}: any) {
 
     if (!userData?.tiktokAccessToken) return (
         <Container className={"mt-8 flex flex-col lg:flex-row gap-10 lg:gap-12 pb-24"}>
-             <div className="mx-auto max-w-7xl lg:flex lg:gap-x-16 lg:px-8 py-8 standard-component-border w-full">
+             <div className="mx-auto max-w-2xl lg:flex lg:gap-x-16 lg:px-8 py-8 standard-component-border w-full">
                 <main className="px-4 sm:px-6 lg:flex-auto lg:px-0 ">
                     <div className="mx-auto max-w-2xl space-y-16 sm:space-y-20 lg:mx-0 lg:max-w-none">
                         <div>

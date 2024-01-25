@@ -18,7 +18,7 @@ import { PageLoader } from "@/components/shared/loader";
 
 const raleway = Raleway({subsets: ['latin']})
 
-export default function Settings() {
+export default function Page() {
 
   useSetBreadcrumbs()
 
@@ -45,7 +45,7 @@ export default function Settings() {
         setLoading(false)
         
       } else {
-        router.push('/settings')
+        router.push('/creator/edit')
       }
   }, [userData?.tiktokAccessToken]);
 

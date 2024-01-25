@@ -5,6 +5,7 @@ import { getUserData } from "../firebase/functions";
 import axios from 'axios'
 import { increment } from 'firebase/firestore';
 import { getCurrentDate } from "./general";
+import { getFunctions, httpsCallable } from 'firebase/functions';
 
 
 async function convertISO8601ToMinutesAndSeconds(isoDuration: any) {
@@ -191,8 +192,8 @@ export const handleCreatorTikTokURLSubmit = async ({url, user, rawText, videoObj
 
     // Check if URL is empty   
     const date = await getCurrentDate()
-
-    console.log('creator', creatorData)
+    const functions = getFunctions();
+    const creatorAddTikTokRecipe = httpsCallable(functions, 'creatorAddTikTokRecipe');
 
     const falseObj = {
         "url": `${url}`,
@@ -207,12 +208,12 @@ export const handleCreatorTikTokURLSubmit = async ({url, user, rawText, videoObj
         "owner_id": creatorData?.owner_id,
     }
 
-    try {
-        await db.collection('creators').doc(user?.uid).collection('tiktokurl').doc(videoObject?.id).set(falseObj)
-        return true
-    } catch (err) {
+    const response = await creatorAddTikTokRecipe(falseObj).then((val) => {
+        console.log(val)
+        return true;
+    }).catch((err) => {
         console.log(err)
-        return false
-    }
-
+        return false;
+    })
+    return response;
 }

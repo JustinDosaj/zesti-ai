@@ -8,11 +8,9 @@ export interface Props {
 
 // Used to get all user recipes on my-recipes page
 export async function getAllRecipes(user: any) {
-    
   const recipeSnapshot = await db.collection(`users/${user}/recipes`).get();
   const updatedRecipes = recipeSnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
   return updatedRecipes
-
 }
 
 export async function getAllCreatorRecipes(id: string) {

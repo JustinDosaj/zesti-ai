@@ -1,3 +1,5 @@
+import { Notify } from "@/components/shared/notify";
+
 export async function fetchTikTokUserInfo(accessToken: string, fields = ['open_id', 'union_id', 'avatar_url', 'display_name', 'bio_description', 'profile_deep_link', 'is_verified', 'follower_count', 'likes_count', 'video_count']) {
     try {
         const response = await fetch(`https://open.tiktokapis.com/v2/user/info/?fields=${fields.join(',')}`, {
@@ -45,7 +47,10 @@ export async function fetchTikTokVideoList(accessToken: string, maxCount = 20, c
         });*/
 
         if (!response.ok) {
+            
+            Notify("Problem getting creator page. Please try again later.")
             throw new Error(`HTTP error ${response.status}`);
+
         }
 
         const data = await response.json();

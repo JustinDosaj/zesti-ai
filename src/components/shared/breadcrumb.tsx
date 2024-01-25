@@ -12,7 +12,14 @@ const Breadcrumbs = () => {
           <li key={index} className="inline">
             {index > 0 && <span className="text-gray-700 mx-2">/</span>}
             {index < breadcrumb.length - 1 ? (
-              <Link href={name === 'Home' ? '/' : `/${name.toLowerCase().replace(/\s+/g, '-')}`}>
+              <Link href={
+                name === 'Home' ? '/' 
+                : 
+                name === 'Edit' ? '/creator/edit'
+                :
+                name === 'Add Recipe' ? '/creator/edit/add-recipe'
+                :
+                `/${name.toLowerCase().replace(/\s+/g, '-')}`}>
                 <span className="text-primary-main hover:text-primary-alt lowercase">{name}</span>
               </Link>
             ) : (
