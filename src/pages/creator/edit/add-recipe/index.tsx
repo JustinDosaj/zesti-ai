@@ -21,16 +21,16 @@ export default function AddRecipe() {
 
     const { user, isLoading, userData, creatorData } = useAuth();
     const router = useRouter();
-    const [stagingData, setStagingData] = useState<any>([]);
+    const [errorData, setErrorData] = useState<any>([]);
     const [ recipes, setRecipes ] = useState<any>([])
 
     const fetchStagingData = async () => {
       if (user && user.uid) {
           try {
-              const stagingRef = db.collection('creators').doc(user.uid).collection('staging');
+              const stagingRef = db.collection('creators').doc(user.uid).collection('errors');
               const snapshot = await stagingRef.get();
               const stagingDocs = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-              setStagingData(stagingDocs); // Update state with the fetched data
+              setErrorData(stagingDocs); // Update state with the fetched data
           } catch (error) {
               console.error("Error fetching staging data: ", error);
           }
@@ -54,8 +54,6 @@ export default function AddRecipe() {
       } 
     }, [user?.uid, isLoading]);
 
-    console.log("Staging Data: ", stagingData)
-
     if(isLoading) return <PageLoader/>
 
     return(
@@ -69,7 +67,7 @@ export default function AddRecipe() {
     <main className={`flex min-h-screen flex-col items-center bg-background ${raleway.className}`}>
       <Breadcrumbs/>
       <SharedHomeSectionTitle titleBlack="Manage Recipes" desc="Add a new recipe to your creator page"/>
-      <StagingList stagingData={stagingData} publicData={recipes}/>
+      <StagingList errorData={errorData} publicData={recipes}/>
     </main>
     </>
     )
