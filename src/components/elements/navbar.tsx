@@ -57,7 +57,7 @@ const creatorItemsLoggedInMobile = [
         icon: BookOpenIcon,
     },
     { 
-        href:"/settings",
+        href:"/creator/edit",
         text: "Creator Settings",
         icon: VideoCameraIcon, 
     },
@@ -104,7 +104,7 @@ export function Navbar() {
 
     if(userData?.tiktokAccessToken) {
         creatorDesktopNavItems.push({
-            href: "/settings",
+            href: "/creator/edit",
             text: "Creator Settings",
             icon: VideoCameraIcon,
         })

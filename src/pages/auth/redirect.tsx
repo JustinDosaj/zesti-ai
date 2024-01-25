@@ -16,7 +16,7 @@ const Redirect = () => {
         handleTikTokCallback(decodedCode)
             .then(() => {
             // Redirect to another page or the same page without query parameters
-            router.push('/settings');
+            router.push('/nav/profile');
             })
             .catch(error => {
             // Handle error

@@ -15,13 +15,14 @@ const useSetBreadcrumbs = () => {
 
     segments.forEach((segment) => {
       if (segment === 'nav') return; // Skip 'nav' segment
+      if (segment === 'creator') return; // Skip 'creator' segment
 
       let name = decodeURIComponent(segment.replace(/-/g, ' '));
       
       // Additional customization based on segment
       switch (segment) {
-        case 'settings':
-          name = 'Settings';
+        case 'edit':
+          name = 'Edit';
           break;
         case 'add-recipe':
           name = 'Add Recipe';
