@@ -7,11 +7,8 @@ import { PromoteKitTag } from '@/components/tags/headertags';
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react"
 import { fetchTikTokVideoList } from "@/pages/api/handler/tiktok";
-import { CreatorAddRecipeModal } from "@/components/shared/modals";
-import { handleCreatorTikTokURLSubmit } from "@/pages/api/handler/submit";
 import { Raleway } from "next/font/google";
 import { CreatorPageComponent } from "@/components/creator/profile";
-import { RecentTikTokVideos } from "@/components/creator/profile";
 import Breadcrumbs from "@/components/shared/breadcrumb";
 import useSetBreadcrumbs from "@/components/shared/setBreadcrumbs";
 import { PageLoader } from "@/components/shared/loader";
@@ -26,10 +23,6 @@ export default function Page() {
   const { isLoading, user, userData, creatorData } = useAuth();
 
   const [ videos, setVideos ] = useState<any>([])
-  const [ isOpen, setIsOpen ] = useState<boolean>(false)
-  const [ url, setUrl ] = useState<string>('')
-  const [ rawText, setRawText ] = useState<string>('')
-  const [ videoObject, setVideoObject ] = useState<any>()
   const [loading, setLoading] = useState<boolean>(true)
 
   useEffect(() => {
@@ -49,9 +42,6 @@ export default function Page() {
       }
   }, [userData?.tiktokAccessToken]);
 
-  const addRecipe = async () => {
-    await handleCreatorTikTokURLSubmit({url, rawText, creatorData})
-  }
 
   if (loading == true) return <PageLoader/>
   
@@ -68,7 +58,6 @@ export default function Page() {
             <Breadcrumbs/>
             <SharedHomeSectionTitle titleBlack="Creator Settings" desc="Add more information to your creator pages"/>
             <CreatorPageComponent creatorData={creatorData}/>
-            <CreatorAddRecipeModal isOpen={isOpen} setIsOpen={setIsOpen} addRecipe={addRecipe} setRawText={setRawText} rawText={rawText} videoObject={videoObject}/>
         </main>
     </>
   )
