@@ -50,7 +50,7 @@ export default function Page() {
   }, [userData?.tiktokAccessToken]);
 
   const addRecipe = async () => {
-    await handleCreatorTikTokURLSubmit({url, user, rawText, videoObject, creatorData})
+    await handleCreatorTikTokURLSubmit({url, rawText, creatorData})
   }
 
   if (loading == true) return <PageLoader/>

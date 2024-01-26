@@ -127,7 +127,7 @@ export const handleYouTubeURLSubmit = async ({url, user, setMessage, stripeRole,
 export interface TikTokProps {
     url: any,
     setUrl?: any,
-    user: any,
+    user?: any,
     setMessage?: any,
     stripeRole?: any,
     setNotify?: any,
@@ -188,7 +188,15 @@ export const handleTikTokURLSubmit = async ({url, setUrl, user, setMessage, stri
     }
 }
 
-export const handleCreatorTikTokURLSubmit = async ({url, user, rawText, videoObject, creatorData}: TikTokProps): Promise<boolean> => {
+export const handleCreatorTikTokURLSubmit = async ({url, rawText, creatorData}: TikTokProps): Promise<boolean> => {
+
+    var id;
+
+    if(url.includes('tiktok.com/t/')) {
+        id = url?.match(/^https:\/\/www\.tiktok\.com\/t\/([A-Za-z0-9_-]+)\/?$/);
+    } else {
+        id = url?.match(/tiktok\.com\/@[^\/]+\/video\/(\d+)/);
+    }
 
     // Check if URL is empty   
     const date = await getCurrentDate()
@@ -197,12 +205,10 @@ export const handleCreatorTikTokURLSubmit = async ({url, user, rawText, videoObj
 
     const falseObj = {
         "url": `${url}`,
-        "id": videoObject?.id,
+        "id": id ? id[1] : null,
         "source": "tiktok",
         "date": date,
         "rawData": rawText,
-        "cover_image_url": videoObject?.cover_image_url,
-        "title": videoObject?.title.replace(/#[\w#]+/g, '').trim().slice(0, 70),
         "display_name": creatorData?.display_name,
         "display_url": creatorData?.display_url,
         "owner_id": creatorData?.owner_id,

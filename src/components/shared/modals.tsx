@@ -3,10 +3,13 @@ import { Fragment, useRef } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 import { CheckIcon } from '@heroicons/react/24/outline'
 import { Notify } from './notify'
-import { XMarkIcon, SquaresPlusIcon, StarIcon, ExclamationCircleIcon, UserIcon } from '@heroicons/react/20/solid'
+import { XMarkIcon, StarIcon, ExclamationCircleIcon, UserIcon } from '@heroicons/react/20/solid'
 import React, { useState } from 'react'
 import AdSenseDisplay from '../tags/adsense'
 import Link from 'next/link'
+import { CreatorAddRecipeLinkComponent, CreatorAddRecipeTextComponent } from '../creator/manage'
+import { handleCreatorTikTokURLSubmit } from '@/pages/api/handler/submit'
+import { useAuth } from '@/pages/api/auth/auth'
 
 interface InputResponseProps {
     isOpen: boolean,
@@ -211,95 +214,6 @@ export function LoginModal({loginPrompt, setLoginPrompt, title, message}: LoginP
   )
 }
 
-interface AddProps {
-  isOpen: boolean,
-  setIsOpen: any,
-  addType: string,
-  onSubmit: any,
-}
-
-// MUST HAVE TO ADD INGREDIENT OR INSTRUCTION
-export function AddToRecipeModal({isOpen, setIsOpen, addType, onSubmit}: AddProps) {
-
-  const cancelButtonRef = useRef(null)
-  const [userInput, setUserInput] = useState<string>('')
-
-  async function onAddToRecipeClick() {
-    onSubmit(userInput)
-    setUserInput('')
-    setIsOpen(false)
-  }
-
-  return(
-  <Transition.Root show={isOpen} as={Fragment}>
-      <Dialog as="div" className="relative z-50" initialFocus={cancelButtonRef} onClose={setIsOpen}>
-        <Transition.Child
-          as={Fragment}
-          enter="ease-out duration-300"
-          enterFrom="opacity-0"
-          enterTo="opacity-100"
-          leave="ease-in duration-200"
-          leaveFrom="opacity-100"
-          leaveTo="opacity-0"
-        >
-          <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
-        </Transition.Child>
-
-        <div className="fixed inset-0 z-10 w-screen overflow-y-auto">
-          <div className="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
-            <Transition.Child
-              as={Fragment}
-              enter="ease-out duration-300"
-              enterFrom="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
-              enterTo="opacity-100 translate-y-0 sm:scale-100"
-              leave="ease-in duration-200"
-              leaveFrom="opacity-100 translate-y-0 sm:scale-100"
-              leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
-            >
-              <Dialog.Panel className="my-auto relative transform overflow-hidden rounded-lg bg-white px-4 pb-4 pt-5 text-left shadow-xl transition-all sm:my-8 w-full sm:max-w-lg sm:p-6">
-                  <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-green-100">
-                    <SquaresPlusIcon className="h-6 w-6 text-color-alt-green" aria-hidden="true" />
-                  </div>
-                  <div className="mt-3 text-center sm:mt-5 ">
-                    <Dialog.Title as="h3" className="text-base font-semibold leading-6 text-gray-900 capitalize">
-                      {`Add ${addType}`}
-                    </Dialog.Title>
-                    <span className="text-sm">{`Enter new ${addType} below`}</span>
-                    <input
-                        value={userInput}
-                        onChange={(e) => {setUserInput(e.target.value)}}
-                        className="text-gray-500 whitespace-normal w-full bg-gray-100 mt-2 p-2 rounded-lg"
-                        placeholder={`Enter ${addType} here then click add`}
-                    />
-                  </div>
-                <div className="mt-5 sm:mt-6 sm:grid sm:grid-flow-row-dense sm:grid-cols-2 sm:gap-3">
-                  <button
-                    className="inline-flex w-full justify-center rounded-3xl bg-primary-main px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-primary-alt sm:col-start-2"
-                    onClick={() => {onAddToRecipeClick()}}
-                  >
-                    {`Add ${addType}`}
-                  </button>
-                  <button
-                    type="button"
-                    className="mt-3 inline-flex w-full justify-center rounded-3xl bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:col-start-1 sm:mt-0"
-                    onClick={() => {
-                      setUserInput('')
-                      setIsOpen(false)
-                    }}
-                    ref={cancelButtonRef}
-                  >
-                    Cancel
-                  </button>
-                </div>
-              </Dialog.Panel>
-            </Transition.Child>
-          </div>
-        </div>
-      </Dialog>
-    </Transition.Root>
-  )
-}
-
 interface UpgradeToPremiumProps {
   premiumPrompt: boolean,
   setPremiumPrompt: any,
@@ -396,7 +310,7 @@ export function CreatorAddRecipeModal({isOpen, setIsOpen, addRecipe, setRawText,
   async function onAddToRecipeClick() {
     //onSubmit(userInput)
     setIsOpen(false)
-    addRecipe()
+    
     Notify("Adding recipe to your page")
   }
 
@@ -490,4 +404,87 @@ export function CreatorAddRecipeModal({isOpen, setIsOpen, addRecipe, setRawText,
   )
 }
 
+interface CreatorAddRecipeModal {
+  isOpen: boolean,
+  setIsOpen: any,
+  onSubmit?: any,
+}
 
+export function CreatorAddRecipeModal2({isOpen, setIsOpen}: CreatorAddRecipeModal) {
+
+
+  const { creatorData } = useAuth()
+  const cancelButtonRef = useRef(null)
+  const [ rawText, setRawText ] = useState<string>('')
+  const [ url, setUrl ] = useState<string>('')
+
+
+  console.log(rawText)
+
+  console.log(url)
+
+  async function onAddToRecipeClick() {
+    await handleCreatorTikTokURLSubmit({url, rawText, creatorData})
+    setIsOpen(false)
+    Notify("Adding recipe to your page")
+  }
+
+  return(
+  <Transition.Root show={isOpen} as={Fragment}>
+      <Dialog as="div" className="relative z-50" initialFocus={cancelButtonRef} onClose={setIsOpen}>
+        <Transition.Child
+          as={Fragment}
+          enter="ease-out duration-300"
+          enterFrom="opacity-0"
+          enterTo="opacity-100"
+          leave="ease-in duration-200"
+          leaveFrom="opacity-100"
+          leaveTo="opacity-0"
+        >
+          <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
+        </Transition.Child>
+
+        <div className="fixed inset-0 z-10 w-screen overflow-y-auto">
+          <div className="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
+            <Transition.Child
+              as={Fragment}
+              enter="ease-out duration-300"
+              enterFrom="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+              enterTo="opacity-100 translate-y-0 sm:scale-100"
+              leave="ease-in duration-200"
+              leaveFrom="opacity-100 translate-y-0 sm:scale-100"
+              leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+            >
+              <Dialog.Panel className="space-y-4 my-auto relative transform overflow-hidden rounded-lg bg-white px-4 pb-4 pt-5 text-left shadow-xl transition-all sm:my-8 w-full sm:max-w-2xl sm:p-6">
+                {/* Video Object */}
+                <h2 className="text-center mt-3 text-lg font-gray-700 font-semibold">Add New Recipe</h2>
+                <CreatorAddRecipeLinkComponent url={url} setUrl={setUrl}/>
+                <CreatorAddRecipeTextComponent rawText={rawText} setRawText={setRawText}/>
+                <div className="mt-5 sm:mt-6 sm:grid sm:grid-flow-row-dense sm:grid-cols-2 sm:gap-3">
+                  <button
+                    className="inline-flex w-full justify-center rounded-3xl bg-primary-main px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-primary-alt sm:col-start-2"
+                    onClick={() => {onAddToRecipeClick()}}
+                  >
+                    {`Add to Creator Page`}
+                  </button>
+                  <button
+                    type="button"
+                    className="mt-3 inline-flex w-full justify-center rounded-3xl bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:col-start-1 sm:mt-0"
+                    onClick={() => {
+                      setUrl('')
+                      setRawText('')
+                      setIsOpen(false)
+                    }}
+                    ref={cancelButtonRef}
+                  >
+                    Cancel
+                  </button>
+                </div>
+              </Dialog.Panel>
+            </Transition.Child>
+          </div>
+        </div>
+      </Dialog>
+    </Transition.Root>
+  )
+}
