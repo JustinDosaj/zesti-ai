@@ -52,7 +52,7 @@ export function SharedViewAllTitle({title, href, desc}: SharedPageTitleProps) {
 export function SharedHomeSectionTitle({titleBlack, titleOrange, desc}: SharedPageTitleProps) {
     return(
     <>
-        <h1 className="text-4xl lg:text-5xl font-semibold text-gray-800 text-center">
+        <h1 className="text-4xl lg:text-5xl font-semibold text-gray-700 text-center">
             <span>{titleBlack}</span> 
             <span className="primary-orange-text-gradient"> {titleOrange} </span>
         </h1>

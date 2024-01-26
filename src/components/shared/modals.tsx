@@ -3,13 +3,15 @@ import { Fragment, useRef } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 import { CheckIcon } from '@heroicons/react/24/outline'
 import { Notify } from './notify'
-import { XMarkIcon, StarIcon, ExclamationCircleIcon, UserIcon } from '@heroicons/react/20/solid'
+import { XMarkIcon, StarIcon, UserIcon } from '@heroicons/react/20/solid'
 import React, { useState } from 'react'
 import AdSenseDisplay from '../tags/adsense'
+import { CreatorSubmitLoader } from './loader'
 import Link from 'next/link'
-import { CreatorAddRecipeLinkComponent, CreatorAddRecipeTextComponent } from '../creator/manage'
+import { CreatorAddRecipeLinkComponent, CreatorAddRecipeTextComponent, CreatorResubmitRecipeTextComponent } from '../creator/manage'
 import { handleCreatorTikTokURLSubmit } from '@/pages/api/handler/submit'
 import { useAuth } from '@/pages/api/auth/auth'
+import { deleteCreatorError } from '@/pages/api/firebase/functions'
 
 interface InputResponseProps {
     isOpen: boolean,
@@ -289,144 +291,28 @@ export function UpgradeToPremiumModal({premiumPrompt, setPremiumPrompt}: Upgrade
   )
 }
 
-interface CreatorAddRecipeProps {
-  isOpen: boolean,
-  setIsOpen: any,
-  onSubmit?: any,
-  addRecipe: any,
-  setRawText: any,
-  rawText: string,
-  videoObject: any,
-}
-
-// MUST HAVE FOR CREATOR RECIPE INPUT INCASE THE VIDEO DOES NOT HAVE VOICE OVER INSTRUCTION
-export function CreatorAddRecipeModal({isOpen, setIsOpen, addRecipe, setRawText, rawText, videoObject}: CreatorAddRecipeProps) {
-
-
-  const cancelButtonRef = useRef(null)
-  const [ userInput, setUserInput ] = useState<string>('')
-  const [ isChecked, setIsChecked ] = useState<boolean>(false)
-
-  async function onAddToRecipeClick() {
-    //onSubmit(userInput)
-    setIsOpen(false)
-    
-    Notify("Adding recipe to your page")
-  }
-
-  return(
-  <Transition.Root show={isOpen} as={Fragment}>
-      <Dialog as="div" className="relative z-50" initialFocus={cancelButtonRef} onClose={setIsOpen}>
-        <Transition.Child
-          as={Fragment}
-          enter="ease-out duration-300"
-          enterFrom="opacity-0"
-          enterTo="opacity-100"
-          leave="ease-in duration-200"
-          leaveFrom="opacity-100"
-          leaveTo="opacity-0"
-        >
-          <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
-        </Transition.Child>
-
-        <div className="fixed inset-0 z-10 w-screen overflow-y-auto">
-          <div className="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
-            <Transition.Child
-              as={Fragment}
-              enter="ease-out duration-300"
-              enterFrom="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
-              enterTo="opacity-100 translate-y-0 sm:scale-100"
-              leave="ease-in duration-200"
-              leaveFrom="opacity-100 translate-y-0 sm:scale-100"
-              leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
-            >
-              <Dialog.Panel className="space-y-4 my-auto relative transform overflow-hidden rounded-lg bg-white px-4 pb-4 pt-5 text-left shadow-xl transition-all sm:my-8 w-full sm:max-w-lg sm:p-6">
-                {/* Video Object */}
-                <div className="p-3">
-                    {/* Use flexbox for the container */}
-                    <div className="flex items-center justify-start space-x-4 border-gray-300 border rounded-r-xl rounded-l-xl p-4">
-                        {/* Image */}
-                        <img src={videoObject?.cover_image_url} className="h-[136px] w-[96px] rounded-xl" alt={videoObject?.title}/>
-                        {/* Title Wrapper - flex-grow ensures it takes up available space */}
-                        <div className="flex-grow">
-                            <span className="section-desc-text-size">{videoObject?.title}</span>
-                        </div>
-                    </div>
-                </div>
-
-                {/* Checkbox */}
-                <div>
-                  <div className="items-center inline-flex gap-2">
-                    <input 
-                      type="checkbox" 
-                      checked={isChecked} 
-                      onChange={() => setIsChecked(!isChecked)}
-                      className="h-5 w-5 accent-gray-600"
-                    />
-                    <label className="text-gray-600 text-xs xs:text-sm">Check here if video does not contain audible instructions</label>
-                  </div>
-                  <textarea
-                          value={rawText}
-                          onChange={(e) => {setRawText(e.target.value)}}
-                          className={isChecked == true ? `text-gray-500 whitespace-normal w-full bg-gray-100 mt-2 p-2 rounded-lg text-sm` : `hidden`}
-                          placeholder={`Enter the ingredients & instructions for recipe`}
-                      />
-                  <div className={isChecked == true ? `inline-flex items-center space-x-2` : `hidden`}>
-                    <ExclamationCircleIcon className="h-4 w-4 text-white rounded-3xl bg-yellow-400"/>
-                    <p className="text-xs text-gray-600">Do not worry about being organized, Zesti will structure the recipe for you</p>
-                  </div>
-                </div>
-                <div className="mt-5 sm:mt-6 sm:grid sm:grid-flow-row-dense sm:grid-cols-2 sm:gap-3">
-                  <button
-                    className="inline-flex w-full justify-center rounded-3xl bg-primary-main px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-primary-alt sm:col-start-2"
-                    onClick={() => {onAddToRecipeClick()}}
-                  >
-                    {`Add to Creator Page`}
-                  </button>
-                  <button
-                    type="button"
-                    className="mt-3 inline-flex w-full justify-center rounded-3xl bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:col-start-1 sm:mt-0"
-                    onClick={() => {
-                      setUserInput('')
-                      setIsOpen(false)
-                    }}
-                    ref={cancelButtonRef}
-                  >
-                    Cancel
-                  </button>
-                </div>
-              </Dialog.Panel>
-            </Transition.Child>
-          </div>
-        </div>
-      </Dialog>
-    </Transition.Root>
-  )
-}
-
 interface CreatorAddRecipeModal {
   isOpen: boolean,
   setIsOpen: any,
   onSubmit?: any,
 }
 
-export function CreatorAddRecipeModal2({isOpen, setIsOpen}: CreatorAddRecipeModal) {
+export function CreatorAddRecipeModal({isOpen, setIsOpen}: CreatorAddRecipeModal) {
 
 
-  const { creatorData } = useAuth()
+  const { creatorData, user } = useAuth()
   const cancelButtonRef = useRef(null)
   const [ rawText, setRawText ] = useState<string>('')
   const [ url, setUrl ] = useState<string>('')
-
-
-  console.log(rawText)
-
-  console.log(url)
+  const [ loading , setLoading ] = useState<boolean>(false)
 
   async function onAddToRecipeClick() {
+    setLoading(true)
     await handleCreatorTikTokURLSubmit({url, rawText, creatorData})
-    setIsOpen(false)
+    setUrl('')
+    setRawText('')
     Notify("Adding recipe to your page")
+    setIsOpen(false)
   }
 
   return(
@@ -457,16 +343,22 @@ export function CreatorAddRecipeModal2({isOpen, setIsOpen}: CreatorAddRecipeModa
             >
               <Dialog.Panel className="space-y-4 my-auto relative transform overflow-hidden rounded-lg bg-white px-4 pb-4 pt-5 text-left shadow-xl transition-all sm:my-8 w-full sm:max-w-2xl sm:p-6">
                 {/* Video Object */}
-                <h2 className="text-center mt-3 text-lg font-gray-700 font-semibold">Add New Recipe</h2>
+                <h2 className="text-center mt-3 text-lg text-gray-700 font-semibold">Add New Recipe</h2>
                 <CreatorAddRecipeLinkComponent url={url} setUrl={setUrl}/>
                 <CreatorAddRecipeTextComponent rawText={rawText} setRawText={setRawText}/>
                 <div className="mt-5 sm:mt-6 sm:grid sm:grid-flow-row-dense sm:grid-cols-2 sm:gap-3">
+                  {loading == true ? 
+                  <div className="sm:col-start-2">
+                    <CreatorSubmitLoader/>
+                  </div>
+                  :
                   <button
                     className="inline-flex w-full justify-center rounded-3xl bg-primary-main px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-primary-alt sm:col-start-2"
                     onClick={() => {onAddToRecipeClick()}}
                   >
                     {`Add to Creator Page`}
                   </button>
+                  }
                   <button
                     type="button"
                     className="mt-3 inline-flex w-full justify-center rounded-3xl bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:col-start-1 sm:mt-0"
@@ -474,6 +366,101 @@ export function CreatorAddRecipeModal2({isOpen, setIsOpen}: CreatorAddRecipeModa
                       setUrl('')
                       setRawText('')
                       setIsOpen(false)
+                    }}
+                    ref={cancelButtonRef}
+                  >
+                    Cancel
+                  </button>
+                </div>
+              </Dialog.Panel>
+            </Transition.Child>
+          </div>
+        </div>
+      </Dialog>
+    </Transition.Root>
+  )
+}
+
+interface CreatorResubmitRecipeProps {
+  isResubmitOpen: boolean,
+  setIsResubmitOpen: any,
+  url: string,
+  setUrl: any,
+  recipe_id: string,
+}
+
+export function CreatorResubmitRecipeModal({isResubmitOpen, setIsResubmitOpen, url, setUrl, recipe_id}: CreatorResubmitRecipeProps) {
+
+
+  const { creatorData, user } = useAuth()
+  const [ rawText, setRawText ] = useState<string>('')
+  const cancelButtonRef = useRef(null)
+  const [ loading , setLoading ] = useState<boolean>(false)
+
+  async function onAddToRecipeClick() {
+    if(rawText.length < 1) {
+      Notify("Ingredients & instructions cannot be left blank")
+    } else {
+      setLoading(true)
+      await handleCreatorTikTokURLSubmit({url, rawText, creatorData})
+      await deleteCreatorError(user?.uid, recipe_id)
+      setRawText('')
+      setUrl('')
+      Notify("Adding recipe to your page")
+      setLoading(false)
+      setIsResubmitOpen(false)
+    }
+  }
+
+  return(
+  <Transition.Root show={isResubmitOpen} as={Fragment}>
+      <Dialog as="div" className="relative z-50" initialFocus={cancelButtonRef} onClose={setIsResubmitOpen}>
+        <Transition.Child
+          as={Fragment}
+          enter="ease-out duration-300"
+          enterFrom="opacity-0"
+          enterTo="opacity-100"
+          leave="ease-in duration-200"
+          leaveFrom="opacity-100"
+          leaveTo="opacity-0"
+        >
+          <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
+        </Transition.Child>
+
+        <div className="fixed inset-0 z-10 w-screen overflow-y-auto">
+          <div className="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
+            <Transition.Child
+              as={Fragment}
+              enter="ease-out duration-300"
+              enterFrom="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+              enterTo="opacity-100 translate-y-0 sm:scale-100"
+              leave="ease-in duration-200"
+              leaveFrom="opacity-100 translate-y-0 sm:scale-100"
+              leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+            >
+              <Dialog.Panel className="space-y-4 my-auto relative transform overflow-hidden rounded-lg bg-white px-4 pb-4 pt-5 text-left shadow-xl transition-all sm:my-8 w-full sm:max-w-2xl sm:p-6">
+                {/* Video Object */}
+                <h2 className="text-center mt-3 text-lg text-gray-700 font-semibold">Resubmit Recipe</h2>
+                <CreatorResubmitRecipeTextComponent rawText={rawText} setRawText={setRawText}/>
+                <div className="mt-5 sm:mt-6 sm:grid sm:grid-flow-row-dense sm:grid-cols-2 sm:gap-3">
+                  {loading == true ?
+                  <div className="sm:col-start-2">
+                    <CreatorSubmitLoader/>
+                  </div>
+                  :
+                  <button
+                    className="inline-flex w-full justify-center rounded-3xl bg-primary-main px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-primary-alt sm:col-start-2"
+                    onClick={() => {onAddToRecipeClick()}}
+                  >
+                    {`Add to Creator Page`}
+                  </button>
+                  }
+                  <button
+                    type="button"
+                    className="mt-3 inline-flex w-full justify-center rounded-3xl bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:col-start-1 sm:mt-0"
+                    onClick={() => {
+                      setRawText('')
+                      setIsResubmitOpen(false)
                     }}
                     ref={cancelButtonRef}
                   >

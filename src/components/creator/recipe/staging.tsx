@@ -1,17 +1,36 @@
 import { useAuth } from '@/pages/api/auth/auth';
 import Link from 'next/link';
 import { PencilIcon, TrashIcon, ArrowPathIcon } from '@heroicons/react/20/solid';
-import React, { useState, useEffect, useRef } from "react"
+import React, { useState, useEffect } from "react"
 import algoliasearch from 'algoliasearch/lite';
 import { Button } from '@/components/shared/button';
 import { Container } from '@/components/shared/container';
+import { deleteCreatorError } from '@/pages/api/firebase/functions';
+import { Notify } from '@/components/shared/notify';
 
-// src={`https://firebasestorage.googleapis.com/v0/b/${process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET}/o/${encodeURIComponent(item.cover_image_url)}?alt=media`}
-
-export function StagingList({errorData, publicData, setIsOpen}: any) {
+export function StagingList({errorData, publicData, setIsOpen, setIsResubmitOpen, setUrl, setRecipeId}: any) {
 
     const [ view, setView ] = useState<string>('public')
-    const { creatorData } = useAuth();
+    const { creatorData, user } = useAuth();
+
+    const onResubmitClick = async (url: string, recipe_id: string) => {
+        setUrl(url)
+        setRecipeId(recipe_id)
+        setIsResubmitOpen(true)
+    }
+
+    const onDeleteFromErrorsClick = async (recipe_id: string) => {
+        await deleteCreatorError(user?.uid, recipe_id)
+        Notify("Removed recipe from errors")
+    }
+
+    const onViewSelect = async (currentView: string) => {
+        if(currentView == 'errors') {
+            errorData.length > 0 ? setView(currentView) : setView('public')
+        } else if (currentView == 'public') {
+            setView(currentView)
+        }
+    }
 
     return (
     <Container className="grid justify-center w-full max-w-6xl mx-auto mt-6 pb-24 animate-fadeIn">
@@ -21,15 +40,10 @@ export function StagingList({errorData, publicData, setIsOpen}: any) {
             </div>
             <AddRecipeSearch creatorData={creatorData}/>
             <div className="flex sm:justify-start gap-4 mt-4">
-                <button onClick={() => setView('public')} className="bg-gray-200 hover:bg-gray-300 text-sm text-gray-700 font-semibold px-4 rounded py-1 sm:py-2 sm:text-base">
+                <button onClick={() => onViewSelect('public')} className="bg-gray-200 hover:bg-gray-300 text-sm text-gray-700 font-semibold px-4 rounded py-1 sm:py-2 sm:text-base">
                     {`Public (${publicData.length})`}
                 </button>
-                <button className={errorData ? `bg-red-600 hover:bg-red-300 text-white font-semibold px-4 py-1 sm:py-2 rounded text-sm sm:text-base` : `bg-gray-200 hover:bg-gray-300 text-gray-700 text-sm font-semibold py-1 sm:py-2 sm:text-base px-4 rounded`}
-                    onClick={() => {
-                        if(errorData.length > 0) {setView('errors')}
-                        else {setView('public')}
-                    }} 
-                >
+                <button onClick={() => onViewSelect('errors')} className={errorData.length > 0 ? `bg-red-600 hover:bg-red-300 text-white font-semibold px-4 py-1 sm:py-2 rounded text-sm sm:text-base` : `bg-gray-200 hover:bg-gray-300 text-gray-700 text-sm font-semibold py-1 sm:py-2 sm:text-base px-4 rounded`}>
                     {`Errors (${errorData.length})`}
                 </button>
             </div>
@@ -44,16 +58,16 @@ export function StagingList({errorData, publicData, setIsOpen}: any) {
                             <div className="flex-auto">
                                 <h2 className="text-base sm:text-lg font-semibold text-gray-700">{item.title ? item.title : "Error"}</h2>
                                 <div className="flex justify-start mt-1 p-1">
-                                    <Link href={'/'}>
+                                    <button onClick={() => onResubmitClick(item.url, item.id)}>
                                         <div className="text-white h-6 w-6 hover:text-gray-300 hover:bg-gray-400 bg-gray-500 rounded p-1 mr-2 flex items-center justify-center">
                                             <ArrowPathIcon className="h-5 w-5" />
                                         </div>
-                                    </Link>
-                                    <Link href={"/"}>
+                                    </button>
+                                    <button onClick={() => onDeleteFromErrorsClick(item.id)}>
                                         <div className="text-white h-6 w-6 hover:bg-red-500 bg-red-600 rounded p-1 flex items-center justify-center">
                                             <TrashIcon className="h-5 w-5" />
                                         </div>
-                                    </Link>
+                                    </button>
                                 </div>
                             </div>
                         </div>
@@ -70,7 +84,7 @@ export function StagingList({errorData, publicData, setIsOpen}: any) {
                                     <h2 className="text-base sm:text-lg font-semibold text-gray-700">{item.name}</h2>
                                     <p className="text-gray-600 text-xs sm:text-sm lg:text-base">{item.id}</p>
                                     <div className="flex justify-start mt-1">
-                                        <Link href={'/'}>
+                                        <Link href={`/${creatorData?.display_url}/${item.id}`}>
                                             <div className="text-white h-6 w-6 hover:text-gray-300 hover:bg-gray-400 bg-gray-500 rounded p-1 mr-2 flex items-center justify-center">
                                                 <PencilIcon className="h-5 w-5" />
                                             </div>
