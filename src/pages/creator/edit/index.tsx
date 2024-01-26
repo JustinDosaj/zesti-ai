@@ -67,10 +67,7 @@ export default function Page() {
         <main className={`flex min-h-screen flex-col items-center bg-background ${raleway.className}`}>
             <Breadcrumbs/>
             <SharedHomeSectionTitle titleBlack="Creator Settings" desc="Add more information to your creator pages"/>
-            <div className="grid grid-cols-1 xl:grid-cols-2 pb-36 mt-6">
-                <CreatorPageComponent creatorData={creatorData}/>
-                <RecentTikTokVideos videoList={videos?.data} creatorData={creatorData} setIsOpen={setIsOpen} setUrl={setUrl} setVideoObject={setVideoObject}/>
-            </div>
+            <CreatorPageComponent creatorData={creatorData}/>
             <CreatorAddRecipeModal isOpen={isOpen} setIsOpen={setIsOpen} addRecipe={addRecipe} setRawText={setRawText} rawText={rawText} videoObject={videoObject}/>
         </main>
     </>

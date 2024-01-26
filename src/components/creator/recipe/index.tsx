@@ -72,7 +72,6 @@ export function EditCreatorRecipe({recipe, url, setLoginPrompt, owner_id, setEdi
     const [newIngredient, setNewIngredient] = useState<string>('');
     const [newInstruction, setNewInstruction] = useState<string>('');
     const [editedName, setEditedName] = useState<string>('')
-    const [ startDelete, setStartDelete ] = useState<boolean>(false)
     const router = useRouter()
 
     useEffect(() => {
@@ -148,20 +147,6 @@ export function EditCreatorRecipe({recipe, url, setLoginPrompt, owner_id, setEdi
         // Logic to save updatedRecipe to the database
         // ...
     };
-
-    const deleteRecipe = async (recipeId: string) => {
-        try {
-            if(owner_id == user?.uid) {
-                await db.doc(`creators/${owner_id}/recipes/${recipeId}`).delete();
-                await db.doc(`creators/${owner_id}/tiktokurl/${recipeId}`).delete();
-                setEditMode(false)
-                Notify("Recipe changes saved")
-                router.push('/creator/home')
-            }
-        } catch(err) {
-        
-        }
-    }
 
     return(
     <Container className={"flex flex-col gap-6 animate-fadeInFast alternate-orange-bg rounded-3xl md:w-[599px] p-8 mb-16"}>
@@ -252,28 +237,6 @@ export function EditCreatorRecipe({recipe, url, setLoginPrompt, owner_id, setEdi
         <div className="inline-flex gap-4 justify-center">
             <AltButton buttonType="button" text="Cancel" className="w-full" onClick={() => setEditMode(false)}/>
             <Button buttonType="button" text="Save" className="w-full" onClick={handleSave}/>
-        </div>
-        <div className="inline-flex justify-center items-center gap-1">
-            <ExclamationTriangleIcon className="h-5 w-5 text-red-600"/>
-            { startDelete == false ?
-            <button onClick={() => setStartDelete(true)}>
-                <span className="underline text-red-600 hover:text-red-400">Delete Recipe</span>
-            </button>
-            :
-            <div className="inline-flex">
-                <span className="text-gray-700  mr-1">Confirm Deletion:</span>
-                <div className="inline-flex space-x-4">
-                    <button onClick={() => setStartDelete(false)} className="inline-flex items-center gap-0.5">
-                        <XMarkIcon className="h-6 w-6 text-red-600"/>
-                        <span className="text-sm md:text-base underline">Cancel</span>
-                    </button>
-                    <button onClick={() => deleteRecipe(recipe.id)} className="inline-flex items-center gap-0.5">
-                        <CheckIcon className="h-5 w-5 text-green-600  "/>
-                        <span className="text-sm md:text-base underline">Delete</span>
-                    </button>
-                </div>
-            </div>
-            }
         </div>
     </Container>
     )
