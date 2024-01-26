@@ -58,7 +58,40 @@ const creatorItemsLoggedInMobile = [
     },
     { 
         href:"/creator/edit",
-        text: "Creator Settings",
+        text: "Manage Creator Page",
+        icon: VideoCameraIcon, 
+    },
+    {
+        href: "/nav/profile",
+        text: "Profile Settings",
+        icon: UserIcon,
+    },
+    {
+        href:"/nav/pricing",
+        text:"Pricing",
+        icon: WalletIcon,
+    },
+    {
+        href:"/nav/contact",
+        text: "Contact",
+        icon: PaperAirplaneIcon,
+    },
+]
+
+const creatorItemsLoggedInMobileNoToken = [
+    {
+        href:"/",
+        text:"Home",
+        icon: HomeIcon,
+    },
+    {
+        href:"/my-recipes",
+        text:"My Recipes",
+        icon: BookOpenIcon,
+    },
+    { 
+        href:"/nav/profile",
+        text: "Connect TikTok",
         icon: VideoCameraIcon, 
     },
     {
@@ -105,7 +138,7 @@ export function Navbar() {
     if(userData?.tiktokAccessToken) {
         creatorDesktopNavItems.push({
             href: "/creator/edit",
-            text: "Creator Settings",
+            text: "Manage Creator Page",
             icon: VideoCameraIcon,
         })
     }
@@ -159,7 +192,12 @@ export function Navbar() {
                         </div>
                     }
                 </div>
-                { userData?.isCreator == false || !userData?.isCreator ? 
+                {!user ? (
+                    <BtnLink text='Login' href='/auth/login'/>
+                ) 
+                : user && userData?.isCreator == true && (!userData.tiktokAccessToken || userData?.activeToken == false) ?
+                    <DropDownMenuMobile navItems={creatorItemsLoggedInMobileNoToken}/>
+                : userData?.isCreator == false || !userData?.isCreator ? 
                     <DropDownMenuMobile navItems={navItemsLoggedInMobile}/>
                 :
                     <DropDownMenuMobile navItems={creatorItemsLoggedInMobile}/>

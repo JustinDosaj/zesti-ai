@@ -63,7 +63,7 @@ export function CreatorPageComponent({creatorData}: any) {
     if (isLoading || !creatorData) return <PageLoader/>
 
     return(
-        <Container className={"mt-8 flex flex-col lg:flex-row gap-10 lg:gap-12 animate-fadeIn"}>
+        <Container className={"mt-8 flex flex-col lg:flex-row gap-10 lg:gap-12 animate-fadeIn mb-24"}>
             <div className="mx-auto max-w-2xl lg:flex lg:gap-x-16 lg:px-8 py-8 standard-component-border w-full">
                 <main className="px-4 sm:px-6 lg:flex-auto lg:px-0 ">
                     <div className="mx-auto max-w-2xl space-y-10 lg:mx-0 lg:max-w-none">
@@ -122,11 +122,16 @@ export function CreatorPageComponent({creatorData}: any) {
                             <div className="pt-6 flex justify-end items-center">
                                 <dd className="mt-1 flex gap-x-6 sm:mt-0">
                                     { edit == true ?
-                                    <Button buttonType="button" className="font-semibold text-sm lg:text-base" text="Save"
-                                        onClick={saveBioData}>
-                                    </Button>
+                                    <div className="inline-flex gap-2">
+                                        <Button buttonType="button" className="font-semibold text-sm lg:text-base w-28" text="Save"
+                                            onClick={saveBioData}>
+                                        </Button>
+                                        <Button buttonType="button" className="font-semibold text-sm lg:text-base w-28" text="Cancel"
+                                            onClick={() => setEdit(false)}>
+                                        </Button>
+                                    </div>
                                     :
-                                    <Button buttonType="button" className="font-semibold text-sm lg:text-base" text="Edit"
+                                    <Button buttonType="button" className="font-semibold text-sm lg:text-base w-28" text="Edit"
                                         onClick={() => setEdit(true)}>
                                     </Button>
                                     }
@@ -270,7 +275,7 @@ export function CreatorProfileComponent({creatorData}: any) {
 
     if (isLoading ) return <PageLoader/>
 
-    if (!userData?.tiktokAccessToken) return (
+    if (userData?.activeToken == false) return (
         <Container className={"mt-8 flex flex-col lg:flex-row gap-10 lg:gap-12 pb-24"}>
              <div className="mx-auto max-w-2xl lg:flex lg:gap-x-16 lg:px-8 py-8 standard-component-border w-full">
                 <main className="px-4 sm:px-6 lg:flex-auto lg:px-0 ">
@@ -318,10 +323,9 @@ export function CreatorProfileComponent({creatorData}: any) {
                                 <div className="pt-6 flex justify-between items-center">
                                     <dt className="font-semibold text-gray-900 sm:w-64 sm:flex-none sm:pr-6 text-sm lg:text-base">Connect Tiktok Account</dt>
                                     <dd className=" flex gap-x-6 sm:mt-0">
-                                        <button type="button" className="font-semibold text-primary-main hover:text-primary-alt text-sm lg:text-base"
-                                            onClick={loginWithTikTok}>
-                                            {"Reconnect"}
-                                        </button>
+                                        <div  className="font-semibold text-primary-main text-sm lg:text-base">
+                                            {"Connected"}
+                                        </div>
                                     </dd>
                                 </div>
                                 <div className="pt-6 flex justify-between items-center">
