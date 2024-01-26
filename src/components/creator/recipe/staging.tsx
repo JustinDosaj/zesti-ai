@@ -8,7 +8,7 @@ import { Container } from '@/components/shared/container';
 import { deleteCreatorError } from '@/pages/api/firebase/functions';
 import { Notify } from '@/components/shared/notify';
 
-export function StagingList({errorData, publicData, setIsOpen, setIsResubmitOpen, setUrl, setRecipeId}: any) {
+export function StagingList({errorData, publicData, setIsOpen, setIsResubmitOpen, setUrl, setRecipeId, setIsDeleteOpen}: any) {
 
     const [ view, setView ] = useState<string>('public')
     const { creatorData, user } = useAuth();
@@ -17,6 +17,11 @@ export function StagingList({errorData, publicData, setIsOpen, setIsResubmitOpen
         setUrl(url)
         setRecipeId(recipe_id)
         setIsResubmitOpen(true)
+    }
+
+    const onPublicRecipeDelete = async (recipe_id: string) => {
+        setRecipeId(recipe_id)
+        setIsDeleteOpen(true)
     }
 
     const onDeleteFromErrorsClick = async (recipe_id: string) => {
@@ -89,11 +94,11 @@ export function StagingList({errorData, publicData, setIsOpen, setIsResubmitOpen
                                                 <PencilIcon className="h-5 w-5" />
                                             </div>
                                         </Link>
-                                        <Link href={"/"}>
+                                        <button onClick={() => onPublicRecipeDelete(item.id)}>
                                             <div className="text-white h-6 w-6 hover:bg-red-500 bg-red-600 rounded p-1 flex items-center justify-center">
                                                 <TrashIcon className="h-5 w-5" />
                                             </div>
-                                        </Link>
+                                        </button>
                                     </div>
                                 </div>
                             </div>
@@ -143,10 +148,10 @@ export function AddRecipeSearch({creatorData}: any) {
           }
 
           return (
-              <div className="absolute z-20 mt-2 max-w-xs lg:max-w-2xl bg-white shadow-lg border border-gray-200 rounded-3xl">
+              <div className="absolute w-[250] xs:w-[350px] sm:w-[450px] md:w-[700px] z-20 mt-2  bg-white shadow-lg border border-gray-200 rounded-3xl">
                   {combinedResults.map((result, index) => (
                       <Link key={index} href={`/${result.owner_display_url}/${result.objectID}`} className="block px-4  text-gray-700 hover:bg-gray-100 rounded-3xl">
-                          <div className="inline-flex space-x-2 items-center py-3">
+                          <div className="inline-flex space-x-2 items-center py-2">
                               <img src={`https://firebasestorage.googleapis.com/v0/b/${process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET}/o/${encodeURIComponent(result.cover_image_url)}?alt=media`} alt={result.name} className="h-8 w-8 rounded-full"></img>
                               <span className="text-sm lg:text-base capitalize">{result.name}</span>
                           </div>
