@@ -11,46 +11,40 @@ import { PageLoader } from '@/components/shared/loader'
 import Breadcrumbs from '@/components/shared/breadcrumb'
 import useSetBreadcrumbs from "@/components/shared/setBreadcrumbs";
 import { db } from '@/pages/api/firebase/firebase'
+import { StagingList } from '@/components/creator/recipe/staging'
+import { CreatorAddRecipeModal2 } from '@/components/shared/modals'
 
 const raleway = Raleway({subsets: ['latin']})
 
-export default function Profile() {
+export default function ManageRecipes() {
 
     useSetBreadcrumbs()
 
     const { user, isLoading, userData, creatorData } = useAuth();
     const router = useRouter();
-    const [stagingData, setStagingData] = useState<any>([]);
-
-    const onClick = async (recipe: any) => {
-
-      try {
-          // Define the path to the new document
-          const recipeRef = db.collection('creators').doc(user?.uid).collection('recipes').doc(recipe.id);
-          await recipeRef.set(recipe);
-
-          const stagingRef = db.collection('creators').doc(user?.uid).collection('staging').doc(recipe.id);
-          await stagingRef.delete();
-
-          Notify("Recipe added successfully");
-      } catch (error) {
-          console.error("Error adding recipe to Firestore:", error);
-          Notify("Error adding recipe");
-      }
-    }
+    const [errorData, setErrorData] = useState<any>([]);
+    const [ recipes, setRecipes ] = useState<any>([])
+    const [ isOpen, setIsOpen ] = useState<boolean>(false)
 
     const fetchStagingData = async () => {
       if (user && user.uid) {
           try {
-              const stagingRef = db.collection('creators').doc(user.uid).collection('staging');
+              const stagingRef = db.collection('creators').doc(user.uid).collection('errors');
               const snapshot = await stagingRef.get();
               const stagingDocs = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-              setStagingData(stagingDocs); // Update state with the fetched data
+              setErrorData(stagingDocs); // Update state with the fetched data
           } catch (error) {
               console.error("Error fetching staging data: ", error);
           }
       }
   };
+
+  const fetchRecipes = async () => {
+    const recipeSnapshot = await db.collection(`creators/${user?.uid}/recipes`).get();
+    const updatedRecipes = recipeSnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+    setRecipes(updatedRecipes);
+};
+
 
     useEffect(() => {
       if (user == null && !isLoading) {
@@ -58,10 +52,11 @@ export default function Profile() {
         Notify("Please login to continue")
       } else {
         fetchStagingData()
+        fetchRecipes()
       } 
     }, [user?.uid, isLoading]);
 
-    console.log("Staging Data: ", stagingData)
+    console.log(errorData)
 
     if(isLoading) return <PageLoader/>
 
@@ -75,14 +70,9 @@ export default function Profile() {
     </Head>  
     <main className={`flex min-h-screen flex-col items-center bg-background ${raleway.className}`}>
       <Breadcrumbs/>
-      <SharedHomeSectionTitle titleBlack="Staging" desc="Add a new recipe to your creator page"/>
-      <div className="h-96 w-96 border rounded-3xl mt-4">
-        {stagingData.map((item: any) => (
-            <div key={item.name}>
-                <button onClick={() => onClick(item)}>{item.name}</button>
-            </div>
-        ))}
-      </div>
+      <SharedHomeSectionTitle titleBlack="Manage Recipes" desc="Add a new recipe to your creator page"/>
+      <StagingList errorData={errorData} publicData={recipes} setIsOpen={setIsOpen}/>
+      <CreatorAddRecipeModal2 isOpen={isOpen} setIsOpen={setIsOpen}/>
     </main>
     </>
     )

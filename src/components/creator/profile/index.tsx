@@ -207,7 +207,7 @@ export function RecentTikTokVideos({videoList, creatorData, setIsOpen, setUrl, s
                                         Select from recent videos or add other recipe
                                     </p>
                                 </div>
-                                <Button buttonType="button" className="font-semibold text-sm lg:text-base inline-flex items-center" onClick={() => router.push('/creator/edit/add-recipe')} text="">
+                                <Button buttonType="button" className="font-semibold text-sm lg:text-base inline-flex items-center" onClick={() => router.push('/creator/edit/manage-recipes')} text="">
                                     <span className="hidden">Add Recipe</span>
                                     <PlusIcon className="w-6 h-6"/>
                                 </Button>
