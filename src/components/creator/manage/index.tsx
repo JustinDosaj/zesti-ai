@@ -1,19 +1,8 @@
 import { LinkIcon, ExclamationCircleIcon } from "@heroicons/react/20/solid";
-import React, { useState, useEffect } from 'react';
-import { Notify } from "@/components/shared/notify";
+import React from 'react';
+
 
 export function CreatorAddRecipeLinkComponent({url, setUrl}: any) {
-
-    const [ message, setMessage ] = useState<string>('')
-    const [ notify, setNotify ] = useState<boolean | null>(null)
-
-    useEffect(() => {
-        if (notify == true) {
-            Notify(message)
-            setNotify(false)
-        }
-    },[notify])
-
 
     return(
     <div className="grid items-center mt-2 space-y-2">
@@ -37,7 +26,28 @@ export function CreatorAddRecipeTextComponent({rawText, setRawText}: any) {
         <div className="pt-6">
             <div className="grid text-left">
                 <span className="text-gray-700 font-semibold text-left">Step 2:</span>
-                <span className="text-gray-600">Enter ingredient & instruction information if not available in video audio</span>
+                <span className="text-gray-600">Enter ingredients & instructions if not available in video audio</span>
+            </div>
+            <textarea
+                value={rawText}
+                onChange={(e) => {setRawText(e.target.value)}}
+                className={`text-gray-500 whitespace-normal w-full bg-gray-100 mt-2 p-2 rounded-lg text-sm h-36`}
+                placeholder={`Enter the ingredients & instructions for recipe`}
+            />
+            <div className={`inline-flex items-center space-x-2`}>
+            <ExclamationCircleIcon className="h-4 w-4 text-white rounded-3xl bg-yellow-400"/>
+            <p className="text-xs text-gray-600">Do not worry about being organized, Zesti will structure the recipe for you</p>
+            </div>
+      </div>
+    )
+}
+
+export function CreatorResubmitRecipeTextComponent({rawText, setRawText}: any) {
+    return(
+        <div className="pt-6">
+            <div className="grid text-left">
+                <span className="text-gray-700 font-semibold text-left">Step 1:</span>
+                <span className="text-gray-600">Please enter ingredients & instructions for the recipe and try submitting again</span>
             </div>
             <textarea
                 value={rawText}

@@ -5,6 +5,46 @@ export interface Props {
   user: any, 
 }
 
+interface TikTokTokenData {
+  access_token: string;
+  refresh_token: string;
+  open_id: string;
+  expires_in: number;
+  refresh_expires_in: number;
+}
+
+export async function updateUserWithTikTokTokens(tokenData: TikTokTokenData, userId: string,) {
+  try {
+    const userRef = db.collection('users').doc(userId);
+
+
+    if (!tokenData.access_token || !tokenData.refresh_token || !tokenData.open_id) {
+      throw new Error('Token data is incomplete or undefined');
+    }
+
+    // Prepare the data to be updated
+    const updateData = {
+      tiktokAccessToken: tokenData.access_token,
+      tiktokRefreshToken: tokenData.refresh_token,
+      tiktokOpenId: tokenData.open_id,
+      activeToken: true,
+      // You can also store expiration times if needed
+    };
+
+    const createPageData = {
+      owner_id: userId,
+    }
+
+    await db.collection('creators').doc(userId).set(createPageData, {merge: true})
+
+    // Update the user's document
+    await userRef.set(updateData, { merge: true });
+
+  } catch (error) {
+    console.error('Error updating user with TikTok tokens:', error);
+    throw error; // You can handle the error as per your application's needs
+  }
+}
 
 // Used to get all user recipes on my-recipes page
 export async function getAllRecipes(user: any) {
@@ -24,21 +64,6 @@ export async function getAllCreatorRecipes(id: string) {
 export async function getCreatorByDisplayName(creatorName: string) {
   const querySnapshot = await db.collection('creators').where('display_url', '==', creatorName).get()
   return querySnapshot
-}
-
-
-// NOT CURRENTLY USED BUT WORKS TO GET SUBSCRIPTION FROM FIREBASE USER
-export async function getSubscription(user: any) {
-  try{
-    const snapshot = await db.collection('users').doc(user).collection('subscriptions').get()
-    const pages = snapshot.docs.map((doc: any) => {
-      return {
-        role: doc.data().role,
-        status: doc.data().status
-      }
-    })
-    return pages
-  } catch (error){ console.log(error) }
 }
 
 export async function getUserData(user: any) {
@@ -84,47 +109,6 @@ export async function deleteUserRecipe(user: any, id: any) {
 
 }
 
-interface TikTokTokenData {
-  access_token: string;
-  refresh_token: string;
-  open_id: string;
-  expires_in: number;
-  refresh_expires_in: number;
-}
-
-export async function updateUserWithTikTokTokens(tokenData: TikTokTokenData, userId: string,) {
-  try {
-    const userRef = db.collection('users').doc(userId);
-
-
-    if (!tokenData.access_token || !tokenData.refresh_token || !tokenData.open_id) {
-      throw new Error('Token data is incomplete or undefined');
-    }
-
-    // Prepare the data to be updated
-    const updateData = {
-      tiktokAccessToken: tokenData.access_token,
-      tiktokRefreshToken: tokenData.refresh_token,
-      tiktokOpenId: tokenData.open_id,
-      activeToken: true,
-      // You can also store expiration times if needed
-    };
-
-    const createPageData = {
-      owner_id: userId,
-    }
-
-    await db.collection('creators').doc(userId).set(createPageData, {merge: true})
-
-    // Update the user's document
-    await userRef.set(updateData, { merge: true });
-
-  } catch (error) {
-    console.error('Error updating user with TikTok tokens:', error);
-    throw error; // You can handle the error as per your application's needs
-  }
-}
-
 export async function saveAffiliateLink(affiliateLink: string, userId: string) {
   
   const url = new URL(affiliateLink)
@@ -162,4 +146,12 @@ export async function saveBioDataToFireStore(bioObj: any, userId: string){
 export async function saveFromCreatorToUser(user: any, id: any, recipe: any) {
   const userRef = db.collection('users').doc(user).collection('recipes').doc(id)
   await userRef.set(recipe)
+}
+
+
+/* DELETE FUNCTIONS */
+export async function deleteCreatorError(creator_id: any, recipe_id: string) {
+  const docRef = db.collection('creators').doc(creator_id).collection('errors').doc(recipe_id)
+  await docRef.delete()
+  console.log(`Removed ${recipe_id} from errors`)
 }
