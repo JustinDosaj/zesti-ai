@@ -86,11 +86,11 @@ export function CreatorPageComponent({creatorData}: any) {
                                 </dd>
                             </div>
                             <div className="pt-6 flex justify-between items-center">
-                                <dt className="font-semibold text-gray-900 sm:w-64 sm:flex-none sm:pr-6 text-sm lg:text-base">Add/Remove/Edit Recipes</dt>
+                                <dt className="font-semibold text-gray-900 sm:w-64 sm:flex-none sm:pr-6 text-sm lg:text-base">Edit Creator Recipes</dt>
                                 <dd className="mt-1 flex gap-x-6 sm:mt-0">
                                     <button type="button" className="font-semibold text-primary-main hover:text-primary-alt text-sm lg:text-base"
-                                        onClick={() => router.push(`/${creatorData?.display_url}`)}>
-                                        {"Edit Recipes"}
+                                        onClick={() => router.push(`/creator/edit/manage-recipes`)}>
+                                        {"Manage Recipes"}
                                     </button>
                                 </dd>
                             </div>
