@@ -96,7 +96,7 @@ export function DropDownMenuDesktop({navItems}: MenuProps) {
             leaveFrom="transform opacity-100 scale-100"
             leaveTo="transform opacity-0 scale-95"
         >
-            <Menu.Items className="absolute right-0 mt-4 w-48 origin-top-right bg-white divide-y divide-gray-100 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none z-10">
+            <Menu.Items className="absolute right-0 mt-4 w-56 origin-top-right bg-white divide-y divide-gray-100 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none z-10">
                 {navItems.map((item: any, index: number) => (
                     <Menu.Item key={index}>
                         {({ active }) => (
