@@ -20,7 +20,7 @@ export default function ManageRecipes() {
 
     useSetBreadcrumbs()
 
-    const { user, isLoading, userData, creatorData } = useAuth();
+    const { user, isLoading } = useAuth();
     const router = useRouter();
     const [errorData, setErrorData] = useState<any>([]);
     const [ recipes, setRecipes ] = useState<any>([])
@@ -31,35 +31,53 @@ export default function ManageRecipes() {
     const [ recipeId, setRecipeId ] = useState<string>('')
 
 
-    const fetchStagingData = async () => {
-      if (user && user.uid) {
-          try {
-              const stagingRef = db.collection('creators').doc(user.uid).collection('errors');
-              const snapshot = await stagingRef.get();
-              const stagingDocs = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-              setErrorData(stagingDocs); // Update state with the fetched data
-          } catch (error) {
-              console.error("Error fetching staging data: ", error);
-          }
-      }
+  const fetchStagingData = () => {
+    if (user && user.uid) {
+      const stagingRef = db.collection('creators').doc(user.uid).collection('errors');
+  
+      // Listen for real-time updates
+      return stagingRef.onSnapshot((snapshot) => {
+        const stagingDocs = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+        setErrorData(stagingDocs);
+      }, (error) => {
+        console.error("Error fetching staging data: ", error);
+      });
+    }
   };
 
-  const fetchRecipes = async () => {
-    const recipeSnapshot = await db.collection(`creators/${user?.uid}/recipes`).get();
-    const updatedRecipes = recipeSnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
-    setRecipes(updatedRecipes);
-};
+  const fetchRecipes = () => {
+    if (user && user.uid) {
+      const recipeRef = db.collection(`creators/${user.uid}/recipes`);
+  
+      // Listen for real-time updates
+      return recipeRef.onSnapshot((snapshot) => {
+        const updatedRecipes = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+        setRecipes(updatedRecipes);
+      }, (error) => {
+        console.error("Error fetching recipes: ", error);
+      });
+    }
+  };
 
 
-    useEffect(() => {
-      if (user == null && !isLoading) {
-        router.replace('/')
-        Notify("Please login to continue")
-      } else {
-        fetchStagingData()
-        fetchRecipes()
-      } 
-    }, [user?.uid, isLoading]);
+  useEffect(() => {
+    let unsubscribeStaging: (() => void) | undefined;
+    let unsubscribeRecipes: (() => void) | undefined;
+  
+    if (user === null && !isLoading) {
+      router.replace('/');
+      Notify("Please login to continue");
+    } else {
+      unsubscribeStaging = fetchStagingData();
+      unsubscribeRecipes = fetchRecipes();
+    }
+  
+    // Cleanup function
+    return () => {
+      unsubscribeStaging?.();
+      unsubscribeRecipes?.();
+    };
+  }, [user?.uid, isLoading]);
 
     console.log(errorData)
 
