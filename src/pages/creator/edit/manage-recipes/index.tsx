@@ -12,7 +12,7 @@ import Breadcrumbs from '@/components/shared/breadcrumb'
 import useSetBreadcrumbs from "@/components/shared/setBreadcrumbs";
 import { db } from '@/pages/api/firebase/firebase'
 import { StagingList } from '@/components/creator/recipe/staging'
-import { CreatorAddRecipeModal, CreatorResubmitRecipeModal } from '@/components/shared/modals'
+import { CreatorAddRecipeModal, CreatorResubmitRecipeModal, DeleteConfirmationModal } from '@/components/shared/modals'
 
 const raleway = Raleway({subsets: ['latin']})
 
@@ -26,8 +26,10 @@ export default function ManageRecipes() {
     const [ recipes, setRecipes ] = useState<any>([])
     const [ isOpen, setIsOpen ] = useState<boolean>(false)
     const [ isResubmitOpen, setIsResubmitOpen ] = useState<boolean>(false)
+    const [ isDeleteOpen, setIsDeleteOpen] = useState<boolean>(false)  
     const [ url, setUrl ] = useState<string>('')
     const [ recipeId, setRecipeId ] = useState<string>('')
+
 
     const fetchStagingData = async () => {
       if (user && user.uid) {
@@ -74,9 +76,10 @@ export default function ManageRecipes() {
     <main className={`flex min-h-screen flex-col items-center bg-background ${raleway.className}`}>
       <Breadcrumbs/>
       <SharedHomeSectionTitle titleBlack="Manage Recipes" desc="Add a new recipe to your creator page"/>
-      <StagingList errorData={errorData} publicData={recipes} setIsOpen={setIsOpen} setIsResubmitOpen={setIsResubmitOpen} setUrl={setUrl} setRecipeId={setRecipeId}/>
+      <StagingList errorData={errorData} publicData={recipes} setIsOpen={setIsOpen} setIsResubmitOpen={setIsResubmitOpen} setUrl={setUrl} setRecipeId={setRecipeId} setIsDeleteOpen={setIsDeleteOpen}/>
       <CreatorAddRecipeModal isOpen={isOpen} setIsOpen={setIsOpen}/>
       <CreatorResubmitRecipeModal isResubmitOpen={isResubmitOpen} setIsResubmitOpen={setIsResubmitOpen} url={url} setUrl={setUrl} recipe_id={recipeId}/>
+      <DeleteConfirmationModal isDeleteOpen={isDeleteOpen} setIsDeleteOpen={setIsDeleteOpen} recipe_id={recipeId}/>
     </main>
     </>
     )

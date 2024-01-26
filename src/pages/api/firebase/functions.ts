@@ -155,3 +155,13 @@ export async function deleteCreatorError(creator_id: any, recipe_id: string) {
   await docRef.delete()
   console.log(`Removed ${recipe_id} from errors`)
 }
+
+export async function deleteCreatorPublicRecipe(creator_id: any, recipe_id: string) {
+  const docRef = db.collection('creators').doc(creator_id).collection('recipes').doc(recipe_id)
+  await docRef.delete()
+
+  const tikTokRecipesRef = db.collection('recipes-tiktok').doc(recipe_id)
+  await tikTokRecipesRef.delete()
+
+  console.log(`Removed ${recipe_id} from public recipes`)
+}
