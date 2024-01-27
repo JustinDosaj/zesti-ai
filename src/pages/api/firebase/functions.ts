@@ -18,7 +18,6 @@ export async function updateUserWithTikTokTokens(tokenData: TikTokTokenData, use
   try {
     const userRef = db.collection('users').doc(userId);
 
-
     if (!tokenData.access_token || !tokenData.refresh_token || !tokenData.open_id) {
       throw new Error('Token data is incomplete or undefined');
     }
@@ -36,7 +35,7 @@ export async function updateUserWithTikTokTokens(tokenData: TikTokTokenData, use
       owner_id: userId,
     }
 
-    await db.collection('creators').doc(userId).set(createPageData, {merge: true})
+    //await db.collection('creators').doc(userId).set(createPageData, {merge: true})
 
     // Update the user's document
     await userRef.set(updateData, { merge: true });
@@ -142,7 +141,7 @@ export async function saveAffiliateLink(affiliateLink: string, userId: string) {
     }
 
     await userRef.set(updateAffiliateLink, {merge: true});
-    await creatorRef.set(updateAffiliateLink, {merge: true});
+    //await creatorRef.set(updateAffiliateLink, {merge: true});
     Notify("Affiliate code saved!")
     
   } catch (err) {
