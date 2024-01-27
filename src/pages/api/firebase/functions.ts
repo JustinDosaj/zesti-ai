@@ -1,3 +1,4 @@
+import { Notify } from "@/components/shared/notify";
 import { db } from "./firebase"
 
 export interface Props {
@@ -111,9 +112,25 @@ export async function deleteUserRecipe(user: any, id: any) {
 
 export async function saveAffiliateLink(affiliateLink: string, userId: string) {
   
-  const url = new URL(affiliateLink)
-  const params = new URLSearchParams(url.search)
-  const affiliateCode = params.get('via')
+
+  const baseAffiliateUrl = "https://www.zesti.ai/?via="
+  let affiliateCode
+
+  if (!affiliateLink.startsWith(baseAffiliateUrl)) {
+    console.log("Invalid URL format");
+    Notify("Invalid affiliate link. Please copy & paste directly from promotekit");
+    return;
+  }
+
+  try {
+    const url = new URL(affiliateLink)
+    const params = new URLSearchParams(url.search)
+    affiliateCode = params.get('via')
+  } catch(err) {
+    console.log(err)
+    Notify("Invalid affiliate link. Please copy & paste directly from promotekit")
+    return;
+  }
 
   try{
     const userRef = db.collection('users').doc(userId);
@@ -126,7 +143,8 @@ export async function saveAffiliateLink(affiliateLink: string, userId: string) {
 
     await userRef.set(updateAffiliateLink, {merge: true});
     await creatorRef.set(updateAffiliateLink, {merge: true});
-
+    Notify("Affiliate code saved!")
+    
   } catch (err) {
     console.log(err)
   }
