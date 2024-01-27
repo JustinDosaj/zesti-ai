@@ -8,6 +8,7 @@ import { Notify } from '@/components/shared/notify'
 import { PlusCircleIcon, PlusIcon } from "@heroicons/react/20/solid"
 import { Container } from '@/components/shared/container'
 import { saveAffiliateLink } from '@/pages/api/firebase/functions'
+import { callGenerateCreatorPage } from '@/pages/api/handler/submit'
 
 export function CreatorPageComponent({creatorData}: any) {
 
@@ -263,7 +264,7 @@ export function CreatorProfileComponent({creatorData}: any) {
     const router = useRouter() 
 
     useEffect(() => {
-        setAffiliateLink(creatorData?.affiliate_link)
+        setAffiliateLink(userData?.affiliate_link!)
     },[creatorData])
 
     const onAffiliateSave = () => {
@@ -271,11 +272,15 @@ export function CreatorProfileComponent({creatorData}: any) {
         setEdit(false)
     }
 
+    const onGeneratePageClick = async () => {
+        await callGenerateCreatorPage({userData, creatorData})
+    }
+
     if(!userData?.isCreator || userData?.isCreator == null) return <div className="hidden"/>
 
     if (isLoading ) return <PageLoader/>
 
-    if (userData?.activeToken == false) return (
+    if (!userData?.activeToken) return (
         <Container className={"mt-8 flex flex-col lg:flex-row gap-10 lg:gap-12 pb-24"}>
              <div className="mx-auto max-w-2xl lg:flex lg:gap-x-16 lg:px-8 py-8 standard-component-border w-full">
                 <main className="px-4 sm:px-6 lg:flex-auto lg:px-0 ">
@@ -360,15 +365,27 @@ export function CreatorProfileComponent({creatorData}: any) {
                                         {/* TRACK AFFILIATE CODE INSIDE FIRESTORE THEN DISPLAY MANAGE AFFILIATE PROGRAM IF IT IS AVAILABLE*/}
                                     </dd>
                                 </div>
-                                <div className="pt-6 flex justify-between items-center">
-                                    <dt className="font-semibold text-gray-900 sm:w-64 sm:flex-none sm:pr-6 text-sm lg:text-base">Update Creator Page</dt>
+                                { creatorData == undefined ?
+                                <div className={affiliateLink == '' ? `hidden` : `pt-6 flex justify-between items-center`}>
+                                    <dt className="font-semibold text-gray-900 sm:w-64 sm:flex-none sm:pr-6 text-sm lg:text-base">Generate Your Page</dt>
                                     <dd className=" flex gap-x-6 sm:mt-0">
                                         <button type="button" className="font-semibold text-primary-main hover:text-primary-alt text-sm lg:text-base"
-                                            onClick={() => router.push('/creator/edit')}>
-                                            {"Get Started"}
+                                            onClick={onGeneratePageClick}>
+                                            {"Create"}
                                         </button>
                                     </dd>
                                 </div>
+                                :
+                                <div className="pt-6 flex justify-between items-center">
+                                    <dt className="font-semibold text-gray-900 sm:w-64 sm:flex-none sm:pr-6 text-sm lg:text-base">Make Page Changes</dt>
+                                    <dd className=" flex gap-x-6 sm:mt-0">
+                                        <button type="button" className="font-semibold text-primary-main hover:text-primary-alt text-sm lg:text-base"
+                                            onClick={() => router.push('/creator/edit')}>
+                                            {"Edit Page"}
+                                        </button>
+                                    </dd>
+                                </div>
+                                }
                             </dl>
                         </div>
                     </div>

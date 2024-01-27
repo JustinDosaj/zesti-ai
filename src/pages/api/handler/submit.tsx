@@ -6,6 +6,7 @@ import axios from 'axios'
 import { increment } from 'firebase/firestore';
 import { getCurrentDate } from "./general";
 import { getFunctions, httpsCallable } from 'firebase/functions';
+import { Notify } from "@/components/shared/notify";
 
 
 async function convertISO8601ToMinutesAndSeconds(isoDuration: any) {
@@ -125,7 +126,7 @@ export const handleYouTubeURLSubmit = async ({url, user, setMessage, stripeRole,
 
 
 export interface TikTokProps {
-    url: any,
+    url?: any,
     setUrl?: any,
     user?: any,
     setMessage?: any,
@@ -135,6 +136,7 @@ export interface TikTokProps {
     rawText?: string,
     videoObject?: any,
     creatorData?: any,
+    userData?: any,
 }
 
 export const handleTikTokURLSubmit = async ({url, setUrl, user, setMessage, stripeRole, setNotify}: TikTokProps): Promise<boolean> => {
@@ -222,4 +224,24 @@ export const handleCreatorTikTokURLSubmit = async ({url, rawText, creatorData}: 
         return false;
     })
     return response;
+}
+
+export const callGenerateCreatorPage = async ({userData, creatorData}: TikTokProps) => {
+
+    console.log(creatorData)
+
+    if (!userData.activeToken) { Notify("Must connect TikTok account before continuing"); return; }
+    if (!userData.affiliate_code || !userData.affiliate_link) {Notify("Please setup your affiliate code on your profile page"); return; }
+    if (creatorData !== undefined) { Notify("Creator page already exists for this account"); return; }
+
+    const functions = getFunctions();
+    const generateCreatorPage = httpsCallable(functions, 'generateCreatorPage');
+
+    const response = await generateCreatorPage().then((val) => {
+        console.log("Successfully Generated Creator Page")
+    }).catch((err) => {
+        console.log("Failed to create creator page")
+    })
+
+    return;
 }
