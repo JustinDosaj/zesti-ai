@@ -179,10 +179,9 @@ export function Navbar() {
                             <Button buttonType="button" onClick={loginWithTikTok} text={'Connect TikTok'}/>
                             <DropDownMenuDesktop navItems={creatorDesktopNavItems}/>  
                         </div>
-
                     : user && userData?.isCreator == true && (userData?.tiktokAccessToken && userData?.activeToken == true) ? 
                         <div className="inline-flex items-center space-x-4">
-                            <BtnLink href={`/${creatorData?.display_url}`} text={'View Your Page'}/>
+                            <BtnLink href={creatorData !== undefined ? `/${creatorData?.display_url}` : `/creator/edit`} text={creatorData !== undefined ? 'View Your Page' : 'Create Page'}/>
                             <DropDownMenuDesktop navItems={creatorDesktopNavItems}/>  
                         </div>
                     :
