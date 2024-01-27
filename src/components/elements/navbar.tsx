@@ -144,7 +144,7 @@ export function Navbar() {
     }
 
     
-    if (isLoading == true) return(<></>)
+    if (isLoading == true && userData) return(<></>)
 
     return(
 
@@ -193,7 +193,7 @@ export function Navbar() {
                     }
                 </div>
                 {!user ? (
-                    <BtnLink text='Login' href='/auth/login'/>
+                    <BtnLink text='Login' href='/auth/login' className="lg:hidden"/>
                 ) 
                 : user && userData?.isCreator == true && (!userData.tiktokAccessToken || userData?.activeToken == false) ?
                     <DropDownMenuMobile navItems={creatorItemsLoggedInMobileNoToken}/>

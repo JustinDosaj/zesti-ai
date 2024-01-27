@@ -1,12 +1,13 @@
 import { useAuth } from '@/pages/api/auth/auth';
 import Link from 'next/link';
-import { PencilIcon, TrashIcon, ArrowPathIcon, LinkIcon, ExclamationCircleIcon } from '@heroicons/react/20/solid';
+import { PencilIcon, TrashIcon, ArrowPathIcon, LinkIcon, ExclamationCircleIcon, EyeIcon, PencilSquareIcon } from '@heroicons/react/20/solid';
 import React, { useState, useEffect } from "react"
 import algoliasearch from 'algoliasearch/lite';
 import { Button } from '@/components/shared/button';
 import { Container } from '@/components/shared/container';
 import { deleteCreatorError } from '@/pages/api/firebase/functions';
 import { Notify } from '@/components/shared/notify';
+import { useRouter } from 'next/router';
 
 
 export function CreatorAddRecipeLinkComponent({url, setUrl}: any) {
@@ -74,6 +75,7 @@ export function ManageRecipesList({errorData, publicData, setIsOpen, setIsResubm
 
     const [ view, setView ] = useState<string>('public')
     const { creatorData, user } = useAuth();
+    const router = useRouter()
 
     const onResubmitClick = async (url: string, recipe_id: string) => {
         setUrl(url)
@@ -101,7 +103,7 @@ export function ManageRecipesList({errorData, publicData, setIsOpen, setIsResubm
 
     return (
     <Container className="grid justify-center w-full max-w-6xl mx-auto mt-6 pb-24 animate-fadeIn">
-        <div className="p-6 bg-white rounded-3xl border shadow mt-2 w-[300px] xs:w-[400px] sm:w-[500px] md:w-[750px]">
+        <div className="p-6 bg-white rounded-3xl border shadow mt-2 w-[325px] xs:w-[400px] sm:w-[500px] md:w-[750px]">
             <div className="flex justify-end">
             <Button buttonType="button" text="Add New Recipe" onClick={() => setIsOpen(true)}/>
             </div>
@@ -117,22 +119,24 @@ export function ManageRecipesList({errorData, publicData, setIsOpen, setIsResubm
             <div className="mt-6 w-full">
                 {view == 'errors' ? 
                 errorData.map((item: any) => (
-                    <div key={item.id} className="group relative border border-gray-200 p-2 rounded-2xl hover:bg-gray-100 w-full">
-                        <div className="flex items-center">
+                    <div key={item.id} className="group relative border border-gray-200 p-2 rounded-2xl hover:bg-gray-100 w-full mt-4">
+                        <div className="flex">
                             <div className="flex-none w-24 relative mr-1 md:mr-4 p-1">
                                 <img src={`https://firebasestorage.googleapis.com/v0/b/${process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET}/o/${encodeURIComponent(item.cover_image_url)}?alt=media`} alt={item.name} className="rounded-lg" />
                             </div>
-                            <div className="flex-auto">
-                                <h2 className="text-base sm:text-lg font-semibold text-gray-700">{item.title ? item.title : "Error"}</h2>
-                                <div className="flex justify-start mt-1 p-1">
+                            <div className="grid justify-between p-1.5">
+                                <div className="">
+                                    <h2 className="text-base sm:text-lg font-semibold text-gray-700">{item.title ? item.title : "Error"}</h2>
+                                </div>
+                                <div className="flex justify-start gap-x-4 w-fit items-end">
                                     <button onClick={() => onResubmitClick(item.url, item.id)}>
-                                        <div className="text-white h-6 w-6 hover:text-gray-300 hover:bg-gray-400 bg-gray-500 rounded p-1 mr-2 flex items-center justify-center">
-                                            <ArrowPathIcon className="h-5 w-5" />
+                                        <div className="text-white hover:bg-yellow-400 p-1 bg-yellow-500 rounded flex items-center justify-center w-fit">
+                                            <ArrowPathIcon className="h-4 w-4 lg:h-6 lg:w-6" />
                                         </div>
                                     </button>
                                     <button onClick={() => onDeleteFromErrorsClick(item.id)}>
-                                        <div className="text-white h-6 w-6 hover:bg-red-500 bg-red-600 rounded p-1 flex items-center justify-center">
-                                            <TrashIcon className="h-5 w-5" />
+                                        <div className="text-white hover:bg-red-500 p-1 bg-red-600 rounded flex items-center justify-center w-fit">
+                                            <TrashIcon className="h-4 w-4 lg:h-6 lg:w-6" />
                                         </div>
                                     </button>
                                 </div>
@@ -143,22 +147,29 @@ export function ManageRecipesList({errorData, publicData, setIsOpen, setIsResubm
                 : view == 'public' ? 
                     publicData.map((item: any) => (
                         <div key={item.id} className="group relative border border-gray-200 p-2 rounded-2xl hover:bg-gray-100 w-full mt-4">
-                            <div className="flex items-center">
-                                <div className="flex-none w-24 relative mr-1 md:mr-4 p-1">
+                            <div className="flex">
+                                <div className="flex-none w-24 relative md:mr-4 p-1">
                                     <img src={`https://firebasestorage.googleapis.com/v0/b/${process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET}/o/${encodeURIComponent(item.cover_image_url)}?alt=media`} alt={item.name} className="rounded-lg" />
                                 </div>
-                                <div className="flex-auto">
-                                    <h2 className="text-base sm:text-lg font-semibold text-gray-700">{item.name}</h2>
-                                    <p className="text-gray-600 text-xs sm:text-sm lg:text-base">{item.id}</p>
-                                    <div className="flex justify-start mt-1">
-                                        <Link href={`/${creatorData?.display_url}/${item.id}`}>
-                                            <div className="text-white h-6 w-6 hover:text-gray-300 hover:bg-gray-400 bg-gray-500 rounded p-1 mr-2 flex items-center justify-center">
-                                                <PencilIcon className="h-5 w-5" />
+                                <div className="grid ml-1 justify-between p-1.5">
+                                    <div className="">
+                                        <h2 className="text-base sm:text-lg font-semibold text-gray-700">{item.name}</h2>
+                                        <p className="text-gray-600 text-xs sm:text-sm lg:text-base">{item.id}</p>
+                                    </div>
+                                    <div className="flex justify-start gap-x-4 w-fit items-end">
+                                        <button onClick={() => router.push(`/${creatorData?.display_url}/${item.id}`)}>
+                                            <div className="text-white hover:bg-green-500 p-1 bg-green-600 rounded  flex items-center justify-center w-fit">
+                                                <EyeIcon className="h-4 w-4 lg:h-6 lg:w-6" />
                                             </div>
-                                        </Link>
+                                        </button>
+                                        <button onClick={() => router.push(`/${creatorData?.display_url}/${item.id}`)}>
+                                            <div className="text-white hover:bg-yellow-400 p-1 bg-yellow-500 rounded flex items-center justify-center w-fit">
+                                                <PencilSquareIcon className="h-4 w-4 lg:h-6 lg:w-6" />
+                                            </div>
+                                        </button>
                                         <button onClick={() => onPublicRecipeDelete(item.id)}>
-                                            <div className="text-white h-6 w-6 hover:bg-red-500 bg-red-600 rounded p-1 flex items-center justify-center">
-                                                <TrashIcon className="h-5 w-5" />
+                                            <div className="text-white hover:bg-red-500 p-1 bg-red-600 rounded flex items-center justify-center w-fit">
+                                                <TrashIcon className="h-4 w-4 lg:h-6 lg:w-6" />
                                             </div>
                                         </button>
                                     </div>
@@ -210,7 +221,7 @@ export function ManageRecipesSearch({creatorData}: any) {
           }
 
           return (
-              <div className="absolute w-[250] xs:w-[350px] sm:w-[450px] md:w-[700px] z-20 mt-2  bg-white shadow-lg border border-gray-200 rounded-3xl">
+              <div className="absolute w-[275px] xs:w-[350px] sm:w-[450px] md:w-[700px] z-20 mt-2  bg-white shadow-lg border border-gray-200 rounded-3xl">
                   {combinedResults.map((result, index) => (
                       <Link key={index} href={`/${result.owner_display_url}/${result.objectID}`} className="block px-4  text-gray-700 hover:bg-gray-100 rounded-3xl">
                           <div className="inline-flex space-x-2 items-center py-2">
