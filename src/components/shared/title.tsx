@@ -56,7 +56,7 @@ export function SharedHomeSectionTitle({titleBlack, titleOrange, desc}: SharedPa
             <span>{titleBlack}</span> 
             <span className="primary-orange-text-gradient"> {titleOrange} </span>
         </h1>
-        <p className="section-desc-text-size text-gray-600 w-full text-center mt-3">
+        <p className="section-desc-text-size text-gray-600 w-full text-center mt-3 pl-1 pr-1">
             {desc}
         </p>
     </>
