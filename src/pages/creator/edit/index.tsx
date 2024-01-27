@@ -30,7 +30,7 @@ export default function Page() {
         if ((user == null || !userData.isCreator) && !isLoading) {
           router.replace('/');
         }
-        if(!userData.activeToken && !isLoading) {
+        if((!userData.activeToken || creatorData == undefined) && !isLoading) {
           router.push('/nav/profile')
         }
         
