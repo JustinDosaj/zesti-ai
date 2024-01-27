@@ -215,16 +215,18 @@ export function CreatorPageRecentRecipes({recipes, creatorName, maxDisplayCount 
   }, [displayCount, recipes]);
   
   return(
-  <div className="space-y-2 animate-fadeIn p-4 sm:p-0">
+  <div className="space-y-2 animate-fadeIn p-4">
         <SharedSectionHeadingTitle title={"Recipes"} className="py-3"/>
-        {recipes.slice(0,displayCount).map((item: any) => (
-            <CreatorRecipeListCard creatorName={creatorName} item={item} key={item.name}/>
-        ))}
-         {displayCount < recipes.length && (
+        <div ref={containerRef} className={`grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-4 mt-4`} >
+          {recipes.slice(0,displayCount).map((item: any) => (
+              <CreatorRecipeListCard creatorName={creatorName} item={item} key={item.name}/>
+          ))}
+          {displayCount < recipes.length && (
             <div className="flex justify-center py-6">
               <Button onClick={handleLoadMore} className="bg-primary-main rounded-3xl hover:bg-primary-alt text-white font-semibold py-2 px-4" buttonType="button" text="Load More"/>
             </div>
           )}
+        </div>
   </div>
   )
 }
@@ -237,9 +239,9 @@ interface RecipeCardProps {
 
 export function CreatorRecipeListCard({item, creatorName, key}: RecipeCardProps) {
   return(
-  <div key={key} className="group relative">
+  <div key={key} className="group relative w-[350px] lg:w-[425px]">
         {/* Image and Details */}
-        <div className="flex items-center space-x-4 border p-4 rounded-3xl max-w-2xl mt-4">
+        <div className="flex items-center space-x-4 border p-4 rounded-3xl max-w-2xl">
             <img src={`https://firebasestorage.googleapis.com/v0/b/${process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET}/o/${encodeURIComponent(item.cover_image_url)}?alt=media`} className="h-[136px] w-[96px] rounded-xl object-cover" alt={item.title}/>
             <div className="flex-grow space-y-1 lg:space-y-2">
                 <h3 className="text-lg lg:text-xl font-semibold text-gray-700">{item?.name}</h3> {/* Video Title */}
