@@ -215,7 +215,7 @@ export function CreatorPageRecentRecipes({recipes, creatorName, maxDisplayCount 
   }, [displayCount, recipes]);
   
   return(
-  <div className="space-y-2 animate-fadeIn p-4">
+  <div className="space-y-2 animate-fadeIn">
         <SharedSectionHeadingTitle title={"Recipes"} className="py-3"/>
         <div ref={containerRef} className={`grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-4 mt-4`} >
           {recipes.slice(0,displayCount).map((item: any) => (
