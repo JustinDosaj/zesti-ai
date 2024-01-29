@@ -108,8 +108,6 @@ export const handleYouTubeURLSubmit = async ({url, user, setMessage, stripeRole,
             setMessage("Your recipe will appear in your dashboard shortly")
             await db.collection('users').doc(user.uid).update({
                 tokens: increment(-1),
-                totalRecipes: increment(+1),
-                lifeTimeUsage: increment(+1)
             })
             return true
         } catch (err) {
@@ -157,6 +155,8 @@ export const handleTikTokURLSubmit = async ({url, setUrl, user, setMessage, stri
     }
 
     const date = await getCurrentDate()
+    const functions = getFunctions();
+    const userAddTikTokRecipe = httpsCallable(functions, 'userAddTikTokRecipe');
 
     const falseObj = {
         "url": `${url}`,
@@ -169,20 +169,30 @@ export const handleTikTokURLSubmit = async ({url, setUrl, user, setMessage, stri
     await getUserData(user?.uid).then((res) => {tokens = res?.tokens})
 
     if (tokens >= 1) {
-        try {
+
+        const response = await userAddTikTokRecipe(falseObj).then((val) => {
+            console.log(val)
+            setMessage("Processing Recipe...")
+            return true;
+        }).catch((err) => {
+            console.log(err)
+            setMessage("Error")
+            return false;
+        })
+
+        return response;
+       /* try {
             await db.collection('users').doc(user.uid).collection('tiktokurl').doc(id[1]).set(falseObj)
             setMessage("Your recipe will appear in your dashboard shortly")
             await db.collection('users').doc(user.uid).update({
                 tokens: increment(-1),
-                totalRecipes: increment(+1),
-                lifeTimeUsage: increment(+1)  
             })
             return true
         } catch (err) {
             setMessage("Something went wrong. Please try again later. If the problem persists, please contact us.")
             console.log(err)
             return false
-        }
+        }*/
     } else {  
         setNotify(true)
         setMessage("Uh oh! You ran out of recipes for the month!") 
