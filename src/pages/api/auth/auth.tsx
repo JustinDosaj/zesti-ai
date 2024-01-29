@@ -132,7 +132,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
 
         if(!doc.exists) {
           await userRef.set({
-            tokens: 3,
+            tokens: 2,
             email: user.email,
             totalRecipes: 0,
             isCreator: false,
@@ -184,7 +184,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
 
         if(!doc.exists) {
           await userRef.set({
-            tokens: 3,
+            tokens: 2,
             email: user.email,
             totalRecipes: 0,
             isCreator: false,

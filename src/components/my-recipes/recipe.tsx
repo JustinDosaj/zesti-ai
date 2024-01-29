@@ -287,7 +287,7 @@ export function UserRecipeLinks({recipe, setPremiumPrompt}: any) {
     const navigation = [
         { 
             name: recipe.owner_display_name,
-            onClick: () => router.push(`/${recipe.owner_display_url}`),
+            onClick: () => {recipe.owner_display_name == null ? console.log("No Owner") : router.push(`/${recipe.owner_display_url}`)},
             icon: EyeIcon,
         },
         { 
@@ -308,10 +308,10 @@ export function UserRecipeLinks({recipe, setPremiumPrompt}: any) {
     ]
 
     return(
-    <div className="flex justify-evenly">
+    <div className={recipe.owner_display_name == null ? `flex justify-center` : `flex justify-evenly`}>
         {navigation.map((nav: any) => (
             <button key={nav.name} onClick={nav.onClick} className="text-gray-700 hover:text-gray-500 inline-flex space-x-2 items-center justify-center">
-                <nav.icon className="h-4 w-4 md:h-5 md:w-5"/>
+                <nav.icon className={recipe.owner_display_name == null ? `hidden` : `h-4 w-4 md:h-5 md:w-5`}/>
                 <p className="capitalize text-sm lg:text-base text-left">{nav.name}</p>
             </button>
         ))}
