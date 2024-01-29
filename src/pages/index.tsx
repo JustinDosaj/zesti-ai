@@ -23,7 +23,7 @@ export default function Home() {
         <GoogleTags/>
         <PromoteKitTag/>
       </Head>
-      <main className={`flex min-h-screen flex-col items-center justify-between bg-background ${raleway.className}`}>
+      <main className={`flex min-h-screen flex-col items-center justify-between bg-background w-screen ${raleway.className}`}>
         <Hero titleStart={"Save, Create & Customize"} titleEnd={"Recipes"} description={"Create AI generated recipes or instantly save your favorite recipes from YouTube & Tiktok!"} loginURL={"/auth/login"}/>
         <HomePageTools/>
         <HomePageScroller/>

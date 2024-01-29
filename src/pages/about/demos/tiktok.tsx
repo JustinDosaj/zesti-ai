@@ -54,7 +54,7 @@ const Demo: React.FC = () => {
       <GoogleTags/>
       <PromoteKitTag/>
     </Head>  
-    <main className={`flex min-h-screen flex-col items-center justify-between p-2 bg-background animate-fadeIn ${raleway.className}`}>
+    <main className={`flex min-h-screen flex-col items-center justify-between p-2 bg-background animate-fadeIn w-screen ${raleway.className}`}>
       <div className="text-center space-y-2">
         <Title className="text-gray-900 text-3xl mt-36">Tiktok Recipe</Title>
         {user ? 

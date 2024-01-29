@@ -48,7 +48,7 @@ import { PromoteKitTag } from "@/components/tags/headertags"
         <PromoteKitTag/>
      </Head>
      <ToastContainer/>    
-     <main className={`flex min-h-screen flex-col items-center justify-between bg-background h-screen ${raleway.className}`}>
+     <main className={`flex min-h-screen flex-col items-center justify-between bg-background h-screen w-screen ${raleway.className}`}>
          <section className="relative my-auto">
              <Container className={"grid md:grid-cols-1 lg:flex-row gap-10 lg:gap-12"}>
                  <div className="flex-1 flex flex-col">

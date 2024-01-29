@@ -29,7 +29,7 @@ const Alternative: React.FC = ({data}: any) => {
         <GoogleTags/>
         <PromoteKitTag/>
       </Head>
-      <main className={`flex min-h-screen flex-col items-center justify-between p-2 bg-background ${raleway.className}`}>
+      <main className={`flex min-h-screen flex-col items-center justify-between p-2 bg-background w-screen ${raleway.className}`}>
         <AltHero name={data?.name}/>
         <AltCompare 
           name={data?.name} 
