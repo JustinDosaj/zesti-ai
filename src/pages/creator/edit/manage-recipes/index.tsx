@@ -91,7 +91,7 @@ export default function ManageRecipes() {
       <PromoteKitTag/>
       <meta name="robots" content="noindex" />
     </Head>  
-    <main className={`flex min-h-screen flex-col items-center bg-background ${raleway.className}`}>
+    <main className={`flex min-h-screen flex-col items-center bg-background w-screen ${raleway.className}`}>
       <Breadcrumbs/>
       <SharedHomeSectionTitle titleBlack="Manage Recipes" desc="Add a new recipe to your creator page"/>
       <ManageRecipesList errorData={errorData} publicData={recipes} setIsOpen={setIsOpen} setIsResubmitOpen={setIsResubmitOpen} setUrl={setUrl} setRecipeId={setRecipeId} setIsDeleteOpen={setIsDeleteOpen}/>

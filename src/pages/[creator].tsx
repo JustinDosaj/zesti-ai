@@ -113,7 +113,7 @@ const CreatorPage: NextPage<CreatorProps> = ({ creatorData, referer }) => {
       <GoogleTags/>
       <PromoteKitTag/>
     </Head>
-    <main className={`flex min-h-screen flex-col items-center bg-background space-y-4 ${raleway.className}`}>
+    <main className={`flex min-h-screen flex-col items-center bg-background space-y-4 w-screen ${raleway.className}`}>
       <Breadcrumbs/>
       <CreatorPageTitle creatorData={creatorData}/>
       <CreatorSocials creatorData={creatorData}/>

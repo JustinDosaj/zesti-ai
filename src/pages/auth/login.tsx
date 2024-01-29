@@ -35,7 +35,7 @@ export default function Login() {
         <PromoteKitTag/>
     </Head>
     <ToastContainer/>    
-    <main className={`flex min-h-screen flex-col items-center justify-between bg-background h-screen ${raleway.className}`}>
+    <main className={`flex min-h-screen flex-col items-center justify-between bg-background h-screen w-screen ${raleway.className}`}>
         <section className="relative my-auto">
             <LoginComponent/>
         </section>

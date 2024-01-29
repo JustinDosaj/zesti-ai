@@ -21,7 +21,7 @@ export default function Contact() {
         <GoogleTags/>
         <PromoteKitTag/>
     </Head>    
-    <main className={`flex min-h-screen flex-col items-center bg-background h-screen ${raleway.className}`}>
+    <main className={`flex min-h-screen flex-col items-center bg-background h-screen w-screen ${raleway.className}`}>
         <Container className={"grid md:grid-cols-1 lg:flex-row gap-10 lg:gap-12 mb-36 mt-36"}>
             <div className="flex-1 flex flex-col text-center mt-4">
                 <SharedHomeSectionTitle titleBlack="Contact Us" desc="If you have any questions or require support, send us a message and we will respond as soon possible!"/>

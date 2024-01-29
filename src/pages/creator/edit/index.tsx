@@ -54,7 +54,7 @@ export default function Page() {
             <GoogleTags/>
             <PromoteKitTag/>
         </Head>
-        <main className={`flex min-h-screen flex-col items-center bg-background ${raleway.className}`}>
+        <main className={`flex min-h-screen flex-col items-center bg-background w-screen ${raleway.className}`}>
             <Breadcrumbs/>
             <SharedHomeSectionTitle titleBlack="Creator Settings" desc="Add more information to your creator pages"/>
             <CreatorPageComponent creatorData={creatorData}/>

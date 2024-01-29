@@ -35,7 +35,7 @@ export default function Profile() {
       <PromoteKitTag/>
       <meta name="robots" content="noindex" />
     </Head>  
-    <main className={`flex min-h-screen flex-col items-center bg-background ${raleway.className}`}>
+    <main className={`flex min-h-screen flex-col items-center bg-background w-screen ${raleway.className}`}>
       <div className="mt-36"/>
       <SharedHomeSectionTitle titleBlack="Your Profile"/>
       <div className={(userData?.isCreator == false || !userData?.isCreator) ? `mx-auto` : `grid grid-cols-1 xl:grid-cols-2 gap-x-3` }>
