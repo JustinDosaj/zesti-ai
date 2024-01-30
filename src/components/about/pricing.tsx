@@ -29,10 +29,8 @@ export function PricingDisplay() {
           description: "The perfect plan if you're just getting started with Zesti",
           learnhref: "/about/subscription/free",
           features: [
-            'Save 3 recipes per month',
-            'Save TikTok & YouTube recipes',
-            'Max Video Length: 5 Minutes',
-            'AI Recipe Generator',
+            'Unlimited Recipe Saves',
+            '2 Free Video Translations',
         ],
           featured: false,
           checkout: () => {
@@ -48,11 +46,9 @@ export function PricingDisplay() {
           description: 'Unlock the full potential of Zesti',
           learnhref: "/about/subscription/premium",
           features: [
-            'Unlimited recipe saves per month',
-            'Save TikTok & YouTube recipes',
-            'Max Video Length: 15 Minutes',
-            'Unlimited AI Generated Recipes',
-            'AI Cooking Support',
+            'Unlimited Recipe Saves',
+            'Instantly Translate Any TikTok Video',
+            'AI Cooking Chat',
             'Customize Recipes',
             'Ad-Free'
           ],

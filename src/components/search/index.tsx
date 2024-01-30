@@ -1,13 +1,10 @@
-import { Container } from "../shared/container"
 import { MagnifyingGlassIcon } from '@heroicons/react/24/outline'
 import { Notify } from "../shared/notify"
 import { InlineBtnLink } from "../shared/button"
 import algoliasearch from 'algoliasearch/lite';
-import { EyeIcon, XMarkIcon } from '@heroicons/react/20/solid'
+import { XMarkIcon } from '@heroicons/react/20/solid'
 import Link from 'next/link'
-import React, { useState, useEffect, useRef  } from "react"
-import { Button } from "../shared/button"
-import { RecipeListLoader } from "../shared/loader";
+import React, { useState, useEffect  } from "react"
 
 function classNames(...classes: (string | undefined | null | false)[]): string {
     return classes.filter(Boolean).join(' ');
@@ -19,7 +16,7 @@ export function Search() {
     const creatorsIndex = searchClient.initIndex('test_CREATORS');
     const recipesIndex = searchClient.initIndex('test_RECIPES_TIKTOK');
     
-    const [ url, setUrl ] = useState<string>('');
+    const [ input, setInput ] = useState<string>('');
     const [ message, setMessage ] = useState<string>('')
     const [ notify, setNotify ] = useState<boolean | null>(null)
     const [searchResults, setSearchResults] = useState<any>({ creators: [], recipes: [] });
@@ -32,10 +29,10 @@ export function Search() {
     },[notify, message])
 
     useEffect(() => {
-        if (url.trim()) {
-            handleSearch(url);
+        if (input.trim()) {
+            handleSearch(input);
         }
-    }, [url]);
+    }, [input]);
 
     const handleSearch = async (query: any) => {
         try {
@@ -91,17 +88,18 @@ export function Search() {
 
     return(
 
-        <div className="w-full flex-col">
+        <div className="w-full flex-col px-2">
             <dl className="grid grid-cols-1 gap-10">
                 <div className="w-full flex flex-col items-center">
                     <div className="flex sm:flex-row flex-col gap-5">
-                        <form action="" method="POST" className="py-1 pl-6 pr-6 flex  gap-3 items-center text-heading-3 shadow-lg shadow-box-shadow
+                        <form action="" method="POST" className="py-1 pl-6 pr-6 flex gap-3 items-center text-heading-3 shadow-lg shadow-box-shadow
                         border border-box-border bg-box-bg rounded-full ease-linear focus-within:bg-body  focus-within:border-primary">
                             <MagnifyingGlassIcon className="text-gray-600 h-6 w-6"/>
-                            <input type="text" name="web-page" value={url} placeholder="Search TikTok Username or Recipe" className="text-left w-64 lg:w-96 text-gray-500 py-3 outline-none bg-transparent" onChange={(e) => setUrl(e.target.value)}/>
+                            <input type="text" name="web-page" value={input} placeholder="Search TikTok Username or Recipe" className="text-left w-56 lg:w-96 text-gray-500 py-3 outline-none bg-transparent" onChange={(e) => setInput(e.target.value)}/>
+                            <XMarkIcon onClick={() => setInput('')} className={classNames(input ? `text-red-600 hover:text-red-500 cursor-pointer` : `text-gray-600 cursor-default hover:text-gray-800`, `h-6 w-6 `)}/>
                         </form>  
                     </div>
-                    {url && renderSearchResults()}
+                    {input && renderSearchResults()}
                     <div className="text-gray-500 mt-4 text-center">
                         <span>Can&apos;t find a tiktok account or recipe? </span>
                         <InlineBtnLink href={'/tools/video'} text="Click here"/>
@@ -195,11 +193,11 @@ export function HomePageSearch() {
         <div className="w-full flex-col">
             <dl className="grid grid-cols-1 gap-10">
                 <div className="w-full flex flex-col">
-                    <div className="flex sm:flex-row flex-col gap-5">
+                    <div className="flex sm:flex-row flex-col gap-5 justify-center lg:justify-start">
                         <form action="" method="POST" className="py-1 pl-6 pr-6 flex gap-4 items-center text-heading-3 shadow-lg shadow-box-shadow
                         border border-box-border bg-box-bg rounded-full ease-linear focus-within:bg-body  focus-within:border-primary">
                             <MagnifyingGlassIcon className="text-gray-600 h-6 w-6"/>
-                            <input type="text" name="web-page" value={input} placeholder="Search TikTok Username or Recipe" className="text-left w-64 lg:w-96 text-gray-500 py-3 outline-none bg-transparent" onChange={(e) => setInput(e.target.value)}/>
+                            <input type="text" name="web-page" value={input} placeholder="Search TikTok Username or Recipe" className="text-left w-56 lg:w-96 text-gray-500 py-3 outline-none bg-transparent" onChange={(e) => setInput(e.target.value)}/>
                             <XMarkIcon onClick={() => setInput('')} className={classNames(input ? `text-red-600 hover:text-red-500 cursor-pointer` : `text-gray-600 cursor-default hover:text-gray-800`, `h-6 w-6 `)}/>
                         </form>  
                     </div>
@@ -215,126 +213,3 @@ export function HomePageSearch() {
 
     )
 }
-
-interface UserSavedRecipeListProps {
-    recipes: any,
-    creatorName?: string,
-    maxDisplayCount?: number,
-    incrementCount?: number,
-    max?: number,
-    loading?: boolean,
-  }
-  
-export function UserSavedRecipeList({recipes, maxDisplayCount = 5, incrementCount = 10, max = 0, loading}: UserSavedRecipeListProps) {
-
-const [ displayCount, setDisplayCount ] = useState(maxDisplayCount)
-const containerRef = useRef<HTMLDivElement>(null);
-
-const sortedData = recipes?.sort((a: any, b: any) => {
-    const dateA = new Date(a.date).getTime();
-    const dateB = new Date(b.date).getTime();
-    return dateB - dateA;
-});
-
-const handleLoadMore = () => {
-    if(max == 0) {
-        setDisplayCount((prevCount: number) => prevCount + incrementCount)
-    }
-    else if ((displayCount + incrementCount) <= max) {
-        setDisplayCount((prevCount: number) => prevCount + incrementCount)
-    }
-}
-
-const handleScroll = () => {
-    if (!containerRef.current) {
-        return;
-    }
-    const { scrollTop, scrollHeight, clientHeight } = containerRef.current;
-    if (scrollTop + clientHeight >= scrollHeight - 5) { // 5px threshold
-        handleLoadMore();
-    }
-};
-
-useEffect(() => {
-    const currentContainer = containerRef.current;
-    if (currentContainer) {
-        currentContainer.addEventListener('scroll', handleScroll);
-    }
-    return () => {
-        if (currentContainer) {
-            currentContainer.removeEventListener('scroll', handleScroll);
-        }
-    };
-}, [displayCount, recipes]);
-
-if(loading) return <RecipeListLoader/>
-
-return(
-<div className="space-y-2 animate-fadeIn sm:p-0">
-    <div ref={containerRef} className={`grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-4 mt-4`} >
-        {sortedData.slice(0,displayCount).map((item: any) => (
-            <UserRecipeListCard item={item} key={item.name}/>
-        ))}
-        {max == 0 && (recipes.length > maxDisplayCount) && (
-            <div className="flex justify-center py-6">
-                <Button onClick={handleLoadMore} className="bg-primary-main rounded-3xl hover:bg-primary-alt text-white font-semibold py-2 px-4" buttonType="button" text="Load More"/>
-            </div>
-        )}
-    </div>
-</div>
-)
-}
-  
-interface UserRecipeCardProps {
-item: any,
-key?: any,
-}
-  
-export function UserRecipeListCard({item, key}: UserRecipeCardProps) {
-    return(
-    <div key={key} className="group relative w-[350px] lg:w-[425px]">
-            {/* Image and Details */}
-            <div className="flex items-center space-x-4 border border-gray-300 p-4 rounded-3xl max-w-2xl">
-                {item.status == "Complete" ? 
-                    <img src={`https://firebasestorage.googleapis.com/v0/b/${process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET}/o/${encodeURIComponent(item.cover_image_url)}?alt=media`} className="h-[136px] w-[96px] rounded-xl object-cover" alt={item.title}/>
-                :
-                    <div className="grid justify-center lg:inline-flex items-center lg:gap-4 h-[136px] w-[96px] rounded-xl object-cover border">
-                        <div className="animate-spin flex justify-center w-6 h-6 border-[2px] border-current border-t-transparent text-orange-600 rounded-full " role="status" aria-label="loading">
-                            <span className="sr-only">Loading...</span>
-                        </div>
-                    </div>
-                }
-                { item.status == "Complete" ?
-                <div className="flex-grow space-y-1 lg:space-y-2">
-                    <h3 className="text-lg lg:text-xl font-semibold text-gray-700">{item.name}</h3> {/* Video Title */}
-                    {/* Additional Details */}
-                    <div className="flex gap-4 text-xs lg:text-sm text-gray-600">
-                        <span className="inline-flex gap-1 items-center">
-                        <p className="font-bold">Ingredients:</p>
-                        <p>{item.ingredients?.length}</p>
-                        </span>
-                        <span className="inline-flex gap-1 items-center">
-                        <p className="font-bold">Steps:</p>
-                        <p>{item.instructions?.length}</p>
-                        </span>
-                    </div>
-                    <div className="flex gap-1 text-xs lg:text-sm text-gray-600 items-center">
-                        <p className="text-sm text-gray-600">{item.title !== '' ? item.title : 'Title Not Available'}</p> {/* Recipe Name */}
-                    </div>
-                </div>
-                :
-                <div className="flex-grow space-y-1 lg:space-y-2">
-                    <div className="grid justify-center lg:inline-flex items-center lg:gap-4">
-                        <h3 className="text-lg lg:text-xl font-semibold text-gray-700 hidden lg:flex">Loading Recipe...</h3> 
-                    </div>
-                </div>
-                }
-            </div>
-                {/* Overlay Icon */}
-            <Link className={item.status == "Complete" ? `absolute inset-0 flex items-center justify-center bg-black bg-opacity-40 opacity-0 group-hover:opacity-100 rounded-3xl hover:animate-fadeInExtraFast` : `hidden`} href={`/my-recipes/${item?.id}`} >
-                <EyeIcon className="text-white h-10 w-10 hover:text-gray-300 hover:bg-gray-500 bg-gray-700 rounded-xl p-1"/>
-            </Link>
-        </div>
-    )
-}
-  

@@ -1,35 +1,30 @@
 import { Container } from "../shared/container"
-import { ArrowRightIcon, CheckIcon, StarIcon, VideoCameraIcon, ComputerDesktopIcon, MinusSmallIcon, PlusSmallIcon, ArrowDownIcon} from "@heroicons/react/20/solid"
-import Link from "next/link"
+import { ChatBubbleLeftIcon, CheckIcon, StarIcon, MinusSmallIcon, PlusSmallIcon, ArrowDownIcon, BookOpenIcon} from "@heroicons/react/20/solid"
 import { useState, useEffect, useRef } from "react"
 import { ToolExamples, Scroller, DashboardExample } from "./scroll"
-import { Button, BtnLink } from "../shared/button"
+import { BtnLink } from "../shared/button"
 import Image from "next/image"
 import { Disclosure } from "@headlessui/react"
-import { useAuth } from "@/pages/api/auth/auth"
-import { useRouter } from "next/router"
 import { SharedHomeSectionTitle } from "../shared/title"
+import { HomePageSearch } from "../search"
 
 export function HomePageTools() {
 
     const tools = [
         {
-          name: 'AI Recipe Generator',
-          description: 'Create a recipe from a list of ingredients, description or dish name.',
+          name: 'Find TikTok Chefs',
+          description: 'Find recipes by your favorite TikTok cooking influencers',
           icon: StarIcon,
-          href: '/about/tools/social-media-recipe'
         },
         {
-          name: 'Save Tiktok & YouTube Recipes',
-          description: 'No more pausing or rewinding cooking videos to get every detail.',
-          icon: VideoCameraIcon,
-          href: '/about/tools/social-media-recipe'
+          name: 'Recipe Perfection',
+          description: 'Save recipes for later and customize them to perfection',
+          icon: BookOpenIcon,
         },
         {
-          name: 'Clutterless Web Recipes',
-          description: 'Remove clutter and excess ads from website recipes using Zesti',
-          icon: ComputerDesktopIcon,
-          href: '/about/tools/social-media-recipe'
+          name: 'AI Cooking Assistant',
+          description: 'Get your cooking questions answered fast without leaving your recipe',
+          icon: ChatBubbleLeftIcon,
         },
       ]
 
@@ -38,14 +33,14 @@ export function HomePageTools() {
         <div className="w-full max-w-7xl mx-auto space-y-12">
             <div className="flex flex-col lg:flex-row justify-start lg:justify-between items-center gap-8 lg:gap-14 text-center lg:text-left">
                 <p className="section-title-text-size font-semibold text-gray-700 lg:w-1/3">
-                USE THE BEST
+                FIND THE BEST
                 <br />
-                <span className="primary-orange-text-gradient"> AI RECIPE TOOLS</span>
+                <span className="primary-orange-text-gradient"> TIKTOK RECIPES </span>
                 <br />
                 AROUND
                 </p>
                 <p className="w-full lg:w-1/2 section-desc-text-size text-gray-600">
-                Zesti makes it easy for you to discover and try new recipes Instantly save video recipes or create your own using AI!
+                 Turn delicous recipes you see online into delicious recipes for you and your family!
                 </p>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3  gap-10">
@@ -55,7 +50,6 @@ export function HomePageTools() {
                     <div className="flex flex-col gap-3">
                         <p className="text-xl font-semibold text-gray-800 mb-2">{tool.name}</p>
                         <p className="text-base text-gray-600 flex-grow">{tool.description}</p>
-                        <Link href={tool.href} className="text-base text-primary-main hover:text-primary-alt inline-flex gap-x-1 items-center">Learn more<ArrowRightIcon className="w-5 h-5"/></Link>
                     </div>
                 </div>
                 ))}
@@ -263,8 +257,6 @@ interface HeroProps {
 }
 
 export function Hero({titleStart, titleEnd, description, loginURL}: HeroProps) {
-  const { user, stripeRole } = useAuth()
-  const router = useRouter()
 
   return(
       <Container className="flex flex-col lg:flex-row items-center justify-between pt-36 px-5 space-x-4 xl:pt-48 animate-fadeIn">
@@ -283,17 +275,8 @@ export function Hero({titleStart, titleEnd, description, loginURL}: HeroProps) {
               {description}
             </p>
           </div>
-          <div className="grid justify-center lg:justify-start space-y-1">
-            {!user ?
-            <div className="grid justify-center lg:justify-start space-y-0.5">
-              <Button buttonType="button" text="Get Started for Free" className="w-fit" onClick={() => router.push(loginURL)}/>
-            </div>
-            :
-            <div className="grid justify-center lg:justify-start space-y-0.5">
-              <Button buttonType="button" text="Go to Dashboard" className="w-fit" onClick={() => router.push('/my-recipes')}/>
-            </div>
-            }
-            <p className="text-sm text-center text-gray-500/90 mx-auto lg:mx-1">No Credit Card Required</p>
+          <div className="grid justify-center lg:justify-start text-left space-y-1">
+            <HomePageSearch/>
           </div>
 
           <div className="grid grid-cols-3 lg:flex justify-center lg:justify-start lg:space-x-16">

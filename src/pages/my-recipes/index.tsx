@@ -2,17 +2,18 @@ import { Raleway } from 'next/font/google'
 import { useAuth } from "@/pages/api/auth/auth"
 import { useRouter } from "next/router";
 import { UserSavedRecipeList } from '@/components/my-recipes';
-import { Search } from '@/components/my-recipes';
+import { Search } from '@/components/search';
 import { useState, useEffect } from "react";
 import Head from 'next/head';
 import GoogleTags from '@/components/tags/conversion';
 import { PromoteKitTag } from '@/components/tags/headertags';
-import AdSenseDisplay from '@/components/tags/adsense';
 import { SharedHomeSectionTitle, SharedSectionHeadingTitle } from '@/components/shared/title';
-import Breadcrumbs from '@/components/shared/breadcrumb';
-import useSetBreadcrumbs from '@/components/shared/setBreadcrumbs';
 import { db } from '../api/firebase/firebase';
 import { onSnapshot } from "firebase/firestore";
+import Breadcrumbs from '@/components/shared/breadcrumb';
+import useSetBreadcrumbs from '@/components/shared/setBreadcrumbs';
+import AdSenseDisplay from '@/components/tags/adsense';
+
 
 const raleway = Raleway({subsets: ['latin']})
 
