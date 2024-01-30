@@ -1,13 +1,13 @@
 import { useAuth } from '@/pages/api/auth/auth';
 import Link from 'next/link';
-import { PencilIcon, TrashIcon, ArrowPathIcon, LinkIcon, ExclamationCircleIcon, EyeIcon, PencilSquareIcon } from '@heroicons/react/20/solid';
-import React, { useState, useEffect } from "react"
-import algoliasearch from 'algoliasearch/lite';
+import { TrashIcon, ArrowPathIcon, LinkIcon, ExclamationCircleIcon, EyeIcon, PencilSquareIcon } from '@heroicons/react/20/solid';
+import React, { useState } from "react"
 import { Button } from '@/components/shared/button';
 import { Container } from '@/components/shared/container';
 import { deleteCreatorError } from '@/pages/api/firebase/functions';
 import { Notify } from '@/components/shared/notify';
 import { useRouter } from 'next/router';
+import { ManageRecipesSearch } from '@/components/search';
 
 
 export function CreatorAddRecipeLinkComponent({url, setUrl}: any) {
@@ -186,60 +186,4 @@ export function ManageRecipesList({errorData, publicData, setIsOpen, setIsResubm
     );
 }
 
-export function ManageRecipesSearch({creatorData}: any) {
 
-    const searchClient = algoliasearch(`${process.env.NEXT_PUBLIC_ALGOLIA_APPLICATION_ID}`, `${process.env.NEXT_PUBLIC_ALGOLIA_SEARCH_ONLY_KEY}`);
-    const recipesIndex = searchClient.initIndex('test_RECIPES_TIKTOK');
-    const [ url, setUrl ] = useState<string>('');
-    const [searchResults, setSearchResults] = useState<any>({ recipes: [] });
-
-    useEffect(() => {
-      if (url.trim()) {
-          handleSearch(url);
-      }
-    }, [url]);
-
-    const handleSearch = async (query: any) => {
-      try {
-          const [ recipes ] = await Promise.all([
-              recipesIndex.search(query, {
-                filters: `owner_display_url:"${creatorData.display_url}"` // Adding filter for owner_display_name
-            })
-          ]);
-          setSearchResults({ recipes: recipes?.hits });
-      } catch (error) {
-          console.error("Algolia search error:", error);
-      }
-  };
-
-      const renderSearchResults = () => {
-          // Combine and limit results
-          const combinedResults = [...searchResults.recipes.slice(0, 5)].slice(0, 5);
-
-          if (combinedResults.length === 0) {
-              return null;
-          }
-
-          return (
-              <div className="absolute w-[275px] xs:w-[350px] sm:w-[450px] md:w-[700px] z-20 mt-2  bg-white shadow-lg border border-gray-200 rounded-3xl">
-                  {combinedResults.map((result, index) => (
-                      <Link key={index} href={`/${result.owner_display_url}/${result.objectID}`} className="block px-4  text-gray-700 hover:bg-gray-100 rounded-3xl">
-                          <div className="inline-flex space-x-2 items-center py-2">
-                              <img src={`https://firebasestorage.googleapis.com/v0/b/${process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET}/o/${encodeURIComponent(result.cover_image_url)}?alt=media`} alt={result.name} className="h-8 w-8 rounded-full"></img>
-                              <span className="text-sm lg:text-base capitalize">{result.name}</span>
-                          </div>
-                      </Link>
-                  ))}
-              </div>
-          );
-      };
-
-    return(
-        <>
-        <div className="mt-4">
-            <input type="text" placeholder="Search your public recipes" className="p-2 w-full border rounded-3xl" onChange={(e) => setUrl(e.target.value)}/>
-        </div>
-        {url && renderSearchResults()}
-        </>
-    )
-}
