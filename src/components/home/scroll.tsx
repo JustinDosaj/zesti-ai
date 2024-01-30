@@ -9,27 +9,27 @@ export function ToolExamples() {
         <>
             <div className="flex flex-col lg:flex-row justify-center text-center lg:items-center w-full gap-8">
                 <div className="flex flex-col">
-                    <SharedHomeSectionTitle titleBlack="How Our Members Use" titleOrange="Zesti" desc="Click on any of the example below of people using Zesti to instantly save YouTube & TikTok videos or create unique AI recipes!"/>
+                    <SharedHomeSectionTitle titleBlack="What Our Members Say About" titleOrange="Zesti" desc="Click on any of the example below of people using Zesti to instantly save YouTube & TikTok videos or create unique AI recipes!"/>
                 </div>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-8">
             {/* Testimonial cards */}
             <TestimonialCard
-                name="Fluffy Blueberry Muffins"
+                name="Cards will be replaced by user testimonials"
                 source="YouTube"
                 desc="This delicious blueberry muffin recipe was converted from a YouTube video to an easy-to-read recipe by one of our members"
                 imageSrc="/images/stock-food/fresh-muffins.jpg"
                 href="/about/demos/youtube"
             />
             <TestimonialCard
-                name="French Toast Recipe"
+                name="Cards will be replaced by user testimonials"
                 source="AI Generated"
                 desc="Check out this simple French Toast recipe, created by Zesti AI"
                 imageSrc="/images/stock-food/french-toast.jpg"
                 href="/about/demos/creative"
             />
             <TestimonialCard
-                name="Hawaiian Roll Garlic Bread"
+                name="Cards will be replaced by user testimonials"
                 source="Tiktok"
                 desc="Tiktok is full of cooking ideas, which is why Zesti makes it easy to instantly save the recipes!"
                 imageSrc="/images/stock-food/Hawaiian-Roll.jpg"

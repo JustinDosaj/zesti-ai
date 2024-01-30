@@ -34,7 +34,7 @@ export default function Page() {
           router.push('/nav/profile')
         }
         
-        fetchTikTokVideoList(userData?.tiktokAccessToken).then(userVideos => { setVideos(userVideos)})
+        //fetchTikTokVideoList(userData?.tiktokAccessToken).then(userVideos => { setVideos(userVideos)})
         setLoading(false)
         
       } else {
