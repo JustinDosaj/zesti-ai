@@ -1,7 +1,7 @@
 import Head from 'next/head';
 import GoogleTags from '@/components/tags/conversion';
-import { HomePageScroller, HomePageTools, HomePageCTA, HomeFAQ, HomeVideoToRecipe, Hero, CreatorCTA } from '@/components/home';
-import { useAuth } from './api/auth/auth';
+import { HomePageScroller, HomePageTools, HomePageCTA, CreatorFAQ, HomeVideoToRecipe, CreatorHero, CreatorCTA } from '@/components/home';
+import { useAuth } from '../api/auth/auth';
 import { PageLoader } from '@/components/shared/loader';
 import { PromoteKitTag } from '@/components/tags/headertags';
 import { Raleway } from 'next/font/google'
@@ -24,13 +24,10 @@ export default function Home() {
         <PromoteKitTag/>
       </Head>
       <main className={`flex min-h-screen flex-col items-center justify-between bg-background w-screen space-y-48 ${raleway.className}`}>
-        <Hero titleStart={"Instantly Get Recipes from"} titleEnd={"TikTok"} description={"Quickly search your favorite tiktok chefs and get easy-to-read recipes"}/>
-        <HomePageTools/>
-        <HomePageScroller/>
+        <CreatorHero titleStart={"Put Your Recipes on"} titleEnd={"Display"} description={"Join our creator program to put your recipes on display and start earning commission"} loginURL={"/auth/login"}/>
+        <CreatorCTA title={"Zesti Creator Program"} isHome={false}/>
         <HomeVideoToRecipe/>
-        <HomePageCTA/>
-        <CreatorCTA title={"Join Creator Program"} isHome={true}/>
-        <HomeFAQ/>
+        <CreatorFAQ/>
       </main>
     </>
   )
