@@ -494,7 +494,7 @@ export function CreatorHero({titleStart, titleEnd, description}: HeroProps) {
           </div>
           <div className="grid justify-center lg:justify-start text-left space-y-1">
             { user ?
-            <Button text="Apply to Join" buttonType="button" onClick={() => router.push('/nav/contact') }/>
+            <Button text="Apply to Join" buttonType="button" onClick={() => router.push('/nav/creator/apply') }/>
             :
             <Button text="Apply to Join" buttonType="button" onClick={() => router.push('/auth/login') }/> 
             }
@@ -503,7 +503,7 @@ export function CreatorHero({titleStart, titleEnd, description}: HeroProps) {
 
 
           <div className="hidden lg:block w-1/2 bg-transparent rounded-lg">
-            <Image src={"/images/Illustration.png"} alt="Profile" height={2058} width={2150} className="object-fit" />
+            <Image src={"/images/new-aff-img.png"} alt="Profile" height={2058} width={2150} className="object-fit" />
           </div> {/* Placeholder for the illustration */}
         
       </Container>
