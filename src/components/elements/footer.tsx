@@ -1,5 +1,7 @@
 "use client;"
 
+import getConfig from "next/config"
+
 const navigation = {
     main: [
       { name: 'Home', href: '/' },
@@ -52,10 +54,14 @@ var year = new Date().getFullYear()
 
 export function Footer() {
 
+    const { publicRuntimeConfig } = getConfig();
+
+    console.log("Config:" ,publicRuntimeConfig.version)
+
     return(
     <>
     <footer className="bg-gray-100">
-      <div className="mx-auto max-w-7xl overflow-hidden px-6 py-20 sm:py-24 lg:px-8">
+      <div className="mx-auto max-w-7xl overflow-hidden px-6 pt-20 lg:px-8">
         <nav className="-mb-6 columns-2 sm:flex sm:justify-center sm:space-x-12" aria-label="Footer">
           {navigation.main.map((item) => (
             <div key={item.name} className="pb-6">
@@ -76,8 +82,11 @@ export function Footer() {
         <p className="mt-6 text-center text-xs leading-5 text-gray-500">
           &copy; {year} Vurge LLC. All rights reserved.
         </p>
+        <div className="text-gray-500 text-center text-xs">{`v${publicRuntimeConfig?.version}`}</div>
+
+      </div>
         <p className="mt-10 text-center text-gray-700 text-sm font-semi-bold">Alternatives</p>
-        <div className="mt-2 grid grid-cols-3 lg:flex lg:space-x-8 justify-center text-center">
+        <div className="mt-2 grid grid-cols-3 lg:flex lg:space-x-8 justify-center text-center pb-4">
             {navigation.alt.map((item) => (
               <a key={item.name} 
                   className="text-xs leading-6 text-gray-600 hover:text-gray-900" 
@@ -86,7 +95,6 @@ export function Footer() {
               </a>
             ))}
         </div>
-      </div>
     </footer>
     </>
     )

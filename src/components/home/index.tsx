@@ -11,6 +11,63 @@ import Link from "next/link"
 import { useRouter } from "next/router"
 import { useAuth } from "@/pages/api/auth/auth"
 
+
+interface HeroProps {
+  titleStart?: string,
+  titleEnd?: string,
+  description?: string,
+  loginURL?: string,
+}
+
+export function Hero({titleStart, titleEnd, description}: HeroProps) {
+
+  return(
+      <Container className="flex flex-col lg:flex-row items-center justify-between pt-36 px-5 space-x-4 xl:pt-48 animate-fadeIn">
+        <div className="flex lg:w-1/2 flex-col gap-6 lg:gap-8">
+          <div className="inline-flex w-fit mx-auto lg:mx-0 items-center border border-gray-300 rounded-3xl p-2 space-x-1 ">
+              <div className="text-black font-bold text-sm">Powered By OpenAI</div>
+              <Image width={20} height={20} src="/images/openaipng.png" alt="Powered by OpenAI Chatgpt AI Technology Tool" className=" "/>
+          </div>
+          <div className="flex flex-col gap-8 text-center lg:text-left">
+            <h1 className="section-title-text-size xl:text-6xl font-bold text-gray-800">
+              <span className="text-gray-700"> {titleStart} </span>
+              <span className="primary-orange-text-gradient"> {titleEnd} </span>
+              <br />
+            </h1>
+            <p className="section-desc-text-size font-medium text-gray-600">
+              {description}
+            </p>
+          </div>
+          <div className="grid justify-center lg:justify-start text-left space-y-1">
+            <HomePageSearch/>
+          </div>
+
+          <div className="grid grid-cols-3 lg:flex justify-center lg:justify-start lg:space-x-16">
+            <StatisticItem number="3200+" label="Recipes" />
+            <StatisticItem number="540+" label="Users" />
+            <StatisticItem number="$0/mo." label="Price" />
+          </div>
+        </div>
+
+
+          <div className="hidden lg:block w-1/2 bg-transparent rounded-lg">
+            <Image src={"/images/Illustration.png"} alt="Profile" height={2058} width={2150} className="object-fit" />
+          </div> {/* Placeholder for the illustration */}
+        
+      </Container>
+  )
+}
+
+
+export function StatisticItem({ number, label }: any) {
+  return (
+    <div className="flex flex-col items-center">
+      <p className="text-2xl font-semibold text-gray-700">{number}</p>
+      <p className="text-base font-medium text-gray-600">{label}</p>
+    </div>
+  );
+}
+
 export function HomePageTools() {
 
     const tools = [
@@ -191,15 +248,6 @@ export function HomeFAQ() {
   )
 }
 
-export function StatisticItem({ number, label }: any) {
-  return (
-    <div className="flex flex-col items-center">
-      <p className="text-2xl font-semibold text-gray-700">{number}</p>
-      <p className="text-base font-medium text-gray-600">{label}</p>
-    </div>
-  );
-}
-
 export function HomeVideoToRecipe() {
 
   const tikTokRef = useRef(null);
@@ -249,52 +297,6 @@ export function HomeVideoToRecipe() {
 
         </div>
     </Container>
-  )
-}
-
-interface HeroProps {
-  titleStart?: string,
-  titleEnd?: string,
-  description?: string,
-  loginURL?: string,
-}
-
-export function Hero({titleStart, titleEnd, description}: HeroProps) {
-
-  return(
-      <Container className="flex flex-col lg:flex-row items-center justify-between pt-36 px-5 space-x-4 xl:pt-48 animate-fadeIn">
-        <div className="flex lg:w-1/2 flex-col gap-6 lg:gap-8">
-          <div className="inline-flex w-fit mx-auto lg:mx-0 items-center border border-gray-300 rounded-3xl p-2 space-x-1 ">
-              <div className="text-black font-bold text-sm">Powered By OpenAI</div>
-              <Image width={20} height={20} src="/images/openaipng.png" alt="Powered by OpenAI Chatgpt AI Technology Tool" className=" "/>
-          </div>
-          <div className="flex flex-col gap-8 text-center lg:text-left">
-            <h1 className="section-title-text-size xl:text-6xl font-bold text-gray-800">
-              <span className="text-gray-700"> {titleStart} </span>
-              <span className="primary-orange-text-gradient"> {titleEnd} </span>
-              <br />
-            </h1>
-            <p className="section-desc-text-size font-medium text-gray-600">
-              {description}
-            </p>
-          </div>
-          <div className="grid justify-center lg:justify-start text-left space-y-1">
-            <HomePageSearch/>
-          </div>
-
-          <div className="grid grid-cols-3 lg:flex justify-center lg:justify-start lg:space-x-16">
-            <StatisticItem number="3200+" label="Recipes" />
-            <StatisticItem number="540+" label="Users" />
-            <StatisticItem number="$0/mo." label="Price" />
-          </div>
-        </div>
-
-
-          <div className="hidden lg:block w-1/2 bg-transparent rounded-lg">
-            <Image src={"/images/Illustration.png"} alt="Profile" height={2058} width={2150} className="object-fit" />
-          </div> {/* Placeholder for the illustration */}
-        
-      </Container>
   )
 }
 
