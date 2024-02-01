@@ -1,7 +1,7 @@
 import Head from 'next/head';
 import GoogleTags from '@/components/tags/conversion';
 import { HomePageScroller, HomePageTools, HomePageCTA, CreatorFAQ, HomeVideoToRecipe, CreatorHero, CreatorCTA } from '@/components/home';
-import { useAuth } from '../api/auth/auth';
+import { useAuth } from '@/pages/api/auth/auth';
 import { PageLoader } from '@/components/shared/loader';
 import { PromoteKitTag } from '@/components/tags/headertags';
 import { Raleway } from 'next/font/google'

@@ -31,16 +31,16 @@ export default function Contact() {
                     <span className="min-w-max pr-2 border-r border-box-border">
                         <UsersIcon className="h-6 w-6 text-black"/>                                                             
                     </span>
-                    <input type="text" name="FULLNAME" placeholder="Name" className="w-full py-3 outline-none bg-transparent text-gray-500"/>
+                    <input type="text" required={true} name="FULLNAME" placeholder="Name" className="w-full py-3 outline-none bg-transparent text-gray-500"/>
                 </div>
                     <div className="mt-4 py-1 pl-6 w-full pr-1 flex gap-3 items-center text-heading-3 shadow-lg shadow-box-shadow border border-box-border bg-box-bg rounded-full ease-linear focus-within:bg-body  focus-within:border-primary">
                         <span className="min-w-max pr-2 border-r border-box-border">
                             <EnvelopeIcon className="h-6 w-6 text-black"/>                                                                 
                         </span>
-                        <input type="email" name="EMAIL" placeholder="Email" className="w-full py-3 outline-none bg-transparent required email text-gray-500"/>
+                        <input type="email" required={true} name="EMAIL" placeholder="Email" className="w-full py-3 outline-none bg-transparent required email text-gray-500"/>
                     </div>
                     <div className="mt-4 py-1 pl-6 w-full pr-1 flex gap-3 items-center text-heading-3 shadow-lg shadow-box-shadow border border-box-border bg-box-bg rounded-3xl ease-linear focus-within:bg-body  focus-within:border-primary">
-                        <textarea name="MSG" placeholder="Message..." className="w-full py-3 outline-none bg-transparent text-gray-500"/>
+                        <textarea name="MSG" required={true} placeholder="Message..." className="w-full py-3 outline-none bg-transparent text-gray-500"/>
                     </div>
                     <div className="flex justify-end mt-4 py-1 w-full pr-1 gap-3 items-center text-heading">
                         <Button buttonType="submit" text="" className={"min-w-max text-white"}>
