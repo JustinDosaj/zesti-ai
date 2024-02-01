@@ -489,8 +489,6 @@ export function DeleteConfirmationModal({isDeleteOpen, setIsDeleteOpen, recipe_i
   const cancelButtonRef = useRef(null)
   const [ loading, setLoading ] = useState<boolean>(false)
 
-  console.log(recipe_id)
-
   const onConfirmDeleteClick = async () => {
     setLoading(true)
     await deleteCreatorPublicRecipe(user?.uid, recipe_id)
