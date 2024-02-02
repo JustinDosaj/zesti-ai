@@ -8,6 +8,7 @@ import Link from "next/link"
 import Image from "next/image"
 import { BookOpenIcon, HomeIcon, PaperAirplaneIcon, WalletIcon, UserIcon, VideoCameraIcon } from "@heroicons/react/20/solid"
 import { DropDownMenuDesktop, DropDownMenuMobile } from "./menus"
+import { Loader } from "../shared/loader"
 
 const userDesktopNavItems = [
     {
@@ -143,9 +144,6 @@ export function Navbar() {
         })
     }
 
-    
-    if (isLoading == true && userData) return(<></>)
-
     return(
 
     <header className="absolute inset-x-0 top-0 z-45 py-6 w-screen">
@@ -169,22 +167,23 @@ export function Navbar() {
                     </ul>
                 </div>
                 <div className="hidden lg:flex justify-end w-1/3">
-                    {!user ? 
+                    {!user && !isLoading? 
                     (
                         <BtnLink text='Login' href='/auth/login'/>
-                    ) 
-
-                    : user && userData?.isCreator == true && (!userData?.tiktokAccessToken || userData?.activeToken == false) ? 
+                    )
+                    : userData == null ? 
+                        <></> 
+                    : userData?.isCreator == true && (!userData?.tiktokAccessToken || userData?.activeToken == false) ? 
                         <div className="inline-flex items-center space-x-4">
                             <Button buttonType="button" onClick={loginWithTikTok} text={'Connect TikTok'}/>
                             <DropDownMenuDesktop navItems={creatorDesktopNavItems}/>  
                         </div>
-                    : user && userData?.isCreator == true && (userData?.tiktokAccessToken && userData?.activeToken == true) ? 
+                    : userData?.isCreator == true && (userData?.tiktokAccessToken && userData?.activeToken == true) ? 
                         <div className="inline-flex items-center space-x-4">
                             <BtnLink href={creatorData !== undefined ? `/${creatorData?.display_url}` : `/creator/edit`} text={creatorData !== undefined ? 'View Your Page' : 'Create Page'}/>
                             <DropDownMenuDesktop navItems={creatorDesktopNavItems}/>  
                         </div>
-                    :
+                    : 
                        <div className="inline-flex items-center space-x-4">
                             <BtnLink href="/my-recipes" text={'My Recipes'}/>
                             <DropDownMenuDesktop navItems={userDesktopNavItems}/>

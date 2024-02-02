@@ -1,5 +1,5 @@
 import { Container } from "../shared/container"
-import { ChatBubbleLeftIcon, CheckIcon, StarIcon, MinusSmallIcon, PlusSmallIcon, ArrowDownIcon, BookOpenIcon, CheckCircleIcon} from "@heroicons/react/20/solid"
+import { ChatBubbleLeftIcon, CheckIcon, StarIcon, MinusSmallIcon, PlusSmallIcon, ArrowDownIcon, BookOpenIcon, CheckCircleIcon, BeakerIcon} from "@heroicons/react/20/solid"
 import { useState, useEffect, useRef } from "react"
 import { ToolExamples, Scroller, DashboardExample } from "./scroll"
 import { BtnLink, Button } from "../shared/button"
@@ -10,6 +10,7 @@ import { HomePageSearch } from "../search"
 import Link from "next/link"
 import { useRouter } from "next/router"
 import { useAuth } from "@/pages/api/auth/auth"
+import getConfig from "next/config"
 
 
 interface HeroProps {
@@ -21,12 +22,14 @@ interface HeroProps {
 
 export function Hero({titleStart, titleEnd, description}: HeroProps) {
 
+  const { publicRuntimeConfig } = getConfig();
+
   return(
       <Container className="flex flex-col lg:flex-row items-center justify-between pt-36 px-5 space-x-4 xl:pt-48 animate-fadeIn">
         <div className="flex lg:w-1/2 flex-col gap-6 lg:gap-8">
           <div className="inline-flex w-fit mx-auto lg:mx-0 items-center border border-gray-300 rounded-3xl p-2 space-x-1 ">
-              <div className="text-black font-bold text-sm">Powered By OpenAI</div>
-              <Image width={20} height={20} src="/images/openaipng.png" alt="Powered by OpenAI Chatgpt AI Technology Tool" className=" "/>
+              <BeakerIcon className="text-black h-4 w-4"/>
+              <div className="text-black font-bold text-sm">{`beta v${publicRuntimeConfig?.version}`}</div>
           </div>
           <div className="flex flex-col gap-8 text-center lg:text-left">
             <h1 className="section-title-text-size xl:text-6xl font-bold text-gray-800">
@@ -433,8 +436,8 @@ export function CreatorCTA({isHome, title}: CreatorCTAProps) {
         <div className="mx-auto max-w-7xl sm:px-6 lg:px-8">
           <div className="mx-auto flex max-w-2xl flex-col gap-16 bg-transparent rounded-3xl orange-border-shadow px-6 py-16 ring-1 ring-white/10 sm:rounded-3xl sm:p-8 lg:mx-0 lg:max-w-none lg:flex-row lg:items-center lg:py-20 xl:gap-x-20 xl:px-20">
             <img
-              className="h-96 w-full flex-none rounded-2xl object-cover shadow-xl lg:aspect-square lg:h-auto lg:max-w-sm"
-              src="https://images.unsplash.com/photo-1519338381761-c7523edc1f46?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&q=80"
+              className="h-96 w-full flex-none rounded-2xl object-cover lg:aspect-square lg:h-auto lg:max-w-sm"
+              src="/images/no-bg-iso.png"
               alt=""
             />
             <div className="w-full flex-auto">

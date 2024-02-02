@@ -48,7 +48,7 @@ export function PricingDisplay() {
           features: [
             'Unlimited Recipe Saves',
             'Instantly Translate Any TikTok Video',
-            'AI Cooking Chat',
+            'AI Cooking Assistant',
             'Customize Recipes',
             'Ad-Free'
           ],

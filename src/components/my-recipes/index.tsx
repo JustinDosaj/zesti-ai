@@ -111,7 +111,7 @@ export function UserRecipeListCard({item, key}: UserRecipeCardProps) {
                         </span>
                     </div>
                     <div className="flex gap-1 text-xs lg:text-sm text-gray-600 items-center">
-                        <p className="text-sm text-gray-600">{item.title !== '' ? item.title : 'Title Not Available'}</p> {/* Recipe Name */}
+                        <p className="text-sm text-gray-600 w-[225px]">{item.title !== '' ? item.title : 'Title Not Available'}</p> {/* Recipe Name */}
                     </div>
                 </div>
                 :
