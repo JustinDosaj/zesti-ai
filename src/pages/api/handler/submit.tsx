@@ -180,6 +180,12 @@ export const handleTikTokURLSubmit = async ({url, setUrl, user, setMessage, stri
             return false;
         })
 
+        if(response == true) {
+            await db.collection('users').doc(user.uid).update({
+                tokens: increment(-1),
+            })
+         }
+
         return response;
        /* try {
             await db.collection('users').doc(user.uid).collection('tiktokurl').doc(id[1]).set(falseObj)

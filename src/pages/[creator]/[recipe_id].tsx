@@ -63,13 +63,16 @@ const Recipe: React.FC = ({id, owner_uid}: any) => {
     }, [owner_uid, isLoading, id, router]);
 
 
+    console.log(recipe)
+
     if(loading) return <PageLoader/>
 
     return(
     <>
     <Head>
       <title>{recipe.name}</title>
-      <meta name="robots" content="noindex" />
+      <meta name="title" content={recipe.name}/>
+      <meta name="description" content={'Make ' + recipe.name + 'from a recipe by ' + recipe.owner_display_name}/>
       <link rel="preload" href="/images/zesti-logos/Zesti-Premium-2.png" as="image"></link>
       <GoogleTags/>
       <PromoteKitTag/>

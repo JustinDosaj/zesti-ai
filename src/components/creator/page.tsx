@@ -258,7 +258,6 @@ export function CreatorRecipeListCard({item, creatorName, key}: RecipeCardProps)
                     </span>
                 </div>
                 <div className="flex gap-1 text-xs lg:text-sm text-gray-600 items-center">
-                  <span className="font-bold hidden sm:block">Title:</span>
                   <p className="text-sm text-gray-600">{item?.title}</p> {/* Recipe Name */}
                 </div>
             </div>

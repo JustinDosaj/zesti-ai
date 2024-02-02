@@ -103,13 +103,12 @@ const CreatorPage: NextPage<CreatorProps> = ({ creatorData, referer }) => {
   }, [creatorData, referer]);
 
 
-  if (!creatorData) return <PageLoader/>
-
-  // Render your creator data here
   return (
     <>
     <Head>
-      <title>Zesti | Creator Page</title> {/* Add Dynamic Title to display creator username for improved SEO*/}
+      <title>{creatorData?.display_name + ' ' +'Recipes'}</title> {/* Add Dynamic Title to display creator username for improved SEO*/}
+      <meta name="title" content={creatorData?.display_name + ' Recipes'}/>
+      <meta name="description" content={'Get written versions of recipes from ' + creatorData?.display_name + ' and start cooking now!'}/>
       <GoogleTags/>
       <PromoteKitTag/>
     </Head>
