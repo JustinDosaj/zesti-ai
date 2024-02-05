@@ -8,19 +8,11 @@ import React, { useState, useEffect } from "react"
 import { Button, AltButton } from "@/components/shared/button"
 import { ExclamationTriangleIcon } from "@heroicons/react/24/outline"
 import { deleteUserRecipe } from "@/pages/api/firebase/functions"
+import { RecipeProps } from "../shared/interface"
 
 
-interface CreatorRecipeProps {
-    recipe: any,
-    url?: string,
-    setPremiumPrompt?: any
-    owner_id?: string,
-    setEditMode?: any,
-    role?: any,
-}
 
-
-export function UserRecipe({recipe, setPremiumPrompt, owner_id, setEditMode, role}: CreatorRecipeProps) {
+export function UserRecipe({recipe, setPremiumPrompt, owner_id, setEditMode, role}: RecipeProps) {
 
     const { user } = useAuth()
     const [startDelete, setStartDelete] = useState<boolean>(false);
@@ -109,7 +101,7 @@ export function UserRecipe({recipe, setPremiumPrompt, owner_id, setEditMode, rol
     )
 }
 
-export function EditUserRecipe({recipe, setPremiumPrompt, setEditMode, role}:CreatorRecipeProps) {
+export function EditUserRecipe({recipe, setPremiumPrompt, setEditMode, role}:RecipeProps) {
 
     const {user} = useAuth()
     const [editedIngredients, setEditedIngredients] = useState<string[]>([]);

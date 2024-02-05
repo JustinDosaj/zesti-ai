@@ -5,15 +5,11 @@ import { useAuth } from '@/pages/api/auth/auth'
 import Link from "next/link"
 import { ChevronDownIcon } from '@heroicons/react/20/solid'
 
-interface MenuProps {
-    navItems: any,
-}
-
 function classNames(...classes: (string | undefined | null | false)[]): string {
     return classes.filter(Boolean).join(' ');
 }
 
-export function DropDownMenuMobile({navItems}: MenuProps) {
+export function DropDownMenuMobile({navItems}: any) {
 
     const { user, isLoading } = useAuth()
 
@@ -81,7 +77,7 @@ export function DropDownMenuMobile({navItems}: MenuProps) {
     )
 }
 
-export function DropDownMenuDesktop({navItems}: MenuProps) {
+export function DropDownMenuDesktop({navItems}: any) {
     return(
     <Menu as="div" className="relative">
         <Menu.Button as="div" className="flex items-center cursor-pointer">

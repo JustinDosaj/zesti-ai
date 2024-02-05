@@ -1,7 +1,7 @@
 import { Container } from "../shared/container"
 import { ChatBubbleLeftIcon, CheckIcon, StarIcon, MinusSmallIcon, PlusSmallIcon, ArrowDownIcon, BookOpenIcon, CheckCircleIcon, BeakerIcon} from "@heroicons/react/20/solid"
 import { useState, useEffect, useRef } from "react"
-import { ToolExamples, Scroller, DashboardExample } from "./scroll"
+import { ToolExamples, Scroller, FeaturedCreators, DashboardExample } from "./scroll"
 import { BtnLink, Button } from "../shared/button"
 import Image from "next/image"
 import { Disclosure } from "@headlessui/react"
@@ -10,15 +10,11 @@ import { HomePageSearch } from "../search"
 import Link from "next/link"
 import { useRouter } from "next/router"
 import { useAuth } from "@/pages/api/auth/auth"
+import { HeroProps, CreatorCTAProps } from "../shared/interface"
 import getConfig from "next/config"
 
 
-interface HeroProps {
-  titleStart?: string,
-  titleEnd?: string,
-  description?: string,
-  loginURL?: string,
-}
+
 
 export function Hero({titleStart, titleEnd, description}: HeroProps) {
 
@@ -122,7 +118,7 @@ export function HomePageTools() {
     )
 }
 
-export function HomePageScroller() {
+export function HomePageScroller({creators}: any) {
 
     const [ scrollPage, setScrollPage] = useState<number>(1)
 
@@ -145,7 +141,7 @@ export function HomePageScroller() {
 
     if (scrollPage == 1) return(
       <Container className="home-scroll-container animate-fadeIn"> 
-        <ToolExamples/>
+        <FeaturedCreators creators={creators}/>
         <Scroller onRightScrollClick={onRightScrollClick} onLeftScrollClick={onLeftScrollClick} scrollPage={scrollPage}/>
       </Container> 
     )
@@ -417,10 +413,6 @@ export function FreeSubscriptionBenefits() {
   )
 }
 
-interface CreatorCTAProps {
-  isHome: boolean,
-  title: string,
-}
 
 export function CreatorCTA({isHome, title}: CreatorCTAProps) {
   const benefits = [

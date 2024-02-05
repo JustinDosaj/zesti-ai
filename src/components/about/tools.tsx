@@ -8,15 +8,7 @@ import { handleYouTubeURLSubmit, handleTikTokURLSubmit } from "@/pages/api/handl
 import React, { useState, useEffect } from 'react';
 import { Notify } from '../shared/notify';
 import { SharedHomeSectionTitle } from "../shared/title";
-
-
-interface ToolHeroProps {
-    role: string | null,
-    tokens: number,
-    titleStart?: string,
-    titleEnd?: string,
-    description?: string
-}
+import { ToolHeroProps } from "../shared/interface";
 
 export function ToolHero({role, tokens, titleStart, titleEnd, description}: ToolHeroProps){
 

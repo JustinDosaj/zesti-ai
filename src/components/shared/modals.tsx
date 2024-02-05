@@ -1,10 +1,8 @@
 "use client;"
-import { Fragment, useRef } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
-import { CheckIcon } from '@heroicons/react/24/outline'
 import { Notify } from './notify'
-import { XMarkIcon, StarIcon, UserIcon } from '@heroicons/react/20/solid'
-import React, { useState } from 'react'
+import { XMarkIcon, StarIcon, UserIcon, CheckIcon } from '@heroicons/react/20/solid'
+import React, { useState, Fragment, useRef } from 'react'
 import AdSenseDisplay from '../tags/adsense'
 import { CreatorSubmitLoader } from './loader'
 import Link from 'next/link'
@@ -12,17 +10,11 @@ import { CreatorAddRecipeLinkComponent, CreatorAddRecipeTextComponent, CreatorRe
 import { handleCreatorTikTokURLSubmit } from '@/pages/api/handler/submit'
 import { useAuth } from '@/pages/api/auth/auth'
 import { deleteCreatorError, deleteCreatorPublicRecipe } from '@/pages/api/firebase/functions'
+import { ModalResponseProps } from './interface'
 
-interface InputResponseProps {
-    isOpen: boolean,
-    setIsOpen: any,
-    success: boolean,
-    message: any,
-    role: any,
-}
 
 // MUST STAY TO DISPLAY ADS ON FREE USER MODAL SUCCESS
-export function InputResponseModal({isOpen, setIsOpen, success, message, role}: InputResponseProps) {
+export function InputResponseModal({isOpen, setIsOpen, success, message, role}: ModalResponseProps) {
 
   const cancelButtonRef = useRef(null)
 
@@ -291,13 +283,8 @@ export function UpgradeToPremiumModal({premiumPrompt, setPremiumPrompt}: Upgrade
   )
 }
 
-interface CreatorAddRecipeModal {
-  isOpen: boolean,
-  setIsOpen: any,
-  onSubmit?: any,
-}
 
-export function CreatorAddRecipeModal({isOpen, setIsOpen}: CreatorAddRecipeModal) {
+export function CreatorAddRecipeModal({isOpen, setIsOpen}: ModalResponseProps) {
 
 
   const { creatorData, user } = useAuth()

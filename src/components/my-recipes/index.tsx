@@ -3,19 +3,11 @@ import Link from 'next/link'
 import React, { useState, useEffect, useRef  } from "react"
 import { Button } from "../shared/button"
 import { RecipeListLoader } from "../shared/loader";
+import { UserSavedRecipeListProps, RecipeCardProps } from '../shared/interface';
 
 function classNames(...classes: (string | undefined | null | false)[]): string {
     return classes.filter(Boolean).join(' ');
 }
-
-interface UserSavedRecipeListProps {
-    recipes: any,
-    creatorName?: string,
-    maxDisplayCount?: number,
-    incrementCount?: number,
-    max?: number,
-    loading?: boolean,
-  }
   
 export function UserSavedRecipeList({recipes, maxDisplayCount = 5, incrementCount = 10, max = 0, loading}: UserSavedRecipeListProps) {
 
@@ -76,13 +68,9 @@ return(
 </div>
 )
 }
+
   
-interface UserRecipeCardProps {
-item: any,
-key?: any,
-}
-  
-export function UserRecipeListCard({item, key}: UserRecipeCardProps) {
+export function UserRecipeListCard({item, key}: RecipeCardProps) {
     return(
     <div key={key} className="group relative w-[350px] lg:w-[425px]">
             {/* Image and Details */}

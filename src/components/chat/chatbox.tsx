@@ -4,19 +4,13 @@ import { db } from '@/pages/api/firebase/firebase';
 import { useAuth } from '@/pages/api/auth/auth';
 import { doc, setDoc, collection, onSnapshot, query, orderBy, where, Timestamp } from 'firebase/firestore';
 import { InlineBtnLink, BtnLink } from '../shared/button';
-
-interface Message {
-  id: string;
-  sender: string;
-  text: string;
-  timestamp: Date | { seconds: number, nanoseconds: number }; // Adjust based on the actual shape of the timestamp
-}
+import { AIChatMessageProps } from '../shared/interface';
 
 export function Chatbox() {
     
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [message, setMessage] = useState<string>('');
-  const [messages, setMessages] = useState<Message[]>([]);
+  const [messages, setMessages] = useState<AIChatMessageProps[]>([]);
   const { user } = useAuth();
   const endOfMessagesRef = useRef<HTMLDivElement>(null);
 
@@ -37,8 +31,8 @@ export function Chatbox() {
       );
 
       const unsubscribe = onSnapshot(q, (snapshot) => {
-        const fetchedMessages: Message[] = snapshot.docs.map(doc => ({
-          ...doc.data() as Message
+        const fetchedMessages: AIChatMessageProps[] = snapshot.docs.map(doc => ({
+          ...doc.data() as AIChatMessageProps
         }));
         setMessages(fetchedMessages);
         scrollToBottom();
