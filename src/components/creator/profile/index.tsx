@@ -9,6 +9,7 @@ import { PlusCircleIcon, PlusIcon } from "@heroicons/react/20/solid"
 import { Container } from '@/components/shared/container'
 import { saveAffiliateLink } from '@/pages/api/firebase/functions'
 import { callGenerateCreatorPage } from '@/pages/api/handler/submit'
+import { RecentTikTokVideosProps } from '@/components/shared/interface'
 
 export function CreatorPageComponent({creatorData}: any) {
 
@@ -148,18 +149,7 @@ export function CreatorPageComponent({creatorData}: any) {
     )
 }
 
-interface RecentTikTokVideos {
-    videoList: any,
-    creatorData: any,
-    setIsOpen: any,
-    setUrlId?: any,
-    setUrl: any,
-    setVideoObject: any,
-    maxDisplayCount?: number,
-    incrementCount?: number,
-}
-
-export function RecentTikTokVideos({videoList, creatorData, setIsOpen, setUrl, setVideoObject, maxDisplayCount = 5, incrementCount = 5}: RecentTikTokVideos) {
+export function RecentTikTokVideos({videoList, creatorData, setIsOpen, setUrl, setVideoObject, maxDisplayCount = 5, incrementCount = 5}: RecentTikTokVideosProps) {
 
     const [ displayCount, setDisplayCount ] = useState(maxDisplayCount)
     const containerRef = useRef<HTMLDivElement>(null);

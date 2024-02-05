@@ -1,6 +1,5 @@
 import { Container } from "@/components/shared/container"
-import { ArrowDownTrayIcon, CheckIcon, EyeIcon, PlusIcon, TrashIcon, XMarkIcon } from "@heroicons/react/20/solid"
-import { ExclamationTriangleIcon } from "@heroicons/react/24/outline"
+import { ArrowDownTrayIcon, EyeIcon, PlusIcon, TrashIcon } from "@heroicons/react/20/solid"
 import { useRouter } from "next/router"
 import { db } from "@/pages/api/firebase/firebase"
 import { useAuth } from "@/pages/api/auth/auth"
@@ -8,17 +7,9 @@ import { Notify } from '@/components/shared/notify';
 import React, { useState, useEffect } from "react"
 import { Button, AltButton } from "@/components/shared/button"
 import { saveFromCreatorToUser } from "@/pages/api/firebase/functions"
+import { RecipeProps } from "@/components/shared/interface"
 
-
-interface CreatorRecipeProps {
-    recipe: any,
-    url?: string,
-    setLoginPrompt?: any
-    owner_id: string,
-    setEditMode?: any,
-}
-
-export function CreatorRecipe({recipe, setLoginPrompt, owner_id, setEditMode}: CreatorRecipeProps) {
+export function CreatorRecipe({recipe, setLoginPrompt, owner_id, setEditMode}: RecipeProps) {
 
     const { user } = useAuth()
 
@@ -64,7 +55,7 @@ export function CreatorRecipe({recipe, setLoginPrompt, owner_id, setEditMode}: C
     )
 }
 
-export function EditCreatorRecipe({recipe, url, setLoginPrompt, owner_id, setEditMode}:CreatorRecipeProps) {
+export function EditCreatorRecipe({recipe, url, setLoginPrompt, owner_id, setEditMode}:RecipeProps) {
 
     const {user} = useAuth()
     const [editedIngredients, setEditedIngredients] = useState<string[]>([]);

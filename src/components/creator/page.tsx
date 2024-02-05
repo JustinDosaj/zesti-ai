@@ -7,6 +7,7 @@ import { Button } from "../shared/button"
 import { EyeIcon } from "@heroicons/react/20/solid"
 import algoliasearch from 'algoliasearch/lite';
 import { SharedSectionHeadingTitle } from "../shared/title"
+import { CreatorPageRecentRecipesProps, RecipeCardProps } from "../shared/interface"
 
 export function CreatorPageTitle({creatorData}: any) {
     return(
@@ -175,13 +176,6 @@ export function CreatorSocials({creatorData}: any) {
     )
 }
 
-interface CreatorPageRecentRecipesProps {
-  recipes: any,
-  creatorName: string,
-  maxDisplayCount?: number,
-  incrementCount?: number
-  owner_id?: string,
-}
 
 export function CreatorPageRecentRecipes({recipes, creatorName, maxDisplayCount = 5, incrementCount = 10}: CreatorPageRecentRecipesProps) {
   
@@ -229,12 +223,6 @@ export function CreatorPageRecentRecipes({recipes, creatorName, maxDisplayCount 
         </div>
   </div>
   )
-}
-
-interface RecipeCardProps {
-  item: any,
-  creatorName: string,
-  key?: any,
 }
 
 export function CreatorRecipeListCard({item, creatorName, key}: RecipeCardProps) {

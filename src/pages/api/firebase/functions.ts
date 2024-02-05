@@ -1,5 +1,7 @@
 import { Notify } from "@/components/shared/notify";
 import { db } from "./firebase"
+import { collection, query, limit, getDocs } from "firebase/firestore";
+import { Creator } from "@/components/shared/interface";
 
 export interface Props {
   url: any,
@@ -181,4 +183,16 @@ export async function deleteCreatorPublicRecipe(creator_id: any, recipe_id: stri
   await tikTokRecipesRef.delete()
 
   console.log(`Removed ${recipe_id} from public recipes`)
+}
+
+export async function GetRandomCreatorsForHomepage(numberOfCreators: number): Promise<Creator[]> {
+  
+  const creatorsRef = collection(db, "creators");
+  const q = query(creatorsRef, limit(10)); // Adjust based on your needs
+  const querySnapshot = await getDocs(q);
+  const fetchedCreators: Creator[] = querySnapshot.docs.map(doc => doc.data() as Creator);
+
+  // Select random creators
+  return fetchedCreators.sort(() => 0.5 - Math.random()).slice(0, numberOfCreators);
+
 }

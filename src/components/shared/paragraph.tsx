@@ -1,9 +1,7 @@
-export interface Props {
-    className?:string,
-    children?: React.ReactNode
-}
+import { TextProps } from "./interface"
 
-export function Paragraph({className, children}: Props){
+
+export function Paragraph({className, children}: TextProps){
     return(
         <p className={`md:text-md lg:text-lg text-heading-3 ${className}`}>
             {children}

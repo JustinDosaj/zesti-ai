@@ -1,12 +1,9 @@
 import { Container } from "./container"
 import { ChevronDoubleLeftIcon } from "@heroicons/react/20/solid"
+import { TextProps } from "./interface"
 import Link from "next/link"
-export interface Props {
-    children?: React.ReactNode,
-    className?:string,
-}
 
-export function Title({children, className}: Props) {
+export function Title({children, className}: TextProps) {
     return(
         <h1 className={`text-heading-1 font-semibold text-4xl lg:text-5xl ${className}`}>
             {children}

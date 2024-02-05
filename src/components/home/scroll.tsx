@@ -3,6 +3,32 @@ import Link from "next/link";
 import Image from "next/image";
 import { SharedHomeSectionTitle } from "../shared/title";
 
+export function FeaturedCreators({creators}: any) {
+
+    return(
+        <>
+            <div className="flex flex-col lg:flex-row justify-center text-center lg:items-center w-full gap-8">
+                <div className="flex flex-col">
+                    <SharedHomeSectionTitle titleBlack="Discover New Recipes from" titleOrange="TikTok Creators" desc="Discover new recipes & inspiration from creators on Zesti"/>
+                </div>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-8">
+            {/* Testimonial cards */}
+
+            {creators?.map((creator: any) => (
+                <TestimonialCard
+                    name={creator.display_name}
+                    source="YouTube"
+                    desc={creator.bio_description}
+                    imageSrc={creator.avatar_url}
+                    href={`/${creator.display_url}`}
+                />
+            ))}
+            </div>
+        </>
+    )
+}
+
 export function ToolExamples() {
 
     return(
@@ -92,14 +118,9 @@ export function Scroller({onRightScrollClick, onLeftScrollClick, scrollPage}: an
 
 function TestimonialCard({ name, source, desc, imageSrc, href }: any) {
     return (
-      <Link href={href} className="flex flex-col items-start bg-white hover:bg-gray-200 hover:duration-200 p-4 rounded-3xl shadow-lg">
-        <Image src={imageSrc} alt="Profile" height={1000} width={1000} className="w-24 h-24 rounded-lg mb-4 object-fit" />
-        <p className="text-2xl font-medium text-gray-800 mb-2">{name}</p>
-        <p className="inline-flex text-sm font-medium text-gray-600 mb-4 space-x-1">
-            <span className="">Source:</span>
-            <span className="text-primary-main">{source}</span>
-        </p>
-        <p className="text-base text-gray-700 text-left">{desc}</p>
+      <Link href={href} className="flex flex-col items-center bg-white hover:bg-gray-200 hover:duration-200 p-4 rounded-3xl shadow-lg min-w-[225px]">
+        <Image src={imageSrc} alt="Profile" height={1000} width={1000} className="w-24 h-24 rounded-2xl mb-4 object-fit orange-border-shadow" />
+        <p className="text-xl font-medium text-gray-700 mb-2">{name}</p>
       </Link>
     );
 }
