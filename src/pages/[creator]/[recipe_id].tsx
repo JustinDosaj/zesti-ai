@@ -1,18 +1,17 @@
 import { GetServerSideProps } from "next";
 import { Raleway } from 'next/font/google'
 import { useAuth } from "@/pages/api/auth/auth";
-import { useRouter } from 'next/router';
 import { PageLoader } from "@/components/shared/loader";
-import { db } from "@/pages/api/firebase/firebase";
 import { PromoteKitTag } from "@/components/tags/headertags";
 import { CreatorRecipe, EditCreatorRecipe } from "@/components/creator/recipe";
-import React, {useEffect, useState} from 'react'
+import React, { useState } from 'react'
 import { LoginModal } from "@/components/shared/modals";
 import GoogleTags from "@/components/tags/conversion";
 import Head from "next/head";
 import { getCreatorByDisplayName } from "../api/firebase/functions";
 import Breadcrumbs from "@/components/shared/breadcrumb";
 import useSetBreadcrumbs from "@/components/shared/setBreadcrumbs";
+import getCreatorRecipe from "@/hooks/creator/getCreatorRecipe";
 
 const raleway = Raleway({subsets: ['latin']})
 
@@ -37,42 +36,19 @@ const Recipe: React.FC = ({id, owner_uid}: any) => {
 
     useSetBreadcrumbs()
 
-    const { user, isLoading } = useAuth();
-    const [recipe, setRecipe] = useState<any>([])
-    const [url, setUrl] = useState<string>('')
+    const { user } = useAuth();
     const [ loginPrompt, setLoginPrompt ] = useState<boolean>(false)
     const [ isEditMode, setEditMode ] = useState<boolean>(false)
-    const [ loading, setLoading ] = useState<boolean>(true)
-    const router = useRouter();
+    const { creatorRecipe, isLoadingCreatorRecipe } = getCreatorRecipe(owner_uid, id)
 
-    useEffect(() => {
-
-        const unsubscribe = db.doc(`creators/${owner_uid}/recipes/${id}`)
-          .onSnapshot((docSnapshot) => {
-            if (docSnapshot.exists) {
-              setRecipe(docSnapshot.data());
-              setUrl(docSnapshot.data()?.url ? docSnapshot.data()?.url : '')
-              setLoading(false)
-            } else {
-              console.log("Doc doesnt exist")
-            }
-          });
-    
-        return () => unsubscribe();
-      
-    }, [owner_uid, isLoading, id, router]);
-
-
-    console.log(recipe)
-
-    if(loading) return <PageLoader/>
+    if(isLoadingCreatorRecipe) return <PageLoader/>
 
     return(
     <>
     <Head>
-      <title>{recipe.name}</title>
-      <meta name="title" content={recipe.name}/>
-      <meta name="description" content={'Make ' + recipe.name + 'from a recipe by ' + recipe.owner_display_name}/>
+      <title>{creatorRecipe.name}</title>
+      <meta name="title" content={creatorRecipe.name}/>
+      <meta name="description" content={'Make ' + creatorRecipe.name + 'from a recipe by ' + creatorRecipe.owner_display_name}/>
       <link rel="preload" href="/images/zesti-logos/Zesti-Premium-2.png" as="image"></link>
       <GoogleTags/>
       <PromoteKitTag/>
@@ -80,9 +56,9 @@ const Recipe: React.FC = ({id, owner_uid}: any) => {
     <main className={`flex min-h-screen flex-col items-center p-6 bg-background w-screen ${raleway.className}`}>
         <Breadcrumbs/>
         {isEditMode == false || !user || user?.uid !== owner_uid ? 
-        <CreatorRecipe recipe={recipe} url={url} setLoginPrompt={setLoginPrompt} owner_id={owner_uid} setEditMode={setEditMode}/>
+        <CreatorRecipe recipe={creatorRecipe} setLoginPrompt={setLoginPrompt} owner_id={owner_uid} setEditMode={setEditMode}/>
         :
-        <EditCreatorRecipe recipe={recipe} url={url} setLoginPrompt={setLoginPrompt} owner_id={owner_uid} setEditMode={setEditMode}/>
+        <EditCreatorRecipe recipe={creatorRecipe} setLoginPrompt={setLoginPrompt} owner_id={owner_uid} setEditMode={setEditMode}/>
         }
         <LoginModal loginPrompt={loginPrompt} setLoginPrompt={setLoginPrompt} title={"Create Account"} message={"You must create an account to save recipes"}/>
     </main>

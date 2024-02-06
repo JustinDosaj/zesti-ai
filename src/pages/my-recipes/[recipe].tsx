@@ -1,12 +1,10 @@
 import { GetServerSideProps } from "next";
 import { Raleway } from 'next/font/google'
-import React, {useEffect, useState} from 'react'
+import React, { useState} from 'react'
 import { useAuth } from "@/pages/api/auth/auth";
-import { useRouter } from 'next/router';
 import { PageLoader } from "@/components/shared/loader";
 import Head from "next/head";
 import { Chatbox } from "@/components/chat/chatbox";
-import { db } from "@/pages/api/firebase/firebase";
 import GoogleTags from "@/components/tags/conversion";
 import AdSenseDisplay from "@/components/tags/adsense";
 import { PromoteKitTag } from "@/components/tags/headertags";
@@ -14,6 +12,9 @@ import { UserRecipe, EditUserRecipe } from "@/components/my-recipes/recipe";
 import { UpgradeToPremiumModal } from "@/components/shared/modals";
 import Breadcrumbs from "@/components/shared/breadcrumb";
 import useSetBreadcrumbs from '@/components/shared/setBreadcrumbs';
+import getUserRecipe from "@/hooks/user/getUserRecipe";
+import useRequireAuth from "@/hooks/user/useRequireAuth";
+
 const raleway = Raleway({subsets: ['latin']})
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
@@ -25,40 +26,17 @@ const Recipe: React.FC = ({id}: any) => {
 
     useSetBreadcrumbs()
     const { user, isLoading, stripeRole } = useAuth();
-    const [recipe, setRecipe] = useState<any>([])
-    const [url, setUrl] = useState<string>('')
+    const { require } = useRequireAuth(user, isLoading)
+    const { userRecipe } = getUserRecipe(user?.uid, id)
     const [isEditMode, setEditMode] = useState<boolean>(false)
     const [ premiumPrompt, setPremiumPrompt ] = useState<boolean>(false)
-    const router = useRouter();
 
-
-    useEffect(() => {
-      if (user == null && isLoading == false) {
-        router.replace('/');
-      } else if (user !== null && isLoading == false) {
-
-        const unsubscribe = db.doc(`users/${user.uid}/recipes/${id}`)
-          .onSnapshot((docSnapshot) => {
-            if (docSnapshot.exists) {
-              setRecipe(docSnapshot.data());
-              setUrl(docSnapshot.data()?.url ? docSnapshot.data()?.url : '')
-            } else {
-              console.log("Missing Required Permissions")
-              router.push('/')
-            }
-          });
-    
-        return () => unsubscribe();
-      }
-
-    }, [user, isLoading, id, router]);
-
-    if(!recipe.name) return <PageLoader/>
+    if(!userRecipe) return <PageLoader/>
 
     return(
     <>
     <Head>
-      <title>{recipe.name}</title>
+      <title>{userRecipe.name}</title>
       <meta name="robots" content="noindex" />
       <link rel="preload" href="/images/zesti-logos/Zesti-Premium-2.png" as="image"></link>
       <GoogleTags/>
@@ -68,9 +46,9 @@ const Recipe: React.FC = ({id}: any) => {
       {stripeRole == 'premium' ? <Chatbox/> : <></>}
       <Breadcrumbs/>
       { isEditMode == false || !user ?
-        <UserRecipe recipe={recipe} setPremiumPrompt={setPremiumPrompt} owner_id={''} setEditMode={setEditMode} role={stripeRole}/>
+        <UserRecipe recipe={userRecipe} setPremiumPrompt={setPremiumPrompt} owner_id={''} setEditMode={setEditMode} role={stripeRole}/>
       :
-        <EditUserRecipe recipe={recipe} url={url} setPremiumPrompt={setPremiumPrompt} setEditMode={setEditMode} role={stripeRole}/>
+        <EditUserRecipe recipe={userRecipe} setPremiumPrompt={setPremiumPrompt} setEditMode={setEditMode} role={stripeRole}/>
       }
       {stripeRole !== 'premium' ? 
       <div className="flex justify-center items-center py-12">

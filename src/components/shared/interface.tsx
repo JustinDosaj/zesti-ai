@@ -25,7 +25,7 @@ export interface RecipeProps {
     url?: string,
     setLoginPrompt?: any
     setPremiumPrompt?: any
-    owner_id: string,
+    owner_id?: string,
     setEditMode?: any,
     role?: any,
 }

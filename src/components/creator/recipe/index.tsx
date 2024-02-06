@@ -55,7 +55,7 @@ export function CreatorRecipe({recipe, setLoginPrompt, owner_id, setEditMode}: R
     )
 }
 
-export function EditCreatorRecipe({recipe, url, setLoginPrompt, owner_id, setEditMode}:RecipeProps) {
+export function EditCreatorRecipe({recipe, setLoginPrompt, owner_id, setEditMode}:RecipeProps) {
 
     const {user} = useAuth()
     const [editedIngredients, setEditedIngredients] = useState<string[]>([]);

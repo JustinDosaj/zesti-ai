@@ -7,9 +7,8 @@ import GoogleTags from "@/components/tags/conversion"
 import { PromoteKitTag } from "@/components/tags/headertags";
 import { SharedHomeSectionTitle } from "@/components/shared/title";
 import { useAuth } from "@/pages/api/auth/auth";
-import { useEffect, useState } from "react";
-import { useRouter } from "next/router";
 import { KeyIcon } from "@heroicons/react/20/solid";
+import useRequireAuth from "@/hooks/user/useRequireAuth";
 
 
 const raleway = Raleway({subsets: ['latin']})
@@ -18,15 +17,7 @@ const raleway = Raleway({subsets: ['latin']})
 export default function Contact() {
 
     const { user, isLoading } = useAuth()
-    const router = useRouter()
-
-    useEffect(() => {
-
-        if(!user && !isLoading) {
-            router.push('/auth/login')
-        }
-
-    },[user, isLoading])
+    const { require } = useRequireAuth(user, isLoading)
 
     return(
     <>

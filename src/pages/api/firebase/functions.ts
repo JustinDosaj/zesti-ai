@@ -29,15 +29,9 @@ export async function updateUserWithTikTokTokens(tokenData: TikTokTokenData, use
       tiktokAccessToken: tokenData.access_token,
       tiktokRefreshToken: tokenData.refresh_token,
       tiktokOpenId: tokenData.open_id,
-      activeToken: true,
+      creator_setup_stage: 'connect_affiliate',
       // You can also store expiration times if needed
     };
-
-    const createPageData = {
-      owner_id: userId,
-    }
-
-    //await db.collection('creators').doc(userId).set(createPageData, {merge: true})
 
     // Update the user's document
     await userRef.set(updateData, { merge: true });
@@ -135,11 +129,11 @@ export async function saveAffiliateLink(affiliateLink: string, userId: string) {
 
   try{
     const userRef = db.collection('users').doc(userId);
-    const creatorRef = db.collection('creators').doc(userId);
 
     const updateAffiliateLink = {
       affiliate_link: affiliateLink,
       affiliate_code: affiliateCode,
+      creator_setup_stage: "generate_page"
     }
 
     await userRef.set(updateAffiliateLink, {merge: true});
