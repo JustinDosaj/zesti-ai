@@ -11,7 +11,7 @@ import Head from "next/head";
 import { getCreatorByDisplayName } from "../api/firebase/functions";
 import Breadcrumbs from "@/components/shared/breadcrumb";
 import useSetBreadcrumbs from "@/components/shared/setBreadcrumbs";
-import getCreatorRecipe from "@/hooks/creator/getCreatorRecipe";
+import getCreatorRecipe from "@/hooks/creator/useCreatorRecipe";
 
 const raleway = Raleway({subsets: ['latin']})
 
