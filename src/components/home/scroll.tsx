@@ -17,6 +17,7 @@ export function FeaturedCreators({creators}: any) {
 
             {creators?.map((creator: any) => (
                 <TestimonialCard
+                    key={creator.display_url}
                     name={creator.display_name}
                     source="YouTube"
                     desc={creator.bio_description}
@@ -116,7 +117,7 @@ export function Scroller({onRightScrollClick, onLeftScrollClick, scrollPage}: an
     )
 }
 
-function TestimonialCard({ name, source, desc, imageSrc, href }: any) {
+function TestimonialCard({ name, source, desc, imageSrc, href, key }: any) {
     return (
       <Link href={href} className="flex flex-col items-center bg-white hover:bg-gray-200 hover:duration-200 p-4 rounded-3xl shadow-lg min-w-[225px]">
         <Image src={imageSrc} alt="Profile" height={1000} width={1000} className="w-24 h-24 rounded-2xl mb-4 object-fit orange-border-shadow" />

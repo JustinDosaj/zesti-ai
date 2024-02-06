@@ -57,7 +57,6 @@ export function Hero({titleStart, titleEnd, description}: HeroProps) {
   )
 }
 
-
 export function StatisticItem({ number, label }: any) {
   return (
     <div className="flex flex-col items-center">
@@ -412,7 +411,6 @@ export function FreeSubscriptionBenefits() {
     </div>
   )
 }
-
 
 export function CreatorCTA({isHome, title}: CreatorCTAProps) {
   const benefits = [

@@ -4,10 +4,6 @@ import React, { useState, useEffect, useRef  } from "react"
 import { Button } from "../shared/button"
 import { RecipeListLoader } from "../shared/loader";
 import { UserSavedRecipeListProps, RecipeCardProps } from '../shared/interface';
-
-function classNames(...classes: (string | undefined | null | false)[]): string {
-    return classes.filter(Boolean).join(' ');
-}
   
 export function UserSavedRecipeList({recipes, maxDisplayCount = 5, incrementCount = 10, max = 0, loading}: UserSavedRecipeListProps) {
 
@@ -68,7 +64,6 @@ return(
 </div>
 )
 }
-
   
 export function UserRecipeListCard({item, key}: RecipeCardProps) {
     return(

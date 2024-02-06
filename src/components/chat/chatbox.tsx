@@ -3,7 +3,7 @@ import { ChatBubbleLeftEllipsisIcon, PaperAirplaneIcon, XMarkIcon } from '@heroi
 import { db } from '@/pages/api/firebase/firebase';
 import { useAuth } from '@/pages/api/auth/auth';
 import { doc, setDoc, collection, onSnapshot, query, orderBy, where, Timestamp } from 'firebase/firestore';
-import { InlineBtnLink, BtnLink } from '../shared/button';
+import { InlineBtnLink } from '../shared/button';
 import { AIChatMessageProps } from '../shared/interface';
 
 export function Chatbox() {
