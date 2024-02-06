@@ -4,11 +4,6 @@ import { useEffect, useState } from 'react';
 
 /*
 
-'new' - creator account is fresh |
-'token' = 'valid' | 'invalid' - token does not exist or is no longer valid
-'affiliate' = ''
-'complete' - 'creator page is completely setup'
-
 1. User gets isCreator = true ('intro')
 2. User Connects TikTok (get activeToken and access token etc. 'connect_tiktok')
 3. Then user collects affilaite code - 'create_affilaite'
