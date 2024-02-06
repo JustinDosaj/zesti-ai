@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react"
 import { db } from "@/pages/api/firebase/firebase"
 
-const getCreatorRecipe = (ownerId: string | undefined, recipeId: string) => {
+const useCreatorRecipe = (ownerId: string | undefined, recipeId: string) => {
     
     const [ creatorRecipe, setCreatorRecipe ] = useState<any>([])
     const [ isLoadingCreatorRecipe, setIsLoadingCreatorRecipe ] = useState<boolean>(true)
@@ -29,4 +29,4 @@ const getCreatorRecipe = (ownerId: string | undefined, recipeId: string) => {
 
 }   
 
-export default getCreatorRecipe
+export default useCreatorRecipe

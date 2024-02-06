@@ -11,7 +11,7 @@ import { CreatorPageComponent } from "@/components/creator/profile";
 import Breadcrumbs from "@/components/shared/breadcrumb";
 import useSetBreadcrumbs from "@/components/shared/setBreadcrumbs";
 import { PageLoader } from "@/components/shared/loader";
-import getCreatorStatus from "@/hooks/creator/useCreatorStatus";
+import useCreatorStatus from "@/hooks/creator/useCreatorStatus";
 import useRequireAuth from "@/hooks/user/useRequireAuth";
 
 const raleway = Raleway({subsets: ['latin']})
@@ -21,7 +21,7 @@ export default function Page() {
   useSetBreadcrumbs()
   const { user, userData, creatorData, isLoading } = useAuth();
   const { require } = useRequireAuth(user, isLoading)
-  const { creatorStage } = getCreatorStatus(userData, isLoading)
+  const { creatorStage } = useCreatorStatus(userData, isLoading)
   
   return (
     <>

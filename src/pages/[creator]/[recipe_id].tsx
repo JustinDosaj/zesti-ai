@@ -11,7 +11,7 @@ import Head from "next/head";
 import { getCreatorByDisplayName } from "../api/firebase/functions";
 import Breadcrumbs from "@/components/shared/breadcrumb";
 import useSetBreadcrumbs from "@/components/shared/setBreadcrumbs";
-import getCreatorRecipe from "@/hooks/creator/useCreatorRecipe";
+import useCreatorRecipe from "@/hooks/creator/useCreatorRecipe";
 
 const raleway = Raleway({subsets: ['latin']})
 
@@ -39,7 +39,7 @@ const Recipe: React.FC = ({id, owner_uid}: any) => {
     const { user } = useAuth();
     const [ loginPrompt, setLoginPrompt ] = useState<boolean>(false)
     const [ isEditMode, setEditMode ] = useState<boolean>(false)
-    const { creatorRecipe, isLoadingCreatorRecipe } = getCreatorRecipe(owner_uid, id)
+    const { creatorRecipe, isLoadingCreatorRecipe } = useCreatorRecipe(owner_uid, id)
 
     if(isLoadingCreatorRecipe) return <PageLoader/>
 

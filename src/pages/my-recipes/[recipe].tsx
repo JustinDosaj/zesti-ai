@@ -12,7 +12,7 @@ import { UserRecipe, EditUserRecipe } from "@/components/my-recipes/recipe";
 import { UpgradeToPremiumModal } from "@/components/shared/modals";
 import Breadcrumbs from "@/components/shared/breadcrumb";
 import useSetBreadcrumbs from '@/components/shared/setBreadcrumbs';
-import getUserRecipe from "@/hooks/user/useUserRecipe";
+import useUserRecipe from "@/hooks/user/useUserRecipe";
 import useRequireAuth from "@/hooks/user/useRequireAuth";
 
 const raleway = Raleway({subsets: ['latin']})
@@ -27,7 +27,7 @@ const Recipe: React.FC = ({id}: any) => {
     useSetBreadcrumbs()
     const { user, isLoading, stripeRole } = useAuth();
     const { require } = useRequireAuth(user, isLoading)
-    const { userRecipe } = getUserRecipe(user?.uid, id)
+    const { userRecipe } = useUserRecipe(user?.uid, id)
     const [isEditMode, setEditMode] = useState<boolean>(false)
     const [ premiumPrompt, setPremiumPrompt ] = useState<boolean>(false)
 

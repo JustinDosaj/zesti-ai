@@ -12,7 +12,7 @@ import { useEffect, useState } from 'react';
 
 */
 
-const getCreatorStatus = (userData: any, isLoading: boolean) => {
+const useCreatorStatus = (userData: any, isLoading: boolean) => {
     
     const router = useRouter()
     const [ creatorStage, setCreatorStage ] = useState<string>('')
@@ -40,5 +40,5 @@ const getCreatorStatus = (userData: any, isLoading: boolean) => {
     return { creatorStage }
 }
 
-export default getCreatorStatus
+export default useCreatorStatus
 
