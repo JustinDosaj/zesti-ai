@@ -1,29 +1,20 @@
 import { Raleway } from 'next/font/google'
 import { useAuth } from '../api/auth/auth'
-import { useRouter } from "next/router"
 import { SharedHomeSectionTitle } from '@/components/shared/title'
-import React, { useEffect } from 'react'
 import GoogleTags from "@/components/tags/conversion"
 import Head from "next/head"
 import { PromoteKitTag } from "@/components/tags/headertags"
 import { ProfilePageComponent } from "@/components/home/profile"
 import { CreatorProfileComponent } from '@/components/creator/profile'
-import { Notify } from '@/components/shared/notify'
 import { PageLoader } from '@/components/shared/loader'
+import useRequireAuth from '@/hooks/user/useRequireAuth'
 
 const raleway = Raleway({subsets: ['latin']})
 
 export default function Profile() {
 
     const { user, isLoading, userData, creatorData } = useAuth();
-    const router = useRouter();
-
-    useEffect(() => {
-      if (user == null && !isLoading) {
-        router.replace('/')
-        Notify("Please login to continue")
-      } 
-    }, [user?.uid, isLoading]);
+    const { require } = useRequireAuth(user, isLoading)
 
     if(isLoading) return <PageLoader/>
 

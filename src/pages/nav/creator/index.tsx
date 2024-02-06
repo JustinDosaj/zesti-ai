@@ -24,7 +24,7 @@ export default function Home() {
         <PromoteKitTag/>
       </Head>
       <main className={`flex min-h-screen flex-col items-center justify-between bg-background w-screen space-y-48 ${raleway.className}`}>
-        <CreatorHero titleStart={"Put Your Recipes on"} titleEnd={"Display"} description={"Join our creator program to put your recipes on display and start earning commission"} loginURL={"/auth/login"}/>
+        <CreatorHero titleStart={"Put Your Recipes on"} titleEnd={"Display"} description={"Join our creator program to put your recipes on display and start earning commission"}/>
         <CreatorCTA title={"Zesti Creator Program"} isHome={false}/>
         <HomeVideoToRecipe/>
         <CreatorFAQ/>

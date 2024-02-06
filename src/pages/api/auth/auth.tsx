@@ -2,7 +2,7 @@ import { createContext, useContext, ReactNode, useEffect, useState } from 'react
 import { User, getAuth, onAuthStateChanged, signOut, signInWithPopup, GoogleAuthProvider, createUserWithEmailAndPassword, signInWithEmailAndPassword, sendPasswordResetEmail } from "firebase/auth";
 import { db } from '../firebase/firebase';
 import { useRouter } from 'next/router';
-import { getCreatorData, getUserData, updateUserWithTikTokTokens } from '../firebase/functions';
+import { updateUserWithTikTokTokens } from '../firebase/functions';
 
 interface UserData {
   activeToken?: boolean;

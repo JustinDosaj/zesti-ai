@@ -19,7 +19,7 @@ export default function SocialMediaRecipe() {
         <PromoteKitTag/>
       </Head>
       <main className={`flex min-h-screen flex-col items-center justify-between bg-background w-screen ${raleway.className}`}>
-        <Hero titleStart={"Find & Save"} titleEnd={"TikTok Recipes"} description={"Say goodbye to pausing, rewinding and restarting. Zesti Premium lets you transform a cooking video from TikTok or YouTube to an easy-to-follow text recipe!"} loginURL={"/auth/login"}/>
+        <Hero titleStart={"Find & Save"} titleEnd={"TikTok Recipes"} description={"Say goodbye to pausing, rewinding and restarting. Zesti Premium lets you transform a cooking video from TikTok or YouTube to an easy-to-follow text recipe!"}/>
         <div className="mt-24 md:mt-36"/>
         <HomeVideoToRecipe/>
         <HomePageCTA/>

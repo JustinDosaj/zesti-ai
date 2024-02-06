@@ -1,15 +1,12 @@
 import { Raleway } from 'next/font/google'
 import { CreatorSearch, CreatorPageTitle, CreatorSocials, CreatorPageRecentRecipes } from '@/components/creator/page';
 import { GetServerSideProps, NextPage } from 'next';
-import { useEffect, useState } from "react";
-import { PageLoader } from "@/components/shared/loader";
 import Head from 'next/head';
-import { db } from './api/firebase/firebase';
+import useAffiliateCode from '@/hooks/useAffiliateCode';
 import GoogleTags from '@/components/tags/conversion';
 import { PromoteKitTag } from '@/components/tags/headertags';
-import { setCookie } from '@/pages/api/handler/cookies';
-import { useRouter } from 'next/router';
 import { getCreatorByDisplayName } from './api/firebase/functions';
+import useCreatorRecipeList from '@/hooks/creator/useCreatorRecipeList';
 import Breadcrumbs from '@/components/shared/breadcrumb';
 import useSetBreadcrumbs from '@/components/shared/setBreadcrumbs';
 import firebase from 'firebase/compat/app';
@@ -68,40 +65,8 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 const CreatorPage: NextPage<CreatorProps> = ({ creatorData, referer }) => {
 
   useSetBreadcrumbs();
-
-  const [isLoadingRecipes, setIsLoadingRecipes] = useState<boolean>(true);
-  const [ recipes, setRecipes ] = useState<any[]>([]);
-  const router = useRouter();
-
-  useEffect(() => {
-    
-    const fetchRecipes = async () => {
-        const recipeSnapshot = await db.collection(`creators/${creatorData?.owner_id}/recipes`).get();
-        const updatedRecipes = recipeSnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
-        setRecipes(updatedRecipes);
-        setIsLoadingRecipes(false);
-    };
-
-    fetchRecipes();
-
-  }, [router]);
-
-  useEffect(() => {
-
-    if (typeof window !== 'undefined') {
-
-      if (creatorData?.affiliate_code && referer !== null && !referer.includes("zesti.ngrok.app")) {
-        
-        window.promotekit_referral = creatorData.affiliate_code
-        const affiliateCode = window.promotekit_referral;
-        setCookie('affiliate_code', affiliateCode!, 30);
-
-      }
-
-    }
-
-  }, [creatorData, referer]);
-
+  useAffiliateCode(creatorData, referer);
+  const { creatorRecipeList, loadingCreatorRecipes } = useCreatorRecipeList(creatorData?.owner_id)
 
   return (
     <>
@@ -117,7 +82,7 @@ const CreatorPage: NextPage<CreatorProps> = ({ creatorData, referer }) => {
       <CreatorPageTitle creatorData={creatorData}/>
       <CreatorSocials creatorData={creatorData}/>
       <CreatorSearch creatorData={creatorData}/>
-      <CreatorPageRecentRecipes recipes={recipes} creatorName={creatorData?.display_url} owner_id={creatorData?.owner_id}/>
+      <CreatorPageRecentRecipes recipes={creatorRecipeList} creatorName={creatorData?.display_url} owner_id={creatorData?.owner_id}/>
       <br/>
       <br/>
       {/* other creator data */}

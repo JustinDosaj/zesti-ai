@@ -6,44 +6,22 @@ import { useAuth } from "@/pages/api/auth/auth";
 import { PromoteKitTag } from '@/components/tags/headertags';
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react"
-import { fetchTikTokVideoList } from "@/pages/api/handler/tiktok";
 import { Raleway } from "next/font/google";
 import { CreatorPageComponent } from "@/components/creator/profile";
 import Breadcrumbs from "@/components/shared/breadcrumb";
 import useSetBreadcrumbs from "@/components/shared/setBreadcrumbs";
 import { PageLoader } from "@/components/shared/loader";
+import getCreatorStatus from "@/hooks/creator/getCreatorStatus";
+import useRequireAuth from "@/hooks/user/useRequireAuth";
 
 const raleway = Raleway({subsets: ['latin']})
 
 export default function Page() {
 
   useSetBreadcrumbs()
-
-  const router = useRouter()
-  const { isLoading, user, userData, creatorData } = useAuth();
-
-  const [ videos, setVideos ] = useState<any>([])
-  const [loading, setLoading] = useState<boolean>(true)
-
-  useEffect(() => {
-      if (userData?.tiktokAccessToken && user && !isLoading && loading == true) {
-        if ((user == null || !userData.isCreator) && !isLoading) {
-          router.replace('/');
-        }
-        if((!userData.activeToken || creatorData == undefined) && !isLoading) {
-          router.push('/nav/profile')
-        }
-        
-        //fetchTikTokVideoList(userData?.tiktokAccessToken).then(userVideos => { setVideos(userVideos)})
-        setLoading(false)
-        
-      } else {
-        router.push('/creator/edit')
-      }
-  }, [userData?.tiktokAccessToken]);
-
-
-  if (loading == true) return <PageLoader/>
+  const { user, userData, creatorData, isLoading } = useAuth();
+  const { require } = useRequireAuth(user, isLoading)
+  const { creatorStage } = getCreatorStatus(userData, isLoading)
   
   return (
     <>
