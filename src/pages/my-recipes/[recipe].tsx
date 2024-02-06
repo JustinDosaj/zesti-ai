@@ -12,7 +12,7 @@ import { UserRecipe, EditUserRecipe } from "@/components/my-recipes/recipe";
 import { UpgradeToPremiumModal } from "@/components/shared/modals";
 import Breadcrumbs from "@/components/shared/breadcrumb";
 import useSetBreadcrumbs from '@/components/shared/setBreadcrumbs';
-import getUserRecipe from "@/hooks/user/getUserRecipe";
+import getUserRecipe from "@/hooks/user/useUserRecipe";
 import useRequireAuth from "@/hooks/user/useRequireAuth";
 
 const raleway = Raleway({subsets: ['latin']})

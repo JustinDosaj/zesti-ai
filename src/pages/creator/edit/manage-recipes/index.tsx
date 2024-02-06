@@ -12,7 +12,7 @@ import { ManageRecipesList } from '@/components/creator/manage'
 import { CreatorAddRecipeModal, CreatorResubmitRecipeModal, DeleteConfirmationModal } from '@/components/shared/modals'
 import useCreatorRecipeList from '@/hooks/creator/useCreatorRecipeList'
 import useErrorRecipeList from '@/hooks/creator/useErrorRecipeList'
-import getCreatorStatus from '@/hooks/creator/getCreatorStatus'
+import getCreatorStatus from '@/hooks/creator/useCreatorStatus'
 
 
 const raleway = Raleway({subsets: ['latin']})

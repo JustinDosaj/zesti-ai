@@ -11,7 +11,7 @@ import { CreatorPageComponent } from "@/components/creator/profile";
 import Breadcrumbs from "@/components/shared/breadcrumb";
 import useSetBreadcrumbs from "@/components/shared/setBreadcrumbs";
 import { PageLoader } from "@/components/shared/loader";
-import getCreatorStatus from "@/hooks/creator/getCreatorStatus";
+import getCreatorStatus from "@/hooks/creator/useCreatorStatus";
 import useRequireAuth from "@/hooks/user/useRequireAuth";
 
 const raleway = Raleway({subsets: ['latin']})
