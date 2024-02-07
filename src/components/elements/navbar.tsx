@@ -182,12 +182,10 @@ export function Navbar() {
                 {!user ? (
                     <BtnLink text='Login' href='/auth/login' className="lg:hidden"/>
                 ) 
-                : user && userData?.isCreator == true && (!userData.tiktokAccessToken || userData?.activeToken == false) ?
-                    <DropDownMenuMobile navItems={creatorItemsLoggedInMobileNoToken}/>
-                : userData?.isCreator == false || !userData?.isCreator ? 
-                    <DropDownMenuMobile navItems={navItemsLoggedInMobile}/>
-                :
+                : userData?.isCreator == true ? 
                     <DropDownMenuMobile navItems={creatorItemsLoggedInMobile}/>
+                : 
+                    <DropDownMenuMobile navItems={navItemsLoggedInMobile}/>
                 }
             </nav>
         </Container>
