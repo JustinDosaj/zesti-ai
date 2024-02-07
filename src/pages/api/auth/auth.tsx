@@ -5,9 +5,9 @@ import { useRouter } from 'next/router';
 import { updateUserWithTikTokTokens } from '../firebase/functions';
 
 interface UserData {
+  account_status?: string;
   activeToken?: boolean;
   affiliate_code?: string;
-  affiliate_link?: string;
   email?: string;
   isCreator?: boolean;
   lifeTimeUsage?: number;
@@ -22,7 +22,6 @@ interface UserData {
 
 interface CreatorData {
   affiliate_code?: string;
-  affiliate_link?: string;
   avatar_url?: string;
   bio_description?: string;
   display_name?: string;
@@ -55,7 +54,7 @@ interface AuthContextType {
   sendPasswordReset: (email: string) => Promise<void>;
   loginWithTikTok: () => void;
   handleTikTokCallback: (code: string) => Promise<void>;
-  userData: UserData  | null;
+  userData: UserData | null;
   creatorData: CreatorData | null;
 }
 

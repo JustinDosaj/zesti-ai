@@ -29,7 +29,7 @@ export default function ManageRecipes() {
     const [ isDeleteOpen, setIsDeleteOpen] = useState<boolean>(false)  
     const [ url, setUrl ] = useState<string>('')
     const [ recipeId, setRecipeId ] = useState<string>('')
-    const { accountStatus, loadingStatus } = useAccountStatus(userData, isLoading, creatorData)
+    const { accountStatus, loadingStatus } = useAccountStatus()
     const router = useRouter()
 
     if(accountStatus !== "creator_complete" && !loadingStatus) { router.push('/nav/profile') }

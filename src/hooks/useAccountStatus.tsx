@@ -12,13 +12,26 @@ import { useEffect, useState } from 'react';
 
 */
 
-const useAccountStatus = (userData: any, isLoading: boolean, creatorData: any) => {
+
+/**
+ * @desc Used to track status of user and current stage
+ * 
+ * @users
+ * account_status = base_user
+ * 
+ * @creators
+ * account_status = creator_connect_tiktok || creator_connect_affiliate || creator_generate_page || creator_complete
+ * 
+ * 
+ * @returns account_status from firebase user
+ */
+const useAccountStatus = () => {
     
+    const { loginWithTikTok, user, userData, creatorData, isLoading } = useAuth()
     const [ accountStatus, setAccountStatus ] = useState<string>('')
     const [ accountStatusMessage, setAccountStatusMessage ] = useState<string>('')
     const [ loadingStatus, setLoadingStatus ] = useState<boolean>(true)
     const [ navCreator, setNavCreator ] = useState<string>('')
-    const { loginWithTikTok, user } = useAuth()
 
     useEffect(() => { 
         if (!isLoading && userData && user) {
@@ -44,7 +57,7 @@ const useAccountStatus = (userData: any, isLoading: boolean, creatorData: any) =
             else if(userData.account_status == 'creator_complete') {
                 setAccountStatus("creator_complete")
                 setAccountStatusMessage("View Your Page")
-                setNavCreator(`/${creatorData.display_url}`)
+                setNavCreator(`/${creatorData?.display_url}`)
             }
 
             setLoadingStatus(false)

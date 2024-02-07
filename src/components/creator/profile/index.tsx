@@ -7,9 +7,9 @@ import { useRouter } from 'next/router'
 import { Notify } from '@/components/shared/notify'
 import { PlusCircleIcon, PlusIcon } from "@heroicons/react/20/solid"
 import { Container } from '@/components/shared/container'
-import { saveAffiliateLink } from '@/pages/api/firebase/functions'
 import { callGenerateCreatorPage } from '@/pages/api/handler/submit'
 import { RecentTikTokVideosProps } from '@/components/shared/interface'
+import useAccountStatus from '@/hooks/useAccountStatus'
 
 export function CreatorPageComponent({creatorData}: any) {
 
@@ -248,19 +248,10 @@ export function RecentTikTokVideos({videoList, creatorData, setIsOpen, setUrl, s
 
 export function CreatorProfileComponent({creatorData}: any) {
 
-    const { user, isLoading, loginWithTikTok, userData } = useAuth()
-    const [ affiliateLink, setAffiliateLink ] = useState<string>('')
-    const [ edit, setEdit ] = useState<boolean>(false)
+    const { isLoading, userData } = useAuth()
+    const { accountStatus, loginWithTikTok } = useAccountStatus()
     const router = useRouter() 
 
-    useEffect(() => {
-        setAffiliateLink(userData?.affiliate_link!)
-    },[creatorData])
-
-    const onAffiliateSave = () => {
-        saveAffiliateLink(affiliateLink, user?.uid!)
-        setEdit(false)
-    }
 
     const onGeneratePageClick = async () => {
         await callGenerateCreatorPage({userData, creatorData})
@@ -270,112 +261,18 @@ export function CreatorProfileComponent({creatorData}: any) {
 
     if (isLoading ) return <PageLoader/>
 
-    if (userData?.activeToken) return (
-        <Container className={"mt-8 flex flex-col lg:flex-row gap-10 lg:gap-12 pb-24"}>
-             <div className="mx-auto max-w-2xl lg:flex lg:gap-x-16 lg:px-8 py-8 standard-component-border w-full">
-                <main className="px-4 sm:px-6 lg:flex-auto lg:px-0 ">
-                    <div className="mx-auto max-w-2xl space-y-16 sm:space-y-20 lg:mx-0 lg:max-w-none">
-                        <div>
-                            <h2 className="font-semibold leading-7 text-gray-900 section-desc-text-size">Connect to Create Page</h2>
-                            <p className=" text-sm leading-6 text-gray-500 lg:text-base">
-                                To create your page you must authorize your tiktok account
-                            </p>
-                            <dl className="mt-6 space-y-6 divide-y divide-gray-100 border-t border-gray-200 text-sm leading-6">
-                                <div className="pt-6 flex justify-between items-center">
-                                    <dt className="font-semibold text-gray-900 sm:w-64 sm:flex-none sm:pr-6 text-sm lg:text-base">Connect Tiktok Account</dt>
-                                    <dd className=" flex gap-x-6 sm:mt-0">
-                                        <button type="button" className="font-semibold text-primary-main hover:text-primary-alt text-sm lg:text-base"
-                                            onClick={loginWithTikTok}>
-                                            {"Connect"}
-                                        </button>
-                                    </dd>
-                                </div>
-                            </dl>
-                        </div>
-                    </div>
-                </main>
-            </div>
-        </Container>
-    )
-
     return(
         <Container className={"mt-8 flex flex-col lg:flex-row gap-10 lg:gap-12 pb-24"}>
             <div className="mx-auto max-w-7xl lg:flex lg:gap-x-16 lg:px-8 py-8 w-full standard-component-border">
                 <main className="px-4 sm:px-6 lg:flex-auto lg:px-0">
                     <div className="mx-auto max-w-2xl space-y-16 sm:space-y-20 lg:mx-0 lg:max-w-none">
                         <div>
-                            <h2 className="font-semibold leading-7 text-gray-900 section-desc-text-size">Creator Information</h2>
-                            <p className=" text-sm leading-6 text-gray-500 lg:text-base">
-                                Import information regarding your creator account
-                            </p>
-                            <dl className="mt-6 space-y-6 divide-y divide-gray-100 border-t border-gray-200 text-sm leading-6">
-                                <div className="pt-6 grid lg:flex justify-between items-center">
-                                    <dt className="font-semibold text-gray-900 sm:w-64 sm:flex-none sm:pr-6 text-sm lg:text-base">Page Link</dt>
-                                    <dd className=" flex gap-x-6 sm:mt-0">
-                                        <div className="text-gray-700 text-sm lg:text-base">{`https://www.zesti.ai/${creatorData?.display_url}`}</div>
-                                    </dd>
-                                </div>
-                                <div className="pt-6 flex justify-between items-center">
-                                    <dt className="font-semibold text-gray-900 sm:w-64 sm:flex-none sm:pr-6 text-sm lg:text-base">Connect Tiktok Account</dt>
-                                    <dd className=" flex gap-x-6 sm:mt-0">
-                                        <div  className="font-semibold text-green-600 text-sm lg:text-base">
-                                            {"Connected"}
-                                        </div>
-                                    </dd>
-                                </div>
-                                <div className="pt-6 flex justify-between items-center">
-                                    <dt className="font-semibold text-gray-900 sm:w-64 sm:flex-none sm:pr-6 text-sm lg:text-base">Affiliate Program</dt>
-                                    <dd className=" flex gap-x-6 sm:mt-0">
-                                        <button type="button" className="font-semibold text-primary-main hover:text-primary-alt text-sm lg:text-base"
-                                            onClick={() => {window.open(`https://zesti.promotekit.com/`)}}>
-                                            {affiliateLink == '' ? `Setup` : `Manage`}
-                                        </button>
-                                        {/* TRACK AFFILIATE CODE INSIDE FIRESTORE THEN DISPLAY MANAGE AFFILIATE PROGRAM IF IT IS AVAILABLE*/}
-                                    </dd>
-                                </div>
-                                <div className="pt-6 flex justify-between items-center">
-                                    <input className="border border-gray-300 p-2 rounded-3xl w-3/4 font-semibold text-gray-700 sm:w-64 sm:flex-none sm:pr-6" 
-                                        placeholder="Copy & Paste Affiliate Link Here"
-                                        disabled={!edit}
-                                        value={affiliateLink}
-                                        onChange={(val: any) => setAffiliateLink(val.target.value)}
-                                    />
-                                    <dd className=" flex gap-x-6 sm:mt-0">
-                                        { edit == false ? 
-                                        <button type="button" className="font-semibold text-primary-main hover:text-primary-alt text-sm lg:text-base"
-                                            onClick={() => setEdit(true)}>
-                                            {"Edit"}
-                                        </button>
-                                        :
-                                        <button type="button" className="font-semibold text-primary-main hover:text-primary-alt text-sm lg:text-base"
-                                            onClick={onAffiliateSave}>
-                                            {"Save"}
-                                        </button>
-                                        }
-                                        {/* TRACK AFFILIATE CODE INSIDE FIRESTORE THEN DISPLAY MANAGE AFFILIATE PROGRAM IF IT IS AVAILABLE*/}
-                                    </dd>
-                                </div>
-                                { creatorData == undefined ?
-                                <div className={affiliateLink == '' ? `hidden` : `pt-6 flex justify-between items-center`}>
-                                    <dt className="font-semibold text-gray-900 sm:w-64 sm:flex-none sm:pr-6 text-sm lg:text-base">Generate Your Page</dt>
-                                    <dd className=" flex gap-x-6 sm:mt-0">
-                                        <button type="button" className="font-semibold text-primary-main hover:text-primary-alt text-sm lg:text-base"
-                                            onClick={onGeneratePageClick}>
-                                            {"Create"}
-                                        </button>
-                                    </dd>
-                                </div>
-                                :
-                                <div className="pt-6 flex justify-between items-center">
-                                    <dt className="font-semibold text-gray-900 sm:w-64 sm:flex-none sm:pr-6 text-sm lg:text-base">Make Page Changes</dt>
-                                    <dd className=" flex gap-x-6 sm:mt-0">
-                                        <button type="button" className="font-semibold text-primary-main hover:text-primary-alt text-sm lg:text-base"
-                                            onClick={() => router.push('/creator/edit')}>
-                                            {"Edit Page"}
-                                        </button>
-                                    </dd>
-                                </div>
-                                }
+                        <CreatorTitleComponent title="Connect to Create Page" desc="To create your page you must authorize your tiktok account"/>
+                            <dl className="mt-6 space-y-6 divide-y divide-gray-100 text-sm leading-6">
+                                <PageLinkComponent accountStatus={accountStatus} display_url={creatorData?.display_url}/>
+                                <ConnectTikTokComponent accountStatus={accountStatus} loginWithTikTok={loginWithTikTok}/>
+                                <AffiliateProgramComponent accountStatus={accountStatus}/>
+                                <GenerateOrViewPageComponent accountStatus={accountStatus} onGeneratePageClick={onGeneratePageClick} router={router}/>
                             </dl>
                         </div>
                     </div>
@@ -383,4 +280,120 @@ export function CreatorProfileComponent({creatorData}: any) {
             </div>
         </Container>
     )
+}
+
+interface CreatorPageComponents {
+    title?: string,
+    desc?: string,
+    display_url?: string,
+    accountStatus?: string,
+    onGeneratePageClick?: any,
+    router?: any,
+    loginWithTikTok?: any,
+    setAffiliateLink?: any,
+    onAffiliateSave?: any,
+    affiliateLink?: string,
+}
+
+function CreatorTitleComponent({title, desc}: CreatorPageComponents) {
+    return(
+    <>
+        <h2 className="font-semibold leading-7 text-gray-900 section-desc-text-size">{title}</h2>
+        <p className=" text-sm leading-6 text-gray-500 lg:text-base">
+            {desc}
+        </p>
+    </>
+    )
+}
+
+function PageLinkComponent({display_url, accountStatus}:CreatorPageComponents) {
+
+    if (accountStatus !== "creator_complete") return;
+
+    return(
+        <div className="pt-6 grid lg:flex justify-between items-center">
+            <dt className="font-semibold text-gray-900 sm:w-64 sm:flex-none sm:pr-6 text-sm lg:text-base">Page Link</dt>
+            <dd className=" flex gap-x-6 sm:mt-0">
+                <div className="text-gray-700 text-sm lg:text-base">{`https://www.zesti.ai/${display_url}`}</div>
+            </dd>
+        </div>
+    )
+}
+
+function ConnectTikTokComponent({accountStatus, loginWithTikTok}: CreatorPageComponents) {
+    
+
+    if (accountStatus == 'creator_connect_tiktok')  return (
+        <dl className="mt-6 space-y-6 divide-y divide-gray-100 border-t border-gray-200 text-sm leading-6">
+            <div className="pt-6 flex justify-between items-center">
+                <dt className="font-semibold text-gray-900 sm:w-64 sm:flex-none sm:pr-6 text-sm lg:text-base">Connect Tiktok Account</dt>
+                <dd className=" flex gap-x-6 sm:mt-0">
+                    <button type="button" className="font-semibold text-primary-main hover:text-primary-alt text-sm lg:text-base"
+                        onClick={loginWithTikTok}>
+                        {"Connect"}
+                    </button>
+                </dd>
+            </div>
+        </dl>
+    )
+
+    return (
+        <div className="pt-6 flex justify-between items-center">
+            <dt className="font-semibold text-gray-900 sm:w-64 sm:flex-none sm:pr-6 text-sm lg:text-base">Connect Tiktok Account</dt>
+            <dd className=" flex gap-x-6 sm:mt-0">
+                <div  className="font-semibold text-green-600 text-sm lg:text-base">
+                    {"Connected"}
+                </div>
+            </dd>
+        </div>
+    )
+}
+
+function AffiliateProgramComponent({accountStatus}: CreatorPageComponents) {
+
+    if (accountStatus !== 'creator_generate_page' && accountStatus !== 'creator_complete') return;
+
+    return(
+    <>
+        <div className="pt-6 flex justify-between items-center">
+            <dt className="font-semibold text-gray-900 sm:w-64 sm:flex-none sm:pr-6 text-sm lg:text-base">Affiliate Program</dt>
+            <dd className=" flex gap-x-6 sm:mt-0">
+                <button type="button" className="font-semibold text-primary-main hover:text-primary-alt text-sm lg:text-base"
+                    onClick={() => {window.open(`https://zesti.promotekit.com/`)}}>
+                    {accountStatus == 'creator_generate_page' ? "Setup" : "Manage"}
+                </button>
+                {/* TRACK AFFILIATE CODE INSIDE FIRESTORE THEN DISPLAY MANAGE AFFILIATE PROGRAM IF IT IS AVAILABLE*/}
+            </dd>
+        </div>
+    </>
+    )
+}
+
+function GenerateOrViewPageComponent({accountStatus, onGeneratePageClick, router}: CreatorPageComponents) {
+
+    if (accountStatus == 'creator_generate_page') return (
+        <div className={`pt-6 flex justify-between items-center`}>
+            <dt className="font-semibold text-gray-900 sm:w-64 sm:flex-none sm:pr-6 text-sm lg:text-base">Generate Your Page</dt>
+            <dd className=" flex gap-x-6 sm:mt-0">
+                <button type="button" className="font-semibold text-primary-main hover:text-primary-alt text-sm lg:text-base"
+                    onClick={onGeneratePageClick}>
+                    {"Create"}
+                </button>
+            </dd>
+        </div>  
+    )
+
+    if (accountStatus == 'creator_complete') return (
+        <div className="pt-6 flex justify-between items-center">
+            <dt className="font-semibold text-gray-900 sm:w-64 sm:flex-none sm:pr-6 text-sm lg:text-base">Make Page Changes</dt>
+            <dd className=" flex gap-x-6 sm:mt-0">
+                <button type="button" className="font-semibold text-primary-main hover:text-primary-alt text-sm lg:text-base"
+                    onClick={() => router.push('/creator/edit')}>
+                    {"Edit Page"}
+                </button>
+            </dd>
+        </div>
+    )
+
+    return;
 }
