@@ -77,9 +77,9 @@ export function DropDownMenuMobile({navItems}: any) {
     )
 }
 
-export function DropDownMenuDesktop({navItems}: any) {
+export function DropDownMenuDesktop({navItems, isHidden}: any) {
     return(
-    <Menu as="div" className="relative">
+    <Menu as="div" className={isHidden == true ? `hidden` : `relative`}>
         <Menu.Button as="div" className="flex items-center cursor-pointer">
             <ChevronDownIcon className="w-9 h-9 text-gray-500 hover:text-gray-300" />
         </Menu.Button>
