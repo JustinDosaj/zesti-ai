@@ -20,7 +20,7 @@ export default function Page() {
   useSetBreadcrumbs()
   const { user, userData, creatorData, isLoading } = useAuth();
   const { require } = useRequireAuth(user, isLoading)
-  const { accountStatus, loadingStatus } = useAccountStatus(userData, isLoading, creatorData)
+  const { accountStatus, loadingStatus } = useAccountStatus()
   const router = useRouter()
   
   if(accountStatus !== "creator_complete" && !loadingStatus) { router.push('/nav/profile') }

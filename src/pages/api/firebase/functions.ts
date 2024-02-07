@@ -29,7 +29,7 @@ export async function updateUserWithTikTokTokens(tokenData: TikTokTokenData, use
       tiktokAccessToken: tokenData.access_token,
       tiktokRefreshToken: tokenData.refresh_token,
       tiktokOpenId: tokenData.open_id,
-      account_status: 'creator_connect_affiliate',
+      account_status: 'creator_generate_page',
       // You can also store expiration times if needed
     };
 

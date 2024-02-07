@@ -111,7 +111,7 @@ const creatorItemsLoggedInMobileNoToken = [
 export function Navbar() {
     
     const { user, isLoading, userData, creatorData } = useAuth();
-    const { accountStatus, accountStatusMessage, loginWithTikTok, navCreator } = useAccountStatus(userData, isLoading, creatorData)
+    const { accountStatus, accountStatusMessage, loginWithTikTok, navCreator } = useAccountStatus()
     const router = useRouter()
 
     const mainNavButton = {

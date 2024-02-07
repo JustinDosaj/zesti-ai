@@ -187,18 +187,6 @@ export const handleTikTokURLSubmit = async ({url, setUrl, user, setMessage, stri
          }
 
         return response;
-       /* try {
-            await db.collection('users').doc(user.uid).collection('tiktokurl').doc(id[1]).set(falseObj)
-            setMessage("Your recipe will appear in your dashboard shortly")
-            await db.collection('users').doc(user.uid).update({
-                tokens: increment(-1),
-            })
-            return true
-        } catch (err) {
-            setMessage("Something went wrong. Please try again later. If the problem persists, please contact us.")
-            console.log(err)
-            return false
-        }*/
     } else {  
         setNotify(true)
         setMessage("Uh oh! You ran out of recipes for the month!") 
@@ -244,9 +232,6 @@ export const handleCreatorTikTokURLSubmit = async ({url, rawText, creatorData}: 
 
 export const callGenerateCreatorPage = async ({userData, creatorData}: TikTokProps) => {
 
-    console.log(creatorData)
-
-    if (!userData.affiliate_code || !userData.affiliate_link) {Notify("Please setup your affiliate code on your profile page"); return; }
     if (creatorData !== undefined) { Notify("Creator page already exists for this account"); return; }
 
     const functions = getFunctions();
