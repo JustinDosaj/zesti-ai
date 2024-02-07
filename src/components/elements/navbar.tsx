@@ -172,9 +172,10 @@ export function Navbar() {
                     </ul>
                 </div>
                 <div className="hidden lg:flex justify-end w-1/3">
+                    {/* Main Orange Button for Primary navigation based on accountStatus: base_user, creator_connect_tiktok, creator_connect_affiliate, creator_generate_page, creator_complete */}
                     <div className="inline-flex items-center space-x-4">
                         <Button buttonType="button" onClick={() => mainNavButton.function()} text={mainNavButton.name}/>
-                        <DropDownMenuDesktop navItems={desktopNavItems}/> 
+                        <DropDownMenuDesktop navItems={desktopNavItems} isHidden={!user}/> 
                     </div>
 
                 </div>
