@@ -11,7 +11,7 @@ const useErrorRecipeList = (ownerId: string | undefined) => {
 
         const fetchErrorRecipes = async () => {
             try {
-            const recipeSnapshot = await db.collection(`creators/${ownerId}/recipes`).get();
+            const recipeSnapshot = await db.collection(`creators/${ownerId}/errors`).get();
             const updatedErrors = recipeSnapshot.docs.map((doc) => ({id: doc.id, ...doc.data()}))
             setErrorRecipeList(updatedErrors)
             setIsLoadingErrorRecipe(false)

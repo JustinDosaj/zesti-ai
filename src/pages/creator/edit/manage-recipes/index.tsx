@@ -12,8 +12,8 @@ import { ManageRecipesList } from '@/components/creator/manage'
 import { CreatorAddRecipeModal, CreatorResubmitRecipeModal, DeleteConfirmationModal } from '@/components/shared/modals'
 import useCreatorRecipeList from '@/hooks/creator/useCreatorRecipeList'
 import useErrorRecipeList from '@/hooks/creator/useErrorRecipeList'
-import useCreatorStatus from '@/hooks/creator/useCreatorStatus'
-
+import { useRouter } from 'next/router'
+import useAccountStatus from '@/hooks/useAccountStatus'
 
 const raleway = Raleway({subsets: ['latin']})
 
@@ -21,7 +21,7 @@ export default function ManageRecipes() {
 
     useSetBreadcrumbs()
 
-    const { user, isLoading, userData } = useAuth();
+    const { user, isLoading, userData, creatorData } = useAuth();
     const { creatorRecipeList } = useCreatorRecipeList(user?.uid)
     const { errorRecipeList } = useErrorRecipeList(user?.uid)
     const [ isOpen, setIsOpen ] = useState<boolean>(false)
@@ -29,7 +29,10 @@ export default function ManageRecipes() {
     const [ isDeleteOpen, setIsDeleteOpen] = useState<boolean>(false)  
     const [ url, setUrl ] = useState<string>('')
     const [ recipeId, setRecipeId ] = useState<string>('')
-    const { creatorStage } = useCreatorStatus(userData, isLoading)
+    const { accountStatus, loadingStatus } = useAccountStatus(userData, isLoading, creatorData)
+    const router = useRouter()
+
+    if(accountStatus !== "creator_complete" && !loadingStatus) { router.push('/nav/profile') }
 
     if(isLoading) return <PageLoader/>
 
