@@ -246,7 +246,6 @@ export const callGenerateCreatorPage = async ({userData, creatorData}: TikTokPro
 
     console.log(creatorData)
 
-    if (!userData.activeToken) { Notify("Must connect TikTok account before continuing"); return; }
     if (!userData.affiliate_code || !userData.affiliate_link) {Notify("Please setup your affiliate code on your profile page"); return; }
     if (creatorData !== undefined) { Notify("Creator page already exists for this account"); return; }
 

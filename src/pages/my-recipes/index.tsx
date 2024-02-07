@@ -11,6 +11,7 @@ import useSetBreadcrumbs from '@/components/shared/setBreadcrumbs';
 import AdSenseDisplay from '@/components/tags/adsense';
 import useUserRecipeList from '@/hooks/user/useUserRecipeList';
 import useRequireAuth from '@/hooks/user/useRequireAuth';
+import { useRouter } from 'next/router';
 
 const raleway = Raleway({subsets: ['latin']})
 
@@ -19,6 +20,7 @@ export default function MyRecipes() {
   const { user, isLoading, stripeRole } = useAuth();
   const { require } = useRequireAuth(user, isLoading)
   const { userRecipeList, loadingUserRecipes } = useUserRecipeList(user, isLoading)
+  const router = useRouter()
 
   useSetBreadcrumbs();
 

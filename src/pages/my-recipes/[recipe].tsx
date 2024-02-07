@@ -10,6 +10,7 @@ import AdSenseDisplay from "@/components/tags/adsense";
 import { PromoteKitTag } from "@/components/tags/headertags";
 import { UserRecipe, EditUserRecipe } from "@/components/my-recipes/recipe";
 import { UpgradeToPremiumModal } from "@/components/shared/modals";
+import { useRouter } from "next/router";
 import Breadcrumbs from "@/components/shared/breadcrumb";
 import useSetBreadcrumbs from '@/components/shared/setBreadcrumbs';
 import useUserRecipe from "@/hooks/user/useUserRecipe";
@@ -30,6 +31,9 @@ const Recipe: React.FC = ({id}: any) => {
     const { userRecipe } = useUserRecipe(user?.uid, id)
     const [isEditMode, setEditMode] = useState<boolean>(false)
     const [ premiumPrompt, setPremiumPrompt ] = useState<boolean>(false)
+    const router = useRouter()
+
+    if(!user && !isLoading) { router.push('/auth/login')}
 
     if(!userRecipe) return <PageLoader/>
 

@@ -5,23 +5,25 @@ import GoogleTags from '@/components/tags/conversion';
 import { useAuth } from "@/pages/api/auth/auth";
 import { PromoteKitTag } from '@/components/tags/headertags';
 import { useRouter } from "next/router";
-import React, { useEffect, useState } from "react"
 import { Raleway } from "next/font/google";
 import { CreatorPageComponent } from "@/components/creator/profile";
 import Breadcrumbs from "@/components/shared/breadcrumb";
 import useSetBreadcrumbs from "@/components/shared/setBreadcrumbs";
-import { PageLoader } from "@/components/shared/loader";
-import useCreatorStatus from "@/hooks/creator/useCreatorStatus";
 import useRequireAuth from "@/hooks/user/useRequireAuth";
+import useAccountStatus from "@/hooks/useAccountStatus";
 
 const raleway = Raleway({subsets: ['latin']})
+
 
 export default function Page() {
 
   useSetBreadcrumbs()
   const { user, userData, creatorData, isLoading } = useAuth();
   const { require } = useRequireAuth(user, isLoading)
-  const { creatorStage } = useCreatorStatus(userData, isLoading)
+  const { accountStatus, loadingStatus } = useAccountStatus(userData, isLoading, creatorData)
+  const router = useRouter()
+  
+  if(accountStatus !== "creator_complete" && !loadingStatus) { router.push('/nav/profile') }
   
   return (
     <>

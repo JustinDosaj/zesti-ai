@@ -270,7 +270,7 @@ export function CreatorProfileComponent({creatorData}: any) {
 
     if (isLoading ) return <PageLoader/>
 
-    if (!userData?.activeToken) return (
+    if (userData?.activeToken) return (
         <Container className={"mt-8 flex flex-col lg:flex-row gap-10 lg:gap-12 pb-24"}>
              <div className="mx-auto max-w-2xl lg:flex lg:gap-x-16 lg:px-8 py-8 standard-component-border w-full">
                 <main className="px-4 sm:px-6 lg:flex-auto lg:px-0 ">

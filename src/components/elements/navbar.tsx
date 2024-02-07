@@ -8,15 +8,10 @@ import Link from "next/link"
 import Image from "next/image"
 import { BookOpenIcon, HomeIcon, PaperAirplaneIcon, WalletIcon, UserIcon, VideoCameraIcon } from "@heroicons/react/20/solid"
 import { DropDownMenuDesktop, DropDownMenuMobile } from "./menus"
-import { Loader } from "../shared/loader"
+import useAccountStatus from "@/hooks/useAccountStatus"
+import { useRouter } from "next/router"
+import { callGenerateCreatorPage } from "@/pages/api/handler/submit"
 
-const userDesktopNavItems = [
-    {
-        href: "/nav/profile",
-        text: "Profile Settings",
-        icon: UserIcon,
-    },
-]
 
 const navItemsLoggedInMobile = [
     {
@@ -112,9 +107,19 @@ const creatorItemsLoggedInMobileNoToken = [
     },
 ]
 
+
 export function Navbar() {
     
-    const { user, isLoading, loginWithTikTok, userData, creatorData } = useAuth();
+    const { user, isLoading, userData, creatorData } = useAuth();
+    const { accountStatus, accountStatusMessage, loginWithTikTok, navCreator } = useAccountStatus(userData, isLoading, creatorData)
+    const router = useRouter()
+
+    const mainNavButton = {
+        name: accountStatusMessage,
+        function:  accountStatus == "creator_connect_tiktok" ? () => loginWithTikTok() 
+                    : accountStatus == "creator_generate_page" ? async () => await callGenerateCreatorPage({userData, creatorData})
+                    : () => router.push(navCreator),
+    }
 
     const navItemsDesktop = [
         { href: "/", text: "Home" },
@@ -123,7 +128,7 @@ export function Navbar() {
         // Add more items as needed
     ];
 
-    const creatorDesktopNavItems = [
+    const desktopNavItems = [
         {
             href: "/my-recipes",
             text: "My Recipes",
@@ -136,8 +141,8 @@ export function Navbar() {
         },
     ]
 
-    if(userData?.tiktokAccessToken) {
-        creatorDesktopNavItems.push({
+    if(accountStatus == 'creator_complete') {
+        desktopNavItems.push({
             href: "/creator/edit",
             text: "Manage Creator Page",
             icon: VideoCameraIcon,
@@ -167,28 +172,11 @@ export function Navbar() {
                     </ul>
                 </div>
                 <div className="hidden lg:flex justify-end w-1/3">
-                    {!user && !isLoading? 
-                    (
-                        <BtnLink text='Login' href='/auth/login'/>
-                    )
-                    : userData == null ? 
-                        <></> 
-                    : userData?.isCreator == true && (!userData?.tiktokAccessToken || userData?.activeToken == false) ? 
-                        <div className="inline-flex items-center space-x-4">
-                            <Button buttonType="button" onClick={loginWithTikTok} text={'Connect TikTok'}/>
-                            <DropDownMenuDesktop navItems={creatorDesktopNavItems}/>  
-                        </div>
-                    : userData?.isCreator == true && (userData?.tiktokAccessToken && userData?.activeToken == true) ? 
-                        <div className="inline-flex items-center space-x-4">
-                            <BtnLink href={creatorData !== undefined ? `/${creatorData?.display_url}` : `/creator/edit`} text={creatorData !== undefined ? 'View Your Page' : 'Create Page'}/>
-                            <DropDownMenuDesktop navItems={creatorDesktopNavItems}/>  
-                        </div>
-                    : 
-                       <div className="inline-flex items-center space-x-4">
-                            <BtnLink href="/my-recipes" text={'My Recipes'}/>
-                            <DropDownMenuDesktop navItems={userDesktopNavItems}/>
-                        </div>
-                    }
+                    <div className="inline-flex items-center space-x-4">
+                        <Button buttonType="button" onClick={() => mainNavButton.function()} text={mainNavButton.name}/>
+                        <DropDownMenuDesktop navItems={desktopNavItems}/> 
+                    </div>
+
                 </div>
                 {!user ? (
                     <BtnLink text='Login' href='/auth/login' className="lg:hidden"/>

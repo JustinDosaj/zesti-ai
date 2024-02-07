@@ -16,8 +16,6 @@ export default function Home() {
   const { isLoading, creatorData } = useAuth();
   const [ creators, setCreators ] = useState<Creator[]>() 
 
-  console.log(creators)
-
   useEffect(() => {
     const fetchCreators = async () => {
       const res = await GetRandomCreatorsForHomepage(3)
