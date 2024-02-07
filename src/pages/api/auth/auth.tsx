@@ -6,18 +6,16 @@ import { updateUserWithTikTokTokens } from '../firebase/functions';
 
 interface UserData {
   account_status?: string;
-  activeToken?: boolean;
   affiliate_code?: string;
+  display_name?: string,
   email?: string;
   isCreator?: boolean;
-  lifeTimeUsage?: number;
   stripeId?: string;
   stripeLink?: string;
   tiktokAccessToken?: string;
   tiktokOpenId?: string;
   tiktokRefreshToken?: string;
   tokens?: number;
-  totalRecipes?: number;
 }
 
 interface CreatorData {
