@@ -22,25 +22,26 @@ const useAccountStatus = (userData: any, isLoading: boolean, creatorData: any) =
 
     useEffect(() => { 
         if (!isLoading && userData && user) {
-            if(userData.creator_setup_stage == '' || !userData.creator_setup_stage) {
+            if(userData.account_status == 'base_user') {
+                setAccountStatus("base_user")
                 setAccountStatusMessage("My Recipes")
-                setNavCreator("/my-recipes")
+                setNavCreator(`/my-recipes`)
             }
-            else if(userData.creator_setup_stage == 'connect_tiktok') { 
+            else if(userData.account_status == 'creator_connect_tiktok') { 
                 setAccountStatus('creator_connect_tiktok')
                 setAccountStatusMessage("Connect TikTok")
             }
-            else if(userData.creator_setup_stage == 'connect_affiliate') {
+            else if(userData.account_status == 'creator_connect_affiliate') {
                 setAccountStatus("creator_connect_affiliate")
                 setAccountStatusMessage("Setup Affiliate")
                 setNavCreator('/nav/profile')
             }
-            else if(userData.creator_setup_stage == 'generate_page') { 
+            else if(userData.account_status == 'creator_generate_page') { 
                 setAccountStatus("creator_generate_page")
                 setAccountStatusMessage("Generate Page")
                 setNavCreator('/nav/profile')
             }
-            else if(userData.creator_setup_stage == 'complete') {
+            else if(userData.account_status == 'creator_complete') {
                 setAccountStatus("creator_complete")
                 setAccountStatusMessage("View Your Page")
                 setNavCreator(`/${creatorData.display_url}`)
