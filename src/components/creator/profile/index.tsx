@@ -267,7 +267,7 @@ export function CreatorProfileComponent({creatorData}: any) {
                 <main className="px-4 sm:px-6 lg:flex-auto lg:px-0">
                     <div className="mx-auto max-w-2xl space-y-16 sm:space-y-20 lg:mx-0 lg:max-w-none">
                         <div>
-                        <CreatorTitleComponent title="Connect to Create Page" desc="To create your page you must authorize your tiktok account"/>
+                        <CreatorTitleComponent title="Creator Page Settings" desc="Connect your Tiktok, setup an affiliate account & begin publishing recipes"/>
                             <dl className="mt-6 space-y-6 divide-y divide-gray-100 text-sm leading-6">
                                 <PageLinkComponent accountStatus={accountStatus} display_url={creatorData?.display_url}/>
                                 <ConnectTikTokComponent accountStatus={accountStatus} loginWithTikTok={loginWithTikTok}/>
