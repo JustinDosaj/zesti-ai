@@ -107,7 +107,7 @@ export function Navbar() {
         },
     ]
 
-    if(accountStatus == 'creator_complete') {
+    if(accountStatus == 'creator') {
         desktopNavItems.push({
             href: "/creator/edit",
             text: "Manage Creator Page",
@@ -138,7 +138,7 @@ export function Navbar() {
                     </ul>
                 </div>
                 <div className="hidden lg:flex justify-end w-1/3">
-                    {/* Main Orange Button for Primary navigation based on accountStatus: base_user, creator_connect_tiktok, creator_connect_affiliate, creator_generate_page, creator_complete */}
+                    {/* Main Orange Button for Primary navigation based on accountStatus: base_user, creator_connect_tiktok, creator_connect_affiliate, creator_generate_page, creator*/}
                     <div className="inline-flex items-center space-x-4">
                         <Button buttonType="button" onClick={() => mainNavButton.function()} text={mainNavButton.name}/>
                         <DropDownMenuDesktop navItems={desktopNavItems} isHidden={!user}/> 
@@ -148,7 +148,7 @@ export function Navbar() {
                 {!user ? (
                     <BtnLink text='Login' href='/auth/login' className="lg:hidden"/>
                 ) 
-                : accountStatus == 'creator_complete' ?
+                : accountStatus == 'creator' ?
                     <DropDownMenuMobile navItems={creatorItemsLoggedInMobile}/>
                 : 
                     <DropDownMenuMobile navItems={navItemsLoggedInMobile}/>
