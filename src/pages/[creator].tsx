@@ -65,7 +65,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 const CreatorPage: NextPage<CreatorProps> = ({ creatorData, referer }) => {
 
   useSetBreadcrumbs();
-  useAffiliateCode(creatorData, referer);
+  //useAffiliateCode(creatorData, referer);
   const { creatorRecipeList, loadingCreatorRecipes } = useCreatorRecipeList(creatorData?.owner_id)
 
   return (
