@@ -8,13 +8,15 @@ import { Raleway } from 'next/font/google'
 import { useState, useEffect } from 'react';
 import { Creator } from '@/components/shared/interface';
 import { GetRandomCreatorsForHomepage } from './api/firebase/functions';
+import { useRouter } from 'next/router';
 
 const raleway = Raleway({subsets: ['latin']})
 
 export default function Home() {
   
   const { isLoading, creatorData } = useAuth();
-  const [ creators, setCreators ] = useState<Creator[]>() 
+  const [ creators, setCreators ] = useState<Creator[]>()
+  const router = useRouter() 
 
   useEffect(() => {
     const fetchCreators = async () => {
@@ -24,6 +26,11 @@ export default function Home() {
 
     fetchCreators();
   },[])
+
+  useEffect(() => {
+    const via = router.query.via;
+    if(via) { router.push(`/${via}`)}
+  },[router])
 
 
   if (isLoading) return <PageLoader/>
