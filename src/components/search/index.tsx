@@ -114,8 +114,8 @@ export function Search() {
 export function HomePageSearch() {
 
     const searchClient = algoliasearch(`${process.env.NEXT_PUBLIC_ALGOLIA_APPLICATION_ID}`, `${process.env.NEXT_PUBLIC_ALGOLIA_SEARCH_ONLY_KEY}`);
-    const creatorsIndex = searchClient.initIndex('test_CREATORS');
-    const recipesIndex = searchClient.initIndex('test_RECIPES_TIKTOK');
+    const creatorsIndex = searchClient.initIndex(`${process.env.NEXT_PUBLIC_ALGOLIA_CREATOR_RECIPE_INDEX}`);
+    const recipesIndex = searchClient.initIndex(`${process.env.NEXT_PUBLIC_ALGOLIA_RECIPE_INDEX}`);
     
     const [ input, setInput ] = useState<string>('');
     const [ message, setMessage ] = useState<string>('')
@@ -217,7 +217,7 @@ export function HomePageSearch() {
 export function ManageRecipesSearch({creatorData}: any) {
 
     const searchClient = algoliasearch(`${process.env.NEXT_PUBLIC_ALGOLIA_APPLICATION_ID}`, `${process.env.NEXT_PUBLIC_ALGOLIA_SEARCH_ONLY_KEY}`);
-    const recipesIndex = searchClient.initIndex('test_RECIPES_TIKTOK');
+    const recipesIndex = searchClient.initIndex(`${process.env.NEXT_PUBLIC_ALGOLIA_RECIPE_INDEX}`);
     const [ input, setInput ] = useState<string>('');
     const [searchResults, setSearchResults] = useState<any>({ recipes: [] });
 
