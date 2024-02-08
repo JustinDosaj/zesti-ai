@@ -308,7 +308,7 @@ function CreatorTitleComponent({title, desc}: CreatorPageComponents) {
 
 function PageLinkComponent({display_url, accountStatus}:CreatorPageComponents) {
 
-    if (accountStatus !== "creator_complete") return;
+    if (accountStatus !== "creator") return;
 
     return(
         <div className="pt-6 grid lg:flex justify-between items-center">
@@ -351,7 +351,7 @@ function ConnectTikTokComponent({accountStatus, loginWithTikTok}: CreatorPageCom
 
 function AffiliateProgramComponent({accountStatus}: CreatorPageComponents) {
 
-    if (accountStatus !== 'creator_generate_page' && accountStatus !== 'creator_complete') return;
+    if (accountStatus !== 'creator_generate_page' && accountStatus !== 'creator') return;
 
     return(
     <>
@@ -383,7 +383,7 @@ function GenerateOrViewPageComponent({accountStatus, onGeneratePageClick, router
         </div>  
     )
 
-    if (accountStatus == 'creator_complete') return (
+    if (accountStatus == 'creator') return (
         <div className="pt-6 flex justify-between items-center">
             <dt className="font-semibold text-gray-900 sm:w-64 sm:flex-none sm:pr-6 text-sm lg:text-base">Make Page Changes</dt>
             <dd className=" flex gap-x-6 sm:mt-0">

@@ -35,8 +35,8 @@ const useAccountStatus = () => {
 
     useEffect(() => { 
         if (!isLoading && userData && user) {
-            if(userData.account_status == 'base_user') {
-                setAccountStatus("base_user")
+            if(userData.account_status == 'user') {
+                setAccountStatus("user")
                 setAccountStatusMessage("My Recipes")
                 setNavCreator(`/my-recipes`)
             }
@@ -54,8 +54,8 @@ const useAccountStatus = () => {
                 setAccountStatusMessage("Generate Page")
                 setNavCreator('/nav/profile')
             }
-            else if(userData.account_status == 'creator_complete') {
-                setAccountStatus("creator_complete")
+            else if(userData.account_status == 'creator') {
+                setAccountStatus("creator")
                 setAccountStatusMessage("View Your Page")
                 setNavCreator(`/${creatorData?.display_url}`)
             }

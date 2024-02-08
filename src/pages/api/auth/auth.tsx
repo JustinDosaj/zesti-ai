@@ -132,7 +132,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
             tokens: 2,
             email: user.email,
             isCreator: false,
-            account_status: 'base_user'
+            account_status: 'user'
           })
           router.push('/my-recipes')
         } else {
@@ -184,7 +184,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
             tokens: 2,
             email: user.email,
             isCreator: false,
-            account_status: 'base_user'
+            account_status: 'user'
           })
         }
       }
