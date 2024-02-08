@@ -9,7 +9,6 @@ import { useState, useEffect } from 'react';
 import { Creator } from '@/components/shared/interface';
 import { GetRandomCreatorsForHomepage } from './api/firebase/functions';
 import { useRouter } from 'next/router';
-import { getCookie } from './api/handler/cookies';
 
 const raleway = Raleway({subsets: ['latin']})
 
@@ -17,9 +16,7 @@ export default function Home() {
   
   const { isLoading, creatorData } = useAuth();
   const [ creators, setCreators ] = useState<Creator[]>()
-  const router = useRouter() 
-
-  const affiliateCode = getCookie('theme') || 'default-value';
+  const router = useRouter();
 
 
   useEffect(() => {
