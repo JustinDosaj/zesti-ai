@@ -74,40 +74,6 @@ const creatorItemsLoggedInMobile = [
     },
 ]
 
-const creatorItemsLoggedInMobileNoToken = [
-    {
-        href:"/",
-        text:"Home",
-        icon: HomeIcon,
-    },
-    {
-        href:"/my-recipes",
-        text:"My Recipes",
-        icon: BookOpenIcon,
-    },
-    { 
-        href:"/nav/profile",
-        text: "Connect TikTok",
-        icon: VideoCameraIcon, 
-    },
-    {
-        href: "/nav/profile",
-        text: "Profile Settings",
-        icon: UserIcon,
-    },
-    {
-        href:"/nav/pricing",
-        text:"Pricing",
-        icon: WalletIcon,
-    },
-    {
-        href:"/nav/contact",
-        text: "Contact",
-        icon: PaperAirplaneIcon,
-    },
-]
-
-
 export function Navbar() {
     
     const { user, isLoading, userData, creatorData } = useAuth();
@@ -182,7 +148,7 @@ export function Navbar() {
                 {!user ? (
                     <BtnLink text='Login' href='/auth/login' className="lg:hidden"/>
                 ) 
-                : userData?.isCreator == true ? 
+                : accountStatus == 'creator_complete' ?
                     <DropDownMenuMobile navItems={creatorItemsLoggedInMobile}/>
                 : 
                     <DropDownMenuMobile navItems={navItemsLoggedInMobile}/>
