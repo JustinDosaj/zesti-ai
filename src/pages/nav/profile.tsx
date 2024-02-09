@@ -8,12 +8,14 @@ import { ProfilePageComponent } from "@/components/home/profile"
 import { CreatorProfileComponent } from '@/components/creator/profile'
 import { PageLoader } from '@/components/shared/loader'
 import useRequireAuth from '@/hooks/user/useRequireAuth'
+import useAccountStatus from '@/hooks/useAccountStatus'
 
 const raleway = Raleway({subsets: ['latin']})
 
 export default function Profile() {
 
     const { user, isLoading, userData, creatorData } = useAuth();
+    const { accountStatus } = useAccountStatus()
     const { require } = useRequireAuth(user, isLoading)
 
     if(isLoading) return <PageLoader/>
@@ -29,7 +31,7 @@ export default function Profile() {
     <main className={`flex min-h-screen flex-col items-center bg-background w-screen ${raleway.className}`}>
       <div className="mt-36"/>
       <SharedHomeSectionTitle titleBlack="Your Profile"/>
-      <div className={(userData?.isCreator == false || !userData?.isCreator) ? `mx-auto` : `grid grid-cols-1 xl:grid-cols-2 gap-x-3` }>
+      <div className={accountStatus == 'user'  ? `mx-auto` : `grid grid-cols-1 xl:grid-cols-2 gap-x-3` }>
         <ProfilePageComponent/>
         <CreatorProfileComponent userData={userData} creatorData={creatorData}/>
       </div>
