@@ -4,7 +4,6 @@ import { useEffect, useState } from 'react';
 
 /*
 
-1. User gets isCreator = true ('intro')
 2. User Connects TikTok (get activeToken and access token etc. 'connect_tiktok')
 3. Then user collects affilaite code - 'create_affilaite'
 4. Then use generates page - 'generate_page'

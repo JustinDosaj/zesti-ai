@@ -9,7 +9,6 @@ interface UserData {
   affiliate_code?: string;
   display_name?: string,
   email?: string;
-  isCreator?: boolean;
   stripeId?: string;
   stripeLink?: string;
   tiktokAccessToken?: string;
@@ -131,7 +130,6 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
           await userRef.set({
             tokens: 2,
             email: user.email,
-            isCreator: false,
             account_status: 'user'
           })
           router.push('/my-recipes')
@@ -183,7 +181,6 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
           await userRef.set({
             tokens: 2,
             email: user.email,
-            isCreator: false,
             account_status: 'user'
           })
         }
