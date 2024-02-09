@@ -33,38 +33,37 @@ const useAccountStatus = () => {
     const [ navCreator, setNavCreator ] = useState<string>('')
 
     useEffect(() => { 
-        if (!isLoading && userData && user) {
-            if(userData.account_status == 'user') {
+        if (!isLoading && user) {
+            if(userData?.account_status == 'user') {
                 setAccountStatus("user")
                 setAccountStatusMessage("My Recipes")
                 setNavCreator(`/my-recipes`)
             }
-            else if(userData.account_status == 'creator_reconnect') {
+            else if(userData?.account_status == 'creator_reconnect') {
                 setAccountStatus('creator_reconnect')
                 setAccountStatusMessage("Reconnect TikTok")
             }
-            else if(userData.account_status == 'creator_connect_tiktok') { 
+            else if(userData?.account_status == 'creator_connect_tiktok') { 
                 setAccountStatus('creator_connect_tiktok')
                 setAccountStatusMessage("Connect TikTok")
             }
-            else if(userData.account_status == 'creator_connect_affiliate') {
+            else if(userData?.account_status == 'creator_connect_affiliate') {
                 setAccountStatus("creator_connect_affiliate")
                 setAccountStatusMessage("Setup Affiliate")
                 setNavCreator('/nav/profile')
             }
-            else if(userData.account_status == 'creator_generate_page') { 
+            else if(userData?.account_status == 'creator_generate_page') { 
                 setAccountStatus("creator_generate_page")
                 setAccountStatusMessage("Generate Page")
                 setNavCreator('/nav/profile')
             }
-            else if(userData.account_status == 'creator') {
+            else if(userData?.account_status == 'creator') {
                 setAccountStatus("creator")
                 setAccountStatusMessage("View Your Page")
                 setNavCreator(`/${creatorData?.display_url}`)
             }
 
             setLoadingStatus(false)
-
         } else { 
             setAccountStatusMessage("Login")
             setNavCreator('/auth/login')
