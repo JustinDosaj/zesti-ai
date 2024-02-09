@@ -323,7 +323,7 @@ function PageLinkComponent({display_url, accountStatus}:CreatorPageComponents) {
 function ConnectTikTokComponent({accountStatus, loginWithTikTok}: CreatorPageComponents) {
     
 
-    if (accountStatus == 'creator_connect_tiktok')  return (
+    if (accountStatus == 'creator_connect_tiktok' || 'creator_reconnect')  return (
         <dl className="mt-6 space-y-6 divide-y divide-gray-100 border-t border-gray-200 text-sm leading-6">
             <div className="pt-6 flex justify-between items-center">
                 <dt className="font-semibold text-gray-900 sm:w-64 sm:flex-none sm:pr-6 text-sm lg:text-base">Connect Tiktok Account</dt>

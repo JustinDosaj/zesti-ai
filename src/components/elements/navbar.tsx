@@ -82,7 +82,8 @@ export function Navbar() {
 
     const mainNavButton = {
         name: accountStatusMessage,
-        function:  accountStatus == "creator_connect_tiktok" ? () => loginWithTikTok() 
+        function:  accountStatus == "creator_connect_tiktok" ? () => loginWithTikTok()
+                    : accountStatus == 'creator_reconnect' ? () => loginWithTikTok() 
                     : accountStatus == "creator_generate_page" ? async () => await callGenerateCreatorPage({userData, creatorData})
                     : () => router.push(navCreator),
     }
