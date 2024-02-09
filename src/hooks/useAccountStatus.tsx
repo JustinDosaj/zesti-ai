@@ -61,6 +61,11 @@ const useAccountStatus = () => {
                 setAccountStatus("creator")
                 setAccountStatusMessage("View Your Page")
                 setNavCreator(`/${creatorData?.display_url}`)
+            } else {
+                setAccountStatusMessage("Login")
+                setNavCreator('/auth/login')
+                setAccountStatus('')
+                setLoadingStatus(false)
             }
 
             setLoadingStatus(false)
