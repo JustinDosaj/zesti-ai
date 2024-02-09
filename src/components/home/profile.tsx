@@ -4,10 +4,12 @@ import { useRouter } from 'next/router';
 import { db } from '@/pages/api/firebase/firebase';
 import { PageLoader } from '@/components/shared/loader';
 import { useAuth } from '@/pages/api/auth/auth'
+import useAccountStatus from '@/hooks/useAccountStatus';
 
 export function ProfilePageComponent() {
 
     const { user, stripeRole, logout, isLoading, userData } = useAuth()
+    const { accountStatus } = useAccountStatus()
     const router = useRouter();
 
 
@@ -76,7 +78,7 @@ export function ProfilePageComponent() {
                                 </div>
                             </dl>
                         </div>
-                        <div className={userData?.isCreator == true ? `hidden` : `block`}>
+                        <div className={accountStatus == 'user' ? `block` : `hidden`}>
                             <dl className="mt-6 space-y-6 divide-y divide-gray-100 border-t border-gray-200 text-sm leading-6">
                                 <div className="pt-6 flex justify-between items-center">
                                     <dt className="font-semibold text-gray-900 sm:w-64 sm:flex-none sm:pr-6 text-sm lg:text-base">Join Creator Program</dt>

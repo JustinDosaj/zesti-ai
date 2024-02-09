@@ -146,9 +146,8 @@ export function Navbar() {
                     </div>
 
                 </div>
-                {!user ? (
-                    <BtnLink text='Login' href='/auth/login' className="lg:hidden"/>
-                ) 
+                {!user ? 
+                    <BtnLink text='Login' href='/auth/login' className="lg:hidden"/> 
                 : accountStatus == 'creator' ?
                     <DropDownMenuMobile navItems={creatorItemsLoggedInMobile}/>
                 : 
