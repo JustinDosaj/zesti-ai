@@ -16,9 +16,10 @@ interface TikTokTokenData {
   refresh_expires_in: number;
 }
 
-export async function updateUserWithTikTokTokens(tokenData: TikTokTokenData, userId: string,) {
+export async function updateUserWithTikTokTokens(tokenData: TikTokTokenData, userId: string) {
   try {
     const userRef = db.collection('users').doc(userId);
+    const res = await getUserData(userId)
 
     if (!tokenData.access_token || !tokenData.refresh_token || !tokenData.open_id) {
       throw new Error('Token data is incomplete or undefined');
@@ -29,8 +30,7 @@ export async function updateUserWithTikTokTokens(tokenData: TikTokTokenData, use
       tiktokAccessToken: tokenData.access_token,
       tiktokRefreshToken: tokenData.refresh_token,
       tiktokOpenId: tokenData.open_id,
-      account_status: 'creator_generate_page',
-      // You can also store expiration times if needed
+      account_status: res?.account_status == 'creator_reconnect' ? 'creator' : 'creator_generate_page'
     };
 
     // Update the user's document
@@ -38,7 +38,7 @@ export async function updateUserWithTikTokTokens(tokenData: TikTokTokenData, use
 
   } catch (error) {
     console.error('Error updating user with TikTok tokens:', error);
-    throw error; // You can handle the error as per your application's needs
+    throw error; 
   }
 }
 

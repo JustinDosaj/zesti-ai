@@ -40,6 +40,10 @@ const useAccountStatus = () => {
                 setAccountStatusMessage("My Recipes")
                 setNavCreator(`/my-recipes`)
             }
+            else if(userData.account_status == 'creator_reconnect') {
+                setAccountStatus('creator_reconnect')
+                setAccountStatusMessage("Reconnect TikTok")
+            }
             else if(userData.account_status == 'creator_connect_tiktok') { 
                 setAccountStatus('creator_connect_tiktok')
                 setAccountStatusMessage("Connect TikTok")
