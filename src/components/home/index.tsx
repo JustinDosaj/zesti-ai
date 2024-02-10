@@ -6,7 +6,7 @@ import { BtnLink, Button } from "../shared/button"
 import Image from "next/image"
 import { Disclosure } from "@headlessui/react"
 import { SharedHomeSectionTitle } from "../shared/title"
-import { HomePageSearch } from "../search"
+import { Search } from "../search"
 import Link from "next/link"
 import { useRouter } from "next/router"
 import { useAuth } from "@/pages/api/auth/auth"
@@ -38,7 +38,7 @@ export function Hero({titleStart, titleEnd, description}: HeroProps) {
             </p>
           </div>
           <div className="grid justify-center lg:justify-start text-left space-y-1">
-            <HomePageSearch/>
+            <Search searchLocation="home"/>
           </div>
 
           <div className="grid grid-cols-3 lg:flex justify-center lg:justify-start lg:space-x-16">

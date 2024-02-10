@@ -28,7 +28,7 @@ export function CreatorPageTitle({creatorData}: any) {
 export function CreatorSearch({creatorData}: any) {
 
     const searchClient = algoliasearch(`${process.env.NEXT_PUBLIC_ALGOLIA_APPLICATION_ID}`, `${process.env.NEXT_PUBLIC_ALGOLIA_SEARCH_ONLY_KEY}`);
-    const recipesIndex = searchClient.initIndex('test_RECIPES_TIKTOK');
+    const recipesIndex = searchClient.initIndex(`${process.env.NEXT_PUBLIC_ALGOLIA_RECIPE_INDEX}`);
     const [ url, setUrl ] = useState<string>('');
     const [searchResults, setSearchResults] = useState<any>({ recipes: [] });
 
