@@ -404,7 +404,7 @@ function GenerateOrViewPageComponent({accountStatus, onGeneratePageClick, isPage
             <dt className="font-semibold text-gray-900 sm:w-64 sm:flex-none sm:pr-6 text-sm lg:text-base">Make Page Changes</dt>
             <dd className=" flex gap-x-6 sm:mt-0">
                 <button type="button" className="font-semibold text-primary-main hover:text-primary-alt text-sm lg:text-base"
-                    onClick={() => router.push('/creator/edit')}>
+                    onClick={() => router.push('/creator/edit/manage-recipes')}>
                     {"Edit Page"}
                 </button>
             </dd>

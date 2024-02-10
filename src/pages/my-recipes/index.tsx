@@ -36,7 +36,7 @@ export default function MyRecipes() {
         <Breadcrumbs/>
         <SharedHomeSectionTitle titleBlack="Your Saved Recipes" desc="Access all the recipes you saved from others or videos you transcribed yourself"/>
         <br/>
-        <Search/>
+        <Search searchLocation={"my-recipes"}/>
         <div className="border-t border-gray-200 m-12" style={{ width: '35%' }} />
         <SharedSectionHeadingTitle title={"Recent Saved Recipes"}/>
         <UserSavedRecipeList recipes={userRecipeList} maxDisplayCount={5} max={3} loading={loadingUserRecipes}/>
