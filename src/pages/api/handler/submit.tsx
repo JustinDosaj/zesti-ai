@@ -172,7 +172,7 @@ export const handleTikTokURLSubmit = async ({url, setUrl, user, setMessage, stri
 
         const response = await userAddTikTokRecipe(falseObj).then((val) => {
             console.log(val)
-            setMessage("Processing Recipe...")
+            setMessage("Recipe added successfully, go to \"My Recipes\" to view it!")
             return true;
         }).catch((err) => {
             console.log(err)
@@ -189,7 +189,7 @@ export const handleTikTokURLSubmit = async ({url, setUrl, user, setMessage, stri
         return response;
     } else {  
         setNotify(true)
-        setMessage("Uh oh! You ran out of recipes for the month!") 
+        setMessage("Ran out of recipe transcriptions. Upgrade account for more") 
         return false; 
     }
 }
@@ -230,7 +230,8 @@ export const handleCreatorTikTokURLSubmit = async ({url, rawText, creatorData}: 
     return response;
 }
 
-export const callGenerateCreatorPage = async ({userData, creatorData}: TikTokProps) => {
+
+export const callGenerateCreatorPage = async ({creatorData}: any) => {
 
     if (creatorData !== undefined) { Notify("Creator page already exists for this account"); return; }
 
@@ -239,8 +240,9 @@ export const callGenerateCreatorPage = async ({userData, creatorData}: TikTokPro
 
     const response = await generateCreatorPage().then((val) => {
         console.log("Successfully Generated Creator Page")
+        Notify("Page created successfully!")
     }).catch((err) => {
-        console.log("Failed to create creator page")
+        console.log("Failed to generate page, please try again later or contact us if the problem persists.")
     })
 
     return;

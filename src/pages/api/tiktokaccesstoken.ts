@@ -11,7 +11,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         client_secret: process.env.NEXT_PUBLIC_TIKTOK_CLIENT_SECRET!, // Replace with your client secret
         code: code,
         grant_type: 'authorization_code',
-        redirect_uri: `https://zesti.ngrok.app/auth/redirect` // Replace with your redirect URI
+        redirect_uri: `https://www.zesti.ai/auth/redirect` // Replace with your redirect URI
       });
 
       const response = await fetch(tokenEndpoint, {

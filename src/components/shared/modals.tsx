@@ -110,7 +110,7 @@ export function InputResponseModal({isOpen, setIsOpen, success, message, role}: 
                     href="/my-recipes"
                     onClick={() => setIsOpen(false)}
                   >
-                    Go to Dashboard
+                    Go to My Recipes
                   </Link>
                   <button
                     type="button"
