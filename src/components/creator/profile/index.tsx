@@ -5,7 +5,7 @@ import { useAuth } from '@/pages/api/auth/auth'
 import { saveBioDataToFireStore } from '@/pages/api/firebase/functions'
 import { useRouter } from 'next/router'
 import { Notify } from '@/components/shared/notify'
-import { ExclamationTriangleIcon, LinkIcon, PlusCircleIcon, PlusIcon } from "@heroicons/react/20/solid"
+import { ExclamationTriangleIcon, PlusCircleIcon, PlusIcon } from "@heroicons/react/20/solid"
 import { Container } from '@/components/shared/container'
 import { callGenerateCreatorPage } from '@/pages/api/handler/submit'
 import { RecentTikTokVideosProps } from '@/components/shared/interface'
@@ -250,13 +250,13 @@ export function CreatorProfileComponent({creatorData}: any) {
 
     const { isLoading, userData } = useAuth()
     const { accountStatus, loginWithTikTok } = useAccountStatus()
+    const [ isPageGenerating, setIsPageGenerating ] = useState<boolean>(false)
     const router = useRouter() 
 
-
-    console.log("Check status: ,", accountStatus)
-
     const onGeneratePageClick = async () => {
-        await callGenerateCreatorPage({userData, creatorData})
+        setIsPageGenerating(true)
+        await callGenerateCreatorPage({creatorData})
+        setIsPageGenerating(false)
     }
 
     if(accountStatus == 'user' || null) return <div className="hidden"/>
@@ -274,7 +274,7 @@ export function CreatorProfileComponent({creatorData}: any) {
                                 <PageLinkComponent accountStatus={accountStatus} display_url={creatorData?.display_url}/>
                                 <ConnectTikTokComponent accountStatus={accountStatus} loginWithTikTok={loginWithTikTok}/>
                                 <AffiliateProgramComponent accountStatus={accountStatus} display_url={creatorData?.display_url}/>
-                                <GenerateOrViewPageComponent accountStatus={accountStatus} onGeneratePageClick={onGeneratePageClick} router={router}/>
+                                <GenerateOrViewPageComponent accountStatus={accountStatus} onGeneratePageClick={onGeneratePageClick} isPageGenerating={isPageGenerating} router={router}/>
                             </dl>
                         </div>
                     </div>
@@ -295,6 +295,7 @@ interface CreatorPageComponents {
     setAffiliateLink?: any,
     onAffiliateSave?: any,
     affiliateLink?: string,
+    isPageGenerating?: boolean,
 }
 
 function CreatorTitleComponent({title, desc}: CreatorPageComponents) {
@@ -377,16 +378,23 @@ function AffiliateProgramComponent({accountStatus, display_url}: CreatorPageComp
     )
 }
 
-function GenerateOrViewPageComponent({accountStatus, onGeneratePageClick, router}: CreatorPageComponents) {
+function GenerateOrViewPageComponent({accountStatus, onGeneratePageClick, isPageGenerating, router}: CreatorPageComponents) {
 
     if (accountStatus == 'creator_generate_page') return (
         <div className={`pt-6 flex justify-between items-center border-t border-gray-20`}>
             <dt className="font-semibold text-gray-900 sm:w-64 sm:flex-none sm:pr-6 text-sm lg:text-base">Generate Your Page</dt>
             <dd className=" flex gap-x-6 sm:mt-0">
+                { isPageGenerating == false ?
                 <button type="button" className="font-semibold text-primary-main hover:text-primary-alt text-sm lg:text-base"
                     onClick={onGeneratePageClick}>
                     {"Create"}
                 </button>
+                :
+                <button type="button" disabled={true} className="font-semibold text-primary-main hover:text-primary-alt text-sm lg:text-base"
+                    onClick={onGeneratePageClick}>
+                    {"Loading"}
+                </button>
+                }
             </dd>
         </div>  
     )

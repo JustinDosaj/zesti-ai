@@ -4,6 +4,7 @@ import { Container } from "../shared/container"
 import { Navitem } from "../shared/navitem"
 import { useAuth } from "@/pages/api/auth/auth"
 import { BtnLink, Button } from "../shared/button"
+import { useState } from "react"
 import Link from "next/link"
 import Image from "next/image"
 import { BookOpenIcon, HomeIcon, PaperAirplaneIcon, WalletIcon, UserIcon, VideoCameraIcon } from "@heroicons/react/20/solid"
@@ -11,6 +12,7 @@ import { DropDownMenuDesktop, DropDownMenuMobile } from "./menus"
 import useAccountStatus from "@/hooks/useAccountStatus"
 import { useRouter } from "next/router"
 import { callGenerateCreatorPage } from "@/pages/api/handler/submit"
+import { CreatorSubmitLoader } from "../shared/loader"
 
 
 const navItemsLoggedInMobile = [
@@ -78,13 +80,18 @@ export function Navbar() {
     
     const { user, isLoading, userData, creatorData } = useAuth();
     const { accountStatus, accountStatusMessage, loginWithTikTok, navCreator } = useAccountStatus()
+    const [ isPageGenerating, setIsPageGenerating ] = useState<boolean>(false)
     const router = useRouter()
 
     const mainNavButton = {
         name: accountStatusMessage,
         function:  accountStatus == "creator_connect_tiktok" ? () => loginWithTikTok()
                     : accountStatus == 'creator_reconnect' ? () => loginWithTikTok() 
-                    : accountStatus == "creator_generate_page" ? async () => await callGenerateCreatorPage({userData, creatorData})
+                    : accountStatus == "creator_generate_page" ? async () => {
+                        setIsPageGenerating(true)
+                        await callGenerateCreatorPage({creatorData})
+                        setIsPageGenerating(false)
+                    }
                     : () => router.push(navCreator),
     }
 
@@ -141,7 +148,11 @@ export function Navbar() {
                 <div className="hidden lg:flex justify-end w-1/3">
                     {/* Main Orange Button for Primary navigation based on accountStatus: base_user, creator_connect_tiktok, creator_connect_affiliate, creator_generate_page, creator*/}
                     <div className="inline-flex items-center space-x-4">
+                        { isPageGenerating == false ? 
                         <Button buttonType="button" onClick={() => mainNavButton.function()} text={mainNavButton.name}/>
+                        :
+                        <CreatorSubmitLoader/> 
+                        }
                         <DropDownMenuDesktop navItems={desktopNavItems} isHidden={!user}/> 
                     </div>
 
