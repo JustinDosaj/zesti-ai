@@ -2,7 +2,6 @@ import { useRouter } from 'next/router';
 import { useAuth } from '../api/auth/auth';
 import { useEffect } from 'react';
 import { PageLoader } from '@/components/shared/loader';
-import useAccountStatus from '@/hooks/useAccountStatus';
 const Redirect = () => {
 
     const router = useRouter();

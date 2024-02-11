@@ -4,7 +4,7 @@ import React from 'react'
 import { Container } from "@/components/shared/container";
 import GoogleTags from '@/components/tags/conversion';
 import { Title } from '@/components/shared/title';
-import { InlineBtnLink } from '@/components/shared/button';
+import { InlineButton } from '@/components/shared/button';
 import { useAuth } from '@/pages/api/auth/auth';
 
 import Head from "next/head";
@@ -72,9 +72,9 @@ const Demo: React.FC = () => {
       <div className="text-center space-y-2">
         <Title className="text-gray-900 text-3xl mt-36">YouTube Recipe</Title>
         {user ? 
-        <p className="text-gray-700 pl-5 pr-5">This is a demo output of Zesti. Visit <InlineBtnLink href='/my-recipes' text="Your Dashboard"/> to start using Zesti</p>
+        <p className="text-gray-700 pl-5 pr-5">This is a demo output of Zesti. Visit <InlineButton isLink={true} href='/my-recipes' text="Your Dashboard"/> to start using Zesti</p>
         :
-        <p className="text-gray-700 pl-5 pr-5">This is a demo output of Zesti. To start using Zesti please <InlineBtnLink href='/auth/login' text="Login or Sign Up"/></p>
+        <p className="text-gray-700 pl-5 pr-5">This is a demo output of Zesti. To start using Zesti please <InlineButton isLink={true} href='/auth/login' text="Login or Sign Up"/></p>
         }
       </div>
       <Container className={"flex flex-col lg:flex-row gap-10 lg:gap-12 mt-20 animate-fadeInFast"}>
