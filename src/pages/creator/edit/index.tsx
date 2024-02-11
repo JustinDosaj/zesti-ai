@@ -23,7 +23,7 @@ export default function Page() {
   const { accountStatus, loadingStatus } = useAccountStatus()
   const router = useRouter()
   
-  if(accountStatus !== "creator_complete" && !loadingStatus) { router.push('/nav/profile') }
+  if(accountStatus !== "creator" && !loadingStatus) { router.push('/nav/profile') }
   
   return (
     <>
