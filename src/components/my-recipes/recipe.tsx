@@ -265,7 +265,7 @@ export function EditUserRecipe({recipe, setPremiumPrompt, setEditMode, role}:Rec
             </ul>
         </div>
         <div className="inline-flex gap-4 justify-center">
-            <AltButton buttonType="button" text="Cancel" className="w-full" onClick={() => setEditMode(false)}/>
+            <AltButton isLink={false} buttonType="button" text="Cancel" className="w-full" onClick={() => setEditMode(false)}/>
             <Button isLink={false} buttonType="button" text="Save" className="w-full" onClick={handleSave}/>
         </div>
     </Container>
