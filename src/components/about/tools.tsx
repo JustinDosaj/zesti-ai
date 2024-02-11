@@ -77,7 +77,7 @@ export function VideoComponent() {
                 <LinkIcon className="text-gray-600 h-10 w-10"/>
                 <input type="text" name="web-page" value={url} placeholder="Paste Tiktok or YouTube Video" className="w-full text-gray-500 py-3 outline-none bg-transparent" onChange={(e) => setUrl(e.target.value)}/>
                 {isLoading == false ?
-                <Button buttonType="button" text="" className={"min-w-max text-white"}  
+                <Button isLink={false} buttonType="button" text="" className={"min-w-max text-white"}  
                     onClick={ async () => { await onClick() }}>                              
                     <span className="hidden sm:flex relative z-[5]">
                         Get Recipe

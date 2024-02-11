@@ -124,15 +124,15 @@ export function PricingDisplay() {
                   ))}
                 </ul>
                 {!user ?
-                <Button buttonType="button" onClick={() => router.push('/auth/login')} text="Sign Up to Get Started" className="mt-4 text-center w-full"/>
+                <Button isLink={false} buttonType="button" onClick={() => router.push('/auth/login')} text="Sign Up to Get Started" className="mt-4 text-center w-full"/>
                 : (isLoading == false && stripeRole !== 'premium') ?
-                <Button buttonType="button" onClick={tier.checkout} text="Get Started" className="mt-4 text-center w-full"/>
+                <Button isLink={false} buttonType="button" onClick={tier.checkout} text="Get Started" className="mt-4 text-center w-full"/>
                 : (isLoading == true) ?
                 <div className="mt-4 w-full grid">
                   <Loader/>
                 </div>
                 :
-                <Button buttonType="button" onClick={() => {router.push("/nav/profile")}} text="Manage Account" className="text-sm sm:text-base mt-4 text-center w-full"/>
+                <Button isLink={false} buttonType="button" onClick={() => {router.push("/nav/profile")}} text="Manage Account" className="text-sm sm:text-base mt-4 text-center w-full"/>
                 }
                 <InlineBtnLink href={tier.learnhref} text="Learn More" className="flex justify-center mt-4 text-sm"></InlineBtnLink>
               </div>
