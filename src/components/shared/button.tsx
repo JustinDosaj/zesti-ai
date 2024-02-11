@@ -1,12 +1,5 @@
 import Link from "next/link"
 
-export interface Props {
-    text: string,
-    className?:string,
-    buttonType: "submit" | "button",
-    children?: React.ReactNode,
-    onClick?: any,
-}
 
 interface ButtonProps {
     text: string,
@@ -28,7 +21,6 @@ export function InlineButton({text, className, buttonType, children, onClick, is
         </Link>
     )
 }
-
 
 export function Button({text, className, buttonType, children, onClick, isLink, href}: ButtonProps) {
     
