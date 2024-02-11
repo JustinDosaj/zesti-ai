@@ -56,7 +56,7 @@ export default function Contact() {
                     <textarea name="MSG" placeholder="We would love to hear about you, tell us a little about your yourself!" className="w-full py-3 outline-none bg-transparent text-gray-500"/>
                 </div>
                 <div className="flex justify-end mt-4 py-1 w-full pr-1 gap-3 items-center text-heading">
-                    <Button buttonType="submit" text="" className={"min-w-max text-white"}>
+                    <Button isLink={false} buttonType="submit" text="" className={"min-w-max text-white"}>
                         <span className="hidden sm:flex relative z-[5]">
                             Submit
                         </span>

@@ -64,7 +64,7 @@ import { PromoteKitTag } from "@/components/tags/headertags"
                          <input type="text" name="EMAIL" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Email" className="w-full py-3 outline-none bg-transparent text-gray-700"/>
                      </div>
                      <div className="grid grid-cols-1 justify-center mt-4 py-1 w-full pr-1 gap-3 items-center text-heading">
-                         <Button buttonType="button" onClick={() => resetPasswordOnClick()} text="" className={"min-w-max text-white"}>
+                         <Button isLink={false} buttonType="button" onClick={() => resetPasswordOnClick()} text="" className={"min-w-max text-white"}>
                              <span className="relative z-[5]">
                                  Reset Password
                              </span>

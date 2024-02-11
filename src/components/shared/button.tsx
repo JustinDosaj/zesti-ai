@@ -14,40 +14,6 @@ export interface LinkProps{
     className?:string,
 }
 
-export function InlineBtnLink({href, text, className}:LinkProps) {
-    return(
-        <a href={href} className={`text-primary-main underline hover:text-primary-alt ${className}`}>
-            <span className={`relative z-10`}>
-                {text}
-            </span>
-        </a>
-    )
-}
-
-export function BtnLink({href, text, className}:LinkProps) {
-    return(
-        <Link href={href} className={`text-white bg-primary-main px-6 py-3 rounded-full outline-none relative overflow-hidden border duration-200 ease-linear 
-        hover:after:opacity-100 hover:bg-primary-alt ${className} `}>
-            <span className={`relative z-10`}>
-                {text}
-            </span>
-        </Link>
-    )
-}
-
-/*export function Button({text, className, buttonType, children, onClick}: Props) {
-        return(
-        <>
-            <button type={buttonType} onClick={onClick}
-                className={`text-white bg-primary-main px-6 py-3 rounded-full outline-none relative overflow-hidden border duration-200 ease-linear
-                    hover:after:opacity-100 hover:bg-primary-alt ${className}`}>
-                        <span className="relative z-10">{text}</span>
-                        {children}
-            </button>
-        </>
-        )
-}*/
-
 interface ButtonProps {
     text: string,
     className?: string,
@@ -57,6 +23,29 @@ interface ButtonProps {
     isLink: boolean,
     href?: string,
 }
+
+
+/*export function InlineBtnLink({href, text, className}:LinkProps) {
+    return(
+        <a href={href} className={`text-primary-main underline hover:text-primary-alt ${className}`}>
+            <span className={`relative z-10`}>
+                {text}
+            </span>
+        </a>
+    )
+}*/
+
+
+export function InlineButton({text, className, buttonType, children, onClick, isLink, href}: ButtonProps) {
+    return(
+        <Link href={href!} className={`text-primary-main underline hover:text-primary-alt ${className}`}>
+            <span className={`relative z-10`}>
+                {text}
+            </span>
+        </Link>
+    )
+}
+
 
 export function Button({text, className, buttonType, children, onClick, isLink, href}: ButtonProps) {
     

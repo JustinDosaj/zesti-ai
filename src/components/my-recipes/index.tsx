@@ -57,7 +57,7 @@ return(
         ))}
         {max == 0 && (recipes.length > maxDisplayCount) && (
             <div className="flex justify-center py-6">
-                <Button onClick={handleLoadMore} className="bg-primary-main rounded-3xl hover:bg-primary-alt text-white font-semibold py-2 px-4" buttonType="button" text="Load More"/>
+                <Button isLink={false} onClick={handleLoadMore} className="bg-primary-main rounded-3xl hover:bg-primary-alt text-white font-semibold py-2 px-4" buttonType="button" text="Load More"/>
             </div>
         )}
     </div>

@@ -2,7 +2,7 @@ import { Container } from "../shared/container"
 import { ChatBubbleLeftIcon, CheckIcon, StarIcon, MinusSmallIcon, PlusSmallIcon, ArrowDownIcon, BookOpenIcon, CheckCircleIcon, BeakerIcon} from "@heroicons/react/20/solid"
 import { useState, useEffect, useRef } from "react"
 import { ToolExamples, Scroller, FeaturedCreators, DashboardExample } from "./scroll"
-import { BtnLink, Button } from "../shared/button"
+import { Button } from "../shared/button"
 import Image from "next/image"
 import { Disclosure } from "@headlessui/react"
 import { SharedHomeSectionTitle } from "../shared/title"
@@ -175,7 +175,7 @@ export function HomePageCTA() {
           </p>
           <SharedHomeSectionTitle titleBlack="Try Free for 7-Days" desc="Get more out of Zesti when you use premium by gaining access to every feature Zesti offers and increased monthly usage!"/>
         </div>
-        <BtnLink href='/nav/pricing' text="Get Started" className="text-lg font-medium text-center text-white"/>
+        <Button isLink={true} href='/nav/pricing' text="Get Started" className="text-lg font-medium text-center text-white"/>
       </div>
     </Container>
   )
