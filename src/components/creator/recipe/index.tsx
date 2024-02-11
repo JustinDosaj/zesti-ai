@@ -49,7 +49,7 @@ export function CreatorRecipe({recipe, setLoginPrompt, owner_id, setEditMode}: R
             </ul>
         </div>
         <div className={user?.uid == owner_id ? `grid justify-center` : 'hidden'}>
-            <Button buttonType="button" text="Edit Recipe" className="w-fit" onClick={() => {setEditMode(true)}}/>
+            <Button isLink={false} buttonType="button" text="Edit Recipe" className="w-fit" onClick={() => {setEditMode(true)}}/>
         </div>
     </Container>
     )
@@ -227,7 +227,7 @@ export function EditCreatorRecipe({recipe, setLoginPrompt, owner_id, setEditMode
         </div>
         <div className="inline-flex gap-4 justify-center">
             <AltButton buttonType="button" text="Cancel" className="w-full" onClick={() => setEditMode(false)}/>
-            <Button buttonType="button" text="Save" className="w-full" onClick={handleSave}/>
+            <Button isLink={false} buttonType="button" text="Save" className="w-full" onClick={handleSave}/>
         </div>
     </Container>
     )

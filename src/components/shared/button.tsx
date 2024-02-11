@@ -35,7 +35,7 @@ export function BtnLink({href, text, className}:LinkProps) {
     )
 }
 
-export function Button({text, className, buttonType, children, onClick}: Props) {
+/*export function Button({text, className, buttonType, children, onClick}: Props) {
         return(
         <>
             <button type={buttonType} onClick={onClick}
@@ -46,6 +46,39 @@ export function Button({text, className, buttonType, children, onClick}: Props) 
             </button>
         </>
         )
+}*/
+
+interface ButtonProps {
+    text: string,
+    className?: string,
+    buttonType?: 'submit' | 'button',
+    children?: React.ReactNode,
+    onClick?: any,
+    isLink: boolean,
+    href?: string,
+}
+
+export function Button({text, className, buttonType, children, onClick, isLink, href}: ButtonProps) {
+    
+    if (!isLink && onClick && buttonType) return (
+        <button type={buttonType} onClick={onClick}
+            className={`text-white bg-primary-main px-6 py-3 rounded-full outline-none relative overflow-hidden border duration-200 ease-linear
+                hover:after:opacity-100 hover:bg-primary-alt ${className}`}>
+                    <span className="relative z-10">{text}</span>
+                    {children}
+        </button>
+    )
+
+    if (isLink && href) return (
+        <Link href={href!} className={`text-white bg-primary-main px-6 py-3 rounded-full outline-none relative overflow-hidden border duration-200 ease-linear 
+            hover:after:opacity-100 hover:bg-primary-alt ${className} `}>
+            <span className={`relative z-10`}>
+                {text}
+            </span>
+        </Link>
+    )
+
+    return <div>error</div>
 }
 
 export function AltButton({text, className, buttonType, children, onClick}: Props) {

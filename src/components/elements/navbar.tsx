@@ -3,7 +3,7 @@
 import { Container } from "../shared/container"
 import { Navitem } from "../shared/navitem"
 import { useAuth } from "@/pages/api/auth/auth"
-import { BtnLink, Button } from "../shared/button"
+import { Button } from "../shared/button"
 import { useState } from "react"
 import Link from "next/link"
 import Image from "next/image"
@@ -78,7 +78,7 @@ const creatorItemsLoggedInMobile = [
 
 export function Navbar() {
     
-    const { user, isLoading, userData, creatorData } = useAuth();
+    const { user, creatorData } = useAuth();
     const { accountStatus, accountStatusMessage, loginWithTikTok, navCreator } = useAccountStatus()
     const [ isPageGenerating, setIsPageGenerating ] = useState<boolean>(false)
     const router = useRouter()
@@ -149,7 +149,7 @@ export function Navbar() {
                     {/* Main Orange Button for Primary navigation based on accountStatus: base_user, creator_connect_tiktok, creator_connect_affiliate, creator_generate_page, creator*/}
                     <div className="inline-flex items-center space-x-4">
                         { isPageGenerating == false ? 
-                        <Button buttonType="button" onClick={() => mainNavButton.function()} text={mainNavButton.name}/>
+                        <Button buttonType="button" isLink={false} onClick={() => mainNavButton.function()} text={mainNavButton.name}/>
                         :
                         <CreatorSubmitLoader/> 
                         }
@@ -158,7 +158,7 @@ export function Navbar() {
 
                 </div>
                 {!user ? 
-                    <BtnLink text='Login' href='/auth/login' className="lg:hidden"/> 
+                    <Button isLink={true} text='Login' href='/auth/login' className="lg:hidden"/> 
                 : accountStatus == 'creator' ?
                     <DropDownMenuMobile navItems={creatorItemsLoggedInMobile}/>
                 : 

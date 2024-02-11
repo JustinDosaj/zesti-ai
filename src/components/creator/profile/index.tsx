@@ -125,15 +125,15 @@ export function CreatorPageComponent({creatorData}: any) {
                                 <dd className="mt-1 flex gap-x-6 sm:mt-0">
                                     { edit == true ?
                                     <div className="inline-flex gap-2">
-                                        <Button buttonType="button" className="font-semibold text-sm lg:text-base w-28" text="Save"
+                                        <Button isLink={false} buttonType="button" className="font-semibold text-sm lg:text-base w-28" text="Save"
                                             onClick={saveBioData}>
                                         </Button>
-                                        <Button buttonType="button" className="font-semibold text-sm lg:text-base w-28" text="Cancel"
+                                        <Button isLink={false} buttonType="button" className="font-semibold text-sm lg:text-base w-28" text="Cancel"
                                             onClick={() => setEdit(false)}>
                                         </Button>
                                     </div>
                                     :
-                                    <Button buttonType="button" className="font-semibold text-sm lg:text-base w-28" text="Edit"
+                                    <Button isLink={false} buttonType="button" className="font-semibold text-sm lg:text-base w-28" text="Edit"
                                         onClick={() => setEdit(true)}>
                                     </Button>
                                     }
@@ -203,7 +203,7 @@ export function RecentTikTokVideos({videoList, creatorData, setIsOpen, setUrl, s
                                         Select from recent videos or add other recipe
                                     </p>
                                 </div>
-                                <Button buttonType="button" className="font-semibold text-sm lg:text-base inline-flex items-center" onClick={() => router.push('/creator/edit/manage-recipes')} text="">
+                                <Button isLink={false} buttonType="button" className="font-semibold text-sm lg:text-base inline-flex items-center" onClick={() => router.push('/creator/edit/manage-recipes')} text="">
                                     <span className="hidden">Add Recipe</span>
                                     <PlusIcon className="w-6 h-6"/>
                                 </Button>

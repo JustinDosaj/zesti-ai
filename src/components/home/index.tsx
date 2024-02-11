@@ -489,9 +489,9 @@ export function CreatorHero({titleStart, titleEnd, description}: HeroProps) {
           </div>
           <div className="grid justify-center lg:justify-start text-left space-y-1">
             { user ?
-            <Button text="Apply to Join" buttonType="button" onClick={() => router.push('/nav/creator/apply') }/>
+            <Button isLink={false} text="Apply to Join" buttonType="button" onClick={() => router.push('/nav/creator/apply') }/>
             :
-            <Button text="Apply to Join" buttonType="button" onClick={() => router.push('/auth/login') }/> 
+            <Button isLink={false} text="Apply to Join" buttonType="button" onClick={() => router.push('/auth/login') }/> 
             }
           </div>
         </div>
