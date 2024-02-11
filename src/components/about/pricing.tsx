@@ -1,6 +1,6 @@
 "use client";
 
-import { Button, InlineBtnLink } from "../shared/button";
+import { Button, InlineButton } from "../shared/button";
 import { CheckIcon } from "@heroicons/react/20/solid";
 import { Container } from "../shared/container";
 import { createPremiumCheckoutSession } from "@/pages/api/stripe/stripePremium";
@@ -134,7 +134,7 @@ export function PricingDisplay() {
                 :
                 <Button isLink={false} buttonType="button" onClick={() => {router.push("/nav/profile")}} text="Manage Account" className="text-sm sm:text-base mt-4 text-center w-full"/>
                 }
-                <InlineBtnLink href={tier.learnhref} text="Learn More" className="flex justify-center mt-4 text-sm"></InlineBtnLink>
+                <InlineButton isLink={true} href={tier.learnhref} text="Learn More" className="flex justify-center mt-4 text-sm"/>
               </div>
             ))}
           </div>

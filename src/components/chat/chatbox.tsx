@@ -3,7 +3,7 @@ import { ChatBubbleLeftEllipsisIcon, PaperAirplaneIcon, XMarkIcon } from '@heroi
 import { db } from '@/pages/api/firebase/firebase';
 import { useAuth } from '@/pages/api/auth/auth';
 import { doc, setDoc, collection, onSnapshot, query, orderBy, where, Timestamp } from 'firebase/firestore';
-import { InlineBtnLink } from '../shared/button';
+import { InlineButton } from '../shared/button';
 import { AIChatMessageProps } from '../shared/interface';
 
 export function Chatbox() {
@@ -129,7 +129,7 @@ export function Chatbox() {
             </div>
             <div className={`border p-2 rounded-xl message bg-gray-100 bg-opacity-90 justify-items-end w-fit text-black mb-3`}>
               <span className="text-black">   
-              <InlineBtnLink href="/auth/login" text="Click Here to login" className="text-black mr-1 hover:primary-alt"/>
+              <InlineButton isLink={true} href="/auth/login" text="Click Here to login" className="text-black mr-1 hover:primary-alt"/>
               and start chatting
               </span>
             </div>

@@ -1,6 +1,6 @@
 import { MagnifyingGlassIcon } from '@heroicons/react/24/outline'
 import { Notify } from "../shared/notify"
-import { InlineBtnLink } from "../shared/button"
+import { InlineButton } from "../shared/button"
 import algoliasearch from 'algoliasearch/lite';
 import { XMarkIcon } from '@heroicons/react/20/solid'
 import Link from 'next/link'
@@ -104,9 +104,9 @@ export function Search({searchLocation}: SearchProps){
                                 <XMarkIcon onClick={() => setInput('')} className={classNames(input ? `text-red-600 hover:text-red-500 cursor-pointer` : `text-gray-600  cursor-default hover:text-gray-800`, `h-6 w-6 `)}/>
                             </form>  
                         </div>
-                        <div className="text-gray-500 mt-4 text-center">
+                        <div className={classNames(searchLocation == 'home' ? `text-left` : `text-center`, `text-gray-500 mt-4`)}>
                             <span>Can&apos;t find a tiktok account or recipe? </span>
-                            <InlineBtnLink href={'/tools/video'} text="Click here"/>
+                            <InlineButton isLink={true} href={'/tools/video'} text="Click here"/>
                             <span> to save any TikTok recipe</span>
                         </div>
                     </div>

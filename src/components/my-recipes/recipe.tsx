@@ -67,7 +67,7 @@ export function UserRecipe({recipe, setPremiumPrompt, owner_id, setEditMode, rol
         </div>
         {/*EDIT BUTTON */}
         <div className="grid justify-center">
-            <Button buttonType="button" text="Edit Recipe" className="w-fit" onClick={() => {
+            <Button isLink={false} buttonType="button" text="Edit Recipe" className="w-fit" onClick={() => {
                 if (role == 'premium') {
                     setEditMode(true)
                 } else {
@@ -266,7 +266,7 @@ export function EditUserRecipe({recipe, setPremiumPrompt, setEditMode, role}:Rec
         </div>
         <div className="inline-flex gap-4 justify-center">
             <AltButton buttonType="button" text="Cancel" className="w-full" onClick={() => setEditMode(false)}/>
-            <Button buttonType="button" text="Save" className="w-full" onClick={handleSave}/>
+            <Button isLink={false} buttonType="button" text="Save" className="w-full" onClick={handleSave}/>
         </div>
     </Container>
     )
