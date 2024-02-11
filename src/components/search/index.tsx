@@ -12,7 +12,6 @@ function classNames(...classes: (string | undefined | null | false)[]): string {
 
 interface SearchProps {
     searchLocation: "home" | "my-recipes",
-    creatorData?: any,
 }
 
 export function Search({searchLocation}: SearchProps){
@@ -129,7 +128,7 @@ function AddYourOwnResult() {
 }
 
 
-export function ManageRecipesSearch({creatorData}: SearchProps) {
+export function ManageRecipesSearch({creatorData}: any) {
 
     const searchClient = algoliasearch(`${process.env.NEXT_PUBLIC_ALGOLIA_APPLICATION_ID}`, `${process.env.NEXT_PUBLIC_ALGOLIA_SEARCH_ONLY_KEY}`);
     const recipesIndex = searchClient.initIndex(`${process.env.NEXT_PUBLIC_ALGOLIA_RECIPE_INDEX}`);
