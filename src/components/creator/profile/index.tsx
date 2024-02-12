@@ -90,9 +90,9 @@ export function CreatorPageComponent({creatorData}: any) {
                             <div className="pt-6 flex justify-between items-center">
                                 <dt className="font-semibold text-gray-900 sm:w-64 sm:flex-none sm:pr-6 text-sm lg:text-base">Edit Creator Recipes</dt>
                                 <dd className="mt-1 flex gap-x-6 sm:mt-0">
-                                    <button type="button" className="font-semibold text-primary-main hover:text-primary-alt text-sm lg:text-base"
+                                    <button type="button" className="font-semibold text-primary-main hover:text-primary-alt text-sm lg:text-base text-right"
                                         onClick={() => router.push(`/creator/edit/manage-recipes`)}>
-                                        {"Manage Recipes"}
+                                        {"Add or Remove Recipes"}
                                     </button>
                                 </dd>
                             </div>

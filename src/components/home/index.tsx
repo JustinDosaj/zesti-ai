@@ -175,7 +175,7 @@ export function HomePageCTA() {
           </p>
           <SharedHomeSectionTitle titleBlack="Try Free for 7-Days" desc="Get more out of Zesti when you use premium by gaining access to every feature Zesti offers and increased monthly usage!"/>
         </div>
-        <Button isLink={true} href='/nav/pricing' text="Get Started" className="text-lg font-medium text-center text-white"/>
+        <Button isLink={true} href='/about/pricing' text="Get Started" className="text-lg font-medium text-center text-white"/>
       </div>
     </Container>
   )
@@ -448,11 +448,11 @@ export function CreatorCTA({isHome, title}: CreatorCTAProps) {
               </ul>
               <div className="mt-10 flex justify-end">
                 { isHome == true ?
-                <Link href="/nav/creator" className="text-sm font-semibold leading-6 text-primary-main">
+                <Link href="/about/creator" className="text-sm font-semibold leading-6 text-primary-main">
                   Learn More <span aria-hidden="true">&rarr;</span>
                 </Link>
                 :
-                <Link href="/nav/contact" className="text-sm font-semibold leading-6 text-primary-main">
+                <Link href="/about/creator/apply" className="text-sm font-semibold leading-6 text-primary-main">
                   Apply Now <span aria-hidden="true">&rarr;</span>
                 </Link>
                 }
@@ -489,7 +489,7 @@ export function CreatorHero({titleStart, titleEnd, description}: HeroProps) {
           </div>
           <div className="grid justify-center lg:justify-start text-left space-y-1">
             { user ?
-            <Button isLink={false} text="Apply to Join" buttonType="button" onClick={() => router.push('/nav/creator/apply') }/>
+            <Button isLink={false} text="Apply to Join" buttonType="button" onClick={() => router.push('/about/creator/apply') }/>
             :
             <Button isLink={false} text="Apply to Join" buttonType="button" onClick={() => router.push('/auth/login') }/> 
             }

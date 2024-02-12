@@ -15,7 +15,7 @@ import useAccountStatus from "@/hooks/useAccountStatus";
 const raleway = Raleway({subsets: ['latin']})
 
 
-export default function Page() {
+export default function EditCreatorPage() {
 
   useSetBreadcrumbs()
   const { user, userData, creatorData, isLoading } = useAuth();
@@ -23,7 +23,7 @@ export default function Page() {
   const { accountStatus, loadingStatus } = useAccountStatus()
   const router = useRouter()
   
-  if(accountStatus !== "creator" && !loadingStatus) { router.push('/nav/profile') }
+  if(accountStatus !== "creator" && !loadingStatus) { router.push('/account') }
   
   return (
     <>

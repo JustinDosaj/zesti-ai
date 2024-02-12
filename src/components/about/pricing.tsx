@@ -132,7 +132,7 @@ export function PricingDisplay() {
                   <Loader/>
                 </div>
                 :
-                <Button isLink={false} buttonType="button" onClick={() => {router.push("/nav/profile")}} text="Manage Account" className="text-sm sm:text-base mt-4 text-center w-full"/>
+                <Button isLink={false} buttonType="button" onClick={() => {router.push("/account")}} text="Manage Account" className="text-sm sm:text-base mt-4 text-center w-full"/>
                 }
                 <InlineButton isLink={true} href={tier.learnhref} text="Learn More" className="flex justify-center mt-4 text-sm"/>
               </div>

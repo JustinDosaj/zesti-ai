@@ -27,18 +27,18 @@ const navItemsLoggedInMobile = [
         icon: BookOpenIcon,
     },
     {
-        href:"/nav/pricing",
+        href:"/about/pricing",
         text:"Pricing",
         icon: WalletIcon,
     },
     {
-        href:"/nav/contact",
+        href:"/about/contact",
         text: "Contact",
         icon: PaperAirplaneIcon,
     },
     {
-        href: "/nav/profile",
-        text: "Profile",
+        href: "/account",
+        text: "Account Settings",
         icon: UserIcon,
     },
 ]
@@ -56,21 +56,21 @@ const creatorItemsLoggedInMobile = [
     },
     { 
         href:"/creator/edit",
-        text: "Manage Creator Page",
+        text: "Creator Page Settings",
         icon: VideoCameraIcon, 
     },
     {
-        href: "/nav/profile",
-        text: "Profile Settings",
+        href: "/account",
+        text: "Account Settings",
         icon: UserIcon,
     },
     {
-        href:"/nav/pricing",
+        href:"/about/pricing",
         text:"Pricing",
         icon: WalletIcon,
     },
     {
-        href:"/nav/contact",
+        href:"/about/contact",
         text: "Contact",
         icon: PaperAirplaneIcon,
     },
@@ -97,8 +97,8 @@ export function Navbar() {
 
     const navItemsDesktop = [
         { href: "/", text: "Home" },
-        { href: "/nav/pricing", text: "Pricing"},
-        { href: "/nav/contact", text: "Contact"},
+        { href: "/about/pricing", text: "Pricing"},
+        { href: "/about/contact", text: "Contact"},
         // Add more items as needed
     ];
 
@@ -109,8 +109,8 @@ export function Navbar() {
             icon: BookOpenIcon,
         },
         {
-            href: "/nav/profile",
-            text: "Profile Settings",
+            href: "/account",
+            text: "Account Settings",
             icon: UserIcon,
         },
     ]
@@ -118,7 +118,7 @@ export function Navbar() {
     if(accountStatus == 'creator') {
         desktopNavItems.push({
             href: "/creator/edit",
-            text: "Manage Creator Page",
+            text: "Creator Page Settings",
             icon: VideoCameraIcon,
         })
     }
