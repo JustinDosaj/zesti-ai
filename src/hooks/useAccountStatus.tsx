@@ -50,12 +50,12 @@ const useAccountStatus = () => {
             else if(userData?.account_status == 'creator_connect_affiliate') {
                 setAccountStatus("creator_connect_affiliate")
                 setAccountStatusMessage("Setup Affiliate")
-                setNavCreator('/nav/profile')
+                setNavCreator('/account')
             }
             else if(userData?.account_status == 'creator_generate_page') { 
                 setAccountStatus("creator_generate_page")
                 setAccountStatusMessage("Generate Page")
-                setNavCreator('/nav/profile')
+                setNavCreator('/account')
             }
             else if(userData?.account_status == 'creator') {
                 setAccountStatus("creator")

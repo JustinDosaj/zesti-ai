@@ -2,19 +2,19 @@ import { Container } from "@/components/shared/container"
 import { Button } from "@/components/shared/button"
 import { Raleway } from 'next/font/google'
 import { EnvelopeIcon, UsersIcon, PaperAirplaneIcon } from "@heroicons/react/24/outline"
-import Head from 'next/head';
-import GoogleTags from "@/components/tags/conversion"
 import { PromoteKitTag } from "@/components/tags/headertags";
 import { SharedHomeSectionTitle } from "@/components/shared/title";
 import { useAuth } from "@/pages/api/auth/auth";
 import { KeyIcon } from "@heroicons/react/20/solid";
+import Head from 'next/head';
+import GoogleTags from "@/components/tags/conversion"
 import useRequireAuth from "@/hooks/user/useRequireAuth";
 
 
 const raleway = Raleway({subsets: ['latin']})
 
 
-export default function Contact() {
+export default function CreatorApplication() {
 
     const { user, isLoading } = useAuth()
     const { require } = useRequireAuth(user, isLoading)
@@ -53,7 +53,7 @@ export default function Contact() {
                     <input type="text" required={true} name="TIKTOK"  placeholder="TikTok Username" className="w-full py-3 outline-none bg-transparent required email text-gray-500"/>
                 </div>
                 <div className="mt-4 py-1 pl-6 w-full pr-1 flex gap-3 items-center text-heading-3 shadow-lg shadow-box-shadow border border-box-border bg-box-bg rounded-3xl ease-linear focus-within:bg-body  focus-within:border-primary">
-                    <textarea name="MSG" placeholder="We would love to hear about you, tell us a little about your yourself!" className="w-full py-3 outline-none bg-transparent text-gray-500"/>
+                    <textarea name="MSG" placeholder="Tell us breifly about the type of content you create!" className="w-full py-3 outline-none bg-transparent text-gray-500"/>
                 </div>
                 <div className="flex justify-end mt-4 py-1 w-full pr-1 gap-3 items-center text-heading">
                     <Button isLink={false} buttonType="submit" text="" className={"min-w-max text-white"}>

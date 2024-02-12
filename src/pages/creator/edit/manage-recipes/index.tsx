@@ -32,7 +32,7 @@ export default function ManageRecipes() {
     const { accountStatus, loadingStatus } = useAccountStatus()
     const router = useRouter()
 
-    if(accountStatus !== "creator" && !loadingStatus) { router.push('/nav/profile') }
+    if(accountStatus !== "creator" && !loadingStatus) { router.push('/account') }
 
     if(isLoading) return <PageLoader/>
 

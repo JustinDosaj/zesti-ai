@@ -1,5 +1,5 @@
 import { Raleway } from 'next/font/google'
-import { useAuth } from '../api/auth/auth'
+import { useAuth } from './api/auth/auth'
 import { SharedHomeSectionTitle } from '@/components/shared/title'
 import GoogleTags from "@/components/tags/conversion"
 import Head from "next/head"
@@ -12,7 +12,7 @@ import useAccountStatus from '@/hooks/useAccountStatus'
 
 const raleway = Raleway({subsets: ['latin']})
 
-export default function Profile() {
+export default function Account() {
 
     const { user, isLoading, userData, creatorData } = useAuth();
     const { accountStatus } = useAccountStatus()

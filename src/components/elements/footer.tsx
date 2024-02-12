@@ -5,10 +5,10 @@ import getConfig from "next/config"
 const navigation = {
     main: [
       { name: 'Home', href: '/' },
-      { name: 'Pricing', href: '/nav/pricing' },
-      { name: 'Contact', href: '/nav/contact' },
-      { name: 'Creator Program', href: '/nav/creator' },
-      { name: 'Creator Application', href: '/nav/creator/apply' },
+      { name: 'Pricing', href: '/about/pricing'},
+      { name: 'Contact', href: '/about/contact' },
+      { name: 'Creator Program', href: '/about/creator' },
+      { name: 'Creator Application', href: '/about/creator/apply' },
       { name: 'Terms of Service', href: 'https://app.termly.io/document/terms-of-service/7fda3661-ebd6-42c4-9dfb-e66e58cd4253' },
       { name: 'Privacy Policy', href: 'https://app.termly.io/document/privacy-policy/728b76f9-24fe-480c-ad17-3c56ffa53417' },
     ],
