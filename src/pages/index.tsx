@@ -9,6 +9,7 @@ import { useState, useEffect } from 'react';
 import { Creator } from '@/components/shared/interface';
 import { GetRandomCreatorsForHomepage } from './api/firebase/functions';
 import { useRouter } from 'next/router';
+import { fetchTikTokDisplayName } from './api/handler/tiktok';
 
 const raleway = Raleway({subsets: ['latin']})
 
@@ -33,7 +34,15 @@ export default function Home() {
     if(via) { router.push(`/${via}`)}
   },[router])
 
+  useEffect(() => {
 
+    const test = async () => {
+      const res = await fetchTikTokDisplayName('act.MX6wzUDuB3n90XmLzcdfFhTybXGmC4erOwXwZMGkWX8EHEHjudqJqE2u38QD!6448.u1')
+      console.log(res.data.user.display_name)
+    }
+    test()
+  },[creatorData])
+  
   if (isLoading) return <PageLoader/>
 
   return (

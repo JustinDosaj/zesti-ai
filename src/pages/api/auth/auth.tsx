@@ -3,6 +3,7 @@ import { User, getAuth, onAuthStateChanged, signOut, signInWithPopup, GoogleAuth
 import { db } from '../firebase/firebase';
 import { useRouter } from 'next/router';
 import { updateUserWithTikTokTokens } from '../firebase/functions';
+import { fetchTikTokDisplayName } from '../handler/tiktok';
 
 interface UserData {
   account_status?: string;
@@ -104,7 +105,8 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         const tokenData = await tokenResponse.json();
 
         if (tokenData.access_token && tokenData.refresh_token && tokenData.open_id) {
-          await updateUserWithTikTokTokens(tokenData, user!.uid);
+          const res = await fetchTikTokDisplayName(tokenData.access_token)
+          await updateUserWithTikTokTokens(tokenData, user!.uid, res.data.user.display_name);
         } else {
           console.error("Invalid TikTok token data:", tokenData);
         }

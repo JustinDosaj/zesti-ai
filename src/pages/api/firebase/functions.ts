@@ -16,7 +16,7 @@ interface TikTokTokenData {
   refresh_expires_in: number;
 }
 
-export async function updateUserWithTikTokTokens(tokenData: TikTokTokenData, userId: string) {
+export async function updateUserWithTikTokTokens(tokenData: TikTokTokenData, userId: string, display_name: string) {
   try {
     const userRef = db.collection('users').doc(userId);
     const res = await getUserData(userId)
@@ -30,7 +30,10 @@ export async function updateUserWithTikTokTokens(tokenData: TikTokTokenData, use
       tiktokAccessToken: tokenData.access_token,
       tiktokRefreshToken: tokenData.refresh_token,
       tiktokOpenId: tokenData.open_id,
-      account_status: res?.account_status == 'creator_reconnect' ? 'creator' : 'creator_generate_page'
+      account_status: res?.account_status == 'creator_reconnect' ? 'creator' : 'creator_generate_page',
+      display_name: display_name,
+      display_url: display_name.replace(/\s+/g, ''),
+      affiliate_code: display_name.replace(/\s+/g, ''),
     };
 
     // Update the user's document
