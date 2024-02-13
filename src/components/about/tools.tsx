@@ -105,11 +105,11 @@ export function VideoTips() {
         {
             name: 'Advisory:',
             description:
-                'Max video allowed is 15 minutes and results can vary. (ie. Videos with no audible cooking instructions will not process properly)',
+                'A video will only transcribe into a recipe properly if there are audible instructions to go along with it.',
             icon: ExclamationTriangleIcon,
         },
         {
-          name: 'Find a YouTube or TikTok Recipe:',
+          name: 'Find a TikTok Recipe:',
           description:
             'Find a video recipe that you want to try! (max 15 minutes)',
           icon: LightBulbIcon,

@@ -1,36 +1,15 @@
 import { useAuth } from '@/pages/api/auth/auth';
 import { useEffect, useState } from 'react';
+import useCreatorDoc from './creator/useCreatorDoc';
 
-
-/*
-
-2. User Connects TikTok (get activeToken and access token etc. 'connect_tiktok')
-3. Then user collects affilaite code - 'create_affilaite'
-4. Then use generates page - 'generate_page'
-5 'complete'
-
-*/
-
-
-/**
- * @desc Used to track status of user and current stage
- * 
- * @users
- * account_status = base_user
- * 
- * @creators
- * account_status = creator_connect_tiktok || creator_connect_affiliate || creator_generate_page || creator_complete
- * 
- * 
- * @returns account_status from firebase user
- */
 const useAccountStatus = () => {
     
     const { loginWithTikTok, user, userData, creatorData, isLoading } = useAuth()
     const [ accountStatus, setAccountStatus ] = useState<string>('')
-    const [ accountStatusMessage, setAccountStatusMessage ] = useState<string>('')
+    const { hasPage } = useCreatorDoc(user?.uid) 
+    const [ accountStatusMessage, setAccountStatusMessage ] = useState<string>('Login')
     const [ loadingStatus, setLoadingStatus ] = useState<boolean>(true)
-    const [ navCreator, setNavCreator ] = useState<string>('')
+    const [ navCreator, setNavCreator ] = useState<string>('/auth/login')
 
     useEffect(() => { 
         if (!isLoading && user) {
@@ -38,43 +17,22 @@ const useAccountStatus = () => {
                 setAccountStatus("user")
                 setAccountStatusMessage("My Recipes")
                 setNavCreator(`/my-recipes`)
-            }
-            else if(userData?.account_status == 'creator_reconnect') {
-                setAccountStatus('creator_reconnect')
-                setAccountStatusMessage("Reconnect TikTok")
-            }
-            else if(userData?.account_status == 'creator_connect_tiktok') { 
-                setAccountStatus('creator_connect_tiktok')
-                setAccountStatusMessage("Connect TikTok")
-            }
-            else if(userData?.account_status == 'creator_connect_affiliate') {
-                setAccountStatus("creator_connect_affiliate")
-                setAccountStatusMessage("Setup Affiliate")
-                setNavCreator('/account')
-            }
-            else if(userData?.account_status == 'creator_generate_page') { 
-                setAccountStatus("creator_generate_page")
-                setAccountStatusMessage("Generate Page")
-                setNavCreator('/account')
+                setLoadingStatus(false)
             }
             else if(userData?.account_status == 'creator') {
                 setAccountStatus("creator")
                 setAccountStatusMessage("View Your Page")
-                setNavCreator(`/${creatorData?.display_url}`)
-            } else {
-                setAccountStatusMessage("Login")
-                setNavCreator('/auth/login')
-                setAccountStatus('')
+                if(hasPage == true) {
+                    setNavCreator(`/${creatorData?.display_url}`)
+                    setAccountStatusMessage("View Your Page")
+                } else {
+                    setNavCreator(`/account`)
+                    setAccountStatusMessage("Get Started")
+                }
                 setLoadingStatus(false)
             }
-
-            setLoadingStatus(false)
-        } else { 
-            setAccountStatusMessage("Login")
-            setNavCreator('/auth/login')
-            setAccountStatus('')
-            setLoadingStatus(false)
-        }
+        } 
+        setLoadingStatus(false)
     },[userData, isLoading, accountStatus, accountStatusMessage, navCreator, user, loadingStatus])
     
     return { accountStatus, accountStatusMessage, loginWithTikTok, navCreator, loadingStatus}

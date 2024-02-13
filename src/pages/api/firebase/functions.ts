@@ -105,46 +105,6 @@ export async function deleteUserRecipe(user: any, id: any) {
 
 }
 
-export async function saveAffiliateLink(affiliateLink: string, userId: string) {
-  
-
-  const baseAffiliateUrl = "https://www.zesti.ai/?via="
-  let affiliateCode
-
-  if (!affiliateLink.startsWith(baseAffiliateUrl)) {
-    console.log("Invalid URL format");
-    Notify("Invalid affiliate link. Please copy & paste directly from promotekit");
-    return;
-  }
-
-  try {
-    const url = new URL(affiliateLink)
-    const params = new URLSearchParams(url.search)
-    affiliateCode = params.get('via')
-  } catch(err) {
-    console.log(err)
-    Notify("Invalid affiliate link. Please copy & paste directly from promotekit")
-    return;
-  }
-
-  try{
-    const userRef = db.collection('users').doc(userId);
-
-    const updateAffiliateLink = {
-      affiliate_link: affiliateLink,
-      affiliate_code: affiliateCode,
-      creator_setup_stage: "generate_page"
-    }
-
-    await userRef.set(updateAffiliateLink, {merge: true});
-    //await creatorRef.set(updateAffiliateLink, {merge: true});
-    Notify("Affiliate code saved!")
-    
-  } catch (err) {
-    console.log(err)
-  }
-}
-
 export async function saveBioDataToFireStore(bioObj: any, userId: string){
 
   try {

@@ -9,16 +9,29 @@ import { CreatorProfileComponent } from '@/components/creator/profile'
 import { PageLoader } from '@/components/shared/loader'
 import useRequireAuth from '@/hooks/user/useRequireAuth'
 import useAccountStatus from '@/hooks/useAccountStatus'
+import { useRouter } from 'next/router'
+import { useEffect } from 'react'
+import useCreatorDoc from '@/hooks/creator/useCreatorDoc'
 
 const raleway = Raleway({subsets: ['latin']})
 
 export default function Account() {
 
     const { user, isLoading, userData, creatorData } = useAuth();
-    const { accountStatus } = useAccountStatus()
+    const { accountStatus, loadingStatus } = useAccountStatus()
+    const { loadingCreatorDoc } = useCreatorDoc(user?.uid)
     const { require } = useRequireAuth(user, isLoading)
+    const router = useRouter()
 
-    if(isLoading) return <PageLoader/>
+    useEffect(() => {
+      if(user == null && !isLoading) {
+          router.replace('/auth/login')
+      } 
+    },[user, isLoading, router])
+
+    console.log(loadingCreatorDoc)
+
+    if(isLoading && loadingCreatorDoc && loadingStatus) return <PageLoader/>
 
     return(
     <>
@@ -33,7 +46,7 @@ export default function Account() {
       <SharedHomeSectionTitle titleBlack="Your Profile"/>
       <div className={accountStatus == 'user'  ? `mx-auto` : `grid grid-cols-1 xl:grid-cols-2 gap-x-3` }>
         <ProfilePageComponent/>
-        <CreatorProfileComponent userData={userData} creatorData={creatorData}/>
+        <CreatorProfileComponent/>
       </div>
     </main>
     </>
