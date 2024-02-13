@@ -33,15 +33,6 @@ export default function Home() {
     const via = router.query.via;
     if(via) { router.push(`/${via}`)}
   },[router])
-
-  useEffect(() => {
-
-    const test = async () => {
-      const res = await fetchTikTokDisplayName('act.MX6wzUDuB3n90XmLzcdfFhTybXGmC4erOwXwZMGkWX8EHEHjudqJqE2u38QD!6448.u1')
-      console.log(res.data.user.display_name)
-    }
-    test()
-  },[creatorData])
   
   if (isLoading) return <PageLoader/>
 
