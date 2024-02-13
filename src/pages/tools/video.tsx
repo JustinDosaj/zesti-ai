@@ -28,7 +28,7 @@ export default function Video() {
         <meta name="description" content="Say good by to pausing and rewinding, Zesti AI Video to Text Recipe creates an easy-to-follow ingredient and instruction list"/>
       </Head>
       <main className={`flex min-h-screen flex-col items-center bg-background w-screen ${raleway.className}`}>
-        <ToolHero role={stripeRole} tokens={userData?.tokens!} titleStart="Save Recipes From" titleEnd='TikTok & YouTube' description="Copy a video link from Tiktok then paste it below to transcribe the recipe to text!"/>
+        <ToolHero role={stripeRole} tokens={userData?.tokens!} titleStart="Transcribe Recipes From" titleEnd='TikTok' description="Copy a video link from Tiktok then paste it below to transcribe the recipe to text!"/>
         { isLoading == true ?
         <ToolLoader/>
         :

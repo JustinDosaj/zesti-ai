@@ -452,7 +452,7 @@ export function CreatorCTA({isHome, title}: CreatorCTAProps) {
                   Learn More <span aria-hidden="true">&rarr;</span>
                 </Link>
                 :
-                <Link href="/about/creator/apply" className="text-sm font-semibold leading-6 text-primary-main">
+                <Link href="/account" className="text-sm font-semibold leading-6 text-primary-main">
                   Apply Now <span aria-hidden="true">&rarr;</span>
                 </Link>
                 }
