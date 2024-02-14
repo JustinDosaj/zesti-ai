@@ -4,7 +4,6 @@ import { db } from "../firebase/firebase";
 import { getUserData } from "../firebase/functions";
 import axios from 'axios'
 import { increment } from 'firebase/firestore';
-import { getCurrentDate } from "./general";
 import { getFunctions, httpsCallable } from 'firebase/functions';
 import { Notify } from "@/components/shared/notify";
 

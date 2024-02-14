@@ -4,10 +4,12 @@ import { MagnifyingGlassIcon } from '@heroicons/react/24/outline'
 import Link from "next/link"
 import React, { useState, useEffect, useRef } from "react"
 import { Button } from "../shared/button"
-import { EyeIcon } from "@heroicons/react/20/solid"
+import { EyeIcon, XMarkIcon } from "@heroicons/react/20/solid"
 import algoliasearch from 'algoliasearch/lite';
 import { SharedSectionHeadingTitle } from "../shared/title"
 import { CreatorPageRecentRecipesProps, RecipeCardProps } from "../shared/interface"
+import { classNames } from "../shared/classNames"
+
 
 export function CreatorPageTitle({creatorData}: any) {
     return(
@@ -31,9 +33,6 @@ export function CreatorSearch({creatorData}: any) {
     const recipesIndex = searchClient.initIndex(`${process.env.NEXT_PUBLIC_ALGOLIA_RECIPE_INDEX}`);
     const [ input, setInput ] = useState<string>('');
     const [searchResults, setSearchResults] = useState<any>({ recipes: [] });
-
-    console.log("Creator Display URL:", creatorData.display_url)
-    console.log("Serach Results: ", searchResults)
 
     useEffect(() => {
       if (input.trim()) {
@@ -63,7 +62,7 @@ export function CreatorSearch({creatorData}: any) {
           }
 
           return (
-              <div className="absolute z-20 mt-16 w-full max-w-xs lg:max-w-md bg-white shadow-lg border border-gray-200 rounded-3xl">
+              <div className="absolute z-20 mt-16 w-[325px] md:w-[500px] bg-white shadow-lg border border-gray-200 rounded-3xl">
                   {combinedResults.map((result, index) => (
                       <Link key={index} href={`/${result.owner_display_url}/${result.objectID}`} className="block px-4  text-gray-700 hover:bg-gray-100 rounded-3xl">
                           <div className="inline-flex space-x-2 items-center py-3">
@@ -77,23 +76,24 @@ export function CreatorSearch({creatorData}: any) {
       };
 
     return(
-    <Container className={"flex flex-col lg:flex-row gap-10 lg:gap-12 animate-fadeIn"}>
-        <div className="w-full flex-col ">
-            <dl className="grid grid-cols-1 gap-10">
-                <div className=" w-full flex flex-col items-center animate-fadeIn ">
-                    <div className="flex sm:flex-row flex-col gap-5">
-                        <form action="" method="POST" className="py-1 pl-6 pr-6 flex  gap-3 items-center text-heading-3 shadow-lg shadow-box-shadow
+    <div className={"flex flex-col lg:flex-row"}>
+        <div className="w-full flex-col">
+            <dl className="grid grid-cols-1">
+                <div className="flex flex-col items-center animate-fadeIn w-[300px] md:w-[500px]">
+                    <div className="flex sm:flex-row flex-col">
+                        <form action="" method="POST" className="py-1 pl-6 pr-6 flex gap-3 items-center text-heading-3 shadow-lg shadow-box-shadow
                         border border-box-border bg-box-bg rounded-full ease-linear focus-within:bg-body focus-within:border-primary">
                             <MagnifyingGlassIcon className="text-gray-600 h-6 w-6"/>
                             {/* ADD DYNAMIC USERNAME TO PLACEHOLDER */}
-                            <input type="text" name="web-page" value={input} placeholder={`Search recipes from ${creatorData.display_name}`} className="text-left w-64 lg:w-96 text-gray-500 py-3 outline-none bg-transparent capitalize" onChange={(e) => setInput(e.target.value)}/>
+                            <input type="text" name="web-page" value={input} placeholder={`Search recipes from ${creatorData.display_name}`} className="text-left w-[225px] md:w-[400px] text-gray-500 py-3 outline-none bg-transparent capitalize" onChange={(e) => setInput(e.target.value)}/>
+                            <XMarkIcon onClick={() => setInput('')} className={classNames(input ? `text-red-600 hover:text-red-500 cursor-pointer` : `text-gray-600  cursor-default hover:text-gray-800`, `h-6 w-6 `)}/>
                         </form>
                     </div>
                     {input && renderSearchResults()}
                 </div>
             </dl>
         </div>
-    </Container>
+    </div>
     )
 }
 

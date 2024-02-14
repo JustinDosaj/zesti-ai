@@ -9,8 +9,6 @@ import { useState, useEffect } from 'react';
 import { Creator } from '@/components/shared/interface';
 import { GetRandomCreatorsForHomepage } from './api/firebase/functions';
 import { useRouter } from 'next/router';
-import { getCurrentDate } from './api/handler/general';
-
 const raleway = Raleway({subsets: ['latin']})
 
 export default function Home() {
@@ -18,10 +16,6 @@ export default function Home() {
   const { isLoading, creatorData } = useAuth();
   const [ creators, setCreators ] = useState<Creator[]>()
   const router = useRouter();
-
-  const date = getCurrentDate()
-
-  console.log(date)
 
   useEffect(() => {
     const fetchCreators = async () => {
