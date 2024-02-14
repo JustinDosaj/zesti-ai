@@ -29,14 +29,17 @@ export function CreatorSearch({creatorData}: any) {
 
     const searchClient = algoliasearch(`${process.env.NEXT_PUBLIC_ALGOLIA_APPLICATION_ID}`, `${process.env.NEXT_PUBLIC_ALGOLIA_SEARCH_ONLY_KEY}`);
     const recipesIndex = searchClient.initIndex(`${process.env.NEXT_PUBLIC_ALGOLIA_RECIPE_INDEX}`);
-    const [ url, setUrl ] = useState<string>('');
+    const [ input, setInput ] = useState<string>('');
     const [searchResults, setSearchResults] = useState<any>({ recipes: [] });
 
+    console.log("Creator Display URL:", creatorData.display_url)
+    console.log("Serach Results: ", searchResults)
+
     useEffect(() => {
-      if (url.trim()) {
-          handleSearch(url);
+      if (input.trim()) {
+          handleSearch(input);
       }
-    }, [url]);
+    }, [input]);
 
     const handleSearch = async (query: any) => {
       try {
@@ -83,10 +86,10 @@ export function CreatorSearch({creatorData}: any) {
                         border border-box-border bg-box-bg rounded-full ease-linear focus-within:bg-body focus-within:border-primary">
                             <MagnifyingGlassIcon className="text-gray-600 h-6 w-6"/>
                             {/* ADD DYNAMIC USERNAME TO PLACEHOLDER */}
-                            <input type="text" name="web-page" value={url} placeholder={`Search recipes from ${creatorData.display_name}`} className="text-left w-64 lg:w-96 text-gray-500 py-3 outline-none bg-transparent capitalize" onChange={(e) => setUrl(e.target.value)}/>
+                            <input type="text" name="web-page" value={input} placeholder={`Search recipes from ${creatorData.display_name}`} className="text-left w-64 lg:w-96 text-gray-500 py-3 outline-none bg-transparent capitalize" onChange={(e) => setInput(e.target.value)}/>
                         </form>
                     </div>
-                    {url && renderSearchResults()}
+                    {input && renderSearchResults()}
                 </div>
             </dl>
         </div>

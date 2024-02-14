@@ -19,18 +19,9 @@ export function Search({searchLocation}: SearchProps){
     const searchClient = algoliasearch(`${process.env.NEXT_PUBLIC_ALGOLIA_APPLICATION_ID}`, `${process.env.NEXT_PUBLIC_ALGOLIA_SEARCH_ONLY_KEY}`);
     const creatorsIndex = searchClient.initIndex(`${process.env.NEXT_PUBLIC_ALGOLIA_CREATOR_RECIPE_INDEX}`);
     const recipesIndex = searchClient.initIndex(`${process.env.NEXT_PUBLIC_ALGOLIA_RECIPE_INDEX}`);
-    
     const [ input, setInput ] = useState<string>('');
-    const [ message, setMessage ] = useState<string>('')
-    const [ notify, setNotify ] = useState<boolean | null>(null)
     const [searchResults, setSearchResults] = useState<any>({ creators: [], recipes: [] });
 
-    useEffect(() => {
-        if (notify == true) {
-            Notify(message)
-            setNotify(false)
-        }
-    },[notify, message])
 
     useEffect(() => {
         if (input.trim()) {
@@ -47,8 +38,6 @@ export function Search({searchLocation}: SearchProps){
             setSearchResults({ creators: creators.hits, recipes: recipes.hits });
         } catch (error) {
             console.error("Algolia search error:", error);
-            setMessage("Error occurred during search");
-            setNotify(true);
         }
     };
 
