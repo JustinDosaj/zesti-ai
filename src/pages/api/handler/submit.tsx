@@ -65,9 +65,8 @@ export const handleYouTubeURLSubmit = async ({url, user, setMessage, stripeRole,
     // Ensure video length is equal or below user sub usage rate
     const id = url?.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|shorts\/))([a-zA-Z0-9_-]{11})/);
 
-    const date = await getCurrentDate()
+    const date: Date = new Date();
     
-
     const falseObj = {
         "url": `${url}`,
         "id": id ? id[1] : null,
@@ -122,7 +121,6 @@ export const handleYouTubeURLSubmit = async ({url, user, setMessage, stripeRole,
     }
 }
 
-
 export interface TikTokProps {
     url?: any,
     setUrl?: any,
@@ -154,7 +152,7 @@ export const handleTikTokURLSubmit = async ({url, setUrl, user, setMessage, stri
         id = url?.match(/tiktok\.com\/@[^\/]+\/video\/(\d+)/);
     }
 
-    const date = await getCurrentDate()
+    const date: Date = new Date();
     const functions = getFunctions();
     const userAddTikTokRecipe = httpsCallable(functions, 'userAddTikTokRecipe');
 
@@ -205,7 +203,7 @@ export const handleCreatorTikTokURLSubmit = async ({url, rawText, creatorData}: 
     }
 
     // Check if URL is empty   
-    const date = await getCurrentDate()
+    const date: Date = new Date();
     const functions = getFunctions();
     const creatorAddTikTokRecipe = httpsCallable(functions, 'creatorAddTikTokRecipe');
 
