@@ -9,7 +9,7 @@ import { useState, useEffect } from 'react';
 import { Creator } from '@/components/shared/interface';
 import { GetRandomCreatorsForHomepage } from './api/firebase/functions';
 import { useRouter } from 'next/router';
-import { fetchTikTokDisplayName } from './api/handler/tiktok';
+import { getCurrentDate } from './api/handler/general';
 
 const raleway = Raleway({subsets: ['latin']})
 
@@ -19,6 +19,9 @@ export default function Home() {
   const [ creators, setCreators ] = useState<Creator[]>()
   const router = useRouter();
 
+  const date = getCurrentDate()
+
+  console.log(date)
 
   useEffect(() => {
     const fetchCreators = async () => {
