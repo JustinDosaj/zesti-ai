@@ -5,10 +5,7 @@ import algoliasearch from 'algoliasearch/lite';
 import { XMarkIcon } from '@heroicons/react/20/solid'
 import Link from 'next/link'
 import React, { useState, useEffect  } from "react"
-
-function classNames(...classes: (string | undefined | null | false)[]): string {
-    return classes.filter(Boolean).join(' ');
-}
+import { classNames } from '../shared/classNames';
 
 interface SearchProps {
     searchLocation: "home" | "my-recipes",
