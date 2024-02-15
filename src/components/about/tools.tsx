@@ -44,27 +44,28 @@ export function VideoComponent() {
             setLoginPrompt(true)
             return;
         } else {
-        setIsLoading(true)
-        
-        const youtubePattern = /^(https?:\/\/)?(www\.)?(youtube\.com|youtu\.?be)\/.+$/;
-        const tiktokPattern = /^(https?:\/\/)?(www\.)?tiktok\.com\/.+$/;
-        
-        if(youtubePattern.test(url)) {
-            await handleYouTubeURLSubmit({url, user, setMessage, stripeRole, setNotify}).then((val) => {
-                setSuccess(val)
-                setIsOpen(val)
-            });
-        }
-        else if (tiktokPattern.test(url)) {
-            await handleTikTokURLSubmit({url, setUrl, user, setMessage, stripeRole, setNotify}).then((val) => {
-                setSuccess(val)
-                setIsOpen(val)
-            });
-        }
-        else { Notify("Only tiktok and youtube videos are accepted") }
+            setIsLoading(true)
+            
+            //const youtubePattern = /^(https?:\/\/)?(www\.)?(youtube\.com|youtu\.?be)\/.+$/;
+            /*if(youtubePattern.test(url)) {
+                await handleYouTubeURLSubmit({url, user, setMessage, stripeRole, setNotify}).then((val) => {
+                    setSuccess(val)
+                    setIsOpen(val)
+                });
+            }*/
 
-        setIsLoading(false)
-        setUrl('')
+            const tiktokPattern = /^(https?:\/\/)?(www\.)?tiktok\.com\/.+$/;
+
+            if (tiktokPattern.test(url)) {
+                await handleTikTokURLSubmit({url, user, setMessage, setNotify}).then((val) => {
+                    setSuccess(val)
+                    setIsOpen(val)
+                });
+            }
+            else { Notify("Only tiktok videos are accepted") }
+
+            setIsLoading(false)
+            setUrl('')
         }
     }
 
@@ -75,7 +76,7 @@ export function VideoComponent() {
             border border-box-border bg-box-bg rounded-full ease-linear focus-within:bg-body  focus-within:border-primary">
 
                 <LinkIcon className="text-gray-600 h-10 w-10"/>
-                <input type="text" name="web-page" value={url} placeholder="Paste Tiktok or YouTube Video" className="w-full text-gray-500 py-3 outline-none bg-transparent" onChange={(e) => setUrl(e.target.value)}/>
+                <input type="text" name="web-page" value={url} placeholder="Paste Tiktok Video Link" className="w-full text-gray-500 py-3 outline-none bg-transparent" onChange={(e) => setUrl(e.target.value)}/>
                 {isLoading == false ?
                 <Button isLink={false} buttonType="button" text="" className={"min-w-max text-white"}  
                     onClick={ async () => { await onClick() }}>                              

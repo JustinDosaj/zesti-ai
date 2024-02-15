@@ -134,7 +134,7 @@ export interface TikTokProps {
     userData?: any,
 }
 
-export const handleTikTokURLSubmit = async ({url, setUrl, user, setMessage, stripeRole, setNotify}: TikTokProps): Promise<boolean> => {
+export const handleTikTokURLSubmit = async ({url, user, setMessage, setNotify}: TikTokProps): Promise<boolean> => {
 
     // Check if URL is empty    
     if (url == '') {
