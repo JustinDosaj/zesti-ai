@@ -125,7 +125,7 @@ export function CreatorSocials({creatorData}: any) {
           },
           {
             name: 'TikTok',
-            href: `${creatorData?.socials?.profile_deep_link}`,
+            href: `${creatorData?.profile_deep_link}`,
             icon: (props: any) => (
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
