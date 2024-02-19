@@ -20,7 +20,7 @@ export interface AIChatMessageProps {
     timestamp: Date | { seconds: number, nanoseconds: number }; // Adjust based on the actual shape of the timestamp
 }
 
-/*export interface RecipeProps {
+export interface RecipeProps {
     recipe: any,
     url?: string,
     setLoginPrompt?: any
@@ -28,7 +28,7 @@ export interface AIChatMessageProps {
     owner_id?: string,
     setEditMode?: any,
     role?: any,
-}*/
+}
 
 export interface CreatorPageRecentRecipesProps {
     recipes: any,
