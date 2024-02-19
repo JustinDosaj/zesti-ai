@@ -8,11 +8,20 @@ import React, { useState, useEffect } from "react"
 import { Button, AltButton } from "@/components/shared/button"
 import { ExclamationTriangleIcon } from "@heroicons/react/24/outline"
 import { deleteUserRecipe } from "@/pages/api/firebase/functions"
-import { RecipeProps } from "../shared/interface"
 
 
+interface RecipeProps {
+    recipe: any,
+    url?: string,
+    setLoginPrompt?: any
+    owner_id?: string,
+    setEditMode?: any,
+    setIsOpen: any,
+    role?: any,
+}
 
-export function UserRecipe({recipe, setPremiumPrompt, owner_id, setEditMode, role}: RecipeProps) {
+
+export function UserRecipe({recipe, owner_id, setEditMode, role, setIsOpen}: RecipeProps) {
 
     const { user } = useAuth()
     const [startDelete, setStartDelete] = useState<boolean>(false);
@@ -36,7 +45,7 @@ export function UserRecipe({recipe, setPremiumPrompt, owner_id, setEditMode, rol
             <span className="section-desc-title-size text-center">{recipe.name}</span>
             <p className="text-center text-gray-500 text-sm">{recipe.title}</p>
         </div>
-        <UserRecipeLinks recipe={recipe} setPremiumPrompt={setPremiumPrompt}/>
+        <UserRecipeLinks recipe={recipe}/>
         <div className="space-y-2">
             <h2 className="section-desc-text-size font-semibold">Ingredients ({recipe.ingredients.length})</h2>
             <ul className="space-y-2 list-disc pl-6 text-black">
@@ -68,10 +77,10 @@ export function UserRecipe({recipe, setPremiumPrompt, owner_id, setEditMode, rol
         {/*EDIT BUTTON */}
         <div className="grid justify-center">
             <Button isLink={false} buttonType="button" text="Edit Recipe" className="w-fit" onClick={() => {
-                if (role == 'premium') {
+                if (role !== 'premium') {
                     setEditMode(true)
                 } else {
-                    setPremiumPrompt(true)
+                    setIsOpen(true)
                 }
                 }}/>
         </div>
@@ -101,7 +110,7 @@ export function UserRecipe({recipe, setPremiumPrompt, owner_id, setEditMode, rol
     )
 }
 
-export function EditUserRecipe({recipe, setPremiumPrompt, setEditMode, role}:RecipeProps) {
+export function EditUserRecipe({recipe, setEditMode, role, setIsOpen}:RecipeProps) {
 
     const {user} = useAuth()
     const [editedIngredients, setEditedIngredients] = useState<string[]>([]);
@@ -190,7 +199,7 @@ export function EditUserRecipe({recipe, setPremiumPrompt, setEditMode, role}:Rec
             
             <p className="text-center text-gray-500 text-sm">{recipe.title}</p>
         </div>
-        <UserRecipeLinks recipe={recipe} setPremiumPrompt={setPremiumPrompt}/>
+        <UserRecipeLinks recipe={recipe}/>
         <div className="space-y-2">
             <h2 className="section-desc-text-size font-semibold">Ingredients</h2>
             <ul className="list-disc pl-6 text-black">
@@ -272,7 +281,7 @@ export function EditUserRecipe({recipe, setPremiumPrompt, setEditMode, role}:Rec
     )
 }
 
-export function UserRecipeLinks({recipe, setPremiumPrompt}: any) {
+export function UserRecipeLinks({recipe}: any) {
 
     const router = useRouter()
 

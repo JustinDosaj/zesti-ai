@@ -1,7 +1,6 @@
 "use client;"
 import { Dialog, Transition } from '@headlessui/react'
 import { Notify } from './notify'
-import { XMarkIcon, StarIcon, UserIcon, CheckIcon } from '@heroicons/react/20/solid'
 import React, { useState, Fragment, useRef } from 'react'
 import AdSenseDisplay from '../tags/adsense'
 import { CreatorSubmitLoader } from './loader'
@@ -11,14 +10,27 @@ import { handleCreatorTikTokURLSubmit } from '@/pages/api/handler/submit'
 import { useAuth } from '@/pages/api/auth/auth'
 import { deleteCreatorError, deleteCreatorPublicRecipe } from '@/pages/api/firebase/functions'
 import { ModalResponseProps } from './interface'
+import { classNames } from './classNames'
 
 
-// MUST STAY TO DISPLAY ADS ON FREE USER MODAL SUCCESS
-export function InputResponseModal({isOpen, setIsOpen, success, message, role}: ModalResponseProps) {
+interface ModalProps {
+  title: string,
+  text: string,
+  icon: any,
+  iconColor: 'green' | 'red' | 'yellow',
+  href: string,
+  isOpen: any,
+  setIsOpen: any,
+  displayAd: boolean,
+  role?: string | null,
+  buttonName?: string,
+}
+
+export function ResponseModal({title, text, icon: Icon, href, isOpen, setIsOpen, displayAd, role, buttonName, iconColor}: ModalProps) {
 
   const cancelButtonRef = useRef(null)
 
-  return (
+  return(
     <Transition.Root show={isOpen} as={Fragment}>
       <Dialog as="div" className="relative z-50" initialFocus={cancelButtonRef} onClose={setIsOpen}>
         <Transition.Child
@@ -45,230 +57,51 @@ export function InputResponseModal({isOpen, setIsOpen, success, message, role}: 
               leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
             >
               <Dialog.Panel className="relative transform overflow-hidden rounded-3xl bg-white px-4 pb-4 pt-5 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg sm:p-6">
-                { success == true ? 
                 <div>
-                  <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-green-100">
-                    <CheckIcon className="h-6 w-6 text-color-alt-green" aria-hidden="true" />
+                  <div className={classNames(
+                        iconColor == 'red' ? 'border-red-500/50' :
+                        iconColor == 'yellow' ? 'border-yellow-400/50' :
+                        iconColor == 'green' ? 'border-color-alt-green/50' :
+                        `border-color-alt-green`
+                        ,`mx-auto flex h-12 w-12 items-center justify-center border rounded-full`)}
+                  >
+                    <Icon className={classNames(
+                      iconColor == 'red' ? 'text-red-500' : 
+                      iconColor == 'green' ? 'text-color-alt-green' :
+                      iconColor == 'yellow' ? 'text-yellow-400' :
+                      'text-color-alt-green'
+                      ,`h-8 w-8`)}
+                    aria-hidden="true" />
                   </div>
                   <div className="mt-3 text-center sm:mt-5">
                     <Dialog.Title as="h3" className="text-lg lg:text-xl font-semibold leading-6 text-gray-900">
-                      Preparing Recipe
-                    </Dialog.Title>
-                    <div className="mt-2">
-                      <p className="text-sm lg:text-base text-gray-600">
-                        {message}
-                      </p>
-                    </div>
-                  </div>
-                </div>
-                :
-                <div>
-                    <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-red-100">
-                    <XMarkIcon className="h-6 w-6 text-color-alt-red" aria-hidden="true" />
-                    </div>
-                    <div className="mt-3 text-center sm:mt-5">
-                    <Dialog.Title as="h3" className="text-base font-semibold leading-6 text-gray-900">
-                        Transcription Failed
-                    </Dialog.Title>
-                    <div className="mt-2">
-                        <p className="text-sm text-gray-500">
-                        {message}
-                        </p>
-                    </div>
-                    </div>
-                </div>
-                }
-                { role !== 'premium' ?
-                <div className="py-4">
-                  <AdSenseDisplay adSlot="9250004753" adFormat="rectangle" widthRes="false"/>
-                </div>
-                :
-                <div className="hidden"/>
-                }
-                {success == true ?
-                <div className="mt-5 sm:mt-6 sm:grid sm:grid-flow-row-dense sm:grid-cols-2 sm:gap-3">
-                  <Link
-                    className="inline-flex w-full justify-center rounded-3xl bg-primary-main px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-primary-alt focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 sm:col-start-2"
-                    href="/my-recipes"
-                    onClick={() => setIsOpen(false)}
-                  >
-                    Go to Recipes
-                  </Link>
-                  <button
-                    type="button"
-                    className="mt-3 inline-flex w-full justify-center rounded-3xl bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:col-start-1 sm:mt-0"
-                    onClick={() => {setIsOpen(false)}}
-                    ref={cancelButtonRef}
-                  >
-                    Return
-                  </button>
-                </div>
-                :
-                <div className="mt-5 sm:mt-6 sm:grid sm:grid-flow-row-dense sm:grid-cols-2 sm:gap-3">
-                  <Link
-                    className="inline-flex w-full justify-center rounded-3xl bg-primary-main px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-primary-alt focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 sm:col-start-2"
-                    href="/my-recipes"
-                    onClick={() => setIsOpen(false)}
-                  >
-                    Go to My Recipes
-                  </Link>
-                  <button
-                    type="button"
-                    className="mt-3 inline-flex w-full justify-center rounded-3xl bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:col-start-1 sm:mt-0"
-                    onClick={() => {setIsOpen(false)}}
-                    ref={cancelButtonRef}
-                  >
-                    Return
-                  </button>
-                </div>
-              }
-              </Dialog.Panel>
-            </Transition.Child>
-          </div>
-        </div>
-      </Dialog>
-    </Transition.Root>
-  )
-}
-
-interface LoginProps {
-  loginPrompt: boolean,
-  setLoginPrompt: any,
-  title: string,
-  message: string,
-}
-
-// MUST STAY | NEW WAY TO DISPLAY LOGIN MODAL TO USER
-export function LoginModal({loginPrompt, setLoginPrompt, title, message}: LoginProps ) {
-  
-  const cancelButtonRef = useRef(null)
-
-  return (
-    <Transition.Root show={loginPrompt} as={Fragment}>
-      <Dialog as="div" className="relative z-50" initialFocus={cancelButtonRef} onClose={setLoginPrompt}>
-        <Transition.Child
-          as={Fragment}
-          enter="ease-out duration-300"
-          enterFrom="opacity-0"
-          enterTo="opacity-100"
-          leave="ease-in duration-200"
-          leaveFrom="opacity-100"
-          leaveTo="opacity-0"
-        >
-          <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
-        </Transition.Child>
-
-        <div className="fixed inset-0 z-25 w-screen overflow-y-auto">
-          <div className="flex min-h-screen items-center justify-center p-4 text-center sm:min-h-full">
-            <Transition.Child
-              as={Fragment}
-              enter="ease-out duration-300"
-              enterFrom="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
-              enterTo="opacity-100 translate-y-0 sm:scale-100"
-              leave="ease-in duration-200"
-              leaveFrom="opacity-100 translate-y-0 sm:scale-100"
-              leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
-            >
-              <Dialog.Panel className="w-full relative transform overflow-hidden rounded-lg bg-white px-4 pb-4 pt-5 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg sm:p-6">
-                    {/*<Image className=" mx-auto" priority={true} src="/images/zesti-logos/Zesti-Premium-2.png" width={125} height={125} alt="Zesti Premium Logo" />*/}
-                    <UserIcon className="h-16 w-16 mx-auto items-center text-green-500 bg-green-500/20 m-2 p-2 rounded-full"/>
-                  <div className="text-center sm:mt-5">
-                    <Dialog.Title as="h3" className="mt-3 sm:mt-0 text-lg sm:text-xl font-semibold leading-6 text-gray-900">
                       {title}
                     </Dialog.Title>
                     <div className="mt-2">
-                      <p className="text-sm text-gray-500">
-                        {message}
+                      <p className="text-sm lg:text-base text-gray-600">
+                        {text}
                       </p>
                     </div>
                   </div>
-                <div className="mt-5 sm:mt-6 sm:grid sm:grid-flow-row-dense sm:grid-cols-2 sm:gap-3">
-                  <Link
-                    className="inline-flex w-full justify-center rounded-3xl bg-primary-main px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-primary-alt focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 sm:col-start-2"
-                    href="/auth/login"
-                    onClick={() => {setLoginPrompt(false)}}
-                  >
-                    Create Account
-                  </Link>
-                  <button
-                    type="button"
-                    className="mt-3 inline-flex w-full justify-center rounded-3xl bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:col-start-1 sm:mt-0"
-                    onClick={() => {setLoginPrompt(false)}}
-                    ref={cancelButtonRef}
-                  >
-                    Return
-                  </button>
                 </div>
-              </Dialog.Panel>
-            </Transition.Child>
-          </div>
-        </div>
-      </Dialog>
-    </Transition.Root>
-  )
-}
 
-interface UpgradeToPremiumProps {
-  premiumPrompt: boolean,
-  setPremiumPrompt: any,
-}
+                {/* Checking subscription and ad status before displaying or not displaying ad*/}
+                <div className={role !== 'premium' && displayAd ? `py-4` : `hidden`}>
+                  <AdSenseDisplay adSlot="9250004753" adFormat="rectangle" widthRes="false"/>
+                </div>
 
-// MUST HAVE AS POP UP TO ENCOURAGE PREMIUM UPGRADE
-export function UpgradeToPremiumModal({premiumPrompt, setPremiumPrompt}: UpgradeToPremiumProps) {
-
-  const cancelButtonRef = useRef(null)
-
-  return (
-    <Transition.Root show={premiumPrompt} as={Fragment}>
-      <Dialog as="div" className="relative z-50" initialFocus={cancelButtonRef} onClose={setPremiumPrompt}>
-        <Transition.Child
-          as={Fragment}
-          enter="ease-out duration-300"
-          enterFrom="opacity-0"
-          enterTo="opacity-100"
-          leave="ease-in duration-200"
-          leaveFrom="opacity-100"
-          leaveTo="opacity-0"
-        >
-          <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
-        </Transition.Child>
-
-        <div className="fixed inset-0 z-25 w-screen overflow-y-auto">
-          <div className="flex min-h-screen items-center justify-center p-4 text-center sm:min-h-full">
-            <Transition.Child
-              as={Fragment}
-              enter="ease-out duration-300"
-              enterFrom="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
-              enterTo="opacity-100 translate-y-0 sm:scale-100"
-              leave="ease-in duration-200"
-              leaveFrom="opacity-100 translate-y-0 sm:scale-100"
-              leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
-            >
-              <Dialog.Panel className="w-full relative transform overflow-hidden rounded-lg bg-white px-4 pb-4 pt-5 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg sm:p-6">
-                    {/*<Image className=" mx-auto" priority={true} src="/images/zesti-logos/Zesti-Premium-2.png" width={125} height={125} alt="Zesti Premium Logo" />*/}
-                    <StarIcon className="h-16 w-16 mx-auto items-center text-yellow-400 bg-yellow-400/20 m-2 p-2 rounded-full"/>
-                  <div className="text-center sm:mt-5">
-                    <Dialog.Title as="h3" className="mt-3 sm:mt-0 text-lg sm:text-xl font-semibold leading-6 text-gray-900">
-                      This Feature Requires Zesti Premium
-                    </Dialog.Title>
-                    <div className="mt-2">
-                      <p className="text-sm text-gray-500">
-                        Try Free for 7-Days. Cancel anytime.
-                      </p>
-                    </div>
-                  </div>
                 <div className="mt-5 sm:mt-6 sm:grid sm:grid-flow-row-dense sm:grid-cols-2 sm:gap-3">
                   <Link
                     className="inline-flex w-full justify-center rounded-3xl bg-primary-main px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-primary-alt focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 sm:col-start-2"
-                    href="/about/pricing"
-                    onClick={() => {setPremiumPrompt(false)}}
+                    href={`${href}`}
+                    onClick={() => setIsOpen(false)}
                   >
-                    Start Trial
+                    { buttonName }
                   </Link>
                   <button
                     type="button"
                     className="mt-3 inline-flex w-full justify-center rounded-3xl bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:col-start-1 sm:mt-0"
-                    onClick={() => {setPremiumPrompt(false)}}
+                    onClick={() => {setIsOpen(false)}}
                     ref={cancelButtonRef}
                   >
                     Return
@@ -284,6 +117,7 @@ export function UpgradeToPremiumModal({premiumPrompt, setPremiumPrompt}: Upgrade
 }
 
 
+// Specific modal for creator to input required information to upload recipe to page
 export function CreatorAddRecipeModal({isOpen, setIsOpen}: ModalResponseProps) {
 
 
@@ -368,6 +202,7 @@ export function CreatorAddRecipeModal({isOpen, setIsOpen}: ModalResponseProps) {
   )
 }
 
+
 interface CreatorResubmitRecipeProps {
   isResubmitOpen: boolean,
   setIsResubmitOpen: any,
@@ -376,6 +211,7 @@ interface CreatorResubmitRecipeProps {
   recipe_id: string,
 }
 
+// Specific Modal for creator when resubmitting recipe
 export function CreatorResubmitRecipeModal({isResubmitOpen, setIsResubmitOpen, url, setUrl, recipe_id}: CreatorResubmitRecipeProps) {
 
 
