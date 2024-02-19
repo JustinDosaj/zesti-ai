@@ -56,8 +56,7 @@ export const handleYouTubeURLSubmit = async ({url, user, setMessage, stripeRole,
 
     // Check if URL is empty
     if (url == '') {
-        setNotify(true) 
-        setMessage("Oops! You must input a valid video link!")
+        Notify("Oops! You must input a valid video link!")
         return false;
     }
 
@@ -83,8 +82,7 @@ export const handleYouTubeURLSubmit = async ({url, user, setMessage, stripeRole,
 
     if (stripeRole == 'premium') {
         if((result?.minutes || 0) > 15) {
-            setMessage("Max video length is 15 minutes")
-            setNotify(true)
+            Notify("Max video length is 15 minutes")
             return false;
         }
     }
@@ -134,12 +132,11 @@ export interface TikTokProps {
     userData?: any,
 }
 
-export const handleTikTokURLSubmit = async ({url, user, setMessage, setNotify}: TikTokProps): Promise<boolean> => {
+export const handleTikTokURLSubmit = async ({url, user, setMessage}: TikTokProps): Promise<boolean> => {
 
     // Check if URL is empty    
     if (url == '') {
-        setNotify(true) 
-        setMessage("Oops! You must input a valid video link!")
+        Notify("Oops! You must input a valid video link!")
         return false;
     }
 
@@ -185,7 +182,6 @@ export const handleTikTokURLSubmit = async ({url, user, setMessage, setNotify}: 
 
         return response;
     } else {  
-        setNotify(true)
         setMessage("Ran out of recipe transcriptions. Upgrade account for more") 
         return false; 
     }

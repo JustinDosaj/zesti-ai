@@ -9,12 +9,13 @@ import GoogleTags from "@/components/tags/conversion";
 import AdSenseDisplay from "@/components/tags/adsense";
 import { PromoteKitTag } from "@/components/tags/headertags";
 import { UserRecipe, EditUserRecipe } from "@/components/my-recipes/recipe";
-import { UpgradeToPremiumModal } from "@/components/shared/modals";
+import { ResponseModal } from "@/components/shared/modals";
 import { useRouter } from "next/router";
 import Breadcrumbs from "@/components/shared/breadcrumb";
 import useSetBreadcrumbs from '@/components/shared/setBreadcrumbs';
 import useUserRecipe from "@/hooks/user/useUserRecipe";
 import useRequireAuth from "@/hooks/user/useRequireAuth";
+import { StarIcon } from "@heroicons/react/20/solid";
 
 const raleway = Raleway({subsets: ['latin']})
 
@@ -27,10 +28,9 @@ const Recipe: React.FC = ({id}: any) => {
 
     useSetBreadcrumbs()
     const { user, isLoading, stripeRole } = useAuth();
-    const { require } = useRequireAuth(user, isLoading)
     const { userRecipe } = useUserRecipe(user?.uid, id)
     const [isEditMode, setEditMode] = useState<boolean>(false)
-    const [ premiumPrompt, setPremiumPrompt ] = useState<boolean>(false)
+    const [ isOpen, setIsOpen ] = useState<boolean>(false)
     const router = useRouter()
 
     if(!user && !isLoading) { router.push('/auth/login')}
@@ -50,9 +50,9 @@ const Recipe: React.FC = ({id}: any) => {
       {stripeRole == 'premium' ? <Chatbox/> : <></>}
       <Breadcrumbs/>
       { isEditMode == false || !user ?
-        <UserRecipe recipe={userRecipe} setPremiumPrompt={setPremiumPrompt} owner_id={''} setEditMode={setEditMode} role={stripeRole}/>
+        <UserRecipe recipe={userRecipe} setIsOpen={setIsOpen} owner_id={''} setEditMode={setEditMode} role={stripeRole}/>
       :
-        <EditUserRecipe recipe={userRecipe} setPremiumPrompt={setPremiumPrompt} setEditMode={setEditMode} role={stripeRole}/>
+        <EditUserRecipe recipe={userRecipe} setIsOpen={setIsOpen} setEditMode={setEditMode} role={stripeRole}/>
       }
       {stripeRole !== 'premium' ? 
       <div className="flex justify-center items-center py-12">
@@ -63,7 +63,18 @@ const Recipe: React.FC = ({id}: any) => {
       :
       <div className="mb-28"/>
       }
-      <UpgradeToPremiumModal premiumPrompt={premiumPrompt} setPremiumPrompt={setPremiumPrompt}/>
+      <ResponseModal 
+        title={"Premium Subscription Required"}
+        text={"Try premium free for 7-days to unlock this feature"}
+        icon={StarIcon}
+        iconColor={"yellow"}
+        href={'/about/pricing'}
+        isOpen={isOpen}
+        setIsOpen={setIsOpen}
+        displayAd={false}
+        role={stripeRole}
+        buttonName={"Get Started!"}
+        />
     </main>
     </>
     )

@@ -1,10 +1,10 @@
 import { Container } from "../shared/container";
-import { LinkIcon, LightBulbIcon, ExclamationTriangleIcon } from "@heroicons/react/20/solid";
+import { LinkIcon, LightBulbIcon, ExclamationTriangleIcon, CheckIcon } from "@heroicons/react/20/solid";
 import { useAuth } from "@/pages/api/auth/auth";
-import { InputResponseModal, LoginModal } from "../shared/modals";
+import { ResponseModal } from "../shared/modals";
 import { Button } from "../shared/button";
 import { Loader } from "../shared/loader";
-import { handleYouTubeURLSubmit, handleTikTokURLSubmit } from "@/pages/api/handler/submit";
+import { handleTikTokURLSubmit } from "@/pages/api/handler/submit";
 import React, { useState, useEffect } from 'react';
 import { Notify } from '../shared/notify';
 import { SharedHomeSectionTitle } from "../shared/title";
@@ -26,9 +26,7 @@ export function VideoComponent() {
     const { user, stripeRole } = useAuth()
     const [ url, setUrl ] = useState<string>('');
     const [ isOpen , setIsOpen ] = useState<boolean>(false);
-    const [ loginPrompt, setLoginPrompt ] = useState<boolean>(false)
     const [ isLoading, setIsLoading ] = useState<boolean>(false)
-    const [ success, setSuccess ] = useState<boolean>(false)
     const [ message, setMessage ] = useState<string>('')
     const [ notify, setNotify ] = useState<boolean | null>(null)
 
@@ -41,62 +39,66 @@ export function VideoComponent() {
 
     async function onClick() {
         if (!user) {
-            setLoginPrompt(true)
+            Notify("Please login to continue")
             return;
         } else {
-            setIsLoading(true)
             
-            //const youtubePattern = /^(https?:\/\/)?(www\.)?(youtube\.com|youtu\.?be)\/.+$/;
-            /*if(youtubePattern.test(url)) {
-                await handleYouTubeURLSubmit({url, user, setMessage, stripeRole, setNotify}).then((val) => {
-                    setSuccess(val)
-                    setIsOpen(val)
-                });
-            }*/
-
+            setIsLoading(true)
             const tiktokPattern = /^(https?:\/\/)?(www\.)?tiktok\.com\/.+$/;
 
             if (tiktokPattern.test(url)) {
-                await handleTikTokURLSubmit({url, user, setMessage, setNotify}).then((val) => {
-                    setSuccess(val)
-                    setIsOpen(val)
+                await handleTikTokURLSubmit({url, user, setMessage}).then((val) => {
+                    if(val == true) {
+                        setIsOpen(val)
+                    }
+                    else if(val == false) { 
+                        Notify("Could not process video, please try again later.") 
+                    }
                 });
             }
             else { Notify("Only tiktok videos are accepted") }
-
             setIsLoading(false)
             setUrl('')
         }
     }
 
     return(
-    <div className="p-4 w-full flex flex-col items-center animate-fadeIn mt-2">
-        <div className="flex sm:flex-row flex-col gap-5 w-full justify-center">
-            <form action="" method="POST" className="py-1 pl-6 w-full max-w-md pr-1 flex gap-3 items-center text-heading-3 shadow-lg shadow-box-shadow
-            border border-box-border bg-box-bg rounded-full ease-linear focus-within:bg-body  focus-within:border-primary">
+        <div className="p-4 w-full flex flex-col items-center animate-fadeIn mt-2">
+            <div className="flex sm:flex-row flex-col gap-5 w-full justify-center">
+                <form action="" method="POST" className="py-1 pl-6 w-full max-w-md pr-1 flex gap-3 items-center text-heading-3 shadow-lg shadow-box-shadow
+                border border-box-border bg-box-bg rounded-full ease-linear focus-within:bg-body  focus-within:border-primary">
 
-                <LinkIcon className="text-gray-600 h-10 w-10"/>
-                <input type="text" name="web-page" value={url} placeholder="Paste Tiktok Video Link" className="w-full text-gray-500 py-3 outline-none bg-transparent" onChange={(e) => setUrl(e.target.value)}/>
-                {isLoading == false ?
-                <Button isLink={false} buttonType="button" text="" className={"min-w-max text-white"}  
-                    onClick={ async () => { await onClick() }}>                              
-                    <span className="hidden sm:flex relative z-[5]">
-                        Get Recipe
-                    </span>
-                    <span className="flex sm:hidden relative z-[5]">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-5 h-5">
-                            <path strokeLinecap="round" strokeLinejoin="round" d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5" />
-                        </svg>                                      
-                    </span>
-                </Button>
-                :
-                <Loader/>
-                }
-            </form>
+                    <LinkIcon className="text-gray-600 h-10 w-10"/>
+                    <input type="text" name="web-page" value={url} placeholder="Paste Tiktok Video Link" className="w-full text-gray-500 py-3 outline-none bg-transparent" onChange={(e) => setUrl(e.target.value)}/>
+                    {isLoading == false ?
+                    <Button isLink={false} buttonType="button" text="" className={"min-w-max text-white"}  
+                        onClick={ async () => { await onClick() }}>                              
+                        <span className="hidden sm:flex relative z-[5]">
+                            Get Recipe
+                        </span>
+                        <span className="flex sm:hidden relative z-[5]">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-5 h-5">
+                                <path strokeLinecap="round" strokeLinejoin="round" d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5" />
+                            </svg>                                      
+                        </span>
+                    </Button>
+                    :
+                    <Loader/>
+                    }
+                </form>
+            </div>
+            <ResponseModal 
+                isOpen={isOpen} 
+                setIsOpen={setIsOpen} 
+                title={"Recipe Transcribed"} 
+                text={"You can continue to your saved recipes to get cooking!"} 
+                icon={CheckIcon} 
+                iconColor={'green'} 
+                href="/my-recipes" 
+                displayAd={true} buttonName={"Go to Recipes"}
+                role={stripeRole}
+            />
         </div>
-        <InputResponseModal isOpen={isOpen} setIsOpen={setIsOpen} success={success} message={message} role={stripeRole}/>
-        <LoginModal loginPrompt={loginPrompt} setLoginPrompt={setLoginPrompt} title={"Feature Requires Account"} message={"Please create an account to continue"}/>
-    </div>
     )
 }
 
