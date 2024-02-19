@@ -5,7 +5,6 @@ import { PageLoader } from "@/components/shared/loader";
 import { PromoteKitTag } from "@/components/tags/headertags";
 import { CreatorRecipe, EditCreatorRecipe } from "@/components/creator/recipe";
 import React, { useState } from 'react'
-import { LoginModal } from "@/components/shared/modals";
 import GoogleTags from "@/components/tags/conversion";
 import Head from "next/head";
 import { getCreatorByDisplayName } from "../api/firebase/functions";
@@ -37,7 +36,6 @@ const Recipe: React.FC = ({id, owner_uid}: any) => {
     useSetBreadcrumbs()
 
     const { user } = useAuth();
-    const [ loginPrompt, setLoginPrompt ] = useState<boolean>(false)
     const [ isEditMode, setEditMode ] = useState<boolean>(false)
     const { creatorRecipe, isLoadingCreatorRecipe } = useCreatorRecipe(owner_uid, id)
 
@@ -56,11 +54,10 @@ const Recipe: React.FC = ({id, owner_uid}: any) => {
     <main className={`flex min-h-screen flex-col items-center p-6 bg-background w-screen ${raleway.className}`}>
         <Breadcrumbs/>
         {isEditMode == false || !user || user?.uid !== owner_uid ? 
-        <CreatorRecipe recipe={creatorRecipe} setLoginPrompt={setLoginPrompt} owner_id={owner_uid} setEditMode={setEditMode}/>
+        <CreatorRecipe recipe={creatorRecipe} owner_id={owner_uid} setEditMode={setEditMode}/>
         :
-        <EditCreatorRecipe recipe={creatorRecipe} setLoginPrompt={setLoginPrompt} owner_id={owner_uid} setEditMode={setEditMode}/>
+        <EditCreatorRecipe recipe={creatorRecipe} owner_id={owner_uid} setEditMode={setEditMode}/>
         }
-        <LoginModal loginPrompt={loginPrompt} setLoginPrompt={setLoginPrompt} title={"Create Account"} message={"You must create an account to save recipes"}/>
     </main>
     </>
     )
