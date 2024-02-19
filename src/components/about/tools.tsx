@@ -9,6 +9,7 @@ import React, { useState, useEffect } from 'react';
 import { Notify } from '../shared/notify';
 import { SharedHomeSectionTitle } from "../shared/title";
 import { ToolHeroProps } from "../shared/interface";
+import { useRouter } from "next/router";
 
 export function ToolHero({role, tokens, titleStart, titleEnd, description}: ToolHeroProps){
 
@@ -29,6 +30,7 @@ export function VideoComponent() {
     const [ isLoading, setIsLoading ] = useState<boolean>(false)
     const [ message, setMessage ] = useState<string>('')
     const [ notify, setNotify ] = useState<boolean | null>(null)
+    const router = useRouter()
 
     useEffect(() => {
         if (notify == true) {
@@ -94,7 +96,7 @@ export function VideoComponent() {
                 text={"You can continue to your saved recipes to get cooking!"} 
                 icon={CheckIcon} 
                 iconColor={'green'} 
-                href="/my-recipes" 
+                modalFunction={() => router.push('/my-recipes')}
                 displayAd={true} buttonName={"Go to Recipes"}
                 role={stripeRole}
             />

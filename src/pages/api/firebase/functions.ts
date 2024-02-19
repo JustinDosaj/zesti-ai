@@ -139,6 +139,7 @@ export async function deleteCreatorPublicRecipe(creator_id: any, recipe_id: stri
   const tikTokRecipesRef = db.collection('recipes-tiktok').doc(recipe_id)
   await tikTokRecipesRef.delete()
 
+  Notify("Recipe Deleted Successfully")
   console.log(`Removed ${recipe_id} from public recipes`)
 }
 

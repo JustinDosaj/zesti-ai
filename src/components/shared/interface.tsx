@@ -72,8 +72,10 @@ export interface TextProps {
 
 
 export interface ModalResponseProps {
-    isOpen: boolean,
-    setIsOpen: any,
+    isOpen?: boolean,
+    setIsOpen?: any,
+    isCreatorModalOpen?: boolean,
+    setIsCreatorModalOpen?: any,
     success?: boolean,
     onSubmit?: any,
     message?: any,

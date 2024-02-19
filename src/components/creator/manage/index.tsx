@@ -70,7 +70,7 @@ export function CreatorResubmitRecipeTextComponent({rawText, setRawText}: any) {
     )
 }
 
-export function ManageRecipesList({errorData, publicData, setIsOpen, setIsResubmitOpen, setUrl, setRecipeId, setIsDeleteOpen}: any) {
+export function ManageRecipesList({errorData, publicData, setIsCreatorModalOpen, setIsResubmitOpen, setUrl, setRecipeId, setIsOpen}: any) {
 
     const [ view, setView ] = useState<string>('public')
     const { creatorData, user } = useAuth();
@@ -84,7 +84,7 @@ export function ManageRecipesList({errorData, publicData, setIsOpen, setIsResubm
 
     const onPublicRecipeDelete = async (recipe_id: string) => {
         setRecipeId(recipe_id)
-        setIsDeleteOpen(true)
+        setIsOpen(true)
     }
 
     const onDeleteFromErrorsClick = async (recipe_id: string) => {
@@ -104,7 +104,7 @@ export function ManageRecipesList({errorData, publicData, setIsOpen, setIsResubm
     <Container className="grid justify-center w-full max-w-6xl mx-auto mt-6 pb-24 animate-fadeIn">
         <div className="p-6 bg-white rounded-3xl border shadow mt-2 w-[325px] xs:w-[400px] sm:w-[500px] md:w-[750px]">
             <div className="flex justify-end">
-            <Button isLink={false} buttonType="button" text="Add New Recipe" onClick={() => setIsOpen(true)}/>
+            <Button isLink={false} buttonType="button" text="Add New Recipe" onClick={() => setIsCreatorModalOpen(true)}/>
             </div>
             <ManageRecipesSearch creatorData={creatorData}/>
             <div className="flex sm:justify-start gap-4 mt-4">

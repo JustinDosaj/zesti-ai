@@ -68,7 +68,7 @@ const Recipe: React.FC = ({id}: any) => {
         text={"Try premium free for 7-days to unlock this feature"}
         icon={StarIcon}
         iconColor={"yellow"}
-        href={'/about/pricing'}
+        modalFunction={() => router.push('/about/pricing')}
         isOpen={isOpen}
         setIsOpen={setIsOpen}
         displayAd={false}
