@@ -9,7 +9,7 @@ import { Button, AltButton } from "@/components/shared/button"
 import { saveFromCreatorToUser } from "@/pages/api/firebase/functions"
 import { RecipeProps } from "@/components/shared/interface"
 
-export function CreatorRecipe({recipe, setLoginPrompt, owner_id, setEditMode}: RecipeProps) {
+export function CreatorRecipe({recipe, owner_id, setEditMode}: RecipeProps) {
 
     const { user } = useAuth()
 
@@ -19,7 +19,7 @@ export function CreatorRecipe({recipe, setLoginPrompt, owner_id, setEditMode}: R
             <span className="section-desc-title-size text-center">{recipe.name}</span>
             <p className="text-center text-gray-500 text-sm">{recipe.title}</p>
         </div>
-        <CreatorRecipeLinks recipe={recipe} setLoginPrompt={setLoginPrompt} isEdit={false}/>
+        <CreatorRecipeLinks recipe={recipe} isEdit={false}/>
         <div className="space-y-2">
             <h2 className="section-desc-text-size font-semibold">Ingredients</h2>
             <ul className="space-y-2 list-disc pl-6 text-black">
@@ -151,7 +151,7 @@ export function EditCreatorRecipe({recipe, setLoginPrompt, owner_id, setEditMode
             
             <p className="text-center text-gray-500 text-sm">{recipe.title}</p>
         </div>
-        <CreatorRecipeLinks recipe={recipe} setLoginPrompt={setLoginPrompt} isEdit={true}/>
+        <CreatorRecipeLinks recipe={recipe} isEdit={true}/>
         <div className="space-y-2">
             <h2 className="section-desc-text-size font-semibold">Ingredients</h2>
             <ul className="list-disc pl-6 text-black">
@@ -235,11 +235,10 @@ export function EditCreatorRecipe({recipe, setLoginPrompt, owner_id, setEditMode
 
 interface CreatorRecipeLinksProps {
     recipe: any,
-    setLoginPrompt: any,
     isEdit: boolean,
 }
 
-export function CreatorRecipeLinks({recipe, setLoginPrompt, isEdit}: CreatorRecipeLinksProps) {
+export function CreatorRecipeLinks({recipe, isEdit}: CreatorRecipeLinksProps) {
 
     const router = useRouter()
     const { isLoading, user } = useAuth()
@@ -281,7 +280,7 @@ export function CreatorRecipeLinks({recipe, setLoginPrompt, isEdit}: CreatorReci
                             return false;
                         }
                     } else {
-                        setLoginPrompt(true);
+                        Notify("Please login to save recipes")
                         return false; // Or some appropriate boolean value based on your logic
                     }
                 },
