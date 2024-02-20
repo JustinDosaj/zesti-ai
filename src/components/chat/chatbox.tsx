@@ -4,7 +4,6 @@ import { db } from '@/pages/api/firebase/firebase';
 import { useAuth } from '@/pages/api/auth/auth';
 import { doc, setDoc, collection, onSnapshot, query, orderBy, where, Timestamp } from 'firebase/firestore';
 import { InlineButton } from '../shared/button';
-import { AIChatMessageProps } from '../shared/interface';
 
 interface AIChatMessageProps {
   id: string;
