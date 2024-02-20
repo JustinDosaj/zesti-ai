@@ -1,5 +1,7 @@
-import { TextProps } from "./interface"
-
+interface TextProps {
+    children?: React.ReactNode,
+    className?:string,
+}
 
 export function Paragraph({className, children}: TextProps){
     return(

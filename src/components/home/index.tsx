@@ -10,11 +10,15 @@ import { Search } from "../search"
 import Link from "next/link"
 import { useRouter } from "next/router"
 import { useAuth } from "@/pages/api/auth/auth"
-import { HeroProps, CreatorCTAProps } from "../shared/interface"
 import getConfig from "next/config"
 
 
 
+interface HeroProps {
+  titleStart?: string,
+  titleEnd?: string,
+  description?: string,
+}
 
 export function Hero({titleStart, titleEnd, description}: HeroProps) {
 
@@ -410,6 +414,11 @@ export function FreeSubscriptionBenefits() {
         </div>
     </div>
   )
+}
+
+interface CreatorCTAProps {
+  isHome: boolean,
+  title: string,
 }
 
 export function CreatorCTA({isHome, title}: CreatorCTAProps) {
