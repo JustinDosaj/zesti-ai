@@ -1,11 +1,17 @@
 import { Notify } from "@/components/shared/notify";
 import { db } from "./firebase"
 import { collection, query, limit, getDocs } from "firebase/firestore";
-import { Creator } from "@/components/shared/interface";
 
-export interface Props {
+interface Props {
   url: any,
   user: any, 
+}
+
+interface Creator {
+  name: string;
+  desc: string;
+  imageSrc: string;
+  href: string;
 }
 
 interface TikTokTokenData {
