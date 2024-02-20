@@ -4,19 +4,9 @@ import { db } from "../firebase/firebase";
 import { getUserData } from "../firebase/functions";
 import axios from 'axios'
 import { increment } from 'firebase/firestore';
-import React, { useState } from "react";
-import { getCurrentDate } from "./general";
+import { getFunctions, httpsCallable } from 'firebase/functions';
+import { Notify } from "@/components/shared/notify";
 
-
-
-async function isValidUrl(string: string) {
-    try {
-        new URL(string);
-        return true;
-    } catch (error) {
-        return false;
-    }
-}
 
 async function convertISO8601ToMinutesAndSeconds(isoDuration: any) {
     const regex = /PT(?:(\d+)H)?(?:(\d+)M)?(?:(\d+)S)?/;
@@ -48,12 +38,12 @@ export interface Props {
     setNotify: any, 
 }
 
-export async function getVideoLength(url_id: any) {
+export async function getVideoLength(id: any) {
     
     const apiKey = process.env.NEXT_PUBLIC_VIDEO_LENGTH_API_KEY;
 
     try {
-        const response = await axios.get(`https://www.googleapis.com/youtube/v3/videos?part=contentDetails&id=${url_id}&key=${apiKey}`);
+        const response = await axios.get(`https://www.googleapis.com/youtube/v3/videos?part=contentDetails&id=${id}&key=${apiKey}`);
         const duration = response.data.items[0].contentDetails.duration; // Duration in ISO 8601 format, like "PT1H15M32S"
         const result = await convertISO8601ToMinutesAndSeconds(duration);
         return result; 
@@ -66,20 +56,18 @@ export const handleYouTubeURLSubmit = async ({url, user, setMessage, stripeRole,
 
     // Check if URL is empty
     if (url == '') {
-        setNotify(true) 
-        setMessage("Oops! You must input a valid video link!")
+        Notify("Oops! You must input a valid video link!")
         return false;
     }
 
     // Ensure video length is equal or below user sub usage rate
-    const url_id = url?.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|shorts\/))([a-zA-Z0-9_-]{11})/);
+    const id = url?.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|shorts\/))([a-zA-Z0-9_-]{11})/);
 
-    const date = await getCurrentDate()
+    const date: Date = new Date();
     
-
     const falseObj = {
         "url": `${url}`,
-        "url_id": url_id ? url_id[1] : null,
+        "id": id ? id[1] : null,
         "source": "youtube",
         "date": date,
     }
@@ -90,12 +78,11 @@ export const handleYouTubeURLSubmit = async ({url, user, setMessage, stripeRole,
     * Check if video length is too large for role
     * Free Users - Max 5 Minutes | Premium Users - Max 15 Minutes
     */
-    const result = await getVideoLength(url_id ? url_id[1] : null)
+    const result = await getVideoLength(id ? id[1] : null)
 
     if (stripeRole == 'premium') {
         if((result?.minutes || 0) > 15) {
-            setMessage("Max video length is 15 minutes")
-            setNotify(true)
+            Notify("Max video length is 15 minutes")
             return false;
         }
     }
@@ -117,8 +104,6 @@ export const handleYouTubeURLSubmit = async ({url, user, setMessage, stripeRole,
             setMessage("Your recipe will appear in your dashboard shortly")
             await db.collection('users').doc(user.uid).update({
                 tokens: increment(-1),
-                totalRecipes: increment(+1),
-                lifeTimeUsage: increment(+1)
             })
             return true
         } catch (err) {
@@ -133,38 +118,43 @@ export const handleYouTubeURLSubmit = async ({url, user, setMessage, stripeRole,
     }
 }
 
-
 export interface TikTokProps {
-    url: any,
-    setUrl: any,
-    user: any,
-    setMessage: any,
-    stripeRole: any,
-    setNotify: any, 
+    url?: any,
+    setUrl?: any,
+    user?: any,
+    setMessage?: any,
+    stripeRole?: any,
+    setNotify?: any,
+    urlId?: string, 
+    rawText?: string,
+    videoObject?: any,
+    creatorData?: any,
+    userData?: any,
 }
 
-export const handleTikTokURLSubmit = async ({url, setUrl, user, setMessage, stripeRole, setNotify}: TikTokProps): Promise<boolean> => {
+export const handleTikTokURLSubmit = async ({url, user, setMessage}: TikTokProps): Promise<boolean> => {
 
     // Check if URL is empty    
     if (url == '') {
-        setNotify(true) 
-        setMessage("Oops! You must input a valid video link!")
+        Notify("Oops! You must input a valid video link!")
         return false;
     }
 
-    var url_id;
+    var id;
 
     if(url.includes('tiktok.com/t/')) {
-        url_id = url?.match(/^https:\/\/www\.tiktok\.com\/t\/([A-Za-z0-9_-]+)\/?$/);
+        id = url?.match(/^https:\/\/www\.tiktok\.com\/t\/([A-Za-z0-9_-]+)\/?$/);
     } else {
-        url_id = url?.match(/tiktok\.com\/@[^\/]+\/video\/(\d+)/);
+        id = url?.match(/tiktok\.com\/@[^\/]+\/video\/(\d+)/);
     }
 
-    const date = await getCurrentDate()
+    const date: Date = new Date();
+    const functions = getFunctions();
+    const userAddTikTokRecipe = httpsCallable(functions, 'userAddTikTokRecipe');
 
     const falseObj = {
         "url": `${url}`,
-        "url_id": url_id ? url_id[1] : null,
+        "id": id ? id[1] : null,
         "source": "tiktok",
         "date": date
     }
@@ -173,148 +163,80 @@ export const handleTikTokURLSubmit = async ({url, setUrl, user, setMessage, stri
     await getUserData(user?.uid).then((res) => {tokens = res?.tokens})
 
     if (tokens >= 1) {
-        try {
-            await db.collection('users').doc(user.uid).collection('tiktokurl').doc().set(falseObj)
-            setMessage("Your recipe will appear in your dashboard shortly")
-            await db.collection('users').doc(user.uid).update({
-                tokens: increment(-1),
-                totalRecipes: increment(+1),
-                lifeTimeUsage: increment(+1)  
-            })
-            return true
-        } catch (err) {
-            setMessage("Something went wrong. Please try again later. If the problem persists, please contact us.")
+
+        const response = await userAddTikTokRecipe(falseObj).then((val) => {
+            console.log(val)
+            setMessage("Recipe added successfully, go to \"My Recipes\" to view it!")
+            return true;
+        }).catch((err) => {
             console.log(err)
-            return false
-        }
-    } else {  
-        setNotify(true)
-        setMessage("Uh oh! You ran out of recipes for the month!") 
-        return false; 
-    }
-}
-
-interface ChatProps {
-    input: string,
-    user: any,
-    setMessage: any,
-    stripeRole: any,
-    setNotify: any,
-    recipes: any,
-}
-
-export const handleCreativeChatSubmit = async({input, user, setMessage, stripeRole, setNotify, recipes}: ChatProps) => {
-
-        // url check
-        const urlCheck = await isValidUrl(input)
-
-        if (input == '') {
-            setNotify(true) 
-            setMessage("Oops! The input cannot be blank!")
+            setMessage("Error")
             return false;
-        }
+        })
 
-        const date = await getCurrentDate()
-
-        const falseObj = {
-            "userMessage": `${input}`,
-            "source": "creative",
-            "date": date
-        }
-
-    if (stripeRole == 'premium') {
-        try {
-            await db.collection('users').doc(user.uid).collection('creative').doc().set(falseObj)
-            setMessage("Your recipe will appear in your dashboard shortly")
-            await db.collection('users').doc(user.uid).update({
-                totalRecipes: increment(+1),
-                lifeTimeUsage: increment(+1)
-            })
-            return true
-        } catch (err) {
-            setNotify(true)
-            setMessage("Something went wrong. Please try again later. If the problem persists, feel free to contact us.")
-            return false
-        }
-    }
-
-    let tokens = 0;
-    await getUserData(user?.uid).then((res) => {tokens = res?.tokens})
-            
-    if (tokens >= 1) {
-        try {
-            await db.collection('users').doc(user.uid).collection('creative').doc().set(falseObj)
-            setMessage("Your recipe will appear in your dashboard shortly")
+        if(response == true) {
             await db.collection('users').doc(user.uid).update({
                 tokens: increment(-1),
-                totalRecipes: increment(+1),
-                lifeTimeUsage: increment(+1)
             })
-            return true
-        } catch (err) {
-            setNotify(true)
-            setMessage("Something went wrong. Please try again later. If the problem persists, feel free to contact us.")
-            return false
-        }
-    } else { 
-        setNotify(true)
-        setMessage("Uh oh! You ran out of recipes for the month!") 
+         }
+
+        return response;
+    } else {  
+        setMessage("Ran out of recipe transcriptions. Upgrade account for more") 
         return false; 
     }
-
 }
 
-interface WebURLProps {
-    url: string,
-    user: any,
-    setMessage: any,
-    stripeRole: any,
-    setNotify: any,
-}
+export const handleCreatorTikTokURLSubmit = async ({url, rawText, creatorData}: TikTokProps): Promise<boolean> => {
 
-export const handleWebURLSubmit = async ({url, user, setMessage, stripeRole, setNotify}: WebURLProps): Promise<boolean> => {
+    var id;
 
-    // URL CHecks
-    const urlCheck = await isValidUrl(url)
-
-    if (url == '') {
-        setNotify(true) 
-        setMessage("Oops! You must input a valid website URL!")
-        return false;
-    } else if (urlCheck == false) {
-        setNotify(true)
-        setMessage("Oops! That isn't a valid URL!")
-        return false;
+    if(url.includes('tiktok.com/t/')) {
+        id = url?.match(/^https:\/\/www\.tiktok\.com\/t\/([A-Za-z0-9_-]+)\/?$/);
+    } else {
+        id = url?.match(/tiktok\.com\/@[^\/]+\/video\/(\d+)/);
     }
 
-    const date = await getCurrentDate()
+    // Check if URL is empty   
+    const date: Date = new Date();
+    const functions = getFunctions();
+    const creatorAddTikTokRecipe = httpsCallable(functions, 'creatorAddTikTokRecipe');
 
     const falseObj = {
         "url": `${url}`,
-        "source": "url",
-        "date": date
+        "id": id ? id[1] : null,
+        "source": "tiktok",
+        "date": date,
+        "rawData": rawText,
+        "display_name": creatorData?.display_name,
+        "display_url": creatorData?.display_url,
+        "owner_id": creatorData?.owner_id,
     }
 
-    let tokens = 0;
-    await getUserData(user?.uid).then((res) => {tokens = res?.tokens})
-    
-    if (tokens >= 1) {
-        try {
-            await db.collection('users').doc(user.uid).collection('weburl').doc().set(falseObj)
-            setMessage("Your recipe will appear in your dashboard shortly")
-            await db.collection('users').doc(user.uid).update({
-                tokens: increment(-1)
-            })
-            return true
-        } catch (err) {
-            setNotify(true)
-            setMessage("Something went wrong. Please try again later. If the problem persists, please contact us.")
-            console.log(err)
-            return false
-        }   
-    } else {  
-        setNotify(true)
-        setMessage("Uh oh! You ran out of recipes for the month!") 
-        return false; 
-    }
+    const response = await creatorAddTikTokRecipe(falseObj).then((val) => {
+        console.log(val)
+        return true;
+    }).catch((err) => {
+        console.log(err)
+        return false;
+    })
+    return response;
+}
+
+
+export const callGenerateCreatorPage = async ({creatorData}: any) => {
+
+    if (creatorData !== undefined) { Notify("Creator page already exists for this account"); return; }
+
+    const functions = getFunctions();
+    const generateCreatorPage = httpsCallable(functions, 'generateCreatorPage');
+
+    const response = await generateCreatorPage().then((val) => {
+        console.log("Successfully Generated Creator Page")
+        Notify("Page created successfully!")
+    }).catch((err) => {
+        console.log("Failed to generate page, please try again later or contact us if the problem persists.")
+    })
+
+    return;
 }

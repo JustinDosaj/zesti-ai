@@ -36,23 +36,35 @@ body {
   }
 
   .home-scroll-container {
-    @apply flex flex-col items-start py-12 bg-gradient-to-b from-orange-50 to-orange-100/50 xl:rounded-3xl
+    @apply flex flex-col items-center py-12 bg-gradient-to-b from-orange-50 to-orange-100/50 xl:rounded-3xl
   }
 
   .section-title-text-size {
     @apply text-4xl lg:text-5xl
   }
 
+  .section-desc-title-size {
+    @apply text-lg lg:text-xl text-gray-700 font-semibold
+  }
+
   .section-desc-text-size {
-    @apply text-base lg:text-lg text-gray-600
+    @apply text-base lg:text-lg text-gray-600 
   }
 
   .orange-border-shadow {
     @apply border border-orange-200 shadow-lg shadow-primary-main/10
   }
 
+  .alternate-orange-bg {
+    @apply bg-gradient-to-b from-orange-100 to-orange-200/50
+  }
+
   .add-ingredient-instuction-btn {
     @apply orange-border-shadow pl-4 pr-4 pt-2 pb-2 items-center space-x-1 bg-white border rounded-3xl hover:bg-gray-100 hover:duration-200
+  }
+
+  .standard-component-border {
+    @apply border p-4 rounded-3xl border-gray-300
   }
 
 }

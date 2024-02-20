@@ -5,18 +5,25 @@ import { Footer } from '@/components/elements/footer'
 //import { initFirebase } from './api/firebase/firebase'
 import { AuthProvider } from './api/auth/auth'
 import { Analytics } from '@vercel/analytics/react';
+import { ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css';
+import React from 'react'
+import { NavigationProvider } from './api/context/navigation'
 
 
 export default function App({ Component, pageProps }: AppProps) {
 
   return (
-  <>
-    <AuthProvider>
-        <Navbar/>
-          <Component {...pageProps}/>
-          <Analytics/>
-        <Footer/>
-    </AuthProvider>
-  </>
+
+    <NavigationProvider>
+      <AuthProvider>
+          {<Navbar/>}
+            <Component {...pageProps}/>
+            <Analytics/>
+            <ToastContainer/>
+          {<Footer/>}
+      </AuthProvider>
+    </NavigationProvider>
+
   )
 }

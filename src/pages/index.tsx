@@ -1,27 +1,43 @@
-import { Raleway } from 'next/font/google'
 import Head from 'next/head';
 import GoogleTags from '@/components/tags/conversion';
-import { HomePageScroller, HomePageTools, HomePageCTA, HomeFAQ, HomeVideoToRecipe, Hero } from '@/components/home';
+import { HomePageScroller, HomePageTools, HomePageCTA, HomeFAQ, HomeVideoToRecipe, Hero, CreatorCTA } from '@/components/home';
 import { useAuth } from './api/auth/auth';
 import { PageLoader } from '@/components/shared/loader';
 import { PromoteKitTag } from '@/components/tags/headertags';
-import { useEffect } from 'react';
-import { setCookie } from './api/handler/cookies';
+import { Raleway } from 'next/font/google'
+import { useState, useEffect } from 'react';
+import { GetRandomCreatorsForHomepage } from './api/firebase/functions';
+import { useRouter } from 'next/router';
 const raleway = Raleway({subsets: ['latin']})
+
+
+interface Creator {
+  name: string;
+  desc: string;
+  imageSrc: string;
+  href: string;
+}
 
 export default function Home() {
   
-  const { isLoading, isCreator } = useAuth();
+  const { isLoading, creatorData } = useAuth();
+  const [ creators, setCreators ] = useState<Creator[]>()
+  const router = useRouter();
 
   useEffect(() => {
-    
-    const affiliateCode = window.promotekit_referral;
-
-    if (affiliateCode) {
-      setCookie('affiliate_code', affiliateCode, 30);
+    const fetchCreators = async () => {
+      const res = await GetRandomCreatorsForHomepage(3)
+      setCreators(res)
     }
-  }, []);
 
+    fetchCreators();
+  },[])
+
+  useEffect(() => {
+    const via = router.query.via;
+    if(via) { router.push(`/${via}`)}
+  },[router])
+  
   if (isLoading) return <PageLoader/>
 
   return (
@@ -33,15 +49,13 @@ export default function Home() {
         <GoogleTags/>
         <PromoteKitTag/>
       </Head>
-      <main className={`flex min-h-screen flex-col items-center justify-between bg-background ${raleway.className}`}>
-        <Hero titleStart={"Save, Create & Customize"} titleEnd={"Recipes"} description={"Create AI generated recipes or instantly save your favorite recipes from YouTube & Tiktok!"} loginURL={"/login"}/>
+      <main className={`flex min-h-screen flex-col items-center justify-between bg-background w-screen space-y-48 ${raleway.className}`}>
+        <Hero titleStart={"Instantly Get Recipes from"} titleEnd={"TikTok"} description={"Quickly search your favorite tiktok chefs and get easy-to-read recipes"}/>
         <HomePageTools/>
-        <HomePageScroller/>
-        <div className="mt-24 md:mt-36"/>
+        <HomePageScroller creators={creators}/>
         <HomeVideoToRecipe/>
-        <div className=""/>
         <HomePageCTA/>
-        <div className="mt-24"/>
+        <CreatorCTA title={"Join Creator Program"} isHome={true}/>
         <HomeFAQ/>
       </main>
     </>

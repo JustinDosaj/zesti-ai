@@ -1,24 +1,18 @@
 import { Raleway } from 'next/font/google'
-import { useAuth } from '../../api/auth/auth'
-import { useState } from 'react'
 import { useRouter } from 'next/router'
 import Head from 'next/head'
-import { PricingDisplay } from '@/components/pricing'
+import { PricingDisplay } from '@/components/about/pricing'
 import GoogleTags from '@/components/tags/conversion'
 import { PromoteKitTag } from '@/components/tags/headertags'
-import { FreeSubscriptionHero, HomePageCTA, HomePageScroller, HomePageTools, HomeVideoToRecipe, HomeFAQ } from '@/components/home'
+import { HomePageCTA, HomePageScroller, HomePageTools, HomeVideoToRecipe, HomeFAQ, Hero, FreeSubscriptionBenefits } from '@/components/home'
 const raleway = Raleway({subsets: ['latin']})
 
 export default function Essential() {
     
-    const { user, stripeRole } = useAuth()
-    const [ isLoading, setIsLoading ] = useState<boolean>(false)
     const router = useRouter();
 
     const FreeClick = async () => {
-        setIsLoading(true);
-        router.push('/dashboard')
-        setIsLoading(false)
+        router.push('/my-recipes')
     }
 
   return (
@@ -32,9 +26,10 @@ export default function Essential() {
     </Head>
     <div className="bg-white">
     {/* Header */}
-    <main className={`flex min-h-screen flex-col items-center justify-between bg-background ${raleway.className}`}>
+    <main className={`flex min-h-screen flex-col items-center justify-between bg-background w-screen ${raleway.className}`}>
         {/* Background */}
-        <FreeSubscriptionHero/>
+        <Hero titleStart={"Use Zesti for"} titleEnd={"Free!"} description={"With the free version of Zesti you can search any creators and see their recipes"}/>
+        <FreeSubscriptionBenefits/>
         <PricingDisplay/>
         <HomePageTools/>
         <HomePageScroller/>

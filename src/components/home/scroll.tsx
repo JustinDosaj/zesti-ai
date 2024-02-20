@@ -1,40 +1,62 @@
 import { ChevronLeftIcon, ChevronRightIcon} from "@heroicons/react/20/solid"
 import Link from "next/link";
 import Image from "next/image";
+import { SharedHomeSectionTitle } from "../shared/title";
+
+export function FeaturedCreators({creators}: any) {
+
+    return(
+        <>
+            <div className="flex flex-col lg:flex-row justify-center text-center lg:items-center w-full gap-8">
+                <div className="flex flex-col">
+                    <SharedHomeSectionTitle titleBlack="Discover New Recipes from" titleOrange="TikTok Creators" desc="Discover new recipes & inspiration from creators on Zesti"/>
+                </div>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-8">
+            {/* Testimonial cards */}
+
+            {creators?.map((creator: any) => (
+                <TestimonialCard
+                    key={creator.display_url}
+                    name={creator.display_name}
+                    source="YouTube"
+                    desc={creator.bio_description}
+                    imageSrc={creator.avatar_url}
+                    href={`/${creator.display_url}`}
+                />
+            ))}
+            </div>
+        </>
+    )
+}
 
 export function ToolExamples() {
 
     return(
         <>
             <div className="flex flex-col lg:flex-row justify-center text-center lg:items-center w-full gap-8">
-                <div className="flex flex-col gap-6">
-                    <h1 className="text-4xl lg:text-5xl font-semibold text-gray-800">
-                        How Our Members Use
-                    <span className="primary-orange-text-gradient"> Zesti </span>
-                    </h1>
-                    <p className="section-desc-text-size text-gray-600 w-full">
-                        Click on any of the example below of people using Zesti to instantly save YouTube & TikTok videos or create unique AI recipes!
-                    </p>
+                <div className="flex flex-col">
+                    <SharedHomeSectionTitle titleBlack="What Our Members Say About" titleOrange="Zesti" desc="Click on any of the example below of people using Zesti to instantly save YouTube & TikTok videos or create unique AI recipes!"/>
                 </div>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-8">
             {/* Testimonial cards */}
             <TestimonialCard
-                name="Fluffy Blueberry Muffins"
+                name="Cards will be replaced by user testimonials"
                 source="YouTube"
                 desc="This delicious blueberry muffin recipe was converted from a YouTube video to an easy-to-read recipe by one of our members"
                 imageSrc="/images/stock-food/fresh-muffins.jpg"
                 href="/about/demos/youtube"
             />
             <TestimonialCard
-                name="French Toast Recipe"
+                name="Cards will be replaced by user testimonials"
                 source="AI Generated"
                 desc="Check out this simple French Toast recipe, created by Zesti AI"
                 imageSrc="/images/stock-food/french-toast.jpg"
                 href="/about/demos/creative"
             />
             <TestimonialCard
-                name="Hawaiian Roll Garlic Bread"
+                name="Cards will be replaced by user testimonials"
                 source="Tiktok"
                 desc="Tiktok is full of cooking ideas, which is why Zesti makes it easy to instantly save the recipes!"
                 imageSrc="/images/stock-food/Hawaiian-Roll.jpg"
@@ -95,16 +117,11 @@ export function Scroller({onRightScrollClick, onLeftScrollClick, scrollPage}: an
     )
 }
 
-function TestimonialCard({ name, source, desc, imageSrc, href }: any) {
+function TestimonialCard({ name, source, desc, imageSrc, href, key }: any) {
     return (
-      <Link href={href} className="flex flex-col items-start bg-white hover:bg-gray-200 hover:duration-200 p-4 rounded-3xl shadow-lg">
-        <Image src={imageSrc} alt="Profile" height={1000} width={1000} className="w-24 h-24 rounded-lg mb-4 object-fit" />
-        <p className="text-2xl font-medium text-gray-800 mb-2">{name}</p>
-        <p className="inline-flex text-sm font-medium text-gray-600 mb-4 space-x-1">
-            <span className="">Source:</span>
-            <span className="text-primary-main">{source}</span>
-        </p>
-        <p className="text-base text-gray-700 text-left">{desc}</p>
+      <Link href={href} className="flex flex-col items-center bg-white hover:bg-gray-200 hover:duration-200 p-4 rounded-3xl shadow-lg min-w-[225px]">
+        <img src={imageSrc} alt="Profile" height={1000} width={1000} className="w-24 h-24 rounded-2xl mb-4 object-fit orange-border-shadow" />
+        <p className="text-xl font-medium text-gray-700 mb-2">{name}</p>
       </Link>
     );
 }

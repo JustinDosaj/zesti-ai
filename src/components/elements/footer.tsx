@@ -1,11 +1,14 @@
 "use client;"
 
+import getConfig from "next/config"
+
 const navigation = {
     main: [
       { name: 'Home', href: '/' },
-      { name: 'Pricing', href: '/pricing' },
-      { name: 'Contact', href: '/contact' },
-      { name: 'Creator Program', href: '/about/creator-program' },
+      { name: 'Pricing', href: '/about/pricing'},
+      { name: 'Contact', href: '/about/contact' },
+      { name: 'Creator Program', href: '/about/creator' },
+      { name: 'Creator Application', href: '/account' },
       { name: 'Terms of Service', href: 'https://app.termly.io/document/terms-of-service/7fda3661-ebd6-42c4-9dfb-e66e58cd4253' },
       { name: 'Privacy Policy', href: 'https://app.termly.io/document/privacy-policy/728b76f9-24fe-480c-ad17-3c56ffa53417' },
     ],
@@ -33,17 +36,6 @@ const navigation = {
         ),
       },
     ],
-    alt: [
-      { name: 'Dish Gen', altId: 'dishgen' },
-      { name: 'Cook AI Food', altId: 'cookaifood' },
-      { name: 'ChefGPT', altId: 'chefgpt' },
-      { name: 'Basyl', altId: 'basyl' },
-      { name: 'Lets Foodie', altId: 'letsfoodie' },
-      { name: 'Food AI', altId: 'foodai' },
-      { name: 'Super Cook', altId: 'supercook' },
-      { name: 'Plant Jammer', altId: 'plantjammer'},
-      { name: 'Lionix', altId: 'lionix'},
-    ]
   }
 
 
@@ -51,10 +43,12 @@ var year = new Date().getFullYear()
 
 export function Footer() {
 
+    const { publicRuntimeConfig } = getConfig();
+
     return(
     <>
     <footer className="bg-gray-100">
-      <div className="mx-auto max-w-7xl overflow-hidden px-6 py-20 sm:py-24 lg:px-8">
+      <div className="mx-auto max-w-7xl overflow-hidden px-6 py-20 lg:px-8">
         <nav className="-mb-6 columns-2 sm:flex sm:justify-center sm:space-x-12" aria-label="Footer">
           {navigation.main.map((item) => (
             <div key={item.name} className="pb-6">
@@ -75,16 +69,7 @@ export function Footer() {
         <p className="mt-6 text-center text-xs leading-5 text-gray-500">
           &copy; {year} Vurge LLC. All rights reserved.
         </p>
-        <p className="mt-10 text-center text-gray-700 text-sm font-semi-bold">Alternatives</p>
-        <div className="mt-2 grid grid-cols-3 lg:flex lg:space-x-8 justify-center text-center">
-            {navigation.alt.map((item) => (
-              <a key={item.name} 
-                  className="text-xs leading-6 text-gray-600 hover:text-gray-900" 
-                  href={`/about/alternative/${item.altId}?altId=${item.altId}`}>
-                  <span>{item.name}</span>
-              </a>
-            ))}
-        </div>
+        <div className="text-gray-500 text-center text-xs">{`beta v${publicRuntimeConfig?.version}`}</div>
       </div>
     </footer>
     </>

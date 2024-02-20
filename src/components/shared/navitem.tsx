@@ -1,6 +1,6 @@
 import Link from "next/link"
 
-interface Props{
+interface Props {
     href: string,
     text: string,
 }
@@ -8,7 +8,7 @@ interface Props{
 export function Navitem({href, text}: Props) {
     return(
     <li key={text}>
-        <Link href={href} key={text} className="duration-300 font-medium ease-linear hover:text-primary-main py-3">
+        <Link href={href} key={text} className="duration-300 font-medium ease-linear text-gray-700 hover:text-primary-main py-3">
             {text}
         </Link>
     </li>
