@@ -23,8 +23,6 @@ interface ModalProps {
   displayAd: boolean,
   role?: string | null,
   buttonName?: string,
-  isCreatorModalOpen?: boolean,
-  setIsCreatorModalOpen?: any,
 }
 
 
@@ -123,9 +121,13 @@ export function ResponseModal({title, text, icon: Icon, modalFunction, isOpen, s
   )
 }
 
+interface AddRecipeModalProps {
+  isCreatorModalOpen?: boolean,
+  setIsCreatorModalOpen?: any,
+}
 
 // Specific modal for creator to input required information to upload recipe to page
-export function CreatorAddRecipeModal({isCreatorModalOpen, setIsCreatorModalOpen}: ModalProps) {
+export function CreatorAddRecipeModal({isCreatorModalOpen, setIsCreatorModalOpen}: AddRecipeModalProps) {
 
 
   const { creatorData, user } = useAuth()
