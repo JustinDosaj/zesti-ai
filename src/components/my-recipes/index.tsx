@@ -3,7 +3,15 @@ import Link from 'next/link'
 import React, { useState, useEffect, useRef  } from "react"
 import { Button } from "../shared/button"
 import { RecipeListLoader } from "../shared/loader";
-import { UserSavedRecipeListProps, RecipeCardProps } from '../shared/interface';
+
+interface UserSavedRecipeListProps {
+    recipes: any,
+    creatorName?: string,
+    maxDisplayCount?: number,
+    incrementCount?: number,
+    max?: number,
+    loading?: boolean,
+}
   
 export function UserSavedRecipeList({recipes, maxDisplayCount = 5, incrementCount = 10, max = 0, loading}: UserSavedRecipeListProps) {
 
@@ -64,7 +72,13 @@ return(
 </div>
 )
 }
-  
+ 
+interface RecipeCardProps {
+    item: any,
+    creatorName?: string,
+    key?: any,
+}
+
 export function UserRecipeListCard({item, key}: RecipeCardProps) {
     return(
     <div key={key} className="group relative w-[350px] lg:w-[425px]">

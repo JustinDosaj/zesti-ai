@@ -8,7 +8,6 @@ import { CreatorAddRecipeLinkComponent, CreatorAddRecipeTextComponent, CreatorRe
 import { handleCreatorTikTokURLSubmit } from '@/pages/api/handler/submit'
 import { useAuth } from '@/pages/api/auth/auth'
 import { deleteCreatorError } from '@/pages/api/firebase/functions'
-import { ModalResponseProps } from './interface'
 import { classNames } from './classNames'
 import { useRouter } from 'next/router'
 
@@ -24,7 +23,10 @@ interface ModalProps {
   displayAd: boolean,
   role?: string | null,
   buttonName?: string,
+  isCreatorModalOpen?: boolean,
+  setIsCreatorModalOpen?: any,
 }
+
 
 export function ResponseModal({title, text, icon: Icon, modalFunction, isOpen, setIsOpen, displayAd, role, buttonName, iconColor}: ModalProps) {
 
@@ -123,7 +125,7 @@ export function ResponseModal({title, text, icon: Icon, modalFunction, isOpen, s
 
 
 // Specific modal for creator to input required information to upload recipe to page
-export function CreatorAddRecipeModal({isCreatorModalOpen, setIsCreatorModalOpen}: ModalResponseProps) {
+export function CreatorAddRecipeModal({isCreatorModalOpen, setIsCreatorModalOpen}: ModalProps) {
 
 
   const { creatorData, user } = useAuth()

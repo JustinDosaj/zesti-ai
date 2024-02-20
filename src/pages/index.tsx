@@ -6,10 +6,17 @@ import { PageLoader } from '@/components/shared/loader';
 import { PromoteKitTag } from '@/components/tags/headertags';
 import { Raleway } from 'next/font/google'
 import { useState, useEffect } from 'react';
-import { Creator } from '@/components/shared/interface';
 import { GetRandomCreatorsForHomepage } from './api/firebase/functions';
 import { useRouter } from 'next/router';
 const raleway = Raleway({subsets: ['latin']})
+
+
+interface Creator {
+  name: string;
+  desc: string;
+  imageSrc: string;
+  href: string;
+}
 
 export default function Home() {
   

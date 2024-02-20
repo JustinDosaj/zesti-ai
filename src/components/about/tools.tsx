@@ -8,8 +8,17 @@ import { handleTikTokURLSubmit } from "@/pages/api/handler/submit";
 import React, { useState, useEffect } from 'react';
 import { Notify } from '../shared/notify';
 import { SharedHomeSectionTitle } from "../shared/title";
-import { ToolHeroProps } from "../shared/interface";
 import { useRouter } from "next/router";
+
+
+interface ToolHeroProps {
+    role: string | null,
+    tokens: number,
+    titleStart?: string,
+    titleEnd?: string,
+    description?: string
+}
+
 
 export function ToolHero({role, tokens, titleStart, titleEnd, description}: ToolHeroProps){
 

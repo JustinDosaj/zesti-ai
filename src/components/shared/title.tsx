@@ -1,7 +1,11 @@
 import { Container } from "./container"
 import { ChevronDoubleLeftIcon } from "@heroicons/react/20/solid"
-import { TextProps } from "./interface"
 import Link from "next/link"
+
+interface TextProps {
+    children?: React.ReactNode,
+    className?:string,
+}
 
 export function Title({children, className}: TextProps) {
     return(

@@ -7,7 +7,16 @@ import { Notify } from '@/components/shared/notify';
 import React, { useState, useEffect } from "react"
 import { Button, AltButton } from "@/components/shared/button"
 import { saveFromCreatorToUser } from "@/pages/api/firebase/functions"
-import { RecipeProps } from "@/components/shared/interface"
+
+interface RecipeProps {
+    recipe: any,
+    url?: string,
+    setLoginPrompt?: any
+    setPremiumPrompt?: any
+    owner_id?: string,
+    setEditMode?: any,
+    role?: any,
+}
 
 export function CreatorRecipe({recipe, owner_id, setEditMode}: RecipeProps) {
 
