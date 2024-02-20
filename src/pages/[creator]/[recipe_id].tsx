@@ -11,6 +11,11 @@ import { getCreatorByDisplayName } from "../api/firebase/functions";
 import Breadcrumbs from "@/components/shared/breadcrumb";
 import useSetBreadcrumbs from "@/components/shared/setBreadcrumbs";
 import useCreatorRecipe from "@/hooks/creator/useCreatorRecipe";
+import { Chatbox } from "@/components/chat/chatbox";
+import { ResponseModal } from "@/components/shared/modals";
+import { BookmarkIcon } from "@heroicons/react/20/solid";
+import { useRouter } from "next/router";
+import { getCookie } from "../api/handler/cookies";
 
 const raleway = Raleway({subsets: ['latin']})
 
@@ -35,11 +40,14 @@ const Recipe: React.FC = ({id, owner_uid}: any) => {
 
     useSetBreadcrumbs()
 
-    const { user } = useAuth();
+    const { user, stripeRole } = useAuth();
     const [ isEditMode, setEditMode ] = useState<boolean>(false)
+    const [ isOpen, setIsOpen ] = useState<boolean>(false)
     const { creatorRecipe, isLoadingCreatorRecipe } = useCreatorRecipe(owner_uid, id)
+    const router = useRouter()
 
     if(isLoadingCreatorRecipe) return <PageLoader/>
+
 
     return(
     <>
@@ -53,11 +61,24 @@ const Recipe: React.FC = ({id, owner_uid}: any) => {
     </Head>  
     <main className={`flex min-h-screen flex-col items-center p-6 bg-background w-screen ${raleway.className}`}>
         <Breadcrumbs/>
-        {isEditMode == false || !user || user?.uid !== owner_uid ? 
-        <CreatorRecipe recipe={creatorRecipe} owner_id={owner_uid} setEditMode={setEditMode}/>
+        { isEditMode == false || !user || user?.uid !== owner_uid ? 
+        <CreatorRecipe recipe={creatorRecipe} owner_id={owner_uid} setEditMode={setEditMode} setIsOpen={setIsOpen}/>
         :
         <EditCreatorRecipe recipe={creatorRecipe} owner_id={owner_uid} setEditMode={setEditMode}/>
         }
+        { stripeRole == 'premium' ? <Chatbox role={stripeRole}/> : <></> }
+        <ResponseModal
+          title={`${creatorRecipe.name} Saved!`}
+          text={`You can further support ${creatorRecipe.owner_display_name} by upgrading to premium!`}
+          icon={BookmarkIcon}
+          iconColor={'green'}
+          modalFunction={() => router.push('/my-recipes')}
+          isOpen={isOpen}
+          setIsOpen={setIsOpen}
+          displayAd={false}
+          role={stripeRole}
+          buttonName={"Go to Recipes"}
+        />
     </main>
     </>
     )

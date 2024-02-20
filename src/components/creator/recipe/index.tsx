@@ -10,6 +10,7 @@ import { saveFromCreatorToUser } from "@/pages/api/firebase/functions"
 
 interface RecipeProps {
     recipe: any,
+    setIsOpen?: any,
     url?: string,
     setLoginPrompt?: any
     setPremiumPrompt?: any
@@ -18,7 +19,7 @@ interface RecipeProps {
     role?: any,
 }
 
-export function CreatorRecipe({recipe, owner_id, setEditMode}: RecipeProps) {
+export function CreatorRecipe({recipe, owner_id, setEditMode, setIsOpen}: RecipeProps) {
 
     const { user } = useAuth()
 
@@ -28,7 +29,7 @@ export function CreatorRecipe({recipe, owner_id, setEditMode}: RecipeProps) {
             <span className="section-desc-title-size text-center">{recipe.name}</span>
             <p className="text-center text-gray-500 text-sm">{recipe.title}</p>
         </div>
-        <CreatorRecipeLinks recipe={recipe} isEdit={false}/>
+        <CreatorRecipeLinks recipe={recipe} isEdit={false} setIsOpen={setIsOpen}/>
         <div className="space-y-2">
             <h2 className="section-desc-text-size font-semibold">Ingredients</h2>
             <ul className="space-y-2 list-disc pl-6 text-black">
@@ -245,9 +246,10 @@ export function EditCreatorRecipe({recipe, setLoginPrompt, owner_id, setEditMode
 interface CreatorRecipeLinksProps {
     recipe: any,
     isEdit: boolean,
+    setIsOpen?: any,
 }
 
-export function CreatorRecipeLinks({recipe, isEdit}: CreatorRecipeLinksProps) {
+export function CreatorRecipeLinks({recipe, isEdit, setIsOpen}: CreatorRecipeLinksProps) {
 
     const router = useRouter()
     const { isLoading, user } = useAuth()
@@ -282,7 +284,7 @@ export function CreatorRecipeLinks({recipe, isEdit}: CreatorRecipeLinksProps) {
                     if (user && !isLoading) {
                         try {
                             await saveFromCreatorToUser(user?.uid, recipe.id, recipe);
-                            Notify("Recipe saved to your dashboard");
+                            setIsOpen(true)
                             return true; // Explicitly returning a boolean value
                         } catch (error) {
                             console.error("Error saving recipe:", error);
