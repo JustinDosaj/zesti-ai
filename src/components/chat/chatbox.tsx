@@ -6,6 +6,13 @@ import { doc, setDoc, collection, onSnapshot, query, orderBy, where, Timestamp }
 import { InlineButton } from '../shared/button';
 import { AIChatMessageProps } from '../shared/interface';
 
+interface AIChatMessageProps {
+  id: string;
+  sender: string;
+  text: string;
+  timestamp: Date | { seconds: number, nanoseconds: number }; // Adjust based on the actual shape of the timestamp
+}
+
 export function Chatbox() {
     
   const [isOpen, setIsOpen] = useState<boolean>(false);
