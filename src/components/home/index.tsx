@@ -1,52 +1,108 @@
 import { Container } from "../shared/container"
-import { ArrowRightIcon, CheckIcon, StarIcon, VideoCameraIcon, ComputerDesktopIcon, MinusSmallIcon, PlusSmallIcon, ArrowDownIcon} from "@heroicons/react/20/solid"
-import Link from "next/link"
+import { ChatBubbleLeftIcon, CheckIcon, StarIcon, MinusSmallIcon, PlusSmallIcon, ArrowDownIcon, BookOpenIcon, CheckCircleIcon, BeakerIcon} from "@heroicons/react/20/solid"
 import { useState, useEffect, useRef } from "react"
-import { ToolExamples, Scroller, DashboardExample } from "./scroll"
-import { Button, BtnLink } from "../shared/button"
+import { ToolExamples, Scroller, FeaturedCreators, DashboardExample } from "./scroll"
+import { Button } from "../shared/button"
 import Image from "next/image"
 import { Disclosure } from "@headlessui/react"
-import { useAuth } from "@/pages/api/auth/auth"
+import { SharedHomeSectionTitle } from "../shared/title"
+import { Search } from "../search"
+import Link from "next/link"
 import { useRouter } from "next/router"
-import { Loader } from "../shared/loader"
-import { createPremiumCheckoutSession } from "@/pages/api/stripe/stripePremium"
+import { useAuth } from "@/pages/api/auth/auth"
+import getConfig from "next/config"
+
+
+
+interface HeroProps {
+  titleStart?: string,
+  titleEnd?: string,
+  description?: string,
+}
+
+export function Hero({titleStart, titleEnd, description}: HeroProps) {
+
+  const { publicRuntimeConfig } = getConfig();
+
+  return(
+      <Container className="flex flex-col lg:flex-row items-center justify-between pt-36 px-5 space-x-4 xl:pt-48 animate-fadeIn">
+        <div className="flex lg:w-1/2 flex-col gap-6 lg:gap-8">
+          <div className="inline-flex w-fit mx-auto lg:mx-0 items-center border border-gray-300 rounded-3xl p-2 space-x-1 ">
+              <BeakerIcon className="text-black h-4 w-4"/>
+              <div className="text-black font-bold text-sm">{`beta v${publicRuntimeConfig?.version}`}</div>
+          </div>
+          <div className="flex flex-col gap-8 text-center lg:text-left">
+            <h1 className="section-title-text-size xl:text-6xl font-bold text-gray-800">
+              <span className="text-gray-700"> {titleStart} </span>
+              <span className="primary-orange-text-gradient"> {titleEnd} </span>
+              <br />
+            </h1>
+            <p className="section-desc-text-size font-medium text-gray-600">
+              {description}
+            </p>
+          </div>
+          <div className="grid justify-center lg:justify-start text-left space-y-1">
+            <Search searchLocation="home"/>
+          </div>
+
+          <div className="grid grid-cols-3 lg:flex justify-center lg:justify-start lg:space-x-16">
+            <StatisticItem number="3200+" label="Recipes" />
+            <StatisticItem number="540+" label="Users" />
+            <StatisticItem number="$0/mo." label="Price" />
+          </div>
+        </div>
+
+
+          <div className="hidden lg:block w-1/2 bg-transparent rounded-lg">
+            <Image src={"/images/Illustration.png"} alt="Profile" height={2058} width={2150} className="object-fit" />
+          </div> {/* Placeholder for the illustration */}
+        
+      </Container>
+  )
+}
+
+export function StatisticItem({ number, label }: any) {
+  return (
+    <div className="flex flex-col items-center">
+      <p className="text-2xl font-semibold text-gray-700">{number}</p>
+      <p className="text-base font-medium text-gray-600">{label}</p>
+    </div>
+  );
+}
 
 export function HomePageTools() {
 
     const tools = [
         {
-          name: 'AI Recipe Generator',
-          description: 'Create a recipe from a list of ingredients, description or dish name.',
+          name: 'Find TikTok Chefs',
+          description: 'Find recipes by your favorite TikTok cooking influencers',
           icon: StarIcon,
-          href: '/about/tools/create-recipe'
         },
         {
-          name: 'Save Tiktok & YouTube Recipes',
-          description: 'No more pausing or rewinding cooking videos to get every detail.',
-          icon: VideoCameraIcon,
-          href: '/about/tools/social-media-recipe'
+          name: 'Recipe Perfection',
+          description: 'Save recipes for later and customize them to perfection',
+          icon: BookOpenIcon,
         },
         {
-          name: 'Clutterless Web Recipes',
-          description: 'Remove clutter and excess ads from website recipes using Zesti',
-          icon: ComputerDesktopIcon,
-          href: '/about/tools/web-recipe'
+          name: 'AI Cooking Assistant',
+          description: 'Get your cooking questions answered fast without leaving your recipe',
+          icon: ChatBubbleLeftIcon,
         },
       ]
 
     return(
-    <Container className={"py-32 lg:py-48 px-5 animate-fadeIn"}>
+    <Container className={" px-5 animate-fadeIn"}>
         <div className="w-full max-w-7xl mx-auto space-y-12">
             <div className="flex flex-col lg:flex-row justify-start lg:justify-between items-center gap-8 lg:gap-14 text-center lg:text-left">
                 <p className="section-title-text-size font-semibold text-gray-700 lg:w-1/3">
-                USE THE BEST
+                FIND THE BEST
                 <br />
-                <span className="primary-orange-text-gradient"> AI RECIPE TOOLS</span>
+                <span className="primary-orange-text-gradient"> TIKTOK RECIPES </span>
                 <br />
                 AROUND
                 </p>
                 <p className="w-full lg:w-1/2 section-desc-text-size text-gray-600">
-                Zesti makes it easy for you to discover and try new recipes Instantly save video recipes or create your own using AI!
+                 Turn delicous recipes you see online into delicious recipes for you and your family!
                 </p>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3  gap-10">
@@ -56,7 +112,6 @@ export function HomePageTools() {
                     <div className="flex flex-col gap-3">
                         <p className="text-xl font-semibold text-gray-800 mb-2">{tool.name}</p>
                         <p className="text-base text-gray-600 flex-grow">{tool.description}</p>
-                        <Link href={tool.href} className="text-base text-primary-main hover:text-primary-alt inline-flex gap-x-1 items-center">Learn more<ArrowRightIcon className="w-5 h-5"/></Link>
                     </div>
                 </div>
                 ))}
@@ -66,7 +121,7 @@ export function HomePageTools() {
     )
 }
 
-export function HomePageScroller() {
+export function HomePageScroller({creators}: any) {
 
     const [ scrollPage, setScrollPage] = useState<number>(1)
 
@@ -89,7 +144,7 @@ export function HomePageScroller() {
 
     if (scrollPage == 1) return(
       <Container className="home-scroll-container animate-fadeIn"> 
-        <ToolExamples/>
+        <FeaturedCreators creators={creators}/>
         <Scroller onRightScrollClick={onRightScrollClick} onLeftScrollClick={onLeftScrollClick} scrollPage={scrollPage}/>
       </Container> 
     )
@@ -116,20 +171,15 @@ export function HomePageScroller() {
 
 export function HomePageCTA() {
   return(
-    <Container className="relative w-full max-w-6xl mx-auto py-24 px-5 animate-fadeIn">
+    <Container className="relative w-full max-w-6xl mx-auto px-5 animate-fadeIn">
       <div className="flex flex-col items-center gap-8 orange-border-shadow rounded-3xl p-6 lg:p-12">
-        <div className="flex flex-col items-center gap-6">
-          <p className="w-full md:w-96 text-xl font-medium text-center primary-orange-text-gradient">
+        <div className="flex flex-col items-center text-center">
+          <p className="w-full md:w-96 text-xl font-medium text-center primary-orange-text-gradient mb-3">
             Check Out Premium
           </p>
-          <h1 className="section-title-text-size font-semibold text-center text-gray-700">
-            Try Free for 7-Days
-          </h1>
-          <p className="w-full section-desc-text-size font-medium text-center text-gray-600 opacity-70">
-            Get more out of Zesti when you use premium by gaining access to every feature Zesti offers and increased monthly usage! 
-          </p>
+          <SharedHomeSectionTitle titleBlack="Try Free for 7-Days" desc="Get more out of Zesti when you use premium by gaining access to every feature Zesti offers and increased monthly usage!"/>
         </div>
-        <BtnLink href='/pricing' text="Get Started" className="text-lg font-medium text-center text-white"/>
+        <Button isLink={true} href='/about/pricing' text="Get Started" className="text-lg font-medium text-center text-white"/>
       </div>
     </Container>
   )
@@ -161,17 +211,12 @@ export function HomeFAQ() {
     // More questions...
   ]
   return (
-    <Container className={"flex flex-col lg:flex-row gap-10 lg:gap-12 animate-fadeIn"}>
+    <Container className={"flex flex-col lg:flex-row gap-10 lg:gap-12 animate-fadeIn pb-28"}>
     <div className="bg-white w-full">
-      <div className="mx-auto max-w-7xl px-6 pb-32">
+      <div className="mx-auto max-w-7xl px-6">
         <div className="mx-auto max-w-4xl divide-y divide-gray-900/10">
-          <div className="flex flex-col items-center gap-6">
-            <p className="section-title-text-size font-semibold text-center text-gray-700">
-              FAQ
-            </p>
-            <p className="w-full section-desc-text-size font-medium text-center text-gray-600 opacity-70">
-              Get some of the most common questions we are asked answered right away!
-            </p>
+          <div className="flex flex-col items-center text-center">
+            <SharedHomeSectionTitle titleBlack="FAQ" desc="Get some of the most common questions we are asked answered right away!"/>
           </div>
           <dl className="mt-10 space-y-6 divide-y divide-gray-900/10">
             {faqs.map((faq) => (
@@ -205,21 +250,12 @@ export function HomeFAQ() {
   )
 }
 
-export function StatisticItem({ number, label }: any) {
-  return (
-    <div className="flex flex-col items-center">
-      <p className="text-2xl font-semibold text-gray-700">{number}</p>
-      <p className="text-base font-medium text-gray-600">{label}</p>
-    </div>
-  );
-}
-
 export function HomeVideoToRecipe() {
 
   const tikTokRef = useRef(null);
 
   useEffect(() => {
-    // Function to load the TikTok embed script
+    // Function to load tFe TikTok embed script
     const loadTikTokScript = () => {
       const script = document.createElement('script');
       script.src = 'https://www.tiktok.com/embed.js';
@@ -243,17 +279,11 @@ export function HomeVideoToRecipe() {
   }, []);
 
   return(
-    <Container className="relative w-full max-w-6xl mx-auto py-12 px-5 animate-fadeIn ">
+    <Container className="relative w-full max-w-6xl mx-auto px-5 animate-fadeIn ">
         <div className="flex flex-col lg:flex-row justify-center text-center lg:items-center w-full gap-8 p-2 xl:orange-border-shadow rounded-3xl">
-            <div className="flex flex-col gap-6">
-                <h1 className="text-4xl lg:text-5xl font-semibold text-gray-800 mt-6">
-                    From Video to 
-                <span className="primary-orange-text-gradient"> Recipe </span>
-                </h1>
-                <p className="section-desc-text-size text-gray-600 w-full">
-                    Zesti can quickly create an ingredient list & instructions from your favorite TikTok & YouTube cooking videos!
-                </p>
-                <div className="grid grid-cols-1 xl:grid-cols-2 justify-center">
+            <div className="flex flex-col mt-8">
+                <SharedHomeSectionTitle titleBlack="From Video to" titleOrange="Recipe" desc="Zesti can quickly create an ingredient list & instructions from your favorite TikTok cooking videos!"/>
+                <div className="grid grid-cols-1 xl:grid-cols-2 justify-center mt-4">
                   <div className="mx-auto" ref={tikTokRef}></div>
                   <div className="block xl:hidden mx-auto my-auto p-12 text-center">
                       <ArrowDownIcon className="block xl:hidden h-20 w-20 text-white bg-primary-main p-4 rounded-full"/>
@@ -272,134 +302,40 @@ export function HomeVideoToRecipe() {
   )
 }
 
-interface HeroProps {
-  titleStart: string,
-  titleEnd: string,
-  description: string,
-  loginURL: string,
-}
-
-export function Hero({titleStart, titleEnd, description, loginURL}: HeroProps) {
-  const { user, stripeRole } = useAuth()
-  const router = useRouter()
-
-  return(
-      <Container className="flex flex-col lg:flex-row items-center justify-between pt-36 px-5 space-x-4 xl:pt-48 animate-fadeIn">
-        <div className="flex lg:w-1/2 flex-col gap-6 lg:gap-8">
-          <div className="inline-flex w-fit mx-auto lg:mx-0 items-center border border-gray-300 rounded-3xl p-2 space-x-1 ">
-              <div className="text-black font-bold text-sm">Powered By OpenAI</div>
-              <Image width={20} height={20} src="/images/openaipng.png" alt="Powered by OpenAI Chatgpt AI Technology Tool" className=" "/>
-          </div>
-          <div className="flex flex-col gap-8 text-center lg:text-left">
-            <h1 className="section-title-text-size xl:text-6xl font-bold text-gray-700">
-              <span className="text-gray-700"> {titleStart} </span>
-              <span className="primary-orange-text-gradient"> {titleEnd} </span>
-              <br />
-            </h1>
-            <p className="section-desc-text-size font-medium text-gray-600">
-              {description}
-            </p>
-          </div>
-          <div className="grid justify-center lg:justify-start space-y-1">
-            {!user ?
-            <div className="grid justify-center lg:justify-start space-y-0.5">
-              <Button buttonType="button" text="Get Started for Free" className="w-fit" onClick={() => router.push(loginURL)}/>
-            </div>
-            :
-            <div className="grid justify-center lg:justify-start space-y-0.5">
-              <Button buttonType="button" text="Go to Dashboard" className="w-fit" onClick={() => router.push('/dashboard')}/>
-            </div>
-            }
-            <p className="text-sm text-center text-gray-500/90 mx-auto lg:mx-1">No Credit Card Required</p>
-          </div>
-
-          <div className="grid grid-cols-3 lg:flex justify-center lg:justify-start lg:space-x-16">
-            <StatisticItem number="3200+" label="Recipes" />
-            <StatisticItem number="540+" label="Users" />
-            <StatisticItem number="$0/mo." label="Price" />
-          </div>
-        </div>
-
-
-          <div className="hidden lg:block w-1/2 bg-transparent rounded-lg">
-            <Image src={"/images/Illustration.png"} alt="Profile" height={2058} width={2150} className="object-fit" />
-          </div> {/* Placeholder for the illustration */}
-        
-      </Container>
-  )
-}
-
-export function PremiumSubscriptionHero() {
+export function PremiumSubscriptionBenefits() {
 
   const features = [
     {
     name: 'Save 30 Recipes Per Month',
     description: 'Premium users are limited to 30 Tiktok, YouTube or Website recipe saves, but does not limit the AI recipe generator',
     },
-  {
-    name: 'Save TikTok & YouTube Recipes',
-    description: 'Instantly save video recipes from TikTok or YouTube so you no longer have to pause, rewind or replay',
-  },
-  {
-    name: 'Max Video Length',
-    description: 'Premium users have a max video length of 15 minutes when saving TikTok or YouTube Recipes',
-  },
-  {
-    name: 'Unlimited AI Generated Recipes',
-    description: 'Use the AI Recipe Generator unlimited times so you will never run out of meal ideas',
-  },
-  {
-    name: 'AI Cooking Support',
-    description: 'Access an AI chat assistant while viewing a recipe so you can get all your cooking questions answered without losing your place',
-  },
-  {
-    name: 'Customize Recipes',
-    description: 'Freely edit ingredients and instructions of recipes to make them your own',
-  },
-  {
-    name: 'Ad-Free',
-    description: 'Get a 100% ad-free experience when you subscribe to Zesti premium',
-  },
+    {
+      name: 'Save TikTok & YouTube Recipes',
+      description: 'Instantly save video recipes from TikTok or YouTube so you no longer have to pause, rewind or replay',
+    },
+    {
+      name: 'Max Video Length',
+      description: 'Premium users have a max video length of 15 minutes when saving TikTok or YouTube Recipes',
+    },
+    {
+      name: 'Unlimited AI Generated Recipes',
+      description: 'Use the AI Recipe Generator unlimited times so you will never run out of meal ideas',
+    },
+    {
+      name: 'AI Cooking Support',
+      description: 'Access an AI chat assistant while viewing a recipe so you can get all your cooking questions answered without losing your place',
+    },
+    {
+      name: 'Customize Recipes',
+      description: 'Freely edit ingredients and instructions of recipes to make them your own',
+    },
+    {
+      name: 'Ad-Free',
+      description: 'Get a 100% ad-free experience when you subscribe to Zesti premium',
+    },
   ]
 
-  const { user, stripeRole } = useAuth()
-  const [ isLoading, setIsLoading ] = useState<boolean>(false)
-  const router = useRouter();
-
-  const PremiumClick = async () => {
-      setIsLoading(true);
-      await createPremiumCheckoutSession(user?.uid)
-  }
-
   return(
-  <>
-    <div className="px-6 pt-14 lg:px-8">
-      <div className="mx-auto max-w-6xl pt-24 text-center sm:pt-40 space-y-8">
-          <h1 className="text-4xl/tight sm:text-4xl/tight md:text-5xl/tight xl:text-6xl/tight font-bold text-heading-1 mt-6">
-                  
-              <span className="text-gray-700">Try</span>       
-              <span className="primary-orange-text-gradient"> Zesti Premium </span>
-              <span className="text-gray-700">Free for 7-Days</span> 
-          </h1>
-          <div className="mt-6 text-lg leading-8 text-gray-700 section-desc-text-size ">
-              Save 10x more recipes & access every feature available!
-          </div>
-          {isLoading == true ?
-          <div className="flex justify-center">
-            <Loader/>
-          </div>
-          :
-          user && stripeRole !== 'premium' ? 
-          <Button text="Start Free Trial!" onClick={PremiumClick} buttonType="button"/>
-          : !user ?
-          <Button text="Login to Begin Trial" onClick={() => router.push('/login')} buttonType="button" className=""/>
-          :
-          <Button text="Go to Dashboard" onClick={() => router.push('/dashboard')} buttonType="button" className=""/>
-          }
-      </div>
-    </div>
-
-    {/* Description Section */}
     <div className="bg-white py-24 sm:py-32">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
             <div className="mx-auto grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 sm:gap-y-20 lg:mx-0 lg:max-w-none lg:grid-cols-3">
@@ -424,50 +360,35 @@ export function PremiumSubscriptionHero() {
             </div>
         </div>
     </div>
-  </>
   )
 }
 
-export function FreeSubscriptionHero() {
+export function FreeSubscriptionBenefits() {
+
   const features = [
     {
     name: 'Save 3 Recipes Per Month',
     description: 'Save or create up to 3 recipes per month from the AI recipe generator, a website, YouTube, or TikTok',
     },
-  {
-    name: 'Save TikTok & YouTube Recipes',
-    description: 'Instantly save video recipes from TikTok or YouTube so you no longer have to pause, rewind or replay',
-  },
-  {
-    name: 'Max Video Length',
-    description: 'Base users have a max video length of 5 minutes when saving TikTok or YouTube Recipes',
-  },
-  {
-    name: 'AI Recipe Generator',
-    description: 'Use Zesti AI to generate recipe ideas out of nothing or from ingredients you have around the kitchen',
-  },
-  {
-    name: 'Customize Recipes',
-    description: 'Freely edit ingredients and instructions of recipes to make them your own',
-  },
+    {
+      name: 'Save TikTok & YouTube Recipes',
+      description: 'Instantly save video recipes from TikTok or YouTube so you no longer have to pause, rewind or replay',
+    },
+    {
+      name: 'Max Video Length',
+      description: 'Base users have a max video length of 5 minutes when saving TikTok or YouTube Recipes',
+    },
+    {
+      name: 'AI Recipe Generator',
+      description: 'Use Zesti AI to generate recipe ideas out of nothing or from ingredients you have around the kitchen',
+    },
+    {
+      name: 'Customize Recipes',
+      description: 'Freely edit ingredients and instructions of recipes to make them your own',
+    },
   ]
 
-return(
-  <>
-    {/* Header section */}
-    <div className="px-6 pt-14 lg:px-8">
-      <div className="mx-auto max-w-5xl pt-24 text-center sm:pt-40">
-          <h1 className="text-4xl/tight sm:text-4xl/tight md:text-5xl/tight xl:text-6xl/tight font-bold text-heading-1 mt-6">     
-              <span className="text-gray-700">Zesti</span>       
-              <span className="primary-orange-text-gradient"> Base</span>
-          </h1>
-          <div className="mt-6 leading-8 text-gray-700 section-desc-text-size">
-              Zesti Base is our free-to-use version that grants users access to some of our most popular features
-          </div>
-      </div>
-    </div>
-
-    {/* Description Section */}
+  return(
     <div className="bg-white py-24 sm:py-32">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
             <div className="mx-auto grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 sm:gap-y-20 lg:mx-0 lg:max-w-none lg:grid-cols-3">
@@ -492,6 +413,171 @@ return(
             </div>
         </div>
     </div>
-  </>
   )
+}
+
+interface CreatorCTAProps {
+  isHome: boolean,
+  title: string,
+}
+
+export function CreatorCTA({isHome, title}: CreatorCTAProps) {
+  const benefits = [
+    'Zero Fees',
+    'Display Recipes for Viewers',
+    'Auto-Translate Videos Using AI',
+    'Get Discovered Through Zesti',
+    'Earn 30% from Referred Subscriptions',
+  ]
+  
+  return(
+      <div className="relative isolate p-4">
+        <div className="mx-auto max-w-7xl sm:px-6 lg:px-8">
+          <div className="mx-auto flex max-w-2xl flex-col gap-16 bg-transparent rounded-3xl orange-border-shadow px-6 py-16 ring-1 ring-white/10 sm:rounded-3xl sm:p-8 lg:mx-0 lg:max-w-none lg:flex-row lg:items-center lg:py-20 xl:gap-x-20 xl:px-20">
+            <img
+              className="h-96 w-full flex-none rounded-2xl object-cover lg:aspect-square lg:h-auto lg:max-w-sm"
+              src="/images/no-bg-iso.png"
+              alt=""
+            />
+            <div className="w-full flex-auto">
+              <h2 className="text-4xl lg:text-5xl font-semibold tracking-tight text-gray-700 sm:text-4xl">{title}</h2>
+              <p className="mt-6 leading-8 text-gray-600 section-desc-text-size">
+                Love posting your videos to TikTok? Join our creator program to put your recipes on display for all your viewers!
+              </p>
+              <ul
+                role="list"
+                className="mt-10 grid grid-cols-1 gap-x-8 gap-y-3 text-base leading-7 text-gray-600 sm:grid-cols-2"
+              >
+                {benefits.map((benefit) => (
+                  <li key={benefit} className="flex gap-x-3">
+                    <CheckCircleIcon className="h-7 w-5 flex-none text-green-600" aria-hidden="true" />
+                    {benefit}
+                  </li>
+                ))}
+              </ul>
+              <div className="mt-10 flex justify-end">
+                { isHome == true ?
+                <Link href="/about/creator" className="text-sm font-semibold leading-6 text-primary-main">
+                  Learn More <span aria-hidden="true">&rarr;</span>
+                </Link>
+                :
+                <Link href="/account" className="text-sm font-semibold leading-6 text-primary-main">
+                  Apply Now <span aria-hidden="true">&rarr;</span>
+                </Link>
+                }
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+  
+  )
+}
+
+export function CreatorHero({titleStart, titleEnd, description}: HeroProps) {
+
+  const router = useRouter()
+  const { user } = useAuth()
+
+  return(
+      <Container className="flex flex-col lg:flex-row items-center justify-between pt-36 px-5 space-x-4 xl:pt-48 animate-fadeIn">
+        <div className="flex lg:w-1/2 flex-col gap-6 lg:gap-8">
+          <div className="inline-flex w-fit mx-auto lg:mx-0 items-center border border-gray-300 rounded-3xl p-2 space-x-1 ">
+              <div className="text-black font-bold text-sm">Powered By OpenAI</div>
+              <Image width={20} height={20} src="/images/openaipng.png" alt="Powered by OpenAI Chatgpt AI Technology Tool" className=" "/>
+          </div>
+          <div className="flex flex-col gap-8 text-center lg:text-left">
+            <h1 className="section-title-text-size xl:text-6xl font-bold text-gray-800">
+              <span className="text-gray-700"> {titleStart} </span>
+              <span className="primary-orange-text-gradient"> {titleEnd} </span>
+              <br />
+            </h1>
+            <p className="section-desc-text-size font-medium text-gray-600">
+              {description}
+            </p>
+          </div>
+          <div className="grid justify-center lg:justify-start text-left space-y-1">
+            { user ?
+            <Button isLink={false} text="Apply to Join" buttonType="button" onClick={() => router.push('/about/creator/apply') }/>
+            :
+            <Button isLink={false} text="Apply to Join" buttonType="button" onClick={() => router.push('/auth/login') }/> 
+            }
+          </div>
+        </div>
+
+
+          <div className="hidden lg:block w-1/2 bg-transparent rounded-lg">
+            <Image src={"/images/new-aff-img.png"} alt="Profile" height={2058} width={2150} className="object-fit" />
+          </div> {/* Placeholder for the illustration */}
+        
+      </Container>
+  )
+}
+
+export function CreatorFAQ() {
+  const faqs = [
+    {
+      question: "Do I need a minimum amount of followers or videos to join?",
+      answer: "Nope! Plus, we do not plan on implementing any such requirements" ,
+    },
+    {
+      question: "What is the application process like?",
+      answer: "We only need basic information so we can review your tiktok account to ensure it involves cooking or recipes!",
+    },
+    {
+      question: "How do I earn money with Zesti?",
+      answer: "Earning money is simple! After account approval, you will setup an affiliate account through Zesti so you can start earning 30% per referred subscription every month.",
+    },
+    {
+      question: "How does Zesti Earn Money?",
+      answer: "Unlike other platforms, we do not charge users to access already public recipes and we do not charge creators to display their recipes! Instead, Zesti provides a recipe management platform to users where they can save & customize recipes they find!",
+    },
+    {
+      question: "Who owns the recipes on Zesti?",
+      answer: "Whoever posted it. All recipes will link back to the original video & back to the original creator page on Zesti.",
+    },
+    {
+      question: "Does Zesti need authorization to access my TikTok?",
+      answer: "Yes! This is the most secure way to ensure recipes cannot be taken or displayed by someone other than an account owner.",
+    },
+    // More questions...
+  ]
+    return (
+      <Container className={"flex flex-col lg:flex-row gap-10 lg:gap-12 animate-fadeIn pb-28"}>
+        <div className="bg-white w-full">
+          <div className="mx-auto max-w-7xl px-6">
+            <div className="mx-auto max-w-4xl divide-y divide-gray-900/10">
+              <div className="flex flex-col items-center text-center">
+                <SharedHomeSectionTitle titleBlack="Creator FAQ" desc="Get some of the most common questions we are asked answered right away!"/>
+              </div>
+              <dl className="mt-10 space-y-6 divide-y divide-gray-900/10">
+                {faqs.map((faq) => (
+                  <Disclosure as="div" key={faq.question} className="pt-6">
+                    {({ open }) => (
+                      <>
+                        <dt>
+                          <Disclosure.Button className="flex w-full items-start justify-between text-left text-gray-900">
+                            <span className="text-base font-semibold leading-7">{faq.question}</span>
+                            <span className="ml-6 flex h-7 items-center">
+                              {open ? (
+                                <MinusSmallIcon className="h-6 w-6" aria-hidden="true" />
+                              ) : (
+                                <PlusSmallIcon className="h-6 w-6" aria-hidden="true" />
+                              )}
+                            </span>
+                          </Disclosure.Button>
+                        </dt>
+                        <Disclosure.Panel as="dd" className="mt-2 pr-12">
+                          <p className="text-base leading-7 text-gray-600">{faq.answer}</p>
+                        </Disclosure.Panel>
+                      </>
+                    )}
+                  </Disclosure>
+                ))}
+              </dl>
+            </div>
+          </div>
+        </div>
+      </Container>
+    )
 }

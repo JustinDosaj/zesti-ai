@@ -2,6 +2,42 @@ import { createContext, useContext, ReactNode, useEffect, useState } from 'react
 import { User, getAuth, onAuthStateChanged, signOut, signInWithPopup, GoogleAuthProvider, createUserWithEmailAndPassword, signInWithEmailAndPassword, sendPasswordResetEmail } from "firebase/auth";
 import { db } from '../firebase/firebase';
 import { useRouter } from 'next/router';
+import { updateUserWithTikTokTokens } from '../firebase/functions';
+import { fetchTikTokDisplayName } from '../handler/tiktok';
+
+interface UserData {
+  account_status?: string;
+  affiliate_code?: string;
+  display_name?: string,
+  email?: string;
+  stripeId?: string;
+  stripeLink?: string;
+  tiktokAccessToken?: string;
+  tiktokOpenId?: string;
+  tiktokRefreshToken?: string;
+  tokens?: number;
+}
+
+interface CreatorData {
+  affiliate_code?: string;
+  avatar_url?: string;
+  bio_description?: string;
+  display_name?: string;
+  display_url?: string;
+  follower_count?: number;
+  is_verified?: boolean;
+  likes_count?: number;
+  open_id?: string,
+  profile_deep_link?: string;
+  socials?: {
+    instagram_link?: string,
+    twitter_link?: string,
+    website_link?: string,
+    youtube_link?:string
+  },
+  union_id?: string,
+  video_count?: number,
+}
 
 interface AuthContextType {
   user: User | null;
@@ -16,7 +52,8 @@ interface AuthContextType {
   sendPasswordReset: (email: string) => Promise<void>;
   loginWithTikTok: () => void;
   handleTikTokCallback: (code: string) => Promise<void>;
-  isCreator: boolean;
+  userData: UserData | null;
+  creatorData: CreatorData | null;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -26,8 +63,8 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   const [user, setUser] = useState<User | null>(null);
   const [isLoading, setIsLoading] = useState(true);  // Default to loading
   const [stripeRole, setStripeRole] = useState<string | null>(null);
-  const [tikTokToken, setTikTokToken] = useState<string | null>(null);
-  const [isCreator, setIsCreator] = useState<boolean>(false);
+  const [userData, setUserData] = useState<UserData | null>(null);
+  const [creatorData, setCreatorData] = useState<CreatorData | null>(null);
   const auth = getAuth();
   const router = useRouter();
   const provider = new GoogleAuthProvider();
@@ -36,7 +73,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
 // Function to initiate TikTok login
   const loginWithTikTok = async () => {
 
-    const tikTokUrl = `https://www.tiktok.com/v2/auth/authorize/?client_key=${process.env.NEXT_PUBLIC_TIKTOK_CLIENT_KEY}&scope=user.info.basic&response_type=code&redirect_uri=https://www.zesti.ai/profile&state=true`;
+    const tikTokUrl = `https://www.tiktok.com/v2/auth/authorize/?client_key=${process.env.NEXT_PUBLIC_TIKTOK_CLIENT_KEY}&scope=user.info.basic,user.info.profile,video.list&response_type=code&redirect_uri=${encodeURIComponent(`https://www.zesti.ai/auth/redirect`)}&state=true`;
 
     // Redirect the user
     window.location.href = tikTokUrl;
@@ -44,69 +81,47 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
 
   // Function to handle TikTok callback
   const handleTikTokCallback = async (code: string) => {
-    // Exchange the code for a token
 
-    const formData = new URLSearchParams();
-    formData.append('client_key', process.env.NEXT_PUBLIC_TIKTOK_CLIENT_KEY!);
-    formData.append('client_secret', process.env.NEXT_PUBLIC_TIKTOK_CLIENT_SECRET!);
-    formData.append('code', code);
-    formData.append('grant_type', 'authorization_code');
-    formData.append('redirect_uri', 'https://www.zesti.ai/profile');
-
-    console.log("Form Data:", formData.toString())
-    
     try {
-      // Make the POST request
-      const tokenResponse = await fetch('https://open.tiktokapis.com/v2/oauth/token/', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
-        },
-        body: formData.toString()
-      });
+        const params = new URLSearchParams({});
+        params.append('code', code);
 
-      const tokenData = await tokenResponse.json();
+        const tokenResponse = await fetch('/api/tiktokaccesstoken', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+                "Cache-Control": "no-cache",
+            },
+            body: params.toString()
+        });
 
-      if (tokenResponse.ok) {
-        // Set the token in state and store it in Firestore
-        setTikTokToken(tokenData.access_token);
-        if (user) {
-          db.collection('users').doc(user.uid).update({
-            tikTokToken: tokenData.access_token,
-            tikTokRefreshToken: tokenData.refresh_token, // Storing refresh token as well
-            tikTokOpenId: tokenData.open_id, // Store open_id if necessary
-            isCreator: true,
-          });
+        if (!tokenResponse.ok) {
+            console.error("HTTP Error Response:", tokenResponse.status, tokenResponse.statusText);
+            const errorResponse = await tokenResponse.text();
+            console.error("Error Response Body:", errorResponse);
+            throw new Error(`HTTP error ${tokenResponse.status}: ${errorResponse}`);
         }
-      } else {
-        // Handle errors
-        console.error("Error fetching TikTok token:", tokenData.error_description);
-        throw new Error(tokenData.error_description);
-      }
+
+        const tokenData = await tokenResponse.json();
+
+        if (tokenData.access_token && tokenData.refresh_token && tokenData.open_id) {
+          const res = await fetchTikTokDisplayName(tokenData.access_token)
+          await updateUserWithTikTokTokens(tokenData, user!.uid, res.data.user.display_name);
+        } else {
+          console.error("Invalid TikTok token data:", tokenData);
+        }
+        
     } catch (error) {
-      console.error("Error in handleTikTokCallback:", error);
-      throw error;
+        console.error("Error in handleTikTokCallback:", error);
+        // Optionally, rethrow or handle the error further
     }
   };
 
-  const checkIsCreatorStatus = async (userId: string) => {
-    try {
-      const userRef = db.collection('users').doc(userId);
-      const doc = await userRef.get();
-      if (doc.exists && doc.data()?.isCreator) {
-        return true;
-      }
-      return false;
-    } catch (error) {
-      console.error("Error checking isCreator status:", error);
-      throw error;
-    }
-  };
 
   const login = async () => {
     try {
       const result = await signInWithPopup(auth, provider);
-      console.log("Result: ", result.user.metadata.creationTime)
+
       const user = result.user
 
       if(user) {
@@ -115,14 +130,13 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
 
         if(!doc.exists) {
           await userRef.set({
-            tokens: 3,
+            tokens: 2,
             email: user.email,
-            totalRecipes: 0,
-            isCreator: false,
+            account_status: 'user'
           })
-          router.push('/welcome/newuser')
+          router.push('/my-recipes')
         } else {
-          router.push('/dashboard')
+          router.push('/my-recipes')
         }
       }
 
@@ -140,23 +154,6 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
       throw error;
     }
   };
-
-  useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
-      setUser(currentUser);
-      if ((currentUser as any)?.reloadUserInfo?.customAttributes) {
-        setStripeRole(JSON.parse((currentUser as any)?.reloadUserInfo.customAttributes).stripeRole);
-        const creatorStatus = await checkIsCreatorStatus(currentUser?.uid!);
-        setIsCreator(creatorStatus);
-    } else {
-        setStripeRole(null);
-    }
-      setIsLoading(false);  // Once the user state is updated, set isLoading to false
-    });
-
-    return () => unsubscribe();
-  }, [auth]);
-
 
   const loginWithEmailPassword = async (email: string, password: string) => {
     try {
@@ -184,10 +181,9 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
 
         if(!doc.exists) {
           await userRef.set({
-            tokens: 3,
+            tokens: 2,
             email: user.email,
-            totalRecipes: 0,
-            isCreator: false,
+            account_status: 'user'
           })
         }
       }
@@ -206,8 +202,41 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     }
   }
 
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
+      setUser(currentUser);
+      if ((currentUser as any)?.reloadUserInfo?.customAttributes) {
+
+          setStripeRole(JSON.parse((currentUser as any)?.reloadUserInfo.customAttributes).stripeRole);
+
+      } else {
+          setStripeRole(null);
+      }
+
+      if (currentUser) {
+        // User Firestore listener
+        const userRef = db.collection('users').doc(currentUser.uid);
+        const unsubscribeUser = userRef.onSnapshot(doc => {
+          const data = doc.data();
+          setUserData(data!);
+        });
+  
+        // Creator Firestore listener
+        const creatorRef = db.collection('creators').doc(currentUser.uid);
+        const unsubscribeCreator = creatorRef.onSnapshot(doc => {
+          const data = doc.data();
+          setCreatorData(data!);
+        });
+      } 
+      setIsLoading(false);
+    });
+
+    return () => unsubscribe();
+  }, [auth]);
+
+
   return (
-    <AuthContext.Provider value={{ user, isLoading, auth, provider, login, logout, stripeRole, loginWithEmailPassword, signUpWithEmailPassword, sendPasswordReset, loginWithTikTok, handleTikTokCallback, isCreator }}>
+    <AuthContext.Provider value={{ user, isLoading, auth, provider, login, logout, stripeRole, loginWithEmailPassword, signUpWithEmailPassword, sendPasswordReset, loginWithTikTok, handleTikTokCallback, userData, creatorData }}>
       {children}
     </AuthContext.Provider>
   );

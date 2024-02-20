@@ -18,12 +18,12 @@ const stripe = new Stripe(process.env.NEXT_PUBLIC_STRIPE_SECRET!);
 
 export async function createPremiumCheckoutSession(id: any) {  // You might want to replace 'any' with the appropriate type for currentUser
 
-    const affiliateCode = getCookie('affiliate_code') || 'default-value';
+    const affiliateCode = getCookie('promotekit_referral') || 'default-value';
 
     try {
         const checkoutSessionData: CheckoutSessionData  = {
             price: process.env.NEXT_PUBLIC_STRIPE_PREMIUM_PRICE,
-            success_url: `${window.location.origin}/profile`,
+            success_url: `${window.location.origin}/nav/profile`,
             cancel_url: `${window.location.origin}`,
             mode: "subscription",
             metadata: {
