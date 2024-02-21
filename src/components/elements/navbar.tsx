@@ -78,6 +78,8 @@ export function Navbar() {
     const { accountStatus, accountStatusMessage, loginWithTikTok, navCreator } = useAccountStatus()
     const router = useRouter()
 
+    console.log(userData)
+
     const mainNavButton = {
         name: userData?.tiktokAccessToken == null && accountStatus == 'creator' ?  'Connect TikTok' : accountStatusMessage,
         function:  userData?.tiktokAccessToken == null && accountStatus == 'creator' ? () => loginWithTikTok()

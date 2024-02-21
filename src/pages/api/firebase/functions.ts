@@ -36,7 +36,6 @@ export async function updateUserWithTikTokTokens(tokenData: TikTokTokenData, use
       tiktokAccessToken: tokenData.access_token,
       tiktokRefreshToken: tokenData.refresh_token,
       tiktokOpenId: tokenData.open_id,
-      account_status: res?.account_status == 'creator_reconnect' ? 'creator' : 'creator_generate_page',
       display_name: display_name,
       display_url: display_name.replace(/\s+/g, '').toLowerCase(),
       affiliate_code: display_name.replace(/\s+/g, '').toLowerCase(),
