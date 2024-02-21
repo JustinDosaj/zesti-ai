@@ -105,7 +105,7 @@ export function Chatbox({role}:ChatBoxProps) {
               <XMarkIcon className="text-black w-6 h-6 hover:text-red-600"/>
             </button>
           </div>
-          {user && messages.length == 0 && role !== 'premium' ? 
+          {user && messages.length == 0 && role == 'premium' ? 
             <PremiumChat/>
           : user && messages.length == 0 && (role == 'base' || null) ?
             <UpgradeToPremiumChat/>
