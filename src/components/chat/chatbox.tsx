@@ -12,7 +12,11 @@ interface AIChatMessageProps {
   timestamp: Date | { seconds: number, nanoseconds: number }; // Adjust based on the actual shape of the timestamp
 }
 
-export function Chatbox() {
+interface ChatBoxProps {
+  role: string | null
+}
+
+export function Chatbox({role}:ChatBoxProps) {
     
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [message, setMessage] = useState<string>('');
@@ -101,51 +105,21 @@ export function Chatbox() {
               <XMarkIcon className="text-black w-6 h-6 hover:text-red-600"/>
             </button>
           </div>
-          {user && messages.length == 0 ? 
-            <div className="flex-1 p-4 overflow-y-auto">
-              <div className={`border p-2 rounded-xl message bg-gray-100 bg-opacity-90 justify-items-end w-fit text-black mb-3`}>
-                <span className="text-black">Let start cooking!</span>
-              </div>
-              <div className={`border p-2 rounded-xl message bg-gray-100 bg-opacity-90 justify-items-end w-fit text-black mb-3`}>
-                <div className="text-black">If you have any general questions, feel free to ask here! For example:</div>
-              </div>
-              <div className={`border p-2 rounded-xl message bg-gray-100 bg-opacity-90 justify-items-end w-fit text-black mb-3`}>
-                <div className="text-black">How do I know if chicken is finished cooking?</div>
-              </div>
-              <div className={`border p-2 rounded-xl message bg-gray-100 bg-opacity-90 justify-items-end w-fit text-black mb-3`}>
-                <div className="text-black">I ran out of vegetable oil, what can I replace it with?</div>
-              </div>
-            </div>
+          {user && messages.length == 0 && role !== 'premium' ? 
+            <PremiumChat/>
+          : user && messages.length == 0 && (role == 'base' || null) ?
+            <UpgradeToPremiumChat/>
           : user && messages.length > 0 ?
-          <div className="flex-1 p-4 overflow-y-auto">
-            {messages.map(({ id, sender, text }) => (
-            <div key={id} className={`border p-2 rounded-xl message ${sender === 'user' ? 'user-message bg-primary-main bg-opacity-90 justify-items-end w-fit text-white mb-3' : 'bg-gray-100 bot-message w-fit mb-3 text-black'}`}>
-              {text}
-            </div>
-            ))}
-            <div ref={endOfMessagesRef} />
-          </div>
+            <ActiveChatMessages messages={messages} endOfMessagesRef={endOfMessagesRef}/>
           :
-          <div className="flex-1 p-4 overflow-y-auto">
-            <div className={`border p-2 rounded-xl message bg-gray-100 bg-opacity-90 justify-items-end w-fit text-black mb-3`}>
-              <span className="text-black">Welcome to Zesti!</span>
-            </div>
-            <div className={`border p-2 rounded-xl message bg-gray-100 bg-opacity-90 justify-items-end w-fit text-black mb-3`}>
-              <span className="text-black">I am an AI cooking assistant that can answer your cooking questions and change YouTube recipe videos into easy-to-follow instructions</span>
-            </div>
-            <div className={`border p-2 rounded-xl message bg-gray-100 bg-opacity-90 justify-items-end w-fit text-black mb-3`}>
-              <span className="text-black">   
-              <InlineButton isLink={true} href="/auth/login" text="Click Here to login" className="text-black mr-1 hover:primary-alt"/>
-              and start chatting
-              </span>
-            </div>
-          </div>
+            <NoAuthChat/>
           }
           <div className="flex items-center focus:outline-none focus:ring border rounded-lg">
             <input
               type="text"
               placeholder="Ask a cooking question..."
               className="w-full p-2 text-gray-700"
+              
               value={message}
               onChange={handleInputChange}
               onKeyDown={(e) => {
@@ -156,8 +130,9 @@ export function Chatbox() {
             />
             <button
               type="button"
+              disabled={role !== 'premium' ? false : true}
               onClick={handleSendMessage}
-              className={`bg-primary-main text-white rounded-r p-2 hover:bg-primary-alt transition ${!user ? `hover:cursor-not-allowed` : ``}`}
+              className={`bg-primary-main text-white rounded-r p-2 hover:bg-primary-alt transition ${role == 'premium' ? 'hover:cursor-pointer' : `cursor-not-allowed`}`}
             >
               <PaperAirplaneIcon className="w-6 h-6" />
             </button>
@@ -176,4 +151,76 @@ export function Chatbox() {
       )}
     </div>
   );
+}
+
+function UpgradeToPremiumChat() {
+  return(
+    <div className="flex-1 p-4 overflow-y-auto">
+        <div className={`border p-2 rounded-xl message bg-gray-100 bg-opacity-90 justify-items-end w-fit text-black mb-3`}>
+          <span className="text-black">Updrade to premium to unlock Zesti AI Assistant</span>
+        </div>
+        <div className={`border p-2 rounded-xl message bg-gray-100 bg-opacity-90 justify-items-end w-fit text-black mb-3`}>
+            <span className="text-black">   
+            <InlineButton isLink={true} href="/auth/login" text="Click here" className="text-black mr-1 hover:primary-alt"/>
+            to start a 7-day free trial!
+            </span>
+        </div>
+    </div>
+  )
+}
+
+function PremiumChat() {
+  return(
+    <div className="flex-1 p-4 overflow-y-auto">
+      <div className={`border p-2 rounded-xl message bg-gray-100 bg-opacity-90 justify-items-end w-fit text-black mb-3`}>
+        <span className="text-black">Let start cooking!</span>
+      </div>
+      <div className={`border p-2 rounded-xl message bg-gray-100 bg-opacity-90 justify-items-end w-fit text-black mb-3`}>
+        <div className="text-black">If you have any general questions, feel free to ask here! For example:</div>
+      </div>
+      <div className={`border p-2 rounded-xl message bg-gray-100 bg-opacity-90 justify-items-end w-fit text-black mb-3`}>
+        <div className="text-black">How do I know if chicken is finished cooking?</div>
+      </div>
+      <div className={`border p-2 rounded-xl message bg-gray-100 bg-opacity-90 justify-items-end w-fit text-black mb-3`}>
+        <div className="text-black">I ran out of vegetable oil, what can I replace it with?</div>
+      </div>
+    </div>
+  )
+}
+
+function NoAuthChat() {
+  return(
+    <div className="flex-1 p-4 overflow-y-auto">
+      <div className={`border p-2 rounded-xl message bg-gray-100 bg-opacity-90 justify-items-end w-fit text-black mb-3`}>
+        <span className="text-black">Welcome to Zesti!</span>
+      </div>
+      <div className={`border p-2 rounded-xl message bg-gray-100 bg-opacity-90 justify-items-end w-fit text-black mb-3`}>
+        <span className="text-black">I am an AI cooking assistant that can answer cooking questions without you ever leaving the page!</span>
+      </div>
+      <div className={`border p-2 rounded-xl message bg-gray-100 bg-opacity-90 justify-items-end w-fit text-black mb-3`}>
+        <span className="text-black">   
+        <InlineButton isLink={true} href="/auth/login" text="Click here" className="text-black mr-1 hover:primary-alt"/>
+          to get started
+        </span>
+      </div>
+    </div>
+  )
+}
+
+interface ActiveChatMessagesProps {
+  messages: AIChatMessageProps[],
+  endOfMessagesRef: React.RefObject<HTMLDivElement>;
+}
+
+function ActiveChatMessages({messages, endOfMessagesRef}: ActiveChatMessagesProps) {
+  return(
+    <div className="flex-1 p-4 overflow-y-auto">
+      {messages.map(({ id, sender, text }) => (
+      <div key={id} className={`border p-2 rounded-xl message ${sender === 'user' ? 'user-message bg-primary-main bg-opacity-90 justify-items-end w-fit text-white mb-3' : 'bg-gray-100 bot-message w-fit mb-3 text-black'}`}>
+        {text}
+      </div>
+      ))}
+      <div ref={endOfMessagesRef} />
+    </div>
+  )
 }

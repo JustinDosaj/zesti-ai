@@ -14,7 +14,6 @@ import { useRouter } from "next/router";
 import Breadcrumbs from "@/components/shared/breadcrumb";
 import useSetBreadcrumbs from '@/components/shared/setBreadcrumbs';
 import useUserRecipe from "@/hooks/user/useUserRecipe";
-import useRequireAuth from "@/hooks/user/useRequireAuth";
 import { StarIcon } from "@heroicons/react/20/solid";
 
 const raleway = Raleway({subsets: ['latin']})
@@ -47,7 +46,10 @@ const Recipe: React.FC = ({id}: any) => {
       <PromoteKitTag/>
     </Head>  
     <main className={`flex min-h-screen flex-col items-center justify-between p-4 bg-background w-screen ${raleway.className}`}>
-      {stripeRole == 'premium' ? <Chatbox/> : <></>}
+      {stripeRole == 'premium' ? 
+        <Chatbox role={stripeRole}/> : 
+        <></>
+      }
       <Breadcrumbs/>
       { isEditMode == false || !user ?
         <UserRecipe recipe={userRecipe} setIsOpen={setIsOpen} owner_id={''} setEditMode={setEditMode} role={stripeRole}/>
