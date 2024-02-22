@@ -4,53 +4,60 @@ import { db } from '@/pages/api/firebase/firebase';
 import { useAuth } from '@/pages/api/auth/auth';
 import { doc, setDoc, collection, onSnapshot, query, orderBy, where, Timestamp } from 'firebase/firestore';
 import { InlineButton } from '../shared/button';
+import { getFunctions, httpsCallable } from 'firebase/functions';
 
 interface AIChatMessageProps {
-  id: string;
+  id?: string | number;
   sender: string;
-  text: string;
-  timestamp: Date | { seconds: number, nanoseconds: number }; // Adjust based on the actual shape of the timestamp
+  message: string;
+  timestamp: Timestamp | Date; // Ensure this matches how you're storing timestamps
 }
 
 interface ChatBoxProps {
   role: string | null
+  recipe_id: string,
 }
 
-export function Chatbox({role}:ChatBoxProps) {
+interface Message {
+  sender: string;
+  message: string;
+  timestamp: any;
+}
+
+export function Chatbox({role, recipe_id}:ChatBoxProps) {
     
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [message, setMessage] = useState<string>('');
   const [messages, setMessages] = useState<AIChatMessageProps[]>([]);
   const { user } = useAuth();
   const endOfMessagesRef = useRef<HTMLDivElement>(null);
+  const functions = getFunctions();
+  const chatWithZesti = httpsCallable(functions, 'chatWithZesti');
 
   const scrollToBottom = () => {
     endOfMessagesRef.current?.scrollIntoView({ behavior: 'smooth' });
   };
 
   useEffect(() => {
-    if (user) {
-      const twoHoursAgo = new Date();
-      twoHoursAgo.setHours(twoHoursAgo.getHours() - 2); // Set to two hours ago
-
-      const messagesRef = collection(db, `users/${user.uid}/messages`);
-      const q = query(
-        messagesRef,
-        where('timestamp', '>=', Timestamp.fromDate(twoHoursAgo)), // Only get messages from the last two hours
-        orderBy('timestamp', 'asc')
-      );
-
-      const unsubscribe = onSnapshot(q, (snapshot) => {
-        const fetchedMessages: AIChatMessageProps[] = snapshot.docs.map(doc => ({
-          ...doc.data() as AIChatMessageProps
-        }));
-        setMessages(fetchedMessages);
-        scrollToBottom();
+    if (user && recipe_id) {
+      const messageRef = doc(db, `users/${user.uid}/messages`, recipe_id);
+      
+      const unsubscribe = onSnapshot(messageRef, (doc) => {
+        if (doc.exists()) {
+          const data = doc.data();
+          const chat = data.chat || [];
+          // Slice to get the most recent 20 messages
+          const recentMessages = chat.slice(-20).map((msg: AIChatMessageProps, index: number) => ({
+            ...msg,
+            id: index, // Assign a temporary ID for key prop usage
+          }));
+          setMessages(recentMessages);
+        }
       });
 
       return () => unsubscribe();
     }
-  }, [user]);
+  }, [user, recipe_id, db]);
 
 
   const handleChatboxClick = (e: MouseEvent<HTMLDivElement>) => {
@@ -68,32 +75,27 @@ export function Chatbox({role}:ChatBoxProps) {
 
     if (message.trim() === '' || !user ) return;
 
-    const messagesRef = collection(db, `users/${user?.uid}/messages`);
-
     // Client side message and timestamp
-    const userMessage = {
-      sender: "user",
-      text: message,
-      timestamp: new Date()
-    };
-  
-    try {
-      await setDoc(doc(messagesRef), {
-        sender: "user",
-        text: message,
-        timestamp: new Date()
-      }, { merge: true });
-      
-      scrollToBottom();
 
-    } catch (error) {
-      console.error('Error sending message:', error);
+    const messageObj = {
+      message: message,
+      sender: 'user',
     }
+
+    const requestData = {
+      messageObj: messageObj,
+      recipe_id: recipe_id
+    }
+
+    const response = await chatWithZesti(requestData).catch((error) => {
+      console.log("Error: ", error)
+    })
   };
 
   useEffect(() => {
     scrollToBottom(); // Scroll to bottom every time messages change
   }, [messages]);
+
 
   return (
     <div className="fixed bottom-4 right-4 z-[99]">
@@ -107,7 +109,7 @@ export function Chatbox({role}:ChatBoxProps) {
           </div>
           {user && messages.length == 0 && role == 'premium' ? 
             <PremiumChat/>
-          : user && messages.length == 0 && (role == 'base' || null) ?
+          : user && messages.length == 0 && role == null ?
             <UpgradeToPremiumChat/>
           : user && messages.length > 0 ?
             <ActiveChatMessages messages={messages} endOfMessagesRef={endOfMessagesRef}/>
@@ -130,7 +132,7 @@ export function Chatbox({role}:ChatBoxProps) {
             />
             <button
               type="button"
-              disabled={role !== 'premium' ? false : true}
+              disabled={role == 'premium' ? false : true}
               onClick={handleSendMessage}
               className={`bg-primary-main text-white rounded-r p-2 hover:bg-primary-alt transition ${role == 'premium' ? 'hover:cursor-pointer' : `cursor-not-allowed`}`}
             >
@@ -215,9 +217,9 @@ interface ActiveChatMessagesProps {
 function ActiveChatMessages({messages, endOfMessagesRef}: ActiveChatMessagesProps) {
   return(
     <div className="flex-1 p-4 overflow-y-auto">
-      {messages.map(({ id, sender, text }) => (
+      {messages.map(({ id, sender, message }) => (
       <div key={id} className={`border p-2 rounded-xl message ${sender === 'user' ? 'user-message bg-primary-main bg-opacity-90 justify-items-end w-fit text-white mb-3' : 'bg-gray-100 bot-message w-fit mb-3 text-black'}`}>
-        {text}
+        {message}
       </div>
       ))}
       <div ref={endOfMessagesRef} />
