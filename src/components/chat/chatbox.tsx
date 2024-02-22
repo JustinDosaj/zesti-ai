@@ -2,7 +2,7 @@ import React, { useRef, useState, ChangeEvent, MouseEvent, useEffect } from 'rea
 import { ChatBubbleLeftEllipsisIcon, PaperAirplaneIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import { db } from '@/pages/api/firebase/firebase';
 import { useAuth } from '@/pages/api/auth/auth';
-import { doc, setDoc, collection, onSnapshot, query, orderBy, where, Timestamp } from 'firebase/firestore';
+import { doc, onSnapshot, Timestamp } from 'firebase/firestore';
 import { InlineButton } from '../shared/button';
 import { getFunctions, httpsCallable } from 'firebase/functions';
 
@@ -15,16 +15,10 @@ interface AIChatMessageProps {
 
 interface ChatBoxProps {
   role: string | null
-  recipe_id: string,
+  recipe: any,
 }
 
-interface Message {
-  sender: string;
-  message: string;
-  timestamp: any;
-}
-
-export function Chatbox({role, recipe_id}:ChatBoxProps) {
+export function Chatbox({role, recipe}:ChatBoxProps) {
     
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [message, setMessage] = useState<string>('');
@@ -39,8 +33,8 @@ export function Chatbox({role, recipe_id}:ChatBoxProps) {
   };
 
   useEffect(() => {
-    if (user && recipe_id) {
-      const messageRef = doc(db, `users/${user.uid}/messages`, recipe_id);
+    if (user && recipe.id) {
+      const messageRef = doc(db, `users/${user.uid}/messages`, recipe.id);
       
       const unsubscribe = onSnapshot(messageRef, (doc) => {
         if (doc.exists()) {
@@ -57,7 +51,7 @@ export function Chatbox({role, recipe_id}:ChatBoxProps) {
 
       return () => unsubscribe();
     }
-  }, [user, recipe_id, db]);
+  }, [user, recipe.id, db]);
 
 
   const handleChatboxClick = (e: MouseEvent<HTMLDivElement>) => {
@@ -84,7 +78,9 @@ export function Chatbox({role, recipe_id}:ChatBoxProps) {
 
     const requestData = {
       messageObj: messageObj,
-      recipe_id: recipe_id
+      recipe_id: recipe.id,
+      ingredients: JSON.stringify(recipe.ingredients),
+      instructions: JSON.stringify(recipe.instructions)
     }
 
     const response = await chatWithZesti(requestData).catch((error) => {

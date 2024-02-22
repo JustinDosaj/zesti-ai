@@ -46,7 +46,7 @@ const Recipe: React.FC = ({id}: any) => {
       <PromoteKitTag/>
     </Head>  
     <main className={`flex min-h-screen flex-col items-center justify-between p-4 bg-background w-screen ${raleway.className}`}>
-      <Chatbox role={stripeRole} recipe_id={userRecipe.id}/> : 
+      <Chatbox role={stripeRole} recipe={userRecipe}/> : 
       <Breadcrumbs/>
       { isEditMode == false || !user ?
         <UserRecipe recipe={userRecipe} setIsOpen={setIsOpen} owner_id={''} setEditMode={setEditMode} role={stripeRole}/>
