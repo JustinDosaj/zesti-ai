@@ -66,7 +66,7 @@ const Recipe: React.FC = ({id, owner_uid}: any) => {
         :
         <EditCreatorRecipe recipe={creatorRecipe} owner_id={owner_uid} setEditMode={setEditMode}/>
         }
-        { stripeRole == 'premium' ? <Chatbox role={stripeRole}/> : <></> }
+        <Chatbox role={stripeRole} recipe={creatorRecipe}/>
         <ResponseModal
           title={`${creatorRecipe.name} Saved!`}
           text={`You can further support ${creatorRecipe.owner_display_name} by upgrading to premium!`}
