@@ -74,18 +74,18 @@ export function HomePageTools() {
 
     const tools = [
         {
-          name: 'Find TikTok Chefs',
-          description: 'Find recipes by your favorite TikTok cooking influencers',
+          name: 'Search for Recipe or Creator',
+          description: 'Find recipes to try from your favorite tiktok chefs',
           icon: StarIcon,
         },
         {
-          name: 'Recipe Perfection',
-          description: 'Save recipes for later and customize them to perfection',
+          name: 'Save & Customize',
+          description: 'Love the recipe? Save it for later and make changes just for you',
           icon: BookOpenIcon,
         },
         {
           name: 'AI Cooking Assistant',
-          description: 'Get your cooking questions answered fast without leaving your recipe',
+          description: 'Answer cooking questions instantly & get help with the recipe your making',
           icon: ChatBubbleLeftIcon,
         },
       ]
@@ -95,14 +95,12 @@ export function HomePageTools() {
         <div className="w-full max-w-7xl mx-auto space-y-12">
             <div className="flex flex-col lg:flex-row justify-start lg:justify-between items-center gap-8 lg:gap-14 text-center lg:text-left">
                 <p className="section-title-text-size font-semibold text-gray-700 lg:w-1/3">
-                FIND THE BEST
+                TIKTOK RECIPES
                 <br />
-                <span className="primary-orange-text-gradient"> TIKTOK RECIPES </span>
-                <br />
-                AROUND
+                <span className="primary-orange-text-gradient"> MADE EASY </span>
                 </p>
                 <p className="w-full lg:w-1/2 section-desc-text-size text-gray-600">
-                 Turn delicous recipes you see online into delicious recipes for you and your family!
+                 Get easy-to-read instructions for those amazing TikTok recipes
                 </p>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3  gap-10">
@@ -301,6 +299,23 @@ export function HomeVideoToRecipe() {
     </Container>
   )
 }
+
+export function ChatFeature() {
+  return(
+    <>
+    
+    </>
+  )
+}
+
+export function CookBookFeature() {
+  return(
+    <>
+    
+    </>
+  )
+}
+
 
 export function PremiumSubscriptionBenefits() {
 
