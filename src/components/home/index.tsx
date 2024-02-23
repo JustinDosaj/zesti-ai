@@ -301,18 +301,57 @@ export function HomeVideoToRecipe() {
 }
 
 export function ChatFeature() {
-  return(
-    <>
-    
-    </>
+
+  return (
+    <Container className="relative w-full max-w-6xl mx-auto px-5 animate-fadeIn ">
+      <div className="mx-auto max-w-2xl px-4 py-12 sm:px-6 lg:max-w-7xl lg:px-8 rounded-3xl orange-border-shadow">
+        <div className="flex justify-center items-center">
+          <div className="space-y-6">
+              <SharedHomeSectionTitle titleBlack={"Chat with"} titleOrange={"Zesti Cooking Assistant"} desc={"Ask questions and get assistance with recipes without ever leaving the page!"}/>
+            <div className="aspect-h-1 aspect-w-1 overflow-hidden ">
+              <div className="flex justify-center">
+                <img
+                  src="/images/screenshots/chat_screenshot_2.JPG"
+                  alt="Zesti AI Cooking Assistant chat example asking about substitutions for heavy cream"
+                  className="object-cover"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </Container>
   )
 }
 
 export function CookBookFeature() {
-  return(
-    <>
-    
-    </>
+  return (
+    <Container className="relative w-full max-w-6xl mx-auto px-5 animate-fadeIn ">
+      <div className="bg-white py-24 sm:py-32 orange-border-shadow rounded-3xl">
+        <SharedHomeSectionTitle titleBlack={"Discover Recipes from The Best"} titleOrange={"TikTok Chefs"} desc={"No more pausing or rewinding to get every ingredient & step. Find your favorite social media recipes in one place!"}/>
+        <div className="relative overflow-hidden pt-16">
+          <div className="mx-auto max-w-7xl px-6 lg:px-8">
+            <img
+              src="/images/screenshots/profile_desktop_screenshot.JPG"
+              alt="App screenshot"
+              className="mb-[-12%] rounded-xl shadow-2xl ring-1 ring-gray-900/10 hidden sm:block"
+              width={2432}
+              height={1442}
+            />
+            <img
+              src="/images/screenshots/profile_mobile_screenshot.JPG"
+              alt="App screenshot"
+              className="mb-[-12%] rounded-xl shadow-2xl ring-1 ring-gray-900/10 block sm:hidden"
+              width={2432}
+              height={1442}
+            />
+            <div className="relative" aria-hidden="true">
+              <div className="absolute -inset-x-20 bottom-0 bg-gradient-to-t from-white pt-[7%]" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </Container>
   )
 }
 
