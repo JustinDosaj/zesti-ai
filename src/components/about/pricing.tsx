@@ -30,7 +30,7 @@ export function PricingDisplay() {
           learnhref: "/about/subscription/free",
           features: [
             'Unlimited Recipe Saves',
-            '2 Free Video Translations',
+            '2 Free Video Transcriptions',
         ],
           featured: false,
           checkout: () => {
@@ -47,8 +47,8 @@ export function PricingDisplay() {
           learnhref: "/about/subscription/premium",
           features: [
             'Unlimited Recipe Saves',
-            'Instantly Translate Any TikTok Video',
-            'AI Cooking Assistant',
+            '15 Video Transcriptions Per Month',
+            'Unlock AI Cooking Assistant',
             'Customize Recipes',
             'Ad-Free'
           ],
