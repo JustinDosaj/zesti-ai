@@ -33,7 +33,7 @@ export function ToolHero({role, tokens, titleStart, titleEnd, description}: Tool
 
 export function VideoComponent() {
 
-    const { user, stripeRole } = useAuth()
+    const { user, stripeRole, userData } = useAuth()
     const [ url, setUrl ] = useState<string>('');
     const [ isOpen , setIsOpen ] = useState<boolean>(false);
     const [ isLoading, setIsLoading ] = useState<boolean>(false)
@@ -85,7 +85,7 @@ export function VideoComponent() {
                     <Button isLink={false} buttonType="button" text="" className={"min-w-max text-white"}  
                         onClick={ async () => { await onClick() }}>                              
                         <span className="hidden sm:flex relative z-[5]">
-                            Get Recipe
+                            {`Get Recipe`}
                         </span>
                         <span className="flex sm:hidden relative z-[5]">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-5 h-5">
@@ -97,6 +97,9 @@ export function VideoComponent() {
                     <Loader/>
                     }
                 </form>
+            </div>
+            <div className="text-gray-500 text-xs lg:text-sm mt-2 inline-flex space-x-1">
+                    {`You have ${userData?.tokens} recipe transcriptions remaining`}
             </div>
             <ResponseModal 
                 isOpen={isOpen} 
