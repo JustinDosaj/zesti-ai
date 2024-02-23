@@ -1,6 +1,6 @@
 import Head from 'next/head';
 import GoogleTags from '@/components/tags/conversion';
-import { HomePageScroller, HomePageTools, HomePageCTA, HomeFAQ, HomeVideoToRecipe, Hero, CreatorCTA } from '@/components/home';
+import { HomePageScroller, HomePageTools, HomePageCTA, HomeFAQ, HomeVideoToRecipe, Hero, CreatorCTA, ChatFeature, CookBookFeature } from '@/components/home';
 import { useAuth } from './api/auth/auth';
 import { PageLoader } from '@/components/shared/loader';
 import { PromoteKitTag } from '@/components/tags/headertags';
@@ -54,6 +54,8 @@ export default function Home() {
         <HomePageTools/>
         <HomePageScroller creators={creators}/>
         <HomeVideoToRecipe/>
+        <ChatFeature/>
+        <CookBookFeature/>
         <HomePageCTA/>
         <CreatorCTA title={"Join Creator Program"} isHome={true}/>
         <HomeFAQ/>
