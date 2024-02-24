@@ -103,7 +103,7 @@ export function Chatbox({role, recipe}:ChatBoxProps) {
               <XMarkIcon className="text-black w-6 h-6 hover:text-red-600"/>
             </button>
           </div>
-          {user && messages.length == 0 && role == 'premium' ? 
+          {user && messages.length == 0 && role !== 'premium' ? // Currentl set !== to allow for anyone to use chat during beta
             <PremiumChat/>
           : user && messages.length == 0 && role == null ?
             <UpgradeToPremiumChat/>
