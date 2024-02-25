@@ -128,7 +128,7 @@ export function Chatbox({role, recipe}:ChatBoxProps) {
             />
             <button
               type="button"
-              disabled={role == 'premium' ? false : true}
+              disabled={role !== 'premium' ? false : true}
               onClick={handleSendMessage}
               className={`bg-primary-main text-white rounded-r p-2 hover:bg-primary-alt transition ${role !== 'premium' && user ? 'hover:cursor-pointer' : `cursor-not-allowed`}`}
             >
