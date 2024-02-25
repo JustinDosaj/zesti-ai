@@ -130,7 +130,7 @@ export function Chatbox({role, recipe}:ChatBoxProps) {
               type="button"
               disabled={role == 'premium' ? false : true}
               onClick={handleSendMessage}
-              className={`bg-primary-main text-white rounded-r p-2 hover:bg-primary-alt transition ${role == 'premium' ? 'hover:cursor-pointer' : `cursor-not-allowed`}`}
+              className={`bg-primary-main text-white rounded-r p-2 hover:bg-primary-alt transition ${role !== 'premium' && user ? 'hover:cursor-pointer' : `cursor-not-allowed`}`}
             >
               <PaperAirplaneIcon className="w-6 h-6" />
             </button>
