@@ -248,7 +248,7 @@ export function HomeFAQ() {
   )
 }
 
-export function HomeVideoToRecipe() {
+export function HomeVideoToRecipe({titleStart, titleEnd, desc}: any,) {
 
   const tikTokRef = useRef(null);
 
@@ -280,14 +280,14 @@ export function HomeVideoToRecipe() {
     <Container className="relative w-full max-w-6xl mx-auto px-5 animate-fadeIn ">
         <div className="flex flex-col lg:flex-row justify-center text-center lg:items-center w-full gap-8 p-2 xl:orange-border-shadow rounded-3xl">
             <div className="flex flex-col mt-8">
-                <SharedHomeSectionTitle titleBlack="From Video to" titleOrange="Recipe" desc="Zesti can quickly create an ingredient list & instructions from your favorite TikTok cooking videos!"/>
+                <SharedHomeSectionTitle titleBlack={titleStart} titleOrange={titleEnd} desc={desc}/>
                 <div className="grid grid-cols-1 xl:grid-cols-2 justify-center mt-4">
                   <div className="mx-auto" ref={tikTokRef}></div>
                   <div className="block xl:hidden mx-auto my-auto p-12 text-center">
                       <ArrowDownIcon className="block xl:hidden h-20 w-20 text-white bg-primary-main p-4 rounded-full"/>
                   </div>
                   <div className="h-full mt-2 w-fit mx-auto">
-                    <Image src="/images/Hawaiian-Rolls-Ingredients.png" height={1920} width={1080} alt="Tiktok Hawaiian Garlic Rolls Ingredients" className="border rounded-lg p-2 lg:mt-2 mx-auto object-scale-down max-w-[340px] sm:max-w-sm"/>
+                    <img src="/images/screenshots/new_recipe_display.png" alt="Tiktok Hawaiian Garlic Rolls Ingredients" className="mt-2 rounded-lg object-scale-down mx-auto max-w-[340px] sm:max-w-sm"/>
                   </div>
                 </div>
             </div>
@@ -324,11 +324,10 @@ export function ChatFeature() {
   )
 }
 
-export function CookBookFeature() {
+export function CookBookFeature({titleStart, titleEnd, desc}: any) {
   return (
-    <Container className="relative w-full max-w-6xl mx-auto px-5 animate-fadeIn ">
-      <div className="bg-white py-24 sm:py-32 orange-border-shadow rounded-3xl">
-        <SharedHomeSectionTitle titleBlack={"Discover Recipes from The Best"} titleOrange={"TikTok Chefs"} desc={"No more pausing or rewinding to get every ingredient & step. Find your favorite social media recipes in one place!"}/>
+    <Container className="relative w-full max-w-6xl mx-auto px-5 animate-fadeIn home-scroll-container ">
+        <SharedHomeSectionTitle titleBlack={titleStart} titleOrange={titleEnd} desc={desc}/>
         <div className="relative overflow-hidden pt-16">
           <div className="mx-auto max-w-7xl px-6 lg:px-8">
             <img
@@ -346,11 +345,10 @@ export function CookBookFeature() {
               height={1442}
             />
             <div className="relative" aria-hidden="true">
-              <div className="absolute -inset-x-20 bottom-0 bg-gradient-to-t from-white pt-[7%]" />
+              <div className="absolute -inset-x-20 bottom-0 bg-gradient-to-t from-orange-50 pt-[7%]" />
             </div>
           </div>
         </div>
-      </div>
     </Container>
   )
 }

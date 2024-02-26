@@ -1,6 +1,6 @@
 import Head from 'next/head';
 import GoogleTags from '@/components/tags/conversion';
-import { HomePageScroller, HomePageTools, HomePageCTA, CreatorFAQ, HomeVideoToRecipe, CreatorHero, CreatorCTA } from '@/components/home';
+import { CookBookFeature, CreatorFAQ, HomeVideoToRecipe, CreatorHero, CreatorCTA } from '@/components/home';
 import { useAuth } from '@/pages/api/auth/auth';
 import { PageLoader } from '@/components/shared/loader';
 import { PromoteKitTag } from '@/components/tags/headertags';
@@ -26,7 +26,8 @@ export default function Home() {
       <main className={`flex min-h-screen flex-col items-center justify-between bg-background w-screen space-y-48 ${raleway.className}`}>
         <CreatorHero titleStart={"Put Your Recipes on"} titleEnd={"Display"} description={"Join our creator program to put your recipes on display and start earning commission"}/>
         <CreatorCTA title={"Zesti Creator Program"} isHome={false}/>
-        <HomeVideoToRecipe/>
+        <HomeVideoToRecipe titleStart={"Transcribe Cooking Videos to"} titleEnd={"Recipes"} desc={"Instantly generate a step-by-step recipe for your followers using Zesti AI"}/>
+        <CookBookFeature titleStart={"All Your Recipes"} titleEnd={"In One Place"} desc={"Let your followers explore your entire recipe collection from a single link"}/>
         <CreatorFAQ/>
       </main>
     </>
