@@ -141,7 +141,6 @@ export function CreatorAddRecipeModal({isCreatorModalOpen, setIsCreatorModalOpen
     await handleCreatorTikTokURLSubmit({url, rawText, creatorData})
     setUrl('')
     setRawText('')
-    Notify("Adding recipe to your page")
     setIsCreatorModalOpen(false)
   }
 

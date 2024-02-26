@@ -53,9 +53,9 @@ export default function Home() {
         <Hero titleStart={"Instantly Get Recipes from"} titleEnd={"TikTok"} description={"Quickly search your favorite tiktok chefs and get easy-to-read recipes"}/>
         <HomePageTools/>
         <HomePageScroller creators={creators}/>
-        <HomeVideoToRecipe/>
+        <HomeVideoToRecipe titleStart={"Get Instant Readable Recipes from"} titleEnd={"TikTok"} desc={"No more pausing, rewinding or rewatching. Translate TikTok recipes into text so you can enjoy delicious home cooked meals too!"}/>
         <ChatFeature/>
-        <CookBookFeature/>
+        <CookBookFeature titleStart={"Discover Recipes from the Best"} titleEnd={"TikTok Chefs"} desc={"Check out the pages of TikTok chefs to get a list of all their public recipes intantly!"}/>
         <HomePageCTA/>
         <CreatorCTA title={"Join Creator Program"} isHome={true}/>
         <HomeFAQ/>
