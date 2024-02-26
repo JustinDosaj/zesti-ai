@@ -187,7 +187,7 @@ export const handleTikTokURLSubmit = async ({url, user, setMessage}: TikTokProps
     }
 }
 
-export const handleCreatorTikTokURLSubmit = async ({url, rawText, creatorData}: TikTokProps): Promise<boolean> => {
+export const handleCreatorTikTokURLSubmit = async ({url, rawText, creatorData}: TikTokProps) => {
 
     var id;
 
@@ -213,14 +213,20 @@ export const handleCreatorTikTokURLSubmit = async ({url, rawText, creatorData}: 
         "owner_id": creatorData?.owner_id,
     }
 
-    const response = await creatorAddTikTokRecipe(falseObj).then((val) => {
-        console.log(val)
-        return true;
+    try {
+        const response = await creatorAddTikTokRecipe(falseObj)
+        console.log(response)
+        Notify("Successfully Added Recipe")
+    } catch(err) {
+        console.log("Error:", err)
+        Notify(`Error: ${err}`)
+    }
+
+    /*const response = await creatorAddTikTokRecipe(falseObj).then(() => {
+        Notify("Recipe Added Successfully!")
     }).catch((err) => {
-        console.log(err)
-        return false;
-    })
-    return response;
+        Notify(`Error: ${err}`)
+    })*/
 }
 
 
