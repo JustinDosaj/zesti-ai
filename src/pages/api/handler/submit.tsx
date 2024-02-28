@@ -164,6 +164,12 @@ export const handleTikTokURLSubmit = async ({url, user, setMessage}: TikTokProps
 
     if (tokens >= 1) {
 
+        try {
+            const response = await userAddTikTokRecipe(falseObj)
+            Notify("Recipe added successfully!")
+        } catch(err) {
+            Notify(`${err}`)
+        }
         const response = await userAddTikTokRecipe(falseObj).then((val) => {
             console.log(val)
             setMessage("Recipe added successfully, go to \"My Recipes\" to view it!")
@@ -237,12 +243,13 @@ export const callGenerateCreatorPage = async ({creatorData}: any) => {
     const functions = getFunctions();
     const generateCreatorPage = httpsCallable(functions, 'generateCreatorPage');
 
-    const response = await generateCreatorPage().then((val) => {
-        console.log("Successfully Generated Creator Page")
+    try {
+        const response = await generateCreatorPage()
+        console.log(response)
         Notify("Page created successfully!")
-    }).catch((err) => {
-        console.log("Failed to generate page, please try again later or contact us if the problem persists.")
-    })
+    } catch(err) {
+        Notify(`${err}`)
+    }
 
     return;
 }
