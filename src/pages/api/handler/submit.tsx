@@ -132,7 +132,7 @@ export interface TikTokProps {
     userData?: any,
 }
 
-export const handleTikTokURLSubmit = async ({url, user, setMessage}: TikTokProps): Promise<boolean> => {
+export const handleTikTokURLSubmit = async ({url, user, setMessage}: TikTokProps) => {
 
     // Check if URL is empty    
     if (url == '') {
@@ -166,30 +166,17 @@ export const handleTikTokURLSubmit = async ({url, user, setMessage}: TikTokProps
 
         try {
             const response = await userAddTikTokRecipe(falseObj)
+
+            await db.collection('users').doc(user.uid).update({
+                tokens: increment(-1),
+            })
+
             Notify("Recipe added successfully!")
         } catch(err) {
             Notify(`${err}`)
         }
-        const response = await userAddTikTokRecipe(falseObj).then((val) => {
-            console.log(val)
-            setMessage("Recipe added successfully, go to \"My Recipes\" to view it!")
-            return true;
-        }).catch((err) => {
-            console.log(err)
-            setMessage("Error")
-            return false;
-        })
-
-        if(response == true) {
-            await db.collection('users').doc(user.uid).update({
-                tokens: increment(-1),
-            })
-         }
-
-        return response;
     } else {  
-        setMessage("Ran out of recipe transcriptions. Upgrade account for more") 
-        return false; 
+        Notify("No more transcriptions available. You can try premium free for 7-days to get more!")
     }
 }
 
@@ -221,7 +208,6 @@ export const handleCreatorTikTokURLSubmit = async ({url, rawText, creatorData}: 
 
     try {
         const response = await creatorAddTikTokRecipe(falseObj)
-        console.log(response)
         Notify("Successfully Added Recipe")
     } catch(err) {
         console.log("Error:", err)
@@ -245,7 +231,6 @@ export const callGenerateCreatorPage = async ({creatorData}: any) => {
 
     try {
         const response = await generateCreatorPage()
-        console.log(response)
         Notify("Page created successfully!")
     } catch(err) {
         Notify(`${err}`)

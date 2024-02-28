@@ -29,7 +29,6 @@ interface ModalProps {
 export function ResponseModal({title, text, icon: Icon, modalFunction, isOpen, setIsOpen, displayAd, role, buttonName, iconColor}: ModalProps) {
 
   const cancelButtonRef = useRef(null)
-  const router = useRouter()
 
   const onButtonClick = () => {
     modalFunction()
