@@ -6,8 +6,9 @@ import { PageLoader } from '@/components/shared/loader';
 import { PromoteKitTag } from '@/components/tags/headertags';
 import { Raleway } from 'next/font/google'
 import { useState, useEffect } from 'react';
-import { GetRandomCreatorsForHomepage } from './api/firebase/functions';
+import { GetRandomCreatorsForHomepage, SendErrorToFirestore } from './api/firebase/functions';
 import { useRouter } from 'next/router';
+import { Notify } from '@/components/shared/notify';
 const raleway = Raleway({subsets: ['latin']})
 
 
@@ -20,7 +21,7 @@ interface Creator {
 
 export default function Home() {
   
-  const { isLoading, creatorData } = useAuth();
+  const { isLoading, creatorData, user } = useAuth();
   const [ creators, setCreators ] = useState<Creator[]>()
   const router = useRouter();
 

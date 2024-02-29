@@ -159,3 +159,22 @@ export async function GetRandomCreatorsForHomepage(numberOfCreators: number): Pr
   return fetchedCreators.sort(() => 0.5 - Math.random()).slice(0, numberOfCreators);
 
 }
+
+
+/* Store Error inside Firebase Error Collection */
+
+
+export async function SendErrorToFirestore(user_id: string | undefined, error: any) {
+
+  const errorRef = db.collection('errors').doc()
+
+  const errorObj = {
+    timestamp: new Date(),
+    user_id: user_id || null,
+    error: error,
+  }
+
+  await errorRef.set(errorObj, {merge: true})
+
+
+}

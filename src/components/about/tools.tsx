@@ -58,13 +58,10 @@ export function VideoComponent() {
             const tiktokPattern = /^(https?:\/\/)?(www\.)?tiktok\.com\/.+$/;
 
             if (tiktokPattern.test(url)) {
+                setIsOpen(true)
+                Notify("Recipe processing, feel free to navigate around Zesti while it finishes.")
                 await handleTikTokURLSubmit({url, user, setMessage}).then((val) => {
-                    if(val == true) {
-                        setIsOpen(val)
-                    }
-                    else if(val == false) { 
-                        Notify("Could not process video, please try again later.") 
-                    }
+
                 });
             }
             else { Notify("Only tiktok videos are accepted") }
@@ -104,8 +101,8 @@ export function VideoComponent() {
             <ResponseModal 
                 isOpen={isOpen} 
                 setIsOpen={setIsOpen} 
-                title={"Recipe Transcribed"} 
-                text={"You can continue to your saved recipes to get cooking!"} 
+                title={"Processing Recipe"} 
+                text={"You can navigate freely around Zesti while you wait, we will notify you when it is ready"} 
                 icon={CheckIcon} 
                 iconColor={'green'} 
                 modalFunction={() => router.push('/my-recipes')}
