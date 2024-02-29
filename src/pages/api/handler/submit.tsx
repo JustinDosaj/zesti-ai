@@ -6,6 +6,7 @@ import axios from 'axios'
 import { increment } from 'firebase/firestore';
 import { getFunctions, httpsCallable } from 'firebase/functions';
 import { Notify } from "@/components/shared/notify";
+import { SendErrorToFirestore } from "../firebase/functions";
 
 
 async function convertISO8601ToMinutesAndSeconds(isoDuration: any) {
@@ -165,7 +166,8 @@ export const handleTikTokURLSubmit = async ({url, user, setMessage}: TikTokProps
     if (tokens >= 1) {
 
         try {
-            const response = await userAddTikTokRecipe(falseObj)
+            
+            await userAddTikTokRecipe(falseObj)
 
             await db.collection('users').doc(user.uid).update({
                 tokens: increment(-1),
@@ -174,6 +176,7 @@ export const handleTikTokURLSubmit = async ({url, user, setMessage}: TikTokProps
             Notify("Recipe added successfully!")
         } catch(err) {
             Notify(`${err}`)
+            await SendErrorToFirestore(user?.uid, err)
         }
     } else {  
         Notify("No more transcriptions available. You can try premium free for 7-days to get more!")
@@ -212,6 +215,7 @@ export const handleCreatorTikTokURLSubmit = async ({url, rawText, creatorData}: 
     } catch(err) {
         console.log("Error:", err)
         Notify(`Error: ${err}`)
+        await SendErrorToFirestore(creatorData?.owner_id, err)
     }
 
     /*const response = await creatorAddTikTokRecipe(falseObj).then(() => {
@@ -234,6 +238,7 @@ export const callGenerateCreatorPage = async ({creatorData}: any) => {
         Notify("Page created successfully!")
     } catch(err) {
         Notify(`${err}`)
+        await SendErrorToFirestore(creatorData?.owner_id, err)
     }
 
     return;

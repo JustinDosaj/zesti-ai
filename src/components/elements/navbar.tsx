@@ -74,11 +74,9 @@ const creatorItemsLoggedInMobile = [
 
 export function Navbar() {
     
-    const { user, isLoading, userData } = useAuth();
+    const { user, userData } = useAuth();
     const { accountStatus, accountStatusMessage, loginWithTikTok, navCreator } = useAccountStatus()
     const router = useRouter()
-
-    console.log(userData)
 
     const mainNavButton = {
         name: userData?.tiktokAccessToken == null && accountStatus == 'creator' ?  'Connect TikTok' : accountStatusMessage,
