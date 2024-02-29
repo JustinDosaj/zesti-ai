@@ -6,6 +6,7 @@ import axios from 'axios'
 import { increment } from 'firebase/firestore';
 import { getFunctions, httpsCallable } from 'firebase/functions';
 import { Notify } from "@/components/shared/notify";
+import { SendErrorToFirestore } from "../firebase/functions";
 
 
 async function convertISO8601ToMinutesAndSeconds(isoDuration: any) {
@@ -132,7 +133,7 @@ export interface TikTokProps {
     userData?: any,
 }
 
-export const handleTikTokURLSubmit = async ({url, user, setMessage}: TikTokProps): Promise<boolean> => {
+export const handleTikTokURLSubmit = async ({url, user, setMessage}: TikTokProps) => {
 
     // Check if URL is empty    
     if (url == '') {
@@ -165,31 +166,20 @@ export const handleTikTokURLSubmit = async ({url, user, setMessage}: TikTokProps
     if (tokens >= 1) {
 
         try {
-            const response = await userAddTikTokRecipe(falseObj)
-            Notify("Recipe added successfully!")
-        } catch(err) {
-            Notify(`${err}`)
-        }
-        const response = await userAddTikTokRecipe(falseObj).then((val) => {
-            console.log(val)
-            setMessage("Recipe added successfully, go to \"My Recipes\" to view it!")
-            return true;
-        }).catch((err) => {
-            console.log(err)
-            setMessage("Error")
-            return false;
-        })
+            
+            await userAddTikTokRecipe(falseObj)
 
-        if(response == true) {
             await db.collection('users').doc(user.uid).update({
                 tokens: increment(-1),
             })
-         }
 
-        return response;
+            Notify("Recipe added successfully!")
+        } catch(err) {
+            Notify(`${err}`)
+            await SendErrorToFirestore(user?.uid, err)
+        }
     } else {  
-        setMessage("Ran out of recipe transcriptions. Upgrade account for more") 
-        return false; 
+        Notify("No more transcriptions available. You can try premium free for 7-days to get more!")
     }
 }
 
@@ -221,11 +211,11 @@ export const handleCreatorTikTokURLSubmit = async ({url, rawText, creatorData}: 
 
     try {
         const response = await creatorAddTikTokRecipe(falseObj)
-        console.log(response)
         Notify("Successfully Added Recipe")
     } catch(err) {
         console.log("Error:", err)
         Notify(`Error: ${err}`)
+        await SendErrorToFirestore(creatorData?.owner_id, err)
     }
 
     /*const response = await creatorAddTikTokRecipe(falseObj).then(() => {
@@ -245,10 +235,10 @@ export const callGenerateCreatorPage = async ({creatorData}: any) => {
 
     try {
         const response = await generateCreatorPage()
-        console.log(response)
         Notify("Page created successfully!")
     } catch(err) {
         Notify(`${err}`)
+        await SendErrorToFirestore(creatorData?.owner_id, err)
     }
 
     return;
