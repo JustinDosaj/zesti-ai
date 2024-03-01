@@ -1,6 +1,7 @@
 import { db } from "@/pages/api/firebase/firebase"
 import { onSnapshot } from "firebase/firestore"
 import { useState, useEffect } from "react"
+import { SendErrorToFirestore } from '@/pages/api/firebase/functions';
 
 const useUserRecipeList = (user: any | null, isLoading: boolean) => {
 
@@ -13,6 +14,9 @@ const useUserRecipeList = (user: any | null, isLoading: boolean) => {
             const unsubscribe = onSnapshot(recipesRef, (querySnapshot) => {
                 const updatedRecipes = querySnapshot.docs.map(doc => ({...doc.data(), id: doc.id}))
                 setUserRecipeList(updatedRecipes)
+                setLoadingUserRecipes(false)
+            }, (error) => {
+                SendErrorToFirestore(user?.uid, error, null, __filename)
                 setLoadingUserRecipes(false)
             })
         }

@@ -2,7 +2,7 @@ import { createContext, useContext, ReactNode, useEffect, useState } from 'react
 import { User, getAuth, onAuthStateChanged, signOut, signInWithPopup, GoogleAuthProvider, createUserWithEmailAndPassword, signInWithEmailAndPassword, sendPasswordResetEmail } from "firebase/auth";
 import { db } from '../firebase/firebase';
 import { useRouter } from 'next/router';
-import { updateUserWithTikTokTokens } from '../firebase/functions';
+import { SendErrorToFirestore, updateUserWithTikTokTokens } from '../firebase/functions';
 import { fetchTikTokDisplayName } from '../handler/tiktok';
 
 interface UserData {
@@ -141,7 +141,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
       }
 
     } catch (error) {
-      console.error("Error logging in:", error);
+      SendErrorToFirestore(null, error, null, __filename)
       throw error;
     }
   };
@@ -150,7 +150,6 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     try {
       await signOut(auth);
     } catch (error) {
-      console.error("Error logging out:", error);
       throw error;
     }
   };
