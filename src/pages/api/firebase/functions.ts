@@ -164,7 +164,7 @@ export async function GetRandomCreatorsForHomepage(numberOfCreators: number): Pr
 /* Store Error inside Firebase Error Collection */
 
 
-export async function SendErrorToFirestore(user_id: string | undefined, error: any) {
+export async function SendErrorToFirestore(user_id: string | undefined | null, error: any, recipeId?: string | null, file?: string) {
 
   const errorRef = db.collection('errors').doc()
 
@@ -172,9 +172,9 @@ export async function SendErrorToFirestore(user_id: string | undefined, error: a
     timestamp: new Date(),
     user_id: user_id || null,
     error: error,
+    recipe_id: recipeId || null,
+    file: file || null
   }
 
   await errorRef.set(errorObj, {merge: true})
-
-
 }

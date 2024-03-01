@@ -1,6 +1,7 @@
 
 import { useEffect, useState } from "react"
 import { db } from "@/pages/api/firebase/firebase"
+import { SendErrorToFirestore } from "@/pages/api/firebase/functions"
 
 const useCreatorRecipe = (ownerId: string | undefined, recipeId: string) => {
     
@@ -21,6 +22,7 @@ const useCreatorRecipe = (ownerId: string | undefined, recipeId: string) => {
             }, (err) => {
                 setError(err.message)
                 setIsLoadingCreatorRecipe(false)
+                SendErrorToFirestore(ownerId, err, recipeId, __filename)
             })
             
     },[ownerId, recipeId])
