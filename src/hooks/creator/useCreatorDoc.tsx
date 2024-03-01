@@ -1,7 +1,7 @@
 import { db } from "@/pages/api/firebase/firebase"
-import { getCreatorData } from "@/pages/api/firebase/functions"
 import { getDoc } from "firebase/firestore"
 import { useEffect, useState } from "react"
+import { SendErrorToFirestore } from "@/pages/api/firebase/functions"
 
 
 const useCreatorDoc = (userId: string | undefined) => {
@@ -19,7 +19,7 @@ const useCreatorDoc = (userId: string | undefined) => {
                     setHasPage(docSnap.exists())
                     setLoadingCreatorDoc(false)
                 } catch (err) {
-                    console.log("Error checking for creator page: ", err)
+                    SendErrorToFirestore(userId, err, null, __filename)
                 } 
             } else {
                 setLoadingCreatorDoc(false)

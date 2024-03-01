@@ -1,6 +1,8 @@
 // hooks/useFetchRecipes.ts
 import { useState, useEffect } from 'react';
 import { db } from '@/pages/api/firebase/firebase';
+import { onSnapshot } from "firebase/firestore"
+import { SendErrorToFirestore } from '@/pages/api/firebase/functions';
 
 const useCreatorRecipeList = (creatorId: string | undefined) => {
   
@@ -8,21 +10,33 @@ const useCreatorRecipeList = (creatorId: string | undefined) => {
   const [loadingCreatorRecipes, setLoadingCreatorRecipes] = useState<boolean>(true);
 
   useEffect(() => {
-    const fetchRecipes = async () => {
-      if (creatorId) {
-        try {
-          const recipeSnapshot = await db.collection(`creators/${creatorId}/recipes`).get();
-          const updatedRecipes = recipeSnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
-          setCreatorRecipeList(updatedRecipes);
-          setLoadingCreatorRecipes(false);
-        } catch (err) {
-          console.error('Error fetching recipes:', err);
-          setLoadingCreatorRecipes(false);
-        }
-      }
-    };
 
-    fetchRecipes();
+    if (creatorId) {
+      // Reference the specific creator's recipes collection
+      const recipesRef = db.collection(`creators/${creatorId}/recipes`);
+
+      // Listen for real-time updates with onSnapshot
+      const unsubscribe = onSnapshot(recipesRef, (querySnapshot) => {
+        const updatedRecipes = querySnapshot.docs.map(doc => ({
+          id: doc.id,
+          ...doc.data()
+        }));
+        setCreatorRecipeList(updatedRecipes);
+        setLoadingCreatorRecipes(false);
+      }, (error) => {
+        SendErrorToFirestore(creatorId, error, null, __filename)
+        setLoadingCreatorRecipes(false);
+      });
+
+      // Cleanup function to unsubscribe when the component unmounts or creatorId changes
+      return () => {
+        unsubscribe();
+      };
+    } else {
+      // Handle cases where creatorId is undefined
+      setLoadingCreatorRecipes(false); // Consider setting loading to false as there's no creatorId to load recipes for
+    }
+
   }, [creatorId]);
 
   return { creatorRecipeList, loadingCreatorRecipes };

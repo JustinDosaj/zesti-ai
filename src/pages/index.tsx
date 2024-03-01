@@ -8,7 +8,7 @@ import { Raleway } from 'next/font/google'
 import { useState, useEffect } from 'react';
 import { GetRandomCreatorsForHomepage, SendErrorToFirestore } from './api/firebase/functions';
 import { useRouter } from 'next/router';
-import { Notify } from '@/components/shared/notify';
+
 const raleway = Raleway({subsets: ['latin']})
 
 
