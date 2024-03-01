@@ -1,6 +1,5 @@
-// hooks/useAffiliateCode.ts
+import { SendErrorToFirestore } from '@/pages/api/firebase/functions';
 
-// 1. Change
 import { useEffect } from 'react';
 import { setCookie } from '@/pages/api/handler/cookies';
 
@@ -8,7 +7,13 @@ const useAffiliateCode = (creatorData: { affiliate_code?: string } | null, refer
   useEffect(() => {
     if (typeof window !== 'undefined') {
       if (creatorData?.affiliate_code && referer && !referer.includes(`${process.env.NEXT_PUBLIC_DOMAIN_NAME}`)) {
-        setCookie('affiliate_code', creatorData.affiliate_code, 30);
+       
+        try {
+          setCookie('affiliate_code', creatorData.affiliate_code, 30);
+        } catch (error) {
+          SendErrorToFirestore(null, error, null, __filename)
+        }
+
       }
     }
   }, [creatorData, referer]);

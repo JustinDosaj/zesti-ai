@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { db } from "@/pages/api/firebase/firebase";
+import { SendErrorToFirestore } from "@/pages/api/firebase/functions";
 
 
 const useUserRecipe = (userId: string | undefined, recipeId: string) => {
@@ -19,6 +20,7 @@ const useUserRecipe = (userId: string | undefined, recipeId: string) => {
                 setLoadingUserRecipe(false)
             }, (err) => {
                 setError(err.message)
+                SendErrorToFirestore(userId, err, recipeId, __filename)
                 setLoadingUserRecipe(false)
             })
 

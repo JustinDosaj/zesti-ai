@@ -1,4 +1,5 @@
 import { Notify } from "@/components/shared/notify";
+import { SendErrorToFirestore } from "../firebase/functions";
 
 export async function fetchTikTokUserInfo(accessToken: string, fields = ['open_id', 'union_id', 'avatar_url', 'display_name', 'bio_description', 'profile_deep_link', 'is_verified', 'follower_count', 'likes_count', 'video_count']) {
     try {
@@ -16,7 +17,7 @@ export async function fetchTikTokUserInfo(accessToken: string, fields = ['open_i
         const data = await response.json();
         return data;
     } catch (error) {
-        console.error('Error fetching TikTok user info:', error);
+        SendErrorToFirestore(null, error, null, __filename)
         throw error;
     }
 }
@@ -37,7 +38,7 @@ export async function fetchTikTokDisplayName(accessToken: string, fields = ['dis
         const data = await response.json();
         return data;
     } catch (error) {
-        console.error('Error fetching TikTok user info:', error);
+        SendErrorToFirestore(null, error, null, __filename)
         throw error;
     }
 }
@@ -58,15 +59,6 @@ export async function fetchTikTokVideoList(accessToken: string, maxCount = 20, c
             body: JSON.stringify(requestBody)
         })
 
-        /*const response = await fetch('https://open.tiktokapis.com/v2/video/list/', {
-            method: 'POST',
-            headers: {
-                'Authorization': `Bearer ${accessToken}`,
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(requestBody)
-        });*/
-
         if (!response.ok) {
             
             Notify("Problem getting creator page. Please try again later.")
@@ -77,7 +69,7 @@ export async function fetchTikTokVideoList(accessToken: string, maxCount = 20, c
         const data = await response.json();
         return data;
     } catch (error) {
-        console.error('Error fetching TikTok video list:', error);
+        SendErrorToFirestore(null, error, null, __filename)
         throw error;
     }
 }
