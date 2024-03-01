@@ -292,10 +292,6 @@ export function HomeVideoToRecipe({titleStart, titleEnd, desc}: any,) {
                 </div>
             </div>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-8">
-        {/* Testimonial cards */}
-
-        </div>
     </Container>
   )
 }
