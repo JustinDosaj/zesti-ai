@@ -29,8 +29,6 @@ export default function Account() {
       } 
     },[user, isLoading, router])
 
-    console.log(loadingCreatorDoc)
-
     if(isLoading && loadingCreatorDoc && loadingStatus) return <PageLoader/>
 
     return(

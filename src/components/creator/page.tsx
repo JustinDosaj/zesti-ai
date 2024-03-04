@@ -8,6 +8,7 @@ import { EyeIcon, XMarkIcon } from "@heroicons/react/20/solid"
 import algoliasearch from 'algoliasearch/lite';
 import { SharedSectionHeadingTitle } from "../shared/title"
 import { classNames } from "../shared/classNames"
+import { useRouter } from "next/router"
 
 
 
@@ -161,14 +162,21 @@ export function CreatorSocials({creatorData}: any) {
             ),
           },
         ],
-      }
+    }
+
+    const onLinkClick = (url: string | null) => {
+      if (url?.startsWith('http://') || url?.startsWith('https://')) { window.open(url)}
+      else { window.open(`https://${url}`) }
+    }
+
+    const router = useRouter()
 
     return(
         <Container className="relative flex justify-center items-center lg:flex-wrap gap-10 lg:gap-4 w-full animate-fadeIn">
             <div className="flex items-center justify-between">
                 <div className="flex space-x-6">
                     {navigation.social.map((item) => (
-                        <button key={item.name} onClick={() => window.open(item.href)} className={item.href !== '' ? `text-gray-500 hover:text-gray-600` : 'hidden'}>
+                        <button key={item.name} onClick={ () => onLinkClick(item.href)} className={item.href !== '' ? `text-gray-500 hover:text-gray-600` : 'hidden'}>
                             <span className="sr-only">{item.name}</span>
                             <item.icon className="h-6 w-6" aria-hidden="true" />
                         </button>

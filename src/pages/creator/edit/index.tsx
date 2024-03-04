@@ -4,13 +4,11 @@ import Head from 'next/head';
 import GoogleTags from '@/components/tags/conversion';
 import { useAuth } from "@/pages/api/auth/auth";
 import { PromoteKitTag } from '@/components/tags/headertags';
-import { useRouter } from "next/router";
 import { Raleway } from "next/font/google";
 import { CreatorPageComponent } from "@/components/creator/profile";
 import Breadcrumbs from "@/components/shared/breadcrumb";
 import useSetBreadcrumbs from "@/components/shared/setBreadcrumbs";
 import useRequireAuth from "@/hooks/user/useRequireAuth";
-import useAccountStatus from "@/hooks/useAccountStatus";
 
 const raleway = Raleway({subsets: ['latin']})
 
@@ -18,12 +16,9 @@ const raleway = Raleway({subsets: ['latin']})
 export default function EditCreatorPage() {
 
   useSetBreadcrumbs()
-  const { user, userData, creatorData, isLoading } = useAuth();
+  const { user, isLoading } = useAuth();
   const { require } = useRequireAuth(user, isLoading)
-  const { accountStatus, loadingStatus } = useAccountStatus()
-  const router = useRouter()
-  
-  if(accountStatus !== "creator" && !loadingStatus) { router.push('/account') }
+
   
   return (
     <>
@@ -37,7 +32,7 @@ export default function EditCreatorPage() {
         <main className={`flex min-h-screen flex-col items-center bg-background w-screen ${raleway.className}`}>
             <Breadcrumbs/>
             <SharedHomeSectionTitle titleBlack="Creator Settings" desc="Add more information to your creator pages"/>
-            <CreatorPageComponent creatorData={creatorData}/>
+            <CreatorPageComponent/>
         </main>
     </>
   )

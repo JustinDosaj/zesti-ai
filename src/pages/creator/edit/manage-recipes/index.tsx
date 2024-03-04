@@ -6,16 +6,16 @@ import GoogleTags from "@/components/tags/conversion"
 import Head from "next/head"
 import { PromoteKitTag } from "@/components/tags/headertags"
 import { PageLoader } from '@/components/shared/loader'
-import Breadcrumbs from '@/components/shared/breadcrumb'
-import useSetBreadcrumbs from "@/components/shared/setBreadcrumbs";
 import { ManageRecipesList } from '@/components/creator/manage'
 import { CreatorAddRecipeModal, CreatorResubmitRecipeModal, ResponseModal } from '@/components/shared/modals'
-import useCreatorRecipeList from '@/hooks/creator/useCreatorRecipeList'
-import useErrorRecipeList from '@/hooks/creator/useErrorRecipeList'
 import { useRouter } from 'next/router'
-import useAccountStatus from '@/hooks/useAccountStatus'
 import { TrashIcon } from '@heroicons/react/20/solid'
 import { deleteCreatorPublicRecipe } from '@/pages/api/firebase/functions'
+import useRequireAuth from '@/hooks/user/useRequireAuth'
+import useCreatorRecipeList from '@/hooks/creator/useCreatorRecipeList'
+import useErrorRecipeList from '@/hooks/creator/useErrorRecipeList'
+import Breadcrumbs from '@/components/shared/breadcrumb'
+import useSetBreadcrumbs from "@/components/shared/setBreadcrumbs";
 
 const raleway = Raleway({subsets: ['latin']})
 
@@ -31,10 +31,8 @@ export default function ManageRecipes() {
     const [ isResubmitOpen, setIsResubmitOpen ] = useState<boolean>(false)
     const [ url, setUrl ] = useState<string>('')
     const [ recipeId, setRecipeId ] = useState<string>('')
-    const { accountStatus, loadingStatus } = useAccountStatus()
+    const { require } = useRequireAuth(user, isLoading)
     const router = useRouter()
-
-    if(accountStatus !== "creator" && !loadingStatus) { router.push('/account') }
 
     if(isLoading) return <PageLoader/>
 
