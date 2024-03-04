@@ -65,12 +65,9 @@ export function Chatbox({role, recipe}:ChatBoxProps) {
   const handleSendMessage = async (e: React.MouseEvent<HTMLButtonElement> | React.KeyboardEvent<HTMLButtonElement>) => {
     e.preventDefault();
 
-    setMessage('') // Clear the message input after sending
-
-    if (message.trim() === '' || !user ) return;
+    if (message.trim() === '' || !user || role !== 'premium' ) return;
 
     // Client side message and timestamp
-
     const messageObj = {
       message: message,
       sender: 'user',
@@ -82,6 +79,8 @@ export function Chatbox({role, recipe}:ChatBoxProps) {
       ingredients: JSON.stringify(recipe.ingredients),
       instructions: JSON.stringify(recipe.instructions)
     }
+
+    setMessage('') // Clear the message input after sending
 
     const response = await chatWithZesti(requestData).catch((error) => {
       console.log("Error: ", error)
@@ -98,12 +97,13 @@ export function Chatbox({role, recipe}:ChatBoxProps) {
       {isOpen ? (
         <div className="w-fit h-[500px] ml-4 p-4 md:w-[500px] md:h-[500px] bg-white rounded-lg shadow-lg flex flex-col border border-gray-700" onClick={handleChatboxClick}>
           <div className="p-4 flex justify-between items-center border-b border-gray-200">
-            <h2 className="text-lg font-semibold text-black">Zesti Cooking Assistant</h2>
+            <h2 className="text-lg font-semibold text-gray-700">Zesti Cooking Assistant</h2>
             <button onClick={() => setIsOpen(false)} className="text-xl">
               <XMarkIcon className="text-black w-6 h-6 hover:text-red-600"/>
             </button>
           </div>
-          {user && messages.length == 0 && role !== 'premium' ? // Currentl set !== to allow for anyone to use chat during beta
+          {
+          user && messages.length == 0 && role == 'premium' ? // Currently set !== to allow for anyone to use chat during beta
             <PremiumChat/>
           : user && messages.length == 0 && role == null ?
             <UpgradeToPremiumChat/>
@@ -128,9 +128,8 @@ export function Chatbox({role, recipe}:ChatBoxProps) {
             />
             <button
               type="button"
-              disabled={role !== 'premium' ? false : true}
               onClick={handleSendMessage}
-              className={`bg-primary-main text-white rounded-r p-2 hover:bg-primary-alt transition ${role !== 'premium' && user ? 'hover:cursor-pointer' : `cursor-not-allowed`}`}
+              className={`bg-primary-main text-white rounded-r p-2 hover:bg-primary-alt transition hover:cursor-pointer`}
             >
               <PaperAirplaneIcon className="w-6 h-6" />
             </button>
@@ -153,13 +152,13 @@ export function Chatbox({role, recipe}:ChatBoxProps) {
 
 function UpgradeToPremiumChat() {
   return(
-    <div className="flex-1 p-4 overflow-y-auto">
-        <div className={`border p-2 rounded-xl message bg-gray-100 bg-opacity-90 justify-items-end w-fit text-black mb-3`}>
-          <span className="text-black">Updrade to premium to unlock Zesti AI Assistant</span>
+    <div className="flex-1 p-4 overflow-y-auto text-gray-700">
+        <div className={`border p-2 rounded-xl message bg-gray-100 bg-opacity-90 justify-items-end w-fit mb-3`}>
+          Updrade to premium to unlock Zesti AI Assistant
         </div>
-        <div className={`border p-2 rounded-xl message bg-gray-100 bg-opacity-90 justify-items-end w-fit text-black mb-3`}>
-            <span className="text-black">   
-            <InlineButton isLink={true} href="/auth/login" text="Click here" className="text-black mr-1 hover:primary-alt"/>
+        <div className={`border p-2 rounded-xl message bg-gray-100 bg-opacity-90 justify-items-end w-fit mb-3`}>
+            <span>   
+            <InlineButton isLink={true} href="/auth/login" text="Click here" className="mr-1 hover:primary-alt"/>
             to start a 7-day free trial!
             </span>
         </div>
@@ -169,18 +168,22 @@ function UpgradeToPremiumChat() {
 
 function PremiumChat() {
   return(
-    <div className="flex-1 p-4 overflow-y-auto">
-      <div className={`border p-2 rounded-xl message bg-gray-100 bg-opacity-90 justify-items-end w-fit text-black mb-3`}>
-        <span className="text-black">Let start cooking!</span>
+    <div className="flex-1 p-4 overflow-y-auto text-gray-700">
+      <div className={`border p-2 rounded-xl message bg-gray-100 bg-opacity-90 justify-items-end w-fit  mb-3`}>
+        <span className="">Let start cooking!</span>
       </div>
-      <div className={`border p-2 rounded-xl message bg-gray-100 bg-opacity-90 justify-items-end w-fit text-black mb-3`}>
-        <div className="text-black">If you have any general questions, feel free to ask here! For example:</div>
+      <div className={`border p-2 rounded-xl message bg-gray-100 bg-opacity-90 justify-items-end w-fit mb-3`}>
+        <div className="">You can ask about general cooking questions or ask for specific details for this recipe</div>
       </div>
-      <div className={`border p-2 rounded-xl message bg-gray-100 bg-opacity-90 justify-items-end w-fit text-black mb-3`}>
-        <div className="text-black">How do I know if chicken is finished cooking?</div>
+      <div className={`border p-2 rounded-xl message bg-gray-100 bg-opacity-90 justify-items-end w-fit mb-3`}>
+        <p className="font-semibold">Example 1:</p> 
+        How do I know if chicken is finished cooking?
       </div>
-      <div className={`border p-2 rounded-xl message bg-gray-100 bg-opacity-90 justify-items-end w-fit text-black mb-3`}>
-        <div className="text-black">I ran out of vegetable oil, what can I replace it with?</div>
+      <div className={`border p-2 rounded-xl message bg-gray-100 bg-opacity-90 justify-items-end w-fit mb-3`}>
+        <span className="">
+          <p className="font-semibold">Example 2:</p> 
+          I skipped step 4, how can I correct this mistake?
+        </span>
       </div>
     </div>
   )
@@ -188,16 +191,16 @@ function PremiumChat() {
 
 function NoAuthChat() {
   return(
-    <div className="flex-1 p-4 overflow-y-auto">
-      <div className={`border p-2 rounded-xl message bg-gray-100 bg-opacity-90 justify-items-end w-fit text-black mb-3`}>
-        <span className="text-black">Welcome to Zesti!</span>
+    <div className="flex-1 p-4 overflow-y-auto text-gray-700">
+      <div className={`border p-2 rounded-xl message bg-gray-100 bg-opacity-90 justify-items-end w-fit mb-3`}>
+        <span>Welcome to Zesti!</span>
       </div>
-      <div className={`border p-2 rounded-xl message bg-gray-100 bg-opacity-90 justify-items-end w-fit text-black mb-3`}>
-        <span className="text-black">I am an AI cooking assistant that can answer cooking questions without you ever leaving the page!</span>
+      <div className={`border p-2 rounded-xl message bg-gray-100 bg-opacity-90 justify-items-end w-fit mb-3`}>
+        <span>I am an AI cooking assistant that can answer cooking questions without you ever leaving the page!</span>
       </div>
-      <div className={`border p-2 rounded-xl message bg-gray-100 bg-opacity-90 justify-items-end w-fit text-black mb-3`}>
-        <span className="text-black">   
-        <InlineButton isLink={true} href="/auth/login" text="Click here" className="text-black mr-1 hover:primary-alt"/>
+      <div className={`border p-2 rounded-xl message bg-gray-100 bg-opacity-90 justify-items-end w-fit mb-3`}>
+        <span>   
+          <InlineButton isLink={true} href="/auth/login" text="Click here" className="text-black mr-1 hover:primary-alt"/>
           to get started
         </span>
       </div>

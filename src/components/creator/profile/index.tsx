@@ -10,9 +10,10 @@ import { callGenerateCreatorPage } from '@/pages/api/handler/submit'
 import useAccountStatus from '@/hooks/useAccountStatus'
 import useCreatorDoc from '@/hooks/creator/useCreatorDoc'
 
-export function CreatorPageComponent({creatorData}: any) {
 
-    const { user, isLoading } = useAuth()
+export function CreatorPageComponent() {
+
+    const { user, creatorData, isLoading } = useAuth()
     
     const [ bio, setBio ] = useState<string>(creatorData?.bio_description ? creatorData.bio_description : '')
     const [ tiktok, setTikTok ] = useState<string>(creatorData?.profile_deep_link ? creatorData.profile_deep_link : '')
@@ -32,14 +33,14 @@ export function CreatorPageComponent({creatorData}: any) {
     ]
 
     useEffect(() => {
-        setBio(creatorData?.bio_description)
+        setBio(creatorData?.bio_description || '')
         setTikTok(creatorData?.profile_deep_link || '');
         setYouTube(creatorData?.socials?.youtube_link || '')
         setTwitter(creatorData?.socials?.twitter_link || '')
         setInstagram(creatorData?.socials?.instagram_link || '')
         setWebsite(creatorData?.socials?.website_link || '')
 
-        if(!creatorData) { router.push('/account')}
+        if(!creatorData && !isLoading) { router.push('/account')}
 
     }, [creatorData]);
 
