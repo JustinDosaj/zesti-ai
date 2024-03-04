@@ -134,9 +134,9 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
             email: user.email,
             account_status: 'user'
           })
-          router.push('/my-recipes')
+          router.push('/')
         } else {
-          router.push('/my-recipes')
+          router.push('/')
         }
       }
 
