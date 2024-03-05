@@ -6,7 +6,7 @@ import { PageLoader } from '@/components/shared/loader';
 import { PromoteKitTag } from '@/components/tags/headertags';
 import { Raleway } from 'next/font/google'
 import { useState, useEffect } from 'react';
-import { GetRandomCreatorsForHomepage, SendErrorToFirestore } from './api/firebase/functions';
+import { GetRandomCreatorsForHomepage } from './api/firebase/functions';
 import { useRouter } from 'next/router';
 
 const raleway = Raleway({subsets: ['latin']})
@@ -44,9 +44,9 @@ export default function Home() {
   return (
     <>
       <Head>
-        <title>Zesti | Save Tiktok & Youtube Recipes | AI Recipe Generator</title>
-        <meta name="title" content="Zesti | Save Tiktok & Youtube Recipes | AI Recipe Generator"/>
-        <meta name="description" content="Easily save & edit recipes found from cooking youtube & tiktok videos. Plus chat with our AI tool powered by OpenAI and ChatGPT. Try for free. No credit card required."/>
+        <title>Zesti AI | Find Transcribed Recipes from TikTok</title>
+        <meta name="title" content="Zesti AI | Find Transcribed Recipes from TikTok"/>
+        <meta name="description" content="Spend less time writing recipes down and more time cooking! Find transcribed recipes from your favorite TikTok Chefs or transcribe a recipe yourself!"/>
         <GoogleTags/>
         <PromoteKitTag/>
       </Head>

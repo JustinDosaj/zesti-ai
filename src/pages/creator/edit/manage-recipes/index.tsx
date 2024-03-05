@@ -39,10 +39,10 @@ export default function ManageRecipes() {
     return(
     <>
     <Head>
+      <meta name="robots" content="noindex" />
       <title>Zesti | Your Profile</title>
       <GoogleTags/>
       <PromoteKitTag/>
-      <meta name="robots" content="noindex" />
     </Head>  
     <main className={`flex min-h-screen flex-col items-center bg-background w-screen ${raleway.className}`}>
       <Breadcrumbs/>

@@ -27,8 +27,8 @@ export default function MyRecipes() {
   return (
     <>
     <Head>
-      <title>Zesti | Your Recipes</title>
       <meta name="robots" content="noindex" />
+      <title>Zesti | Your Recipes</title>
       <GoogleTags/>
       <PromoteKitTag/>
     </Head>
