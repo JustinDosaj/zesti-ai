@@ -218,9 +218,9 @@ interface CreatorPageComponents {
 
 function PageLinkComponent({display_url, accountStatus}:CreatorPageComponents) {
 
-    if (accountStatus !== "creator") return;
-
     const [ isLinkCopied, setIsLinkCopied ] = useState<boolean>(false)
+
+    if (accountStatus !== "creator") return;
 
     const copyToClipboard = async (text: any) => {
     if (navigator.clipboard) { // Modern async API
