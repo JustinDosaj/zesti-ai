@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect } from 'react'
 import { PageLoader } from '@/components/shared/loader'
 import { Button } from '@/components/shared/button'
 import { useAuth } from '@/pages/api/auth/auth'
@@ -7,6 +7,7 @@ import { useRouter } from 'next/router'
 import { Notify } from '@/components/shared/notify'
 import { Container } from '@/components/shared/container'
 import { callGenerateCreatorPage } from '@/pages/api/handler/submit'
+import { DocumentDuplicateIcon, ClipboardDocumentCheckIcon } from '@heroicons/react/20/solid'
 import useAccountStatus from '@/hooks/useAccountStatus'
 import useCreatorDoc from '@/hooks/creator/useCreatorDoc'
 
@@ -21,6 +22,7 @@ export function CreatorPageComponent() {
     const [ twitter, setTwitter ] = useState<string>(creatorData?.socials?.twitter_link ? creatorData.socials.twitter_link : '')
     const [ instagram, setInstagram ] = useState<string>(creatorData?.socials?.instagram_link ? creatorData.socials.instagram_link : '')
     const [ website, setWebsite ] = useState<string>(creatorData?.socials?.website_link ? creatorData.socials.website_link : '')
+    const { accountStatus, loginWithTikTok } = useAccountStatus()
     const [ edit, setEdit ] = useState<boolean>(false)
     const router = useRouter()
 
@@ -73,32 +75,11 @@ export function CreatorPageComponent() {
                 <main className="px-4 sm:px-6 lg:flex-auto lg:px-0 ">
                     <div className="mx-auto max-w-2xl space-y-10 lg:mx-0 lg:max-w-none">
                         <div>
-                        <h2 className="font-semibold leading-7 text-gray-900 section-desc-text-size">Basic Profile Information</h2>
-                        <p className="mt-1 text-sm leading-6 text-gray-500 lg:text-base">
-                            Basic information assosciated with your profile
-                        </p>
-                        <dl className="mt-6 space-y-6 divide-y divide-gray-100 border-t border-gray-200 text-sm leading-6">
-                            <div className="pt-6 flex justify-between items-center">
-                                <dt className="font-semibold text-gray-900 sm:w-64 sm:flex-none sm:pr-6 text-sm lg:text-base">Name</dt>
-                                <dd className="mt-1 flex gap-x-6 sm:mt-0">
-                                    <div className="text-gray-700 text-sm lg:text-base capitalize">{creatorData?.display_name}</div>
-                                </dd>
-                                <dd className="mt-1 flex gap-x-6 sm:mt-0">
-                                    <button type="button" className="font-semibold text-primary-main hover:text-primary-alt text-sm lg:text-base"
-                                        onClick={() => router.push(`/${creatorData?.display_url}`)}>
-                                        {"View Page"}
-                                    </button>
-                                </dd>
-                            </div>
-                            <div className="pt-6 flex justify-between items-center">
-                                <dt className="font-semibold text-gray-900 sm:w-64 sm:flex-none sm:pr-6 text-sm lg:text-base">Edit Creator Recipes</dt>
-                                <dd className="mt-1 flex gap-x-6 sm:mt-0">
-                                    <button type="button" className="font-semibold text-primary-main hover:text-primary-alt text-sm lg:text-base text-right"
-                                        onClick={() => router.push(`/creator/edit/manage-recipes`)}>
-                                        {"Add or Remove Recipes"}
-                                    </button>
-                                </dd>
-                            </div>
+                        <CreatorTitleComponent title={"Edit Creator Page"} desc={"Make changes to what is shown on your page. Remember to use the affiliate link to send people to your page!"}/>
+                        <dl className="mt-6 space-y-6 text-sm leading-6 divide-y divide-gray-300">
+                            <PageLinkComponent display_url={creatorData.display_url} accountStatus={accountStatus}/>
+                            <SimpleProfileComponent title={"Name"} desc={creatorData?.display_name} onButtonClick={() => router.push(`/${creatorData?.display_url}`)} buttonName={"View Page"}/>
+                            <SimpleProfileComponent title={"Edit Creator Recipes"} onButtonClick={() => router.push(`/creator/edit/manage-recipes`)} buttonName={"Add or Remove Recipes"}/>
                             <div className="pt-6 justify-between items-center">
                                 <dt className="font-semibold text-gray-900 sm:w-64 sm:flex-none sm:pr-6 text-sm lg:text-base">Biography</dt>
                                 <textarea className="border border-gray-300 p-2 rounded-3xl font-semibold text-gray-700 w-full sm:flex-none sm:pr-6 mt-4"
@@ -175,10 +156,10 @@ export function CreatorProfileComponent() {
                     <div className="mx-auto max-w-2xl space-y-16 sm:space-y-20 lg:mx-0 lg:max-w-none">
                         <div>
                         <CreatorTitleComponent title="Creator Page Settings" desc="Connect your Tiktok, setup an affiliate account & begin publishing recipes"/>
-                            <dl className="mt-6 space-y-1 text-sm leading-6">
+                            <dl className="mt-6 space-y-6 text-sm leading-6 divide-y divide-gray-300">
                                 <PageLinkComponent accountStatus={accountStatus} display_url={creatorData?.display_url}/>
                                 <ConnectTikTokComponent userData={userData} accountStatus={accountStatus} loginWithTikTok={loginWithTikTok}/>
-                                <AffiliateProgramComponent accountStatus={accountStatus}/>
+                                <SimpleProfileComponent buttonName={"Manage"} title={"Affiliate Program"} onButtonClick={() => {window.open(`https://zesti.promotekit.com/`)}}/>
                                 <GenerateOrViewPageComponent onGeneratePageClick={onGeneratePageClick} isPageGenerating={isPageGenerating} router={router} hasPage={hasPage}/>
                             </dl>
                         </div>
@@ -186,6 +167,34 @@ export function CreatorProfileComponent() {
                 </main>
             </div>
         </Container>
+    )
+}
+
+
+interface ProfileProps {
+    buttonName?: string,
+    onButtonClick?: () => void,
+    desc?: any,
+    title?: string,
+}
+
+export function SimpleProfileComponent({onButtonClick, buttonName, title, desc}: ProfileProps) {
+
+
+
+    return(
+        <div className="pt-6 flex justify-between items-center border-gray-200">
+            <dt className="font-semibold text-gray-900 sm:w-64 sm:flex-none sm:pr-6 text-sm lg:text-base">{title}</dt>
+            <dd className="mt-1 flex gap-x-6 sm:mt-0">
+                <div className="text-gray-700 text-sm lg:text-base">{desc}</div>
+            </dd>
+            <dd className={`mt-1 flex gap-x-6 sm:mt-0 ${!buttonName ? `hidden` : ``}`}>
+                <button type="button" className="font-semibold text-primary-main hover:text-primary-alt text-sm lg:text-base"
+                    onClick={onButtonClick}>
+                    {buttonName}
+                </button>
+            </dd>
+        </div>
     )
 }
 
@@ -203,9 +212,61 @@ interface CreatorPageComponents {
     isPageGenerating?: boolean,
     hasPage?: boolean,
     userData?: any,
+    linkName?: string,
+    linkHref?: string,
 }
 
-function CreatorTitleComponent({title, desc}: CreatorPageComponents) {
+function PageLinkComponent({display_url, accountStatus}:CreatorPageComponents) {
+
+    if (accountStatus !== "creator") return;
+
+    const [ isLinkCopied, setIsLinkCopied ] = useState<boolean>(false)
+
+    const copyToClipboard = async (text: any) => {
+    if (navigator.clipboard) { // Modern async API
+        try {
+            await navigator.clipboard.writeText(text);
+            setIsLinkCopied(true)
+            Notify("Copied link to clipboard")
+        } catch (err) {
+            console.error('Failed to copy: ', err);
+        }
+    } else { // Fallback for older browsers
+        const textarea = document.createElement('textarea');
+        textarea.value = text;
+        document.body.appendChild(textarea);
+        textarea.select();
+        try {
+            document.execCommand('copy');
+            alert('Link copied to clipboard');
+        } catch (err) {
+            console.error('Failed to copy: ', err);
+        }
+        document.body.removeChild(textarea);
+    }
+};
+
+    const urlToCopy = `https://www.zesti.ai?via=${display_url}`;
+
+    return(
+    <>
+        <div className="pt-6 grid lg:flex justify-between items-center">
+            <dt className="font-semibold text-gray-900 sm:w-64 sm:flex-none sm:pr-6 text-sm lg:text-base">Affiliate Link</dt>
+            <dd className="flex items-center gap-x-6 sm:mt-0">
+                <div className="text-gray-700 text-sm lg:text-base">{urlToCopy}</div>
+                { isLinkCopied ?
+                <ClipboardDocumentCheckIcon className="h-5 w-5 text-green-600 cursor-pointer" onClick={() => copyToClipboard(urlToCopy)} aria-label="Copy link" />
+                :
+                <DocumentDuplicateIcon className="h-5 w-5 text-gray-400 cursor-pointer" onClick={() => copyToClipboard(urlToCopy)} aria-label="Copy link" />
+                }
+            </dd>
+        </div>
+    </>
+    )
+}
+
+
+export function CreatorTitleComponent({title, desc}: CreatorPageComponents) {
     return(
     <>
         <h2 className="font-semibold leading-7 text-gray-900 section-desc-text-size">{title}</h2>
@@ -216,27 +277,11 @@ function CreatorTitleComponent({title, desc}: CreatorPageComponents) {
     )
 }
 
-function PageLinkComponent({display_url, accountStatus}:CreatorPageComponents) {
-
-    if (accountStatus !== "creator") return;
-
-    return(
-    <>
-        <div className="py-6 grid lg:flex justify-between items-center border-t border-gray-20">
-            <dt className="font-semibold text-gray-900 sm:w-64 sm:flex-none sm:pr-6 text-sm lg:text-base">Page Link</dt>
-            <dd className=" flex gap-x-6 sm:mt-0">
-                <div className="text-gray-700 text-sm lg:text-base">{`https://www.zesti.ai?via=${display_url}`}</div>
-            </dd>
-        </div>
-    </>
-    )
-}
-
 function ConnectTikTokComponent({userData, loginWithTikTok}: CreatorPageComponents) {
     
 
     if (userData?.tiktokAccessToken == null)  return (
-        <dl className="py-6 divide-y text-sm leading-6">
+        <dl className="pt-6 text-sm leading-6">
             <div className="flex justify-between items-center">
                 <dt className="font-semibold text-gray-900 sm:w-64 sm:flex-none sm:pr-6 text-sm lg:text-base">Connect Tiktok Account</dt>
                 <dd className=" flex gap-x-6 sm:mt-0">
@@ -256,24 +301,6 @@ function ConnectTikTokComponent({userData, loginWithTikTok}: CreatorPageComponen
                 <div  className="font-semibold text-green-600 text-sm lg:text-base">
                     {"Connected"}
                 </div>
-            </dd>
-        </div>
-    )
-}
-
-function AffiliateProgramComponent({accountStatus}: CreatorPageComponents) {
-
-    if (accountStatus !== 'creator_generate_page' && accountStatus !== 'creator') return;
-
-    return(
-        <div className="py-6 flex justify-between items-center border-t border-gray-20">
-            <dt className="font-semibold text-gray-900 sm:w-64 sm:flex-none sm:pr-6 text-sm lg:text-base">Affiliate Program</dt>
-            <dd className=" flex gap-x-6 sm:mt-0">
-                <button type="button" className="font-semibold text-primary-main hover:text-primary-alt text-sm lg:text-base"
-                    onClick={() => {window.open(`https://zesti.promotekit.com/`)}}>
-                    {"Manage"}
-                </button>
-                {/* TRACK AFFILIATE CODE INSIDE FIRESTORE THEN DISPLAY MANAGE AFFILIATE PROGRAM IF IT IS AVAILABLE*/}
             </dd>
         </div>
     )
