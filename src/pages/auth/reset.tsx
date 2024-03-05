@@ -41,9 +41,8 @@ import { PromoteKitTag } from "@/components/tags/headertags"
      return(
      <>
      <Head>
-        <title>Zesti AI | Login or Sign Up | Try for Free </title>
-        <meta name="description" content="Join Zesti to gain access to the best AI powered kitchen tool that helps you quickly save and edit recipes from cooking videos"/>
         <meta name="robots" content="noindex" />
+        <title>Zesti AI | Forgot Your Password? </title>
         <GoogleTags/>
         <PromoteKitTag/>
      </Head>

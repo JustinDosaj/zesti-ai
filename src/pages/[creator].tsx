@@ -71,8 +71,9 @@ const CreatorPage: NextPage<CreatorProps> = ({ creatorData, referer }) => {
   return (
     <>
     <Head>
-      <title>{creatorData?.display_name + ' ' +'Recipes'}</title> {/* Add Dynamic Title to display creator username for improved SEO*/}
-      <meta name="title" content={creatorData?.display_name + ' Recipes'}/>
+      {/* Dynamic title tag set up to capitilize the first letter of display_name then add rest of display_name after */}
+      <title className="capitalize">{`Zesti AI | ${creatorData?.display_name.charAt(0).toUpperCase() + creatorData?.display_name.slice(1)} from TikTok`}</title>
+      <meta name="title" content={`Zesti AI | ${creatorData?.display_name.charAt(0).toUpperCase() + creatorData?.display_name.slice(1)} from TikTok`}/>
       <meta name="description" content={'Get written versions of recipes from ' + creatorData?.display_name + ' and start cooking now!'}/>
       <GoogleTags/>
       <PromoteKitTag/>

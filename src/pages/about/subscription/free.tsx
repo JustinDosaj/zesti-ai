@@ -18,7 +18,7 @@ export default function Essential() {
   return (
     <>
     <Head>
-        <title>Zesti Free | AI Cooking Assistant | Free to Use</title>
+        <title>Zesti Free | AI Cooking Assistant | Free-to-Use</title>
         <meta name="title" content="Zesti Free | AI Cooking Assistant | Free to Use"/>
         <meta name="description" content="Subscribe to Zesti Free to gain no cost access to save cooking videos as text recipes. Plus gain access to the cooking chat AI assistant. Try for free. No credit card required."/>
         <GoogleTags/>

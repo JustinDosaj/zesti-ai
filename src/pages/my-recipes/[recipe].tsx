@@ -39,8 +39,8 @@ const Recipe: React.FC = ({id}: any) => {
     return(
     <>
     <Head>
-      <title>{userRecipe.name}</title>
       <meta name="robots" content="noindex" />
+      <title>{userRecipe.name}</title>
       <link rel="preload" href="/images/zesti-logos/Zesti-Premium-2.png" as="image"></link>
       <GoogleTags/>
       <PromoteKitTag/>
