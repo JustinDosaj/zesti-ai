@@ -105,7 +105,7 @@ export function Chatbox({role, recipe}:ChatBoxProps) {
           {
           user && messages.length == 0 && role == 'premium' ? // Currently set !== to allow for anyone to use chat during beta
             <PremiumChat/>
-          : user && messages.length == 0 && role == null ?
+          : user && messages.length == 0 && (role == null || 'user')  ?
             <UpgradeToPremiumChat/>
           : user && messages.length > 0 ?
             <ActiveChatMessages messages={messages} endOfMessagesRef={endOfMessagesRef}/>
@@ -158,7 +158,7 @@ function UpgradeToPremiumChat() {
         </div>
         <div className={`border p-2 rounded-xl message bg-gray-100 bg-opacity-90 justify-items-end w-fit mb-3`}>
             <span>   
-            <InlineButton isLink={true} href="/auth/login" text="Click here" className="mr-1 hover:primary-alt"/>
+            <InlineButton isLink={true} href="/about/pricing" text="Click here" className="mr-1 hover:primary-alt"/>
             to start a 7-day free trial!
             </span>
         </div>
