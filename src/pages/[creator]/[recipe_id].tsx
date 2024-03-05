@@ -52,9 +52,9 @@ const Recipe: React.FC = ({id, owner_uid}: any) => {
     return(
     <>
     <Head>
-      <title>{creatorRecipe.name}</title>
-      <meta name="title" content={creatorRecipe.name}/>
-      <meta name="description" content={'Make ' + creatorRecipe.name + 'from a recipe by ' + creatorRecipe.owner_display_name}/>
+      <title>{`Zesti AI | ${creatorRecipe.name}`}</title>
+      <meta name="title" content={`Zesti AI | ${creatorRecipe.name}`}/>
+      <meta name="description" content={`Make ${creatorRecipe.name}. A recipe by ${creatorRecipe.owner_display_name} from TikTok.`}/>
       <link rel="preload" href="/images/zesti-logos/Zesti-Premium-2.png" as="image"></link>
       <GoogleTags/>
       <PromoteKitTag/>

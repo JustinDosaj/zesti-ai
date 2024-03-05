@@ -45,11 +45,13 @@ export function Hero({titleStart, titleEnd, description}: HeroProps) {
             <Search searchLocation="home"/>
           </div>
 
-          <div className="grid grid-cols-3 lg:flex justify-center lg:justify-start lg:space-x-16">
-            <StatisticItem number="3200+" label="Recipes" />
-            <StatisticItem number="540+" label="Users" />
-            <StatisticItem number="$0/mo." label="Price" />
-          </div>
+          {/* Statistics removed because currently do not have any
+            <div className="grid grid-cols-3 lg:flex justify-center lg:justify-start lg:space-x-16">
+              <StatisticItem number="3200+" label="Recipes" />
+              <StatisticItem number="540+" label="Users" />
+              <StatisticItem number="$0/mo." label="Price" />
+            </div>
+          */}
         </div>
 
 

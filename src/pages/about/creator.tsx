@@ -17,9 +17,9 @@ export default function Home() {
   return (
     <>
       <Head>
-        <title>Zesti | Save Tiktok & Youtube Recipes | AI Recipe Generator</title>
-        <meta name="title" content="Zesti | Save Tiktok & Youtube Recipes | AI Recipe Generator"/>
-        <meta name="description" content="Easily save & edit recipes found from cooking youtube & tiktok videos. Plus chat with our AI tool powered by OpenAI and ChatGPT. Try for free. No credit card required."/>
+        <title>Join Zesti | Showcase Your TikTok Recipes & Earn</title>
+        <meta name="title" content="Join Zesti | Showcase Your TikTok Recipes & Earn"/>
+        <meta name="description" content="Instantly transform your videos into easy-to-read recipes & keep them in one place for your followers to enjoy!"/>
         <GoogleTags/>
         <PromoteKitTag/>
       </Head>

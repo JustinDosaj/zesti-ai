@@ -23,9 +23,9 @@ export default function EditCreatorPage() {
   return (
     <>
         <Head>
-            <title>Zesti | Save Tiktok & Youtube Recipes | AI Recipe Generator</title>
-            <meta name="title" content="Zesti | Save Tiktok & Youtube Recipes | AI Recipe Generator"/>
-            <meta name="description" content="Easily save & edit recipes found from cooking youtube & tiktok videos. Plus chat with our AI tool powered by OpenAI and ChatGPT. Try for free. No credit card required."/>
+          <meta name="robots" content="noindex"/>
+            <title>Zesti AI | Edit Creator Page</title>
+            <meta name="title" content="Zesti AI | Edit Creator Page"/>
             <GoogleTags/>
             <PromoteKitTag/>
         </Head>
