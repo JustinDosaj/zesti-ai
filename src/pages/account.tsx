@@ -34,10 +34,10 @@ export default function Account() {
     return(
     <>
     <Head>
-      <title>Zesti | Your Profile</title>
+      <meta name="robots" content="noindex" />
+      <title>Zesti AI | Your Account</title>
       <GoogleTags/>
       <PromoteKitTag/>
-      <meta name="robots" content="noindex" />
     </Head>  
     <main className={`flex min-h-screen flex-col items-center bg-background w-screen ${raleway.className}`}>
       <div className="mt-36"/>

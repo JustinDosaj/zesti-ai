@@ -19,7 +19,9 @@ export default function Video() {
   return (
     <>
       <Head>
-        <title>Zesti | Instantly Save YouTube & Tiktok Recipes as Text</title>
+        {/* Currently not indexing -- unsure if we want to directly promote this page */}
+        <meta name="robots" content="noindex"/>
+        <title>Zesti AI | Instantly Transcribe TikTok Recipes</title>
         <meta name="title" content="Zesti | Instantly Save YouTube & Tiktok Recipes as Text"/>
         <GoogleTags/>
         <PromoteKitTag/>
