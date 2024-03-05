@@ -231,19 +231,7 @@ function PageLinkComponent({display_url, accountStatus}:CreatorPageComponents) {
         } catch (err) {
             console.error('Failed to copy: ', err);
         }
-    } else { // Fallback for older browsers
-        const textarea = document.createElement('textarea');
-        textarea.value = text;
-        document.body.appendChild(textarea);
-        textarea.select();
-        try {
-            document.execCommand('copy');
-            alert('Link copied to clipboard');
-        } catch (err) {
-            console.error('Failed to copy: ', err);
-        }
-        document.body.removeChild(textarea);
-    }
+    } 
 };
 
     const urlToCopy = `https://www.zesti.ai?via=${display_url}`;
