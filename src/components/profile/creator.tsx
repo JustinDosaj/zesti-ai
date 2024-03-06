@@ -283,7 +283,7 @@ function ConnectTikTokComponent({userData, loginWithTikTok}: CreatorPageComponen
     )
 
     return (
-        <div className="py-6 flex justify-between items-center divide-gray-100 border-t border-gray-200">
+        <div className="pt-6 flex justify-between items-center divide-gray-100 border-t border-gray-200">
             <dt className="font-semibold text-gray-900 sm:w-64 sm:flex-none sm:pr-6 text-sm lg:text-base">Connect Tiktok Account</dt>
             <dd className=" flex gap-x-6 sm:mt-0">
                 <div  className="font-semibold text-green-600 text-sm lg:text-base">
@@ -316,7 +316,7 @@ function GenerateOrViewPageComponent({onGeneratePageClick, isPageGenerating, rou
     )
 
     if (hasPage) return (
-        <div className="py-6 flex justify-between items-center border-t border-gray-20">
+        <div className="pt-6 flex justify-between items-center border-t border-gray-20">
             <dt className="font-semibold text-gray-900 sm:w-64 sm:flex-none sm:pr-6 text-sm lg:text-base">Make Page Changes</dt>
             <dd className=" flex gap-x-6 sm:mt-0">
                 <button type="button" className="font-semibold text-primary-main hover:text-primary-alt text-sm lg:text-base"
