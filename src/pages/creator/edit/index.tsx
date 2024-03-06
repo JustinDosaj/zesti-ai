@@ -5,7 +5,7 @@ import GoogleTags from '@/components/tags/conversion';
 import { useAuth } from "@/pages/api/auth/auth";
 import { PromoteKitTag } from '@/components/tags/headertags';
 import { Raleway } from "next/font/google";
-import { CreatorPageComponent } from "@/components/creator/profile";
+import { CreatorPageComponent } from "@/components/profile/creator";
 import Breadcrumbs from "@/components/shared/breadcrumb";
 import useSetBreadcrumbs from "@/components/shared/setBreadcrumbs";
 import useRequireAuth from "@/hooks/user/useRequireAuth";
