@@ -10,7 +10,7 @@ const navigation = {
     solutions: [
       { name: 'Zesti Example', href: '/zestidotai' },
       { name: 'Recipe Transcription (N/A)', href: '#' },
-      { name: 'Cooking Assistant (N/A)', href: '#' },
+      { name: 'Cooking Assistant', href: '/about/solutions/cooking-assistant' },
       { name: 'Insights', href: '#' },
     ],
     support: [
