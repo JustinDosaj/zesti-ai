@@ -4,7 +4,7 @@ import Head from 'next/head'
 import { PricingDisplay } from '@/components/ui/features/pricing'
 import GoogleTags from '@/components/tags/conversion'
 import { PromoteKitTag } from '@/components/tags/headertags'
-import { HomePageCTA, HomePageScroller, HomePageTools, HomeVideoToRecipe, HomeFAQ, Hero } from '@/components/ui/features/users'
+import { HomePageCTA, HomePageScroller, HomeVideoToRecipe, HomeFAQ, Hero } from '@/components/ui/features/users'
 import { FreeSubscriptionBenefits } from '@/components/ui/features/subscriptions'
 const raleway = Raleway({subsets: ['latin']})
 
@@ -32,7 +32,6 @@ export default function Essential() {
         <Hero titleStart={"Use Zesti for"} titleEnd={"Free!"} description={"With the free version of Zesti you can search any creators and see their recipes"}/>
         <FreeSubscriptionBenefits/>
         <PricingDisplay/>
-        <HomePageTools/>
         <HomePageScroller/>
         <div className="mt-24 md:mt-36"/>
         <HomeVideoToRecipe/>
