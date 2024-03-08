@@ -11,7 +11,7 @@ const navigation = {
       { name: 'Zesti Example', href: '/zestidotai' },
       { name: 'Recipe Transcription (N/A)', href: '#' },
       { name: 'Cooking Assistant', href: '/about/solutions/cooking-assistant' },
-      { name: 'Insights', href: '#' },
+      { name: 'Customizable Recipes (N/A)', href: '#' },
     ],
     support: [
       { name: 'Pricing', href: '/about/pricing' },
