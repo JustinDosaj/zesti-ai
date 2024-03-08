@@ -1,13 +1,13 @@
-import { Container } from "../shared/container";
+import { Container } from "@/components/shared/container";
 import { LinkIcon, LightBulbIcon, ExclamationTriangleIcon, CheckIcon } from "@heroicons/react/20/solid";
 import { useAuth } from "@/pages/api/auth/auth";
-import { ResponseModal } from "../shared/modals";
-import { Button } from "../shared/button";
-import { Loader } from "../shared/loader";
+import { ResponseModal } from "@/components/shared/modals";
+import { Button } from "@/components/shared/button";
+import { Loader } from "@/components/shared/loader";
 import { handleTikTokURLSubmit } from "@/pages/api/handler/submit";
 import React, { useState, useEffect } from 'react';
-import { Notify } from '../shared/notify';
-import { SharedHomeSectionTitle } from "../shared/title";
+import { Notify } from "@/components/shared/notify";
+import { SharedHomeSectionTitle } from "@/components/shared/title";
 import { useRouter } from "next/router";
 
 

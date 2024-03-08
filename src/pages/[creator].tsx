@@ -1,8 +1,7 @@
 import { Raleway } from 'next/font/google'
-import { CreatorSearch, CreatorPageTitle, CreatorSocials, CreatorPageRecentRecipes } from '@/components/creator/page';
+import { CreatorSearch, CreatorPageTitle, CreatorSocials, CreatorPageRecentRecipes } from '@/components/ui/creator/page';
 import { GetServerSideProps, NextPage } from 'next';
 import Head from 'next/head';
-import useAffiliateCode from '@/hooks/useAffiliateCode';
 import GoogleTags from '@/components/tags/conversion';
 import { PromoteKitTag } from '@/components/tags/headertags';
 import { getCreatorByDisplayName } from './api/firebase/functions';

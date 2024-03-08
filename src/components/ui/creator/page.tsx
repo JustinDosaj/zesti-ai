@@ -1,13 +1,13 @@
-import { Paragraph } from "../shared/paragraph"
-import { Container } from "../shared/container"
+import { SharedSectionHeadingTitle } from "@/components/shared/title"
+import { classNames } from "@/components/shared/classNames"
+import { Button } from "@/components/shared/button"
+import { Container } from "@/components/shared/container"
+import { Paragraph } from "@/components/shared/paragraph"
 import { MagnifyingGlassIcon } from '@heroicons/react/24/outline'
 import Link from "next/link"
 import React, { useState, useEffect, useRef } from "react"
-import { Button } from "../shared/button"
 import { EyeIcon, XMarkIcon } from "@heroicons/react/20/solid"
 import algoliasearch from 'algoliasearch/lite';
-import { SharedSectionHeadingTitle } from "../shared/title"
-import { classNames } from "../shared/classNames"
 import { useRouter } from "next/router"
 
 

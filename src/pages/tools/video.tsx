@@ -1,12 +1,12 @@
 import { Raleway } from 'next/font/google'
 import Head from 'next/head';
-import { VideoComponent, VideoTips, ToolHero } from '@/components/about/tools';
+import { VideoComponent, VideoTips, ToolHero } from '@/components/ui/features/tools';
 import { useAuth } from '../api/auth/auth';
-import { PricingDisplay } from '@/components/about/pricing';
+import { PricingDisplay } from '@/components/ui/features/pricing';
 import { PageLoader, ToolLoader } from '@/components/shared/loader';
 import GoogleTags from '@/components/tags/conversion';
 import { PromoteKitTag } from '@/components/tags/headertags';
-import { HomeFAQ } from '@/components/home';
+import { HomeFAQ } from '@/components/ui/features/users';
 
 const raleway = Raleway({subsets: ['latin']})
 
