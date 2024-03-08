@@ -5,7 +5,7 @@ import { useAuth } from "@/pages/api/auth/auth"
 import { Button } from "../shared/button"
 import Link from "next/link"
 import Image from "next/image"
-import { BookOpenIcon, HomeIcon, PaperAirplaneIcon, WalletIcon, UserIcon, VideoCameraIcon } from "@heroicons/react/20/solid"
+import { BookOpenIcon, HomeIcon, PaperAirplaneIcon, WalletIcon, UserIcon, PencilSquareIcon } from "@heroicons/react/20/solid"
 import { DropDownMenuDesktop, DropDownMenuMobile } from "./menus"
 import useAccountStatus from "@/hooks/useAccountStatus"
 import { useRouter } from "next/router"
@@ -53,7 +53,7 @@ const creatorItemsLoggedInMobile = [
     { 
         href:"/creator/edit",
         text: "Creator Page Settings",
-        icon: VideoCameraIcon, 
+        icon: PencilSquareIcon, 
     },
     {
         href: "/account",
@@ -107,8 +107,8 @@ export function Navbar() {
     if(accountStatus == 'creator') {
         desktopNavItems.push({
             href: "/creator/edit",
-            text: "Creator Page Settings",
-            icon: VideoCameraIcon,
+            text: "Edit Your Page",
+            icon: PencilSquareIcon,
         })
     }
 
