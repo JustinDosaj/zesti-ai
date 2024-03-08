@@ -1,10 +1,9 @@
 import { MagnifyingGlassIcon } from '@heroicons/react/24/outline'
-import { Notify } from "../shared/notify"
 import { InlineButton } from "../shared/button"
 import algoliasearch from 'algoliasearch/lite';
 import { XMarkIcon } from '@heroicons/react/20/solid'
 import Link from 'next/link'
-import React, { useState, useEffect  } from "react"
+import React, { useState, useEffect } from "react"
 import { classNames } from '../shared/classNames';
 
 interface SearchProps {
@@ -103,17 +102,6 @@ export function Search({searchLocation}: SearchProps){
     )
 }
 
-function AddYourOwnResult() {
-    return(
-
-        <Link href="/tools/video" className="block py-4 text-center text-blue-500 hover:bg-gray-100 rounded-3xl text-xs lg:text-sm">
-            Trouble finding user or recipe? Click here
-        </Link>
-
-    )
-}
-
-
 export function ManageRecipesSearch({creatorData}: any) {
 
     const searchClient = algoliasearch(`${process.env.NEXT_PUBLIC_ALGOLIA_APPLICATION_ID}`, `${process.env.NEXT_PUBLIC_ALGOLIA_SEARCH_ONLY_KEY}`);
@@ -171,5 +159,15 @@ export function ManageRecipesSearch({creatorData}: any) {
         </form>
         {input && renderSearchResults()}
         </>
+    )
+}
+
+function AddYourOwnResult() {
+    return(
+
+        <Link href="/tools/video" className="block py-4 text-center text-blue-500 hover:bg-gray-100 rounded-3xl text-xs lg:text-sm">
+            Trouble finding user or recipe? Click here
+        </Link>
+
     )
 }
