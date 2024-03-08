@@ -44,7 +44,7 @@ export default function ManageRecipes() {
     </Head>  
     <main className={`flex min-h-screen flex-col items-center bg-background w-screen ${raleway.className}`}>
       <Breadcrumbs/>
-      <SharedHomeSectionTitle titleBlack="Manage Recipes" desc="Add a new recipe to your creator page"/>
+      <SharedHomeSectionTitle titleBlack="Manage Recipe Collection" desc="Add a new recipe to your creator page"/>
       <ManageRecipesList errorData={errorRecipeList} publicData={creatorRecipeList} setIsCreatorModalOpen={setIsCreatorModalOpen} setIsResubmitOpen={setIsResubmitOpen} setUrl={setUrl} setRecipeId={setRecipeId} setIsOpen={setIsOpen}/>
       <CreatorAddRecipeModal isCreatorModalOpen={isCreatorModalOpen} setIsCreatorModalOpen={setIsCreatorModalOpen}/>
       <CreatorResubmitRecipeModal isResubmitOpen={isResubmitOpen} setIsResubmitOpen={setIsResubmitOpen} url={url} setUrl={setUrl} recipe_id={recipeId}/>

@@ -76,11 +76,11 @@ export function CreatorSettingsComponent() {
                 <main className="px-4 sm:px-6 lg:flex-auto lg:px-0 ">
                     <div className="mx-auto max-w-2xl space-y-10 lg:mx-0 lg:max-w-none">
                         <div>
-                        <AccountTitleComponent title={"Edit Creator Page"} desc={"Make changes to what is shown on your page. Remember to use the affiliate link to send people to your page!"}/>
+                        <AccountTitleComponent title={"Edit Your Page"} desc={"Contribute to your recipe collection & add social media links to let users follow you on other platforms"}/>
                         <dl className="mt-6 space-y-6 text-sm leading-6 divide-y divide-gray-300">
                             <PageLinkComponent display_url={creatorData.display_url} accountStatus={accountStatus}/>
-                            <SimpleProfileComponent title={"Name"} desc={creatorData?.display_name} onButtonClick={() => router.push(`/${creatorData?.display_url}`)} buttonName={"View Page"}/>
-                            <SimpleProfileComponent title={"Edit Creator Recipes"} onButtonClick={() => router.push(`/creator/edit/manage-recipes`)} buttonName={"Add or Remove Recipes"}/>
+                            <SimpleProfileComponent title={"Page Name"} desc={creatorData?.display_name} onButtonClick={() => router.push(`/${creatorData?.display_url}`)} buttonName={"View Page"}/>
+                            <SimpleProfileComponent title={"Recipe Collection"} onButtonClick={() => router.push(`/creator/edit/manage-recipes`)} buttonName={"Add/Remove/Edit"}/>
                             <div className="pt-6 justify-between items-center">
                                 <dt className="font-semibold text-gray-900 sm:w-64 sm:flex-none sm:pr-6 text-sm lg:text-base">Biography</dt>
                                 <textarea className="border border-gray-300 p-2 rounded-3xl font-semibold text-gray-700 w-full sm:flex-none sm:pr-6 mt-4"
@@ -156,7 +156,7 @@ export function CreatorProfileComponent() {
                 <main className="px-4 sm:px-6 lg:flex-auto lg:px-0">
                     <div className="mx-auto max-w-2xl space-y-16 sm:space-y-20 lg:mx-0 lg:max-w-none">
                         <div>
-                        <AccountTitleComponent title="Creator Page Settings" desc="Connect your Tiktok, setup an affiliate account & begin publishing recipes"/>
+                        <AccountTitleComponent title="Creator Information" desc="Connect your Tiktok, manage your affiliate account & edit your page"/>
                             <dl className="mt-6 space-y-6 text-sm leading-6 divide-y divide-gray-300">
                                 <PageLinkComponent accountStatus={accountStatus} display_url={creatorData?.display_url}/>
                                 <ConnectTikTokComponent userData={userData} accountStatus={accountStatus} loginWithTikTok={loginWithTikTok}/>
@@ -278,11 +278,11 @@ function GenerateOrViewPageComponent({onGeneratePageClick, isPageGenerating, rou
 
     if (hasPage) return (
         <div className="pt-6 flex justify-between items-center border-t border-gray-20">
-            <dt className="font-semibold text-gray-900 sm:w-64 sm:flex-none sm:pr-6 text-sm lg:text-base">Make Page Changes</dt>
+            <dt className="font-semibold text-gray-900 sm:w-64 sm:flex-none sm:pr-6 text-sm lg:text-base">Your Recipe Page</dt>
             <dd className=" flex gap-x-6 sm:mt-0">
                 <button type="button" className="font-semibold text-primary-main hover:text-primary-alt text-sm lg:text-base"
                     onClick={() => router.push('/creator/edit/')}>
-                    {"Edit Page"}
+                    {"Edit/View"}
                 </button>
             </dd>
         </div>
