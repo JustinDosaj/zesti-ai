@@ -30,7 +30,7 @@ export default function EditCreatorPage() {
         </Head>
         <main className={`flex min-h-screen flex-col items-center bg-background w-screen ${raleway.className}`}>
             <Breadcrumbs/>
-            <SharedHomeSectionTitle titleBlack="Creator Settings" desc="Add more information to your creator pages"/>
+            <SharedHomeSectionTitle titleBlack="Edit Page"/>
             <CreatorSettingsComponent/>
         </main>
     </>

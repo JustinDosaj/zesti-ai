@@ -36,7 +36,7 @@ const navigation = {
         ),
       },
     ],
-  }
+}
 
 
 var year = new Date().getFullYear()
