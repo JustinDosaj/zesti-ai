@@ -1,8 +1,9 @@
 import { EyeIcon } from '@heroicons/react/20/solid'
 import Link from 'next/link'
 import React, { useState, useEffect, useRef  } from "react"
-import { Button } from "../shared/button"
-import { RecipeListLoader } from "../shared/loader";
+import { RecipeListLoader } from '@/components/shared/loader'
+import { Button } from '@/components/shared/button'
+
 
 interface UserSavedRecipeListProps {
     recipes: any,

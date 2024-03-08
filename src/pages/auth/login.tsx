@@ -8,7 +8,7 @@ import { ToastContainer } from "react-toastify"
 import 'react-toastify/dist/ReactToastify.css';
 import { PageLoader } from "@/components/shared/loader"
 import { PromoteKitTag } from "@/components/tags/headertags"
-import { LoginComponent } from "@/components/home/login"
+import { LoginComponent } from '@/components/ui/auth/login';
 
 const raleway = Raleway({subsets: ['latin']})
 

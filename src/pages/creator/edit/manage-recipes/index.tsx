@@ -6,9 +6,8 @@ import GoogleTags from "@/components/tags/conversion"
 import Head from "next/head"
 import { PromoteKitTag } from "@/components/tags/headertags"
 import { PageLoader } from '@/components/shared/loader'
-import { ManageRecipesList } from '@/components/creator/manage'
+import { ManageRecipesList } from '@/components/ui/creator/manage'
 import { CreatorAddRecipeModal, CreatorResubmitRecipeModal, ResponseModal } from '@/components/shared/modals'
-import { useRouter } from 'next/router'
 import { TrashIcon } from '@heroicons/react/20/solid'
 import { deleteCreatorPublicRecipe } from '@/pages/api/firebase/functions'
 import useRequireAuth from '@/hooks/user/useRequireAuth'
@@ -32,7 +31,6 @@ export default function ManageRecipes() {
     const [ url, setUrl ] = useState<string>('')
     const [ recipeId, setRecipeId ] = useState<string>('')
     const { require } = useRequireAuth(user, isLoading)
-    const router = useRouter()
 
     if(isLoading) return <PageLoader/>
 

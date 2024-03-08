@@ -4,8 +4,8 @@ import { SharedHomeSectionTitle } from '@/components/shared/title'
 import GoogleTags from "@/components/tags/conversion"
 import Head from "next/head"
 import { PromoteKitTag } from "@/components/tags/headertags"
-import { ProfilePageComponent } from '@/components/profile/user'
-import { CreatorProfileComponent } from '@/components/profile/creator'
+import { ProfilePageComponent } from '@/components/ui/user/account'
+import { CreatorProfileComponent } from '@/components/ui/creator/account'
 import { PageLoader } from '@/components/shared/loader'
 import useRequireAuth from '@/hooks/user/useRequireAuth'
 import useAccountStatus from '@/hooks/useAccountStatus'
