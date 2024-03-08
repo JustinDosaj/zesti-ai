@@ -3,11 +3,11 @@ import { Raleway } from 'next/font/google'
 import { useAuth } from "@/pages/api/auth/auth";
 import { PageLoader } from "@/components/shared/loader";
 import { PromoteKitTag } from "@/components/tags/headertags";
-import { CreatorRecipe, EditCreatorRecipe } from "@/components/creator/recipe";
+import { CreatorRecipe, EditCreatorRecipe } from "@/components/ui/creator/recipe";
 import React, { useState } from 'react'
 import GoogleTags from "@/components/tags/conversion";
 import Head from "next/head";
-import { getCreatorByDisplayName } from "../api/firebase/functions";
+import { getCreatorByDisplayName } from "@/pages/api/firebase/functions";
 import Breadcrumbs from "@/components/shared/breadcrumb";
 import useSetBreadcrumbs from "@/components/shared/setBreadcrumbs";
 import useCreatorRecipe from "@/hooks/creator/useCreatorRecipe";
@@ -15,7 +15,6 @@ import { Chatbox } from "@/components/chat/chatbox";
 import { ResponseModal } from "@/components/shared/modals";
 import { BookmarkIcon } from "@heroicons/react/20/solid";
 import { useRouter } from "next/router";
-import { getCookie } from "../api/handler/cookies";
 
 const raleway = Raleway({subsets: ['latin']})
 

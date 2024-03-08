@@ -8,7 +8,7 @@ import { Chatbox } from "@/components/chat/chatbox";
 import GoogleTags from "@/components/tags/conversion";
 import AdSenseDisplay from "@/components/tags/adsense";
 import { PromoteKitTag } from "@/components/tags/headertags";
-import { UserRecipe, EditUserRecipe } from "@/components/my-recipes/recipe";
+import { UserRecipe, EditUserRecipe } from "@/components/ui/user/recipe";
 import { ResponseModal } from "@/components/shared/modals";
 import { useRouter } from "next/router";
 import Breadcrumbs from "@/components/shared/breadcrumb";

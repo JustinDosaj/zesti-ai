@@ -1,14 +1,14 @@
 "use client";
 
-import { Button, InlineButton } from "../shared/button";
+import { Button, InlineButton } from "@/components/shared/button";
 import { CheckIcon } from "@heroicons/react/20/solid";
-import { Container } from "../shared/container";
+import { Container } from "@/components/shared/container";
 import { createPremiumCheckoutSession } from "@/pages/api/stripe/stripePremium";
+import { Loader } from "@/components/shared/loader";
 import { useAuth } from "@/pages/api/auth/auth";
-import { Loader } from "../shared/loader";
 import { useState } from "react";
 import { useRouter } from "next/router";
-import { SharedHomeSectionTitle } from "../shared/title";
+import { SharedHomeSectionTitle } from "@/components/shared/title";
 
 function classNames(...classes: (string | undefined | null | false)[]): string {
   return classes.filter(Boolean).join(' ');

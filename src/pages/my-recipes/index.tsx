@@ -1,6 +1,6 @@
 import { Raleway } from 'next/font/google'
 import { useAuth } from "@/pages/api/auth/auth"
-import { UserSavedRecipeList } from '@/components/my-recipes';
+import { UserSavedRecipeList } from '@/components/ui/user/cookbook';
 import { Search } from '@/components/search';
 import Head from 'next/head';
 import GoogleTags from '@/components/tags/conversion';

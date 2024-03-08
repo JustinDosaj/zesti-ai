@@ -1,9 +1,11 @@
 import { Raleway } from 'next/font/google'
 import Head from 'next/head'
-import { PricingDisplay } from '@/components/about/pricing'
+import { PricingDisplay } from '@/components/ui/features/pricing'
 import GoogleTags from '@/components/tags/conversion'
 import { PromoteKitTag } from '@/components/tags/headertags'
-import { Hero, HomeFAQ, HomePageCTA, HomePageScroller, HomePageTools, HomeVideoToRecipe, PremiumSubscriptionBenefits } from '@/components/home'
+import { Hero, HomeFAQ, HomePageCTA, HomePageScroller, HomePageTools, HomeVideoToRecipe } from '@/components/ui/features/users'
+import { PremiumSubscriptionBenefits } from '@/components/ui/features/subscriptions'
+
 const raleway = Raleway({subsets: ['latin']})
 
 export default function Premium() {
