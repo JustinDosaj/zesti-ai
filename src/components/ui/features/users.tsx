@@ -67,55 +67,6 @@ export function StatisticItem({ number, label }: any) {
   );
 }
 
-export function HomePageTools() {
-
-    const tools = [
-        {
-          name: 'Search for Recipe or Creator',
-          description: 'Find recipes to try from your favorite tiktok chefs',
-          icon: StarIcon,
-        },
-        {
-          name: 'Save & Customize',
-          description: 'Love the recipe? Save it for later and make changes just for you',
-          icon: BookOpenIcon,
-        },
-        {
-          name: 'AI Cooking Assistant',
-          description: 'Answer cooking questions instantly & get help with the recipe your making',
-          icon: ChatBubbleLeftIcon,
-        },
-      ]
-
-    return(
-    <Container className={" px-5 animate-fadeIn"}>
-        <div className="w-full max-w-7xl mx-auto space-y-12">
-            <div className="flex flex-col lg:flex-row justify-start lg:justify-between items-center gap-8 lg:gap-14 text-center lg:text-left">
-                <p className="section-title-text-size font-semibold text-gray-700 lg:w-1/3">
-                TIKTOK RECIPES
-                <br />
-                <span className="primary-orange-text-gradient"> MADE EASY </span>
-                </p>
-                <p className="w-full lg:w-1/2 section-desc-text-size text-gray-600">
-                 Get easy-to-read instructions for those amazing TikTok recipes
-                </p>
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3  gap-10">
-                {tools.map((tool) => (
-                <div key={tool.name} className="flex flex-col items-start p-6 rounded-3xl gap-y-2 bg-white orange-border-shadow">
-                    <tool.icon className="h-12 w-12 bg-orange-100 p-2 rounded-2xl text-primary-main" aria-hidden="true" />
-                    <div className="flex flex-col gap-3">
-                        <p className="text-xl font-semibold text-gray-800 mb-2">{tool.name}</p>
-                        <p className="text-base text-gray-600 flex-grow">{tool.description}</p>
-                    </div>
-                </div>
-                ))}
-            </div>
-        </div>
-    </Container>
-    )
-}
-
 export function HomePageScroller({creators}: any) {
 
     const [ scrollPage, setScrollPage] = useState<number>(1)
@@ -300,7 +251,7 @@ export function ChatFeature() {
       <div className="mx-auto max-w-2xl px-4 py-12 sm:px-6 lg:max-w-7xl lg:px-8 rounded-3xl orange-border-shadow">
         <div className="flex justify-center items-center">
           <div className="space-y-6">
-              <SharedHomeSectionTitle titleBlack={"Chat with"} titleOrange={"Zesti Cooking Assistant"} desc={"Ask questions and get assistance with recipes without ever leaving the page!"}/>
+              <SharedHomeSectionTitle titleBlack={"Chat with"} titleOrange={"Zesti"} desc={"Ask questions about specific steps, ingredients or anything regarding cooking and get instant answers!"}/>
             <div className="aspect-h-1 aspect-w-1 overflow-hidden ">
               <div className="flex justify-center">
                 <img
