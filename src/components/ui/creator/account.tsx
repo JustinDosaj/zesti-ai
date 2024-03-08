@@ -10,9 +10,10 @@ import { callGenerateCreatorPage } from '@/pages/api/handler/submit'
 import { DocumentDuplicateIcon, ClipboardDocumentCheckIcon } from '@heroicons/react/20/solid'
 import useAccountStatus from '@/hooks/useAccountStatus'
 import useCreatorDoc from '@/hooks/creator/useCreatorDoc'
+import { AccountTitleComponent, SimpleProfileComponent } from '../auth/account'
 
 
-export function CreatorPageComponent() {
+export function CreatorSettingsComponent() {
 
     const { user, creatorData, isLoading } = useAuth()
     
@@ -75,7 +76,7 @@ export function CreatorPageComponent() {
                 <main className="px-4 sm:px-6 lg:flex-auto lg:px-0 ">
                     <div className="mx-auto max-w-2xl space-y-10 lg:mx-0 lg:max-w-none">
                         <div>
-                        <CreatorTitleComponent title={"Edit Creator Page"} desc={"Make changes to what is shown on your page. Remember to use the affiliate link to send people to your page!"}/>
+                        <AccountTitleComponent title={"Edit Creator Page"} desc={"Make changes to what is shown on your page. Remember to use the affiliate link to send people to your page!"}/>
                         <dl className="mt-6 space-y-6 text-sm leading-6 divide-y divide-gray-300">
                             <PageLinkComponent display_url={creatorData.display_url} accountStatus={accountStatus}/>
                             <SimpleProfileComponent title={"Name"} desc={creatorData?.display_name} onButtonClick={() => router.push(`/${creatorData?.display_url}`)} buttonName={"View Page"}/>
@@ -155,7 +156,7 @@ export function CreatorProfileComponent() {
                 <main className="px-4 sm:px-6 lg:flex-auto lg:px-0">
                     <div className="mx-auto max-w-2xl space-y-16 sm:space-y-20 lg:mx-0 lg:max-w-none">
                         <div>
-                        <CreatorTitleComponent title="Creator Page Settings" desc="Connect your Tiktok, setup an affiliate account & begin publishing recipes"/>
+                        <AccountTitleComponent title="Creator Page Settings" desc="Connect your Tiktok, setup an affiliate account & begin publishing recipes"/>
                             <dl className="mt-6 space-y-6 text-sm leading-6 divide-y divide-gray-300">
                                 <PageLinkComponent accountStatus={accountStatus} display_url={creatorData?.display_url}/>
                                 <ConnectTikTokComponent userData={userData} accountStatus={accountStatus} loginWithTikTok={loginWithTikTok}/>
@@ -167,34 +168,6 @@ export function CreatorProfileComponent() {
                 </main>
             </div>
         </Container>
-    )
-}
-
-
-interface ProfileProps {
-    buttonName?: string,
-    onButtonClick?: () => void,
-    desc?: any,
-    title?: string,
-}
-
-export function SimpleProfileComponent({onButtonClick, buttonName, title, desc}: ProfileProps) {
-
-
-
-    return(
-        <div className="pt-6 flex justify-between items-center border-gray-200">
-            <dt className="font-semibold text-gray-900 sm:w-64 sm:flex-none sm:pr-6 text-sm lg:text-base">{title}</dt>
-            <dd className="mt-1 flex gap-x-6 sm:mt-0">
-                <div className="text-gray-700 text-sm lg:text-base">{desc}</div>
-            </dd>
-            <dd className={`mt-1 flex gap-x-6 sm:mt-0 ${!buttonName ? `hidden` : ``}`}>
-                <button type="button" className="font-semibold text-primary-main hover:text-primary-alt text-sm lg:text-base"
-                    onClick={onButtonClick}>
-                    {buttonName}
-                </button>
-            </dd>
-        </div>
     )
 }
 
@@ -249,18 +222,6 @@ function PageLinkComponent({display_url, accountStatus}:CreatorPageComponents) {
                 }
             </dd>
         </div>
-    </>
-    )
-}
-
-
-export function CreatorTitleComponent({title, desc}: CreatorPageComponents) {
-    return(
-    <>
-        <h2 className="font-semibold leading-7 text-gray-900 section-desc-text-size">{title}</h2>
-        <p className=" text-sm leading-6 text-gray-500 lg:text-base">
-            {desc}
-        </p>
     </>
     )
 }
