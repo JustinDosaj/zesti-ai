@@ -5,10 +5,10 @@ import { CreatorCTA } from '@/components/ui/features/creators';
 import { useAuth } from './api/auth/auth';
 import { PageLoader } from '@/components/shared/loader';
 import { PromoteKitTag } from '@/components/tags/headertags';
-import { Raleway } from 'next/font/google'
 import { useState, useEffect } from 'react';
 import { GetRandomCreatorsForHomepage } from './api/firebase/functions';
 import { useRouter } from 'next/router';
+import { Raleway } from 'next/font/google'
 
 const raleway = Raleway({subsets: ['latin']})
 
