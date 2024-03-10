@@ -16,7 +16,7 @@ export function CreatorPageTitle({creatorData}: any) {
     return(
         <Container className={"flex flex-col lg:flex-row gap-10 lg:gap-12 animate-fadeIn"}>
             <div className="relative flex flex-col items-center text-center lg:max-w-none max-w-3xl mx-auto lg:mx-0 lg:flex-1 lg:w-1/2">
-                <img height={125} width={125} src={creatorData.avatar_url} alt={creatorData.display_name} className="rounded-3xl"/>
+                <img src={creatorData.page_image || '/images/page-image-placeholder.png'} alt={creatorData.display_name} className="rounded-3xl h-[75px] w-[75px] sm:h-[100px] sm:w-[100px]"/>
                 <h1 className="text-3xl/tight sm:text-4xl/tight md:text-5xl/tight xl:text-5xl/tight font-bold text-heading-1 text-black capitalize mt-2">
                   {creatorData.display_name}
                 </h1>

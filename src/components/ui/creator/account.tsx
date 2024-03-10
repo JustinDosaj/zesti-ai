@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { PageLoader } from '@/components/shared/loader'
 import { Button } from '@/components/shared/button'
 import { useAuth } from '@/pages/api/auth/auth'
-import { saveBioDataToFireStore } from '@/pages/api/firebase/functions'
+import { saveBioDataToFireStore, uploadCreatorPageImage } from '@/pages/api/firebase/functions'
 import { useRouter } from 'next/router'
 import { Notify } from '@/components/shared/notify'
 import { Container } from '@/components/shared/container'
@@ -16,14 +16,13 @@ import { AccountTitleComponent, SimpleProfileComponent } from '../auth/account'
 export function CreatorSettingsComponent() {
 
     const { user, creatorData, isLoading } = useAuth()
-    
     const [ bio, setBio ] = useState<string>(creatorData?.bio_description ? creatorData.bio_description : '')
     const [ tiktok, setTikTok ] = useState<string>(creatorData?.profile_deep_link ? creatorData.profile_deep_link : '')
     const [ youtube, setYouTube ] = useState<string>(creatorData?.socials?.youtube_link ? creatorData.socials.youtube_link : '')
     const [ twitter, setTwitter ] = useState<string>(creatorData?.socials?.twitter_link ? creatorData.socials.twitter_link : '')
     const [ instagram, setInstagram ] = useState<string>(creatorData?.socials?.instagram_link ? creatorData.socials.instagram_link : '')
     const [ website, setWebsite ] = useState<string>(creatorData?.socials?.website_link ? creatorData.socials.website_link : '')
-    const { accountStatus, loginWithTikTok } = useAccountStatus()
+    const { accountStatus } = useAccountStatus()
     const [ edit, setEdit ] = useState<boolean>(false)
     const router = useRouter()
 
@@ -68,6 +67,35 @@ export function CreatorSettingsComponent() {
         }
     }
 
+    const handleImageSelect = async (event: any) => {
+        const file = event.target.files[0]
+        
+        if(!user) {return;} // temporary
+        
+        if(file) {
+            if(file.size > 1024 * 1024) {
+                alert("File size should not exceed 1MB")
+                return;
+            }
+
+            const img = new Image();
+            img.src = URL.createObjectURL(file)
+            img.onload = async () => {
+                const width = img.naturalWidth
+                const height = img.naturalHeight
+
+                URL.revokeObjectURL(img.src)
+
+                if(width !== height || width > 250 || height > 250) {
+                    alert("Only 1:1 ratio images (max 250x250) are accepted")
+                }
+
+                await uploadCreatorPageImage(file, user?.uid)
+                console.log(`Correct File Format: ${file}`)
+            }
+        }
+    }
+
     if (isLoading || !creatorData) return <PageLoader/>
 
     return(
@@ -80,6 +108,29 @@ export function CreatorSettingsComponent() {
                         <dl className="mt-6 space-y-6 text-sm leading-6 divide-y divide-gray-300">
                             <PageLinkComponent display_url={creatorData.display_url} accountStatus={accountStatus}/>
                             <SimpleProfileComponent title={"Page Name"} desc={creatorData?.display_name} onButtonClick={() => router.push(`/${creatorData?.display_url}`)} buttonName={"View Page"}/>
+                            
+                            <div className="pt-6 flex items-center justify-between border-gray-200">
+                                <dt className="font-semibold text-gray-900 sm:w-64 sm:flex-none pr-6 text-sm lg:text-base">Page Image</dt>
+                                <dd className="flex flex-col gap-y-2 space-x-6 sm:flex-row items-center">
+                                    <input
+                                        id="file-upload"
+                                        type="file"
+                                        accept="image/png, image/jpeg*"
+                                        onChange={handleImageSelect}
+                                        className="sr-only hidden" // Hide the actual input
+                                    />
+                                    <img
+                                        src={creatorData.page_image || '/images/page-image-placeholder.png'}
+                                        alt="Profile Picture"
+                                        height={75}
+                                        width={75}
+                                        className="rounded-xl"
+                                    />
+                                    <label htmlFor="file-upload" className="font-semibold text-primary-main hover:text-primary-alt text-sm lg:text-base cursor-pointer">
+                                        Update Image
+                                    </label>
+                                </dd>
+                            </div>
                             <SimpleProfileComponent title={"Recipe Collection"} onButtonClick={() => router.push(`/creator/edit/manage-recipes`)} buttonName={"Add/Remove/Edit"}/>
                             <div className="pt-6 justify-between items-center">
                                 <dt className="font-semibold text-gray-900 sm:w-64 sm:flex-none sm:pr-6 text-sm lg:text-base">Biography</dt>
