@@ -1,11 +1,7 @@
 import { Notify } from "@/components/shared/notify";
-import { db } from "./firebase"
-import { collection, query, limit, getDocs } from "firebase/firestore";
-
-interface Props {
-  url: any,
-  user: any, 
-}
+import { db, storage } from "./firebase"
+import { collection, query, limit, getDocs, updateDoc } from "firebase/firestore";
+import { FirebaseStorage, ref as storageRef, uploadBytes, getDownloadURL } from "firebase/storage";
 
 interface Creator {
   name: string;
@@ -25,6 +21,8 @@ interface TikTokTokenData {
 export async function updateUserWithTikTokTokens(tokenData: TikTokTokenData, userId: string, display_name: string) {
   try {
     const userRef = db.collection('users').doc(userId);
+    const pageRef = db.collection('creators').doc(userId)
+
     const res = await getUserData(userId)
 
     if (!tokenData.access_token || !tokenData.refresh_token || !tokenData.open_id) {
@@ -148,6 +146,32 @@ export async function deleteCreatorPublicRecipe(creator_id: any, recipe_id: stri
   console.log(`Removed ${recipe_id} from public recipes`)
 }
 
+export async function uploadCreatorPageImage(file: File, user_id: string): Promise<void> {
+
+  const fileRef = storageRef(storage, `creator-page-images/${user_id}/${file.name}`);
+  const creatorRef = db.collection('creators').doc(user_id)
+
+  try {
+      // Upload the file to Firebase Storage
+      const snapshot = await uploadBytes(fileRef, file);
+
+      // Get the URL of the uploaded file
+      const photoURL: string = await getDownloadURL(snapshot.ref);
+
+      // Update creator page with image
+      await updateDoc(creatorRef, {
+        page_image: photoURL,
+      })
+
+      console.log("Profile picture uploaded successfully!");
+  } catch (error) {
+      console.error("Error uploading profile picture:", error);
+      SendErrorToFirestore(user_id, error)
+  }
+
+}
+
+
 export async function GetRandomCreatorsForHomepage(numberOfCreators: number): Promise<Creator[]> {
   
   const creatorsRef = collection(db, "creators");
@@ -162,8 +186,6 @@ export async function GetRandomCreatorsForHomepage(numberOfCreators: number): Pr
 
 
 /* Store Error inside Firebase Error Collection */
-
-
 export async function SendErrorToFirestore(user_id: string | undefined | null, error: any, recipeId?: string | null, file?: string) {
 
   const errorRef = db.collection('errors').doc()
@@ -178,3 +200,4 @@ export async function SendErrorToFirestore(user_id: string | undefined | null, e
 
   await errorRef.set(errorObj, {merge: true})
 }
+
