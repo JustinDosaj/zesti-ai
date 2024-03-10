@@ -89,7 +89,7 @@ const navigation = {
     var year = new Date().getFullYear()
 
     return (
-      <footer className={`bg-white ${raleway}`} aria-labelledby="footer-heading">
+      <footer className={`bg-gray-200 ${raleway}`} aria-labelledby="footer-heading">
         <h2 id="footer-heading" className="sr-only">
           Footer
         </h2>
@@ -98,7 +98,7 @@ const navigation = {
             <div className="space-y-4">
               <Image
                 src="/images/Zesti-Logo.png"
-                alt="Company name"
+                alt="Zesti.ai"
                 height={100}
                 width={50}
               />
