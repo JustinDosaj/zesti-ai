@@ -37,6 +37,7 @@ interface CreatorData {
   },
   union_id?: string,
   video_count?: number,
+  page_image?: string,
 }
 
 interface AuthContextType {

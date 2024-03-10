@@ -21,7 +21,7 @@ export function FeaturedCreators({creators}: any) {
                     name={creator.display_name}
                     source="YouTube"
                     desc={creator.bio_description}
-                    imageSrc={creator.avatar_url}
+                    imageSrc={creator.page_image || '/images/page-image-placeholder.png'}
                     href={`/${creator.display_url}`}
                 />
             ))}
@@ -120,7 +120,7 @@ export function Scroller({onRightScrollClick, onLeftScrollClick, scrollPage}: an
 function TestimonialCard({ name, source, desc, imageSrc, href, key }: any) {
     return (
       <Link href={href} className="flex flex-col items-center bg-white hover:bg-gray-200 hover:duration-200 p-4 rounded-3xl shadow-lg min-w-[225px]">
-        <img src={imageSrc} alt="Profile" height={1000} width={1000} className="w-24 h-24 rounded-2xl mb-4 object-fit orange-border-shadow" />
+        <img src={imageSrc} alt="Profile" height={1000} width={1000} className="w-24 h-24 rounded-2xl mb-4 object-fit" />
         <p className="text-xl font-medium text-gray-700 mb-2">{name}</p>
       </Link>
     );
