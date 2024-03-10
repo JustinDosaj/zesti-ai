@@ -51,7 +51,7 @@ export function Search({searchLocation}: SearchProps){
                     <>{result.display_name ? 
                         <Link key={index} href={`/${result.display_url}`} className="block px-4 text-gray-700 hover:bg-gray-100 rounded-3xl">
                             <div className="inline-flex items-center py-3 space-x-3">
-                                <img src={result.avatar_url} alt={result.display_name} className="h-8 w-8 rounded-full"></img>
+                                <img src={result.page_image || '/images/page-image-placeholder.png'} alt={result.display_name} className="h-8 w-8 rounded-full"></img>
                                 <span className="text-sm lg:text-base capitalize">{result.display_name}</span>
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
