@@ -29,8 +29,9 @@ export function PricingDisplay() {
           description: "The perfect plan if you're just getting started with Zesti",
           learnhref: "/about/subscription/free",
           features: [
+            'Access to All Recipes on Zesti',
             'Unlimited Recipe Saves',
-            '2 Free Video Transcriptions',
+            '2 Free Recipe Transcriptions',
         ],
           featured: false,
           checkout: () => {
@@ -46,10 +47,11 @@ export function PricingDisplay() {
           description: 'Unlock the full potential of Zesti',
           learnhref: "/about/subscription/premium",
           features: [
+            'Access to All Recipes on Zesti',
             'Unlimited Recipe Saves',
-            '15 Video Transcriptions Per Month',
+            '15 Recipe Transcriptions/Month',
             'Unlock AI Cooking Assistant',
-            'Customize Recipes',
+            'Freely Customize Recipes',
             'Ad-Free'
           ],
           featured: true,

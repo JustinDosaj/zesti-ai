@@ -34,7 +34,7 @@ export default function Home() {
           description={"Join our creator program to put your recipes on display and start earning commission"}
           buttonName={user ? 'Apply to Join' : 'Login to Apply'}
           button={() => {user ? router.push('/account') : router.push('/auth/login')}}
-          imageSrc={"/images/new-aff-img.png"}
+          imageSrc={"/images/Zesti-Creator-Hero-Image.png"}
           />
         <CreatorCTA title={"Zesti Creator Program"} isHome={false}/>
         <HomeVideoToRecipe titleStart={"Transcribe Cooking Videos to"} titleEnd={"Recipes"} desc={"Instantly generate a step-by-step recipe for your followers using Zesti AI"}/>

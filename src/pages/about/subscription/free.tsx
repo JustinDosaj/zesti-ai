@@ -35,7 +35,7 @@ export default function Essential() {
         <HomePageScroller/>
         <div className="mt-24 md:mt-36"/>
         <HomeVideoToRecipe/>
-        <div className=""/>
+        <div className="mt-24"/>
         <HomePageCTA/>
         <div className="mt-24"/>
         <HomeFAQ/>
