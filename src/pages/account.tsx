@@ -46,6 +46,7 @@ export default function Account() {
         <ProfilePageComponent/>
         <CreatorProfileComponent/>
       </div>
+      <div className="mt-36"/>
     </main>
     </>
     )
