@@ -12,10 +12,10 @@ interface CreatorCTAProps {
   export function CreatorCTA({isHome, title}: CreatorCTAProps) {
     const benefits = [
       'Zero Fees',
-      'Display Recipes for Viewers',
-      'Auto-Translate Videos Using AI',
+      'Showcase Your Recipes',
+      'Transcribe Recipes Using AI',
       'Get Discovered Through Zesti',
-      'Earn 30% from Referred Subscriptions',
+      'Earn 30% Commission on Subscriptions',
     ]
     
     return(

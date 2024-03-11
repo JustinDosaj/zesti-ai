@@ -35,7 +35,7 @@ const config: Config = {
           'green': "#16a34a",
           'yellow': '#F9E308',
           'red': '#DA291C',
-          'orange': '#f5821f'
+          'orange': '#f5821f',
         },
         'background': "#FFFFFF"
       },
