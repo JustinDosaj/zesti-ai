@@ -42,7 +42,7 @@ export default function Account() {
     <main className={`flex min-h-screen flex-col items-center bg-background w-screen ${raleway.className}`}>
       <div className="mt-36"/>
       <SharedHomeSectionTitle titleBlack="Your Profile"/>
-      <div className={accountStatus == 'user'  ? `mx-auto` : `grid grid-cols-1 xl:grid-cols-2 gap-x-3` }>
+      <div className={accountStatus == 'user'  ? `mx-auto` : `grid grid-cols-1 xl:grid-cols-2 xl:gap-x-3` }>
         <ProfilePageComponent/>
         <CreatorProfileComponent/>
       </div>

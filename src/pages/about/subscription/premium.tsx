@@ -26,7 +26,7 @@ export default function Premium() {
         <PremiumSubscriptionBenefits/>
         <PricingDisplay/>
         <div className="mt-24 md:mt-36"/>
-        <HomeVideoToRecipe/>
+        <HomeVideoToRecipe titleStart={"Get Instant Readable Recipes from"} titleEnd={"TikTok"} desc={"No more pausing, rewinding or rewatching. Translate TikTok recipes into text so you can enjoy delicious home cooked meals too!"}/>
         <div className="mt-24 md:mt-36"/>
         <HomePageCTA/>
         <div className="mt-24 md:mt-36"/>
