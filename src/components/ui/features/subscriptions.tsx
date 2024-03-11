@@ -4,32 +4,28 @@ export function PremiumSubscriptionBenefits() {
 
     const features = [
       {
-      name: 'Save 30 Recipes Per Month',
-      description: 'Premium users are limited to 30 Tiktok, YouTube or Website recipe saves, but does not limit the AI recipe generator',
+      name: 'Transcribe 15 Recipes Per Month',
+      description: 'If a creator has not posted a recipe to Zesti, premium users can transcribe any TikTok recipe by copying the video link',
       },
       {
-        name: 'Save TikTok & YouTube Recipes',
-        description: 'Instantly save video recipes from TikTok or YouTube so you no longer have to pause, rewind or replay',
+        name: 'Access All Recipes on Zesti',
+        description: 'Freely search recipes that creators have posted for your convenience. No more pausing or rewinding',
       },
       {
-        name: 'Max Video Length',
-        description: 'Premium users have a max video length of 15 minutes when saving TikTok or YouTube Recipes',
+        name: 'Save Unlimited Recipes',
+        description: 'There is no limit to the amount of recipes you can save to your Zesti account',
       },
       {
-        name: 'Unlimited AI Generated Recipes',
-        description: 'Use the AI Recipe Generator unlimited times so you will never run out of meal ideas',
+        name: 'AI Cooking Assistant',
+        description: 'Chat with Zesti AI while cooking and get general cooking help or ask specific questions about the recipe your making',
       },
       {
-        name: 'AI Cooking Support',
-        description: 'Access an AI chat assistant while viewing a recipe so you can get all your cooking questions answered without losing your place',
-      },
-      {
-        name: 'Customize Recipes',
-        description: 'Freely edit ingredients and instructions of recipes to make them your own',
+        name: 'Recipe Customization',
+        description: 'Edit recipes to your liking so you can make it the just the right way every time!',
       },
       {
         name: 'Ad-Free',
-        description: 'Get a 100% ad-free experience when you subscribe to Zesti premium',
+        description: 'Enjoy an ad free experience of Zesti AI with premium',
       },
     ]
   
@@ -41,7 +37,7 @@ export function PremiumSubscriptionBenefits() {
                   <h2 className="text-base font-semibold leading-7 text-primary-main">Premium</h2>
                   <p className="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">What You Get</p>
                   <p className="mt-6 text-base leading-7 text-gray-600">
-                      Zesti premium grants you access to all the features we have to offer!
+                      Get maximum access to Zesti AI and unlock key features to make your life in the kitchen easier
                   </p>
               </div>
               <dl className="col-span-2 grid grid-cols-1 gap-x-8 gap-y-10 text-base leading-7 text-gray-600 sm:grid-cols-2 lg:gap-y-16">
@@ -65,24 +61,16 @@ export function FreeSubscriptionBenefits() {
 
   const features = [
     {
-    name: 'Save 3 Recipes Per Month',
-    description: 'Save or create up to 3 recipes per month from the AI recipe generator, a website, YouTube, or TikTok',
+    name: '2 Free Recipe Transcriptions',
+    description: "Can\n't find a recipe? Trial our recipe transcriber by copying the video link from the TikTok recipe you want to create",
     },
     {
-      name: 'Save TikTok & YouTube Recipes',
-      description: 'Instantly save video recipes from TikTok or YouTube so you no longer have to pause, rewind or replay',
+      name: 'Access All Recipes on Zesti',
+      description: 'Freely search recipes that creators have posted for your convenience. No more pausing or rewinding',
     },
     {
-      name: 'Max Video Length',
-      description: 'Base users have a max video length of 5 minutes when saving TikTok or YouTube Recipes',
-    },
-    {
-      name: 'AI Recipe Generator',
-      description: 'Use Zesti AI to generate recipe ideas out of nothing or from ingredients you have around the kitchen',
-    },
-    {
-      name: 'Customize Recipes',
-      description: 'Freely edit ingredients and instructions of recipes to make them your own',
+      name: 'Save Unlimited Recipes',
+      description: 'There is no limit to the amount of recipes you can save to your Zesti account',
     },
   ]
 
@@ -94,7 +82,7 @@ export function FreeSubscriptionBenefits() {
                 <h2 className="text-base font-semibold leading-7 text-primary-main">Free</h2>
                 <p className="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">What You Get</p>
                 <p className="mt-6 text-base leading-7 text-gray-600">
-                Our free to use model comes with the least features but will let you explore some basic features Zesti offers
+                  Everyone has the ability to find recipes on Zesti. Just create an account and get started on your culinary journey
                 </p>
             </div>
             <dl className="col-span-2 grid grid-cols-1 gap-x-8 gap-y-10 text-base leading-7 text-gray-600 sm:grid-cols-2 lg:gap-y-16">

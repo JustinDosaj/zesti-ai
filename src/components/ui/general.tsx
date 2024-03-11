@@ -50,8 +50,8 @@ export function SharedHero({titleStart, titleEnd, description, button, buttonNam
         </div>
 
 
-          <div className="hidden lg:block w-1/2 bg-transparent rounded-lg">
-            <Image src={imageSrc} alt="Profile" height={2058} width={2150} className="object-fit" />
+          <div className="hidden lg:block bg-transparent rounded-lg">
+            <img src={imageSrc} alt="Profile" height={550} width={550} className="object-fit" />
           </div> {/* Placeholder for the illustration */}
         
       </Container>

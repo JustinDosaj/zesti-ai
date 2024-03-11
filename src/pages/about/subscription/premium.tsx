@@ -25,12 +25,11 @@ export default function Premium() {
         <Hero titleStart={"Start Your Free 7-Day Trial for"} titleEnd={"Zesti Premium"} description={"Get the most out of Zesti with premium to edit recipes, ask AI questions fly and more"}/>
         <PremiumSubscriptionBenefits/>
         <PricingDisplay/>
-        <HomePageScroller/>
         <div className="mt-24 md:mt-36"/>
         <HomeVideoToRecipe/>
-        <div className=""/>
+        <div className="mt-24 md:mt-36"/>
         <HomePageCTA/>
-        <div className="mt-24"/>
+        <div className="mt-24 md:mt-36"/>
         <HomeFAQ/>
     </main>
     </div>
