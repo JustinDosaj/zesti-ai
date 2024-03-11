@@ -15,7 +15,7 @@ export function ProfilePageComponent() {
         <Container className={"mt-8 flex flex-col lg:flex-row gap-10 lg:gap-12 pb-0 xl:pb-24"}>
             <div className="mx-auto max-w-2xl lg:flex lg:gap-x-16 lg:px-8 py-8 standard-component-border w-full">
                 <main className="px-4 sm:px-6 lg:flex-auto lg:px-0 w-[325px] lg:w-[500px]">
-                    <div className="mx-auto max-w-2xl space-y-10 lg:mx-0 lg:max-w-none">
+                    <div className="mx-auto max-w-2xl space-y-16 sm:space-y-20 lg:mx-0 lg:max-w-none">
                         <div>
                             <AccountTitleComponent title={"Basic Profile Information"} desc={"Manage account and access basic information"}/>
                             <dl className="mt-6 space-y-6 divide-y divide-gray-300 border-t border-gray-200 text-sm leading-6">

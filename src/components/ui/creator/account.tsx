@@ -199,16 +199,18 @@ export function CreatorProfileComponent() {
         setIsPageGenerating(false)
     }
 
+    console.log(creatorData)
+
     if(accountStatus == 'user' || null) return <div className="hidden"/>
 
     return(
         <Container className={"mt-8 flex flex-col lg:flex-row gap-10 lg:gap-12 pb-24"}>
-            <div className="mx-auto max-w-7xl lg:flex lg:gap-x-16 lg:px-8 py-8 w-full standard-component-border">
+            <div className="mx-auto max-w-2xl lg:flex lg:gap-x-16 lg:px-8 py-8 w-full standard-component-border">
                 <main className="px-4 sm:px-6 lg:flex-auto lg:px-0">
                     <div className="mx-auto max-w-2xl space-y-16 sm:space-y-20 lg:mx-0 lg:max-w-none">
                         <div>
                         <AccountTitleComponent title="Creator Information" desc="Connect your Tiktok, manage your affiliate account & edit your page"/>
-                            <dl className="mt-6 space-y-6 text-sm leading-6 divide-y divide-gray-300">
+                            <dl className="mt-6 space-y-6 text-sm leading-6 divide-y divide-gray-300 border-t border-gray-200">
                                 <PageLinkComponent accountStatus={accountStatus} display_url={creatorData?.display_url}/>
                                 <ConnectTikTokComponent userData={userData} accountStatus={accountStatus} loginWithTikTok={loginWithTikTok}/>
                                 <SimpleProfileComponent buttonName={"Manage"} title={"Affiliate Program"} onButtonClick={() => {window.open(`https://zesti.promotekit.com/`)}}/>
