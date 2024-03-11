@@ -25,7 +25,7 @@ export function ProfilePageComponent() {
                                     desc={user?.email} 
                                     buttonName="Logout"
                                 />
-                                {stripeRole == 'premium' ? // If premium -> manage account; if free -> CTA
+                                {stripeRole !== 'premium' ? // If premium -> manage account; if free -> CTA
                                 <SimpleProfileComponent
                                     onButtonClick={() => {window.open(`${process.env.NEXT_PUBLIC_STRIPE_NO_CODE_PORATL}`)}} 
                                     title={"Subscription"} 
