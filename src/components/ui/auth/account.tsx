@@ -26,7 +26,7 @@ export function SimpleProfileComponent({onButtonClick, buttonName, title, desc}:
     
     return(
         <div className="pt-6 flex justify-between items-center border-gray-200">
-            <dt className="font-semibold text-gray-900 sm:w-64 sm:flex-none sm:pr-6 text-sm lg:text-base">{title}</dt>
+            <dt className="font-semibold text-gray-900 sm:flex-none sm:pr-6 text-sm lg:text-base">{title}</dt>
             <dd className="mt-1 flex gap-x-6 sm:mt-0">
                 <div className="text-gray-700 text-sm lg:text-base">{desc}</div>
             </dd>
