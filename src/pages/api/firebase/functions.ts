@@ -184,7 +184,6 @@ export async function GetRandomCreatorsForHomepage(numberOfCreators: number): Pr
 
 }
 
-
 /* Store Error inside Firebase Error Collection */
 export async function SendErrorToFirestore(user_id: string | undefined | null, error: any, recipeId?: string | null, file?: string) {
 
