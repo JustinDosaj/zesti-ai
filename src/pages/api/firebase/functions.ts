@@ -2,6 +2,7 @@ import { Notify } from "@/components/shared/notify";
 import { db, storage } from "./firebase"
 import { collection, query, limit, getDocs, updateDoc } from "firebase/firestore";
 import { FirebaseStorage, ref as storageRef, uploadBytes, getDownloadURL } from "firebase/storage";
+import { Timestamp } from "firebase/firestore";
 
 interface Creator {
   name: string;
@@ -35,7 +36,6 @@ export async function updateUserWithTikTokTokens(tokenData: TikTokTokenData, use
       tiktokRefreshToken: tokenData.refresh_token,
       tiktokOpenId: tokenData.open_id,
       display_name: display_name,
-      display_url: display_name.replace(/\s+/g, '').toLowerCase(),
       affiliate_code: display_name.replace(/\s+/g, '').toLowerCase(),
     };
 
@@ -64,7 +64,7 @@ export async function getAllCreatorRecipes(id: string) {
 }
 
 export async function getCreatorByDisplayName(creatorName: string) {
-  const querySnapshot = await db.collection('creators').where('display_url', '==', creatorName).get()
+  const querySnapshot = await db.collection('creators').where('affiliate_code', '==', creatorName).get()
   return querySnapshot
 }
 
@@ -123,10 +123,11 @@ export async function saveBioDataToFireStore(bioObj: any, userId: string){
 }
 
 export async function saveFromCreatorToUser(user: any, id: any, recipe: any) {
+  const date: Date = new Date()
+  const updatedRecipe = { ...recipe, date: date.toISOString() }
   const userRef = db.collection('users').doc(user).collection('recipes').doc(id)
-  await userRef.set(recipe)
+  await userRef.set(updatedRecipe)
 }
-
 
 /* DELETE FUNCTIONS */
 export async function deleteCreatorError(creator_id: any, recipe_id: string) {

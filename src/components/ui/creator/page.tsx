@@ -45,7 +45,7 @@ export function CreatorSearch({creatorData}: any) {
       try {
           const [ recipes ] = await Promise.all([
               recipesIndex.search(query, {
-                filters: `owner_display_url:"${creatorData.display_url}"` // Adding filter for owner_display_name
+                filters: `owner_affiliate_code:"${creatorData.affiliate_code}"` // Adding filter for owner_display_name
             })
           ]);
           setSearchResults({ recipes: recipes?.hits });
@@ -65,7 +65,7 @@ export function CreatorSearch({creatorData}: any) {
           return (
               <div className="absolute z-20 mt-16 w-[325px] md:w-[500px] bg-white shadow-lg border border-gray-200 rounded-3xl">
                   {combinedResults.map((result, index) => (
-                      <Link key={index} href={`/${result.owner_display_url}/${result.objectID}`} className="block px-4  text-gray-700 hover:bg-gray-100 rounded-3xl">
+                      <Link key={index} href={`/${result.owner_affiliate_code}/${result.objectID}`} className="block px-4  text-gray-700 hover:bg-gray-100 rounded-3xl">
                           <div className="inline-flex space-x-2 items-center py-3">
                               <img src={`https://firebasestorage.googleapis.com/v0/b/${process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET}/o/${encodeURIComponent(result.cover_image_url)}?alt=media`} alt={result.name} className="h-8 w-8 rounded-full"></img>
                               <span className="text-sm lg:text-base capitalize">{result.name}</span>
@@ -194,44 +194,50 @@ interface CreatorPageRecentRecipesProps {
   maxDisplayCount?: number,
   incrementCount?: number
   owner_id?: string,
+  max?: number,
 }
 
-export function CreatorPageRecentRecipes({recipes, creatorName, maxDisplayCount = 5, incrementCount = 10}: CreatorPageRecentRecipesProps) {
+export function CreatorPageRecentRecipes({recipes, creatorName, maxDisplayCount = 5, incrementCount = 10, max = 0}: CreatorPageRecentRecipesProps) {
   
   const [ displayCount, setDisplayCount ] = useState(maxDisplayCount)
   const containerRef = useRef<HTMLDivElement>(null);
 
-  const handleLoadMore = () => {
-    setDisplayCount((prevCount: number) => prevCount + incrementCount)
-  }
-  
-  const handleScroll = () => {
-    if (!containerRef.current) {
-        return;
-    }
-    const { scrollTop, scrollHeight, clientHeight } = containerRef.current;
-    if (scrollTop + clientHeight >= scrollHeight - 5) { // 5px threshold
-        handleLoadMore();
-    }
-  };
+  const sortedData = recipes?.sort((a: any, b: any) => {
+    // Convert dates to timestamps, treating invalid or absent dates as 0
+    const dateA = new Date(a.date).getTime() || 0;
+    const dateB = new Date(b.date).getTime() || 0;
 
-  useEffect(() => {
-    const currentContainer = containerRef.current;
-    if (currentContainer) {
-        currentContainer.addEventListener('scroll', handleScroll);
-    }
-    return () => {
-        if (currentContainer) {
-            currentContainer.removeEventListener('scroll', handleScroll);
-        }
-    };
-  }, [displayCount, recipes]);
+    // If both dates are invalid or missing, maintain their order
+    if (dateA === 0 && dateB === 0) return 0;
+
+    // A valid date is always considered "greater" than an invalid or missing one
+    if (dateA === 0) return 1;
+    if (dateB === 0) return -1;
+
+    // If both dates are valid, sort them in descending order
+    return dateB - dateA;
+});
+
+const shouldShowLoadMore = max > 0
+? (displayCount < recipes.length && displayCount <= max)
+: (displayCount < recipes.length);
+
+const handleLoadMore = () => {
+  setDisplayCount((prevCount) => {
+      const newCount = prevCount + incrementCount;
+      // If there's a max limit and adding incrementCount exceeds it, only go up to max
+      if (max && newCount > max) {
+        return max;
+      }
+      return newCount;
+    });
+}
   
   return(
   <div className="space-y-2 animate-fadeIn">
         <SharedSectionHeadingTitle title={"Recipes"} className="py-3"/>
         <div ref={containerRef} className={`grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-4 mt-4`} >
-          {recipes.slice(0,displayCount).map((item: any) => (
+          {sortedData.slice(0,displayCount).map((item: any) => (
               <CreatorRecipeListCard creatorName={creatorName} item={item} key={item.name}/>
           ))}
           {displayCount < recipes.length && (

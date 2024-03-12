@@ -82,7 +82,7 @@ const CreatorPage: NextPage<CreatorProps> = ({ creatorData, referer }) => {
       <CreatorPageTitle creatorData={creatorData}/>
       <CreatorSocials creatorData={creatorData}/>
       <CreatorSearch creatorData={creatorData}/>
-      <CreatorPageRecentRecipes recipes={creatorRecipeList} creatorName={creatorData?.display_url} owner_id={creatorData?.owner_id}/>
+      <CreatorPageRecentRecipes recipes={creatorRecipeList} creatorName={creatorData?.affiliate_code} owner_id={creatorData?.owner_id}/>
       <br/>
       <br/>
       {/* other creator data */}

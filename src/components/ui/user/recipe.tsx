@@ -288,7 +288,7 @@ export function UserRecipeLinks({recipe}: any) {
     const navigation = [
         { 
             name: recipe.owner_display_name,
-            onClick: () => {recipe.owner_display_name == null ? console.log("No Owner") : router.push(`/${recipe.owner_display_url}`)},
+            onClick: () => {recipe.owner_affiliate_code == null ? console.log("No Owner") : router.push(`/${recipe.owner_affiliate_code}`)},
             icon: EyeIcon,
         },
         { 
