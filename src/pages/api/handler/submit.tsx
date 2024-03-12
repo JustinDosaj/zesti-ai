@@ -6,6 +6,7 @@ import axios from 'axios'
 import { increment } from 'firebase/firestore';
 import { getFunctions, httpsCallable } from 'firebase/functions';
 import { Notify } from "@/components/shared/notify";
+import { Timestamp } from "firebase/firestore";
 import { SendErrorToFirestore } from "../firebase/functions";
 
 
@@ -149,7 +150,7 @@ export const handleTikTokURLSubmit = async ({url, user, setMessage}: TikTokProps
         id = url?.match(/tiktok\.com\/@[^\/]+\/video\/(\d+)/);
     }
 
-    const date: Date = new Date();
+    const date: Date = new Date()
     const functions = getFunctions();
     const userAddTikTokRecipe = httpsCallable(functions, 'userAddTikTokRecipe');
 
@@ -157,7 +158,7 @@ export const handleTikTokURLSubmit = async ({url, user, setMessage}: TikTokProps
         "url": `${url}`,
         "id": id ? id[1] : null,
         "source": "tiktok",
-        "date": date
+        "date": date.toISOString()
     }
     
     let tokens = 0;
@@ -202,10 +203,10 @@ export const handleCreatorTikTokURLSubmit = async ({url, rawText, creatorData}: 
         "url": `${url}`,
         "id": id ? id[1] : null,
         "source": "tiktok",
-        "date": date,
-        "rawData": rawText,
+        "date": date.toISOString(),
+        "rawData": rawText || '',
         "display_name": creatorData?.display_name,
-        "display_url": creatorData?.display_url,
+        "affiliate_code": creatorData?.affiliate_code,
         "owner_id": creatorData?.owner_id,
     }
 

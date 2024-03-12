@@ -49,7 +49,7 @@ export function Search({searchLocation}: SearchProps){
             <div className="absolute z-20 mt-16 w-[325px] md:w-[500px] bg-white shadow-lg border border-gray-200 rounded-3xl">
                 {combinedResults.map((result, index) => (
                     <>{result.display_name ? 
-                        <Link key={index} href={`/${result.display_url}`} className="block px-4 text-gray-700 hover:bg-gray-100 rounded-3xl">
+                        <Link key={index} href={`/${result.affiliate_code}`} className="block px-4 text-gray-700 hover:bg-gray-100 rounded-3xl">
                             <div className="inline-flex items-center py-3 space-x-3">
                                 <img src={result.page_image || '/images/page-image-placeholder.png'} alt={result.display_name} className="h-8 w-8 rounded-full"></img>
                                 <span className="text-sm lg:text-base capitalize">{result.display_name}</span>
@@ -62,7 +62,7 @@ export function Search({searchLocation}: SearchProps){
                             </div>
                         </Link>
                         :
-                        <Link key={index} href={`/${result.owner_display_url}/${result.objectID}`} className="block px-4  text-gray-700 hover:bg-gray-100 rounded-3xl">
+                        <Link key={index} href={`/${result.owner_affiliate_code}/${result.objectID}`} className="block px-4  text-gray-700 hover:bg-gray-100 rounded-3xl">
                             <div className="inline-flex space-x-3 items-center py-3">
                                 <img src={`https://firebasestorage.googleapis.com/v0/b/${process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET}/o/${encodeURIComponent(result.cover_image_url)}?alt=media`} alt={result.name} className="h-8 w-8 rounded-full"></img>
                                 <span className="text-sm lg:text-base capitalize">{result.name}</span>
@@ -119,7 +119,7 @@ export function ManageRecipesSearch({creatorData}: any) {
       try {
           const [ recipes ] = await Promise.all([
               recipesIndex.search(query, {
-                filters: `owner_display_url:"${creatorData.display_url}"` // Adding filter for owner_display_name
+                filters: `owner_affiliate_code:"${creatorData.affiliate_code}"` // Adding filter for owner_display_name
             })
           ]);
           setSearchResults({ recipes: recipes?.hits });
@@ -139,7 +139,7 @@ export function ManageRecipesSearch({creatorData}: any) {
           return (
               <div className="absolute w-[275px] xs:w-[350px] sm:w-[450px] md:w-[700px] z-20 mt-1 bg-white shadow-lg border border-gray-200 rounded-3xl">
                   {combinedResults.map((result, index) => (
-                      <Link key={index} href={`/${result.owner_display_url}/${result.objectID}`} className="block px-4  text-gray-700 hover:bg-gray-100 rounded-3xl">
+                      <Link key={index} href={`/${result.owner_affiliate_code}/${result.objectID}`} className="block px-4  text-gray-700 hover:bg-gray-100 rounded-3xl">
                           <div className="inline-flex space-x-2 items-center py-2">
                               <img src={`https://firebasestorage.googleapis.com/v0/b/${process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET}/o/${encodeURIComponent(result.cover_image_url)}?alt=media`} alt={result.name} className="h-8 w-8 rounded-full"></img>
                               <span className="text-sm lg:text-base capitalize">{result.name}</span>
