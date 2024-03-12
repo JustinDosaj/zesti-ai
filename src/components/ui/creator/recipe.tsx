@@ -65,7 +65,7 @@ export function CreatorRecipe({recipe, owner_id, setEditMode, setIsOpen}: Recipe
     )
 }
 
-export function EditCreatorRecipe({recipe, setLoginPrompt, owner_id, setEditMode}:RecipeProps) {
+export function EditCreatorRecipe({recipe, owner_id, setEditMode}:RecipeProps) {
 
     const {user} = useAuth()
     const [editedIngredients, setEditedIngredients] = useState<string[]>([]);
@@ -257,7 +257,7 @@ export function CreatorRecipeLinks({recipe, isEdit, setIsOpen}: CreatorRecipeLin
     const navigation = [
         { 
             name: recipe.owner_display_name,
-            onClick: () => router.push(`/${recipe.owner_display_url}`),
+            onClick: () => router.push(`/${recipe.owner_affiliate_code}`),
             icon: EyeIcon,
         },
         { 

@@ -23,7 +23,7 @@ const useAccountStatus = () => {
                 setAccountStatus("creator")
                 setAccountStatusMessage("View Your Page")
                 if(hasPage == true) {
-                    setNavCreator(`/${creatorData?.display_url}`)
+                    setNavCreator(`/${creatorData?.affiliate_code}`)
                     setAccountStatusMessage("View Your Page")
                 } else {
                     setNavCreator(`/account`)

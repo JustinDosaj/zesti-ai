@@ -39,7 +39,7 @@ export default function MyRecipes() {
         <Search searchLocation={"my-recipes"}/>
         <div className="border-t border-gray-200 m-12" style={{ width: '35%' }} />
         <SharedSectionHeadingTitle title={"Recent Saved Recipes"}/>
-        <UserSavedRecipeList recipes={userRecipeList} maxDisplayCount={5} max={3} loading={loadingUserRecipes}/>
+        <UserSavedRecipeList recipes={userRecipeList} maxDisplayCount={9} max={0} loading={loadingUserRecipes}/>
         {stripeRole !== 'premium' && userRecipeList.length > 0 ? 
         <div className="flex justify-center items-center py-16">
           <div className="w-full min-w-[300px] max-w-[320px] lg:max-w-full lg:min-w-[1240px] text-center">
