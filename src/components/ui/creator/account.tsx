@@ -106,9 +106,8 @@ export function CreatorSettingsComponent() {
                         <div>
                         <AccountTitleComponent title={"Edit Your Page"} desc={"Contribute to your recipe collection & add social media links to let users follow you on other platforms"}/>
                         <dl className="mt-6 space-y-6 text-sm leading-6 divide-y divide-gray-300">
-                            <PageLinkComponent display_url={creatorData.display_url} accountStatus={accountStatus}/>
-                            <SimpleProfileComponent title={"Page Name"} desc={creatorData?.display_name} onButtonClick={() => router.push(`/${creatorData?.display_url}`)} buttonName={"View Page"}/>
-                            
+                            <PageLinkComponent affiliate_code={creatorData.affiliate_code} accountStatus={accountStatus}/>
+                            <SimpleProfileComponent title={"Page Name"} desc={creatorData?.display_name} onButtonClick={() => router.push(`/${creatorData?.affiliate_code}`)} buttonName={"View Page"}/>
                             <div className="pt-6 flex items-center justify-between border-gray-200">
                                 <dt className="font-semibold text-gray-900 sm:w-64 sm:flex-none pr-6 text-sm lg:text-base">Page Image</dt>
                                 <dd className="flex flex-col gap-y-2 space-x-6 sm:flex-row items-center">
@@ -211,7 +210,7 @@ export function CreatorProfileComponent() {
                         <div>
                         <AccountTitleComponent title="Creator Information" desc="Connect your Tiktok, manage your affiliate account & edit your page"/>
                             <dl className="mt-6 space-y-6 text-sm leading-6 divide-y divide-gray-300 border-t border-gray-200">
-                                <PageLinkComponent accountStatus={accountStatus} display_url={creatorData?.display_url}/>
+                                <PageLinkComponent accountStatus={accountStatus} affiliate_code={creatorData?.affiliate_code}/>
                                 <ConnectTikTokComponent userData={userData} accountStatus={accountStatus} loginWithTikTok={loginWithTikTok}/>
                                 <SimpleProfileComponent buttonName={"Manage"} title={"Affiliate Program"} onButtonClick={() => {window.open(`https://zesti.promotekit.com/`)}}/>
                                 <GenerateOrViewPageComponent onGeneratePageClick={onGeneratePageClick} isPageGenerating={isPageGenerating} router={router} hasPage={hasPage}/>
@@ -227,7 +226,7 @@ export function CreatorProfileComponent() {
 interface CreatorPageComponents {
     title?: string,
     desc?: string,
-    display_url?: string,
+    affiliate_code?: string,
     accountStatus?: string,
     onGeneratePageClick?: any,
     router?: any,
@@ -242,7 +241,7 @@ interface CreatorPageComponents {
     linkHref?: string,
 }
 
-function PageLinkComponent({display_url, accountStatus}:CreatorPageComponents) {
+function PageLinkComponent({affiliate_code, accountStatus}:CreatorPageComponents) {
 
     const [ isLinkCopied, setIsLinkCopied ] = useState<boolean>(false)
 
@@ -260,7 +259,7 @@ function PageLinkComponent({display_url, accountStatus}:CreatorPageComponents) {
     } 
 };
 
-    const urlToCopy = `https://www.zesti.ai?via=${display_url}`;
+    const urlToCopy = `https://www.zesti.ai?via=${affiliate_code}`;
 
     return(
     <>

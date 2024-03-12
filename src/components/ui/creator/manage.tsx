@@ -156,12 +156,12 @@ export function ManageRecipesList({errorData, publicData, setIsCreatorModalOpen,
                                         <p className="text-gray-600 text-xs sm:text-sm lg:text-base">{item.id}</p>
                                     </div>
                                     <div className="flex justify-start gap-x-4 w-fit items-end">
-                                        <button onClick={() => router.push(`/${creatorData?.display_url}/${item.id}`)}>
+                                        <button onClick={() => router.push(`/${creatorData?.affiliate_code}/${item.id}`)}>
                                             <div className="text-white hover:bg-green-500 p-1 bg-green-600 rounded  flex items-center justify-center w-fit">
                                                 <EyeIcon className="h-4 w-4 lg:h-6 lg:w-6" />
                                             </div>
                                         </button>
-                                        <button onClick={() => router.push(`/${creatorData?.display_url}/${item.id}`)}>
+                                        <button onClick={() => router.push(`/${creatorData?.affiliate_code}/${item.id}`)}>
                                             <div className="text-white hover:bg-yellow-400 p-1 bg-yellow-500 rounded flex items-center justify-center w-fit">
                                                 <PencilSquareIcon className="h-4 w-4 lg:h-6 lg:w-6" />
                                             </div>

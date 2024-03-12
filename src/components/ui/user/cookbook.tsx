@@ -14,47 +14,41 @@ interface UserSavedRecipeListProps {
     loading?: boolean,
 }
   
-export function UserSavedRecipeList({recipes, maxDisplayCount = 5, incrementCount = 10, max = 0, loading}: UserSavedRecipeListProps) {
+export function UserSavedRecipeList({recipes, maxDisplayCount = 9, incrementCount = 9, max = 0, loading}: UserSavedRecipeListProps) {
 
 const [ displayCount, setDisplayCount ] = useState(maxDisplayCount)
 const containerRef = useRef<HTMLDivElement>(null);
 
 const sortedData = recipes?.sort((a: any, b: any) => {
-    const dateA = new Date(a.date).getTime();
-    const dateB = new Date(b.date).getTime();
+    // Convert dates to timestamps, treating invalid or absent dates as 0
+    const dateA = new Date(a.date).getTime() || 0;
+    const dateB = new Date(b.date).getTime() || 0;
+
+    // If both dates are invalid or missing, maintain their order
+    if (dateA === 0 && dateB === 0) return 0;
+
+    // A valid date is always considered "greater" than an invalid or missing one
+    if (dateA === 0) return 1;
+    if (dateB === 0) return -1;
+
+    // If both dates are valid, sort them in descending order
     return dateB - dateA;
 });
 
+const shouldShowLoadMore = max > 0
+? (displayCount < recipes.length && displayCount <= max)
+: (displayCount < recipes.length);
+
 const handleLoadMore = () => {
-    if(max == 0) {
-        setDisplayCount((prevCount: number) => prevCount + incrementCount)
-    }
-    else if ((displayCount + incrementCount) <= max) {
-        setDisplayCount((prevCount: number) => prevCount + incrementCount)
-    }
-}
-
-const handleScroll = () => {
-    if (!containerRef.current) {
-        return;
-    }
-    const { scrollTop, scrollHeight, clientHeight } = containerRef.current;
-    if (scrollTop + clientHeight >= scrollHeight - 5) { // 5px threshold
-        handleLoadMore();
-    }
-};
-
-useEffect(() => {
-    const currentContainer = containerRef.current;
-    if (currentContainer) {
-        currentContainer.addEventListener('scroll', handleScroll);
-    }
-    return () => {
-        if (currentContainer) {
-            currentContainer.removeEventListener('scroll', handleScroll);
+    setDisplayCount((prevCount) => {
+        const newCount = prevCount + incrementCount;
+        // If there's a max limit and adding incrementCount exceeds it, only go up to max
+        if (max && newCount > max) {
+          return max;
         }
-    };
-}, [displayCount, recipes]);
+        return newCount;
+      });
+}
 
 if(loading) return <RecipeListLoader/>
 
@@ -64,12 +58,12 @@ return(
         {sortedData.slice(0,displayCount).map((item: any) => (
             <UserRecipeListCard item={item} key={item.name}/>
         ))}
-        {max == 0 && (recipes.length > maxDisplayCount) && (
-            <div className="flex justify-center py-6">
-                <Button isLink={false} onClick={handleLoadMore} className="bg-primary-main rounded-3xl hover:bg-primary-alt text-white font-semibold py-2 px-4" buttonType="button" text="Load More"/>
-            </div>
-        )}
     </div>
+    {shouldShowLoadMore && (
+        <div className="grid justify-center py-6">
+            <Button onClick={handleLoadMore} isLink={false} className="bg-primary-main rounded-3xl hover:bg-primary-alt text-white font-semibold py-2 px-4" text="Load More" buttonType="button"></Button>
+        </div>
+    )}
 </div>
 )
 }
