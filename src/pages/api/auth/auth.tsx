@@ -23,7 +23,6 @@ interface CreatorData {
   avatar_url?: string;
   bio_description?: string;
   display_name?: string;
-  display_url?: string;
   follower_count?: number;
   is_verified?: boolean;
   likes_count?: number;
