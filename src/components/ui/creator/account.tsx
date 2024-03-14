@@ -8,21 +8,19 @@ import { Notify } from '@/components/shared/notify'
 import { Container } from '@/components/shared/container'
 import { callGenerateCreatorPage } from '@/pages/api/handler/submit'
 import { DocumentDuplicateIcon, ClipboardDocumentCheckIcon } from '@heroicons/react/20/solid'
-import useAccountStatus from '@/hooks/useAccountStatus'
 import useCreatorDoc from '@/hooks/creator/useCreatorDoc'
 import { AccountTitleComponent, SimpleProfileComponent } from '../auth/account'
 
 
 export function CreatorSettingsComponent() {
 
-    const { user, creatorData, isLoading } = useAuth()
+    const { user, creatorData, isLoading, userData } = useAuth()
     const [ bio, setBio ] = useState<string>(creatorData?.bio_description ? creatorData.bio_description : '')
     const [ tiktok, setTikTok ] = useState<string>(creatorData?.profile_deep_link ? creatorData.profile_deep_link : '')
     const [ youtube, setYouTube ] = useState<string>(creatorData?.socials?.youtube_link ? creatorData.socials.youtube_link : '')
     const [ twitter, setTwitter ] = useState<string>(creatorData?.socials?.twitter_link ? creatorData.socials.twitter_link : '')
     const [ instagram, setInstagram ] = useState<string>(creatorData?.socials?.instagram_link ? creatorData.socials.instagram_link : '')
     const [ website, setWebsite ] = useState<string>(creatorData?.socials?.website_link ? creatorData.socials.website_link : '')
-    const { accountStatus } = useAccountStatus()
     const [ edit, setEdit ] = useState<boolean>(false)
     const router = useRouter()
 
@@ -106,7 +104,7 @@ export function CreatorSettingsComponent() {
                         <div>
                         <AccountTitleComponent title={"Edit Your Page"} desc={"Contribute to your recipe collection & add social media links to let users follow you on other platforms"}/>
                         <dl className="mt-6 space-y-6 text-sm leading-6 divide-y divide-gray-300">
-                            <PageLinkComponent affiliate_code={creatorData.affiliate_code} accountStatus={accountStatus}/>
+                            <PageLinkComponent affiliate_code={creatorData.affiliate_code} accountStatus={userData?.account_status}/>
                             <SimpleProfileComponent title={"Page Name"} desc={creatorData?.display_name} onButtonClick={() => router.push(`/${creatorData?.affiliate_code}`)} buttonName={"View Page"}/>
                             <div className="pt-6 flex items-center justify-between border-gray-200">
                                 <dt className="font-semibold text-gray-900 sm:w-64 sm:flex-none pr-6 text-sm lg:text-base">Page Image</dt>
@@ -186,9 +184,8 @@ export function CreatorSettingsComponent() {
 
 export function CreatorProfileComponent() {
 
-    const { creatorData, userData, user } = useAuth()
-    const { hasPage } = useCreatorDoc(user?.uid)
-    const { accountStatus, loginWithTikTok } = useAccountStatus()
+    const { creatorData, userData, loginWithTikTok } = useAuth()
+    const { hasPage } = useCreatorDoc()
     const [ isPageGenerating, setIsPageGenerating ] = useState<boolean>(false)
     const router = useRouter() 
 
@@ -200,7 +197,7 @@ export function CreatorProfileComponent() {
 
     console.log(creatorData)
 
-    if(accountStatus == 'user' || null) return <div className="hidden"/>
+    if(userData?.account_status == 'user' || null) return <div className="hidden"/>
 
     return(
         <Container className={"mt-8 flex flex-col lg:flex-row gap-10 lg:gap-12 pb-24"}>
@@ -210,8 +207,8 @@ export function CreatorProfileComponent() {
                         <div>
                         <AccountTitleComponent title="Creator Information" desc="Connect your Tiktok, manage your affiliate account & edit your page"/>
                             <dl className="mt-6 space-y-6 text-sm leading-6 divide-y divide-gray-300 border-t border-gray-200">
-                                <PageLinkComponent accountStatus={accountStatus} affiliate_code={creatorData?.affiliate_code}/>
-                                <ConnectTikTokComponent userData={userData} accountStatus={accountStatus} loginWithTikTok={loginWithTikTok}/>
+                                <PageLinkComponent accountStatus={userData?.account_status} affiliate_code={creatorData?.affiliate_code}/>
+                                <ConnectTikTokComponent userData={userData} accountStatus={userData?.account_status} loginWithTikTok={loginWithTikTok}/>
                                 <SimpleProfileComponent buttonName={"Manage"} title={"Affiliate Program"} onButtonClick={() => {window.open(`https://zesti.promotekit.com/`)}}/>
                                 <GenerateOrViewPageComponent onGeneratePageClick={onGeneratePageClick} isPageGenerating={isPageGenerating} router={router} hasPage={hasPage}/>
                             </dl>

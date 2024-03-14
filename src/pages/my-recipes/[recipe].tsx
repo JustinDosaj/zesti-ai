@@ -15,6 +15,7 @@ import Breadcrumbs from "@/components/shared/breadcrumb";
 import useSetBreadcrumbs from '@/components/shared/setBreadcrumbs';
 import useUserRecipe from "@/hooks/user/useUserRecipe";
 import { StarIcon } from "@heroicons/react/20/solid";
+import useRequireAuth from "@/hooks/user/useRequireAuth";
 
 const raleway = Raleway({subsets: ['latin']})
 
@@ -26,6 +27,8 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 const Recipe: React.FC = ({id}: any) => {
 
     useSetBreadcrumbs()
+    useRequireAuth()
+    
     const { user, isLoading, stripeRole } = useAuth();
     const { userRecipe } = useUserRecipe(user?.uid, id)
     const [isEditMode, setEditMode] = useState<boolean>(false)

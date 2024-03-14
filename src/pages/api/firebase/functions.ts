@@ -19,12 +19,10 @@ interface TikTokTokenData {
   refresh_expires_in: number;
 }
 
-export async function updateUserWithTikTokTokens(tokenData: TikTokTokenData, userId: string, display_name: string) {
+export async function updateUserWithTikTokTokens(tokenData: TikTokTokenData, userId: string, tiktokUserData: any) {
   try {
+    
     const userRef = db.collection('users').doc(userId);
-    const pageRef = db.collection('creators').doc(userId)
-
-    const res = await getUserData(userId)
 
     if (!tokenData.access_token || !tokenData.refresh_token || !tokenData.open_id) {
       throw new Error('Token data is incomplete or undefined');
@@ -35,8 +33,12 @@ export async function updateUserWithTikTokTokens(tokenData: TikTokTokenData, use
       tiktokAccessToken: tokenData.access_token,
       tiktokRefreshToken: tokenData.refresh_token,
       tiktokOpenId: tokenData.open_id,
-      display_name: display_name,
-      affiliate_code: display_name.replace(/\s+/g, '').toLowerCase(),
+      display_name: tiktokUserData.display_name,
+      affiliate_code: tiktokUserData.username,
+      profile_deep_link: tiktokUserData.profile_deep_link,
+      socials: {
+        tiktok: tiktokUserData.profile_deep_link
+      }
     };
 
     // Update the user's document

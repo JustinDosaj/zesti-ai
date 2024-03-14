@@ -1,18 +1,23 @@
 // useRequireAuth hook
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
+import { useAuth } from '@/pages/api/auth/auth';
 
-const useRequireAuth = (require: any | undefined, isLoading: boolean, redirectUrl = '/auth/login') => {
+// Hook that requires the user to be authenticated
+
+const useRequireAuth = (redirectUrl = '/auth/login') => {
+
     const router = useRouter();
+    const { user, isLoading } = useAuth();
 
     useEffect(() => {
-        if (!isLoading && !require) {
+        if (!isLoading && !user) {
             // Redirect unauthenticated users to the login page
             router.push(redirectUrl);
         }
-    }, [require, isLoading, redirectUrl, router]);
+    }, [require, isLoading, redirectUrl, router, user]);
 
-    return { require, isLoading };
+    return;
 };
 
 export default useRequireAuth;
