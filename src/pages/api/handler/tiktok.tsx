@@ -1,7 +1,7 @@
 import { Notify } from "@/components/shared/notify";
 import { SendErrorToFirestore } from "../firebase/functions";
 
-export async function fetchTikTokUserInfo(accessToken: string, fields = ['open_id', 'union_id', 'avatar_url', 'display_name', 'bio_description', 'profile_deep_link', 'is_verified', 'follower_count', 'likes_count', 'video_count']) {
+export async function fetchTikTokUserInfo(accessToken: string, fields = ['open_id', 'union_id', 'avatar_url', 'display_name', 'bio_description', 'profile_deep_link', 'is_verified', 'follower_count', 'likes_count', 'video_count', 'username']) {
     try {
         const response = await fetch(`https://open.tiktokapis.com/v2/user/info/?fields=${fields.join(',')}`, {
             method: 'GET',
