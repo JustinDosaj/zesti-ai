@@ -22,7 +22,7 @@ export async function fetchTikTokUserInfo(accessToken: string, fields = ['open_i
     }
 }
 
-export async function fetchTikTokDisplayName(accessToken: string, fields = ['display_name']) {
+export async function fetchTikTokDisplayName(accessToken: string, fields = ['display_name', 'profile_deep_link', 'username']) {
     try {
         const response = await fetch(`https://open.tiktokapis.com/v2/user/info/?fields=${fields.join(',')}`, {
             method: 'GET',
