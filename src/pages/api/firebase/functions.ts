@@ -44,7 +44,7 @@ export async function updateUserWithTikTokTokens(tokenData: TikTokTokenData, use
     await userRef.set(updateData, { merge: true });
 
   } catch (error) {
-    console.error('Error updating user with TikTok tokens:', error);
+
     throw error; 
   }
 }
