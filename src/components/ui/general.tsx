@@ -1,9 +1,8 @@
 import { Container } from "@/components/shared/container"
 import { ChatBubbleLeftIcon, StarIcon, BookOpenIcon, PuzzlePieceIcon } from "@heroicons/react/20/solid"
 import { Button } from "@/components/shared/button"
-import Image from "next/image"
-import { useRouter } from "next/router"
-import { useAuth } from "@/pages/api/auth/auth"
+import { BeakerIcon } from "@heroicons/react/20/solid"
+import getConfig from "next/config"
 
 
 interface HeroProps {
@@ -17,15 +16,14 @@ interface HeroProps {
 
 export function SharedHero({titleStart, titleEnd, description, button, buttonName, imageSrc}: HeroProps) {
 
-  const router = useRouter()
-  const { user } = useAuth()
+  const { publicRuntimeConfig } = getConfig();
 
   return(
       <Container className="flex flex-col lg:flex-row items-center justify-between pt-36 px-5 space-x-4 xl:pt-48 animate-fadeIn">
         <div className="flex lg:w-1/2 flex-col gap-6 lg:gap-8">
           <div className="inline-flex w-fit mx-auto lg:mx-0 items-center border border-gray-300 rounded-3xl p-2 space-x-1 ">
-              <div className="text-black font-bold text-sm">Powered By OpenAI</div>
-              <Image width={20} height={20} src="/images/openaipng.png" alt="Powered by OpenAI Chatgpt AI Technology Tool" className=" "/>
+              <BeakerIcon className="text-black h-4 w-4"/>
+              <div className="text-black font-bold text-sm">{`beta v${publicRuntimeConfig?.version}`}</div>
           </div>
           <div className="flex flex-col gap-8 text-center lg:text-left">
             <h1 className="section-title-text-size xl:text-6xl font-bold text-gray-800">
@@ -38,14 +36,7 @@ export function SharedHero({titleStart, titleEnd, description, button, buttonNam
             </p>
           </div>
           <div className="grid justify-center lg:justify-start text-left space-y-1">
-
-          <Button isLink={false} text={buttonName} buttonType="button" onClick={button}/>
-
-            {/* user ?
-            <Button isLink={false} text="Apply to Join" buttonType="button" onClick={() => router.push('/account') }/>
-            :
-            <Button isLink={false} text="Apply to Join" buttonType="button" onClick={() => router.push('/auth/login') }/> 
-            */}
+            <Button isLink={false} text={buttonName} buttonType="button" onClick={button}/>
           </div>
         </div>
 

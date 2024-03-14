@@ -21,10 +21,8 @@ interface TikTokTokenData {
 
 export async function updateUserWithTikTokTokens(tokenData: TikTokTokenData, userId: string, display_name: string) {
   try {
+    
     const userRef = db.collection('users').doc(userId);
-    const pageRef = db.collection('creators').doc(userId)
-
-    const res = await getUserData(userId)
 
     if (!tokenData.access_token || !tokenData.refresh_token || !tokenData.open_id) {
       throw new Error('Token data is incomplete or undefined');

@@ -17,8 +17,9 @@ const raleway = Raleway({subsets: ['latin']})
 
 export default function MyRecipes() {
 
+  useRequireAuth()
+
   const { user, isLoading, stripeRole } = useAuth();
-  const { require } = useRequireAuth(user, isLoading)
   const { userRecipeList, loadingUserRecipes } = useUserRecipeList(user, isLoading)
   const router = useRouter()
 

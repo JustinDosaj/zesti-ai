@@ -7,8 +7,9 @@ import Link from "next/link"
 import Image from "next/image"
 import { BookOpenIcon, HomeIcon, PaperAirplaneIcon, WalletIcon, UserIcon, PencilSquareIcon } from "@heroicons/react/20/solid"
 import { DropDownMenuDesktop, DropDownMenuMobile } from "./menus"
-import useAccountStatus from "@/hooks/useAccountStatus"
 import { useRouter } from "next/router"
+import { useEffect, useState } from "react"
+import useCreatorDoc from "@/hooks/creator/useCreatorDoc"
 
 
 const navItemsLoggedInMobile = [
@@ -74,14 +75,37 @@ const creatorItemsLoggedInMobile = [
 
 export function Navbar() {
     
-    const { user, userData } = useAuth();
-    const { accountStatus, accountStatusMessage, loginWithTikTok, navCreator } = useAccountStatus()
+    const { user, userData, loginWithTikTok, isLoading } = useAuth();
+    const { hasPage } = useCreatorDoc() 
+    const [ navChoice, setNavChoice ] = useState<string>("noUser")
     const router = useRouter()
 
-    const mainNavButton = {
-        name: userData?.tiktokAccessToken == null && accountStatus == 'creator' ?  'Connect TikTok' : accountStatusMessage,
-        function:  userData?.tiktokAccessToken == null && accountStatus == 'creator' ? () => loginWithTikTok()
-                    : () => router.push(navCreator),
+    useEffect(() => {
+
+        if(userData?.account_status == 'creator' && hasPage) { setNavChoice("creator") }
+        if(userData?.account_status == 'creator' && !hasPage) { setNavChoice("creatorNoPage") }
+        if(userData?.account_status == 'user') { setNavChoice("user") }
+        if(!user) { setNavChoice("noUser") }
+
+    },[isLoading, user, userData])
+
+    const testNav: any = {
+        user: {
+            message: "My Recipes",
+            function: () => router.push('/my-recipes'),
+        },
+        noUser: {
+            message: "Login",
+            function: () => router.push('/auth/login'),
+        },
+        creator: {
+            message: "View Your Page",
+            function: () => router.push(`/${userData?.affiliate_code}`),
+        },
+        creatorNoPage: {
+            message: "Create Page",
+            function: () => router.push('/account')
+        }
     }
 
     const navItemsDesktop = [
@@ -91,7 +115,7 @@ export function Navbar() {
         // Add more items as needed
     ];
 
-    const desktopNavItems = [
+    const desktopDropDownItems = [
         {
             href: "/my-recipes",
             text: "My Recipes",
@@ -104,8 +128,8 @@ export function Navbar() {
         },
     ]
 
-    if(accountStatus == 'creator') {
-        desktopNavItems.push({
+    if(userData?.account_status == 'creator') {
+        desktopDropDownItems.push({
             href: "/creator/edit",
             text: "Edit Your Page",
             icon: PencilSquareIcon,
@@ -137,14 +161,14 @@ export function Navbar() {
                 <div className="hidden lg:flex justify-end w-1/3">
                     {/* Main Orange Button for Primary navigation based on accountStatus: base_user, creator_connect_tiktok, creator_connect_affiliate, creator_generate_page, creator*/}
                     <div className="inline-flex items-center space-x-4">
-                        <Button buttonType="button" isLink={false} onClick={() => mainNavButton.function()} text={mainNavButton.name}/>
-                        <DropDownMenuDesktop navItems={desktopNavItems} isHidden={!user}/> 
+                        <Button buttonType="button" isLink={false} onClick={() => testNav[navChoice].function()} text={testNav[navChoice].message}/>
+                        <DropDownMenuDesktop navItems={desktopDropDownItems} isHidden={!user}/> 
                     </div>
 
                 </div>
                 {!user ? 
                     <Button isLink={true} text='Login' href='/auth/login' className="lg:hidden"/> 
-                : accountStatus == 'creator' ?
+                : userData?.account_status == 'creator' ?
                     <DropDownMenuMobile navItems={creatorItemsLoggedInMobile}/>
                 : 
                     <DropDownMenuMobile navItems={navItemsLoggedInMobile}/>
