@@ -16,7 +16,7 @@ export function CreatorSettingsComponent() {
 
     const { user, creatorData, isLoading, userData } = useAuth()
     const [ bio, setBio ] = useState<string>(creatorData?.bio_description ? creatorData.bio_description : '')
-    const [ tiktok, setTikTok ] = useState<string>(creatorData?.profile_deep_link ? creatorData.profile_deep_link : '')
+    const [ tiktok, setTikTok ] = useState<string>(creatorData?.socials?.tiktok_link ? creatorData?.socials?.tiktok_link : '')
     const [ youtube, setYouTube ] = useState<string>(creatorData?.socials?.youtube_link ? creatorData.socials.youtube_link : '')
     const [ twitter, setTwitter ] = useState<string>(creatorData?.socials?.twitter_link ? creatorData.socials.twitter_link : '')
     const [ instagram, setInstagram ] = useState<string>(creatorData?.socials?.instagram_link ? creatorData.socials.instagram_link : '')
@@ -34,7 +34,7 @@ export function CreatorSettingsComponent() {
 
     useEffect(() => {
         setBio(creatorData?.bio_description || '')
-        setTikTok(creatorData?.profile_deep_link || '');
+        setTikTok(creatorData?.socials?.tiktok_link || '');
         setYouTube(creatorData?.socials?.youtube_link || '')
         setTwitter(creatorData?.socials?.twitter_link || '')
         setInstagram(creatorData?.socials?.instagram_link || '')
@@ -61,7 +61,7 @@ export function CreatorSettingsComponent() {
             }
 
             await saveBioDataToFireStore(bioObject, user?.uid)
-            Notify("Page information saved!")
+            Notify("Creator page updated!")
         }
     }
 
