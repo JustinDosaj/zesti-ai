@@ -8,28 +8,20 @@ import { ProfilePageComponent } from '@/components/ui/user/account'
 import { CreatorProfileComponent } from '@/components/ui/creator/account'
 import { PageLoader } from '@/components/shared/loader'
 import useRequireAuth from '@/hooks/user/useRequireAuth'
-import useAccountStatus from '@/hooks/useAccountStatus'
 import { useRouter } from 'next/router'
-import { useEffect } from 'react'
 import useCreatorDoc from '@/hooks/creator/useCreatorDoc'
 
 const raleway = Raleway({subsets: ['latin']})
 
 export default function Account() {
 
-    const { user, isLoading, userData, creatorData } = useAuth();
-    const { accountStatus, loadingStatus } = useAccountStatus()
-    const { loadingCreatorDoc } = useCreatorDoc(user?.uid)
-    const { require } = useRequireAuth(user, isLoading)
-    const router = useRouter()
+    // Redirect if user is not logged in
+    useRequireAuth()
 
-    useEffect(() => {
-      if(user == null && !isLoading) {
-          router.replace('/auth/login')
-      } 
-    },[user, isLoading, router])
+    const { isLoading, userData } = useAuth();
+    const { loadingCreatorDoc } = useCreatorDoc()
 
-    if(isLoading && loadingCreatorDoc && loadingStatus) return <PageLoader/>
+    if(isLoading && loadingCreatorDoc) return <PageLoader/>
 
     return(
     <>
@@ -42,7 +34,7 @@ export default function Account() {
     <main className={`flex min-h-screen flex-col items-center bg-background w-screen ${raleway.className}`}>
       <div className="mt-36"/>
       <SharedHomeSectionTitle titleBlack="Your Profile"/>
-      <div className={accountStatus == 'user'  ? `mx-auto` : `grid grid-cols-1 xl:grid-cols-2 xl:gap-x-3` }>
+      <div className={userData?.account_status == 'user'  ? `mx-auto` : `grid grid-cols-1 xl:grid-cols-2 xl:gap-x-3` }>
         <ProfilePageComponent/>
         <CreatorProfileComponent/>
       </div>

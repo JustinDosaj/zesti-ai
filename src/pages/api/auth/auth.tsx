@@ -106,7 +106,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
 
         if (tokenData.access_token && tokenData.refresh_token && tokenData.open_id) {
           const res = await fetchTikTokDisplayName(tokenData.access_token)
-          await updateUserWithTikTokTokens(tokenData, user!.uid, res.data.user.display_name);
+          await updateUserWithTikTokTokens(tokenData, user!.uid, res.data.user);
         } else {
           console.error("Invalid TikTok token data:", tokenData);
         }

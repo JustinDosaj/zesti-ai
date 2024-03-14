@@ -16,9 +16,10 @@ const raleway = Raleway({subsets: ['latin']})
 export default function EditCreatorPage() {
 
   useSetBreadcrumbs()
+  useRequireAuth()
+  
   const { user, isLoading } = useAuth();
-  const { require } = useRequireAuth(user, isLoading)
-
+  
   return (
     <>
         <Head>
