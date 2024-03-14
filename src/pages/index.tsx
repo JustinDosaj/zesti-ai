@@ -7,7 +7,7 @@ import { PageLoader } from '@/components/shared/loader';
 import { PromoteKitTag } from '@/components/tags/headertags';
 import { useState, useEffect } from 'react';
 import { GetRandomCreatorsForHomepage } from './api/firebase/functions';
-import { ThreeBoxFeature } from '@/components/ui/general';
+import { SharedHero, ThreeBoxFeature } from '@/components/ui/general';
 import { useRouter } from 'next/router';
 import { Raleway } from 'next/font/google'
 

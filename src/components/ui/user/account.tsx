@@ -3,12 +3,10 @@ import { Container } from '@/components/shared/container';
 import { useRouter } from 'next/router';
 import { useAuth } from '@/pages/api/auth/auth'
 import { AccountTitleComponent, SimpleProfileComponent } from '../auth/account';
-import useAccountStatus from '@/hooks/useAccountStatus';
 
 export function ProfilePageComponent() {
 
     const { user, stripeRole, logout, userData, loginWithTikTok } = useAuth()
-    const { accountStatus } = useAccountStatus()
     const router = useRouter();
 
     return (
@@ -40,8 +38,8 @@ export function ProfilePageComponent() {
                                 />
                                 }
                                 <SimpleProfileComponent title={"Monthly Usage Remaining"} desc={userData?.tokens} buttonName={''}/>
-                                {user && userData?.tiktokAccessToken && accountStatus !== 'creator' ? 
-                                    <div className={accountStatus == 'creator' ? 'hidden' : 'block'}>
+                                {user && userData?.tiktokAccessToken && userData?.account_status !== 'creator' ? 
+                                    <div className={userData?.account_status == 'creator' ? 'hidden' : 'block'}>
                                         <dl className="space-y-6 text-sm leading-6">
                                             <div className="pt-6 flex justify-between items-center">
                                                 <dt className="font-semibold text-gray-900 sm:w-64 sm:flex-none sm:pr-6 text-sm lg:text-base">Join Creator Program</dt>
@@ -55,7 +53,7 @@ export function ProfilePageComponent() {
                                         </dl>
                                     </div>
                                     :
-                                    <div className={accountStatus == 'creator' ? 'hidden' : 'block'}>
+                                    <div className={userData?.account_status == 'creator' ? 'hidden' : 'block'}>
                                         <dl className="space-y-6 text-sm leading-6">
                                             <div className="pt-6 flex justify-between items-center">
                                                 <dt className="font-semibold text-gray-900 sm:w-64 sm:flex-none sm:pr-6 text-sm lg:text-base">Join Creator Program</dt>

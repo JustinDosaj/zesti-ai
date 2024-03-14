@@ -30,7 +30,8 @@ export default function ManageRecipes() {
     const [ isResubmitOpen, setIsResubmitOpen ] = useState<boolean>(false)
     const [ url, setUrl ] = useState<string>('')
     const [ recipeId, setRecipeId ] = useState<string>('')
-    const { require } = useRequireAuth(user, isLoading)
+    
+    useRequireAuth()
 
     if(isLoading) return <PageLoader/>
 

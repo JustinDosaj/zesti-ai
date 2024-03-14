@@ -62,8 +62,6 @@ interface CreatorCTAProps {
     )
   }
   
-
-  
   export function CreatorFAQ() {
     const faqs = [
       {

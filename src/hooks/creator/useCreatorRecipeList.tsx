@@ -34,7 +34,7 @@ const useCreatorRecipeList = (creatorId: string | undefined) => {
       };
     } else {
       // Handle cases where creatorId is undefined
-      setLoadingCreatorRecipes(false); // Consider setting loading to false as there's no creatorId to load recipes for
+      setLoadingCreatorRecipes(false);
     }
 
   }, [creatorId]);
