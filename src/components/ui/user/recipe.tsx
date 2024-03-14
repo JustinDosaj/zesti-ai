@@ -25,6 +25,7 @@ export function UserRecipe({recipe, owner_id, setEditMode, role, setIsOpen}: Rec
 
     const { user } = useAuth()
     const [startDelete, setStartDelete] = useState<boolean>(false);
+    const router = useRouter()
 
     const deleteRecipe = async (recipeId: string) => {
         try {
@@ -32,7 +33,7 @@ export function UserRecipe({recipe, owner_id, setEditMode, role, setIsOpen}: Rec
                 await deleteUserRecipe(user?.uid, recipeId)
                 setEditMode(false)
                 Notify("Recipe Deleted")
-                //router.push('/my-recipes')
+                router.push('/my-recipes')
             }
         } catch(err) {
         
