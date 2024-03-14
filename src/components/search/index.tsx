@@ -64,7 +64,7 @@ export function Search({searchLocation}: SearchProps){
                         :
                         <Link key={index} href={`/${result.owner_affiliate_code}/${result.objectID}`} className="block px-4  text-gray-700 hover:bg-gray-100 rounded-3xl">
                             <div className="inline-flex space-x-3 items-center py-3">
-                                <img src={`https://firebasestorage.googleapis.com/v0/b/${process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET}/o/${encodeURIComponent(result.cover_image_url)}?alt=media`} alt={result.name} className="h-8 w-8 rounded-full"></img>
+                                <img src={`https://firebasestorage.googleapis.com/v0/b/${process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET}/o/${encodeURIComponent(result.cover_image_url)}?alt=media`} alt={result.name} className="h-8 w-8 rounded-full object-cover"></img>
                                 <span className="text-sm lg:text-base capitalize">{result.name}</span>
                             </div>
                         </Link>
@@ -141,7 +141,7 @@ export function ManageRecipesSearch({creatorData}: any) {
                   {combinedResults.map((result, index) => (
                       <Link key={index} href={`/${result.owner_affiliate_code}/${result.objectID}`} className="block px-4  text-gray-700 hover:bg-gray-100 rounded-3xl">
                           <div className="inline-flex space-x-2 items-center py-2">
-                              <img src={`https://firebasestorage.googleapis.com/v0/b/${process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET}/o/${encodeURIComponent(result.cover_image_url)}?alt=media`} alt={result.name} className="h-8 w-8 rounded-full"></img>
+                              <img src={`https://firebasestorage.googleapis.com/v0/b/${process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET}/o/${encodeURIComponent(result.cover_image_url)}?alt=media`} alt={result.name} className="h-8 w-8 rounded-full object-cover"></img>
                               <span className="text-sm lg:text-base capitalize">{result.name}</span>
                           </div>
                       </Link>
