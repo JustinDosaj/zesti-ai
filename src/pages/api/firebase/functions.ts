@@ -35,9 +35,8 @@ export async function updateUserWithTikTokTokens(tokenData: TikTokTokenData, use
       tiktokOpenId: tokenData.open_id,
       display_name: tiktokUserData.display_name,
       affiliate_code: tiktokUserData.username,
-      profile_deep_link: tiktokUserData.profile_deep_link,
       socials: {
-        tiktok: tiktokUserData.profile_deep_link
+        tiktok_link: tiktokUserData.profile_deep_link
       }
     };
 
