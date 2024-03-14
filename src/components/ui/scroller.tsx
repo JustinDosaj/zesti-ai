@@ -17,12 +17,12 @@ export function FeaturedCreators({creators}: any) {
 
             {creators?.map((creator: any) => (
                 <TestimonialCard
-                    key={creator.display_url}
+                    key={creator.affiliate_code}
                     name={creator.display_name}
                     source="YouTube"
                     desc={creator.bio_description}
                     imageSrc={creator.page_image || '/images/page-image-placeholder.png'}
-                    href={`/${creator.display_url}`}
+                    href={`/${creator.affiliate_code}`}
                 />
             ))}
             </div>

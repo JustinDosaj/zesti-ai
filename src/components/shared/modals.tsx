@@ -141,6 +141,7 @@ export function CreatorAddRecipeModal({isCreatorModalOpen, setIsCreatorModalOpen
     setUrl('')
     setRawText('')
     setIsCreatorModalOpen(false)
+    setLoading(false)
   }
 
   return(
