@@ -12,10 +12,8 @@ interface UserData {
   email?: string;
   stripeId?: string;
   stripeLink?: string;
-  tiktokAccessToken?: string;
-  tiktokOpenId?: string;
-  tiktokRefreshToken?: string;
   tokens?: number;
+  tiktok_is_verified?: boolean;
 }
 
 interface CreatorData {
@@ -96,9 +94,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         });
 
         if (!tokenResponse.ok) {
-            console.error("HTTP Error Response:", tokenResponse.status, tokenResponse.statusText);
             const errorResponse = await tokenResponse.text();
-            console.error("Error Response Body:", errorResponse);
             throw new Error(`HTTP error ${tokenResponse.status}: ${errorResponse}`);
         }
 
@@ -132,7 +128,8 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
           await userRef.set({
             tokens: 2,
             email: user.email,
-            account_status: 'user'
+            account_status: 'user',
+            date_created: new Date().toISOString()
           })
           router.push('/')
         } else {
@@ -182,7 +179,8 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
           await userRef.set({
             tokens: 2,
             email: user.email,
-            account_status: 'user'
+            account_status: 'user',
+            date_created: new Date().toISOString()
           })
         }
       }

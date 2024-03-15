@@ -38,7 +38,7 @@ export function ProfilePageComponent() {
                                 />
                                 }
                                 <SimpleProfileComponent title={"Monthly Usage Remaining"} desc={userData?.tokens} buttonName={''}/>
-                                {user && userData?.tiktokAccessToken && userData?.account_status !== 'creator' ? 
+                                {user && userData?.tiktok_is_verified && userData?.account_status !== 'creator' ? 
                                     <div className={userData?.account_status == 'creator' ? 'hidden' : 'block'}>
                                         <dl className="space-y-6 text-sm leading-6">
                                             <div className="pt-6 flex justify-between items-center">
