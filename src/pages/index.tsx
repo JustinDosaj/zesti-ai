@@ -40,7 +40,7 @@ export default function Home() {
     const via = router.query.via;
     if(via) { router.push(`/${via}`)}
   },[router])
-  
+
   if (isLoading) return <PageLoader/>
 
   return (

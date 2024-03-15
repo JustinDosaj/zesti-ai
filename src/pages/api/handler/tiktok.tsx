@@ -22,6 +22,8 @@ export async function fetchTikTokUserInfo(accessToken: string, fields = ['open_i
     }
 }
 
+
+// This function is the exact same as the one above minus some fields, but for some reason this is the only function that works when connecting tiktok
 export async function fetchUserTikTokInfo(accessToken: string, fields = ['display_name', 'profile_deep_link', 'username']) {
     try {
         const response = await fetch(`https://open.tiktokapis.com/v2/user/info/?fields=${fields.join(',')}`, {
