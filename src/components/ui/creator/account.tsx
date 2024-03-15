@@ -208,7 +208,6 @@ export function CreatorProfileComponent() {
                         <AccountTitleComponent title="Creator Information" desc="Connect your Tiktok, manage your affiliate account & edit your page"/>
                             <dl className="mt-6 space-y-6 text-sm leading-6 divide-y divide-gray-300 border-t border-gray-200">
                                 <PageLinkComponent accountStatus={userData?.account_status} affiliate_code={creatorData?.affiliate_code}/>
-                                <ConnectTikTokComponent userData={userData} accountStatus={userData?.account_status} loginWithTikTok={loginWithTikTok}/>
                                 <SimpleProfileComponent buttonName={"Manage"} title={"Affiliate Program"} onButtonClick={() => {window.open(`https://zesti.promotekit.com/`)}}/>
                                 <GenerateOrViewPageComponent onGeneratePageClick={onGeneratePageClick} isPageGenerating={isPageGenerating} router={router} hasPage={hasPage}/>
                             </dl>
@@ -278,7 +277,7 @@ function PageLinkComponent({affiliate_code, accountStatus}:CreatorPageComponents
 function ConnectTikTokComponent({userData, loginWithTikTok}: CreatorPageComponents) {
     
 
-    if (userData?.tiktokAccessToken == null)  return (
+    if (userData?.tiktok_is_verified == null || false)  return (
         <dl className="pt-6 text-sm leading-6">
             <div className="flex justify-between items-center">
                 <dt className="font-semibold text-gray-900 sm:w-64 sm:flex-none sm:pr-6 text-sm lg:text-base">Connect Tiktok Account</dt>
@@ -327,7 +326,7 @@ function GenerateOrViewPageComponent({onGeneratePageClick, isPageGenerating, rou
 
     if (hasPage) return (
         <div className="pt-6 flex justify-between items-center border-t border-gray-20">
-            <dt className="font-semibold text-gray-900 sm:w-64 sm:flex-none sm:pr-6 text-sm lg:text-base">Your Recipe Page</dt>
+            <dt className="font-semibold text-gray-900 sm:w-64 sm:flex-none sm:pr-6 text-sm lg:text-base">Recipe Collection</dt>
             <dd className=" flex gap-x-6 sm:mt-0">
                 <button type="button" className="font-semibold text-primary-main hover:text-primary-alt text-sm lg:text-base"
                     onClick={() => router.push('/creator/edit/')}>

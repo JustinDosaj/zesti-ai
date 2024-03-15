@@ -1,8 +1,7 @@
 import { Notify } from "@/components/shared/notify";
 import { db, storage } from "./firebase"
 import { collection, query, limit, getDocs, updateDoc } from "firebase/firestore";
-import { FirebaseStorage, ref as storageRef, uploadBytes, getDownloadURL } from "firebase/storage";
-import { Timestamp } from "firebase/firestore";
+import { ref as storageRef, uploadBytes, getDownloadURL } from "firebase/storage";
 
 interface Creator {
   name: string;
@@ -30,14 +29,12 @@ export async function updateUserWithTikTokTokens(tokenData: TikTokTokenData, use
 
     // Prepare the data to be updated
     const updateData = {
-      tiktokAccessToken: tokenData.access_token,
-      tiktokRefreshToken: tokenData.refresh_token,
-      tiktokOpenId: tokenData.open_id,
       display_name: tiktokUserData.display_name,
       affiliate_code: tiktokUserData.username,
       socials: {
         tiktok_link: tiktokUserData.profile_deep_link
-      }
+      },
+      tiktok_is_verified: true,
     };
 
     // Update the user's document
