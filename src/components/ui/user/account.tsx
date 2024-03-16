@@ -38,35 +38,19 @@ export function ProfilePageComponent() {
                                 />
                                 }
                                 <SimpleProfileComponent title={"Monthly Usage Remaining"} desc={userData?.tokens} buttonName={''}/>
-                                {user && userData?.tiktok_is_verified && userData?.account_status !== 'creator' ? 
-                                    <div className={userData?.account_status == 'creator' ? 'hidden' : 'block'}>
-                                        <dl className="space-y-6 text-sm leading-6">
-                                            <div className="pt-6 flex justify-between items-center">
-                                                <dt className="font-semibold text-gray-900 sm:w-64 sm:flex-none sm:pr-6 text-sm lg:text-base">Join Creator Program</dt>
-                                                <dd className=" flex gap-x-6 sm:mt-0">
+                                <div className={userData?.account_status == 'creator' ? 'hidden' : 'block'}>
+                                    <dl className="space-y-6 text-sm leading-6">
+                                        <div className="pt-6 flex justify-between items-center">
+                                            <dt className="font-semibold text-gray-900 sm:w-64 sm:flex-none sm:pr-6 text-sm lg:text-base">Join Creator Program</dt>
+                                            <dd className=" flex gap-x-6 sm:mt-0">
                                                 <button type="button" className="font-semibold text-primary-main hover:text-primary-alt text-sm lg:text-base"
-                                                        onClick={() => router.push('https://zesti.promotekit.com')}>
+                                                        onClick={() => router.push('/about/creator/apply')}>
                                                         Apply
-                                                    </button>
-                                                </dd>
-                                            </div>
-                                        </dl>
-                                    </div>
-                                    :
-                                    <div className={userData?.account_status == 'creator' ? 'hidden' : 'block'}>
-                                        <dl className="space-y-6 text-sm leading-6">
-                                            <div className="pt-6 flex justify-between items-center">
-                                                <dt className="font-semibold text-gray-900 sm:w-64 sm:flex-none sm:pr-6 text-sm lg:text-base">Join Creator Program</dt>
-                                                <dd className=" flex gap-x-6 sm:mt-0">
-                                                <button type="button" className="font-semibold text-primary-main hover:text-primary-alt text-sm lg:text-base"
-                                                        onClick={loginWithTikTok}>
-                                                        Connect TikTok
-                                                    </button>
-                                                </dd>
-                                            </div>
-                                        </dl>
-                                    </div>
-                                }
+                                                </button>
+                                            </dd>
+                                        </div>
+                                    </dl>
+                                </div>
                             </dl>
                             
                         </div>

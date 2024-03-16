@@ -11,7 +11,7 @@ import { useRouter } from 'next/router';
 
 const raleway = Raleway({subsets: ['latin']})
 
-export default function Home() {
+export default function AboutCreatorPage() {
   
   const { isLoading, user } = useAuth();
   const router = useRouter()
