@@ -12,7 +12,7 @@ export async function AdminAddNewCreator(email: string, affiliateCode: string, n
       name: name,
     }
 
-    adminAddCreator(data).then(() => { 
+    await adminAddCreator(data).then(() => { 
       Notify("Creator Added") 
     }).catch(() => { 
       Notify("Failed to add creator")
