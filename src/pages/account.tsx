@@ -8,8 +8,6 @@ import { ProfilePageComponent } from '@/components/ui/user/account'
 import { CreatorProfileComponent } from '@/components/ui/creator/account'
 import { PageLoader } from '@/components/shared/loader'
 import useRequireAuth from '@/hooks/user/useRequireAuth'
-import { useRouter } from 'next/router'
-import useCreatorDoc from '@/hooks/creator/useCreatorDoc'
 
 const raleway = Raleway({subsets: ['latin']})
 
@@ -19,9 +17,8 @@ export default function Account() {
     useRequireAuth()
 
     const { isLoading, userData } = useAuth();
-    const { loadingCreatorDoc } = useCreatorDoc()
 
-    if(isLoading && loadingCreatorDoc) return <PageLoader/>
+    if(isLoading) return <PageLoader/>
 
     return(
     <>
