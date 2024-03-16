@@ -21,7 +21,7 @@ export function CreatorPageTitle({creatorData}: any) {
                   {creatorData.display_name}
                 </h1>
                 <Paragraph className="mt-2 text-gray-600">
-                        {creatorData.bio_description}
+                        {creatorData.bio_description || ''}
                 </Paragraph>
             </div>
         </Container>

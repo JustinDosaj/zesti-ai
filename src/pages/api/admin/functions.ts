@@ -1,35 +1,22 @@
 import { Notify } from "@/components/shared/notify";
-import { db, storage } from "../firebase/firebase";
-import { collection, query, getDocs, updateDoc, where, doc } from "firebase/firestore";
+import { getFunctions, httpsCallable } from 'firebase/functions';
 
-export async function AdminAddNewCreator(email: string, username: string) {
-    
-    const userRef = collection(db, 'users')
-    const q = query(userRef, where('email', '==', email))
+export async function AdminAddNewCreator(email: string, affiliateCode: string, name: string | null) {
 
-    try {
-        const querySnapshot = await getDocs(q)
-        
-        if(querySnapshot.empty) {
-            Notify("Empty Snapshot Error")
-            return;
-        }
+    const functions = getFunctions();
+    const adminAddCreator = httpsCallable(functions, 'adminAddCreator');
 
-        querySnapshot.forEach((docSnapshot) => {
-            // Assuming 'id' is the document ID
-            const userDocRef = doc(db, 'users', docSnapshot.id);
-            updateDoc(userDocRef, {
-              account_status: 'creator',
-              affiliate_code: username,
-            }).then(() => {
-              console.log('New Creator Added');
-            }).catch((error) => {
-              console.error('Error updating user:', error);
-            });
-          });
-    } catch (error) {
-        Notify("Problem adding new creator")
+    const data = {
+      email: email,
+      affiliate_code: affiliateCode,
+      name: name,
     }
 
+    await adminAddCreator(data).then(() => { 
+      Notify("Creator Added") 
+    }).catch(() => { 
+      Notify("Failed to add creator")
+    })
+    
     return;
 }
