@@ -5,7 +5,7 @@ import { PageLoader } from '@/components/shared/loader';
 const Redirect = () => {
 
     const router = useRouter();
-    const { handleTikTokCallback, isLoading, user } = useAuth()
+    const { handleTikTokCallback, user } = useAuth()
 
     useEffect(() => {
         const urlParams = new URLSearchParams(window.location.search);
@@ -16,7 +16,7 @@ const Redirect = () => {
             handleTikTokCallback(decodedCode)
                 .then(() => {
                 // Redirect to another page or the same page without query parameters
-                router.push('/account');
+                router.push('/about/creator/apply');
                 })
                 .catch(error => {
                 // Handle error
