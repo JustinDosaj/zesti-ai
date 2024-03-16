@@ -1,6 +1,6 @@
 import { EyeIcon } from '@heroicons/react/20/solid'
 import Link from 'next/link'
-import React, { useState, useEffect, useRef  } from "react"
+import React, { useState, useRef  } from "react"
 import { RecipeListLoader } from '@/components/shared/loader'
 import { Button } from '@/components/shared/button'
 
@@ -61,7 +61,7 @@ return(
     </div>
     {shouldShowLoadMore && (
         <div className="grid justify-center py-6">
-            <Button onClick={handleLoadMore} isLink={false} className="bg-primary-main rounded-3xl hover:bg-primary-alt text-white font-semibold py-2 px-4" text="Load More" buttonType="button"></Button>
+            <Button onClick={handleLoadMore} isLink={false} className="bg-primary-main rounded-3xl hover:bg-primary-alt text-white font-semibold py-2 px-4" text="Load More" buttonType="button"/>
         </div>
     )}
 </div>
