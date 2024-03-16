@@ -197,7 +197,7 @@ interface CreatorPageRecentRecipesProps {
   max?: number,
 }
 
-export function CreatorPageRecentRecipes({recipes, creatorName, maxDisplayCount = 5, incrementCount = 10, max = 0}: CreatorPageRecentRecipesProps) {
+export function CreatorPageRecentRecipes({recipes, creatorName, maxDisplayCount = 9, incrementCount = 9, max = 0}: CreatorPageRecentRecipesProps) {
   
   const [ displayCount, setDisplayCount ] = useState(maxDisplayCount)
   const containerRef = useRef<HTMLDivElement>(null);
@@ -240,10 +240,10 @@ const handleLoadMore = () => {
           {sortedData.slice(0,displayCount).map((item: any) => (
               <CreatorRecipeListCard creatorName={creatorName} item={item} key={item.name}/>
           ))}
-          {displayCount < recipes.length && (
-            <div className="flex justify-center py-6">
-              <Button isLink={false} onClick={handleLoadMore} className="bg-primary-main rounded-3xl hover:bg-primary-alt text-white font-semibold py-2 px-4" buttonType="button" text="Load More"/>
-            </div>
+          {shouldShowLoadMore && (
+              <div className="grid justify-center py-6">
+                  <Button onClick={handleLoadMore} isLink={false} className="bg-primary-main rounded-3xl hover:bg-primary-alt text-white font-semibold py-2 px-4" text="Load More" buttonType="button"/>
+              </div>
           )}
         </div>
   </div>
