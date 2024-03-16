@@ -225,22 +225,3 @@ export const handleCreatorTikTokURLSubmit = async ({url, rawText, creatorData}: 
         Notify(`Error: ${err}`)
     })*/
 }
-
-
-export const callGenerateCreatorPage = async ({creatorData}: any) => {
-
-    if (creatorData !== undefined) { Notify("Creator page already exists for this account"); return; }
-
-    const functions = getFunctions();
-    const generateCreatorPage = httpsCallable(functions, 'generateCreatorPage');
-
-    try {
-        const response = await generateCreatorPage()
-        Notify("Page created successfully!")
-    } catch(err) {
-        Notify(`${err}`)
-        await SendErrorToFirestore(creatorData?.owner_id, err)
-    }
-
-    return;
-}

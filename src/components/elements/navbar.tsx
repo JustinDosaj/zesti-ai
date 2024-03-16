@@ -9,7 +9,6 @@ import { BookOpenIcon, HomeIcon, PaperAirplaneIcon, WalletIcon, UserIcon, Pencil
 import { DropDownMenuDesktop, DropDownMenuMobile } from "./menus"
 import { useRouter } from "next/router"
 import { useEffect, useState } from "react"
-import useCreatorDoc from "@/hooks/creator/useCreatorDoc"
 
 
 const navItemsLoggedInMobile = [
@@ -75,15 +74,13 @@ const creatorItemsLoggedInMobile = [
 
 export function Navbar() {
     
-    const { user, userData, loginWithTikTok, isLoading } = useAuth();
-    const { hasPage } = useCreatorDoc() 
+    const { user, userData, isLoading } = useAuth();
     const [ navChoice, setNavChoice ] = useState<string>("noUser")
     const router = useRouter()
 
     useEffect(() => {
 
-        if(userData?.account_status == 'creator' && hasPage) { setNavChoice("creator") }
-        if(userData?.account_status == 'creator' && !hasPage) { setNavChoice("creatorNoPage") }
+        if(userData?.account_status == 'creator') { setNavChoice("creator") }
         if(userData?.account_status == 'user') { setNavChoice("user") }
         if(!user) { setNavChoice("noUser") }
 
@@ -102,10 +99,6 @@ export function Navbar() {
             message: "View Your Page",
             function: () => router.push(`/${userData?.affiliate_code}`),
         },
-        creatorNoPage: {
-            message: "Create Page",
-            function: () => router.push('/account')
-        }
     }
 
     const navItemsDesktop = [

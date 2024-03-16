@@ -6,9 +6,7 @@ import { saveBioDataToFireStore, uploadCreatorPageImage } from '@/pages/api/fire
 import { useRouter } from 'next/router'
 import { Notify } from '@/components/shared/notify'
 import { Container } from '@/components/shared/container'
-import { callGenerateCreatorPage } from '@/pages/api/handler/submit'
 import { DocumentDuplicateIcon, ClipboardDocumentCheckIcon } from '@heroicons/react/20/solid'
-import useCreatorDoc from '@/hooks/creator/useCreatorDoc'
 import { AccountTitleComponent, SimpleProfileComponent } from '../auth/account'
 
 
@@ -184,18 +182,8 @@ export function CreatorSettingsComponent() {
 
 export function CreatorProfileComponent() {
 
-    const { creatorData, userData, loginWithTikTok } = useAuth()
-    const { hasPage } = useCreatorDoc()
-    const [ isPageGenerating, setIsPageGenerating ] = useState<boolean>(false)
-    const router = useRouter() 
+    const { creatorData, userData } = useAuth()
 
-    const onGeneratePageClick = async () => {
-        setIsPageGenerating(true)
-        await callGenerateCreatorPage({creatorData})
-        setIsPageGenerating(false)
-    }
-
-    console.log(creatorData)
 
     if(userData?.account_status == 'user' || null) return <div className="hidden"/>
 
@@ -209,7 +197,7 @@ export function CreatorProfileComponent() {
                             <dl className="mt-6 space-y-6 text-sm leading-6 divide-y divide-gray-300 border-t border-gray-200">
                                 <PageLinkComponent accountStatus={userData?.account_status} affiliate_code={creatorData?.affiliate_code}/>
                                 <SimpleProfileComponent buttonName={"Manage"} title={"Affiliate Program"} onButtonClick={() => {window.open(`https://zesti.promotekit.com/`)}}/>
-                                <GenerateOrViewPageComponent onGeneratePageClick={onGeneratePageClick} isPageGenerating={isPageGenerating} router={router} hasPage={hasPage}/>
+                                <ViewOrEditPageComponent/>
                             </dl>
                         </div>
                     </div>
@@ -274,57 +262,11 @@ function PageLinkComponent({affiliate_code, accountStatus}:CreatorPageComponents
     )
 }
 
-function ConnectTikTokComponent({userData, loginWithTikTok}: CreatorPageComponents) {
-    
+function ViewOrEditPageComponent() {
 
-    if (userData?.tiktok_is_verified == null || false)  return (
-        <dl className="pt-6 text-sm leading-6">
-            <div className="flex justify-between items-center">
-                <dt className="font-semibold text-gray-900 sm:w-64 sm:flex-none sm:pr-6 text-sm lg:text-base">Connect Tiktok Account</dt>
-                <dd className=" flex gap-x-6 sm:mt-0">
-                    <button type="button" className="font-semibold text-primary-main hover:text-primary-alt text-sm lg:text-base"
-                        onClick={loginWithTikTok}>
-                        {"Connect"}
-                    </button>
-                </dd>
-            </div>
-        </dl>
-    )
+    const router = useRouter()
 
     return (
-        <div className="pt-6 flex justify-between items-center divide-gray-100 border-t border-gray-200">
-            <dt className="font-semibold text-gray-900 sm:w-64 sm:flex-none sm:pr-6 text-sm lg:text-base">Connect Tiktok Account</dt>
-            <dd className=" flex gap-x-6 sm:mt-0">
-                <div  className="font-semibold text-green-600 text-sm lg:text-base">
-                    {"Connected"}
-                </div>
-            </dd>
-        </div>
-    )
-}
-
-function GenerateOrViewPageComponent({onGeneratePageClick, isPageGenerating, router, hasPage}: CreatorPageComponents) {
-
-    if (!hasPage) return (
-        <div className={`pt-6 flex justify-between items-center border-t border-gray-20`}>
-            <dt className="font-semibold text-gray-900 sm:w-64 sm:flex-none sm:pr-6 text-sm lg:text-base">Create Your Page</dt>
-            <dd className=" flex gap-x-6 sm:mt-0">
-                { isPageGenerating == false ?
-                <button type="button" className="font-semibold text-primary-main hover:text-primary-alt text-sm lg:text-base"
-                    onClick={onGeneratePageClick}>
-                    {"Create"}
-                </button>
-                :
-                <button type="button" disabled={true} className="font-semibold text-primary-main hover:text-primary-alt text-sm lg:text-base animate-pulse"
-                    onClick={onGeneratePageClick}>
-                    {"Loading..."}
-                </button>
-                }
-            </dd>
-        </div>  
-    )
-
-    if (hasPage) return (
         <div className="pt-6 flex justify-between items-center border-t border-gray-20">
             <dt className="font-semibold text-gray-900 sm:w-64 sm:flex-none sm:pr-6 text-sm lg:text-base">Recipe Collection</dt>
             <dd className=" flex gap-x-6 sm:mt-0">
@@ -335,6 +277,4 @@ function GenerateOrViewPageComponent({onGeneratePageClick, isPageGenerating, rou
             </dd>
         </div>
     )
-
-    return;
 }
