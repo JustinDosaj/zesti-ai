@@ -2,7 +2,7 @@ import Head from 'next/head';
 import GoogleTags from '@/components/tags/conversion';
 import { CookBookFeature, HomeVideoToRecipe } from '@/components/ui/features/users';
 import { CreatorFAQ, CreatorCTA } from '@/components/ui/features/creators';
-import { SharedHero } from '@/components/ui/general';
+import { SharedHero, ThreeBoxFeature } from '@/components/ui/general';
 import { useAuth } from '@/pages/api/auth/auth';
 import { PageLoader } from '@/components/shared/loader';
 import { PromoteKitTag } from '@/components/tags/headertags';
@@ -37,6 +37,7 @@ export default function AboutCreatorPage() {
           imageSrc={"/images/Zesti-Creator-Hero-Image.png"}
           />
         <CreatorCTA title={"Zesti Creator Program"} isHome={false}/>
+        <ThreeBoxFeature type={"apply"} titleStart='How to Apply for' titleEnd='Zesti' desc={"To apply for Zesti Creator program you must have an active TikTok account"}/>
         <HomeVideoToRecipe titleStart={"Transcribe Cooking Videos to"} titleEnd={"Recipes"} desc={"Instantly generate a step-by-step recipe for your followers using Zesti AI"}/>
         <CookBookFeature titleStart={"All Your Recipes"} titleEnd={"In One Place"} desc={"Let your followers explore your entire recipe collection from a single link"}/>
         <CreatorFAQ/>
