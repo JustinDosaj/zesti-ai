@@ -1,7 +1,9 @@
 import { Container } from "@/components/shared/container"
-import { ChatBubbleLeftIcon, StarIcon, BookOpenIcon, PuzzlePieceIcon } from "@heroicons/react/20/solid"
-import { Button } from "@/components/shared/button"
+import { ChatBubbleLeftIcon, StarIcon, BookOpenIcon, PuzzlePieceIcon, UserIcon, CheckIcon, DocumentTextIcon, VideoCameraIcon, SpeakerWaveIcon, EyeIcon } from "@heroicons/react/20/solid"
+import { Button, InlineButton } from "@/components/shared/button"
 import { BeakerIcon } from "@heroicons/react/20/solid"
+import { useRouter } from "next/router"
+import { useAuth } from "@/pages/api/auth/auth"
 import getConfig from "next/config"
 
 
@@ -53,16 +55,21 @@ interface Feature {
   name: string,
   description: string,
   icon: any,
+  href?: string,
+  linkName?: string,
 }
   
 interface ThreeBoxFeatureProps {
-  type: 'home' | 'assistant',
+  type: 'home' | 'assistant' | 'apply' | 'howitworks',
   titleStart: string,
   titleEnd: string,
   desc: string,
 }
   
 export function ThreeBoxFeature({type, titleStart, titleEnd, desc}: ThreeBoxFeatureProps) {
+
+    const router = useRouter()
+    const { user, isLoading, userData } = useAuth()
 
     const FeatureTypes = {
         home: [
@@ -80,6 +87,8 @@ export function ThreeBoxFeature({type, titleStart, titleEnd, desc}: ThreeBoxFeat
                 name: 'AI Cooking Assistant',
                 description: 'Answer cooking questions instantly & get help with the recipe your making',
                 icon: ChatBubbleLeftIcon,
+                href: '/about/solutions/cooking-assistant',
+                linkName: 'Learn More'
             },
         ],
         assistant: [
@@ -98,31 +107,71 @@ export function ThreeBoxFeature({type, titleStart, titleEnd, desc}: ThreeBoxFeat
                 description: 'Get stuck? Make a mistake? No worries, Zesti will provide real time answers for you!',
                 icon: ChatBubbleLeftIcon,
             },
-        ]
+        ],
+        apply: [
+          {
+              name: 'Start Application',
+              description: 'Create an account with Zesti then go to your account settings to begin',
+              icon: UserIcon,
+              href: user && !isLoading ? '/account' : '/auth/login',
+              linkName: user && !isLoading ? "Apply Now" : "Create Account"
+          },
+          {
+              name: 'Verify TikTok Account',
+              description: 'To ensure you own the account, Zesti will request account information directly from TikTok',
+              icon: CheckIcon,
+          },
+          {
+              name: 'Submit Application',
+              description: 'Finally fill out your affiliate information with promotekit to submit your application',
+              icon: DocumentTextIcon,
+          },
+        ],
+        howitworks: [
+          {
+              name: 'Get Video Audio',
+              description: 'Users paste video links into Zesti and we capture the audio as text',
+              icon: SpeakerWaveIcon,
+          },
+          {
+              name: 'AI Transcription',
+              description: 'AI turns the video audio into a recipe that is recognizable by everyone',
+              icon: BookOpenIcon,
+          },
+          {
+              name: 'Completed Recipe',
+              description: 'Recipes are available on public pages or inside your own recipe book on Zesti',
+              icon: EyeIcon,
+          },
+        ],
     }
 
     const features: Feature[] = FeatureTypes[type]
 
     return(
         <Container className={" px-5 animate-fadeIn"}>
-            <div className="w-full max-w-7xl mx-auto space-y-12">
-                <div className="flex flex-col lg:flex-row justify-start lg:justify-between items-center gap-8 lg:gap-14 text-center lg:text-left">
-                    <p className="section-title-text-size font-semibold text-gray-700 lg:w-1/3 uppercase">
+            <div className="w-full max-w-7xl mx-auto">
+                <div className="grid justify-center items-center text-center lg:text-left">
+                    <p className="section-title-text-size font-semibold text-gray-700">
                     {titleStart}
-                    <br />
-                    <span className="primary-orange-text-gradient uppercase"> {titleEnd} </span>
-                    </p>
-                    <p className="w-full lg:w-1/2 section-desc-text-size text-gray-600">
-                    {desc}
+                    <span className="primary-orange-text-gradient"> {titleEnd} </span>
                     </p>
                 </div>
-                <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3  gap-10">
+                <p className="mt-6 w-full text-center section-desc-text-size text-gray-600">
+                    {desc}
+                </p>
+                <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-10 mt-12">
                     {features.map((feature) => (
                     <div key={feature.name} className="flex flex-col items-start p-6 rounded-3xl gap-y-2 bg-white orange-border-shadow">
                         <feature.icon className="h-12 w-12 bg-orange-100 p-2 rounded-2xl text-primary-main" aria-hidden="true" />
-                        <div className="flex flex-col gap-3">
-                            <p className="text-xl font-semibold text-gray-800 mb-2">{feature.name}</p>
+                        <div className="flex flex-col mt-2 gap-2">
+                            <p className="text-xl font-semibold text-gray-800">{feature.name}</p>
                             <p className="text-base text-gray-600 flex-grow">{feature.description}</p>
+                            { feature.href ? 
+                            <InlineButton text={feature.linkName || ''} href={feature.href} isLink={false}/>
+                            :
+                            <div></div>
+                            }
                         </div>
                     </div>
                     ))}
