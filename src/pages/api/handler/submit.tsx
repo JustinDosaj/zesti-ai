@@ -199,7 +199,7 @@ export const handleCreatorTikTokURLSubmit = async ({url, rawText, creatorData}: 
     const functions = getFunctions();
     const creatorAddTikTokRecipe = httpsCallable(functions, 'creatorAddTikTokRecipe');
 
-    const falseObj = {
+    const recipeObj = {
         "url": `${url}`,
         "id": id ? id[1] : null,
         "source": "tiktok",
@@ -211,17 +211,10 @@ export const handleCreatorTikTokURLSubmit = async ({url, rawText, creatorData}: 
     }
 
     try {
-        const response = await creatorAddTikTokRecipe(falseObj)
+        const response = await creatorAddTikTokRecipe(recipeObj)
         Notify("Successfully Added Recipe")
     } catch(err) {
-        console.log("Error:", err)
         Notify(`Error: ${err}`)
         await SendErrorToFirestore(creatorData?.owner_id, err)
     }
-
-    /*const response = await creatorAddTikTokRecipe(falseObj).then(() => {
-        Notify("Recipe Added Successfully!")
-    }).catch((err) => {
-        Notify(`Error: ${err}`)
-    })*/
 }

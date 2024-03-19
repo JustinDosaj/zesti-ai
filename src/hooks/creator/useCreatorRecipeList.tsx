@@ -3,17 +3,19 @@ import { useState, useEffect } from 'react';
 import { db } from '@/pages/api/firebase/firebase';
 import { onSnapshot } from "firebase/firestore"
 import { SendErrorToFirestore } from '@/pages/api/firebase/functions';
+import { useAuth } from '@/pages/api/auth/auth';
 
-const useCreatorRecipeList = (creatorId: string | undefined) => {
+const useCreatorRecipeList = () => {
   
   const [creatorRecipeList, setCreatorRecipeList] = useState<any[]>([]);
+  const { user, isLoading } = useAuth();
   const [loadingCreatorRecipes, setLoadingCreatorRecipes] = useState<boolean>(true);
 
   useEffect(() => {
 
-    if (creatorId) {
+    if (user?.uid && !isLoading) {
       // Reference the specific creator's recipes collection
-      const recipesRef = db.collection(`creators/${creatorId}/recipes`);
+      const recipesRef = db.collection(`creators/${user.uid}/recipes`);
 
       // Listen for real-time updates with onSnapshot
       const unsubscribe = onSnapshot(recipesRef, (querySnapshot) => {
@@ -24,7 +26,7 @@ const useCreatorRecipeList = (creatorId: string | undefined) => {
         setCreatorRecipeList(updatedRecipes);
         setLoadingCreatorRecipes(false);
       }, (error) => {
-        SendErrorToFirestore(creatorId, error, null, __filename)
+        SendErrorToFirestore(user?.uid, error, null, __filename)
         setLoadingCreatorRecipes(false);
       });
 
@@ -37,7 +39,7 @@ const useCreatorRecipeList = (creatorId: string | undefined) => {
       setLoadingCreatorRecipes(false);
     }
 
-  }, [creatorId]);
+  }, [user, isLoading]);
 
   return { creatorRecipeList, loadingCreatorRecipes };
 };
