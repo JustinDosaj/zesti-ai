@@ -9,7 +9,6 @@ import { handleCreatorTikTokURLSubmit } from '@/pages/api/handler/submit'
 import { useAuth } from '@/pages/api/auth/auth'
 import { deleteCreatorError } from '@/pages/api/firebase/functions'
 import { classNames } from './classNames'
-import { useRouter } from 'next/router'
 
 
 interface ModalProps {
@@ -79,10 +78,10 @@ export function ResponseModal({title, text, icon: Icon, modalFunction, isOpen, s
                     aria-hidden="true" />
                   </div>
                   <div className="mt-3 text-center sm:mt-5">
-                    <Dialog.Title as="h3" className="text-lg lg:text-xl font-semibold leading-6 text-gray-900">
+                    <Dialog.Title as="h3" className="text-xl lg:text-2xl font-semibold leading-6 text-gray-900">
                       {title}
                     </Dialog.Title>
-                    <div className="mt-2">
+                    <div className="mt-4">
                       <p className="text-sm lg:text-base text-gray-600">
                         {text}
                       </p>
@@ -128,8 +127,7 @@ interface AddRecipeModalProps {
 // Specific modal for creator to input required information to upload recipe to page
 export function CreatorAddRecipeModal({isCreatorModalOpen, setIsCreatorModalOpen}: AddRecipeModalProps) {
 
-
-  const { creatorData, user } = useAuth()
+  const { creatorData } = useAuth()
   const cancelButtonRef = useRef(null)
   const [ rawText, setRawText ] = useState<string>('')
   const [ url, setUrl ] = useState<string>('')
