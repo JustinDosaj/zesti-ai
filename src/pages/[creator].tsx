@@ -65,7 +65,7 @@ const CreatorPage: NextPage<CreatorProps> = ({ creatorData, referer }) => {
 
   useSetBreadcrumbs();
   //useAffiliateCode(creatorData, referer);
-  const { creatorRecipeList, loadingCreatorRecipes } = useCreatorRecipeList(creatorData?.owner_id)
+  const { creatorRecipeList, loadingCreatorRecipes } = useCreatorRecipeList()
 
   return (
     <>
