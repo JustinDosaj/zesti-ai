@@ -1,8 +1,8 @@
 import Head from 'next/head';
 import GoogleTags from '@/components/tags/conversion';
-import { HomePageCTA, HomeFAQ, HomeVideoToRecipe } from '@/components/ui/features/users';
+import { HomePageCTA, HomeVideoToRecipe } from '@/components/ui/features/users';
 import { ThreeBoxFeature } from '@/components/ui/general';
-import { SharedHero } from '@/components/ui/general';
+import { SharedHero, FAQ } from '@/components/ui/general';
 import { PromoteKitTag } from '@/components/tags/headertags';
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
@@ -45,7 +45,7 @@ export default function RecipeTranscription() {
         />
         <HomeVideoToRecipe titleStart={"Get Instant Readable Recipes from"} titleEnd={"TikTok"} desc={"No more pausing, rewinding or rewatching. Translate TikTok recipes into text so you can enjoy delicious home cooked meals too!"}/>
         <HomePageCTA/>
-        <HomeFAQ/>
+        <FAQ type={'user'} title={"General FAQ"} desc={"Most commong questions and answers among all of our users"}/>
       </main>
     </>
   )
