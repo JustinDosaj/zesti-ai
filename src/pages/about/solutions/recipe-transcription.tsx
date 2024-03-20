@@ -23,9 +23,9 @@ export default function RecipeTranscription() {
   return (
     <>
       <Head>
-        <title>Zesti AI Cooking Assistant | Recipes Made Easy</title>
-        <meta name="title" content="Zesti AI Cooking Assistant | Recipes Made Easy"/>
-        <meta name="description" content="Cooking should be fun, not stressful. Zesti AI Assistant is there when you need it."/>
+        <title>Zesti AI Recipe Transcription</title>
+        <meta name="title" content="ZZesti AI Recipe Transcription"/>
+        <meta name="description" content="Learn how zesti uses AI to transcribe videos to text for easy-to-read recipes"/>
         <GoogleTags/>
         <PromoteKitTag/>
       </Head>
