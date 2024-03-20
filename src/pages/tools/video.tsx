@@ -6,7 +6,7 @@ import { PricingDisplay } from '@/components/ui/features/pricing';
 import { PageLoader, ToolLoader } from '@/components/shared/loader';
 import GoogleTags from '@/components/tags/conversion';
 import { PromoteKitTag } from '@/components/tags/headertags';
-import { HomeFAQ } from '@/components/ui/features/users';
+import { FAQ } from '@/components/ui/general';
 
 const raleway = Raleway({subsets: ['latin']})
 
@@ -41,7 +41,7 @@ export default function Video() {
           <PricingDisplay/>
         }
         <div className="mt-24"/>
-        <HomeFAQ/>
+        <FAQ type={'user'} title={"General FAQ"} desc={"Most commong questions and answers among all of our users"}/>
       </main>
     </>
   )

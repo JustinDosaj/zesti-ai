@@ -3,8 +3,9 @@ import Head from 'next/head'
 import { PricingDisplay } from '@/components/ui/features/pricing'
 import GoogleTags from '@/components/tags/conversion'
 import { PromoteKitTag } from '@/components/tags/headertags'
-import { Hero, HomeFAQ, HomePageCTA, HomePageScroller, HomeVideoToRecipe } from '@/components/ui/features/users'
+import { Hero, HomePageCTA, HomeVideoToRecipe } from '@/components/ui/features/users'
 import { PremiumSubscriptionBenefits } from '@/components/ui/features/subscriptions'
+import { FAQ } from '@/components/ui/general'
 
 const raleway = Raleway({subsets: ['latin']})
 
@@ -30,7 +31,7 @@ export default function Premium() {
         <div className="mt-24 md:mt-36"/>
         <HomePageCTA/>
         <div className="mt-24 md:mt-36"/>
-        <HomeFAQ/>
+        <FAQ type={'user'} title={"General FAQ"} desc={"Most commong questions and answers among all of our users"}/>
     </main>
     </div>
     </>

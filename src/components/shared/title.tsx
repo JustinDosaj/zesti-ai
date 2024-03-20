@@ -52,7 +52,7 @@ export function SharedViewAllTitle({title, href, desc}: SharedPageTitleProps) {
 // IN USE
 export function SharedHomeSectionTitle({titleBlack, titleOrange, desc}: SharedPageTitleProps) {
     return(
-    <>
+    <div>
         <h1 className="text-4xl lg:text-5xl font-semibold text-gray-700 text-center">
             <span>{titleBlack}</span> 
             <span className="primary-orange-text-gradient"> {titleOrange} </span>
@@ -60,7 +60,7 @@ export function SharedHomeSectionTitle({titleBlack, titleOrange, desc}: SharedPa
         <p className="section-desc-text-size text-gray-600 w-full text-center mt-3 pl-1 pr-1">
             {desc}
         </p>
-    </>
+    </div>
     )
 }
 
