@@ -1,8 +1,8 @@
 import Head from 'next/head';
 import GoogleTags from '@/components/tags/conversion';
 import { CookBookFeature, HomeVideoToRecipe } from '@/components/ui/features/users';
-import { CreatorFAQ, CreatorCTA } from '@/components/ui/features/creators';
-import { SharedHero, ThreeBoxFeature } from '@/components/ui/general';
+import { CreatorCTA } from '@/components/ui/features/creators';
+import { SharedHero, ThreeBoxFeature, FAQ } from '@/components/ui/general';
 import { useAuth } from '@/pages/api/auth/auth';
 import { PageLoader } from '@/components/shared/loader';
 import { PromoteKitTag } from '@/components/tags/headertags';
@@ -27,7 +27,7 @@ export default function AboutCreatorPage() {
         <GoogleTags/>
         <PromoteKitTag/>
       </Head>
-      <main className={`flex min-h-screen flex-col items-center justify-between bg-background w-screen space-y-48 ${raleway.className}`}>
+      <main className={`main-seo-page-class ${raleway.className}`}>
         <SharedHero 
           titleStart={"Put Your Recipes on"} 
           titleEnd={"Display"} 
@@ -36,11 +36,11 @@ export default function AboutCreatorPage() {
           button={() => {user ? router.push('/account') : router.push('/auth/login')}}
           imageSrc={"/images/Zesti-Creator-Hero-Image.png"}
           />
-        <CreatorCTA title={"Zesti Creator Program"} isHome={false}/>
-        <ThreeBoxFeature type={"apply"} titleStart='How to Apply for' titleEnd='Zesti' desc={"To apply for Zesti Creator program you must have an active TikTok account"}/>
+        <CreatorCTA title={"Creator Program Benefits"} isHome={false}/>
+        <ThreeBoxFeature type={"apply"} titleStart='Get Started with' titleEnd='Zesti' desc={"Using Zesti as a creator is easy, simple apply then start posting once approved!"}/>
         <HomeVideoToRecipe titleStart={"Transcribe Cooking Videos to"} titleEnd={"Recipes"} desc={"Instantly generate a step-by-step recipe for your followers using Zesti AI"}/>
         <CookBookFeature titleStart={"All Your Recipes"} titleEnd={"In One Place"} desc={"Let your followers explore your entire recipe collection from a single link"}/>
-        <CreatorFAQ/>
+        <FAQ type={'creator'} title={"Creator Program FAQ"} desc={"Questions and answers to the most common questions among our affiliates"}/>
       </main>
     </>
   )

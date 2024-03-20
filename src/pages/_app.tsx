@@ -17,11 +17,11 @@ export default function App({ Component, pageProps }: AppProps) {
 
     <NavigationProvider>
       <AuthProvider>
-          {<Navbar/>}
+          <Navbar/>
             <Component {...pageProps}/>
             <Analytics/>
             <ToastContainer/>
-          {<Footer/>}
+          <Footer/>
       </AuthProvider>
     </NavigationProvider>
 

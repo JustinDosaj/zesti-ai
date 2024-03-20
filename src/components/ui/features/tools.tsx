@@ -23,7 +23,7 @@ interface ToolHeroProps {
 export function ToolHero({role, tokens, titleStart, titleEnd, description}: ToolHeroProps){
 
     return(
-        <Container className={"flex flex-col lg:flex-row gap-10 lg:gap-12 animate-fadeIn mt-36"}>
+        <Container className={"flex flex-col lg:flex-row gap-10 lg:gap-12 animate-fadeIn mt-48"}>
             <div className="relative flex flex-col items-center text-center lg:max-w-none max-w-3xl mx-auto lg:mx-0 lg:flex-1 lg:w-1/2">
                 <SharedHomeSectionTitle titleBlack={titleStart} titleOrange={titleEnd} desc={role == 'premium' || tokens > 0 ? `${description}` : `No more recipes available. Try Zesti Premiium free for 7-days to unlock more!`}/>
             </div>

@@ -4,8 +4,9 @@ import Head from 'next/head'
 import { PricingDisplay } from '@/components/ui/features/pricing'
 import GoogleTags from '@/components/tags/conversion'
 import { PromoteKitTag } from '@/components/tags/headertags'
-import { HomePageCTA, HomePageScroller, HomeVideoToRecipe, HomeFAQ, Hero } from '@/components/ui/features/users'
+import { HomePageCTA, HomeVideoToRecipe, Hero } from '@/components/ui/features/users'
 import { FreeSubscriptionBenefits } from '@/components/ui/features/subscriptions'
+import { FAQ } from '@/components/ui/general'
 const raleway = Raleway({subsets: ['latin']})
 
 export default function Essential() {
@@ -37,7 +38,7 @@ export default function Essential() {
         <div className="mt-24 md:mt-36"/>
         <HomePageCTA/>
         <div className="mt-24 md:mt-36"/>
-        <HomeFAQ/>
+        <FAQ type={'user'} title={"General FAQ"} desc={"Most commong questions and answers among all of our users"}/>
         <div className="pb-12"></div>
     </main>
     </div>
