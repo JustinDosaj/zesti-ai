@@ -1,9 +1,5 @@
 import Head from 'next/head';
 import GoogleTags from '@/components/tags/conversion';
-import { CookBookFeature, HomeVideoToRecipe } from '@/components/ui/features/users';
-import { CreatorFAQ, CreatorCTA } from '@/components/ui/features/creators';
-import { SharedHero } from '@/components/ui/general';
-import { SharedHomeSectionTitle } from '@/components/shared/title';
 import { useAuth } from '@/pages/api/auth/auth';
 import { PageLoader } from '@/components/shared/loader';
 import { PromoteKitTag } from '@/components/tags/headertags';
