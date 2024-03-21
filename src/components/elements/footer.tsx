@@ -9,7 +9,7 @@ const raleway = Raleway({subsets: ['latin']})
 const navigation = {
     solutions: [
       { name: 'Zesti Example', href: '/zestidotai' },
-      { name: 'Recipe Transcription (N/A)', href: '#' },
+      { name: 'Recipe Transcription', href: '/about/solutions/recipe-transcription' },
       { name: 'Cooking Assistant', href: '/about/solutions/cooking-assistant' },
       { name: 'Customizable Recipes (N/A)', href: '#' },
     ],
