@@ -16,12 +16,32 @@ interface HeroProps {
   description?: string,
   button?: () => void,
   buttonName: string,
-  imageSrc: string,
+  imageSrc?: string,
 }
 
 export function SharedHero({titleStart, titleEnd, description, button, buttonName, imageSrc}: HeroProps) {
 
   const { publicRuntimeConfig } = getConfig();
+
+  if (!imageSrc) return (
+    <Container className="flex flex-col items-center justify-between pt-36 px-5 space-x-4 xl:pt-48 animate-fadeIn">
+      <div className="flex flex-col gap-6 lg:gap-8">
+          <div className="flex flex-col gap-8 text-center">
+            <h1 className="section-title-text-size xl:text-6xl font-bold text-gray-800">
+              <span className="text-gray-700"> {titleStart} </span>
+              <span className="primary-orange-text-gradient"> {titleEnd} </span>
+              <br />
+            </h1>
+            <p className="section-desc-text-size font-medium text-gray-600">
+              {description}
+            </p>
+          </div>
+          <div className="grid justify-center text-left space-y-1">
+            <Button isLink={false} text={buttonName} buttonType="button" onClick={button}/>
+          </div>
+      </div>
+    </Container>
+  )
 
   return(
       <Container className="flex flex-col lg:flex-row items-center justify-between pt-36 px-5 space-x-4 xl:pt-48 animate-fadeIn">
@@ -44,12 +64,9 @@ export function SharedHero({titleStart, titleEnd, description, button, buttonNam
             <Button isLink={false} text={buttonName} buttonType="button" onClick={button}/>
           </div>
         </div>
-
-
-          <div className="hidden lg:block bg-transparent rounded-lg">
-            <img src={imageSrc} alt="Profile" height={550} width={550} className="object-fit" />
-          </div> {/* Placeholder for the illustration */}
-        
+        <div className="hidden lg:block bg-transparent rounded-lg">
+          <img src={imageSrc} alt="Profile" height={550} width={550} className="object-fit" />
+        </div>
       </Container>
   )
 }
@@ -200,24 +217,24 @@ export function FAQ({type, title, desc}: FAQProps) {
     const FAQTypes = {
         user: [
             {
-                question: "How does Zesti work?",
-                answer: "Zesti partners with creators and provides them with an AI tool to post their recipes in text format where users can then freely access them. Zesti also offers a premium subscription to users that unlocks additional features.",
+              question: "What is Zesti AI",
+              answer: "Zesti AI is a platform created to help make tiktok recipes readily available so you no longer have to pause or rewind a dozen times for a recipe. We do this by partnering with creators so they can publish their recipe showcase in text format. Users can freely view these existing recipes or use the Zesti AI transcripton tool if a recipe they want is not published yet.",
             },
             {
-                question: "Why use Zesti?",
-                answer: "The platform was designed to help fellow cooking enthusiasts find & save recipes without the hassle of constantly rewatching the same video.",
+              question: "What is the Zesti AI transcription tool?",
+              answer: "This is a feature that allows users to copy a video link directly from tiktok and paste it into the tool to instantly receive a recipe in text format. This tool is available to all users and is free to use and is accessible from under the search bar & search results",
             },
             {
-                question: "How much does Zesti cost?",
-                answer: "Users can freely explore recipes on Zesti for free. Additionally, Zesti offers a premium subscription that gives access to additional features and elevated permissions.",
+              question: "How much does Zesti cost?",
+              answer: "The base version of zesti if free and allows you the following: browse existing recipes, unlimited saves to your cookbook, 2 recipe transcriptions per month. We do offer a paid version that unlocks additional features such as increased transcriptions per month and Zesti AI chat assistant.",
             },
             {
-                question: "What if I can\n't find a recipe?",
-                answer: "As Zesti is a new platform, our partnerships are still limited. If you cannot find a recipe, users have a limited number of times they can copy a video link and transcribe it via the Zesti Transcription tool.",
+              question: "What if a recipe I want is not on Zesti yet?",
+              answer: "If you cannot find a recipe with the search bar, the transcription tool is available for you to use. Simply copy the video link from tiktok and paste it into the tool to recieve a text version of the recipe.",
             },
             {
-                question: "I have more questions, how can I contact you?",
-                answer: "You can visit the contact page and send us a message!",
+              question: "I have more questions, how can I contact you?",
+              answer: "You can visit the contact page and send us a message!",
             },
         ],
         creator: [

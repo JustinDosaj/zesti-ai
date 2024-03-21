@@ -41,6 +41,8 @@ export default function Home() {
     if(via) { router.push(`/${via}`)}
   },[router])
 
+  console.log(new Date().toISOString())
+
   if (isLoading) return <PageLoader/>
 
   return (
