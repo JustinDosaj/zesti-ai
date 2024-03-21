@@ -216,22 +216,22 @@ export function CreatorPageRecentRecipes({recipes, creatorName, maxDisplayCount 
 
     // If both dates are valid, sort them in descending order
     return dateB - dateA;
-});
+  });
 
-const shouldShowLoadMore = max > 0
-? (displayCount < recipes.length && displayCount <= max)
-: (displayCount < recipes.length);
+  const shouldShowLoadMore = max > 0
+  ? (displayCount < recipes.length && displayCount <= max)
+  : (displayCount < recipes.length);
 
-const handleLoadMore = () => {
-  setDisplayCount((prevCount) => {
-      const newCount = prevCount + incrementCount;
-      // If there's a max limit and adding incrementCount exceeds it, only go up to max
-      if (max && newCount > max) {
-        return max;
-      }
-      return newCount;
-    });
-}
+  const handleLoadMore = () => {
+    setDisplayCount((prevCount) => {
+        const newCount = prevCount + incrementCount;
+        // If there's a max limit and adding incrementCount exceeds it, only go up to max
+        if (max && newCount > max) {
+          return max;
+        }
+        return newCount;
+      });
+  }
   
   return(
   <div className="space-y-2 animate-fadeIn">

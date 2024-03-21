@@ -27,7 +27,7 @@ export default function Video() {
         <PromoteKitTag/>
         <meta name="description" content="Say good by to pausing and rewinding, Zesti AI Video to Text Recipe creates an easy-to-follow ingredient and instruction list"/>
       </Head>
-      <main className={`flex min-h-screen flex-col items-center bg-background w-screen ${raleway.className}`}>
+      <main className={`flex min-h-screen flex-col items-center bg-background w-screen pb-36 ${raleway.className}`}>
         <ToolHero role={stripeRole} tokens={userData?.tokens!} titleStart="Transcribe Recipes From" titleEnd='TikTok' description="Copy a video link from Tiktok then paste it below to transcribe the recipe to text!"/>
         { isLoading == true ?
         <ToolLoader/>
@@ -40,7 +40,7 @@ export default function Video() {
         :
           <PricingDisplay/>
         }
-        <div className="mt-24"/>
+        <div className="mt-36"/>
         <FAQ type={'user'} title={"General FAQ"} desc={"Most commong questions and answers among all of our users"}/>
       </main>
     </>

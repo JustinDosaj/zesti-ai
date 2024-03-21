@@ -28,7 +28,7 @@ export default function Essential() {
     </Head>
     <div className="bg-white">
     {/* Header */}
-    <main className={`flex min-h-screen flex-col items-center justify-between bg-background w-screen ${raleway.className}`}>
+    <main className={`flex min-h-screen flex-col items-center justify-between bg-background w-screen pb-48 ${raleway.className}`}>
         {/* Background */}
         <Hero titleStart={"Use Zesti for"} titleEnd={"Free!"} description={"With the free version of Zesti you can search any creators and see their recipes"}/>
         <FreeSubscriptionBenefits/>
