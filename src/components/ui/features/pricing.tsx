@@ -31,7 +31,7 @@ export function PricingDisplay() {
           features: [
             'Access to All Recipes on Zesti',
             'Unlimited Recipe Saves',
-            '2 Free Recipe Transcriptions',
+            '3 Recipe Transcriptions/Month',
         ],
           featured: false,
           checkout: () => {

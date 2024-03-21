@@ -21,7 +21,7 @@ export default function Premium() {
     </Head>
     <div className="bg-white">
     {/* Header */}
-    <main className={`flex min-h-screen flex-col items-center justify-between bg-background w-screen ${raleway.className} animate-fadeIn`}>
+    <main className={`flex min-h-screen flex-col items-center justify-between bg-background w-screen pb-48 ${raleway.className} animate-fadeIn`}>
         {/* Header section */}
         <Hero titleStart={"Start Your Free 7-Day Trial for"} titleEnd={"Zesti Premium"} description={"Get the most out of Zesti with premium to edit recipes, ask AI questions fly and more"}/>
         <PremiumSubscriptionBenefits/>

@@ -117,30 +117,30 @@ export function VideoTips() {
 
     const features = [
         {
-            name: 'Advisory:',
+            name: 'Warning:',
             description:
                 'A video will only transcribe into a recipe properly if there are audible instructions to go along with it.',
             icon: ExclamationTriangleIcon,
         },
         {
-          name: 'Find a TikTok Recipe:',
+          name: 'Find Tiktok Recipe',
           description:
-            'Find a video recipe that you want to try! (max 15 minutes)',
+            'Find a tiktok video recipe with audible instructions.',
           icon: LightBulbIcon,
         },
         {
-          name: 'Copy Link:',
-          description: 'On mobile devices, select share then copy link. On desktop computers, copy the link from the search bar in your browser.',
+          name: 'Copy Video Link:',
+          description: 'Copy the video link from the Tiktok app or website. The link can be found by selecting share then copy link while watching the video.',
           icon: LightBulbIcon,
         },
         {
-          name: 'Paste Link',
-          description: 'Paste the link into the Website Transformation Tool and retrieve the recipe',
+          name: 'Paste Link:',
+          description: 'Paste the link in the input bar above the click the "Get Recipe" button. The recipe will begin transcribing and you will be notified when it is complete.',
           icon: LightBulbIcon,
         },
         {
-            name: 'Go to Dashboard:',
-            description: 'The recipe will appear in your dashboard shortly where you can begin cooking, make edits and communicate with Zesti chatbot',
+            name: 'Go to Your Recipes:',
+            description: 'After the recipe has finished transcribing, it will be found inside your recipes which can be found using the navigation dropdown in the top right',
             icon: LightBulbIcon,
         },
       ]
@@ -154,7 +154,7 @@ export function VideoTips() {
                 <div className="lg:ml-auto lg:pl-4 lg:pt-4">
                     <div className="max-w-4xl">
                     <h2 className="text-base font-semibold leading-7 text-primary-main text-center">Guide</h2>
-                    <p className="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl text-center">Get The Most Out Of Zesti</p>
+                    <p className="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl text-center">How to Transcribe Videos</p>
                     <dl className="mt-10 max-w-xl space-y-8 text-base leading-7 text-gray-600 lg:max-w-none">
                         {features.map((feature: any) => (
                         <div key={feature.name} className="relative pl-9">
