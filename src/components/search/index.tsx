@@ -1,7 +1,7 @@
 import { MagnifyingGlassIcon } from '@heroicons/react/24/outline'
 import { InlineButton } from "../shared/button"
 import algoliasearch from 'algoliasearch/lite';
-import { XMarkIcon } from '@heroicons/react/20/solid'
+import { ArrowRightIcon, DocumentIcon, VideoCameraIcon, XMarkIcon } from '@heroicons/react/20/solid'
 import Link from 'next/link'
 import React, { useState, useEffect } from "react"
 import { classNames } from '../shared/classNames';
@@ -42,7 +42,11 @@ export function Search({searchLocation}: SearchProps){
         const combinedResults = [...searchResults.creators.slice(0, 5), ...searchResults.recipes.slice(0, 5)].slice(0, 5);
 
         if (combinedResults.length === 0) {
-            return null;
+            return (
+            <div className="absolute z-20 mt-16 w-[325px] md:w-[500px] bg-white shadow-lg border border-gray-200 rounded-3xl">
+                <AddYourOwnResult/>
+            </div>
+            )
         }
 
         return (
@@ -89,10 +93,10 @@ export function Search({searchLocation}: SearchProps){
                                 <XMarkIcon onClick={() => setInput('')} className={classNames(input ? `text-red-600 hover:text-red-500 cursor-pointer` : `text-gray-600  cursor-default hover:text-gray-800`, `h-6 w-6 `)}/>
                             </form>  
                         </div>
-                        <div className={classNames(searchLocation == 'home' ? `text-left` : `text-center`, `text-gray-500 mt-4`)}>
+                        <div className={classNames(searchLocation == 'home' ? `text-center lg:text-left` : `text-center`, `text-gray-500 mt-4`)}>
                             <span>Can&apos;t find a tiktok account or recipe? </span>
                             <InlineButton isLink={true} href={'/tools/video'} text="Click here"/>
-                            <span> to save any TikTok recipe</span>
+                            <span> to use the video transcription tool</span>
                         </div>
                     </div>
                     {input && renderSearchResults()}
@@ -165,8 +169,9 @@ export function ManageRecipesSearch({creatorData}: any) {
 function AddYourOwnResult() {
     return(
 
-        <Link href="/tools/video" className="block py-4 text-center text-blue-500 hover:bg-gray-100 rounded-3xl text-xs lg:text-sm">
-            Trouble finding user or recipe? Click here
+        <Link href="/tools/video" className="py-4 text-left text-blue-500 hover:bg-gray-100 rounded-3xl text-xs lg:text-sm inline-flex w-full items-center gap-5 lg:gap-4 px-6 lg:px-5">
+            <VideoCameraIcon className="h-6 w-6"/>
+            <span>{"Can\n't find recipe? Click here to use transcription tool"}</span>
         </Link>
 
     )

@@ -126,7 +126,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
 
         if(!doc.exists) {
           await userRef.set({
-            tokens: 2,
+            tokens: 3,
             email: user.email,
             account_status: 'user',
             date_created: new Date().toISOString()
@@ -177,7 +177,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
 
         if(!doc.exists) {
           await userRef.set({
-            tokens: 2,
+            tokens: 3,
             email: user.email,
             account_status: 'user',
             date_created: new Date().toISOString()

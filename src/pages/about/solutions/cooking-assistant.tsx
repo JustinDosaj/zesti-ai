@@ -29,7 +29,7 @@ export default function CookingAssistant() {
         <GoogleTags/>
         <PromoteKitTag/>
       </Head>
-      <main className={`flex min-h-screen flex-col items-center justify-between bg-background w-screen space-y-48 ${raleway.className}`}>
+      <main className={`flex min-h-screen flex-col items-center justify-between bg-background w-screen space-y-48 pb-48 ${raleway.className}`}>
         <SharedHero 
             titleStart={"Cooking Made Easy with"} 
             titleEnd={"Zesti AI Chat"} 
@@ -45,7 +45,7 @@ export default function CookingAssistant() {
           desc={"Cooking has never been easier than when you have Zesti by your side"}
         />
         <HomePageCTA/>
-        <FAQ type={'user'} title={"General FAQ"} desc={"Most commong questions and answers among all of our users"}/>
+        <FAQ type={'user'} title={"General FAQ"} desc={"Most common questions and answers among all of our users"}/>
       </main>
     </>
   )
