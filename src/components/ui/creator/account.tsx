@@ -248,9 +248,10 @@ function PageLinkComponent({affiliate_code, accountStatus}:CreatorPageComponents
     const urlToCopy = `https://www.zesti.ai?via=${affiliate_code}`;
 
     return(
-    <>
         <div className="pt-6 grid lg:flex justify-between items-center">
-            <dt className="font-semibold text-gray-900 sm:w-64 sm:flex-none sm:pr-6 text-sm lg:text-base">Affiliate Link</dt>
+            <dt className="font-semibold text-gray-900 sm:w-64 sm:flex-none sm:pr-6 text-sm lg:text-base">
+                <span>Affiliate Link</span>
+            </dt>
             <dd className="flex items-center gap-x-6 sm:mt-0">
                 <div className="text-gray-700 text-sm lg:text-base">{urlToCopy}</div>
                 { isLinkCopied ?
@@ -260,7 +261,6 @@ function PageLinkComponent({affiliate_code, accountStatus}:CreatorPageComponents
                 }
             </dd>
         </div>
-    </>
     )
 }
 
