@@ -9,6 +9,7 @@ interface ButtonProps {
     onClick?: any,
     isLink: boolean,
     href?: string,
+    isDisabled?:boolean,
 }
 
 
@@ -22,10 +23,10 @@ export function InlineButton({text, className, href, isLink}: ButtonProps) {
     )
 }
 
-export function Button({text, className, buttonType, children, onClick, isLink, href}: ButtonProps) {
+export function Button({text, className, buttonType, children, onClick, isLink, href, isDisabled}: ButtonProps) {
     
     if (!isLink && onClick && buttonType) return (
-        <button type={buttonType} onClick={onClick}
+        <button type={buttonType} onClick={onClick} disabled={isDisabled}
             className={`text-white bg-primary-main px-6 py-3 rounded-full outline-none relative overflow-hidden border duration-200 ease-linear
                 hover:after:opacity-100 hover:bg-primary-alt ${className}`}>
                     <span className="relative z-10">{text}</span>
@@ -34,7 +35,7 @@ export function Button({text, className, buttonType, children, onClick, isLink, 
     )
 
     if(!isLink && buttonType) return (
-        <button type={buttonType} onClick={onClick}
+        <button type={buttonType} onClick={onClick} disabled={isDisabled}
             className={`text-white bg-primary-main px-6 py-3 rounded-full outline-none relative overflow-hidden border duration-200 ease-linear
                 hover:after:opacity-100 hover:bg-primary-alt ${className}`}>
                     <span className="relative z-10">{text}</span>

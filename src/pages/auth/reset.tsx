@@ -13,12 +13,10 @@ import { ToastContainer } from "react-toastify"
 import 'react-toastify/dist/ReactToastify.css';
 import { PromoteKitTag } from "@/components/tags/headertags"
  
+const raleway = Raleway({subsets: ['latin']})
  
  
- const raleway = Raleway({subsets: ['latin']})
- 
- 
- export default function Reset() {
+export default function Reset() {
  
      const [ email, setEmail ] = useState<string>('')
      const {user, sendPasswordReset} = useAuth();
