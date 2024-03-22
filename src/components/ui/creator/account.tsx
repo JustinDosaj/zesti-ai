@@ -105,7 +105,10 @@ export function CreatorSettingsComponent() {
                             <PageLinkComponent affiliate_code={creatorData.affiliate_code} accountStatus={userData?.account_status}/>
                             <SimpleProfileComponent title={"Page Name"} desc={creatorData?.display_name} onButtonClick={() => router.push(`/${creatorData?.affiliate_code}`)} buttonName={"View Page"}/>
                             <div className="pt-6 flex items-center justify-between border-gray-200">
-                                <dt className="font-semibold text-gray-900 sm:w-64 sm:flex-none pr-6 text-sm lg:text-base">Page Image</dt>
+                                <dt className="grid grid-cols-1 font-semibold text-gray-900 sm:w-64 sm:flex-none pr-6 text-sm lg:text-base">
+                                    <span>Page Image</span>
+                                    <span className="text-xs text-gray-500">{"(Max: 250x250 px)"}</span>
+                                </dt>
                                 <dd className="flex flex-col gap-y-2 space-x-6 sm:flex-row items-center">
                                     <input
                                         id="file-upload"
@@ -168,7 +171,6 @@ export function CreatorSettingsComponent() {
                                         onClick={() => setEdit(true)}>
                                     </Button>
                                     }
-                                    {/* TRACK AFFILIATE CODE INSIDE FIRESTORE THEN DISPLAY MANAGE AFFILIATE PROGRAM IF IT IS AVAILABLE*/}
                                 </dd>
                             </div>
                         </dl>
