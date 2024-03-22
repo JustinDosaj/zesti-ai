@@ -6,13 +6,16 @@ export function AddNewCreator() {
     
     const [ email, setEmail ] = useState<string>('')
     const [ affiliateCode, setAffiliateCode] = useState<string>('')
-    const [ name, setName ] = useState<string>('')    
+    const [ name, setName ] = useState<string>('')
+    const [ loading, setLoading ] = useState<boolean>(false)    
 
     const addCreatorClick = async () => {
+        setLoading(true)
         const response = await AdminAddNewCreator(email, affiliateCode, name)
         setEmail('')
         setAffiliateCode('')
         setName('')
+        setLoading(false)
     }
 
     return(
@@ -26,19 +29,19 @@ export function AddNewCreator() {
             />
             <input
                 type="text"
-                placeholder="TikTok Username"
+                placeholder="Creator Affiliate Code"
                 value={affiliateCode}
                 onChange={(e) => setAffiliateCode(e.target.value)}
                 className="py-2 w-64 border-gray-300 border rounded-3xl pl-2"
             />
             <input
                 type="text"
-                placeholder="Creator Name"
+                placeholder="Creator First Name"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 className="py-2 w-64 border-gray-300 border rounded-3xl pl-2"
             />
-            <Button onClick={addCreatorClick} isLink={false} buttonType="button" text="Add New Creator"/>
+            <Button onClick={addCreatorClick} isLink={false} buttonType="button" text="Add New Creator" isDisabled={loading}/>
         </div>
     )
 }
