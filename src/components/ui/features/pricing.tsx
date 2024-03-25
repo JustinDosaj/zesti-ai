@@ -22,16 +22,15 @@ export function PricingDisplay() {
 
     const tiers = [
         {
-          name: 'Base',
+          name: 'Free',
           id: 'tier-basic',
           trial: false,
           priceMonthly: '$0',
           description: "The perfect plan if you're just getting started with Zesti",
           learnhref: "/about/subscription/free",
           features: [
-            'Access to All Recipes on Zesti',
+            'Freely Browse Recipes on Zesti',
             'Unlimited Recipe Saves',
-            '3 Recipe Transcriptions/Month',
         ],
           featured: false,
           checkout: () => {
@@ -47,12 +46,11 @@ export function PricingDisplay() {
           description: 'Unlock the full potential of Zesti',
           learnhref: "/about/subscription/premium",
           features: [
-            'Access to All Recipes on Zesti',
+            'Freely Browse Recipes on Zesti',
             'Unlimited Recipe Saves',
-            '15 Recipe Transcriptions/Month',
-            'Unlock AI Cooking Assistant',
-            'Freely Customize Recipes',
-            'Ad-Free'
+            'Unlock Zesti AI Chat Assistant',
+            'Ad-Free',
+            'Support a Creator'
           ],
           featured: true,
           checkout: () => {
@@ -64,7 +62,7 @@ export function PricingDisplay() {
     
 
     return (
-    <Container className={"flex flex-col lg:flex-row gap-10 lg:gap-12 justify-center mt-6 sm:mt-0 mb-12 sm:mb-16"}>
+    <Container className={"flex flex-col lg:flex-row gap-10 lg:gap-12 justify-center mt-6 sm:mt-0"}>
         <div className="relative isolate bg-white lg:px-8">
           <div className="mx-auto grid max-w-lg grid-cols-1 items-center gap-y-6 sm:gap-y-0 lg:max-w-4xl lg:grid-cols-2">
             {tiers.map((tier: any, tierIdx: number) => (
@@ -77,7 +75,7 @@ export function PricingDisplay() {
                     : tierIdx === 0
                     ? 'rounded-t-3xl sm:rounded-b-none lg:rounded-tr-none lg:rounded-bl-3xl'
                     : 'sm:rounded-t-none lg:rounded-tr-3xl lg:rounded-bl-none',
-                  'rounded-3xl pt-8 pl-8 pr-8 pb-4 ring-1 ring-gray-900/10 '
+                  'rounded-3xl pt-8 pl-8 pr-8 pb-8 ring-1 ring-gray-900/10'
                 )}
               >
                 <div className="flex justify-between items-center">
@@ -136,7 +134,6 @@ export function PricingDisplay() {
                 :
                 <Button isLink={false} buttonType="button" onClick={() => {router.push("/account")}} text="Manage Account" className="text-sm sm:text-base mt-4 text-center w-full"/>
                 }
-                <InlineButton isLink={true} href={tier.learnhref} text="Learn More" className="flex justify-center mt-4 text-sm"/>
               </div>
             ))}
           </div>

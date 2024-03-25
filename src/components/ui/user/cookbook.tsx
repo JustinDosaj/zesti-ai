@@ -115,7 +115,7 @@ export function UserRecipeListCard({item, key}: RecipeCardProps) {
                 }
             </div>
                 {/* Overlay Icon */}
-            <Link className={item.status == "Complete" ? `absolute inset-0 flex items-center justify-center bg-black bg-opacity-40 opacity-0 group-hover:opacity-100 rounded-3xl hover:animate-fadeInExtraFast` : `hidden`} href={`/my-recipes/${item?.id}`} >
+            <Link className={item.status == "Complete" ? `absolute inset-0 flex items-center justify-center bg-black bg-opacity-40 opacity-0 group-hover:opacity-100 rounded-3xl hover:animate-fadeInExtraFast` : `hidden`} href={`/${item.owner_affiliate_code}/${item.id}`} >
                 <EyeIcon className="text-white h-10 w-10 hover:text-gray-300 hover:bg-gray-500 bg-gray-700 rounded-xl p-1"/>
             </Link>
         </div>

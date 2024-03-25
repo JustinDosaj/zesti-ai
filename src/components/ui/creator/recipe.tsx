@@ -6,7 +6,7 @@ import { useAuth } from "@/pages/api/auth/auth"
 import { Notify } from '@/components/shared/notify';
 import React, { useState, useEffect } from "react"
 import { Button, AltButton } from "@/components/shared/button"
-import { saveFromCreatorToUser } from "@/pages/api/firebase/functions"
+import { saveRecipeReferenceToUser } from "@/pages/api/firebase/functions"
 
 interface RecipeProps {
     recipe: any,
@@ -73,7 +73,6 @@ export function EditCreatorRecipe({recipe, owner_id, setEditMode}:RecipeProps) {
     const [newIngredient, setNewIngredient] = useState<string>('');
     const [newInstruction, setNewInstruction] = useState<string>('');
     const [editedName, setEditedName] = useState<string>('')
-    const router = useRouter()
 
     useEffect(() => {
         setEditedIngredients(recipe.ingredients || []);
@@ -283,7 +282,7 @@ export function CreatorRecipeLinks({recipe, isEdit, setIsOpen}: CreatorRecipeLin
                 onClick: async () => {
                     if (user && !isLoading) {
                         try {
-                            await saveFromCreatorToUser(user?.uid, recipe.id, recipe);
+                            await saveRecipeReferenceToUser(user?.uid, recipe.id, recipe.owner_id, recipe.owner_affiliate_code);
                             setIsOpen(true)
                             return true; // Explicitly returning a boolean value
                         } catch (error) {
@@ -304,7 +303,7 @@ export function CreatorRecipeLinks({recipe, isEdit, setIsOpen}: CreatorRecipeLin
     return(
     <div className="flex justify-evenly">
         {navigation.map((nav: any) => (
-            <button key={nav.name} onClick={nav.onClick} className="text-gray-700 hover:text-gray-500 inline-flex space-x-2 items-center justify-center">
+            <button key={nav.name} onClick={nav.onClick} className="text-gray-700 hover:text-gray-500 inline-flex space-x-1 items-center justify-center w-1/3">
                 <nav.icon className="h-4 w-4 md:h-5 md:w-5"/>
                 <p className="capitalize text-sm lg:text-base text-left">{nav.name}</p>
             </button>
