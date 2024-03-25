@@ -3,7 +3,7 @@ import { classNames } from "@/components/shared/classNames"
 import { Button } from "@/components/shared/button"
 import { Container } from "@/components/shared/container"
 import { Paragraph } from "@/components/shared/paragraph"
-import { MagnifyingGlassIcon } from '@heroicons/react/24/outline'
+import { MagnifyingGlassIcon, SparklesIcon, StarIcon } from '@heroicons/react/24/outline'
 import Link from "next/link"
 import React, { useState, useEffect, useRef } from "react"
 import { EyeIcon, XMarkIcon } from "@heroicons/react/20/solid"
@@ -17,9 +17,14 @@ export function CreatorPageTitle({creatorData}: any) {
         <Container className={"flex flex-col lg:flex-row gap-10 lg:gap-12 animate-fadeIn"}>
             <div className="relative flex flex-col items-center text-center lg:max-w-none max-w-3xl mx-auto lg:mx-0 lg:flex-1 lg:w-1/2">
                 <img src={creatorData.page_image || '/images/page-image-placeholder.png'} alt={creatorData.display_name} className="rounded-3xl h-[75px] w-[75px] sm:h-[100px] sm:w-[100px]"/>
-                <h1 className="text-3xl/tight sm:text-4xl/tight md:text-5xl/tight xl:text-5xl/tight font-bold text-heading-1 text-black capitalize mt-2">
-                  {creatorData.display_name}
-                </h1>
+                <div className="items-center inline-flex mt-2 gap-4">
+                  <h1 className="text-3xl/tight sm:text-4xl/tight md:text-5xl/tight xl:text-5xl/tight font-bold text-heading-1 text-black capitalize">{creatorData.display_name}</h1>
+                  <button className={`support-btn-orange items-center inline-flex space-x-1 absolute right-4 xl:right-0`}>
+                      <SparklesIcon className="flex lg:hidden h-5 w-5"/>
+                      <StarIcon className="hidden lg:flex h-4 w-4"/>
+                      <span className="hidden lg:flex relative z-10 capitalize text-sm lg:text-base">Support {creatorData.display_name}</span>
+                  </button>
+                </div>
                 <Paragraph className="mt-2 text-gray-600">
                         {creatorData.bio_description || ''}
                 </Paragraph>
@@ -234,19 +239,21 @@ export function CreatorPageRecentRecipes({recipes, creatorName, maxDisplayCount 
   }
   
   return(
-  <div className="space-y-2 animate-fadeIn">
-        <SharedSectionHeadingTitle title={"Recipes"} className="py-3"/>
-        <div ref={containerRef} className={`grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-4 mt-4`} >
-          {sortedData.slice(0,displayCount).map((item: any) => (
-              <CreatorRecipeListCard creatorName={creatorName} item={item} key={item.name}/>
-          ))}
-          {shouldShowLoadMore && (
-              <div className="grid justify-center py-6">
-                  <Button onClick={handleLoadMore} isLink={false} className="bg-primary-main rounded-3xl hover:bg-primary-alt text-white font-semibold py-2 px-4" text="Load More" buttonType="button"/>
-              </div>
-          )}
-        </div>
-  </div>
+    <Container className={"grid justify-center lg:flex-row gap-10 lg:gap-12 animate-fadeIn"}>
+      <div className="space-y-2 animate-fadeIn">
+            <SharedSectionHeadingTitle title={"Recipes"} className="py-3"/>
+            <div ref={containerRef} className={`grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6 mt-4`} >
+              {sortedData.slice(0,displayCount).map((item: any) => (
+                  <CreatorRecipeListCard creatorName={creatorName} item={item} key={item.name}/>
+              ))}
+              {shouldShowLoadMore && (
+                  <div className="grid justify-center py-6">
+                      <Button onClick={handleLoadMore} isLink={false} className="bg-primary-main rounded-3xl hover:bg-primary-alt text-white font-semibold py-2 px-4" text="Load More" buttonType="button"/>
+                  </div>
+              )}
+            </div>
+      </div>
+  </Container>
   )
 }
 
@@ -258,13 +265,12 @@ interface RecipeCardProps {
 
 export function CreatorRecipeListCard({item, creatorName, key}: RecipeCardProps) {
   return(
-  <div key={key} className="group relative w-[350px] lg:w-[425px]">
+  <div key={key} className="group relative w-[350px] lg:w-[400px]">
         {/* Image and Details */}
         <div className="flex items-center space-x-4 border p-4 rounded-3xl max-w-2xl">
             <img src={`https://firebasestorage.googleapis.com/v0/b/${process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET}/o/${encodeURIComponent(item.cover_image_url)}?alt=media`} className="h-[136px] w-[96px] rounded-xl object-cover" alt={item.title}/>
             <div className="flex-grow space-y-1 lg:space-y-2">
                 <h3 className="text-lg lg:text-xl font-semibold text-gray-700">{item?.name}</h3> {/* Video Title */}
-                
                 {/* Additional Details */}
                 <div className="flex gap-4 text-xs lg:text-sm text-gray-600">
                     <span className="inline-flex gap-1 items-center">
