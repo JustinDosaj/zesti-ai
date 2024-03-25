@@ -72,4 +72,8 @@ body {
     @apply border p-4 rounded-3xl border-gray-300
   }
 
+  .support-btn-orange {
+    @apply text-white bg-primary-main px-2 lg:px-6 py-2 lg:py-3 rounded-full outline-none relative overflow-hidden border duration-200 ease-linear hover:after:opacity-100 hover:bg-primary-alt
+  }
+
 }
