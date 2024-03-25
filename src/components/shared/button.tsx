@@ -1,6 +1,5 @@
 import Link from "next/link"
 
-
 interface ButtonProps {
     text: string,
     className?: string,
@@ -77,3 +76,4 @@ export function AltButton({text, className, buttonType, children, onClick, isLin
 
     return <div>error</div>
 }
+

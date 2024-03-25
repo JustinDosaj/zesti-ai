@@ -1,5 +1,6 @@
 import { Container } from "@/components/shared/container"
 import { ArrowDownTrayIcon, EyeIcon, PlusIcon, TrashIcon } from "@heroicons/react/20/solid"
+import { SparklesIcon, StarIcon } from "@heroicons/react/24/outline"
 import { useRouter } from "next/router"
 import { db } from "@/pages/api/firebase/firebase"
 import { useAuth } from "@/pages/api/auth/auth"
@@ -22,7 +23,7 @@ interface RecipeProps {
 
 export function CreatorRecipe({recipe, owner_id, setEditMode, setIsOpen}: RecipeProps) {
 
-    const { user } = useAuth()
+    const { user, stripeRole } = useAuth()
 
     return(
     <Container className={"flex flex-col gap-6 animate-fadeInFast alternate-orange-bg rounded-3xl md:w-[599px] p-8 mb-16"}>
@@ -59,9 +60,21 @@ export function CreatorRecipe({recipe, owner_id, setEditMode, setIsOpen}: Recipe
                 ))}
             </ul>
         </div>
+        {stripeRole !== 'premium' && user?.uid !== owner_id ? 
+        <div className='grid justify-center'>
+            <button className={`support-btn-orange items-center inline-flex space-x-1 w-fit`}>
+                <SparklesIcon className="flex lg:hidden h-5 w-5"/>
+                <StarIcon className="hidden lg:flex h-4 w-4"/>
+                <span className="hidden lg:flex relative z-10 capitalize text-sm lg:text-base">Support {recipe.owner_display_name}</span>
+            </button>
+        </div>
+        : user?.uid == owner_id ?
         <div className={user?.uid == owner_id ? `grid justify-center` : 'hidden'}>
             <Button isLink={false} buttonType="button" text="Edit Recipe" className="w-fit" onClick={() => {setEditMode(true)}}/>
         </div>
+        :
+        <div className="grid justify-center"/>
+        }
     </Container>
     )
 }
