@@ -5,7 +5,7 @@ import { onSnapshot } from "firebase/firestore"
 import { SendErrorToFirestore } from '@/pages/api/firebase/functions';
 import { useAuth } from '@/pages/api/auth/auth';
 
-const useCreatorRecipeList = () => {
+const useCreatorRecipeList = (id: string | undefined) => {
   
   const [creatorRecipeList, setCreatorRecipeList] = useState<any[]>([]);
   const { user, isLoading } = useAuth();
@@ -13,9 +13,9 @@ const useCreatorRecipeList = () => {
 
   useEffect(() => {
 
-    if (user?.uid && !isLoading) {
+    if (id && !isLoading) {
       // Reference the specific creator's recipes collection
-      const recipesRef = db.collection(`creators/${user.uid}/recipes`);
+      const recipesRef = db.collection(`creators/${id}/recipes`);
 
       // Listen for real-time updates with onSnapshot
       const unsubscribe = onSnapshot(recipesRef, (querySnapshot) => {
