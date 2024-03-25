@@ -75,6 +75,19 @@ export const saveRecipeReferenceToUser = async (userId: string, recipeId: string
 };
 
 /* DELETE FUNCTIONS */
+export const UserRemoveRecipeFromFirestore = async (userId: string, recipeId: string) => {
+  try {
+    const recipeRef = db.collection('users').doc(userId).collection('recipes').doc(recipeId);
+
+    await recipeRef.delete();
+
+    Notify("Recipe removed successfully");
+  } catch (error) {
+    throw new Error("Failed to remove recipe from saved recipes.");
+  }
+};
+
+
 export async function deleteCreatorError(creator_id: any, recipe_id: string) {
   const docRef = db.collection('creators').doc(creator_id).collection('errors').doc(recipe_id)
   await docRef.delete()
