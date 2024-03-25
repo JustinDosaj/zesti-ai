@@ -21,16 +21,13 @@ export default function Premium() {
     </Head>
     <div className="bg-white">
     {/* Header */}
-    <main className={`flex min-h-screen flex-col items-center justify-between bg-background w-screen pb-48 ${raleway.className} animate-fadeIn`}>
+    <main className={`flex min-h-screen flex-col items-center justify-between bg-background w-screen space-y-48 lg:space-y-64 pb-48 ${raleway.className} animate-fadeIn`}>
         {/* Header section */}
         <Hero titleStart={"Start Your Free 7-Day Trial for"} titleEnd={"Zesti Premium"} description={"Get the most out of Zesti with premium to edit recipes, ask AI questions fly and more"}/>
         <PremiumSubscriptionBenefits/>
         <PricingDisplay/>
-        <div className="mt-24 md:mt-36"/>
         <HomeVideoToRecipe titleStart={"Get Instant Readable Recipes from"} titleEnd={"TikTok"} desc={"No more pausing, rewinding or rewatching. Translate TikTok recipes into text so you can enjoy delicious home cooked meals too!"}/>
-        <div className="mt-24 md:mt-36"/>
         <HomePageCTA/>
-        <div className="mt-24 md:mt-36"/>
         <FAQ type={'user'} title={"General FAQ"} desc={"Most commong questions and answers among all of our users"}/>
     </main>
     </div>

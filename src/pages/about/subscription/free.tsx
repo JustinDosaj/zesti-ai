@@ -5,7 +5,6 @@ import { PricingDisplay } from '@/components/ui/features/pricing'
 import GoogleTags from '@/components/tags/conversion'
 import { PromoteKitTag } from '@/components/tags/headertags'
 import { HomePageCTA, HomeVideoToRecipe, Hero } from '@/components/ui/features/users'
-import { FreeSubscriptionBenefits } from '@/components/ui/features/subscriptions'
 import { FAQ } from '@/components/ui/general'
 const raleway = Raleway({subsets: ['latin']})
 
@@ -28,18 +27,13 @@ export default function Essential() {
     </Head>
     <div className="bg-white">
     {/* Header */}
-    <main className={`flex min-h-screen flex-col items-center justify-between bg-background w-screen pb-48 ${raleway.className}`}>
+    <main className={`flex min-h-screen flex-col items-center justify-between bg-background w-screen space-y-48 lg:space-y-64 pb-48 ${raleway.className}`}>
         {/* Background */}
         <Hero titleStart={"Use Zesti for"} titleEnd={"Free!"} description={"With the free version of Zesti you can search any creators and see their recipes"}/>
-        <FreeSubscriptionBenefits/>
         <PricingDisplay/>
-        <div className="mt-24 md:mt-36"/>
         <HomeVideoToRecipe titleStart={"Get Instant Readable Recipes from"} titleEnd={"TikTok"} desc={"No more pausing, rewinding or rewatching. Translate TikTok recipes into text so you can enjoy delicious home cooked meals too!"}/>
-        <div className="mt-24 md:mt-36"/>
         <HomePageCTA/>
-        <div className="mt-24 md:mt-36"/>
         <FAQ type={'user'} title={"General FAQ"} desc={"Most commong questions and answers among all of our users"}/>
-        <div className="pb-12"></div>
     </main>
     </div>
     </>

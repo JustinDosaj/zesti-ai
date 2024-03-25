@@ -23,7 +23,7 @@ interface Creator {
 
 export default function Home() {
   
-  const { isLoading, creatorData, user } = useAuth();
+  const { isLoading } = useAuth();
   const [ creators, setCreators ] = useState<Creator[]>()
   const router = useRouter();
 
@@ -40,8 +40,6 @@ export default function Home() {
     const via = router.query.via;
     if(via) { router.push(`/${via}`)}
   },[router])
-
-  console.log(new Date().toISOString())
 
   if (isLoading) return <PageLoader/>
 
