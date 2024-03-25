@@ -15,8 +15,6 @@ import useCreatorRecipeList from '@/hooks/creator/useCreatorRecipeList'
 import useErrorRecipeList from '@/hooks/creator/useErrorRecipeList'
 import Breadcrumbs from '@/components/shared/breadcrumb'
 import useSetBreadcrumbs from "@/components/shared/setBreadcrumbs";
-import { StarIcon } from '@heroicons/react/24/outline'
-import { useRouter } from 'next/router'
 
 const raleway = Raleway({subsets: ['latin']})
 
@@ -25,8 +23,8 @@ export default function ManageRecipes() {
     useSetBreadcrumbs()
     useRequireAuth()
 
-    const { user, isLoading, userData } = useAuth();
-    const { loadingCreatorRecipes, creatorRecipeList } = useCreatorRecipeList()
+    const { user, isLoading, userData, creatorData } = useAuth();
+    const { loadingCreatorRecipes, creatorRecipeList } = useCreatorRecipeList(user?.uid)
     const { errorRecipeList } = useErrorRecipeList(user?.uid)
     const [ isOpen, setIsOpen ] = useState<boolean>(false)
     const [ isCreatorModalOpen, setIsCreatorModalOpen] = useState<boolean>(false)

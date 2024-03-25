@@ -65,7 +65,7 @@ const CreatorPage: NextPage<CreatorProps> = ({ creatorData, referer }) => {
 
   useSetBreadcrumbs();
   //useAffiliateCode(creatorData, referer);
-  const { creatorRecipeList, loadingCreatorRecipes } = useCreatorRecipeList()
+  const { creatorRecipeList, loadingCreatorRecipes } = useCreatorRecipeList(creatorData?.owner_id)
 
   return (
     <>
@@ -77,7 +77,7 @@ const CreatorPage: NextPage<CreatorProps> = ({ creatorData, referer }) => {
       <GoogleTags/>
       <PromoteKitTag/>
     </Head>
-    <main className={`flex min-h-screen flex-col items-center bg-background space-y-4 w-screen ${raleway.className}`}>
+    <main className={`flex min-h-screen flex-col items-center bg-background space-y-4 w-screen pb-48  ${raleway.className}`}>
       <Breadcrumbs/>
       <CreatorPageTitle creatorData={creatorData}/>
       <CreatorSocials creatorData={creatorData}/>

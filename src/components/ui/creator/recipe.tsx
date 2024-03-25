@@ -6,7 +6,8 @@ import { useAuth } from "@/pages/api/auth/auth"
 import { Notify } from '@/components/shared/notify';
 import React, { useState, useEffect } from "react"
 import { Button, AltButton } from "@/components/shared/button"
-import { saveRecipeReferenceToUser } from "@/pages/api/firebase/functions"
+import { UserRemoveRecipeFromFirestore, saveRecipeReferenceToUser } from "@/pages/api/firebase/functions"
+import { onSnapshot, doc } from "firebase/firestore";
 
 interface RecipeProps {
     recipe: any,
@@ -252,6 +253,46 @@ export function CreatorRecipeLinks({recipe, isEdit, setIsOpen}: CreatorRecipeLin
 
     const router = useRouter()
     const { isLoading, user } = useAuth()
+    const [isSaved, setIsSaved] = useState(false);
+
+
+    // Checking if user owns recipe already
+    useEffect(() => {
+        if(user) {
+            const docRef = doc(db, `users/${user.uid}/recipes`, recipe.id);
+            const unsubscribe = onSnapshot(docRef, (docSnapshot) => {
+                setIsSaved(docSnapshot.exists());
+            }, (error) => {
+                console.error("Error checking recipe save status:", error);
+            });
+
+            return () => unsubscribe();
+        }
+    }, [user, recipe.id]);
+
+    async function onSaveClick() {
+        if (user && !isLoading) {
+            try {
+                await saveRecipeReferenceToUser(user?.uid, recipe.id, recipe.owner_id, recipe.owner_affiliate_code);
+                setIsOpen(true)
+                return true; // Explicitly returning a boolean value
+            } catch (error) {
+                console.error("Error saving recipe:", error);
+                return false;
+            }
+        } else {
+            Notify("Please login to save recipes")
+            return false; // Or some appropriate boolean value based on your logic
+        }
+    }
+
+    const onDeleteClick = async () => {
+        if(user) {
+            await UserRemoveRecipeFromFirestore(user?.uid, recipe.id);
+            return true; 
+        }
+        return false;
+    }
 
     const navigation = [
         { 
@@ -278,23 +319,9 @@ export function CreatorRecipeLinks({recipe, isEdit, setIsOpen}: CreatorRecipeLin
 
         if(isEdit == false) {
             navigation.push({
-                name: 'Save',
-                onClick: async () => {
-                    if (user && !isLoading) {
-                        try {
-                            await saveRecipeReferenceToUser(user?.uid, recipe.id, recipe.owner_id, recipe.owner_affiliate_code);
-                            setIsOpen(true)
-                            return true; // Explicitly returning a boolean value
-                        } catch (error) {
-                            console.error("Error saving recipe:", error);
-                            return false;
-                        }
-                    } else {
-                        Notify("Please login to save recipes")
-                        return false; // Or some appropriate boolean value based on your logic
-                    }
-                },
-                icon: ArrowDownTrayIcon,
+                name: isSaved ? 'Delete' : 'Save',
+                onClick: isSaved ? () => onDeleteClick() : () => onSaveClick(),
+                icon: isSaved ? TrashIcon : ArrowDownTrayIcon,
             });
         }
 

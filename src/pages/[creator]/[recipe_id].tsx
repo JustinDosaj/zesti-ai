@@ -58,7 +58,7 @@ const Recipe: React.FC = ({id, owner_uid}: any) => {
       <GoogleTags/>
       <PromoteKitTag/>
     </Head>  
-    <main className={`flex min-h-screen flex-col items-center p-6 bg-background w-screen ${raleway.className}`}>
+    <main className={`flex min-h-screen flex-col items-center p-6 bg-background w-screen pb-48 ${raleway.className}`}>
         <Breadcrumbs/>
         { isEditMode == false || !user || user?.uid !== owner_uid ? 
         <CreatorRecipe recipe={creatorRecipe} owner_id={owner_uid} setEditMode={setEditMode} setIsOpen={setIsOpen}/>
