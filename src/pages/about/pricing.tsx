@@ -18,7 +18,7 @@ export default function Pricing() {
       <GoogleTags/>
       <PromoteKitTag/>
     </Head>
-    <main className={`flex min-h-screen flex-col items-center justify-between p-2 bg-background w-screen ${raleway.className}`}>
+    <main className={`flex min-h-screen flex-col items-center justify-between p-2 bg-background w-screen pb-36 ${raleway.className}`}>
       <div className="mt-36"/>
       <PricingTitle/>
       <PricingDisplay/>
