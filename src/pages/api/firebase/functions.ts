@@ -46,67 +46,9 @@ export async function updateUserWithTikTokTokens(tokenData: TikTokTokenData, use
   }
 }
 
-// Used to get all user recipes on my-recipes page
-export async function getAllRecipes(user: any) {
-  const recipeSnapshot = await db.collection(`users/${user}/recipes`).get();
-  const updatedRecipes = recipeSnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
-  return updatedRecipes
-}
-
-export async function getAllCreatorRecipes(id: string) {
-  
-  const recipeSnapshot = await db.collection(`creators/${id}/recipes`).get();
-  const updatedRecipes = recipeSnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
-  return updatedRecipes
-
-}
-
 export async function getCreatorByDisplayName(creatorName: string) {
   const querySnapshot = await db.collection('creators').where('affiliate_code', '==', creatorName).get()
   return querySnapshot
-}
-
-export async function getUserData(user: any) {
-  try{
-    const ref = db.collection('users').doc(user)
-    const doc = await ref.get()
-    const res = doc.data()
-    return res
-  } catch(error) { console.log(error) }
-}
-
-export async function getCreatorData(user: any) {
-  try {
-    const ref = db.collection('creators').doc(user)
-    const doc = await ref.get()
-    const res = doc.data()
-    return res
-  } catch (error) {
-    console.log(error)
-  }
-}
-
-export async function getRecipe(user: any, id: any) {
-    try {
-      const ref = await db.collection('users').doc(user).collection('recipes').doc(id)
-      const doc = await ref.get();
-      const res = doc.data()
-      return res
-    } catch (err) {
-        console.log(err)
-        return
-    }
-}
-
-export async function deleteUserRecipe(user: any, id: any) {
-  try {
-    await db.doc(`users/${user}/recipes/${id}`).delete();
-    await db.doc(`users/${user}/tiktokurl/${id}`).delete();
-    return "Recipe Deleted Successfully"
-  } catch (error) {
-    return "Problem Deleting Recipe"
-  }
-
 }
 
 export async function saveBioDataToFireStore(bioObj: any, userId: string){
@@ -120,12 +62,17 @@ export async function saveBioDataToFireStore(bioObj: any, userId: string){
 
 }
 
-export async function saveFromCreatorToUser(user: any, id: any, recipe: any) {
-  const date: Date = new Date()
-  const updatedRecipe = { ...recipe, date: date.toISOString() }
-  const userRef = db.collection('users').doc(user).collection('recipes').doc(id)
-  await userRef.set(updatedRecipe)
-}
+export const saveRecipeReferenceToUser = async (userId: string, recipeId: string, creatorId: string, creatorName: string) => {
+  const userRef = db.collection('users').doc(userId);
+  const recipeRef = db.collection('creators').doc(creatorId).collection('recipes').doc(recipeId);
+
+  await userRef.collection('recipes').doc(recipeId).set({
+      owner: creatorName,
+      owner_id: creatorId,
+      recipeRef: recipeRef,
+      date: new Date().toISOString(),
+  });
+};
 
 /* DELETE FUNCTIONS */
 export async function deleteCreatorError(creator_id: any, recipe_id: string) {
@@ -144,6 +91,7 @@ export async function deleteCreatorPublicRecipe(creator_id: any, recipe_id: stri
   Notify("Recipe Deleted Successfully")
   console.log(`Removed ${recipe_id} from public recipes`)
 }
+/* END DELETE FUNCTIONS */
 
 export async function uploadCreatorPageImage(file: File, user_id: string): Promise<void> {
 
