@@ -62,7 +62,7 @@ export function CreatorRecipe({recipe, owner_id, setEditMode, setIsOpen, setIsSu
                 ))}
             </ul>
         </div>
-        {stripeRole == 'premium' && user?.uid == owner_id ? 
+        {stripeRole !== 'premium' && user?.uid !== owner_id ? 
         <div className='grid justify-center'>
             <SupportCreatorButton size={'large'} setIsOpen={setIsSupportOpen} name={recipe.owner_display_name}/>
         </div>
