@@ -4,6 +4,7 @@ import { GetServerSideProps, NextPage } from 'next';
 import Head from 'next/head';
 import GoogleTags from '@/components/tags/conversion';
 import { PromoteKitTag } from '@/components/tags/headertags';
+import { useState } from 'react';
 import { getCreatorByDisplayName } from './api/firebase/functions';
 import useCreatorRecipeList from '@/hooks/creator/useCreatorRecipeList';
 import Breadcrumbs from '@/components/shared/breadcrumb';
@@ -11,6 +12,9 @@ import useSetBreadcrumbs from '@/components/shared/setBreadcrumbs';
 import firebase from 'firebase/compat/app';
 import { useAuth } from './api/auth/auth';
 import AdSenseDisplay from '@/components/tags/adsense';
+import { ResponseModal } from '@/components/shared/modals';
+import { useRouter } from 'next/router';
+import { SparklesIcon } from '@heroicons/react/24/outline';
 
 const raleway = Raleway({subsets: ['latin']})
 
@@ -66,10 +70,12 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 const CreatorPage: NextPage<CreatorProps> = ({ creatorData, referer }) => {
 
   useSetBreadcrumbs();
-  //useAffiliateCode(creatorData, referer);
   const { creatorRecipeList, loadingCreatorRecipes } = useCreatorRecipeList(creatorData?.owner_id)
-  const { stripeRole, user, userData } = useAuth();
-  console.log(creatorData)
+  const { stripeRole, userData } = useAuth();
+  const [ isOpen, setIsOpen ] = useState<boolean>(false)
+  const router = useRouter()
+  
+  
   return (
     <>
     <Head>
@@ -83,9 +89,21 @@ const CreatorPage: NextPage<CreatorProps> = ({ creatorData, referer }) => {
     <main className={`flex min-h-screen flex-col items-center bg-background space-y-4 w-screen pb-48  ${raleway.className}`}>
       <Breadcrumbs/>
       <CreatorPageTitle creatorData={creatorData}/>
-      <CreatorSocials creatorData={creatorData}/>
+      <CreatorSocials setIsOpen={setIsOpen} creatorData={creatorData}/>
       <CreatorSearch creatorData={creatorData}/>
       <CreatorPageRecentRecipes recipes={creatorRecipeList} creatorName={creatorData?.affiliate_code} owner_id={creatorData?.owner_id}/>
+      <ResponseModal
+        title={`Support ${creatorData?.display_name}`}
+        text={`Continue to start a 7-day free trial for Zesti Premium. ${creatorData?.display_name} will receive 50% of the subscription fee automatically once your trial is complete.`}
+        icon={SparklesIcon}
+        iconColor={'orange'}
+        modalFunction={() => router.push(`/about/pricing?via=${creatorData?.affiliate_code}`)}
+        isOpen={isOpen}
+        setIsOpen={setIsOpen}
+        displayAd={false}
+        role={stripeRole}
+        buttonName={"Start Free Trial"}
+      />
       {stripeRole !== 'premium' && userData?.account_status !== 'creator' ?
       <div className="flex justify-center items-center pt-28 lg:pt-36">
         <div className="w-full min-w-[300px] max-w-[320px] lg:max-w-full lg:min-w-[1240px] text-center">
