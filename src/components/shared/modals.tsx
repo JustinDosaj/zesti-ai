@@ -81,7 +81,7 @@ export function ResponseModal({title, text, icon: Icon, modalFunction, isOpen, s
                     aria-hidden="true" />
                   </div>
                   <div className="mt-3 text-center sm:mt-5">
-                    <Dialog.Title as="h3" className="text-xl lg:text-2xl font-semibold leading-6 text-gray-900">
+                    <Dialog.Title as="h3" className="text-xl lg:text-2xl font-semibold leading-6 text-gray-900 capitalize">
                       {title}
                     </Dialog.Title>
                     <div className="mt-4">
@@ -93,7 +93,7 @@ export function ResponseModal({title, text, icon: Icon, modalFunction, isOpen, s
                 </div>
 
                 {/* Checking subscription and ad status before displaying or not displaying ad*/}
-                <div className={role == 'premium' && isCreator && displayAd ? `py-4 bg-red-600` : `hidden`}>
+                <div className={role !== 'premium' && !isCreator && displayAd ? `pt-6 pb-4` : `hidden`}>
                   <AdSenseDisplay adSlot="9250004753" adFormat="rectangle" widthRes="false"/>
                 </div>
 
