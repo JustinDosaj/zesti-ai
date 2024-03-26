@@ -9,6 +9,7 @@ import React, { useState, useEffect } from "react"
 import { Button, AltButton } from "@/components/shared/button"
 import { UserRemoveRecipeFromFirestore, saveRecipeReferenceToUser } from "@/pages/api/firebase/functions"
 import { onSnapshot, doc } from "firebase/firestore";
+import { SupportCreatorButton } from "../general"
 
 interface RecipeProps {
     recipe: any,
@@ -19,9 +20,10 @@ interface RecipeProps {
     owner_id?: string,
     setEditMode?: any,
     role?: any,
+    setIsSupportOpen?: any
 }
 
-export function CreatorRecipe({recipe, owner_id, setEditMode, setIsOpen}: RecipeProps) {
+export function CreatorRecipe({recipe, owner_id, setEditMode, setIsOpen, setIsSupportOpen}: RecipeProps) {
 
     const { user, stripeRole } = useAuth()
 
@@ -60,13 +62,9 @@ export function CreatorRecipe({recipe, owner_id, setEditMode, setIsOpen}: Recipe
                 ))}
             </ul>
         </div>
-        {stripeRole !== 'premium' && user?.uid !== owner_id ? 
+        {stripeRole == 'premium' && user?.uid == owner_id ? 
         <div className='grid justify-center'>
-            <button className={`support-btn-orange items-center inline-flex space-x-1 w-fit`}>
-                <SparklesIcon className="flex lg:hidden h-5 w-5"/>
-                <StarIcon className="hidden lg:flex h-4 w-4"/>
-                <span className="hidden lg:flex relative z-10 capitalize text-sm lg:text-base">Support {recipe.owner_display_name}</span>
-            </button>
+            <SupportCreatorButton size={'large'} setIsOpen={setIsSupportOpen} name={recipe.owner_display_name}/>
         </div>
         : user?.uid == owner_id ?
         <div className={user?.uid == owner_id ? `grid justify-center` : 'hidden'}>

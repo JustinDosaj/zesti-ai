@@ -14,6 +14,7 @@ import useCreatorRecipe from "@/hooks/creator/useCreatorRecipe";
 import { Chatbox } from "@/components/chat/chatbox";
 import { ResponseModal } from "@/components/shared/modals";
 import { BookmarkIcon } from "@heroicons/react/20/solid";
+import { SparklesIcon } from "@heroicons/react/24/outline";
 import { useRouter } from "next/router";
 import AdSenseDisplay from "@/components/tags/adsense";
 
@@ -43,6 +44,7 @@ const Recipe: React.FC = ({id, owner_uid}: any) => {
     const { user, stripeRole, userData } = useAuth();
     const [ isEditMode, setEditMode ] = useState<boolean>(false)
     const [ isOpen, setIsOpen ] = useState<boolean>(false)
+    const [ isSupportOpen, setIsSupportOpen ] = useState<boolean>(false)
     const { creatorRecipe, isLoadingCreatorRecipe } = useCreatorRecipe(owner_uid, id)
     const router = useRouter()
 
@@ -62,10 +64,11 @@ const Recipe: React.FC = ({id, owner_uid}: any) => {
     <main className={`flex min-h-screen flex-col items-center p-6 bg-background w-screen pb-36 ${raleway.className}`}>
         <Breadcrumbs/>
         { isEditMode == false || !user || user?.uid !== owner_uid ? 
-        <CreatorRecipe recipe={creatorRecipe} owner_id={owner_uid} setEditMode={setEditMode} setIsOpen={setIsOpen}/>
+        <CreatorRecipe recipe={creatorRecipe} owner_id={owner_uid} setEditMode={setEditMode} setIsOpen={setIsOpen} setIsSupportOpen={setIsSupportOpen}/>
         :
         <EditCreatorRecipe recipe={creatorRecipe} owner_id={owner_uid} setEditMode={setEditMode}/>
         }
+
         <Chatbox role={stripeRole} recipe={creatorRecipe}/>
         <ResponseModal
           title={`${creatorRecipe.name} Saved!`}
@@ -80,6 +83,19 @@ const Recipe: React.FC = ({id, owner_uid}: any) => {
           role={stripeRole}
           buttonName={"My Recipes"}
         />
+          <ResponseModal
+            title={`Support ${creatorRecipe?.owner_display_name}`}
+            text={`Continue to start a 7-day free trial for Zesti Premium. ${creatorRecipe?.owner_display_name} will receive 50% of the subscription fee automatically once your trial is complete.`}
+            icon={SparklesIcon}
+            iconColor={'orange'}
+            modalFunction={() => router.push(`/about/pricing?via=${creatorRecipe?.owner_affiliate_code}`)}
+            isOpen={isSupportOpen}
+            setIsOpen={setIsSupportOpen}
+            displayAd={false}
+            role={stripeRole}
+            buttonName={"Start Free Trial"}
+          />
+        
         {stripeRole !== 'premium' && userData?.account_status !== 'creator' ?
           <div className="flex justify-center items-center lg:pt-16">
             <div className="w-full min-w-[300px] max-w-[320px] lg:max-w-full lg:min-w-[1240px] text-center">
