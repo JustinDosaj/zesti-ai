@@ -75,7 +75,8 @@ const Recipe: React.FC = ({id, owner_uid}: any) => {
           modalFunction={() => router.push('/my-recipes')}
           isOpen={isOpen}
           setIsOpen={setIsOpen}
-          displayAd={false}
+          displayAd={true}
+          isCreator={userData?.account_status === 'creator'}
           role={stripeRole}
           buttonName={"My Recipes"}
         />
