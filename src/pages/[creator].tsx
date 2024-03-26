@@ -97,7 +97,7 @@ const CreatorPage: NextPage<CreatorProps> = ({ creatorData, referer }) => {
         text={`Continue to start a 7-day free trial for Zesti Premium. ${creatorData?.display_name} will receive 50% of the subscription fee automatically once your trial is complete.`}
         icon={SparklesIcon}
         iconColor={'orange'}
-        modalFunction={() => router.push(`/about/pricing?via=${creatorData?.affiliate_code}`)}
+        modalFunction={() => window.open(`/about/pricing?via=${creatorData?.affiliate_code}`)}
         isOpen={isOpen}
         setIsOpen={setIsOpen}
         displayAd={false}
