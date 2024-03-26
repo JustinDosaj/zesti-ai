@@ -40,7 +40,7 @@ const Recipe: React.FC = ({id, owner_uid}: any) => {
 
     useSetBreadcrumbs()
 
-    const { user, stripeRole } = useAuth();
+    const { user, stripeRole, userData } = useAuth();
     const [ isEditMode, setEditMode ] = useState<boolean>(false)
     const [ isOpen, setIsOpen ] = useState<boolean>(false)
     const { creatorRecipe, isLoadingCreatorRecipe } = useCreatorRecipe(owner_uid, id)
@@ -59,7 +59,7 @@ const Recipe: React.FC = ({id, owner_uid}: any) => {
       <GoogleTags/>
       <PromoteKitTag/>
     </Head>  
-    <main className={`flex min-h-screen flex-col items-center p-6 bg-background w-screen pb-48 ${raleway.className}`}>
+    <main className={`flex min-h-screen flex-col items-center p-6 bg-background w-screen pb-36 ${raleway.className}`}>
         <Breadcrumbs/>
         { isEditMode == false || !user || user?.uid !== owner_uid ? 
         <CreatorRecipe recipe={creatorRecipe} owner_id={owner_uid} setEditMode={setEditMode} setIsOpen={setIsOpen}/>
@@ -79,9 +79,9 @@ const Recipe: React.FC = ({id, owner_uid}: any) => {
           role={stripeRole}
           buttonName={"My Recipes"}
         />
-        {stripeRole !== 'premium' && user?.uid !== creatorRecipe?.owner_id ?
-          <div className="flex justify-center items-center pt-28 lg:pt-36 pb-12 bg-red-600">
-            <div className="w-full min-w-[300px] max-w-[320px] lg:max-w-full lg:min-w-[1240px] text-center bg-gray-400">
+        {stripeRole !== 'premium' && userData?.account_status !== 'creator' ?
+          <div className="flex justify-center items-center lg:pt-16">
+            <div className="w-full min-w-[300px] max-w-[320px] lg:max-w-full lg:min-w-[1240px] text-center">
               <AdSenseDisplay adSlot="9326575118" adFormat="rectangle, horizontal" widthRes="true"/>
             </div>
           </div>
