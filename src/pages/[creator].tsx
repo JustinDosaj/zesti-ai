@@ -68,7 +68,7 @@ const CreatorPage: NextPage<CreatorProps> = ({ creatorData, referer }) => {
   useSetBreadcrumbs();
   //useAffiliateCode(creatorData, referer);
   const { creatorRecipeList, loadingCreatorRecipes } = useCreatorRecipeList(creatorData?.owner_id)
-  const { stripeRole, user } = useAuth();
+  const { stripeRole, user, userData } = useAuth();
   console.log(creatorData)
   return (
     <>
@@ -86,9 +86,9 @@ const CreatorPage: NextPage<CreatorProps> = ({ creatorData, referer }) => {
       <CreatorSocials creatorData={creatorData}/>
       <CreatorSearch creatorData={creatorData}/>
       <CreatorPageRecentRecipes recipes={creatorRecipeList} creatorName={creatorData?.affiliate_code} owner_id={creatorData?.owner_id}/>
-      {stripeRole !== 'premium' && user?.uid !== creatorData?.owner_id ?
-      <div className="flex justify-center items-center pt-28 lg:pt-48 pb-12 bg-red-600">
-        <div className="w-full min-w-[300px] max-w-[320px] lg:max-w-full lg:min-w-[1240px] text-center bg-gray-400">
+      {stripeRole !== 'premium' && userData?.account_status !== 'creator' ?
+      <div className="flex justify-center items-center pt-28 lg:pt-36">
+        <div className="w-full min-w-[300px] max-w-[320px] lg:max-w-full lg:min-w-[1240px] text-center">
           <AdSenseDisplay adSlot="9326575118" adFormat="rectangle, horizontal" widthRes="true"/>
         </div>
       </div>
