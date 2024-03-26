@@ -15,6 +15,7 @@ import { Chatbox } from "@/components/chat/chatbox";
 import { ResponseModal } from "@/components/shared/modals";
 import { BookmarkIcon } from "@heroicons/react/20/solid";
 import { useRouter } from "next/router";
+import AdSenseDisplay from "@/components/tags/adsense";
 
 const raleway = Raleway({subsets: ['latin']})
 
@@ -68,16 +69,25 @@ const Recipe: React.FC = ({id, owner_uid}: any) => {
         <Chatbox role={stripeRole} recipe={creatorRecipe}/>
         <ResponseModal
           title={`${creatorRecipe.name} Saved!`}
-          text={`You can further support ${creatorRecipe.owner_display_name} by upgrading to premium!`}
+          text={`You can view the it by visiting your saved recipe page!`}
           icon={BookmarkIcon}
-          iconColor={'green'}
+          iconColor={'orange'}
           modalFunction={() => router.push('/my-recipes')}
           isOpen={isOpen}
           setIsOpen={setIsOpen}
           displayAd={false}
           role={stripeRole}
-          buttonName={"Go to Recipes"}
+          buttonName={"My Recipes"}
         />
+        {stripeRole !== 'premium' && user?.uid !== creatorRecipe?.owner_id ?
+          <div className="flex justify-center items-center pt-28 lg:pt-36 pb-12 bg-red-600">
+            <div className="w-full min-w-[300px] max-w-[320px] lg:max-w-full lg:min-w-[1240px] text-center bg-gray-400">
+              <AdSenseDisplay adSlot="9326575118" adFormat="rectangle, horizontal" widthRes="true"/>
+            </div>
+          </div>
+          :
+          <></>
+        }
     </main>
     </>
     )
