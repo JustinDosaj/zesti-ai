@@ -15,7 +15,7 @@ interface ModalProps {
   title: string,
   text: string,
   icon: any,
-  iconColor: 'green' | 'red' | 'yellow',
+  iconColor: 'green' | 'red' | 'yellow' | 'orange',
   modalFunction: () => void,
   isOpen: any,
   setIsOpen: any,
@@ -66,6 +66,7 @@ export function ResponseModal({title, text, icon: Icon, modalFunction, isOpen, s
                         iconColor == 'red' ? 'border-red-500/50' :
                         iconColor == 'yellow' ? 'border-yellow-400/50' :
                         iconColor == 'green' ? 'border-color-alt-green/50' :
+                        iconColor == 'orange' ? 'border-primary-main/50' :
                         `border-color-alt-green`
                         ,`mx-auto flex h-12 w-12 items-center justify-center border rounded-full`)}
                   >
@@ -73,6 +74,7 @@ export function ResponseModal({title, text, icon: Icon, modalFunction, isOpen, s
                       iconColor == 'red' ? 'text-red-500' : 
                       iconColor == 'green' ? 'text-color-alt-green' :
                       iconColor == 'yellow' ? 'text-yellow-400' :
+                      iconColor == 'orange' ? 'text-primary-main' :
                       'text-color-alt-green'
                       ,`h-8 w-8`)}
                     aria-hidden="true" />

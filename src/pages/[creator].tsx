@@ -9,6 +9,8 @@ import useCreatorRecipeList from '@/hooks/creator/useCreatorRecipeList';
 import Breadcrumbs from '@/components/shared/breadcrumb';
 import useSetBreadcrumbs from '@/components/shared/setBreadcrumbs';
 import firebase from 'firebase/compat/app';
+import { useAuth } from './api/auth/auth';
+import AdSenseDisplay from '@/components/tags/adsense';
 
 const raleway = Raleway({subsets: ['latin']})
 
@@ -66,7 +68,8 @@ const CreatorPage: NextPage<CreatorProps> = ({ creatorData, referer }) => {
   useSetBreadcrumbs();
   //useAffiliateCode(creatorData, referer);
   const { creatorRecipeList, loadingCreatorRecipes } = useCreatorRecipeList(creatorData?.owner_id)
-
+  const { stripeRole, user } = useAuth();
+  console.log(creatorData)
   return (
     <>
     <Head>
@@ -83,8 +86,15 @@ const CreatorPage: NextPage<CreatorProps> = ({ creatorData, referer }) => {
       <CreatorSocials creatorData={creatorData}/>
       <CreatorSearch creatorData={creatorData}/>
       <CreatorPageRecentRecipes recipes={creatorRecipeList} creatorName={creatorData?.affiliate_code} owner_id={creatorData?.owner_id}/>
-      <br/>
-      <br/>
+      {stripeRole !== 'premium' && user?.uid !== creatorData?.owner_id ?
+      <div className="flex justify-center items-center pt-28 lg:pt-48 pb-12 bg-red-600">
+        <div className="w-full min-w-[300px] max-w-[320px] lg:max-w-full lg:min-w-[1240px] text-center bg-gray-400">
+          <AdSenseDisplay adSlot="9326575118" adFormat="rectangle, horizontal" widthRes="true"/>
+        </div>
+      </div>
+      :
+      <div className="mb-28"/>
+      }
       {/* other creator data */}
     </main>
     </>
