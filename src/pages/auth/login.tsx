@@ -28,7 +28,6 @@ export default function Login() {
     useEffect(() => {
         if (user) {
             router.push('/my-recipes')
-            Notify("Already logged in")
         } 
     },[user, isLoading])
 

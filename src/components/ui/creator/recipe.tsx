@@ -1,6 +1,5 @@
 import { Container } from "@/components/shared/container"
 import { ArrowDownTrayIcon, EyeIcon, PlusIcon, TrashIcon } from "@heroicons/react/20/solid"
-import { SparklesIcon, StarIcon } from "@heroicons/react/24/outline"
 import { useRouter } from "next/router"
 import { db } from "@/pages/api/firebase/firebase"
 import { useAuth } from "@/pages/api/auth/auth"
@@ -12,79 +11,31 @@ import { onSnapshot, doc } from "firebase/firestore";
 import { SupportCreatorButton } from "../general"
 
 interface RecipeProps {
-    recipe: any,
+    recipe?: any,
     setIsOpen?: any,
-    url?: string,
-    setLoginPrompt?: any
-    setPremiumPrompt?: any
     owner_id?: string,
+    isEditMode?: boolean,
     setEditMode?: any,
-    role?: any,
-    setIsSupportOpen?: any
+    setIsSupportOpen?: any,
+    ingredients?: any,
+    instructions?: any,
+    role?: string | null,
+    user_id?: string,
+    owner_name?: string,
+    recipe_name?: string,
+    recipe_title?: string,
 }
 
-export function CreatorRecipe({recipe, owner_id, setEditMode, setIsOpen, setIsSupportOpen}: RecipeProps) {
+export function CreatorRecipe({recipe, owner_id, isEditMode, setEditMode, setIsOpen, setIsSupportOpen}: RecipeProps) {
 
     const { user, stripeRole } = useAuth()
-
-    return(
-    <Container className={"flex flex-col gap-6 animate-fadeInFast alternate-orange-bg rounded-3xl md:w-[599px] p-8 mb-16"}>
-        <div className="grid justify-center items-center">
-            <span className="section-desc-title-size text-center">{recipe.name}</span>
-            <p className="text-center text-gray-500 text-sm">{recipe.title}</p>
-        </div>
-        <CreatorRecipeLinks recipe={recipe} isEdit={false} setIsOpen={setIsOpen}/>
-        <div className="space-y-2">
-            <h2 className="section-desc-text-size font-semibold">Ingredients</h2>
-            <ul className="space-y-2 list-disc pl-6 text-black">
-                {recipe?.ingredients?.map((ingredient: any, index: number) => (
-                <li key={index} className="col-span-1 rounded-xl">
-                    <div className="grid justify-start rounded-md overflow-visible w-full">
-                        <div className="flex ml-1 mr-1.5 flex-shrink-0 items-center justify-center font-md text-gray-900 text-sm md:text-base">
-                            {ingredient}
-                        </div>
-                    </div>
-                </li>
-                ))}
-            </ul>
-        </div>
-        <div className="space-y-2">
-            <h2 className="section-desc-text-size font-semibold">Instructions</h2>
-            <ul className="list-decimal pl-5 text-black">
-                {recipe?.instructions?.map((instruction: any, index: number) => (
-                    <li key={index} className="col-span-1 rounded-xl">
-                        <div className="grid justify-start rounded-md overflow-wrap w-full">
-                            <div className="flex w-fit ml-1 mr-1.5 flex-shrink-0 items-center justify-center font-md text-gray-900 text-sm md:text-base">
-                                {instruction}
-                            </div>
-                        </div>
-                    </li>
-                ))}
-            </ul>
-        </div>
-        {stripeRole !== 'premium' && user?.uid !== owner_id ? 
-        <div className='grid justify-center'>
-            <SupportCreatorButton size={'large'} setIsOpen={setIsSupportOpen} name={recipe.owner_display_name}/>
-        </div>
-        : user?.uid == owner_id ?
-        <div className={user?.uid == owner_id ? `grid justify-center` : 'hidden'}>
-            <Button isLink={false} buttonType="button" text="Edit Recipe" className="w-fit" onClick={() => {setEditMode(true)}}/>
-        </div>
-        :
-        <div className="grid justify-center"/>
-        }
-    </Container>
-    )
-}
-
-export function EditCreatorRecipe({recipe, owner_id, setEditMode}:RecipeProps) {
-
-    const {user} = useAuth()
     const [editedIngredients, setEditedIngredients] = useState<string[]>([]);
     const [editedInstructions, setEditedInstructions] = useState<string[]>([]);
     const [newIngredient, setNewIngredient] = useState<string>('');
     const [newInstruction, setNewInstruction] = useState<string>('');
     const [editedName, setEditedName] = useState<string>('')
+
+    console.log(recipe)
 
     useEffect(() => {
         setEditedIngredients(recipe.ingredients || []);
@@ -162,6 +113,30 @@ export function EditCreatorRecipe({recipe, owner_id, setEditMode}:RecipeProps) {
 
     return(
     <Container className={"flex flex-col gap-6 animate-fadeInFast alternate-orange-bg rounded-3xl md:w-[599px] p-8 mb-16"}>
+        <RecipeTitleDescriptionComponent recipe_name={recipe.name} recipe_title={recipe.title} isEditMode={isEditMode} editedName={editedName} setEditedName={setEditedName}/>
+        <CreatorRecipeLinks recipe={recipe} setIsOpen={setIsOpen} isEditMode={isEditMode}/>
+        <RecipeIngredientsComponent ingredients={recipe?.ingredients} isEditMode={isEditMode} editedIngredients={editedIngredients} handleIngredientChange={handleIngredientChange} handleDeleteIngredient={handleDeleteIngredient} newIngredient={newIngredient} setNewIngredient={setNewIngredient} handleAddIngredient={handleAddIngredient}/>
+        <RecipeInstructionsComponent instructions={recipe?.instructions} isEditMode={isEditMode} editedInstructions={editedInstructions} handleInstructionChange={handleInstructionChange} handleDeleteInstruction={handleDeleteInstruction} newInstruction={newInstruction} setNewInstruction={setNewInstruction} handleAddInstruction={handleAddInstruction}/>
+        <RecipeMainButtonComponent role={stripeRole} user_id={user?.uid} owner_id={owner_id} owner_name={recipe.owner_display_name} setIsSupportOpen={setIsSupportOpen} setEditMode={setEditMode} isEditMode={isEditMode} handleSave={handleSave}/>
+    </Container>
+    )
+}
+
+interface RecipeTitleProps extends RecipeProps {
+    editedName: string,
+    setEditedName: (name: string) => void,
+}
+
+function RecipeTitleDescriptionComponent({recipe_name, recipe_title, isEditMode, editedName, setEditedName}: RecipeTitleProps) {
+    
+    if (!isEditMode) return (
+        <div className="grid justify-center items-center">
+            <span className="section-desc-title-size text-center">{recipe_name}</span>
+            <p className="text-center text-gray-500 text-sm">{recipe_title}</p>
+        </div>
+    )
+
+    return (
         <div className="grid justify-center items-center">
             <input 
                 type="text"
@@ -169,14 +144,44 @@ export function EditCreatorRecipe({recipe, owner_id, setEditMode}:RecipeProps) {
                 value={editedName}
                 onChange={(e) => setEditedName(e.target.value)}
             />
-            
-            <p className="text-center text-gray-500 text-sm">{recipe.title}</p>
+            <p className="text-center text-gray-500 text-sm">{recipe_title}</p>
         </div>
-        <CreatorRecipeLinks recipe={recipe} isEdit={true}/>
+    )
+}
+
+interface RecipeIngredientProps extends RecipeProps {
+    editedIngredients: any,
+    handleIngredientChange: (index: number, newValue: string) => void,
+    handleDeleteIngredient: (indexToRemove: number) => void,
+    newIngredient: string,
+    setNewIngredient: (ingredient: string) => void,
+    handleAddIngredient: () => void,
+}
+
+function RecipeIngredientsComponent({ingredients, isEditMode, editedIngredients, handleIngredientChange, handleDeleteIngredient, newIngredient, setNewIngredient, handleAddIngredient}: RecipeIngredientProps) {
+
+    if (!isEditMode) return (
+        <div className="space-y-2">
+            <h2 className="section-desc-text-size font-semibold">Ingredients</h2>
+            <ul className="space-y-2 list-disc pl-6 text-black">
+                {ingredients?.map((ingredient: any, index: number) => (
+                <li key={index} className="col-span-1 rounded-xl">
+                    <div className="grid justify-start rounded-md overflow-visible w-full">
+                        <div className="flex ml-1 mr-1.5 flex-shrink-0 items-center justify-center font-md text-gray-900 text-sm md:text-base">
+                            {ingredient}
+                        </div>
+                    </div>
+                </li>
+                ))}
+            </ul>
+        </div>
+    )
+
+    return(
         <div className="space-y-2">
             <h2 className="section-desc-text-size font-semibold">Ingredients</h2>
             <ul className="list-disc pl-6 text-black">
-                {editedIngredients.map((ingredient, index) => (
+                {editedIngredients.map((ingredient: string, index: number) => (
                     <li key={index} className="mb-2 relative">
                         <input 
                             type="text"
@@ -210,10 +215,40 @@ export function EditCreatorRecipe({recipe, owner_id, setEditMode}:RecipeProps) {
    
             </ul>
         </div>
+    )
+}
+
+interface RecipeInstructionProps extends RecipeProps {
+    editedInstructions: any,
+    handleInstructionChange: (index: number, newValue: string) => void,
+    handleDeleteInstruction: (indexToRemove: number) => void,
+    setNewInstruction: (instruction: string) => void,
+    newInstruction: string,
+    handleAddInstruction: () => void,
+}
+
+function RecipeInstructionsComponent({instructions, isEditMode, editedInstructions, handleInstructionChange, handleDeleteInstruction, setNewInstruction, newInstruction, handleAddInstruction}: RecipeInstructionProps) {
+    if(!isEditMode) return(
+        <div className="space-y-2">
+            <h2 className="section-desc-text-size font-semibold">Instructions</h2>
+            <ul className="list-decimal pl-5 text-black">
+                {instructions?.map((instruction: any, index: number) => (
+                    <li key={index} className="col-span-1 rounded-xl">
+                        <div className="grid justify-start rounded-md overflow-wrap w-full">
+                            <div className="flex w-fit ml-1 mr-1.5 flex-shrink-0 items-center justify-center font-md text-gray-900 text-sm md:text-base">
+                                {instruction}
+                            </div>
+                        </div>
+                    </li>
+                ))}
+            </ul>
+        </div>
+    )
+    return (
         <div className="space-y-2">
             <h2 className="section-desc-text-size font-semibold">Ingredients</h2>
             <ul className="list-disc pl-6 text-black">
-                {editedInstructions.map((instruction, index) => (
+                {editedInstructions.map((instruction: string, index: number) => (
                     <li key={index} className="relative mb-2">
                         <input 
                             type="text"
@@ -246,21 +281,40 @@ export function EditCreatorRecipe({recipe, owner_id, setEditMode}:RecipeProps) {
                     </li>
             </ul>
         </div>
+    )
+}
+
+interface RecipeButtonProps extends RecipeProps {
+    handleSave: () => void,
+}
+
+function RecipeMainButtonComponent({role, user_id, owner_id, owner_name, setIsSupportOpen, setEditMode, isEditMode, handleSave}: RecipeButtonProps) {
+
+    if(role !== 'premium' && user_id !== owner_id) return (
+        <div className='grid justify-center'>
+            <SupportCreatorButton size={'large'} setIsOpen={setIsSupportOpen} name={owner_name}/>
+        </div>
+    )
+
+    if (user_id == owner_id && !isEditMode) return (
+        <div className={user_id == owner_id ? `grid justify-center` : 'hidden'}>
+            <Button isLink={false} buttonType="button" text="Edit Recipe" className="w-fit" onClick={() => {setEditMode(true)}}/>
+        </div>
+    )
+
+    if(user_id == owner_id && isEditMode) return (
         <div className="inline-flex gap-4 justify-center">
             <AltButton isLink={false} buttonType="button" text="Cancel" className="w-full" onClick={() => setEditMode(false)}/>
             <Button isLink={false} buttonType="button" text="Save" className="w-full" onClick={handleSave}/>
         </div>
-    </Container>
+    )
+
+    return(
+        <div className="grid justify-center"/>
     )
 }
 
-interface CreatorRecipeLinksProps {
-    recipe: any,
-    isEdit: boolean,
-    setIsOpen?: any,
-}
-
-export function CreatorRecipeLinks({recipe, isEdit, setIsOpen}: CreatorRecipeLinksProps) {
+function CreatorRecipeLinks({recipe, setIsOpen}: RecipeProps) {
 
     const router = useRouter()
     const { isLoading, user } = useAuth()
@@ -326,17 +380,12 @@ export function CreatorRecipeLinks({recipe, isEdit, setIsOpen}: CreatorRecipeLin
                 </svg>
             ),
         },
-    ]
-
-        if(isEdit == false) {
-            navigation.push({
-                name: isSaved ? 'Delete' : 'Save',
-                onClick: isSaved ? () => onDeleteClick() : () => onSaveClick(),
-                icon: isSaved ? TrashIcon : ArrowDownTrayIcon,
-            });
+        {
+            name: isSaved ? 'Delete' : 'Save',
+            onClick: isSaved ? () => onDeleteClick() : () => onSaveClick(),
+            icon: isSaved ? TrashIcon : ArrowDownTrayIcon,
         }
-
-
+    ]
 
     return(
     <div className="flex justify-evenly">

@@ -23,7 +23,7 @@ export function Chatbox({role, recipe}:ChatBoxProps) {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [message, setMessage] = useState<string>('');
   const [messages, setMessages] = useState<AIChatMessageProps[]>([]);
-  const { user } = useAuth();
+  const { user, login } = useAuth();
   const endOfMessagesRef = useRef<HTMLDivElement>(null);
   const functions = getFunctions();
   const chatWithZesti = httpsCallable(functions, 'chatWithZesti');
@@ -106,7 +106,7 @@ export function Chatbox({role, recipe}:ChatBoxProps) {
           user && messages.length == 0 && role == 'premium' ? // Currently set !== to allow for anyone to use chat during beta
             <PremiumChat/>
           : user && messages.length == 0 && (role == null || 'user')  ?
-            <UpgradeToPremiumChat/>
+            <UpgradeToPremiumChat affiliate_code={recipe.owner_affiliate_code} display_name={recipe.owner_display_name}/>
           : user && messages.length > 0 ?
             <ActiveChatMessages messages={messages} endOfMessagesRef={endOfMessagesRef}/>
           :
@@ -150,15 +150,20 @@ export function Chatbox({role, recipe}:ChatBoxProps) {
   );
 }
 
-function UpgradeToPremiumChat() {
+interface UpgradeToPremiumChatProps {
+  affiliate_code: string,
+  display_name: string,
+}
+
+function UpgradeToPremiumChat({affiliate_code, display_name}: UpgradeToPremiumChatProps) {
   return(
     <div className="flex-1 p-4 overflow-y-auto text-gray-700">
         <div className={`border p-2 rounded-xl message bg-gray-100 bg-opacity-90 justify-items-end w-fit mb-3`}>
-          Updrade to premium to unlock Zesti AI Assistant
+          Upgrade to premium and gain access to Zesti AI Assistant and {display_name} will receive 50% of the subscription fee to support creators!
         </div>
         <div className={`border p-2 rounded-xl message bg-gray-100 bg-opacity-90 justify-items-end w-fit mb-3`}>
             <span>   
-            <InlineButton isLink={true} href="/about/pricing" text="Click here" className="mr-1 hover:primary-alt"/>
+            <InlineButton isLink={false} onClick={() => window.open(`https://www.zesti.ai/about/pricing?via=${affiliate_code}`)} text="Click here" className="mr-1 hover:primary-alt"/>
             to start a 7-day free trial!
             </span>
         </div>
@@ -190,6 +195,9 @@ function PremiumChat() {
 }
 
 function NoAuthChat() {
+
+  const { login } = useAuth();
+  
   return(
     <div className="flex-1 p-4 overflow-y-auto text-gray-700">
       <div className={`border p-2 rounded-xl message bg-gray-100 bg-opacity-90 justify-items-end w-fit mb-3`}>
@@ -200,7 +208,7 @@ function NoAuthChat() {
       </div>
       <div className={`border p-2 rounded-xl message bg-gray-100 bg-opacity-90 justify-items-end w-fit mb-3`}>
         <span>   
-          <InlineButton isLink={true} href="/auth/login" text="Click here" className="text-black mr-1 hover:primary-alt"/>
+          <InlineButton isLink={false} onClick={login} text="Click here" className="text-black mr-1 hover:primary-alt"/>
           to get started
         </span>
       </div>

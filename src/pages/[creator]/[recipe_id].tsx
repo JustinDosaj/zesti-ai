@@ -3,7 +3,7 @@ import { Raleway } from 'next/font/google'
 import { useAuth } from "@/pages/api/auth/auth";
 import { PageLoader } from "@/components/shared/loader";
 import { PromoteKitTag } from "@/components/tags/headertags";
-import { CreatorRecipe, EditCreatorRecipe } from "@/components/ui/creator/recipe";
+import { CreatorRecipe } from "@/components/ui/creator/recipe";
 import React, { useState } from 'react'
 import GoogleTags from "@/components/tags/conversion";
 import Head from "next/head";
@@ -40,8 +40,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 const Recipe: React.FC = ({id, owner_uid}: any) => {
 
     useSetBreadcrumbs()
-
-    const { user, stripeRole, userData } = useAuth();
+    const { stripeRole, userData } = useAuth();
     const [ isEditMode, setEditMode ] = useState<boolean>(false)
     const [ isOpen, setIsOpen ] = useState<boolean>(false)
     const [ isSupportOpen, setIsSupportOpen ] = useState<boolean>(false)
@@ -63,12 +62,7 @@ const Recipe: React.FC = ({id, owner_uid}: any) => {
     </Head>  
     <main className={`flex min-h-screen flex-col items-center p-6 bg-background w-screen pb-36 ${raleway.className}`}>
         <Breadcrumbs/>
-        { isEditMode == false || !user || user?.uid !== owner_uid ? 
-        <CreatorRecipe recipe={creatorRecipe} owner_id={owner_uid} setEditMode={setEditMode} setIsOpen={setIsOpen} setIsSupportOpen={setIsSupportOpen}/>
-        :
-        <EditCreatorRecipe recipe={creatorRecipe} owner_id={owner_uid} setEditMode={setEditMode}/>
-        }
-
+        <CreatorRecipe recipe={creatorRecipe} owner_id={owner_uid} isEditMode={isEditMode} setEditMode={setEditMode} setIsOpen={setIsOpen} setIsSupportOpen={setIsSupportOpen}/>
         <Chatbox role={stripeRole} recipe={creatorRecipe}/>
         <ResponseModal
           title={`${creatorRecipe.name} Saved!`}
@@ -83,18 +77,18 @@ const Recipe: React.FC = ({id, owner_uid}: any) => {
           role={stripeRole}
           buttonName={"My Recipes"}
         />
-          <ResponseModal
-            title={`Support ${creatorRecipe?.owner_display_name}`}
-            text={`Continue to start a 7-day free trial for Zesti Premium. ${creatorRecipe?.owner_display_name} will receive 50% of the subscription fee automatically once your trial is complete.`}
-            icon={SparklesIcon}
-            iconColor={'orange'}
-            modalFunction={() => window.open(`/about/pricing?via=${creatorRecipe?.owner_affiliate_code}`)}
-            isOpen={isSupportOpen}
-            setIsOpen={setIsSupportOpen}
-            displayAd={false}
-            role={stripeRole}
-            buttonName={"Start Free Trial"}
-          />
+        <ResponseModal
+          title={`Support ${creatorRecipe?.owner_display_name}`}
+          text={`Continue to start a 7-day free trial for Zesti Premium. ${creatorRecipe?.owner_display_name} will receive 50% of the subscription fee automatically once your trial is complete.`}
+          icon={SparklesIcon}
+          iconColor={'orange'}
+          modalFunction={() => window.open(`/about/pricing?via=${creatorRecipe?.owner_affiliate_code}`)}
+          isOpen={isSupportOpen}
+          setIsOpen={setIsSupportOpen}
+          displayAd={false}
+          role={stripeRole}
+          buttonName={"Start Free Trial"}
+        />
         
         {stripeRole !== 'premium' && userData?.account_status !== 'creator' ?
           <div className="flex justify-center items-center lg:pt-16">
