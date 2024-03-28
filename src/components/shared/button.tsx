@@ -12,13 +12,25 @@ interface ButtonProps {
 }
 
 
-export function InlineButton({text, className, href, isLink}: ButtonProps) {
-    return(
+export function InlineButton({text, className, href, isLink, onClick}: ButtonProps) {
+    if (isLink) return(
         <Link href={href!} className={`text-primary-main underline hover:text-primary-alt ${className}`}>
             <span className={`relative z-10`}>
                 {text}
             </span>
         </Link>
+    )
+
+    else return (
+        <button 
+            className={`text-primary-main underline hover:text-primary-alt ${className}`}
+            type="button"
+            onClick={onClick}
+        >
+            <span className={`relative z-10`}>
+                {text}
+            </span>
+        </button>
     )
 }
 
