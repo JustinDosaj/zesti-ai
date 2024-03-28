@@ -20,7 +20,7 @@ interface ChatBoxProps {
 
 export function Chatbox({role, recipe}:ChatBoxProps) {
     
-  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [isOpen, setIsOpen] = useState<boolean>(true);
   const [message, setMessage] = useState<string>('');
   const [messages, setMessages] = useState<AIChatMessageProps[]>([]);
   const { user, login } = useAuth();
@@ -159,7 +159,7 @@ function UpgradeToPremiumChat({affiliate_code, display_name}: UpgradeToPremiumCh
   return(
     <div className="flex-1 p-4 overflow-y-auto text-gray-700">
         <div className={`border p-2 rounded-xl message bg-gray-100 bg-opacity-90 justify-items-end w-fit mb-3`}>
-          Upgrade to premium and gain access to Zesti AI Assistant and {display_name} will receive 50% of the subscription fee to support creators!
+          Use Zesti Assistant by upgrading to premium and {display_name} will automatically receive a portion of the subscription fee
         </div>
         <div className={`border p-2 rounded-xl message bg-gray-100 bg-opacity-90 justify-items-end w-fit mb-3`}>
             <span>   
@@ -175,10 +175,7 @@ function PremiumChat() {
   return(
     <div className="flex-1 p-4 overflow-y-auto text-gray-700">
       <div className={`border p-2 rounded-xl message bg-gray-100 bg-opacity-90 justify-items-end w-fit  mb-3`}>
-        <span className="">Let start cooking!</span>
-      </div>
-      <div className={`border p-2 rounded-xl message bg-gray-100 bg-opacity-90 justify-items-end w-fit mb-3`}>
-        <div className="">You can ask about general cooking questions or ask for specific details for this recipe</div>
+        <p className="">Get started cooking! Remember, Zesti is here to answer any questions you may have</p>
       </div>
       <div className={`border p-2 rounded-xl message bg-gray-100 bg-opacity-90 justify-items-end w-fit mb-3`}>
         <p className="font-semibold">Example 1:</p> 
@@ -204,12 +201,12 @@ function NoAuthChat() {
         <span>Welcome to Zesti!</span>
       </div>
       <div className={`border p-2 rounded-xl message bg-gray-100 bg-opacity-90 justify-items-end w-fit mb-3`}>
-        <span>I am an AI cooking assistant that can answer cooking questions without you ever leaving the page!</span>
+        <span>Zesti Assistant is an AI chatbot that premium users can access to get cooking questions answered instantly without leaving the recipe</span>
       </div>
       <div className={`border p-2 rounded-xl message bg-gray-100 bg-opacity-90 justify-items-end w-fit mb-3`}>
         <span>   
           <InlineButton isLink={false} onClick={login} text="Click here" className="text-black mr-1 hover:primary-alt"/>
-          to get started
+          to login or sign up
         </span>
       </div>
     </div>

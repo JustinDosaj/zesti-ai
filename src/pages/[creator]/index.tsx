@@ -5,12 +5,12 @@ import Head from 'next/head';
 import GoogleTags from '@/components/tags/conversion';
 import { PromoteKitTag } from '@/components/tags/headertags';
 import { useState } from 'react';
-import { getCreatorByDisplayName } from './api/firebase/functions';
+import { getCreatorByDisplayName } from '@/pages/api/firebase/functions';
 import useCreatorRecipeList from '@/hooks/creator/useCreatorRecipeList';
 import Breadcrumbs from '@/components/shared/breadcrumb';
 import useSetBreadcrumbs from '@/components/shared/setBreadcrumbs';
 import firebase from 'firebase/compat/app';
-import { useAuth } from './api/auth/auth';
+import { useAuth } from '@/pages/api/auth/auth';
 import AdSenseDisplay from '@/components/tags/adsense';
 import { ResponseModal } from '@/components/shared/modals';
 import { useRouter } from 'next/router';
@@ -27,7 +27,6 @@ interface CreatorProps {
 export const getServerSideProps: GetServerSideProps = async (context) => {
   
   const { creator } = context.params as { creator: string };
-
 
   let referer = context.req.headers.referer || null
 
@@ -94,7 +93,7 @@ const CreatorPage: NextPage<CreatorProps> = ({ creatorData, referer }) => {
       <CreatorPageRecentRecipes recipes={creatorRecipeList} creatorName={creatorData?.affiliate_code} owner_id={creatorData?.owner_id}/>
       <ResponseModal
         title={`Support ${creatorData?.display_name}`}
-        text={`Continue to start a 7-day free trial for Zesti Premium. ${creatorData?.display_name} will receive 50% of the subscription fee automatically once your trial is complete.`}
+        text={`Continue to start a 7-day free trial for Zesti Premium. ${creatorData?.display_name} will receive a portion of the subscription fee automatically once your trial is complete.`}
         icon={SparklesIcon}
         iconColor={'orange'}
         modalFunction={() => window.open(`/about/pricing?via=${creatorData?.affiliate_code}`)}
