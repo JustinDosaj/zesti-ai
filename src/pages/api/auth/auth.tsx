@@ -129,9 +129,9 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
             account_status: 'user',
             date_created: new Date().toISOString()
           })
-          router.push('/')
+          router.reload()
         } else {
-          router.push('/')
+          router.reload()
         }
       }
 
