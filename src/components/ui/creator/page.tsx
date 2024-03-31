@@ -261,7 +261,7 @@ interface RecipeCardProps {
 
 export function CreatorRecipeListCard({item, creatorName, key}: RecipeCardProps) {
   return(
-  <div key={key} className="group relative w-[350px] lg:w-[400px]">
+  <div key={key} className="group relative w-[335px] lg:w-[400px]">
         {/* Image and Details */}
         <div className="flex items-center space-x-4 border p-4 rounded-3xl max-w-2xl">
             <img src={`https://firebasestorage.googleapis.com/v0/b/${process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET}/o/${encodeURIComponent(item.cover_image_url)}?alt=media`} className="h-[136px] w-[96px] rounded-xl object-cover" alt={item.title}/>
