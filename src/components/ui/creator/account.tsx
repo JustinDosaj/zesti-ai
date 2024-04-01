@@ -2,12 +2,13 @@ import React, { useState, useEffect } from 'react'
 import { PageLoader } from '@/components/shared/loader'
 import { Button } from '@/components/shared/button'
 import { useAuth } from '@/pages/api/auth/auth'
-import { saveBioDataToFireStore, uploadCreatorPageImage } from '@/pages/api/firebase/functions'
+import { saveBioDataToFireStore, updateNotificationSettings, uploadCreatorPageImage } from '@/pages/api/firebase/functions'
 import { useRouter } from 'next/router'
 import { Notify } from '@/components/shared/notify'
 import { Container } from '@/components/shared/container'
 import { DocumentDuplicateIcon, ClipboardDocumentCheckIcon } from '@heroicons/react/20/solid'
 import { AccountTitleComponent, SimpleProfileComponent } from '../auth/account'
+import { SwitchComponent } from '@/components/shared/switch'
 
 
 export function CreatorSettingsComponent() {
@@ -184,8 +185,8 @@ export function CreatorSettingsComponent() {
 
 export function CreatorProfileComponent() {
 
-    const { creatorData, userData } = useAuth()
-
+    const { creatorData, userData, user } = useAuth()
+    const router = useRouter()
 
     if(userData?.account_status == 'user' || null) return <div className="hidden"/>
 
@@ -199,7 +200,12 @@ export function CreatorProfileComponent() {
                             <dl className="mt-6 space-y-6 text-sm leading-6 divide-y divide-gray-300 border-t border-gray-200">
                                 <PageLinkComponent accountStatus={userData?.account_status} affiliate_code={creatorData?.affiliate_code}/>
                                 <SimpleProfileComponent buttonName={"Manage"} title={"Affiliate Program"} onButtonClick={() => {window.open(`https://zesti.promotekit.com/`)}}/>
-                                <ViewOrEditPageComponent/>
+                                <SimpleProfileComponent
+                                    onButtonClick={() => router.push('/creator/edit/')}
+                                    title={"Recipe Collection"}
+                                    buttonName={"Edit/View"}
+                                />
+                                <CreatorNotificationComponent isOn={userData?.settings?.notifications?.active} userId={user?.uid}/>
                             </dl>
                         </div>
                     </div>
@@ -264,19 +270,20 @@ function PageLinkComponent({affiliate_code, accountStatus}:CreatorPageComponents
     )
 }
 
-function ViewOrEditPageComponent() {
+interface NotifyProps {
+    isOn?: boolean,
+    userId?: string,
+}
 
-    const router = useRouter()
+function CreatorNotificationComponent({isOn, userId}: NotifyProps) {
 
     return (
-        <div className="pt-6 flex justify-between items-center border-t border-gray-20">
-            <dt className="font-semibold text-gray-900 sm:w-64 sm:flex-none sm:pr-6 text-sm lg:text-base">Recipe Collection</dt>
-            <dd className=" flex gap-x-6 sm:mt-0">
-                <button type="button" className="font-semibold text-primary-main hover:text-primary-alt text-sm lg:text-base"
-                    onClick={() => router.push('/creator/edit/')}>
-                    {"Edit/View"}
-                </button>
+        <div className="pt-6 flex justify-between items-center border-t border-gray-200">
+            <dt className="font-semibold text-gray-900 sm:w-64 sm:flex-none sm:pr-6 text-sm lg:text-base">Notifications</dt>
+            <dd className="flex gap-x-6 sm:mt-0">
+                {/* Container for the switch */}
+                <SwitchComponent isOn={isOn} handleToggle={() => updateNotificationSettings(userId, isOn)}/>
             </dd>
         </div>
-    )
+    );
 }
