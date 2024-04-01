@@ -65,6 +65,8 @@ export async function saveBioDataToFireStore(bioObj: any, userId: string){
 
 export async function updateNotificationSettings(userId?: string, isOn?: boolean) {
   try {
+
+    const msg = !isOn ? "Notifications turned on" : "Notifications turned off"
     const creatorRef = db.collection('users').doc(userId)
     await creatorRef.set(
       {
@@ -74,6 +76,8 @@ export async function updateNotificationSettings(userId?: string, isOn?: boolean
           }
         }
       }, {merge: true});
+
+      Notify(msg)
   } catch (error) {
     console.log(error)
   }
