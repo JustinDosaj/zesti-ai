@@ -51,6 +51,7 @@ export async function getCreatorByDisplayName(creatorName: string) {
   return querySnapshot
 }
 
+/* Update Creator Profile */
 export async function saveBioDataToFireStore(bioObj: any, userId: string){
 
   try {
@@ -61,6 +62,24 @@ export async function saveBioDataToFireStore(bioObj: any, userId: string){
   }
 
 }
+
+export async function updateNotificationSettings(userId?: string, isOn?: boolean) {
+  try {
+    const creatorRef = db.collection('users').doc(userId)
+    await creatorRef.set(
+      {
+        settings: {
+          notifications: {
+            active: !isOn
+          }
+        }
+      }, {merge: true});
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+/* Update Creator Profile END */
 
 export const saveRecipeReferenceToUser = async (userId: string, recipeId: string, creatorId: string, creatorName: string) => {
   const userRef = db.collection('users').doc(userId);
@@ -86,7 +105,6 @@ export const UserRemoveRecipeFromFirestore = async (userId: string, recipeId: st
     throw new Error("Failed to remove recipe from saved recipes.");
   }
 };
-
 
 export async function deleteCreatorError(creator_id: any, recipe_id: string) {
   const docRef = db.collection('creators').doc(creator_id).collection('errors').doc(recipe_id)
@@ -130,7 +148,6 @@ export async function uploadCreatorPageImage(file: File, user_id: string): Promi
   }
 
 }
-
 
 export async function GetRandomCreatorsForHomepage(numberOfCreators: number): Promise<Creator[]> {
   

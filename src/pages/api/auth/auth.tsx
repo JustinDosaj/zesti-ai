@@ -13,6 +13,15 @@ interface UserData {
   stripeId?: string;
   stripeLink?: string;
   tiktok_is_verified?: boolean;
+  social?: {
+    tiktok_link?: string;
+  }
+  settings?: {
+    notifications?: {
+      active?: boolean;
+      most_recent_video_id?: string;
+    };
+  }
 }
 
 interface CreatorData {
