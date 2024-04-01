@@ -3,7 +3,7 @@ import { useAuth } from '@/pages/api/auth/auth';
 import { PageLoader } from '@/components/shared/loader';
 import { Raleway } from 'next/font/google'
 import useRequireAdmin from '@/hooks/admin/useRequireAdmin';
-import { AddNewCreator } from '@/components/ui/admin';
+import { AddNewCreator, AdminApplicantList, AdminCheckList } from '@/components/ui/admin';
 
 const raleway = Raleway({subsets: ['latin']})
 
@@ -19,8 +19,17 @@ export default function Home() {
         <meta name="robots" content="noindex" />
         <title>Admin | Restricted Access</title>
      </Head>
-      <main className={`flex min-h-screen flex-col items-center justify-between bg-background w-screen space-y-48 ${raleway.className}`}>
-        <AddNewCreator/>
+      <main className={`flex min-h-screen flex-col items-center justify-between bg-background w-screen pb-28 ${raleway.className}`}>
+        
+        <div className="inline-flex items-center my-auto gap-12">
+          <div className="w-1/2">
+            <AddNewCreator/>
+          </div>
+          <div className="w-1/2">
+            <AdminApplicantList/>
+          </div>
+        </div>
+        <AdminCheckList/>
       </main>
     </>
   )
