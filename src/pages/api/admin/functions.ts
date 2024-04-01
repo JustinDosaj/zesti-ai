@@ -1,5 +1,6 @@
 import { Notify } from "@/components/shared/notify";
 import { getFunctions, httpsCallable } from 'firebase/functions';
+import { db } from "../firebase/firebase";
 
 export async function AdminAddNewCreator(email: string, affiliateCode: string, name: string | null) {
 
@@ -19,4 +20,23 @@ export async function AdminAddNewCreator(email: string, affiliateCode: string, n
     })
     
     return;
+}
+
+export async function AdminGetApplicantList() {
+    const usersRef = db.collection('users');
+    const querySnapshot = await usersRef
+      .where('account_status', '==', 'user')
+      .where('tiktok_is_verified', '==', true)
+      .get();
+
+    if (querySnapshot.empty) {
+      console.log('No verified users found.');
+      return [];
+    }
+
+    const users = querySnapshot.docs.map(doc => ({
+      ...doc.data() as any
+    }));
+
+    return users;
 }

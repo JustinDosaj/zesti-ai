@@ -28,7 +28,7 @@ export function CreatorApplication() {
                                         title={"Create Affiliate Account"} 
                                         buttonName={"Setup"} 
                                     />
-                                    <p className="pt-6 text-center text-sm lg:text-base"> {"After you create your affiliate account, you\n're finished! We appreciate your application and will respond within 2 business days."}</p>
+                                    <p className="pt-6 text-center text-sm lg:text-base"> {"After submitting your information to Promotekit, you are finished. You will hear a response in 2-3 business days."}</p>
                                 </>
                                 )
                                 }
