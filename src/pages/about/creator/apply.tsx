@@ -6,6 +6,7 @@ import { PromoteKitTag } from '@/components/tags/headertags';
 import { Raleway } from 'next/font/google'
 import { useRouter } from 'next/router';
 import { CreatorApplication } from '@/components/ui/creator/application';
+import { ExclamationCircleIcon } from '@heroicons/react/20/solid';
 
 const raleway = Raleway({subsets: ['latin']})
 
@@ -26,8 +27,11 @@ export default function CreatorApplicationPage() {
         <PromoteKitTag/>
       </Head>
       <main className={`flex min-h-screen flex-col items-center bg-background w-screen ${raleway.className}`}>
-        <div className="mt-36"/>
+        <div className="mt-48"/>
         <CreatorApplication/>
+        <div className="text-xs lg:text-sm p-6 text-center text-gray-500 pb-28 items-center inline-flex gap-1">
+          <span>Notice: Resubmitting the application multiple times will cause the review process to take longer</span>
+        </div>
       </main>
     </>
   )

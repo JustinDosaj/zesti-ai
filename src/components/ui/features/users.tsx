@@ -169,7 +169,7 @@ export function HomeVideoToRecipe({titleStart, titleEnd, desc}: any,) {
                       <ArrowDownIcon className="block xl:hidden h-20 w-20 text-white bg-primary-main p-4 rounded-full"/>
                   </div>
                   <div className="h-full mt-2 w-fit mx-auto">
-                    <img src="/images/screenshots/new_recipe_display.png" alt="Tiktok Hawaiian Garlic Rolls Ingredients" className="mt-2 rounded-lg object-scale-down max-w-[340px] sm:max-w-sm"/>
+                    <img src="/images/screenshots/new_recipe_display.png" alt="Tiktok Hawaiian Garlic Rolls Ingredients" className="mt-2 rounded-lg object-scale-down max-w-[325px] sm:max-w-sm"/>
                   </div>
                 </div>
             </div>
