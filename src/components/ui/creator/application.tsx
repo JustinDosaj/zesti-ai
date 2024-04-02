@@ -1,19 +1,21 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Container } from '@/components/shared/container';
-import { useRouter } from 'next/router';
 import { useAuth } from '@/pages/api/auth/auth'
 import { AccountTitleComponent, SimpleProfileComponent } from '../auth/account';
-import useRequireAuth from '@/hooks/user/useRequireAuth';
+import { Button } from '@/components/shared/button';
 
 export function CreatorApplication() {
 
-    const { user, userData } = useAuth()
-    const router = useRouter();
-    const require = useRequireAuth()
+    const { userData } = useAuth()
+    const [ isComplete, setIsComplete ] = useState<boolean>(false)
 
+    const handleCompleteApplication = async () => {
+        window.open(`https://zesti.promotekit.com`)
+        setIsComplete(true)
+    }
 
     return (
-        <Container className={"mt-8 flex flex-col lg:flex-row gap-10 lg:gap-12 pb-0 xl:pb-24"}>
+        <Container className={"mt-8 flex flex-col lg:flex-row gap-10 lg:gap-12"}>
             <div className="mx-auto max-w-2xl lg:flex lg:gap-x-16 lg:px-8 py-8 standard-component-border w-full">
                 <main className="px-4 sm:px-6 lg:flex-auto lg:px-0">
                     <div className="mx-auto max-w-2xl space-y-16 sm:space-y-20 lg:mx-0 lg:max-w-none">
@@ -22,16 +24,33 @@ export function CreatorApplication() {
                             <dl className="mt-6 space-y-6 divide-y divide-gray-300 border-t border-gray-200 text-sm leading-6">
                                 <ConnectTikTokComponent/>
                                 { userData?.tiktok_is_verified == true && (
-                                <>
-                                    <SimpleProfileComponent
-                                        onButtonClick={() => {window.open(`https://zesti.promotekit.com`)}} 
-                                        title={"Create Affiliate Account"} 
-                                        buttonName={"Setup"} 
-                                    />
-                                    <p className="pt-6 text-center text-sm lg:text-base"> {"After submitting your information to Promotekit, you are finished. You will hear a response in 2-3 business days."}</p>
-                                </>
-                                )
+                                    <>
+                                        <SimpleProfileComponent
+                                            onButtonClick={() => {handleCompleteApplication()}} 
+                                            title={"Create Affiliate Account"} 
+                                            buttonName={"Setup"} 
+                                        />
+                                    </>
+                                    )
+                                }       
+                                { // Clean this up later --> create object for messages
+                                    userData?.tiktok_is_verified == false && !isComplete ?
+                                        <p className="pt-6 text-center text-sm lg:text-base"><span className="font-bold">Step 1:</span> Connect Zesti on Tiktok so we can ensure you are the owner of your account </p>
+                                    : 
+                                    userData?.tiktok_is_verified == true && !isComplete ?
+                                        <p className="pt-6 text-center text-sm lg:text-base"><span className="font-bold">Step 2:</span> Setup your affiliate account on promotekit</p>
+                                    :
+                                    isComplete ?
+                                        <div>
+                                            <p className="pt-6 text-center text-sm lg:text-base">
+                                                After submitting the promotekit form, your application is complete! You will hear a response in 1-2 business days.
+                                            </p>
+                                            <Button isLink={true} buttonType='button' text={"Back to Zesti"} href={'/'} className="flex justify-center w-[150px] mx-auto mt-4"/>
+                                        </div>
+                                    :
+                                    <div></div>
                                 }
+                             
                             </dl>
                         </div>
                     </div>
@@ -51,7 +70,7 @@ function ConnectTikTokComponent() {
                 <div className="pt-6 flex justify-between items-center">
                     <dt className="font-semibold text-gray-900 sm:w-64 sm:flex-none sm:pr-6 text-sm lg:text-base">Verify TikTok Account</dt>
                     <dd className=" flex gap-x-6 sm:mt-0">
-                        <p className="font-semibold text-green-600 hover:text-primary-alt text-sm lg:text-base">Verified</p>
+                        <p className="font-semibold text-green-600 text-sm lg:text-base">Verified</p>
                     </dd>
                 </div>
             </dl>
