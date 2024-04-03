@@ -29,9 +29,9 @@ export default function AboutCreatorPage() {
       </Head>
       <main className={`main-seo-page-class ${raleway.className}`}>
         <SharedHero 
-          titleStart={"Put Your Recipes on"} 
-          titleEnd={"Display"} 
-          description={"Join our creator program to put your recipes on display and start earning commission"}
+          titleStart={"Showcase Your Recipe"} 
+          titleEnd={"Collection"} 
+          description={"Join our creator program and access our AI tools to help you showcase readable recipes for your followers!"}
           buttonName={user ? 'Apply to Join' : 'Login to Apply'}
           button={() => {user ? router.push('/account') : router.push('/auth/login')}}
           imageSrc={"/images/Zesti-Creator-Hero-Image.png"}

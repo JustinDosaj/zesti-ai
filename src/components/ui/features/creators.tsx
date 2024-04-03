@@ -12,7 +12,7 @@ export function CreatorCTA({isHome, title}: CreatorCTAProps) {
     'Showcase Your Recipes',
     'Transcribe Recipes Using AI',
     'Get Discovered Through Zesti',
-    'Earn 30% Commission on Subscriptions',
+    'Earn 50% Commission on Subscriptions',
   ]
   
   return(
