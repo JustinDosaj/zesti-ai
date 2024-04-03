@@ -22,6 +22,24 @@ export async function AdminAddNewCreator(email: string, affiliateCode: string, n
     return;
 }
 
+export async function AdminRejectCreator(applicantId: any) {
+
+    const functions = getFunctions();
+    const adminRejectCreator = httpsCallable(functions, 'adminRejectCreator');
+
+    const data = {
+      id: applicantId,
+    }
+
+    await adminRejectCreator(data).then(() => { 
+      Notify("Creator Rejected Successfully") 
+    }).catch(() => { 
+      Notify("Failed to reject creator. Try again")
+    })
+    
+    return;
+}
+
 export async function AdminGetApplicantList() {
     const usersRef = db.collection('users');
     const querySnapshot = await usersRef
@@ -35,6 +53,7 @@ export async function AdminGetApplicantList() {
     }
 
     const users = querySnapshot.docs.map(doc => ({
+      id: doc.id,
       ...doc.data() as any
     }));
 
