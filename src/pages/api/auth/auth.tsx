@@ -8,15 +8,19 @@ import { fetchUserTikTokInfo } from '../handler/tiktok';
 interface UserData {
   account_status?: string;
   affiliate_code?: string;
-  display_name?: string,
   email?: string;
   stripeId?: string;
   stripeLink?: string;
-  tiktok_is_verified?: boolean;
   social?: {
     tiktok_link?: string;
   }
   settings?: {
+    tiktok?: {
+      is_verified?: boolean;
+      profile_link?: string;
+      display_name?: string;
+      username?: string;
+    },
     notifications?: {
       active?: boolean;
       most_recent_video_id?: string;

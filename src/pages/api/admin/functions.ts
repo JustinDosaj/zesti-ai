@@ -44,7 +44,7 @@ export async function AdminGetApplicantList() {
     const usersRef = db.collection('users');
     const querySnapshot = await usersRef
       .where('account_status', '==', 'user')
-      .where('tiktok_is_verified', '==', true)
+      .where('settings.tiktok.is_verified', '==', true)
       .get();
 
     if (querySnapshot.empty) {

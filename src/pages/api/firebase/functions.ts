@@ -29,12 +29,15 @@ export async function updateUserWithTikTokTokens(tokenData: TikTokTokenData, use
 
     // Prepare the data to be updated
     const updateData = {
-      display_name: tiktokUserData.display_name,
       affiliate_code: tiktokUserData.username,
-      socials: {
-        tiktok_link: tiktokUserData.profile_deep_link
+      settings: {
+        tiktok: {
+          is_verified: true,
+          profile_link: tiktokUserData.profile_deep_link,
+          display_name: tiktokUserData.display_name,
+          username: tiktokUserData.username,
+        }
       },
-      tiktok_is_verified: true,
     };
 
     // Update the user's document
