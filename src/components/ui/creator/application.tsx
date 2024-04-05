@@ -34,7 +34,8 @@ export function CreatorApplication() {
                                     )
                                 }       
                                 { // Clean this up later --> create object for messages
-                                    userData?.tiktok_is_verified == false && !isComplete ?
+
+                                    !userData?.tiktok_is_verified && !isComplete ?
                                         <p className="pt-6 text-center text-sm lg:text-base"><span className="font-bold">Step 1:</span> Connect Zesti on Tiktok so we can ensure you are the owner of your account </p>
                                     : 
                                     userData?.tiktok_is_verified == true && !isComplete ?
