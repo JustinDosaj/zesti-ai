@@ -109,7 +109,7 @@ export function AdminApplicantList() {
                             <p>{applicant.affiliate_code}</p>
                             <button 
                                 className="text-primary-main"
-                                onClick={() => window.open(applicant.socials.tiktok_link)}>
+                                onClick={() => window.open(applicant.settings.tiktok.profile_link)}>
                                     TikTok Profile
                             </button>
 

@@ -104,6 +104,21 @@ export function CreatorSocials({creatorData, setIsOpen}: any) {
     const navigation = {
         social: [
           {
+            name: 'TikTok',
+            href: `${creatorData?.socials?.tiktok_link}`,
+            icon: (props: any) => (
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 448 512"
+                    {...props}
+                    className="h-5 w-5">
+                    <path
+                        fill="currentColor"
+                        d="M448,209.91a210.06,210.06,0,0,1-122.77-39.25V349.38A162.55,162.55,0,1,1,185,188.31V278.2a74.62,74.62,0,1,0,52.23,71.18V0l88,0a121.18,121.18,0,0,0,1.86,22.17h0A122.18,122.18,0,0,0,381,102.39a121.43,121.43,0,0,0,67,20.14Z" />
+                </svg>
+            ),
+          },
+          {
             name: 'Instagram',
             href: `${creatorData?.socials?.instagram_link ? creatorData.socials?.instagram_link : ''}`,
             icon: (props: any) => (
@@ -123,21 +138,6 @@ export function CreatorSocials({creatorData, setIsOpen}: any) {
               <svg fill="currentColor" viewBox="0 0 24 24" {...props}>
                 <path d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84" />
               </svg>
-            ),
-          },
-          {
-            name: 'TikTok',
-            href: `${creatorData?.socials?.tiktok_link}`,
-            icon: (props: any) => (
-                <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 448 512"
-                    {...props}
-                    className="h-5 w-5">
-                    <path
-                        fill="currentColor"
-                        d="M448,209.91a210.06,210.06,0,0,1-122.77-39.25V349.38A162.55,162.55,0,1,1,185,188.31V278.2a74.62,74.62,0,1,0,52.23,71.18V0l88,0a121.18,121.18,0,0,0,1.86,22.17h0A122.18,122.18,0,0,0,381,102.39a121.43,121.43,0,0,0,67,20.14Z" />
-                </svg>
             ),
           },
           {
@@ -175,11 +175,11 @@ export function CreatorSocials({creatorData, setIsOpen}: any) {
     return(
         <Container className="relative flex justify-center items-center lg:flex-wrap gap-10 lg:gap-4 w-full animate-fadeIn">
             <div className="flex items-center justify-between">
-                <div className="flex space-x-6">
+                <div className="inline-flex items-center gap-6">
                     {navigation.social.map((item) => (
                         <button key={item.name} onClick={ () => onLinkClick(item.href)} className={item.href !== '' ? `text-gray-500 hover:text-gray-600` : 'hidden'}>
                             <span className="sr-only">{item.name}</span>
-                            <item.icon className="h-6 w-6" aria-hidden="true" />
+                            <item.icon className="h-7 w-7" aria-hidden="true" />
                         </button>
                     ))}
                     <SupportCreatorButton setIsOpen={setIsOpen} size={'small'}/>
