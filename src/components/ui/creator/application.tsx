@@ -23,7 +23,7 @@ export function CreatorApplication() {
                             <AccountTitleComponent title={"Creator Program Application"} desc={"Complete the following verification steps then submit your application"}/>
                             <dl className="mt-6 space-y-6 divide-y divide-gray-300 border-t border-gray-200 text-sm leading-6">
                                 <ConnectTikTokComponent/>
-                                { userData?.tiktok_is_verified == true && (
+                                { userData?.settings?.tiktok?.is_verified == true && (
                                     <>
                                         <SimpleProfileComponent
                                             onButtonClick={() => {handleCompleteApplication()}} 
@@ -34,10 +34,11 @@ export function CreatorApplication() {
                                     )
                                 }       
                                 { // Clean this up later --> create object for messages
-                                    userData?.tiktok_is_verified == false && !isComplete ?
+
+                                    !userData?.settings?.tiktok?.is_verified && !isComplete ?
                                         <p className="pt-6 text-center text-sm lg:text-base"><span className="font-bold">Step 1:</span> Connect Zesti on Tiktok so we can ensure you are the owner of your account </p>
                                     : 
-                                    userData?.tiktok_is_verified == true && !isComplete ?
+                                    userData?.settings?.tiktok?.is_verified == true && !isComplete ?
                                         <p className="pt-6 text-center text-sm lg:text-base"><span className="font-bold">Step 2:</span> Setup your affiliate account on promotekit</p>
                                     :
                                     isComplete ?
@@ -64,7 +65,7 @@ function ConnectTikTokComponent() {
     
     const { loginWithTikTok, userData, isLoading } = useAuth()
 
-    if(!isLoading && userData?.tiktok_is_verified == true) return (
+    if(!isLoading && userData?.settings?.tiktok?.is_verified == true) return (
         <div className={''}>
             <dl className="space-y-6 text-sm leading-6">
                 <div className="pt-6 flex justify-between items-center">
