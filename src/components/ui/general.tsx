@@ -75,7 +75,7 @@ interface Feature {
   name: string,
   description: string,
   icon: any,
-  href?: string,
+  href?: () => void,
   linkName?: string,
 }
   
@@ -88,8 +88,8 @@ interface ThreeBoxFeatureProps {
   
 export function ThreeBoxFeature({type, titleStart, titleEnd, desc}: ThreeBoxFeatureProps) {
 
+    const { user, isLoading, login } = useAuth()
     const router = useRouter()
-    const { user, isLoading, userData } = useAuth()
 
     const FeatureTypes = {
         home: [
@@ -107,7 +107,7 @@ export function ThreeBoxFeature({type, titleStart, titleEnd, desc}: ThreeBoxFeat
                 name: 'AI Cooking Assistant',
                 description: 'Answer cooking questions instantly & get help with the recipe your making',
                 icon: ChatBubbleLeftIcon,
-                href: '/about/solutions/cooking-assistant',
+                href: () => router.push('/about/solutions/cooking-assistant'),
                 linkName: 'Learn More'
             },
         ],
@@ -133,7 +133,13 @@ export function ThreeBoxFeature({type, titleStart, titleEnd, desc}: ThreeBoxFeat
               name: 'Apply for Program',
               description: 'Create your account, verify your tiktok, and submit your application information through promotekit',
               icon: UserIcon,
-              href: user && !isLoading ? '/account' : '/auth/login',
+              href: () => {
+                  if (user && !isLoading) {
+                      router.push('/account');
+                  } else {
+                      login();
+                  }
+              },
               linkName: user && !isLoading ? "Apply Now" : "Create Account"
           },
           {
@@ -188,7 +194,7 @@ export function ThreeBoxFeature({type, titleStart, titleEnd, desc}: ThreeBoxFeat
                             <p className="text-xl font-semibold text-gray-800">{feature.name}</p>
                             <p className="text-base text-gray-600 flex-grow">{feature.description}</p>
                             { feature.href ? 
-                            <InlineButton text={feature.linkName || ''} href={feature.href} isLink={false}/>
+                            <InlineButton text={feature.linkName || ''} onClick={feature.href} isLink={false} className="text-left"/>
                             :
                             <div></div>
                             }
@@ -203,7 +209,7 @@ export function ThreeBoxFeature({type, titleStart, titleEnd, desc}: ThreeBoxFeat
 
 interface FAQ {
     question: string,
-    answer: string,
+    answer: any,
   }
 
 interface FAQProps {
@@ -247,20 +253,22 @@ export function FAQ({type, title, desc}: FAQProps) {
                 answer: "You will need to create an account, verify your tiktok, then submit basic information. This can all be done from your account settings page while logged in.",
             },
             {
-                question: "How do I earn money with Zesti?",
-                answer: "Zesti offers approved creators 30% of the subscription fee per month for every user that signs up through their unique affiliate link!",
-            },
-            {
-                question: "How is Zesti different?",
-                answer: "Unlike other platforms, Zesti looks to be more of a partner than a service. We believe social media recipes contribute largely to inspiring people to cook & our tools can help get them started. We hope to follow this belief into creating a culinary platform for everyone.",
-            },
-            {
-                question: "Who owns the recipes on Zesti?",
-                answer: "All of the recipes on Zesti are owned by the original creator. Zesti does not claim or take ownership of any recipes posted by creators. We provide a platform for creators to share their recipes with their followers while offering premium tools to assist people in their culinary journeys.",
-            },
-            {
                 question: "Why does Zesti need access to my Tiktok account?",
                 answer: "Verifying your Tiktok account helps us prevent copy cats. By verifying your account, we can prevent other people from posting your recipes on a public Zesti Page.",
+            },  
+            {
+                question: "How do I earn money with Zesti?",
+                answer: "Zesti offers approved creators 50% of the subscription fee per month for every user that signs up through their unique affiliate link!",
+            },
+            {
+                question: "How are affiliates tracked?",
+                answer: (
+                  <>
+                      Users subscriptions will be linked to your affiliate code in the following ways: <br />
+                      1. They accessed Zesti most recently via your unique affiliate link, or <br />
+                      2. They selected the upgrade to premium option located on your page.
+                  </>
+              ),
             },
         ]
     }
