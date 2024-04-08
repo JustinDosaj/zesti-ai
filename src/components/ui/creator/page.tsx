@@ -105,7 +105,7 @@ export function CreatorSocials({creatorData, setIsOpen}: any) {
         social: [
           {
             name: 'TikTok',
-            href: `${creatorData?.socials?.tiktok_link}`,
+            href: `${creatorData?.socials?.tiktok?.link}`,
             icon: (props: any) => (
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -120,7 +120,7 @@ export function CreatorSocials({creatorData, setIsOpen}: any) {
           },
           {
             name: 'Instagram',
-            href: `${creatorData?.socials?.instagram_link ? creatorData.socials?.instagram_link : ''}`,
+            href: `${creatorData?.socials?.instagram?.link ? creatorData?.socials?.instagram?.link : ''}`,
             icon: (props: any) => (
               <svg fill="currentColor" viewBox="0 0 24 24" {...props}>
                 <path
@@ -133,7 +133,7 @@ export function CreatorSocials({creatorData, setIsOpen}: any) {
           },
           {
             name: 'Twitter',
-            href: `${creatorData?.socials?.twitter_link ? creatorData.socials?.twitter_link : ''}`,
+            href: `${creatorData?.socials?.twitter?.link ? creatorData.socials?.twitter?.link : ''}`,
             icon: (props: any) => (
               <svg fill="currentColor" viewBox="0 0 24 24" {...props}>
                 <path d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84" />
@@ -142,7 +142,7 @@ export function CreatorSocials({creatorData, setIsOpen}: any) {
           },
           {
             name: 'YouTube',
-            href: `${creatorData?.socials?.youtube_link ? creatorData.socials?.youtube_link : ''}`,
+            href: `${creatorData?.socials?.youtube?.link ? creatorData.socials?.youtube?.link : ''}`,
             icon: (props: any) => (
               <svg fill="currentColor" viewBox="0 0 24 24" {...props}>
                 <path
@@ -155,7 +155,7 @@ export function CreatorSocials({creatorData, setIsOpen}: any) {
           },
           {
             name: 'Website',
-            href: `${creatorData?.socials?.website_link ? creatorData.socials?.website_link : ''}`,
+            href: `${creatorData?.socials?.website?.link ? creatorData.socials?.website?.link : ''}`,
             icon: (props: any) => (
               <svg data-slot="icon" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" {...props}>
                 <path clip-rule="evenodd" fill-rule="evenodd" d="M2.25 5.25a3 3 0 0 1 3-3h13.5a3 3 0 0 1 3 3V15a3 3 0 0 1-3 3h-3v.257c0 .597.237 1.17.659 1.591l.621.622a.75.75 0 0 1-.53 1.28h-9a.75.75 0 0 1-.53-1.28l.621-.622a2.25 2.25 0 0 0 .659-1.59V18h-3a3 3 0 0 1-3-3V5.25Zm1.5 0v7.5a1.5 1.5 0 0 0 1.5 1.5h13.5a1.5 1.5 0 0 0 1.5-1.5v-7.5a1.5 1.5 0 0 0-1.5-1.5H5.25a1.5 1.5 0 0 0-1.5 1.5Z"></path>

@@ -15,11 +15,11 @@ export function CreatorSettingsComponent() {
 
     const { user, creatorData, isLoading, userData } = useAuth()
     const [ bio, setBio ] = useState<string>(creatorData?.bio_description ? creatorData.bio_description : '')
-    const [ tiktok, setTikTok ] = useState<string>(creatorData?.socials?.tiktok_link ? creatorData?.socials?.tiktok_link : '')
-    const [ youtube, setYouTube ] = useState<string>(creatorData?.socials?.youtube_link ? creatorData.socials.youtube_link : '')
-    const [ twitter, setTwitter ] = useState<string>(creatorData?.socials?.twitter_link ? creatorData.socials.twitter_link : '')
-    const [ instagram, setInstagram ] = useState<string>(creatorData?.socials?.instagram_link ? creatorData.socials.instagram_link : '')
-    const [ website, setWebsite ] = useState<string>(creatorData?.socials?.website_link ? creatorData.socials.website_link : '')
+    const [ tiktok, setTikTok ] = useState<string>(creatorData?.socials?.tiktok?.link ? creatorData?.socials?.tiktok?.link : '')
+    const [ youtube, setYouTube ] = useState<string>(creatorData?.socials?.youtube?.link ? creatorData.socials.youtube?.link : '')
+    const [ twitter, setTwitter ] = useState<string>(creatorData?.socials?.twitter?.link ? creatorData.socials.twitter?.link : '')
+    const [ instagram, setInstagram ] = useState<string>(creatorData?.socials?.instagram?.link ? creatorData.socials.instagram?.link : '')
+    const [ website, setWebsite ] = useState<string>(creatorData?.socials?.website?.link ? creatorData.socials.website?.link : '')
     const [ edit, setEdit ] = useState<boolean>(false)
     const router = useRouter()
 
@@ -33,11 +33,11 @@ export function CreatorSettingsComponent() {
 
     useEffect(() => {
         setBio(creatorData?.bio_description || '')
-        setTikTok(creatorData?.socials?.tiktok_link || '');
-        setYouTube(creatorData?.socials?.youtube_link || '')
-        setTwitter(creatorData?.socials?.twitter_link || '')
-        setInstagram(creatorData?.socials?.instagram_link || '')
-        setWebsite(creatorData?.socials?.website_link || '')
+        setTikTok(creatorData?.socials?.tiktok?.link || '');
+        setYouTube(creatorData?.socials?.youtube?.link || '')
+        setTwitter(creatorData?.socials?.twitter?.link || '')
+        setInstagram(creatorData?.socials?.instagram?.link || '')
+        setWebsite(creatorData?.socials?.website?.link || '')
 
         if(!creatorData && !isLoading) { router.push('/account')}
 
@@ -50,13 +50,20 @@ export function CreatorSettingsComponent() {
         if (user) {
             const bioObject = {
                 bio_description: bio,
-                socials: 
-                    {
-                        instagram_link: instagram,
-                        twitter_link: twitter,
-                        youtube_link: youtube,
-                        website_link: website,
+                socials: {
+                    instagram: {
+                        link: instagram,
                     },
+                    twitter: {
+                        link: twitter,
+                    },
+                    youtube: {
+                        link: youtube,
+                    },
+                    website: {
+                        link: website,
+                    },
+                },
             }
 
             await saveBioDataToFireStore(bioObject, user?.uid)
