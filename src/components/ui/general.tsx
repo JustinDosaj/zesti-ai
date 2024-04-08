@@ -95,17 +95,17 @@ export function ThreeBoxFeature({type, titleStart, titleEnd, desc}: ThreeBoxFeat
         home: [
             {
                 name: 'Search for Recipe or Creator',
-                description: 'Find recipes to try from your favorite tiktok chefs',
+                description: 'Find recipes from your favorite tiktok chefs',
                 icon: StarIcon,
             },
             {
-                name: 'Save & Customize',
-                description: 'Love the recipe? Save it for later and make changes just for you',
+                name: 'Save Recipes',
+                description: 'Save recipes to your account so you can easily find them later',
                 icon: BookOpenIcon,
             },
             {
                 name: 'AI Cooking Assistant',
-                description: 'Answer cooking questions instantly & get help with the recipe your making',
+                description: 'Get chat assistant help for any recipe you are cooking',
                 icon: ChatBubbleLeftIcon,
                 href: () => router.push('/about/solutions/cooking-assistant'),
                 linkName: 'Learn More'
@@ -245,31 +245,46 @@ export function FAQ({type, title, desc}: FAQProps) {
         ],
         creator: [
             {
-                question: "Do I need a minimum amount of followers or videos to join?",
-                answer: "Currently we have no minimums to join our affiliate program, however the content must be cooking related." ,
-            },
-            {
-                question: "How do I apply to Zesti?",
-                answer: "You will need to create an account, verify your tiktok, then submit basic information. This can all be done from your account settings page while logged in.",
-            },
-            {
-                question: "Why does Zesti need access to my Tiktok account?",
-                answer: "Verifying your Tiktok account helps us prevent copy cats. By verifying your account, we can prevent other people from posting your recipes on a public Zesti Page.",
-            },  
-            {
-                question: "How do I earn money with Zesti?",
-                answer: "Zesti offers approved creators 50% of the subscription fee per month for every user that signs up through their unique affiliate link!",
-            },
-            {
-                question: "How are affiliates tracked?",
-                answer: (
-                  <>
-                      Users subscriptions will be linked to your affiliate code in the following ways: <br />
-                      1. They accessed Zesti most recently via your unique affiliate link, or <br />
-                      2. They selected the upgrade to premium option located on your page.
-                  </>
+              question: "What are the requirements to join?",
+              answer: (
+                <>
+                    1. Post recipes or cooking content on a relatively frequent basis (every 1-2 weeks)<br />
+                    2. Account must be public for all users to see <br />
+                    <br />
+                    Note: Content does NOT have to be exclusively cooking & recipe content and there are NO minimum follower requirements <br /> 
+                </>
               ),
             },
+            {
+              question: "How do I apply to Zesti?",
+              answer: "You will need to create an account, verify your tiktok, then submit basic information. This can all be done from your account settings page while logged in.",
+            },
+            {
+              question: "Why does Zesti need access to my Tiktok account?",
+              answer: "Verifying your Tiktok account helps us prevent copy cats. By verifying your account, we can prevent other people from posting your recipes on a public Zesti Page.",
+            },  
+            {
+              question: "How do I earn money with Zesti?",
+              answer: "Zesti offers approved creators 50% of the subscription fee per month for every user that signs up with your unique affiliate link!",
+            },
+            {
+              question: "How are affiliates tracked?",
+              answer: (
+                <>
+                    Users subscriptions will be linked to your affiliate code in the following ways: <br />
+                    1. They accessed Zesti most recently via your unique affiliate link, or <br />
+                    2. They selected the upgrade to premium option located on your page.
+                </>
+              ),
+            },
+            {
+              question: "How do I change my affiliate code?",
+              answer: "The affiliate code you are assigned is exactly the same of your TikTok username. If you would like to change your affiliate code, you will need to contact us after you have been approved for the creator program.",
+            },
+            {
+              question: "Does Zesti support any other platforms?",
+              answer: "Currently the video transcription tool only supports TikTok videos, however we have plans to expand support to Instagram and Youtube in the future. For now, creators can add links to other social media profiles on their page.",
+            }
         ]
     }
 
