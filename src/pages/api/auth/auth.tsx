@@ -38,11 +38,25 @@ interface CreatorData {
   likes_count?: number;
   open_id?: string,
   socials?: {
-    instagram_link?: string,
-    twitter_link?: string,
-    website_link?: string,
-    youtube_link?: string,
-    tiktok_link?: string,
+    tiktok?: {
+      username?: string,
+      link?: string,
+    }
+    instagram?: {
+      username?: string,
+      link?: string,
+    }
+    twitter?: {
+      username?: string,
+      link?: string,
+    },
+    youtube?: {
+      username?: string,
+      link?: string,
+    },
+    website?: {
+      link?: string,
+    },
   },
   union_id?: string,
   video_count?: number,
