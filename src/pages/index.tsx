@@ -53,12 +53,11 @@ export default function Home() {
         <PromoteKitTag/>
       </Head>
       <main className={`main-seo-page-class ${raleway.className}`}>
-        <Hero titleStart={"Instantly Get Recipes from"} titleEnd={"TikTok"} description={"Quickly search your favorite tiktok chefs and get easy-to-read recipes"}/>
+        <Hero titleStart={"Find Recipes from"} titleEnd={"TikTok Creators"} description={"Tiktok is great for discovering recipes, but not for recreating them. Search creators on Zesti to get recipes already written out for you!"}/>
         <ThreeBoxFeature type={'home'} titleStart={'TikTok Recipes'} titleEnd={'Made Easy'} desc={"Get easy-to-read instructions and ingredients for those delicious TikTok recipes"}/>
         <HomePageScroller creators={creators}/>
-        <HomeVideoToRecipe titleStart={"Get Instant Readable Recipes from"} titleEnd={"TikTok"} desc={"No more pausing, rewinding or rewatching. Translate TikTok recipes into text so you can enjoy delicious home cooked meals too!"}/>
         <ChatFeature/>
-        <CookBookFeature titleStart={"Discover Recipes from the Best"} titleEnd={"TikTok Chefs"} desc={"Check out the pages of TikTok chefs to get a list of all their public recipes intantly!"}/>
+        <CookBookFeature titleStart={"Discover Recipes From The Best"} titleEnd={"TikTok Creators"} desc={"Check out the pages of TikTok creators to get a list of all their public recipes instantly!"}/>
         <HomePageCTA/>
         <CreatorCTA title={"Join Creator Program"} isHome={true}/>
         <FAQ type={'user'} title={"General FAQ"} desc={"Most common questions and answers among all of our users"}/>
