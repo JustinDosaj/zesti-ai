@@ -50,7 +50,7 @@ export async function updateUserWithTikTokTokens(tokenData: TikTokTokenData, use
 }
 
 export async function getCreatorByDisplayName(creatorName: string) {
-  const querySnapshot = await db.collection('creators').where('affiliate_code', '==', creatorName).get()
+  const querySnapshot = await db.collection('creators').where('owner.affiliate_code', '==', creatorName).get()
   return querySnapshot
 }
 

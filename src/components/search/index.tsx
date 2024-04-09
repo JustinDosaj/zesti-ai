@@ -1,5 +1,4 @@
 import { MagnifyingGlassIcon } from '@heroicons/react/24/outline'
-import { InlineButton } from "../shared/button"
 import algoliasearch from 'algoliasearch/lite';
 import { XMarkIcon } from '@heroicons/react/20/solid'
 import Link from 'next/link'
@@ -108,7 +107,7 @@ export function ManageRecipesSearch({creatorData}: any) {
       try {
           const [ recipes ] = await Promise.all([
               recipesIndex.search(query, {
-                filters: `owner_affiliate_code:"${creatorData.affiliate_code}"` // Adding filter for owner_display_name
+                filters: `owner_affiliate_code:"${creatorData?.owner?.affiliate_code}"` // Adding filter for owner_display_name
             })
           ]);
           setSearchResults({ recipes: recipes?.hits });
