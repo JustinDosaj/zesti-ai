@@ -40,8 +40,8 @@ export const handleCreatorTikTokURLSubmit = async ({url, rawText, creatorData}: 
         "date": date.toISOString(),
         "rawData": rawText || '',
         "display_name": creatorData?.display_name,
-        "affiliate_code": creatorData?.affiliate_code,
-        "owner_id": creatorData?.owner_id,
+        "affiliate_code": creatorData?.owner.affiliate_code,
+        "owner_id": creatorData?.owner.id,
     }
 
     try {

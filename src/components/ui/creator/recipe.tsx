@@ -35,8 +35,6 @@ export function CreatorRecipe({recipe, owner_id, isEditMode, setEditMode, setIsO
     const [newInstruction, setNewInstruction] = useState<string>('');
     const [editedName, setEditedName] = useState<string>('')
 
-    console.log(recipe)
-
     useEffect(() => {
         setEditedIngredients(recipe.ingredients || []);
         setEditedInstructions(recipe.instructions || [])
@@ -91,12 +89,12 @@ export function CreatorRecipe({recipe, owner_id, isEditMode, setEditMode, setIsO
 
         try{
             if(owner_id == user?.uid) {
-                await db.doc(`creators/${owner_id}/recipes/${recipe.id}`).update({
+                await db.doc(`creators/${owner_id}/recipes/${recipe.data.id}`).update({
                     ingredients: editedIngredients,
                     instructions: editedInstructions,
                     name: editedName,
                 })
-                await db.doc(`recipes-tiktok/${recipe.id}`).update({
+                await db.doc(`recipes-tiktok/${recipe.data.id}`).update({
                     ingredients: editedIngredients,
                     instructions: editedInstructions,
                     name: editedName,
@@ -113,11 +111,11 @@ export function CreatorRecipe({recipe, owner_id, isEditMode, setEditMode, setIsO
 
     return(
     <Container className={"flex flex-col gap-6 animate-fadeInFast alternate-orange-bg rounded-3xl md:w-[599px] p-8 mb-16"}>
-        <RecipeTitleDescriptionComponent recipe_name={recipe.name} recipe_title={recipe.title} isEditMode={isEditMode} editedName={editedName} setEditedName={setEditedName}/>
+        <RecipeTitleDescriptionComponent recipe_name={recipe.name} recipe_title={recipe.video_title} isEditMode={isEditMode} editedName={editedName} setEditedName={setEditedName}/>
         <CreatorRecipeLinks recipe={recipe} setIsOpen={setIsOpen} isEditMode={isEditMode}/>
         <RecipeIngredientsComponent ingredients={recipe?.ingredients} isEditMode={isEditMode} editedIngredients={editedIngredients} handleIngredientChange={handleIngredientChange} handleDeleteIngredient={handleDeleteIngredient} newIngredient={newIngredient} setNewIngredient={setNewIngredient} handleAddIngredient={handleAddIngredient}/>
         <RecipeInstructionsComponent instructions={recipe?.instructions} isEditMode={isEditMode} editedInstructions={editedInstructions} handleInstructionChange={handleInstructionChange} handleDeleteInstruction={handleDeleteInstruction} newInstruction={newInstruction} setNewInstruction={setNewInstruction} handleAddInstruction={handleAddInstruction}/>
-        <RecipeMainButtonComponent role={stripeRole} user_id={user?.uid} owner_id={owner_id} owner_name={recipe.owner_display_name} setIsSupportOpen={setIsSupportOpen} setEditMode={setEditMode} isEditMode={isEditMode} handleSave={handleSave}/>
+        <RecipeMainButtonComponent role={stripeRole} user_id={user?.uid} owner_id={owner_id} owner_name={recipe.owner.display_name} setIsSupportOpen={setIsSupportOpen} setEditMode={setEditMode} isEditMode={isEditMode} handleSave={handleSave}/>
     </Container>
     )
 }
@@ -324,7 +322,7 @@ function CreatorRecipeLinks({recipe, setIsOpen}: RecipeProps) {
     // Checking if user owns recipe already
     useEffect(() => {
         if(user) {
-            const docRef = doc(db, `users/${user.uid}/recipes`, recipe.id);
+            const docRef = doc(db, `users/${user.uid}/recipes`, recipe.data.id);
             const unsubscribe = onSnapshot(docRef, (docSnapshot) => {
                 setIsSaved(docSnapshot.exists());
             }, (error) => {
@@ -333,12 +331,12 @@ function CreatorRecipeLinks({recipe, setIsOpen}: RecipeProps) {
 
             return () => unsubscribe();
         }
-    }, [user, recipe.id]);
+    }, [user, recipe.data.id]);
 
     async function onSaveClick() {
         if (user && !isLoading) {
             try {
-                await saveRecipeReferenceToUser(user?.uid, recipe.id, recipe.owner_id, recipe.owner_affiliate_code);
+                await saveRecipeReferenceToUser(user?.uid, recipe.data.id, recipe.owner.id, recipe.owner.affiliate_code);
                 setIsOpen(true)
                 return true; // Explicitly returning a boolean value
             } catch (error) {
@@ -353,7 +351,7 @@ function CreatorRecipeLinks({recipe, setIsOpen}: RecipeProps) {
 
     const onDeleteClick = async () => {
         if(user) {
-            await UserRemoveRecipeFromFirestore(user?.uid, recipe.id);
+            await UserRemoveRecipeFromFirestore(user?.uid, recipe.data.id);
             return true; 
         }
         return false;
@@ -361,13 +359,13 @@ function CreatorRecipeLinks({recipe, setIsOpen}: RecipeProps) {
 
     const navigation = [
         { 
-            name: recipe.owner_display_name,
-            onClick: () => router.push(`/${recipe.owner_affiliate_code}`),
+            name: recipe.owner.display_name,
+            onClick: () => router.push(`/${recipe.owner.affiliate_code}`),
             icon: EyeIcon,
         },
         { 
             name: `See Video`,
-            onClick: () => window.open(recipe.url),
+            onClick: () => window.open(recipe.data.url),
             icon: (props: any) => (
                 <svg
                     xmlns="http://www.w3.org/2000/svg"

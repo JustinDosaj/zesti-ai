@@ -110,8 +110,8 @@ export function CreatorSettingsComponent() {
                         <div>
                         <AccountTitleComponent title={"Edit Your Page"} desc={"Contribute to your recipe collection & add social media links to let users follow you on other platforms"}/>
                         <dl className="mt-6 space-y-6 text-sm leading-6 divide-y divide-gray-300">
-                            <PageLinkComponent affiliate_code={creatorData.affiliate_code} accountStatus={userData?.account_status}/>
-                            <SimpleProfileComponent title={"Page Name"} desc={creatorData?.display_name} onButtonClick={() => router.push(`/${creatorData?.affiliate_code}`)} buttonName={"View Page"}/>
+                            <PageLinkComponent affiliate_code={creatorData?.owner?.affiliate_code} accountStatus={userData?.account_status}/>
+                            <SimpleProfileComponent title={"Page Name"} desc={creatorData?.display_name} onButtonClick={() => router.push(`/${creatorData?.owner?.affiliate_code}`)} buttonName={"View Page"}/>
                             <div className="pt-6 flex items-center justify-between border-gray-200">
                                 <dt className="grid grid-cols-1 font-semibold text-gray-900 sm:w-64 sm:flex-none pr-6 text-sm lg:text-base">
                                     <span>Page Image</span>
@@ -205,7 +205,7 @@ export function CreatorProfileComponent() {
                         <div>
                         <AccountTitleComponent title="Creator Information" desc="Connect your Tiktok, manage your affiliate account & edit your page"/>
                             <dl className="mt-6 space-y-6 text-sm leading-6 divide-y divide-gray-300 border-t border-gray-200">
-                                <PageLinkComponent accountStatus={userData?.account_status} affiliate_code={creatorData?.affiliate_code}/>
+                                <PageLinkComponent accountStatus={userData?.account_status} affiliate_code={creatorData?.owner?.affiliate_code}/>
                                 <SimpleProfileComponent buttonName={"Manage"} title={"Affiliate Program"} onButtonClick={() => {window.open(`https://zesti.promotekit.com/`)}}/>
                                 <SimpleProfileComponent
                                     onButtonClick={() => router.push('/creator/edit/')}

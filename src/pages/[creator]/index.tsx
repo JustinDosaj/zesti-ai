@@ -69,11 +69,9 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 const CreatorPage: NextPage<CreatorProps> = ({ creatorData, referer }) => {
 
   useSetBreadcrumbs();
-  const { creatorRecipeList, loadingCreatorRecipes } = useCreatorRecipeList(creatorData?.owner_id)
+  const { creatorRecipeList, loadingCreatorRecipes } = useCreatorRecipeList(creatorData?.owner.id)
   const { stripeRole, userData } = useAuth();
   const [ isOpen, setIsOpen ] = useState<boolean>(false)
-  const router = useRouter()
-  
   
   return (
     <>
@@ -90,13 +88,13 @@ const CreatorPage: NextPage<CreatorProps> = ({ creatorData, referer }) => {
       <CreatorPageTitle creatorData={creatorData}/>
       <CreatorSocials setIsOpen={setIsOpen} creatorData={creatorData}/>
       <CreatorSearch creatorData={creatorData}/>
-      <CreatorPageRecentRecipes recipes={creatorRecipeList} creatorName={creatorData?.affiliate_code} owner_id={creatorData?.owner_id}/>
+      <CreatorPageRecentRecipes recipes={creatorRecipeList} creatorName={creatorData?.owner?.affiliate_code} owner_id={creatorData?.owner?.id}/>
       <ResponseModal
         title={`Support ${creatorData?.display_name}`}
         text={`Continue to start a 7-day free trial for Zesti Premium. ${creatorData?.display_name} will receive a portion of the subscription fee automatically once your trial is complete.`}
         icon={SparklesIcon}
         iconColor={'orange'}
-        modalFunction={() => window.open(`/about/pricing?via=${creatorData?.affiliate_code}`)}
+        modalFunction={() => window.open(`/about/pricing?via=${creatorData?.owner?.affiliate_code}`)}
         isOpen={isOpen}
         setIsOpen={setIsOpen}
         displayAd={false}
