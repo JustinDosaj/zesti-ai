@@ -29,13 +29,12 @@ interface UserData {
 }
 
 interface CreatorData {
-  affiliate_code?: string;
   avatar_url?: string;
   bio_description?: string;
-  display_name?: string;
   follower_count?: number;
   is_verified?: boolean;
   likes_count?: number;
+  display_name?:string;
   open_id?: string,
   socials?: {
     tiktok?: {
@@ -58,6 +57,10 @@ interface CreatorData {
       link?: string,
     },
   },
+  owner?: {
+    id?: string,
+    affiliate_code?: string,
+  }
   union_id?: string,
   video_count?: number,
   page_image?: string,

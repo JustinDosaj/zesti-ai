@@ -46,7 +46,7 @@ export function CreatorSearch({creatorData}: any) {
       try {
           const [ recipes ] = await Promise.all([
               recipesIndex.search(query, {
-                filters: `owner_affiliate_code:"${creatorData.affiliate_code}"` // Adding filter for owner_display_name
+                filters: `owner_affiliate_code:"${creatorData.owner.affiliate_code}"` // Adding filter for owner_display_name
             })
           ]);
           setSearchResults({ recipes: recipes?.hits });
@@ -205,8 +205,8 @@ export function CreatorPageRecentRecipes({recipes, creatorName, maxDisplayCount 
 
   const sortedData = recipes?.sort((a: any, b: any) => {
     // Convert dates to timestamps, treating invalid or absent dates as 0
-    const dateA = new Date(a.date).getTime() || 0;
-    const dateB = new Date(b.date).getTime() || 0;
+    const dateA = new Date(a.data.date).getTime() || 0;
+    const dateB = new Date(b.data.date).getTime() || 0;
 
     // If both dates are invalid or missing, maintain their order
     if (dateA === 0 && dateB === 0) return 0;
@@ -279,12 +279,12 @@ export function CreatorRecipeListCard({item, creatorName, key}: RecipeCardProps)
                     </span>
                 </div>
                 <div className="flex gap-1 text-xs lg:text-sm text-gray-600 items-center">
-                  <p className="text-sm text-gray-600">{item?.title}</p> {/* Recipe Name */}
+                  <p className="text-sm text-gray-600">{item?.video_title}</p> {/* Recipe Name */}
                 </div>
             </div>
         </div>
         {/* Overlay Icon */}
-        <Link href={`/${creatorName}/${item?.id}`} className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-40 opacity-0 group-hover:opacity-100 rounded-3xl hover:animate-fadeInExtraFast">
+        <Link href={`/${creatorName}/${item?.data.id}`} className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-40 opacity-0 group-hover:opacity-100 rounded-3xl hover:animate-fadeInExtraFast">
             <EyeIcon className="text-white h-10 w-10 hover:text-gray-300 hover:bg-gray-500 bg-gray-700 rounded-xl p-1"/>
         </Link>
     </div>
