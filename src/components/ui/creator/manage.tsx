@@ -1,10 +1,8 @@
 import { useAuth } from '@/pages/api/auth/auth';
-import { TrashIcon, ArrowPathIcon, LinkIcon, ExclamationCircleIcon, EyeIcon, PencilSquareIcon } from '@heroicons/react/20/solid';
+import { TrashIcon, LinkIcon, ExclamationCircleIcon, EyeIcon, PencilSquareIcon } from '@heroicons/react/20/solid';
 import React, { useState } from "react"
 import { Button } from '@/components/shared/button';
 import { Container } from '@/components/shared/container';
-import { deleteCreatorError } from '@/pages/api/firebase/functions';
-import { Notify } from '@/components/shared/notify';
 import { useRouter } from 'next/router';
 import { ManageRecipesSearch } from '@/components/search';
 
@@ -68,32 +66,12 @@ export function CreatorResubmitRecipeTextComponent({rawText, setRawText}: any) {
 
 export function ManageRecipesList({errorData, publicData, setIsCreatorModalOpen, setIsResubmitOpen, setUrl, setRecipeId, setIsOpen}: any) {
 
-    const [ view, setView ] = useState<string>('public')
     const { creatorData, user } = useAuth();
     const router = useRouter()
-
-    const onResubmitClick = async (url: string, recipe_id: string) => {
-        setUrl(url)
-        setRecipeId(recipe_id)
-        setIsResubmitOpen(true)
-    }
 
     const onPublicRecipeDelete = async (recipe_id: string) => {
         setRecipeId(recipe_id)
         setIsOpen(true)
-    }
-
-    const onDeleteFromErrorsClick = async (recipe_id: string) => {
-        await deleteCreatorError(user?.uid, recipe_id)
-        Notify("Removed recipe from errors")
-    }
-
-    const onViewSelect = async (currentView: string) => {
-        if(currentView == 'errors') {
-            errorData.length > 0 ? setView(currentView) : setView('public')
-        } else if (currentView == 'public') {
-            setView(currentView)
-        }
     }
 
     return (
@@ -104,32 +82,35 @@ export function ManageRecipesList({errorData, publicData, setIsCreatorModalOpen,
             </div>
             <ManageRecipesSearch creatorData={creatorData}/>
             <div className="flex sm:justify-start gap-4 mt-4">
-                <button onClick={() => onViewSelect('public')} className="bg-gray-200 hover:bg-gray-300 text-sm text-gray-700 font-semibold px-4 rounded py-1 sm:py-2 sm:text-base">
+                <p className="bg-gray-200 hover:bg-gray-300 text-sm text-gray-700 font-semibold px-4 rounded py-1 sm:py-2 sm:text-base">
                     {`Public (${publicData.length})`}
-                </button>
-                <button onClick={() => onViewSelect('errors')} className={errorData.length > 0 ? `bg-red-600 hover:bg-red-300 text-white font-semibold px-4 py-1 sm:py-2 rounded text-sm sm:text-base` : `bg-gray-200 hover:bg-gray-300 text-gray-700 text-sm font-semibold py-1 sm:py-2 sm:text-base px-4 rounded`}>
-                    {`Errors (${errorData.length})`}
-                </button>
+                </p>
             </div>
             <div className="mt-6 w-full">
-                {view == 'errors' ? 
-                errorData.map((item: any) => (
+                {
+                publicData.map((item: any) => (
                     <div key={item.id} className="group relative border border-gray-200 p-2 rounded-2xl hover:bg-gray-100 w-full mt-4">
                         <div className="flex">
-                            <div className="flex-none w-24 relative mr-1 md:mr-4 p-1">
+                            <div className="flex-none w-24 relative md:mr-4 p-1">
                                 <img src={`https://firebasestorage.googleapis.com/v0/b/${process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET}/o/${encodeURIComponent(item.cover_image_url)}?alt=media`} alt={item.name} className="rounded-lg" />
                             </div>
-                            <div className="grid justify-between p-1.5">
+                            <div className="grid ml-1 justify-between p-1.5">
                                 <div className="">
-                                    <h2 className="text-base sm:text-lg font-semibold text-gray-700">{item.title ? item.title : "Error"}</h2>
+                                    <h2 className="text-base sm:text-lg font-semibold text-gray-700">{item.name}</h2>
+                                    <p className="text-gray-600 text-xs sm:text-sm lg:text-base">{item.id}</p>
                                 </div>
                                 <div className="flex justify-start gap-x-4 w-fit items-end">
-                                    <button onClick={() => onResubmitClick(item.url, item.id)}>
-                                        <div className="text-white hover:bg-yellow-400 p-1 bg-yellow-500 rounded flex items-center justify-center w-fit">
-                                            <ArrowPathIcon className="h-4 w-4 lg:h-6 lg:w-6" />
+                                    <button onClick={() => router.push(`/${creatorData?.owner?.affiliate_code}/${item.id}`)}>
+                                        <div className="text-white hover:bg-green-500 p-1 bg-green-600 rounded  flex items-center justify-center w-fit">
+                                            <EyeIcon className="h-4 w-4 lg:h-6 lg:w-6" />
                                         </div>
                                     </button>
-                                    <button onClick={() => onDeleteFromErrorsClick(item.id)}>
+                                    <button onClick={() => router.push(`/${creatorData?.owner?.affiliate_code}/${item.id}`)}>
+                                        <div className="text-white hover:bg-yellow-400 p-1 bg-yellow-500 rounded flex items-center justify-center w-fit">
+                                            <PencilSquareIcon className="h-4 w-4 lg:h-6 lg:w-6" />
+                                        </div>
+                                    </button>
+                                    <button onClick={() => onPublicRecipeDelete(item.id)}>
                                         <div className="text-white hover:bg-red-500 p-1 bg-red-600 rounded flex items-center justify-center w-fit">
                                             <TrashIcon className="h-4 w-4 lg:h-6 lg:w-6" />
                                         </div>
@@ -139,41 +120,6 @@ export function ManageRecipesList({errorData, publicData, setIsCreatorModalOpen,
                         </div>
                     </div>
                 ))
-                : view == 'public' ? 
-                    publicData.map((item: any) => (
-                        <div key={item.id} className="group relative border border-gray-200 p-2 rounded-2xl hover:bg-gray-100 w-full mt-4">
-                            <div className="flex">
-                                <div className="flex-none w-24 relative md:mr-4 p-1">
-                                    <img src={`https://firebasestorage.googleapis.com/v0/b/${process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET}/o/${encodeURIComponent(item.cover_image_url)}?alt=media`} alt={item.name} className="rounded-lg" />
-                                </div>
-                                <div className="grid ml-1 justify-between p-1.5">
-                                    <div className="">
-                                        <h2 className="text-base sm:text-lg font-semibold text-gray-700">{item.name}</h2>
-                                        <p className="text-gray-600 text-xs sm:text-sm lg:text-base">{item.id}</p>
-                                    </div>
-                                    <div className="flex justify-start gap-x-4 w-fit items-end">
-                                        <button onClick={() => router.push(`/${creatorData?.owner?.affiliate_code}/${item.id}`)}>
-                                            <div className="text-white hover:bg-green-500 p-1 bg-green-600 rounded  flex items-center justify-center w-fit">
-                                                <EyeIcon className="h-4 w-4 lg:h-6 lg:w-6" />
-                                            </div>
-                                        </button>
-                                        <button onClick={() => router.push(`/${creatorData?.owner?.affiliate_code}/${item.id}`)}>
-                                            <div className="text-white hover:bg-yellow-400 p-1 bg-yellow-500 rounded flex items-center justify-center w-fit">
-                                                <PencilSquareIcon className="h-4 w-4 lg:h-6 lg:w-6" />
-                                            </div>
-                                        </button>
-                                        <button onClick={() => onPublicRecipeDelete(item.id)}>
-                                            <div className="text-white hover:bg-red-500 p-1 bg-red-600 rounded flex items-center justify-center w-fit">
-                                                <TrashIcon className="h-4 w-4 lg:h-6 lg:w-6" />
-                                            </div>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    ))
-                :
-                <></>
                 }
         </div>
       </div>
