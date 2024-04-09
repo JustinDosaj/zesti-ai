@@ -69,7 +69,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 const CreatorPage: NextPage<CreatorProps> = ({ creatorData, referer }) => {
 
   useSetBreadcrumbs();
-  const { creatorRecipeList, loadingCreatorRecipes } = useCreatorRecipeList(creatorData?.owner.id)
+  const { creatorRecipeList, loadingCreatorRecipes } = useCreatorRecipeList(creatorData?.owner?.id)
   const { stripeRole, userData } = useAuth();
   const [ isOpen, setIsOpen ] = useState<boolean>(false)
   
