@@ -30,9 +30,7 @@ export default function CreatorApplicationPage() {
       <main className={`flex min-h-screen flex-col items-center bg-background w-screen pb-48 ${raleway.className}`}>
         <div className="mt-48"/>
         <CreatorApplication/>
-        <div className="text-xs lg:text-sm p-6 text-center text-gray-500 pb-28 items-center inline-flex gap-1">
-          <span>Notice: Resubmitting the application multiple times will cause the review process to take longer</span>
-        </div>
+        <div className="mt-48"/>
         <FAQ title={"Creator FAQ"} desc={"These are some of the most common questions we receive from creators"} type={"creator"}/>
       </main>
     </>
