@@ -29,7 +29,6 @@ export async function updateUserWithTikTokTokens(tokenData: TikTokTokenData, use
 
     // Prepare the data to be updated
     const updateData = {
-      affiliate_code: tiktokUserData.username,
       settings: {
         tiktok: {
           is_verified: true,

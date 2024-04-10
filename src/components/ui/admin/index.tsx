@@ -24,24 +24,24 @@ export function AddNewCreator() {
         <div className="grid grid-cols-1 my-auto max-autos space-y-4">
             <input
                 type="email"
-                placeholder="Email Address"
+                placeholder="Creator Email Address"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="py-2 w-64 border-gray-300 border rounded-3xl pl-2"
+                className="py-2 w-96 border-gray-300 border rounded-3xl pl-2"
             />
             <input
                 type="text"
-                placeholder="Creator Affiliate Code"
+                placeholder="Creator Chosen Affiliate Code"
                 value={affiliateCode}
                 onChange={(e) => setAffiliateCode(e.target.value)}
-                className="py-2 w-64 border-gray-300 border rounded-3xl pl-2"
+                className="py-2 w-96 border-gray-300 border rounded-3xl pl-2"
             />
             <input
                 type="text"
-                placeholder="Creator First Name"
+                placeholder="Creator Name for Personalized Email"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                className="py-2 w-64 border-gray-300 border rounded-3xl pl-2"
+                className="py-2 w-96 border-gray-300 border rounded-3xl pl-2"
             />
             <Button onClick={addCreatorClick} className="w-fit" isLink={false} buttonType="button" text="Add New Creator" isDisabled={loading}/>
         </div>
@@ -159,3 +159,4 @@ export function AdminCheckList() {
         </div>
     )
 }
+

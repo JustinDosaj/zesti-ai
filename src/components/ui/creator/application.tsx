@@ -23,7 +23,6 @@ export function CreatorApplication() {
                             <AccountTitleComponent title={"Creator Program Application"} desc={"Complete the following verification steps then submit your application"}/>
                             <dl className="mt-6 space-y-6 divide-y divide-gray-300 border-t border-gray-200 text-sm leading-6">
 
-                                <ConnectTikTokComponent/>
                                 { userData?.settings?.tiktok?.is_verified == true && (
                                     <>
                                         <SimpleProfileComponent
@@ -61,7 +60,7 @@ export function CreatorApplication() {
     )
 }
 
-function ConnectTikTokComponent() {
+export function ConnectTikTokComponent() {
     
     const { loginWithTikTok, userData, isLoading } = useAuth()
 
@@ -69,9 +68,9 @@ function ConnectTikTokComponent() {
         <div className={''}>
             <dl className="space-y-6 text-sm leading-6">
                 <div className="pt-6 flex justify-between items-center">
-                    <dt className="font-semibold text-gray-900 sm:w-64 sm:flex-none sm:pr-6 text-sm lg:text-base">Verify TikTok Account</dt>
+                    <dt className="font-semibold text-gray-900 sm:w-64 sm:flex-none sm:pr-6 text-sm lg:text-base">Connect TikTok Account</dt>
                     <dd className=" flex gap-x-6 sm:mt-0">
-                        <p className="font-semibold text-green-600 text-sm lg:text-base">Verified</p>
+                        <p className="font-semibold text-green-600 text-sm lg:text-base">Connected</p>
                     </dd>
                 </div>
             </dl>

@@ -105,7 +105,7 @@ export function CreatorSocials({creatorData, setIsOpen}: any) {
         social: [
           {
             name: 'TikTok',
-            href: `${creatorData?.socials?.tiktok?.link}`,
+            href: `${creatorData?.socials?.tiktok?.link ? creatorData?.socials?.tiktok?.link : ''}`,
             icon: (props: any) => (
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
