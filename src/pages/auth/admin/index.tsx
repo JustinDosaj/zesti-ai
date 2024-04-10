@@ -20,7 +20,8 @@ export default function Home() {
         <title>Admin | Restricted Access</title>
      </Head>
       <main className={`flex min-h-screen flex-col items-center justify-between bg-background w-screen pb-28 ${raleway.className}`}>
-        <AdminApplicantList/>
+        <div className="mt-48"/>
+        <AddNewCreator/>
         <AdminCheckList/>
       </main>
     </>

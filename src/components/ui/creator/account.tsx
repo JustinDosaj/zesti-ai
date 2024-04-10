@@ -9,6 +9,7 @@ import { Container } from '@/components/shared/container'
 import { DocumentDuplicateIcon, ClipboardDocumentCheckIcon } from '@heroicons/react/20/solid'
 import { AccountTitleComponent, SimpleProfileComponent } from '../auth/account'
 import { SwitchComponent } from '@/components/shared/switch'
+import { ConnectTikTokComponent } from './application'
 
 
 export function CreatorSettingsComponent() {
@@ -24,11 +25,11 @@ export function CreatorSettingsComponent() {
     const router = useRouter()
 
     let socialLinks = [
-        { name: 'Tiktok', value: tiktok, function: setTikTok},
-        { name: 'YouTube', value: youtube, function: setYouTube},
-        { name: 'Twitter/X', value: twitter, function: setTwitter},
-        { name: 'Instagram', value: instagram, function: setInstagram},
-        { name: 'Website', value: website, function: setWebsite},
+        { name: 'Tiktok', value: tiktok, placeholder: "Authorize Tiktok in Account Settings", function: setTikTok},
+        { name: 'YouTube', value: youtube, placeholder: "", function: setYouTube},
+        { name: 'Twitter/X', value: twitter, placeholder: "", function: setTwitter},
+        { name: 'Instagram', value: instagram, placeholder: "", function: setInstagram},
+        { name: 'Website', value: website, placeholder: "", function: setWebsite},
     ]
 
     useEffect(() => {
@@ -153,7 +154,7 @@ export function CreatorSettingsComponent() {
                                     <dd className="mt-1 flex gap-x-6 sm:mt-0">
                                         <input className="border border-gray-300 p-2 rounded-3xl font-semibold text-gray-700 sm:w-64 sm:flex-none sm:pr-6"
                                             disabled={!edit} 
-                                            placeholder={social.value}
+                                            placeholder={social.placeholder}
                                             value={social.value}
                                             onChange={(e) => social.function(e.target.value)}
                                         />
@@ -203,7 +204,7 @@ export function CreatorProfileComponent() {
                 <main className="px-4 sm:px-6 lg:flex-auto lg:px-0">
                     <div className="mx-auto max-w-2xl space-y-16 sm:space-y-20 lg:mx-0 lg:max-w-none">
                         <div>
-                        <AccountTitleComponent title="Creator Information" desc="Connect your Tiktok, manage your affiliate account & edit your page"/>
+                        <AccountTitleComponent title="Creator Settings" desc="Manage your affiliate account, notifications, recipes & more"/>
                             <dl className="mt-6 space-y-6 text-sm leading-6 divide-y divide-gray-300 border-t border-gray-200">
                                 <PageLinkComponent accountStatus={userData?.account_status} affiliate_code={creatorData?.owner?.affiliate_code}/>
                                 <SimpleProfileComponent buttonName={"Manage"} title={"Affiliate Program"} onButtonClick={() => {window.open(`https://zesti.promotekit.com/`)}}/>
@@ -212,6 +213,7 @@ export function CreatorProfileComponent() {
                                     title={"Recipe Collection"}
                                     buttonName={"Edit/View"}
                                 />
+                                <ConnectTikTokComponent/>
                                 <CreatorNotificationComponent isOn={userData?.settings?.notifications?.active} userId={user?.uid}/>
                             </dl>
                         </div>
