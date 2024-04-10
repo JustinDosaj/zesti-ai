@@ -130,8 +130,8 @@ interface AddRecipeModalProps {
 // Specific modal for creator to input required information to upload recipe to page
 export function CreatorAddRecipeModal({isCreatorModalOpen, setIsCreatorModalOpen}: AddRecipeModalProps) {
 
-  const { creatorData } = useAuth()
   const cancelButtonRef = useRef(null)
+  const { creatorData } = useAuth()
   const [ rawText, setRawText ] = useState<string>('')
   const [ url, setUrl ] = useState<string>('')
   const [ loading , setLoading ] = useState<boolean>(false)
@@ -176,6 +176,8 @@ export function CreatorAddRecipeModal({isCreatorModalOpen, setIsCreatorModalOpen
                 <h2 className="text-center mt-3 text-lg text-gray-700 font-semibold">Add New Recipe</h2>
                 <CreatorAddRecipeLinkComponent url={url} setUrl={setUrl}/>
                 <CreatorAddRecipeTextComponent rawText={rawText} setRawText={setRawText}/>
+                
+                
                 <div className="mt-5 sm:mt-6 sm:grid sm:grid-flow-row-dense sm:grid-cols-2 sm:gap-3">
                   {loading == true ? 
                   <div className="sm:col-start-2">
@@ -202,6 +204,8 @@ export function CreatorAddRecipeModal({isCreatorModalOpen, setIsCreatorModalOpen
                     Cancel
                   </button>
                 </div>
+
+
               </Dialog.Panel>
             </Transition.Child>
           </div>
