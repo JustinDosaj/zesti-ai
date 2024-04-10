@@ -22,6 +22,7 @@ export function CreatorApplication() {
                         <div>
                             <AccountTitleComponent title={"Creator Program Application"} desc={"Complete the following verification steps then submit your application"}/>
                             <dl className="mt-6 space-y-6 divide-y divide-gray-300 border-t border-gray-200 text-sm leading-6">
+
                                 <ConnectTikTokComponent/>
                                 { userData?.settings?.tiktok?.is_verified == true && (
                                     <>
@@ -32,26 +33,25 @@ export function CreatorApplication() {
                                         />
                                     </>
                                     )
-                                }       
+                                }
                                 { // Clean this up later --> create object for messages
 
-                                    !userData?.settings?.tiktok?.is_verified && !isComplete ?
-                                        <p className="pt-6 text-center text-sm lg:text-base"><span className="font-bold">Step 1:</span> Connect Zesti on Tiktok so we can ensure you are the owner of your account </p>
-                                    : 
-                                    userData?.settings?.tiktok?.is_verified == true && !isComplete ?
-                                        <p className="pt-6 text-center text-sm lg:text-base"><span className="font-bold">Step 2:</span> Setup your affiliate account on promotekit</p>
-                                    :
-                                    isComplete ?
-                                        <div>
-                                            <p className="pt-6 text-center text-sm lg:text-base">
-                                                After submitting the promotekit form, your application is complete! You will hear a response in 1-2 business days.
-                                            </p>
-                                            <Button isLink={true} buttonType='button' text={"Back to Zesti"} href={'/'} className="flex justify-center w-[150px] mx-auto mt-4"/>
-                                        </div>
-                                    :
-                                    <div></div>
-                                }
-                             
+                                !userData?.settings?.tiktok?.is_verified && !isComplete ?
+                                    <p className="pt-6 text-center text-sm lg:text-base"><span className="font-bold">Step 1:</span> Connect Zesti on Tiktok so we can ensure you are the owner of your account </p>
+                                : 
+                                userData?.settings?.tiktok?.is_verified == true && !isComplete ?
+                                    <p className="pt-6 text-center text-sm lg:text-base"><span className="font-bold">Step 2:</span> Setup your affiliate account on promotekit</p>
+                                :
+                                isComplete ?
+                                    <div>
+                                        <p className="pt-6 text-center text-sm lg:text-base">
+                                            After submitting the promotekit form, your application is complete! You will hear a response in 1-2 business days.
+                                        </p>
+                                        <Button isLink={true} buttonType='button' text={"Back to Zesti"} href={'/'} className="flex justify-center w-[150px] mx-auto mt-4"/>
+                                    </div>
+                                :
+                                <div></div>
+                                }       
                             </dl>
                         </div>
                     </div>
