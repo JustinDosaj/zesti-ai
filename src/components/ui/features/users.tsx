@@ -4,7 +4,7 @@ import { useState, useEffect, useRef } from "react"
 import { ToolExamples, Scroller, FeaturedCreators, DashboardExample } from "../scroller"
 import { Button } from "@/components/shared/button"
 import Image from "next/image"
-import { SharedHomeSectionTitle } from "@/components/shared/title"
+import { TitleSection } from "@/components/shared/title"
 import { Search } from "@/components/search"
 import getConfig from "next/config"
 
@@ -122,7 +122,7 @@ export function HomePageCTA() {
           <p className="w-full md:w-96 text-xl font-medium text-center primary-orange-text-gradient mb-3">
             Check Out Premium
           </p>
-          <SharedHomeSectionTitle titleBlack="Try Free for 7-Days" desc="Get more out of Zesti when you use premium by gaining access to every feature Zesti offers and increased monthly usage!"/>
+          <TitleSection titleBlack="Try Free for 7-Days" desc="Get more out of Zesti when you use premium by gaining access to every feature Zesti offers and increased monthly usage!"/>
         </div>
         <Button isLink={true} href='/about/pricing' text="Get Started" className="text-lg font-medium text-center text-white"/>
       </div>
@@ -162,7 +162,7 @@ export function HomeVideoToRecipe({titleStart, titleEnd, desc}: any,) {
     <Container className="relative w-full max-w-6xl mx-auto px-5 animate-fadeIn ">
         <div className="flex flex-col lg:flex-row justify-center text-center lg:items-center w-full gap-8 p-2 xl:orange-border-shadow rounded-3xl">
             <div className="flex flex-col mt-8">
-                <SharedHomeSectionTitle titleBlack={titleStart} titleOrange={titleEnd} desc={desc}/>
+                <TitleSection titleBlack={titleStart} titleOrange={titleEnd} desc={desc}/>
                 <div className="grid grid-cols-1 xl:grid-cols-2 justify-center mt-4">
                   <div className="mx-auto" ref={tikTokRef}></div>
                   <div className="block xl:hidden mx-auto my-auto p-12 text-center">
@@ -185,7 +185,7 @@ export function ChatFeature() {
       <div className="mx-auto max-w-2xl px-4 py-12 sm:px-6 lg:max-w-7xl lg:px-8 rounded-3xl orange-border-shadow">
         <div className="flex justify-center items-center">
           <div className="space-y-6">
-              <SharedHomeSectionTitle titleBlack={"Chat with"} titleOrange={"Zesti"} desc={"Ask questions about specific steps, ingredients or anything regarding cooking and get instant answers!"}/>
+              <TitleSection titleBlack={"Chat with"} titleOrange={"Zesti"} desc={"Ask questions about specific steps, ingredients or anything regarding cooking and get instant answers!"}/>
             <div className="aspect-h-1 aspect-w-1 overflow-hidden ">
               <div className="flex justify-center">
                 <img
@@ -205,7 +205,7 @@ export function ChatFeature() {
 export function CookBookFeature({titleStart, titleEnd, desc}: any) {
   return (
     <Container className="relative w-full max-w-6xl mx-auto px-5 animate-fadeIn home-scroll-container ">
-        <SharedHomeSectionTitle titleBlack={titleStart} titleOrange={titleEnd} desc={desc}/>
+        <TitleSection titleBlack={titleStart} titleOrange={titleEnd} desc={desc}/>
         <div className="relative overflow-hidden pt-16">
           <div className="mx-auto max-w-7xl px-6 lg:px-8">
             <img

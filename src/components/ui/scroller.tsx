@@ -1,7 +1,7 @@
 import { ChevronLeftIcon, ChevronRightIcon} from "@heroicons/react/20/solid"
 import Link from "next/link";
 import Image from "next/image";
-import { SharedHomeSectionTitle } from "../shared/title";
+import { TitleSection } from "../shared/title";
 
 export function FeaturedCreators({creators}: any) {
 
@@ -9,7 +9,7 @@ export function FeaturedCreators({creators}: any) {
         <>
             <div className="flex flex-col lg:flex-row justify-center text-center lg:items-center w-full gap-8">
                 <div className="flex flex-col">
-                    <SharedHomeSectionTitle titleBlack="Discover New Recipes from" titleOrange="TikTok Creators" desc="Discover new recipes & inspiration from creators on Zesti"/>
+                    <TitleSection titleBlack="Featured Creators" desc="Discover new recipes & inspiration from creators on Zesti" />
                 </div>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-8">
@@ -34,7 +34,7 @@ export function ToolExamples() {
         <>
             <div className="flex flex-col lg:flex-row justify-center text-center lg:items-center w-full gap-8">
                 <div className="flex flex-col">
-                    <SharedHomeSectionTitle titleBlack="What Our Members Say About" titleOrange="Zesti" desc="Click on any of the example below of people using Zesti to instantly save YouTube & TikTok videos or create unique AI recipes!"/>
+                    <TitleSection  titleBlack="What Our Members Say About" titleOrange="Zesti" desc="Click on any of the example below of people using Zesti to instantly save YouTube & TikTok videos or create unique AI recipes!"/>
                 </div>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-8">

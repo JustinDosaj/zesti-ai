@@ -1,6 +1,6 @@
 import { Raleway } from 'next/font/google'
 import { useAuth } from './api/auth/auth'
-import { SharedHomeSectionTitle } from '@/components/shared/title'
+import { TitleSection } from '@/components/shared/title'
 import GoogleTags from "@/components/tags/conversion"
 import Head from "next/head"
 import { PromoteKitTag } from "@/components/tags/headertags"
@@ -30,7 +30,7 @@ export default function Account() {
     </Head>  
     <main className={`flex min-h-screen flex-col items-center bg-background w-screen ${raleway.className}`}>
       <div className="mt-36"/>
-      <SharedHomeSectionTitle titleBlack="Your Account"/>
+      <TitleSection titleBlack="Your Account"/>
       <div className={userData?.account_status == 'user'  ? `mx-auto` : `grid grid-cols-1 xl:grid-cols-2 xl:gap-x-3` }>
         <ProfilePageComponent/>
         <CreatorProfileComponent/>
