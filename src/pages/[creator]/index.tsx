@@ -102,13 +102,13 @@ const CreatorPage: NextPage<CreatorProps> = ({ creatorData, referer }) => {
         buttonName={"Start Free Trial"}
       />
       {stripeRole !== 'premium' && userData?.account_status !== 'creator' ?
-      <div className="flex justify-center items-center pt-28 lg:pt-36">
-        <div className="w-full min-w-[300px] max-w-[320px] lg:max-w-full lg:min-w-[1240px] text-center">
-          <AdSenseDisplay adSlot="9326575118" adFormat="rectangle, horizontal" widthRes="true"/>
+        <div className="flex justify-center items-center pt-28 lg:pt-36">
+          <div className="w-full min-w-[300px] max-w-[320px] lg:max-w-full lg:min-w-[1240px] text-center">
+            <AdSenseDisplay adSlot="9326575118" adFormat="rectangle, horizontal" widthRes="true"/>
+          </div>
         </div>
-      </div>
       :
-      <div className="mb-28"/>
+        <div className="mb-28"/>
       }
       {/* other creator data */}
     </main>

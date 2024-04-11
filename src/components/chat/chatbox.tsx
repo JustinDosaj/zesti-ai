@@ -106,7 +106,7 @@ export function Chatbox({role, recipe}:ChatBoxProps) {
           user && messages.length == 0 && role == 'premium' ? // Currently set !== to allow for anyone to use chat during beta
             <PremiumChat/>
           : user && messages.length == 0 && (role == null || 'user')  ?
-            <UpgradeToPremiumChat affiliate_code={recipe.owner_affiliate_code} display_name={recipe.owner_display_name}/>
+            <UpgradeToPremiumChat affiliate_code={recipe?.owner?.affiliate_code} display_name={recipe?.owner?.display_name}/>
           : user && messages.length > 0 ?
             <ActiveChatMessages messages={messages} endOfMessagesRef={endOfMessagesRef}/>
           :
