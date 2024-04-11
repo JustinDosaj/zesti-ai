@@ -35,6 +35,7 @@ export async function updateUserWithTikTokTokens(tokenData: TikTokTokenData, use
           profile_link: tiktokUserData.profile_deep_link,
           display_name: tiktokUserData.display_name,
           username: tiktokUserData.username,
+          most_recent_video_id: null,
         }
       },
     };
