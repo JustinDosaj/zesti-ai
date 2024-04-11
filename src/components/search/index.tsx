@@ -108,7 +108,7 @@ export function ManageRecipesSearch({creatorData}: any) {
       try {
           const [ recipes ] = await Promise.all([
               recipesIndex.search(query, {
-                filters: `owner_affiliate_code:"${creatorData?.owner?.affiliate_code}"` // Adding filter for owner_display_name
+                filters: `owner.affiliate_code:"${creatorData?.owner?.affiliate_code}"` // Adding filter for owner_display_name
             })
           ]);
           setSearchResults({ recipes: recipes?.hits });
