@@ -1,5 +1,6 @@
 import { Container } from "./container"
 import { ChevronDoubleLeftIcon } from "@heroicons/react/20/solid"
+import { Paragraph } from "./paragraph"
 import Link from "next/link"
 
 interface TextProps {
@@ -49,18 +50,33 @@ export function SharedViewAllTitle({title, href, desc}: SharedPageTitleProps) {
 }
 
 
-// IN USE
-export function SharedHomeSectionTitle({titleBlack, titleOrange, desc}: SharedPageTitleProps) {
+interface TitleProps {
+    titleBlack?: string,
+    titleOrange?: string,
+    showImage?: boolean,
+    imageHref?: string,
+    imageAlt?: string,
+    desc?: string,
+}
+
+export function TitleSection({titleBlack, titleOrange, desc, showImage, imageHref, imageAlt}: TitleProps) {
     return(
-    <div>
-        <h1 className="text-4xl lg:text-5xl font-semibold text-gray-700 text-center">
-            <span>{titleBlack}</span> 
-            <span className="primary-orange-text-gradient"> {titleOrange} </span>
-        </h1>
-        <p className="section-desc-text-size text-gray-600 w-full text-center mt-3 pl-1 pr-1">
-            {desc}
-        </p>
-    </div>
+        <Container className={"flex flex-col lg:flex-row gap-10 lg:gap-12 animate-fadeIn"}>
+            <div className="relative flex flex-col items-center text-center lg:max-w-none max-w-3xl mx-auto lg:mx-0 lg:flex-1 lg:w-1/2">
+                {showImage && (
+                    <img src={imageHref || '/images/page-image-placeholder.png'} alt={imageAlt} className="rounded-3xl h-[75px] w-[75px] sm:h-[100px] sm:w-[100px]"/>
+                )}
+                <div className="items-center inline-flex mt-2">
+                    <h1 className="text-3xl/tight sm:text-4xl/tight md:text-5xl/tight xl:text-5xl/tight font-semibold text-heading-1 text-gray-700 capitalize">
+                        <span>{titleBlack}</span> 
+                        <span className="primary-orange-text-gradient"> {titleOrange} </span>
+                    </h1>
+                </div>
+                <Paragraph className="mt-2 text-gray-600">
+                        {desc || ''}
+                </Paragraph>
+            </div>
+        </Container>
     )
 }
 

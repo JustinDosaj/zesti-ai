@@ -1,6 +1,6 @@
 "use client";
 
-import { Button, InlineButton } from "@/components/shared/button";
+import { Button } from "@/components/shared/button";
 import { CheckIcon } from "@heroicons/react/20/solid";
 import { Container } from "@/components/shared/container";
 import { createPremiumCheckoutSession } from "@/pages/api/stripe/stripePremium";
@@ -8,7 +8,7 @@ import { Loader } from "@/components/shared/loader";
 import { useAuth } from "@/pages/api/auth/auth";
 import { useState } from "react";
 import { useRouter } from "next/router";
-import { SharedHomeSectionTitle } from "@/components/shared/title";
+import { TitleSection } from "@/components/shared/title";
 
 function classNames(...classes: (string | undefined | null | false)[]): string {
   return classes.filter(Boolean).join(' ');
@@ -149,7 +149,7 @@ export function PricingTitle() {
       <div className="bg-white mx-auto">
         <div className="mx-auto max-w-7xl md:px-6 lg:px-8"></div>
           <div className="mx-auto max-w-4xl text-center">
-            <SharedHomeSectionTitle titleBlack="Choose a plan" desc="Join hundreds of users creating their favorite home cooked meals!"/>
+            <TitleSection titleBlack="Pricing Plans" desc="Join hundreds of users creating their favorite home cooked meals!"/>
             <p className="mx-auto sm:mb-8 mt-4 sm:mt-6 max-w-xl w-fit pr-3 pl-3 text-center leading-8 border border-primary-main rounded-3xl text-gray-600">
               Try for Free. Cancel anytime.
             </p>
