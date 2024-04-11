@@ -1,5 +1,5 @@
 
-import { SharedHomeSectionTitle } from "@/components/shared/title";
+import { TitleSection } from "@/components/shared/title";
 import Head from 'next/head';
 import GoogleTags from '@/components/tags/conversion';
 import { useAuth } from "@/pages/api/auth/auth";
@@ -31,7 +31,7 @@ export default function EditCreatorPage() {
         </Head>
         <main className={`flex min-h-screen flex-col items-center bg-background w-screen ${raleway.className}`}>
             <Breadcrumbs/>
-            <SharedHomeSectionTitle titleBlack="Edit Page"/>
+            <TitleSection titleBlack="Edit Page"/>
             <CreatorSettingsComponent/>
         </main>
     </>

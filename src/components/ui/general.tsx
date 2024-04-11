@@ -7,7 +7,7 @@ import { useAuth } from "@/pages/api/auth/auth"
 import getConfig from "next/config"
 import { MinusSmallIcon, PlusSmallIcon} from "@heroicons/react/20/solid"
 import { Disclosure } from "@headlessui/react"
-import { SharedHomeSectionTitle } from "@/components/shared/title"
+import { TitleSection } from "../shared/title"
 
 
 interface HeroProps {
@@ -296,7 +296,7 @@ export function FAQ({type, title, desc}: FAQProps) {
         <div className="mx-auto max-w-7xl px-6">
           <div className="mx-auto max-w-4xl divide-y divide-gray-900/10">
             <div className="flex flex-col items-center text-center">
-              <SharedHomeSectionTitle titleBlack={title} desc={desc}/>
+              <TitleSection titleBlack={title} desc={desc}/>
             </div>
             <dl className="mt-10 space-y-6 divide-y divide-gray-900/10">
               {faqs.map((faq) => (

@@ -1,5 +1,5 @@
 import { Raleway } from 'next/font/google'
-import { CreatorSearch, CreatorPageTitle, CreatorSocials, CreatorPageRecentRecipes } from '@/components/ui/creator/page';
+import { CreatorSearch, CreatorSocials } from '@/components/ui/creator/page';
 import { GetServerSideProps, NextPage } from 'next';
 import Head from 'next/head';
 import GoogleTags from '@/components/tags/conversion';
@@ -13,8 +13,9 @@ import firebase from 'firebase/compat/app';
 import { useAuth } from '@/pages/api/auth/auth';
 import AdSenseDisplay from '@/components/tags/adsense';
 import { ResponseModal } from '@/components/shared/modals';
-import { useRouter } from 'next/router';
 import { SparklesIcon } from '@heroicons/react/24/outline';
+import { TitleSection } from '@/components/shared/title';
+import { RecipeCardList } from '@/components/ui/recipe';
 
 const raleway = Raleway({subsets: ['latin']})
 
@@ -85,10 +86,10 @@ const CreatorPage: NextPage<CreatorProps> = ({ creatorData, referer }) => {
     </Head>
     <main className={`flex min-h-screen flex-col items-center bg-background space-y-4 w-screen pb-48  ${raleway.className}`}>
       <Breadcrumbs/>
-      <CreatorPageTitle creatorData={creatorData}/>
+      <TitleSection titleBlack={creatorData?.display_name} desc={creatorData?.bio_description} showImage={true} imageHref={creatorData?.page_image} imageAlt={creatorData?.affiliate_code}/>
       <CreatorSocials setIsOpen={setIsOpen} creatorData={creatorData}/>
       <CreatorSearch creatorData={creatorData}/>
-      <CreatorPageRecentRecipes recipes={creatorRecipeList} creatorName={creatorData?.owner?.affiliate_code} owner_id={creatorData?.owner?.id}/>
+      <RecipeCardList recipes={creatorRecipeList} maxDisplayCount={9} max={0} loading={loadingCreatorRecipes}/>
       <ResponseModal
         title={`Support ${creatorData?.display_name}`}
         text={`Continue to start a 7-day free trial for Zesti Premium. ${creatorData?.display_name} will receive a portion of the subscription fee automatically once your trial is complete.`}
