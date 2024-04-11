@@ -8,6 +8,7 @@ import { fetchUserTikTokInfo } from '../handler/tiktok';
 interface UserData {
   account_status?: string;
   affiliate_code?: string;
+  date_created?: string;
   email?: string;
   stripeId?: string;
   stripeLink?: string;
@@ -20,22 +21,18 @@ interface UserData {
       profile_link?: string;
       display_name?: string;
       username?: string;
+      most_recent_video_id?: string;
     },
     notifications?: {
       active?: boolean;
-      most_recent_video_id?: string;
     };
   }
 }
 
 interface CreatorData {
-  avatar_url?: string;
   bio_description?: string;
-  follower_count?: number;
-  is_verified?: boolean;
-  likes_count?: number;
   display_name?:string;
-  open_id?: string,
+  page_image?: string;
   socials?: {
     tiktok?: {
       username?: string,
@@ -56,14 +53,11 @@ interface CreatorData {
     website?: {
       link?: string,
     },
-  },
+  };
   owner?: {
     id?: string,
     affiliate_code?: string,
-  }
-  union_id?: string,
-  video_count?: number,
-  page_image?: string,
+  };
 }
 
 interface AuthContextType {
