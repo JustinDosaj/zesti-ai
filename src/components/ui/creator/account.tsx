@@ -15,6 +15,7 @@ import { ConnectTikTokComponent } from './application'
 export function CreatorSettingsComponent() {
 
     const { user, creatorData, isLoading, userData } = useAuth()
+    const [ displayName, setDisplayName] = useState<string>(creatorData?.display_name || '')
     const [ bio, setBio ] = useState<string>(creatorData?.bio_description ? creatorData.bio_description : '')
     const [ tiktok, setTikTok ] = useState<string>(creatorData?.socials?.tiktok?.link ? creatorData?.socials?.tiktok?.link : '')
     const [ youtube, setYouTube ] = useState<string>(creatorData?.socials?.youtube?.link ? creatorData.socials.youtube?.link : '')
@@ -39,6 +40,7 @@ export function CreatorSettingsComponent() {
         setTwitter(creatorData?.socials?.twitter?.link || '')
         setInstagram(creatorData?.socials?.instagram?.link || '')
         setWebsite(creatorData?.socials?.website?.link || '')
+        setDisplayName(creatorData?.display_name || '')
 
         if(!creatorData && !isLoading) { router.push('/account')}
 
@@ -51,6 +53,7 @@ export function CreatorSettingsComponent() {
         if (user) {
             const bioObject = {
                 bio_description: bio,
+                display_name: displayName,
                 socials: {
                     instagram: {
                         link: instagram,
@@ -112,7 +115,7 @@ export function CreatorSettingsComponent() {
                         <AccountTitleComponent title={"Edit Your Page"} desc={"Contribute to your recipe collection & add social media links to let users follow you on other platforms"}/>
                         <dl className="mt-6 space-y-6 text-sm leading-6 divide-y divide-gray-300">
                             <PageLinkComponent affiliate_code={creatorData?.owner?.affiliate_code} accountStatus={userData?.account_status}/>
-                            <SimpleProfileComponent title={"Page Name"} desc={creatorData?.display_name} onButtonClick={() => router.push(`/${creatorData?.owner?.affiliate_code}`)} buttonName={"View Page"}/>
+                            <SimpleProfileComponent title={"View Page"} onButtonClick={() => router.push(`/${creatorData?.owner?.affiliate_code}`)} buttonName={"Go To Page"}/>
                             <div className="pt-6 flex items-center justify-between border-gray-200">
                                 <dt className="grid grid-cols-1 font-semibold text-gray-900 sm:w-64 sm:flex-none pr-6 text-sm lg:text-base">
                                     <span>Page Image</span>
@@ -139,6 +142,18 @@ export function CreatorSettingsComponent() {
                                 </dd>
                             </div>
                             <SimpleProfileComponent title={"Recipe Collection"} onButtonClick={() => router.push(`/creator/edit/manage-recipes`)} buttonName={"Add/Remove/Edit"}/>
+                            <div className="pt-6 flex justify-between items-center">
+                                <dt className="font-semibold text-gray-900 sm:w-64 sm:flex-none sm:pr-6 text-sm lg:text-base">{"Display Name"}</dt>
+                                <dd className="mt-1 flex gap-x-6 sm:mt-0">
+                                    <input className="border border-gray-300 p-2 rounded-3xl font-semibold text-gray-700 sm:w-64 sm:flex-none sm:pr-6 text-right"
+                                        disabled={!edit} 
+                                        placeholder={displayName || ''}
+                                        value={displayName}
+                                        onChange={(e) => setDisplayName(e.target.value)}
+                                    />
+                                    {/* TRACK AFFILIATE CODE INSIDE FIRESTORE THEN DISPLAY MANAGE AFFILIATE PROGRAM IF IT IS AVAILABLE*/}
+                                </dd>
+                            </div>
                             <div className="pt-6 justify-between items-center">
                                 <dt className="font-semibold text-gray-900 sm:w-64 sm:flex-none sm:pr-6 text-sm lg:text-base">Biography</dt>
                                 <textarea className="border border-gray-300 p-2 rounded-3xl font-semibold text-gray-700 w-full sm:flex-none sm:pr-6 mt-4"

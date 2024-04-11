@@ -1,6 +1,7 @@
 import { Raleway } from 'next/font/google'
 import { useAuth } from '@/pages/api/auth/auth'
-import { SharedHomeSectionTitle } from '@/components/shared/title'
+import { 
+  TitleSection } from '@/components/shared/title'
 import React, { useState } from 'react'
 import GoogleTags from "@/components/tags/conversion"
 import Head from "next/head"
@@ -45,7 +46,7 @@ export default function ManageRecipes() {
     </Head>  
     <main className={`flex min-h-screen flex-col items-center bg-background w-screen ${raleway.className}`}>
       <Breadcrumbs/>
-      <SharedHomeSectionTitle titleBlack="Manage Recipe Collection" desc="Add a new recipe to your creator page"/>
+      <TitleSection titleBlack="Manage Recipe Collection" desc="Add a new recipe to your creator page"/>
       <ManageRecipesList userData={userData} publicData={creatorRecipeList} setIsCreatorModalOpen={setIsCreatorModalOpen} setIsAuthModalOpen={setIsAuthModalOpen} setRecipeId={setRecipeId} setIsOpen={setIsOpen}/>
       <CreatorAddRecipeModal isCreatorModalOpen={isCreatorModalOpen} setIsCreatorModalOpen={setIsCreatorModalOpen}/>
       <CreatorResubmitRecipeModal isResubmitOpen={isResubmitOpen} setIsResubmitOpen={setIsResubmitOpen} url={url} setUrl={setUrl} recipe_id={recipeId}/>
