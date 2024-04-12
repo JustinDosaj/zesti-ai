@@ -65,29 +65,29 @@ const Recipe: React.FC = ({id, owner_uid}: any) => {
             <CreatorRecipe recipe={creatorRecipe} owner_id={owner_uid} isEditMode={isEditMode} setEditMode={setEditMode} setIsOpen={setIsOpen} setIsSupportOpen={setIsSupportOpen}/>
             <Chatbox role={stripeRole} recipe={creatorRecipe}/>
             <ResponseModal
-            title={`${creatorRecipe.name} Saved!`}
-            text={`You can view the it by visiting your saved recipe page!`}
-            icon={BookmarkIcon}
-            iconColor={'orange'}
-            modalFunction={() => router.push('/my-recipes')}
-            isOpen={isOpen}
-            setIsOpen={setIsOpen}
-            displayAd={true}
-            isCreator={userData?.account_status === 'creator'}
-            role={stripeRole}
-            buttonName={"My Recipes"}
+              title={`${creatorRecipe.name} Saved!`}
+              text={`You can view the it by visiting your saved recipe page!`}
+              icon={BookmarkIcon}
+              iconColor={'orange'}
+              modalFunction={() => router.push('/my-recipes')}
+              isOpen={isOpen}
+              setIsOpen={setIsOpen}
+              displayAd={true}
+              isCreator={userData?.account_status === 'creator'}
+              role={stripeRole}
+              buttonName={"My Recipes"}
             />
             <ResponseModal
-            title={`Support ${creatorRecipe?.owner_display_name}`}
-            text={`Continue to start a 7-day free trial for Zesti Premium. ${creatorRecipe?.owner_display_name} will receive a portion of the subscription fee automatically once your trial is complete.`}
-            icon={SparklesIcon}
-            iconColor={'orange'}
-            modalFunction={() => window.open(`/about/pricing?via=${creatorRecipe?.owner_affiliate_code}`)}
-            isOpen={isSupportOpen}
-            setIsOpen={setIsSupportOpen}
-            displayAd={false}
-            role={stripeRole}
-            buttonName={"Start Free Trial"}
+              title={`Support ${creatorRecipe?.owner_display_name}`}
+              text={`Continue to start a 7-day free trial for Zesti Premium. ${creatorRecipe?.owner_display_name} will receive a portion of the subscription fee automatically once your trial is complete.`}
+              icon={SparklesIcon}
+              iconColor={'orange'}
+              modalFunction={() => window.open(`/about/pricing?via=${creatorRecipe?.owner_affiliate_code}`)}
+              isOpen={isSupportOpen}
+              setIsOpen={setIsSupportOpen}
+              displayAd={false}
+              role={stripeRole}
+              buttonName={"Start Free Trial"}
             />
             
             {stripeRole !== 'premium' || userData?.account_status !== 'creator' ?

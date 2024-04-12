@@ -8,6 +8,7 @@ import getConfig from "next/config"
 import { MinusSmallIcon, PlusSmallIcon} from "@heroicons/react/20/solid"
 import { Disclosure } from "@headlessui/react"
 import { TitleSection } from "../shared/title"
+import { Paragraph } from "../shared/paragraph"
 
 
 interface HeroProps {
@@ -175,17 +176,17 @@ export function ThreeBoxFeature({type, titleStart, titleEnd, desc}: ThreeBoxFeat
     const features: Feature[] = FeatureTypes[type]
 
     return(
-        <Container className={" px-5 animate-fadeIn"}>
-            <div className="w-full max-w-7xl mx-auto">
+        <Container className={"px-5 animate-fadeIn"}>
+            <div className="w-full max-w-7xl mx-auto space-y-4">
                 <div className="grid justify-center items-center text-center lg:text-left">
                     <p className="section-title-text-size font-semibold text-gray-700">
                     {titleStart}
                     <span className="primary-orange-text-gradient"> {titleEnd} </span>
                     </p>
                 </div>
-                <p className="mt-6 w-full text-center section-desc-text-size text-gray-600">
-                    {desc}
-                </p>
+                <Paragraph className="text-center text-gray-600">
+                  {desc}
+                </Paragraph>
                 <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-10 mt-12">
                     {features.map((feature) => (
                     <div key={feature.name} className="flex flex-col items-start p-6 rounded-3xl gap-y-2 bg-white orange-border-shadow">
