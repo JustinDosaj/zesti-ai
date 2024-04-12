@@ -1,3 +1,5 @@
+import React from 'react'
+
 
 interface AccountPageComponents {
     title?: string,
@@ -20,13 +22,17 @@ interface ProfileProps {
     onButtonClick?: () => void,
     desc?: any,
     title?: string,
+    subText?: string
 }
 
-export function SimpleProfileComponent({onButtonClick, buttonName, title, desc}: ProfileProps) {
+export function SimpleProfileComponent({onButtonClick, buttonName, title, desc, subText}: ProfileProps) {
     
     return(
         <div className="pt-6 flex justify-between items-center border-gray-200">
-            <dt className="font-semibold text-gray-900 sm:flex-none sm:pr-6 text-sm lg:text-base">{title}</dt>
+            <dt className="grid grid-cols-1 font-semibold text-gray-900 sm:w-64 sm:flex-none pr-6 text-sm lg:text-base">
+                <span>{title}</span>
+                <span className="text-xs text-gray-500">{subText}</span>
+            </dt>
             <dd className="mt-1 flex gap-x-6 sm:mt-0">
                 <div className="text-gray-700 text-sm lg:text-base">{desc}</div>
             </dd>
