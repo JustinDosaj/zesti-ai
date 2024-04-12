@@ -1,11 +1,16 @@
+import { classNames } from "./classNames"
+
 interface TextProps {
     children?: React.ReactNode,
-    className?:string,
+    className?: string,
+    size?: 'small' | 'medium' | 'large'
 }
 
-export function Paragraph({className, children}: TextProps){
+export function Paragraph({className, children, size}: TextProps){
+
     return(
-        <p className={`md:text-md lg:text-lg text-heading-3 ${className}`}>
+
+        <p className={classNames(size == 'small' ? `text-sm md:text-base lg:text-medium` : `text-base md:text-md lg:text-lg`, `text-heading-3 ${className}`)}>
             {children}
         </p>
     )
