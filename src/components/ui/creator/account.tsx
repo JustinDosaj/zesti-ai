@@ -115,11 +115,12 @@ export function CreatorSettingsComponent() {
                         <AccountTitleComponent title={"Edit Your Page"} desc={"Contribute to your recipe collection & add social media links to let users follow you on other platforms"}/>
                         <dl className="mt-6 space-y-6 text-sm leading-6 divide-y divide-gray-300">
                             <PageLinkComponent affiliate_code={creatorData?.owner?.affiliate_code} accountStatus={userData?.account_status}/>
-                            <SimpleProfileComponent title={"View Page"} onButtonClick={() => router.push(`/${creatorData?.owner?.affiliate_code}`)} buttonName={"Go To Page"}/>
+                            <SimpleProfileComponent title={"View Page"} subText={"What your page looks like to others"} onButtonClick={() => router.push(`/${creatorData?.owner?.affiliate_code}`)} buttonName={"Visit"}/>
+                            <SimpleProfileComponent title={"Recipe Collection"} subText={"Add, remove or edit recipes"} onButtonClick={() => router.push(`/creator/edit/manage-recipes`)} buttonName={"Manage"}/>
                             <div className="pt-6 flex items-center justify-between border-gray-200">
                                 <dt className="grid grid-cols-1 font-semibold text-gray-900 sm:w-64 sm:flex-none pr-6 text-sm lg:text-base">
                                     <span>Page Image</span>
-                                    <span className="text-xs text-gray-500">{"(Max: 250x250 px)"}</span>
+                                    <span className="text-xs text-gray-500">{"JPG or PNG (Max: 250x250 px)"}</span>
                                 </dt>
                                 <dd className="flex flex-col gap-y-2 space-x-6 sm:flex-row items-center">
                                     <input
@@ -137,15 +138,14 @@ export function CreatorSettingsComponent() {
                                         className="rounded-xl"
                                     />
                                     <label htmlFor="file-upload" className="font-semibold text-primary-main hover:text-primary-alt text-sm lg:text-base cursor-pointer">
-                                        Update Image
+                                        Upload
                                     </label>
                                 </dd>
                             </div>
-                            <SimpleProfileComponent title={"Recipe Collection"} onButtonClick={() => router.push(`/creator/edit/manage-recipes`)} buttonName={"Add/Remove/Edit"}/>
                             <div className="pt-6 flex justify-between items-center">
                                 <dt className="font-semibold text-gray-900 sm:w-64 sm:flex-none sm:pr-6 text-sm lg:text-base">{"Display Name"}</dt>
                                 <dd className="mt-1 flex gap-x-6 sm:mt-0">
-                                    <input className="border border-gray-300 p-2 rounded-3xl font-semibold text-gray-700 sm:w-64 sm:flex-none sm:pr-6 text-right"
+                                    <input className="border border-gray-300 p-2 rounded-3xl font-semibold text-gray-700 sm:w-64 sm:flex-none sm:pr-6"
                                         disabled={!edit} 
                                         placeholder={displayName || ''}
                                         value={displayName}
@@ -225,8 +225,9 @@ export function CreatorProfileComponent() {
                                 <SimpleProfileComponent buttonName={"Manage"} title={"Affiliate Program"} onButtonClick={() => {window.open(`https://zesti.promotekit.com/`)}}/>
                                 <SimpleProfileComponent
                                     onButtonClick={() => router.push('/creator/edit/')}
-                                    title={"Recipe Collection"}
-                                    buttonName={"Edit/View"}
+                                    title={"Manage Your Page"}
+                                    buttonName={"Edit"}
+                                    subText={"Add recipes, update page & more"}
                                 />
                                 <ConnectTikTokComponent/>
                                 <CreatorNotificationComponent isOn={userData?.settings?.notifications?.active} userId={user?.uid}/>
@@ -264,16 +265,16 @@ function PageLinkComponent({affiliate_code, accountStatus}:CreatorPageComponents
     if (accountStatus !== "creator") return;
 
     const copyToClipboard = async (text: any) => {
-    if (navigator.clipboard) { // Modern async API
-        try {
-            await navigator.clipboard.writeText(text);
-            setIsLinkCopied(true)
-            Notify("Copied link to clipboard")
-        } catch (err) {
-            console.error('Failed to copy: ', err);
-        }
-    } 
-};
+        if (navigator.clipboard) { // Modern async API
+            try {
+                await navigator.clipboard.writeText(text);
+                setIsLinkCopied(true)
+                Notify("Copied link to clipboard")
+            } catch (err) {
+                console.error('Failed to copy: ', err);
+            }
+        } 
+    };
 
     const urlToCopy = `https://www.zesti.ai?via=${affiliate_code}`;
 

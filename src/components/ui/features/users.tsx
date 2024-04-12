@@ -7,6 +7,7 @@ import Image from "next/image"
 import { TitleSection } from "@/components/shared/title"
 import { Search } from "@/components/search"
 import getConfig from "next/config"
+import { Paragraph } from "@/components/shared/paragraph"
 
 interface HeroProps {
   titleStart?: string,
@@ -31,9 +32,9 @@ export function Hero({titleStart, titleEnd, description}: HeroProps) {
               <span className="primary-orange-text-gradient"> {titleEnd} </span>
               <br />
             </h1>
-            <p className="section-desc-text-size font-medium text-gray-600">
+            <Paragraph className="font-medium text-gray-600">
               {description}
-            </p>
+            </Paragraph>
           </div>
           <div className="grid justify-center lg:justify-start text-left space-y-1">
             <Search searchLocation="home"/>
