@@ -5,7 +5,6 @@ import GoogleTags from "@/components/tags/conversion"
 import Head from "next/head"
 import { PromoteKitTag } from "@/components/tags/headertags"
 import { ProfilePageComponent } from '@/components/ui/user/account'
-import { CreatorProfileComponent } from '@/components/ui/creator/account'
 import { PageLoader } from '@/components/shared/loader'
 import useRequireAuth from '@/hooks/user/useRequireAuth'
 
@@ -31,9 +30,8 @@ export default function Account() {
     <main className={`flex min-h-screen flex-col items-center bg-background w-screen ${raleway.className}`}>
       <div className="mt-36"/>
       <TitleSection titleBlack="Your Account"/>
-      <div className={userData?.account_status == 'user'  ? `mx-auto` : `grid grid-cols-1 xl:grid-cols-2 xl:gap-x-3` }>
+      <div className={userData?.account_status == 'user'  ? `mx-auto` : `grid grid-cols-1 xl:gap-x-3` }>
         <ProfilePageComponent/>
-        <CreatorProfileComponent/>
       </div>
       <div className="mt-36"/>
     </main>

@@ -88,13 +88,13 @@ export async function updateNotificationSettings(userId?: string, isOn?: boolean
 
 /* Update Creator Profile END */
 
-export const saveRecipeReferenceToUser = async (userId: string, recipeId: string, creatorId: string, creatorName: string) => {
+
+export const saveRecipeReferenceToUser = async (userId: string, recipeId: string) => {
   const userRef = db.collection('users').doc(userId);
-  const recipeRef = db.collection('creators').doc(creatorId).collection('recipes').doc(recipeId);
+  const recipeRef = db.collection('recipes').doc(recipeId);
 
   await userRef.collection('recipes').doc(recipeId).set({
-      owner: creatorName,
-      owner_id: creatorId,
+      recipe_id: recipeId,
       recipeRef: recipeRef,
       date: new Date().toISOString(),
   });
@@ -184,3 +184,18 @@ export async function SendErrorToFirestore(user_id: string | undefined | null, e
   await errorRef.set(errorObj, {merge: true})
 }
 
+
+
+// PROTOTYPE FUNCTIONS //
+
+export async function getRecipeById(recipeId: string) {
+
+  const recipeRef = db.collection('recipes').doc(recipeId);
+  const doc = await recipeRef.get();
+
+  if (!doc.exists) {
+    throw new Error('Recipe not found');
+  }
+
+  return doc.data();
+}

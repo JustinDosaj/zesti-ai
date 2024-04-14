@@ -8,7 +8,7 @@ const raleway = Raleway({subsets: ['latin']})
 
 const navigation = {
     solutions: [
-      { name: 'Zesti Example', href: '/zestidotai' },
+      { name: 'Recipe Video to Text (N/A)', href: '' },
       { name: 'Cooking Assistant', href: '/about/solutions/cooking-assistant' },
     ],
     support: [
@@ -17,7 +17,7 @@ const navigation = {
       { name: 'FAQ', href: '/about/faq' },
     ],
     company: [
-      { name: 'Creator Program', href: '/about/creator'}
+      { name: 'About Us (N/A)', href: ''}
     ],
     legal: [
       { name: 'Privacy', href: 'https://app.termly.io/document/privacy-policy/728b76f9-24fe-480c-ad17-3c56ffa53417' },

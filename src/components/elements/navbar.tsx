@@ -5,101 +5,15 @@ import { useAuth } from "@/pages/api/auth/auth"
 import { Button } from "../shared/button"
 import Link from "next/link"
 import Image from "next/image"
-import { BookOpenIcon, HomeIcon, PaperAirplaneIcon, WalletIcon, UserIcon, PencilSquareIcon } from "@heroicons/react/20/solid"
+import { BookOpenIcon, HomeIcon, PaperAirplaneIcon, WalletIcon, UserIcon } from "@heroicons/react/20/solid"
 import { DropDownMenuDesktop, DropDownMenuMobile } from "./menus"
 import { useRouter } from "next/router"
-import { useEffect, useState } from "react"
 
-
-const navItemsLoggedInMobile = [
-    {
-        href:"/",
-        text:"Home",
-        icon: HomeIcon,
-    },
-    {
-        href:"/my-recipes",
-        text:"My Recipes",
-        icon: BookOpenIcon,
-    },
-    {
-        href:"/about/pricing",
-        text:"Pricing",
-        icon: WalletIcon,
-    },
-    {
-        href:"/about/contact",
-        text: "Contact",
-        icon: PaperAirplaneIcon,
-    },
-    {
-        href: "/account",
-        text: "Account Settings",
-        icon: UserIcon,
-    },
-]
-
-const creatorItemsLoggedInMobile = [
-    {
-        href:"/",
-        text:"Home",
-        icon: HomeIcon,
-    },
-    {
-        href:"/my-recipes",
-        text:"My Recipes",
-        icon: BookOpenIcon,
-    },
-    { 
-        href:"/creator/edit",
-        text: "Creator Page Settings",
-        icon: PencilSquareIcon, 
-    },
-    {
-        href: "/account",
-        text: "Account Settings",
-        icon: UserIcon,
-    },
-    {
-        href:"/about/pricing",
-        text:"Pricing",
-        icon: WalletIcon,
-    },
-    {
-        href:"/about/contact",
-        text: "Contact",
-        icon: PaperAirplaneIcon,
-    },
-]
 
 export function Navbar() {
     
-    const { user, userData, isLoading } = useAuth();
-    const [ navChoice, setNavChoice ] = useState<string>("noUser")
+    const { user, login } = useAuth();
     const router = useRouter()
-
-    useEffect(() => {
-
-        if(userData?.account_status == 'creator') { setNavChoice("creator") }
-        if(userData?.account_status == 'user') { setNavChoice("user") }
-        if(!user) { setNavChoice("noUser") }
-
-    },[isLoading, user, userData])
-
-    const testNav: any = {
-        user: {
-            message: "My Recipes",
-            function: () => router.push('/my-recipes'),
-        },
-        noUser: {
-            message: "Login",
-            function: () => router.push('/auth/login'),
-        },
-        creator: {
-            message: "View Your Page",
-            function: () => router.push(`/${userData?.affiliate_code}`),
-        },
-    }
 
     const navItemsDesktop = [
         { href: "/", text: "Home" },
@@ -121,25 +35,64 @@ export function Navbar() {
         },
     ]
 
-    if(userData?.account_status == 'creator') {
-        desktopDropDownItems.push({
-            href: "/creator/edit",
-            text: "Edit Your Page",
-            icon: PencilSquareIcon,
-        })
-    }
+    const navItemsMobileLoggedOut = [
+        {
+            href:"/",
+            text:"Home",
+            icon: HomeIcon,
+        },
+        {
+            href:"/about/pricing",
+            text:"Pricing",
+            icon: WalletIcon,
+        },
+        {
+            href:"/about/contact",
+            text: "Contact",
+            icon: PaperAirplaneIcon,
+        },
+    ]
+
+    const navItemsLoggedInMobile = [
+        {
+            href:"/",
+            text:"Home",
+            icon: HomeIcon,
+        },
+        {
+            href:"/my-recipes",
+            text:"My Recipes",
+            icon: BookOpenIcon,
+        },
+        {
+            href:"/about/pricing",
+            text:"Pricing",
+            icon: WalletIcon,
+        },
+        {
+            href:"/about/contact",
+            text: "Contact",
+            icon: PaperAirplaneIcon,
+        },
+        {
+            href: "/account",
+            text: "Account Settings",
+            icon: UserIcon,
+        },
+    ]
 
     return(
 
     <header className="absolute inset-x-0 top-0 z-45 py-6 w-screen">
         <Container>
             <nav className="flex justify-between items-center">
-                <div className="flex justify-start w-1/3">
+                {/* Logo & Text -- Turns visible on screen size large */}
+                <div className="hidden lg:flex justify-start w-1/3 ">
                     <Link href="/" className="flex items-center gap-3">
                         <div className="relative w-14 h-14 overflow-hidden flex rounded-xl">
                             <Image src="/images/Zesti-Logo.png" alt="Zesti Artificial Intelligence Recipe Helper Logo" width={60} height={30}/>
                         </div>
-                        <div className="inline-flex sm:visible text-2xl font-semibold text-heading-1 text-black">
+                        <div className="hidden lg:inline-flex text-2xl font-semibold text-heading-1 text-black">
                             Zesti.ai
                         </div>
                     </Link>
@@ -151,20 +104,29 @@ export function Navbar() {
                         })}
                     </ul>
                 </div>
+
+                {/* Desktop menu only visible on large screens or bigger */}
                 <div className="hidden lg:flex justify-end w-1/3">
-                    {/* Main Orange Button for Primary navigation based on accountStatus: base_user, creator_connect_tiktok, creator_connect_affiliate, creator_generate_page, creator*/}
                     <div className="inline-flex items-center space-x-4">
-                        <Button buttonType="button" isLink={false} onClick={() => testNav[navChoice].function()} text={testNav[navChoice].message}/>
+                        {user ? 
+                            <Button buttonType="button" isLink={false} onClick={() => router.push('/my-recipes')} text={"My Recipes"}/>
+                        :
+                            <Button buttonType="button" isLink={false} onClick={login} text={"Login"}/>
+                        }
                         <DropDownMenuDesktop navItems={desktopDropDownItems} isHidden={!user}/> 
                     </div>
 
                 </div>
-                {!user ? 
-                    <Button isLink={true} text='Login' href='/auth/login' className="lg:hidden"/> 
-                : userData?.account_status == 'creator' ?
-                    <DropDownMenuMobile navItems={creatorItemsLoggedInMobile}/>
+                {!user ?
+                    <div className="flex lg:hidden justify-between items-center w-full"> 
+                        <DropDownMenuMobile navItems={navItemsMobileLoggedOut}/> 
+                        <Button buttonType="button" isLink={false} onClick={login} text={"Login"}/>
+                    </div>
                 : 
-                    <DropDownMenuMobile navItems={navItemsLoggedInMobile}/>
+                    <div className="flex lg:hidden justify-between items-center w-full"> 
+                        <DropDownMenuMobile navItems={navItemsLoggedInMobile}/> 
+                        <Button buttonType="button" isLink={false} onClick={login} text={"My Recipes"}/>
+                    </div>
                 }
             </nav>
         </Container>
