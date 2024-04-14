@@ -12,8 +12,7 @@ interface SearchProps {
 export function Search({searchLocation}: SearchProps){
 
     const searchClient = algoliasearch(`${process.env.NEXT_PUBLIC_ALGOLIA_APPLICATION_ID}`, `${process.env.NEXT_PUBLIC_ALGOLIA_SEARCH_ONLY_KEY}`);
-    const creatorsIndex = searchClient.initIndex(`${process.env.NEXT_PUBLIC_ALGOLIA_CREATOR_RECIPE_INDEX}`);
-    const recipesIndex = searchClient.initIndex(`${process.env.NEXT_PUBLIC_ALGOLIA_RECIPE_INDEX}`);
+    const recipesIndex = searchClient.initIndex(`${process.env.NEXT_PUBLIC_ALGOLIA_ALL_RECIPES_INDEX}`);
     const [ input, setInput ] = useState<string>('');
     const [searchResults, setSearchResults] = useState<any>({ creators: [], recipes: [] });
 
@@ -25,23 +24,19 @@ export function Search({searchLocation}: SearchProps){
 
     const handleSearch = async (query: any) => {
         try {
-            const [creators, recipes] = await Promise.all([
-                creatorsIndex.search(query),
+            const [ recipes ] = await Promise.all([
                 recipesIndex.search(query)
             ]);
-            setSearchResults({ creators: creators.hits, recipes: recipes.hits });
+            setSearchResults({ recipes: recipes.hits });
         } catch (error) {
             console.error("Algolia search error:", error);
         }
     };
     
     const renderSearchResults = () => {
-        // Combine and limit results
-        const combinedResults = [...searchResults.creators.slice(0, 5), ...searchResults.recipes.slice(0, 5)].slice(0, 5);
-
-        return (
+        return(
             <div className="absolute z-20 mt-16 w-[325px] md:w-[500px] bg-white shadow-lg border border-gray-200 rounded-3xl">
-                {combinedResults.map((result, index) => (
+                {searchResults.recipes.map((result: any, index: number) => (
                     
                     <>{result.display_name ? 
                         <Link key={index} href={`/${result?.owner.affiliate_code}`} className="block px-4 text-gray-700 hover:bg-gray-100 rounded-3xl">
@@ -57,7 +52,7 @@ export function Search({searchLocation}: SearchProps){
                             </div>
                         </Link>
                         :
-                        <Link key={index} href={`/${result?.owner?.affiliate_code}/${result.objectID}`} className="block px-4  text-gray-700 hover:bg-gray-100 rounded-3xl">
+                        <Link key={index} href={`/recipe/${result.objectID}`} className="block px-4  text-gray-700 hover:bg-gray-100 rounded-3xl">
                             <div className="inline-flex space-x-3 items-center py-3">
                                 <img src={`https://firebasestorage.googleapis.com/v0/b/${process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET}/o/${encodeURIComponent(result.cover_image_url)}?alt=media`} alt={result.name} className="h-8 w-8 rounded-full object-cover"></img>
                                 <span className="text-sm lg:text-base capitalize">{result.name}</span>
@@ -67,7 +62,7 @@ export function Search({searchLocation}: SearchProps){
                     </>
                 ))}
             </div>
-        );
+        )
     };
 
     return(
@@ -91,62 +86,3 @@ export function Search({searchLocation}: SearchProps){
     )
 }
 
-export function ManageRecipesSearch({creatorData}: any) {
-
-    const searchClient = algoliasearch(`${process.env.NEXT_PUBLIC_ALGOLIA_APPLICATION_ID}`, `${process.env.NEXT_PUBLIC_ALGOLIA_SEARCH_ONLY_KEY}`);
-    const recipesIndex = searchClient.initIndex(`${process.env.NEXT_PUBLIC_ALGOLIA_RECIPE_INDEX}`);
-    const [ input, setInput ] = useState<string>('');
-    const [searchResults, setSearchResults] = useState<any>({ recipes: [] });
-
-    useEffect(() => {
-      if (input.trim()) {
-          handleSearch(input);
-      }
-    }, [input]);
-
-    const handleSearch = async (query: any) => {
-      try {
-          const [ recipes ] = await Promise.all([
-              recipesIndex.search(query, {
-                filters: `owner.affiliate_code:"${creatorData?.owner?.affiliate_code}"` // Adding filter for owner_display_name
-            })
-          ]);
-          setSearchResults({ recipes: recipes?.hits });
-      } catch (error) {
-          console.error("Algolia search error:", error);
-      }
-  };
-
-      const renderSearchResults = () => {
-          // Combine and limit results
-          const combinedResults = [...searchResults.recipes.slice(0, 5)].slice(0, 5);
-
-          if (combinedResults.length === 0) {
-              return null;
-          }
-
-          return (
-              <div className="absolute w-[275px] xs:w-[350px] sm:w-[450px] md:w-[700px] z-20 mt-1 bg-white shadow-lg border border-gray-200 rounded-3xl">
-                  {combinedResults.map((result, index) => (
-                      <Link key={index} href={`/${result.owner?.affiliate_code}/${result.objectID}`} className="block px-4  text-gray-700 hover:bg-gray-100 rounded-3xl">
-                          <div className="inline-flex space-x-2 items-center py-2">
-                              <img src={`https://firebasestorage.googleapis.com/v0/b/${process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET}/o/${encodeURIComponent(result.cover_image_url)}?alt=media`} alt={result.name} className="h-8 w-8 rounded-full object-cover"></img>
-                              <span className="text-sm lg:text-base capitalize">{result.name}</span>
-                          </div>
-                      </Link>
-                  ))}
-              </div>
-          );
-      };
-
-    return(
-        <>
-        <form action="" method="POST" className="mt-4 py-1 pl-6 pr-6 flex gap-3 items-center text-heading-3 shadow-lg shadow-box-shadow border border-box-border bg-box-bg rounded-full ease-linear">
-            <MagnifyingGlassIcon className="text-gray-600 h-6 w-6"/>
-            <input type="text" value={input} placeholder="Search your public recipes" className="text-left w-full text-gray-500 py-3 outline-none bg-transparent" onChange={(e) => setInput(e.target.value)}/>
-            <XMarkIcon onClick={() => setInput('')} className={classNames(input ? `text-red-600 hover:text-red-500 cursor-pointer` : `text-gray-600 cursor-default hover:text-gray-800`, `h-6 w-6 `)}/>
-        </form>
-        {input && renderSearchResults()}
-        </>
-    )
-}

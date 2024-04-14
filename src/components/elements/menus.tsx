@@ -1,7 +1,6 @@
 import { Bars3Icon } from '@heroicons/react/24/outline'
 import { Fragment } from 'react'
 import { Menu, Transition } from '@headlessui/react'
-import { useAuth } from '@/pages/api/auth/auth'
 import Link from "next/link"
 import { ChevronDownIcon } from '@heroicons/react/20/solid'
 
@@ -11,10 +10,8 @@ function classNames(...classes: (string | undefined | null | false)[]): string {
 
 export function DropDownMenuMobile({navItems}: any) {
 
-    const { user, isLoading } = useAuth()
-
     return(
-        <Menu as="div" className={`relative inline-block text-left lg:invisible  mt-3`}>
+        <Menu as="div" className={`relative inline-block text-left lg:invisible mt-3`}>
             <div>
                 <Menu.Button className="flex items-center rounded-full text-black hover:text-gray-600 focus:outline-none focus:ring-2 focus:ring-primary-main focus:ring-offset-2 focus:ring-offset-primary-alt">
                     <span className="sr-only">Open options</span>
@@ -31,45 +28,29 @@ export function DropDownMenuMobile({navItems}: any) {
                 leaveFrom="transform opacity-100 scale-100"
                 leaveTo="transform opacity-0 scale-95"
             >   
-                <Menu.Items className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                <Menu.Items className="absolute left-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                     <div className="py-1">
-                        { user ? 
-                            navItems.map((item: any)=> (
-                                <Menu.Item key={item.text}>
-                                {({ active }) => (
-                                    <Link
-                                    href={item.href}
-                                    className={classNames(
-                                        active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-                                        'block px-4 py-2 text-sm'
-                                    )}
-                                    >
-                                        <span className="inline-flex gap-x-2 items-center">
-                                            <item.icon className="h-5 w-5 text-primary-main"/>
-                                            {item.text}
-                                        </span>
-                                    </Link>
-                                    
+
+                        {navItems.map((item: any)=> (
+                            <Menu.Item key={item.text}>
+                            {({ active }) => (
+                                <Link
+                                href={item.href}
+                                className={classNames(
+                                    active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
+                                    'block px-4 py-2 text-sm'
                                 )}
-                                </Menu.Item>
-                            ))
-                            :
-                            navItems.map((item: any)=> (
-                                <Menu.Item key={item.text}>
-                                {({ active }) => (
-                                    <a
-                                    href={item.href}
-                                    className={classNames(
-                                        active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-                                        'block px-4 py-2 text-sm'
-                                    )}
-                                    >
-                                    {item.text}
-                                    </a>
-                                )}
-                                </Menu.Item>
-                            ))
-                        }
+                                >
+                                    <span className="inline-flex gap-x-2 items-center">
+                                        <item.icon className="h-5 w-5 text-primary-main"/>
+                                        {item.text}
+                                    </span>
+                                </Link>
+                                
+                            )}
+                            </Menu.Item>
+                        ))}
+                            
                     </div>
                 </Menu.Items>
             </Transition>

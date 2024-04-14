@@ -1,13 +1,9 @@
 import Head from 'next/head';
 import GoogleTags from '@/components/tags/conversion';
-import { HomePageScroller, HomePageCTA, HomeVideoToRecipe, Hero, ChatFeature, CookBookFeature } from '@/components/ui/features/users';
-import { CreatorCTA } from '@/components/ui/features/creators';
+import { Hero } from '@/components/ui/features/users';
 import { useAuth } from './api/auth/auth';
 import { PageLoader } from '@/components/shared/loader';
 import { PromoteKitTag } from '@/components/tags/headertags';
-import { useState, useEffect } from 'react';
-import { GetRandomCreatorsForHomepage } from './api/firebase/functions';
-import { ThreeBoxFeature, FAQ } from '@/components/ui/general';
 import { useRouter } from 'next/router';
 import { Raleway } from 'next/font/google'
 
@@ -24,22 +20,6 @@ interface Creator {
 export default function Home() {
   
   const { isLoading } = useAuth();
-  const [ creators, setCreators ] = useState<Creator[]>()
-  const router = useRouter();
-
-  useEffect(() => {
-    const fetchCreators = async () => {
-      const res = await GetRandomCreatorsForHomepage(3)
-      setCreators(res)
-    }
-
-    fetchCreators();
-  },[])
-
-  useEffect(() => {
-    const via = router.query.via;
-    if(via) { router.push(`/${via}`)}
-  },[router])
 
   if (isLoading) return <PageLoader/>
 
@@ -54,13 +34,6 @@ export default function Home() {
       </Head>
       <main className={`main-seo-page-class ${raleway.className}`}>
         <Hero titleStart={"Find Recipes from"} titleEnd={"TikTok Creators"} description={"Tiktok is great for discovering recipes, but not for recreating them. Search creators on Zesti to get recipes already written out for you!"}/>
-        <ThreeBoxFeature type={'home'} titleStart={'TikTok Recipes'} titleEnd={'Made Easy'} desc={"Get easy-to-read instructions and ingredients for those delicious TikTok recipes"}/>
-        <HomePageScroller creators={creators}/>
-        <ChatFeature/>
-        <CookBookFeature titleStart={"Discover Recipes From The Best"} titleEnd={"TikTok Creators"} desc={"Check out the pages of TikTok creators to get a list of all their public recipes instantly!"}/>
-        <HomePageCTA/>
-        <CreatorCTA title={"Join Creator Program"} isHome={true}/>
-        <FAQ type={'user'} title={"General FAQ"} desc={"Most common questions and answers among all of our users"}/>
       </main>
     </>
   )
