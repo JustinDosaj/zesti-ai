@@ -4,7 +4,6 @@ import { Hero } from '@/components/ui/features/users';
 import { useAuth } from './api/auth/auth';
 import { PageLoader } from '@/components/shared/loader';
 import { PromoteKitTag } from '@/components/tags/headertags';
-import { useRouter } from 'next/router';
 import { Raleway } from 'next/font/google'
 
 const raleway = Raleway({subsets: ['latin']})

@@ -1,7 +1,6 @@
 // Breadcrumbs component
 import { useNavigation } from '@/pages/api/context/navigation';
 import Link from 'next/link';
-import useCreatorRecipe from '@/hooks/creator/useCreatorRecipe';
 
 const Breadcrumbs = () => {
   
@@ -16,10 +15,6 @@ const Breadcrumbs = () => {
             {index < breadcrumb.length - 1 ? (
               <Link href={
                 name === 'Home' ? '/' 
-                : 
-                name === 'Edit' ? '/creator/edit'
-                :
-                name === 'Add Recipe' ? '/creator/edit/add-recipe'
                 :
                 `/${name.toLowerCase().replace(/\s+/g, '-')}`}>
 

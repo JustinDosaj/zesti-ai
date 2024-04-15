@@ -58,7 +58,6 @@ const Recipe: React.FC = ({id}: any) => {
               isOpen={isOpen}
               setIsOpen={setIsOpen}
               displayAd={true}
-              isCreator={userData?.account_status === 'creator'}
               role={stripeRole}
               buttonName={"My Recipes"}
             />

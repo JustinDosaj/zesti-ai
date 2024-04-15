@@ -14,8 +14,8 @@ const useSetBreadcrumbs = () => {
     const breadcrumb = ['Home'];
 
     segments.forEach((segment) => {
-      if (segment === 'nav') return; // Skip 'nav' segment
-      if (segment === 'creator') return; // Skip 'creator' segment
+
+      if (segment === 'recipe') return; // Skip 'recipe' segment
 
       let name = decodeURIComponent(segment.replace(/-/g, ' '));
       

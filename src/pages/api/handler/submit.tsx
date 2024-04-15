@@ -4,25 +4,17 @@ import { Notify } from "@/components/shared/notify";
 import { SendErrorToFirestore } from "../firebase/functions";
 
 
-interface TikTokProps {
-    url?: any,
+interface SubmissionProps {
+    url?: string,
     setUrl?: any,
     user?: any,
-    setMessage?: any,
-    stripeRole?: any,
-    setNotify?: any,
-    urlId?: string, 
-    rawText?: string,
-    videoObject?: any,
-    creatorData?: any,
-    userData?: any,
 }
 
-export const handleCreatorTikTokURLSubmit = async ({url, rawText, creatorData}: TikTokProps) => {
-
+export const handleUserSubmitRecipe = async({url, setUrl, user}: SubmissionProps) => {
+    
     var id;
 
-    if(url.includes('tiktok.com/t/')) {
+    if(url?.includes('tiktok.com/t/')) {
         id = url?.match(/^https:\/\/www\.tiktok\.com\/t\/([A-Za-z0-9_-]+)\/?$/);
     } else {
         id = url?.match(/tiktok\.com\/@[^\/]+\/video\/(\d+)/);
@@ -38,10 +30,6 @@ export const handleCreatorTikTokURLSubmit = async ({url, rawText, creatorData}: 
         "id": id ? id[1] : null,
         "source": "tiktok",
         "date": date.toISOString(),
-        "rawData": rawText || '',
-        "display_name": creatorData?.display_name,
-        "affiliate_code": creatorData?.owner.affiliate_code,
-        "owner_id": creatorData?.owner.id,
     }
 
     try {
@@ -49,6 +37,6 @@ export const handleCreatorTikTokURLSubmit = async ({url, rawText, creatorData}: 
         Notify("Successfully Added Recipe")
     } catch(err) {
         Notify(`Error: ${err}`)
-        await SendErrorToFirestore(creatorData?.owner_id, err)
+        await SendErrorToFirestore(user?.uid, err)
     }
 }

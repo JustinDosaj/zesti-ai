@@ -50,7 +50,6 @@ export function PricingDisplay() {
             'Unlimited Recipe Saves',
             'Unlock Zesti AI Chat Assistant',
             'Ad-Free',
-            'Support a Creator'
           ],
           featured: true,
           checkout: () => {
