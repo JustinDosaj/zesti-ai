@@ -3,14 +3,13 @@ import { useAuth } from "@/pages/api/auth/auth"
 import { Search } from '@/components/search';
 import Head from 'next/head';
 import GoogleTags from '@/components/tags/conversion';
-import { PromoteKitTag } from '@/components/tags/headertags';
 import { TitleSection } from '@/components/shared/title';
 import Breadcrumbs from '@/components/shared/breadcrumb';
 import useSetBreadcrumbs from '@/components/shared/setBreadcrumbs';
 import AdSenseDisplay from '@/components/tags/adsense';
 import useUserRecipeList from '@/hooks/user/useUserRecipeList';
 import useRequireAuth from '@/hooks/user/useRequireAuth';
-import { RecipeCardList } from '@/components/ui/recipe';
+import { RecipeCardList } from '@/components/ui/recipe/list';
 
 const raleway = Raleway({subsets: ['latin']})
 
@@ -28,7 +27,6 @@ export default function MyRecipes() {
       <meta name="robots" content="noindex" />
       <title>Zesti | Your Recipes</title>
       <GoogleTags/>
-      <PromoteKitTag/>
     </Head>
     <main className={`flex min-h-screen flex-col items-center bg-background w-screen space-y-4 pb-48 ${raleway.className}`}>
         <Breadcrumbs/>

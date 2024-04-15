@@ -1,6 +1,5 @@
 import { Html, Head, Main, NextScript } from 'next/document'
 import GoogleTags from '@/components/tags/conversion'
-import { PromoteKitTag } from '@/components/tags/headertags'
 
 export default function Document() {
   return (
@@ -8,7 +7,6 @@ export default function Document() {
       <Head>
         <GoogleTags/>
         <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5837655994202747" crossOrigin="anonymous"></script>
-        <PromoteKitTag/>
       </Head>
       <body>
         <Main />
