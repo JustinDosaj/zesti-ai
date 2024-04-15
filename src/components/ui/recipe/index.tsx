@@ -1,8 +1,6 @@
-import Link from "next/link"
 import { Container } from "@/components/shared/container"
 import React, { useState, useEffect } from "react"
 import { ArrowDownTrayIcon, EyeIcon, TrashIcon } from "@heroicons/react/20/solid"
-import { useRouter } from "next/router"
 import { db } from "@/pages/api/firebase/firebase"
 import { useAuth } from "@/pages/api/auth/auth"
 import { Notify } from '@/components/shared/notify';
@@ -97,11 +95,10 @@ function RecipeLinks({recipe, setIsOpen}: RecipeProps) {
     const { isLoading, user } = useAuth()
     const [isSaved, setIsSaved] = useState(false);
 
-
     // Checking if user owns recipe already
     useEffect(() => {
         if(user) {
-            const docRef = doc(db, `users/${user.uid}/recipes`, recipe.data.id);
+            const docRef = doc(db, `users/${user.uid}/recipes`, recipe.data.unique_id);
             const unsubscribe = onSnapshot(docRef, (docSnapshot) => {
                 setIsSaved(docSnapshot.exists());
             }, (error) => {
@@ -115,7 +112,7 @@ function RecipeLinks({recipe, setIsOpen}: RecipeProps) {
     async function onSaveClick() {
         if (user && !isLoading) {
             try {
-                await saveRecipeReferenceToUser(user?.uid, recipe.data.id);
+                await saveRecipeReferenceToUser(user?.uid, recipe.data.unique_id);
                 setIsOpen(true)
                 return true; // Explicitly returning a boolean value
             } catch (error) {
@@ -130,7 +127,7 @@ function RecipeLinks({recipe, setIsOpen}: RecipeProps) {
 
     const onDeleteClick = async () => {
         if(user) {
-            await UserRemoveRecipeFromFirestore(user?.uid, recipe.data.id);
+            await UserRemoveRecipeFromFirestore(user?.uid, recipe.data.unique_id);
             return true; 
         }
         return false;
