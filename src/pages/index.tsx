@@ -3,7 +3,6 @@ import GoogleTags from '@/components/tags/conversion';
 import { Hero } from '@/components/ui/features/users';
 import { useAuth } from './api/auth/auth';
 import { PageLoader } from '@/components/shared/loader';
-import { PromoteKitTag } from '@/components/tags/headertags';
 import { Raleway } from 'next/font/google'
 
 const raleway = Raleway({subsets: ['latin']})
@@ -29,7 +28,6 @@ export default function Home() {
         <meta name="title" content="Zesti AI | Find Transcribed Recipes from TikTok"/>
         <meta name="description" content="Spend less time writing recipes down and more time cooking! Find transcribed recipes from your favorite TikTok Chefs or transcribe a recipe yourself!"/>
         <GoogleTags/>
-        <PromoteKitTag/>
       </Head>
       <main className={`main-seo-page-class ${raleway.className}`}>
         <Hero titleStart={"Find Recipes from"} titleEnd={"TikTok Creators"} description={"Tiktok is great for discovering recipes, but not for recreating them. Search creators on Zesti to get recipes already written out for you!"}/>

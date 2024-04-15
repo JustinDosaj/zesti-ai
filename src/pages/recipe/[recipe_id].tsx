@@ -2,7 +2,6 @@ import { GetServerSideProps } from "next";
 import { Raleway } from 'next/font/google'
 import { useAuth } from "@/pages/api/auth/auth";
 import { PageLoader } from "@/components/shared/loader";
-import { PromoteKitTag } from "@/components/tags/headertags";
 import { PublicRecipe } from "@/components/ui/recipe";
 import React, { useState } from 'react'
 import GoogleTags from "@/components/tags/conversion";
@@ -29,7 +28,6 @@ const Recipe: React.FC = ({id}: any) => {
     useSetBreadcrumbs()
     const { stripeRole, userData } = useAuth();
     const [ isOpen, setIsOpen ] = useState<boolean>(false)
-    const [ isSupportOpen, setIsSupportOpen ] = useState<boolean>(false)
     const { recipe, isLoadingRecipe } = useRecipe(id)
     const router = useRouter()
 
@@ -43,11 +41,10 @@ const Recipe: React.FC = ({id}: any) => {
         <meta name="description" content={`Make ${recipe.name}. A recipe by ${recipe.data.owner.username} from TikTok.`}/>
         <link rel="preload" href="/images/zesti-logos/Zesti-Premium-2.png" as="image"></link>
         <GoogleTags/>
-        <PromoteKitTag/>
         </Head>  
         <main className={`flex min-h-screen flex-col items-center p-6 bg-background w-screen pb-36 ${raleway.className}`}>
             <Breadcrumbs/>
-            <PublicRecipe recipe={recipe} setIsOpen={setIsOpen} setIsSupportOpen={setIsSupportOpen}/>
+            <PublicRecipe recipe={recipe} setIsOpen={setIsOpen}/>
             <Chatbox role={stripeRole} recipe={recipe}/>
             <ResponseModal
               title={`${recipe.name} Saved!`}
