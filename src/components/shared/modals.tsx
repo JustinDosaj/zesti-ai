@@ -16,11 +16,10 @@ interface ModalProps {
   displayAd: boolean,
   role?: string | null,
   buttonName?: string,
-  isCreator?: boolean,
 }
 
 
-export function ResponseModal({title, text, icon: Icon, modalFunction, isOpen, setIsOpen, displayAd, role, buttonName, iconColor, isCreator}: ModalProps) {
+export function ResponseModal({title, text, icon: Icon, modalFunction, isOpen, setIsOpen, displayAd, role, buttonName, iconColor}: ModalProps) {
 
   const cancelButtonRef = useRef(null)
 
@@ -87,7 +86,7 @@ export function ResponseModal({title, text, icon: Icon, modalFunction, isOpen, s
                 </div>
 
                 {/* Checking subscription and ad status before displaying or not displaying ad*/}
-                <div className={role !== 'premium' && !isCreator && displayAd ? `pt-6 pb-4` : `hidden`}>
+                <div className={role !== 'premium' && displayAd ? `pt-6 pb-4` : `hidden`}>
                   <AdSenseDisplay adSlot="9250004753" adFormat="rectangle" widthRes="false"/>
                 </div>
 

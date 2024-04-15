@@ -2,8 +2,7 @@ import { createContext, useContext, ReactNode, useEffect, useState } from 'react
 import { User, getAuth, onAuthStateChanged, signOut, signInWithPopup, GoogleAuthProvider, createUserWithEmailAndPassword, signInWithEmailAndPassword, sendPasswordResetEmail } from "firebase/auth";
 import { db } from '../firebase/firebase';
 import { useRouter } from 'next/router';
-import { SendErrorToFirestore, updateUserWithTikTokTokens } from '../firebase/functions';
-import { fetchUserTikTokInfo } from '../handler/tiktok';
+import { SendErrorToFirestore } from '../firebase/functions';
 
 interface UserData {
   account_status?: string;
@@ -29,36 +28,6 @@ interface UserData {
   }
 }
 
-interface CreatorData {
-  bio_description?: string;
-  display_name?:string;
-  page_image?: string;
-  socials?: {
-    tiktok?: {
-      username?: string,
-      link?: string,
-    }
-    instagram?: {
-      username?: string,
-      link?: string,
-    }
-    twitter?: {
-      username?: string,
-      link?: string,
-    },
-    youtube?: {
-      username?: string,
-      link?: string,
-    },
-    website?: {
-      link?: string,
-    },
-  };
-  owner?: {
-    id?: string,
-    affiliate_code?: string,
-  };
-}
 
 interface AuthContextType {
   user: User | null;
@@ -71,10 +40,7 @@ interface AuthContextType {
   loginWithEmailPassword: (email: string, password: string) => Promise<void>;
   signUpWithEmailPassword: (email: string, password: string) => Promise<void>;
   sendPasswordReset: (email: string) => Promise<void>;
-  loginWithTikTok: () => void;
-  handleTikTokCallback: (code: string) => Promise<void>;
   userData: UserData | null;
-  creatorData: CreatorData | null;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -85,56 +51,12 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   const [isLoading, setIsLoading] = useState(true);  // Default to loading
   const [stripeRole, setStripeRole] = useState<string | null>(null);
   const [userData, setUserData] = useState<UserData | null>(null);
-  const [creatorData, setCreatorData] = useState<CreatorData | null>(null);
   const auth = getAuth();
   const router = useRouter();
   const provider = new GoogleAuthProvider();
 
 
 // Function to initiate TikTok login
-  const loginWithTikTok = async () => {
-
-  const tikTokUrl = `https://www.tiktok.com/v2/auth/authorize/?client_key=${process.env.NEXT_PUBLIC_TIKTOK_CLIENT_KEY}&scope=user.info.basic,user.info.profile,video.list&response_type=code&redirect_uri=${encodeURIComponent(`https://www.zesti.ai/auth/redirect`)}&state=true`;
-  //const tikTokUrl = `https://www.tiktok.com/v2/auth/authorize/?client_key=${process.env.NEXT_PUBLIC_TIKTOK_CLIENT_KEY}&scope=user.info.basic,user.info.profile,video.list&response_type=code&redirect_uri=${encodeURIComponent(`https://zesti.ngrok.app/auth/redirect`)}&state=true`;
-    // Redirect the user
-    window.location.href = tikTokUrl;
-  };
-
-  // Function to handle TikTok callback
-  const handleTikTokCallback = async (code: string) => {
-
-    try {
-        const params = new URLSearchParams({});
-        params.append('code', code);
-
-        const tokenResponse = await fetch('/api/tiktokaccesstoken', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded',
-                "Cache-Control": "no-cache",
-            },
-            body: params.toString()
-        });
-
-        if (!tokenResponse.ok) {
-            const errorResponse = await tokenResponse.text();
-            throw new Error(`HTTP error ${tokenResponse.status}: ${errorResponse}`);
-        }
-
-        const tokenData = await tokenResponse.json();
-
-        if (tokenData.access_token && tokenData.refresh_token && tokenData.open_id) {
-          const res = await fetchUserTikTokInfo(tokenData.access_token)
-          await updateUserWithTikTokTokens(tokenData, user!.uid, res.data.user);
-        } else {
-          console.error("Invalid TikTok token data:", tokenData);
-        }
-        
-    } catch (error) {
-        console.error("Error in handleTikTokCallback:", error);
-        // Optionally, rethrow or handle the error further
-    }
-  };
 
 
   const login = async () => {
@@ -238,13 +160,6 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
           const data = doc.data();
           setUserData(data!);
         });
-  
-        // Creator Firestore listener
-        const creatorRef = db.collection('creators').doc(currentUser.uid);
-        const unsubscribeCreator = creatorRef.onSnapshot(doc => {
-          const data = doc.data();
-          setCreatorData(data!);
-        });
       } 
       setIsLoading(false);
     });
@@ -254,7 +169,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
 
 
   return (
-    <AuthContext.Provider value={{ user, isLoading, auth, provider, login, logout, stripeRole, loginWithEmailPassword, signUpWithEmailPassword, sendPasswordReset, loginWithTikTok, handleTikTokCallback, userData, creatorData }}>
+    <AuthContext.Provider value={{ user, isLoading, auth, provider, login, logout, stripeRole, loginWithEmailPassword, signUpWithEmailPassword, sendPasswordReset, userData }}>
       {children}
     </AuthContext.Provider>
   );

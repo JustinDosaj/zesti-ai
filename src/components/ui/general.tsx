@@ -214,7 +214,7 @@ interface FAQ {
   }
 
 interface FAQProps {
-    type: 'user' | 'creator',
+    type: 'user',
     title?: string,
     desc?: string,
 }
@@ -244,49 +244,6 @@ export function FAQ({type, title, desc}: FAQProps) {
               answer: "You can visit the contact page and send us a message!",
             },
         ],
-        creator: [
-            {
-              question: "What are the requirements to join?",
-              answer: (
-                <>
-                    1. Post recipes or cooking content on a relatively frequent basis (every 1-2 weeks)<br />
-                    2. Account must be public for all users to see <br />
-                    <br />
-                    Note: Content does NOT have to be exclusively cooking & recipe content and there are NO minimum follower requirements <br /> 
-                </>
-              ),
-            },
-            {
-              question: "How do I apply to Zesti?",
-              answer: "You will need to create an account, verify your tiktok, then submit basic information. This can all be done from your account settings page while logged in.",
-            },
-            {
-              question: "Why does Zesti need access to my Tiktok account?",
-              answer: "Verifying your Tiktok account helps us prevent copy cats. By verifying your account, we can prevent other people from posting your recipes on a public Zesti Page.",
-            },  
-            {
-              question: "How do I earn money with Zesti?",
-              answer: "Zesti offers approved creators 50% of the subscription fee per month for every user that signs up with your unique affiliate link!",
-            },
-            {
-              question: "How are affiliates tracked?",
-              answer: (
-                <>
-                    Users subscriptions will be linked to your affiliate code in the following ways: <br />
-                    1. They accessed Zesti most recently via your unique affiliate link, or <br />
-                    2. They selected the upgrade to premium option located on your page.
-                </>
-              ),
-            },
-            {
-              question: "How do I change my affiliate code?",
-              answer: "The affiliate code you are assigned is exactly the same of your TikTok username. If you would like to change your affiliate code, you will need to contact us after you have been approved for the creator program.",
-            },
-            {
-              question: "Does Zesti support any other platforms?",
-              answer: "Currently the video transcription tool only supports TikTok videos, however we have plans to expand support to Instagram and Youtube in the future. For now, creators can add links to other social media profiles on their page.",
-            }
-        ]
     }
 
     const faqs: FAQ[] = FAQTypes[type]

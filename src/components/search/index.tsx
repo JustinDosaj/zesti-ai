@@ -14,7 +14,7 @@ export function Search({searchLocation}: SearchProps){
     const searchClient = algoliasearch(`${process.env.NEXT_PUBLIC_ALGOLIA_APPLICATION_ID}`, `${process.env.NEXT_PUBLIC_ALGOLIA_SEARCH_ONLY_KEY}`);
     const recipesIndex = searchClient.initIndex(`${process.env.NEXT_PUBLIC_ALGOLIA_ALL_RECIPES_INDEX}`);
     const [ input, setInput ] = useState<string>('');
-    const [searchResults, setSearchResults] = useState<any>({ creators: [], recipes: [] });
+    const [searchResults, setSearchResults] = useState<any>({ recipes: [] });
 
     useEffect(() => {
         if (input.trim()) {
