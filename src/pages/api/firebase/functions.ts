@@ -42,18 +42,3 @@ export async function SendErrorToFirestore(user_id: string | undefined | null, e
 
   await errorRef.set(errorObj, {merge: true})
 }
-
-
-
-// PROTOTYPE FUNCTIONS //
-export async function getRecipeById(recipeId: string) {
-
-  const recipeRef = db.collection('recipes').doc(recipeId);
-  const doc = await recipeRef.get();
-
-  if (!doc.exists) {
-    throw new Error('Recipe not found');
-  }
-
-  return doc.data();
-}

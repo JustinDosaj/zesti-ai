@@ -23,7 +23,7 @@ export function Chatbox({role, recipe}:ChatBoxProps) {
   const [isOpen, setIsOpen] = useState<boolean>(true);
   const [message, setMessage] = useState<string>('');
   const [messages, setMessages] = useState<AIChatMessageProps[]>([]);
-  const { user, login } = useAuth();
+  const { user } = useAuth();
   const endOfMessagesRef = useRef<HTMLDivElement>(null);
   const functions = getFunctions();
   const chatWithZesti = httpsCallable(functions, 'chatWithZesti');
