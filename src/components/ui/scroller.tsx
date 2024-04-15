@@ -3,31 +3,6 @@ import Link from "next/link";
 import Image from "next/image";
 import { TitleSection } from "../shared/title";
 
-export function FeaturedCreators({creators}: any) {
-
-    return(
-        <>
-            <div className="flex flex-col lg:flex-row justify-center text-center lg:items-center w-full gap-8">
-                <div className="flex flex-col">
-                    <TitleSection titleBlack="Featured Creators" desc="Discover new recipes & inspiration from creators on Zesti" />
-                </div>
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-8">
-            {/* Testimonial cards */}
-
-            {creators?.map((creator: any) => (
-                <TestimonialCard
-                    key={creator.owner?.affiliate_code}
-                    name={creator.display_name}
-                    imageSrc={creator.page_image || '/images/page-image-placeholder.png'}
-                    href={`/${creator.owner?.affiliate_code}`}
-                />
-            ))}
-            </div>
-        </>
-    )
-}
-
 export function ToolExamples() {
 
     return(

@@ -6,28 +6,11 @@ import { SendErrorToFirestore } from '../firebase/functions';
 
 interface UserData {
   account_status?: string;
-  affiliate_code?: string;
   date_created?: string;
   email?: string;
   stripeId?: string;
   stripeLink?: string;
-  social?: {
-    tiktok_link?: string;
-  }
-  settings?: {
-    tiktok?: {
-      is_verified?: boolean;
-      profile_link?: string;
-      display_name?: string;
-      username?: string;
-      most_recent_video_id?: string;
-    },
-    notifications?: {
-      active?: boolean;
-    };
-  }
 }
-
 
 interface AuthContextType {
   user: User | null;

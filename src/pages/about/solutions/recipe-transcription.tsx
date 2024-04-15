@@ -3,7 +3,6 @@ import GoogleTags from '@/components/tags/conversion';
 import { HomePageCTA, HomeVideoToRecipe } from '@/components/ui/features/users';
 import { ThreeBoxFeature } from '@/components/ui/general';
 import { SharedHero, FAQ } from '@/components/ui/general';
-import { PromoteKitTag } from '@/components/tags/headertags';
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { Raleway } from 'next/font/google'
@@ -27,7 +26,6 @@ export default function RecipeTranscription() {
         <meta name="title" content="ZZesti AI Recipe Transcription"/>
         <meta name="description" content="Learn how zesti uses AI to transcribe videos to text for easy-to-read recipes"/>
         <GoogleTags/>
-        <PromoteKitTag/>
       </Head>
       <main className={`flex min-h-screen flex-col items-center justify-between bg-background w-screen space-y-48 pb-48 ${raleway.className}`}>
         <SharedHero 

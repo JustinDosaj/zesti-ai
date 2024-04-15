@@ -7,7 +7,6 @@ import { Notify } from "@/components/shared/notify"
 import { ToastContainer } from "react-toastify"
 import 'react-toastify/dist/ReactToastify.css';
 import { PageLoader } from "@/components/shared/loader"
-import { PromoteKitTag } from "@/components/tags/headertags"
 import { LoginComponent } from '@/components/ui/auth/login';
 import { useRouter } from 'next/router';
 
@@ -40,7 +39,6 @@ export default function Login() {
         <meta name="title" content="Zesti AI | Login or Sign Up | Try for Free"/>
         <meta name="description" content="Join Zesti and find delicious recipes from TikTok already transcribed! Zesti is free to use, but offers a 7-day free trial for our premium model!"/>
         <GoogleTags/>
-        <PromoteKitTag/>
     </Head>
     <ToastContainer/>    
     <main className={`flex min-h-screen flex-col items-center justify-between bg-background h-screen w-screen ${raleway.className}`}>
