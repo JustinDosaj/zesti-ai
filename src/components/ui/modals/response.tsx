@@ -1,9 +1,8 @@
 "use client;"
 import { Dialog, Transition } from '@headlessui/react'
 import React, { Fragment, useRef } from 'react'
-import AdSenseDisplay from '../tags/adsense'
-import { classNames } from './classNames'
-
+import { classNames } from '@/components/shared/classNames'
+import AdSenseDisplay from '@/components/tags/adsense'
 
 interface ModalProps {
   title: string,

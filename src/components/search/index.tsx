@@ -4,6 +4,7 @@ import { XMarkIcon } from '@heroicons/react/20/solid'
 import Link from 'next/link'
 import React, { useState, useEffect } from "react"
 import { classNames } from '../shared/classNames';
+import { Button } from '../shared/button';
 
 interface SearchProps {
     searchLocation: "home" | "my-recipes",
@@ -85,3 +86,22 @@ export function Search({searchLocation, setRecipes, showDropDown}: SearchProps){
     )
 }
 
+interface AddOptionProps {
+    setIsAddOpen: React.Dispatch<React.SetStateAction<boolean>>
+}
+
+export function AddRecipeOption({setIsAddOpen}: AddOptionProps) {
+    return(
+        <div className="">
+            <p className="text-center text-sm text-gray-500">{"OR"}</p>
+            <div className="flex justify-center items-center pt-2">
+                <Button className="bg-primary-main hover:bg-primary-alt text-white font-semibold py-2 px-4 rounded-3xl"
+                    buttonType={"button"} 
+                    isLink={false} 
+                    onClick={() => setIsAddOpen(true)}
+                    text={"Add Recipe"} 
+                />
+            </div>
+        </div>
+    )
+}
