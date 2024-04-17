@@ -37,7 +37,7 @@ export function Hero({titleStart, titleEnd, description}: HeroProps) {
             </Paragraph>
           </div>
           <div className="grid justify-center lg:justify-start text-left space-y-1">
-            <Search searchLocation="home"/>
+            <Search searchLocation="home" showDropDown={true}/>
           </div>
 
           {/* Statistics removed because currently do not have any

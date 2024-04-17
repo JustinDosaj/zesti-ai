@@ -33,8 +33,7 @@ export default function MyRecipes() {
         <Breadcrumbs/>
         <TitleSection titleBlack="Your Saved Recipes" desc="Access all the recipes you saved from others or search for new ones below"/>
         <br/>
-        <Search searchLocation={"my-recipes"}/>
-        <HorizontalBorder width={'35%'}/>
+        <Search searchLocation={"my-recipes"} showDropDown={true}/>
         <RecipeCardList recipes={userRecipeList} maxDisplayCount={9} max={0} loading={loadingUserRecipes}/>
 
         {/* Ad Display for My Recipes */}
