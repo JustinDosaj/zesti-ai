@@ -60,7 +60,7 @@ export function RecipeCard({ item, key }: RecipeCardProps) {
                     </div>
                     {/* Content Area */}
                     <div className="flex-grow p-4 flex flex-col justify-between overflow-clip gap-2">
-                        <h3 className="text-lg font-semibold text-gray-700 overflow-hidden text-ellipsis line-clamp-2 w-full border-b pb-2">{item.name}</h3>
+                        <h3 className="text-lg font-semibold text-gray-700 overflow-hidden text-ellipsis line-clamp-2 w-full">{item.name}</h3>
                         <div className="flex flex-col flex-grow gap-4">
                             <p className="text-sm text-gray-600 line-clamp-3">{item.video_title}</p>
                         </div>
