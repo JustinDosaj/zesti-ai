@@ -1,5 +1,5 @@
 
-
+/* Not in use but could be useful later */
 export function setCookie(name: string, value: string, daysToExpire: number) {
     const date = new Date();
     date.setTime(date.getTime() + (daysToExpire * 24 * 60 * 60 * 1000));

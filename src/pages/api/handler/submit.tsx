@@ -1,54 +1,39 @@
 `use client`
 import { getFunctions, httpsCallable } from 'firebase/functions';
 import { Notify } from "@/components/shared/notify";
-import { SendErrorToFirestore } from "../firebase/functions";
+import React from 'react';
 
 
-interface TikTokProps {
-    url?: any,
-    setUrl?: any,
+interface SubmissionProps {
+    url?: string,
+    setUrl?: React.Dispatch<React.SetStateAction<string>>,
     user?: any,
-    setMessage?: any,
-    stripeRole?: any,
-    setNotify?: any,
-    urlId?: string, 
-    rawText?: string,
-    videoObject?: any,
-    creatorData?: any,
-    userData?: any,
 }
 
-export const handleCreatorTikTokURLSubmit = async ({url, rawText, creatorData}: TikTokProps) => {
-
-    var id;
-
-    if(url.includes('tiktok.com/t/')) {
-        id = url?.match(/^https:\/\/www\.tiktok\.com\/t\/([A-Za-z0-9_-]+)\/?$/);
-    } else {
-        id = url?.match(/tiktok\.com\/@[^\/]+\/video\/(\d+)/);
-    }
+export const handleUserSubmitRecipe = async({url, setUrl, user}: SubmissionProps) => {
+        
+    const matches = url?.match(/https:\/\/www\.tiktok\.com\/@([^\/]+)\/video\/(\d+)/)
 
     // Check if URL is empty   
     const date: Date = new Date();
     const functions = getFunctions();
-    const creatorAddTikTokRecipe = httpsCallable(functions, 'creatorAddTikTokRecipe');
+    const userAddRecipe = httpsCallable(functions, 'userAddRecipe');
+
+    const username = matches ? matches[1] : null
+    const videoId = matches ? matches[2] : null
+    const cleanUrl = `https://www.tiktok.com/@${username}/video/${videoId}`
 
     const recipeObj = {
-        "url": `${url}`,
-        "id": id ? id[1] : null,
+        "url": cleanUrl,
+        "id": videoId,
         "source": "tiktok",
-        "date": date.toISOString(),
-        "rawData": rawText || '',
-        "display_name": creatorData?.display_name,
-        "affiliate_code": creatorData?.owner.affiliate_code,
-        "owner_id": creatorData?.owner.id,
+        "date_added": date.toISOString(),
     }
 
     try {
-        const response = await creatorAddTikTokRecipe(recipeObj)
+        const response = await userAddRecipe(recipeObj)
         Notify("Successfully Added Recipe")
     } catch(err) {
-        Notify(`Error: ${err}`)
-        await SendErrorToFirestore(creatorData?.owner_id, err)
+        Notify(`${err}`)
     }
 }

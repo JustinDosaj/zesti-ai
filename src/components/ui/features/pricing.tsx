@@ -27,7 +27,6 @@ export function PricingDisplay() {
           trial: false,
           priceMonthly: '$0',
           description: "The perfect plan if you're just getting started with Zesti",
-          learnhref: "/about/subscription/free",
           features: [
             'Freely Browse Recipes on Zesti',
             'Unlimited Recipe Saves',
@@ -42,15 +41,14 @@ export function PricingDisplay() {
           name: 'Premium',
           id: 'tier-premium',
           trial: true,
-          priceMonthly: '$2.99',
+          priceMonthly: '$0.99',
           description: 'Unlock the full potential of Zesti',
           learnhref: "/about/subscription/premium",
           features: [
+            'Zero Ads',
+            'Unlock Zesti AI Chat Assistant',
             'Freely Browse Recipes on Zesti',
             'Unlimited Recipe Saves',
-            'Unlock Zesti AI Chat Assistant',
-            'Ad-Free',
-            'Support a Creator'
           ],
           featured: true,
           checkout: () => {

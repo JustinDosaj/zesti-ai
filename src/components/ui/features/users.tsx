@@ -1,7 +1,7 @@
 import { Container } from "@/components/shared/container"
 import { ArrowDownIcon, BeakerIcon} from "@heroicons/react/20/solid"
 import { useState, useEffect, useRef } from "react"
-import { ToolExamples, Scroller, FeaturedCreators, DashboardExample } from "../scroller"
+import { ToolExamples, Scroller, DashboardExample } from "../scroller"
 import { Button } from "@/components/shared/button"
 import Image from "next/image"
 import { TitleSection } from "@/components/shared/title"
@@ -37,7 +37,7 @@ export function Hero({titleStart, titleEnd, description}: HeroProps) {
             </Paragraph>
           </div>
           <div className="grid justify-center lg:justify-start text-left space-y-1">
-            <Search searchLocation="home"/>
+            <Search searchLocation="home" showDropDown={true}/>
           </div>
 
           {/* Statistics removed because currently do not have any
@@ -90,7 +90,7 @@ export function HomePageScroller({creators}: any) {
 
     if (scrollPage == 1) return(
       <Container className="home-scroll-container animate-fadeIn"> 
-        <FeaturedCreators creators={creators}/>
+        <DashboardExample/>
         <Scroller onRightScrollClick={onRightScrollClick} onLeftScrollClick={onLeftScrollClick} scrollPage={scrollPage}/>
       </Container> 
     )
