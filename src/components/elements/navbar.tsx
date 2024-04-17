@@ -126,7 +126,7 @@ export function Navbar() {
                 : 
                     <div className="flex lg:hidden justify-between items-center w-full"> 
                         <DropDownMenuMobile navItems={navItemsLoggedInMobile}/> 
-                        <Button buttonType="button" isLink={false} onClick={login} text={"My Recipes"}/>
+                        <Button buttonType="button" isLink={false} onClick={() => router.push('/my-recipes')} text={"My Recipes"}/>
                     </div>
                 }
             </nav>
