@@ -1,41 +1,74 @@
-import { EyeIcon } from "@heroicons/react/20/solid"
+import { EyeIcon, ClipboardDocumentIcon, QueueListIcon, Square3Stack3DIcon, BookOpenIcon } from "@heroicons/react/20/solid";
 import Link from "next/link"
 
 interface RecipeCardProps {
-    item: any,
-    key?: any,
+    item: {
+        name: string,
+        cover_image_url: string,
+        video_title: string,
+        ingredients: string[],
+        instructions: string[],
+        data: {
+            unique_id: string,
+            owner: {
+                username: string,
+            },
+        }
+    };
+    key?: string;
 }
 
-export function RecipeCard({item, key}: RecipeCardProps) {
-    return(
-        <div key={key} className="group relative w-[335px] lg:w-[400px]">
-            {/* Image and Details */}
-            <div className="flex items-center space-x-2 border rounded-2xl max-w-2xl">
-                <div className="pl-3 pr-2 py-3">
-                    <img src={`https://firebasestorage.googleapis.com/v0/b/${process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET}/o/${encodeURIComponent(item.cover_image_url)}?alt=media`} className="h-[136px] w-[96px] rounded-xl object-cover" alt={item.title}/>
-                </div>
-                <div className="flex-grow space-y-1 lg:space-y-2">
-                    <h3 className="text-base lg:text-lg font-semibold text-gray-700">{item?.name}</h3>
-                    {/* Additional Details */}
-                    <div className="flex gap-4 text-xs lg:text-sm text-gray-600">
-                        <span className="inline-flex gap-1 items-center">
-                        <p className="font-bold">Ingredients:</p>
-                        <p>{item.ingredients?.length}</p>
-                        </span>
-                        <span className="inline-flex gap-1 items-center">
-                        <p className="font-bold">Steps:</p>
-                        <p>{item.instructions?.length}</p>
-                        </span>
+/*export function RecipeCard({ item, key }: RecipeCardProps) {
+    return (
+        <div key={key} className="group relative w-[335px] lg:w-[400px] overflow-hidden bg-white rounded-2xl border shadow-sm hover:shadow-md transition-shadow duration-300">
+            
+            Link href={`/recipe/${item?.data?.unique_id}`}>
+                <div className="flex flex-col">
+        
+                    <div className="h-[200px] overflow-hidden">
+                        <img src={`https://firebasestorage.googleapis.com/v0/b/${process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET}/o/${encodeURIComponent(item.cover_image_url)}?alt=media`} className="w-full h-full object-cover rounded-t-2xl" alt={item.name}/>
                     </div>
-                    <div className="flex gap-1 text-xs lg:text-sm text-gray-600 items-center">
-                        <p className="text-sm text-gray-600 truncate w-52 lg:w-64">{item?.video_title}</p> {/* Recipe Name */}
+                 
+                    <div className="p-4 space-y-2">
+                        <h3 className="text-lg font-semibold text-gray-800 truncate">{item.name}</h3>
+                        <p className="text-sm text-gray-600 truncate">{item.video_title}</p>
+                        <div className="flex justify-between text-xs text-gray-500">
+                            <span>Ingredients: {item.ingredients?.length}</span>
+                            <span>Steps: {item.instructions?.length}</span>
+                        </div>
+                        <p className="text-xs text-gray-500">by {item.data?.owner?.username}</p>
                     </div>
                 </div>
-            </div>
-            {/* Overlay Icon */}
-            <Link href={`/recipe/${item?.data?.unique_id}`} className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-40 opacity-0 group-hover:opacity-100 rounded-3xl hover:animate-fadeInExtraFast">
-                <EyeIcon className="text-white h-10 w-10 hover:text-gray-300 hover:bg-gray-500 bg-gray-700 rounded-xl p-1"/>
             </Link>
+
+            <div className="absolute top-3 right-3 flex items-center justify-center">
+                <EyeIcon className="h-6 w-6 text-white bg-black bg-opacity-50 rounded-full p-1 hover:bg-opacity-70"/>
+            </div>
         </div>
-    )
+    );
+}*/
+
+export function RecipeCard({ item, key }: RecipeCardProps) {
+    return (
+        <div key={key} className="group relative flex bg-white rounded-2xl border shadow-sm hover:shadow-xl hover:border-gray-300 transition-shadow duration-300 overflow-hidden">
+            <Link href={`/recipe/${item.data.unique_id}`}>
+                <div className="flex">
+                    {/* Image Container */}
+                    <div className="relative flex-none w-1/3">
+                        <img src={`https://firebasestorage.googleapis.com/v0/b/${process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET}/o/${encodeURIComponent(item.cover_image_url)}?alt=media`} className="h-full w-full object-cover rounded-l-2xl" alt={item.name} />
+                        {/* Overlay Icon for ingredients and steps */}
+                    </div>
+                    {/* Content Area */}
+                    <div className="flex-grow p-4 flex flex-col justify-between overflow-clip gap-2">
+                        <h3 className="text-lg font-semibold text-gray-700 overflow-hidden text-ellipsis line-clamp-2 w-full border-b pb-2">{item.name}</h3>
+                        <div className="flex flex-col flex-grow gap-4">
+                            <p className="text-sm text-gray-600 line-clamp-3">{item.video_title}</p>
+                        </div>
+                        <p className="text-xs text-gray-500 mt-3 self-start truncate">by {item.data.owner.username}</p>
+                    </div>
+                </div>
+            </Link>
+            {/* Overlay Icon */}
+        </div>
+    );
 }
