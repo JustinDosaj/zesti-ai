@@ -5,7 +5,7 @@ import { useAuth } from "@/pages/api/auth/auth"
 import { Button } from "../shared/button"
 import Link from "next/link"
 import Image from "next/image"
-import { BookOpenIcon, HomeIcon, PaperAirplaneIcon, WalletIcon, UserIcon } from "@heroicons/react/20/solid"
+import { BookOpenIcon, HomeIcon, PaperAirplaneIcon, WalletIcon, UserIcon, MagnifyingGlassIcon } from "@heroicons/react/20/solid"
 import { DropDownMenuDesktop, DropDownMenuMobile } from "./menus"
 import { useRouter } from "next/router"
 
@@ -17,6 +17,7 @@ export function Navbar() {
 
     const navItemsDesktop = [
         { href: "/", text: "Home" },
+        { href: "/search", text: "Search"},
         { href: "/about/pricing", text: "Pricing"},
         { href: "/about/contact", text: "Contact"},
         // Add more items as needed
@@ -42,6 +43,11 @@ export function Navbar() {
             icon: HomeIcon,
         },
         {
+            href: "/search",
+            text: "Search",
+            icon: MagnifyingGlassIcon,
+        },
+        {
             href:"/about/pricing",
             text:"Pricing",
             icon: WalletIcon,
@@ -65,14 +71,9 @@ export function Navbar() {
             icon: BookOpenIcon,
         },
         {
-            href:"/about/pricing",
-            text:"Pricing",
-            icon: WalletIcon,
-        },
-        {
-            href:"/about/contact",
-            text: "Contact",
-            icon: PaperAirplaneIcon,
+            href: "/search",
+            text: "Search",
+            icon: MagnifyingGlassIcon,
         },
         {
             href: "/account",
