@@ -26,7 +26,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 const Recipe: React.FC = ({id}: any) => {
 
     useSetBreadcrumbs()
-    const { stripeRole, userData } = useAuth();
+    const { stripeRole } = useAuth();
     const [ isOpen, setIsOpen ] = useState<boolean>(false)
     const { recipe, isLoadingRecipe } = useRecipe(id)
     const router = useRouter()
@@ -36,11 +36,11 @@ const Recipe: React.FC = ({id}: any) => {
     return(
     <>
         <Head>
-        <title>{`Zesti AI | ${recipe.name}`}</title>
-        <meta name="title" content={`Zesti AI | ${recipe.name}`}/>
-        <meta name="description" content={`Make ${recipe.name}. A recipe by ${recipe.data.owner.username} from TikTok.`}/>
-        <link rel="preload" href="/images/zesti-logos/Zesti-Premium-2.png" as="image"></link>
-        <GoogleTags/>
+            <title>{`Zesti AI | ${recipe.name}`}</title>
+            <meta name="title" content={`Zesti AI | ${recipe.name}`}/>
+            <meta name="description" content={`Make ${recipe.name}. A recipe by ${recipe.data.owner.username} from TikTok.`}/>
+            <link rel="preload" href="/images/zesti-logos/Zesti-Premium-2.png" as="image"></link>
+            <GoogleTags/>
         </Head>  
         <main className={`flex min-h-screen flex-col items-center p-6 bg-background w-screen pb-36 ${raleway.className}`}>
             <Breadcrumbs/>
@@ -59,7 +59,7 @@ const Recipe: React.FC = ({id}: any) => {
               buttonName={"My Recipes"}
             />
             
-            {stripeRole !== 'premium' || userData?.account_status !== 'creator' ?
+            {stripeRole !== 'premium' ?
             <div className="flex justify-center items-center lg:pt-16">
                 <div className="w-full min-w-[300px] max-w-[320px] lg:max-w-full lg:min-w-[1240px] text-center">
                   <AdSenseDisplay adSlot="9326575118" adFormat="rectangle, horizontal" widthRes="true"/>
