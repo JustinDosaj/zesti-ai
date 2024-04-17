@@ -9,7 +9,7 @@ import Head from "next/head";
 import Breadcrumbs from "@/components/shared/breadcrumb";
 import useSetBreadcrumbs from "@/components/shared/setBreadcrumbs";
 import { Chatbox } from "@/components/chat/chatbox";
-import { ResponseModal } from "@/components/shared/modals";
+import { ResponseModal } from "@/components/ui/modals/response";
 import { BookmarkIcon } from "@heroicons/react/20/solid";
 import { useRouter } from "next/router";
 import AdSenseDisplay from "@/components/tags/adsense";

@@ -18,9 +18,9 @@ interface CheckoutSessionData {
     clientReferenceId?: string;
     
     // Removed metadata from checkout session while affiliate program is not in use
-    metadata?: {
+    /*metadata?: {
         promotekit_referral: string,
-    }
+    }*/
 }
 
 const stripe = new Stripe(process.env.NEXT_PUBLIC_STRIPE_SECRET!);
@@ -32,7 +32,7 @@ export async function createPremiumCheckoutSession(id: any) {  // You might want
     try {
         const checkoutSessionData: CheckoutSessionData  = {
             price: process.env.NEXT_PUBLIC_STRIPE_PREMIUM_PRICE,
-            success_url: `${window.location.origin}/nav/profile`,
+            success_url: `${window.location.origin}/account`,
             cancel_url: `${window.location.origin}`,
             mode: "subscription",
             /*metadata: {
