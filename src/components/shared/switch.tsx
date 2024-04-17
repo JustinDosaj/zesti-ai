@@ -1,4 +1,8 @@
 
+/* NOT IN USE
+    - keeping component for future use
+*/
+
 interface SwitchProps {
     isOn?: boolean,
     handleToggle?: any,

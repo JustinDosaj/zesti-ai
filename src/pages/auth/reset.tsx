@@ -11,7 +11,6 @@ import {useRouter} from "next/router"
 import { Notify } from "@/components/shared/notify"
 import { ToastContainer } from "react-toastify"
 import 'react-toastify/dist/ReactToastify.css';
-import { PromoteKitTag } from "@/components/tags/headertags"
  
 const raleway = Raleway({subsets: ['latin']})
  
@@ -42,7 +41,6 @@ export default function Reset() {
         <meta name="robots" content="noindex" />
         <title>Zesti AI | Forgot Your Password? </title>
         <GoogleTags/>
-        <PromoteKitTag/>
      </Head>
      <ToastContainer/>    
      <main className={`flex min-h-screen flex-col items-center justify-between bg-background h-screen w-screen ${raleway.className}`}>
