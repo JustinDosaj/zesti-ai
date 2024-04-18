@@ -1,6 +1,6 @@
 import { Raleway } from 'next/font/google'
 import { useAuth } from "@/pages/api/auth/auth"
-import { Search } from '@/components/search';
+import { AddRecipe } from '@/components/search';
 import Head from 'next/head';
 import GoogleTags from '@/components/tags/conversion';
 import { TitleSection } from '@/components/shared/title';
@@ -10,7 +10,6 @@ import AdSenseDisplay from '@/components/tags/adsense';
 import useUserRecipeList from '@/hooks/user/useUserRecipeList';
 import useRequireAuth from '@/hooks/user/useRequireAuth';
 import { RecipeCardList } from '@/components/ui/recipe/list';
-import { HorizontalBorder } from '@/components/shared/border';
 
 const raleway = Raleway({subsets: ['latin']})
 
@@ -33,7 +32,7 @@ export default function MyRecipes() {
         <Breadcrumbs/>
         <TitleSection titleBlack="Your Saved Recipes" desc="Access all the recipes you saved from others or search for new ones below"/>
         <br/>
-        <Search searchLocation={"my-recipes"} showDropDown={true}/>
+        <AddRecipe/>
         <RecipeCardList recipes={userRecipeList} maxDisplayCount={9} max={0} loading={loadingUserRecipes}/>
 
         {/* Ad Display for My Recipes */}
