@@ -7,10 +7,9 @@ import React from 'react';
 interface SubmissionProps {
     url?: string,
     setUrl?: React.Dispatch<React.SetStateAction<string>>,
-    user?: any,
 }
 
-export const handleUserSubmitRecipe = async({url, setUrl, user}: SubmissionProps) => {
+export const handleUserSubmitRecipe = async({url, setUrl}: SubmissionProps) => {
             
     // Check if URL is empty   
     const date: Date = new Date();
