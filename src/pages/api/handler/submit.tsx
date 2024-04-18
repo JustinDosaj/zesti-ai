@@ -12,26 +12,19 @@ interface SubmissionProps {
 
 export const handleUserSubmitRecipe = async({url, setUrl, user}: SubmissionProps) => {
         
-    const matches = url?.match(/https:\/\/www\.tiktok\.com\/@([^\/]+)\/video\/(\d+)/)
-
     // Check if URL is empty   
     const date: Date = new Date();
     const functions = getFunctions();
     const userAddRecipe = httpsCallable(functions, 'userAddRecipe');
 
-    const username = matches ? matches[1] : null
-    const videoId = matches ? matches[2] : null
-    const cleanUrl = `https://www.tiktok.com/@${username}/video/${videoId}`
-
-    const recipeObj = {
-        "url": cleanUrl,
-        "id": videoId,
+    const userInput = {
+        "url": url,
         "source": "tiktok",
         "date_added": date.toISOString(),
     }
 
     try {
-        const response = await userAddRecipe(recipeObj)
+        const response = await userAddRecipe(userInput)
         Notify("Successfully Added Recipe")
     } catch(err) {
         Notify(`${err}`)
