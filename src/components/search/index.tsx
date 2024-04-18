@@ -25,7 +25,7 @@ export function AddRecipe() {
     }
 
     return(
-        <div className="flex sm:flex-row flex-col gap-5 w-[325px] lg:w-[500px] justify-start">
+        <div className="flex sm:flex-row flex-col gap-5 w-[325px] lg:w-[500px] justify-start"> {/* Also needs to be able to center for my recipe page */}
             <form action="" method="POST" className="py-1 pl-6 w-full max-w-md pr-1 flex gap-3 items-center text-heading-3 shadow-lg shadow-box-shadow
             border border-box-border bg-box-bg rounded-full ease-linear focus-within:bg-body  focus-within:border-primary">
                 <LinkIcon className="text-gray-600 w-7 h-7 lg:h-10 lg:w-10"/>
