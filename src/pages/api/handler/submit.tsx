@@ -7,11 +7,10 @@ import React from 'react';
 interface SubmissionProps {
     url?: string,
     setUrl?: React.Dispatch<React.SetStateAction<string>>,
-    user?: any,
 }
 
-export const handleUserSubmitRecipe = async({url, setUrl, user}: SubmissionProps) => {
-        
+export const handleUserSubmitRecipe = async({url, setUrl}: SubmissionProps) => {
+            
     // Check if URL is empty   
     const date: Date = new Date();
     const functions = getFunctions();
@@ -23,10 +22,24 @@ export const handleUserSubmitRecipe = async({url, setUrl, user}: SubmissionProps
         "date_added": date.toISOString(),
     }
 
-    try {
-        const response = await userAddRecipe(userInput)
-        Notify("Successfully Added Recipe")
-    } catch(err) {
-        Notify(`${err}`)
+    interface UserAddRecipeResponse {
+        message?: string;  // Use optional if message may not always be present
+        success?: boolean;
+        recipeId?: string;
     }
+
+    await userAddRecipe(userInput)
+    .then((response) => {
+        if (response && response.data) {
+            console.log(response.data)
+            const responseData = response.data as UserAddRecipeResponse;
+            const message = responseData.message || "Problem receiving message from server.";
+            Notify(message);
+        } else {
+            Notify("Failed to get valid response from the server.");
+        }
+    })
+    .catch((err) => {
+        Notify(err.message || "Error processing request");
+    });
 }

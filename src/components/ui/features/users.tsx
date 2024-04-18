@@ -5,7 +5,7 @@ import { ToolExamples, Scroller, DashboardExample } from "../scroller"
 import { Button } from "@/components/shared/button"
 import Image from "next/image"
 import { TitleSection } from "@/components/shared/title"
-import { Search } from "@/components/search"
+import { AddRecipe } from "@/components/search"
 import getConfig from "next/config"
 import { Paragraph } from "@/components/shared/paragraph"
 
@@ -37,7 +37,8 @@ export function Hero({titleStart, titleEnd, description}: HeroProps) {
             </Paragraph>
           </div>
           <div className="grid justify-center lg:justify-start text-left space-y-1">
-            <Search searchLocation="home" showDropDown={true}/>
+
+            <AddRecipe/>
           </div>
 
           {/* Statistics removed because currently do not have any
