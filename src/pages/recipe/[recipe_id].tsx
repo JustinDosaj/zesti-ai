@@ -38,7 +38,7 @@ const Recipe: React.FC = ({id}: any) => {
         <Head>
             <title>{`Zesti AI | ${recipe.name}`}</title>
             <meta name="title" content={`Zesti AI | ${recipe.name}`}/>
-            <meta name="description" content={`Make ${recipe.name}. A recipe by ${recipe.data.owner.username} from TikTok.`}/>
+            <meta name="description" content={`Make ${recipe.name}. A recipe by ${recipe?.data?.owner?.username} from TikTok.`}/>
             <link rel="preload" href="/images/zesti-logos/Zesti-Premium-2.png" as="image"></link>
             <GoogleTags/>
         </Head>  

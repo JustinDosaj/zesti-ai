@@ -30,7 +30,11 @@ export default function Home() {
         <GoogleTags/>
       </Head>
       <main className={`main-seo-page-class ${raleway.className}`}>
-        <Hero titleStart={"Your Favorite TikTok Recipes"} titleEnd={"Instantly"} description={"Tired to pausing videos over and over to get ingredients from TikTok recipes? Join hundreds of others in using Zesti to search existing recipe transcriptions or contribute them yourself!"}/>
+        <Hero 
+          titleStart={"Your Favorite TikTok Recipes"} 
+          titleEnd={"Instantly"} 
+          description={"Tired to pausing videos over and over to get ingredients from TikTok recipes? Enter a TikTok Recipe link below or search by ingredients, usernames & more!"}
+        />
       </main>
     </>
   )
