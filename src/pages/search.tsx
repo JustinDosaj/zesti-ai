@@ -1,7 +1,7 @@
 // pages/search-results.tsx
 import { useEffect, useState } from 'react';
 import { RecipeCardList } from '@/components/ui/recipe/list';
-import { AddRecipe } from '@/components/search';
+import { SearchOrAddRecipe } from '@/components/search';
 import { Raleway } from 'next/font/google'
 import { TitleSection } from '@/components/shared/title';
 import Breadcrumbs from '@/components/shared/breadcrumb';
@@ -47,8 +47,8 @@ const SearchResults: React.FC = () => {
     return (
         <main className={`flex min-h-screen flex-col items-center bg-background w-screen space-y-4 pb-48 ${raleway.className}`}>
             <Breadcrumbs/>
-            <TitleSection titleBlack="Search for Recipes" desc="Enter a TikTok Recipe link below or search by ingredients, instructions, usernames & more!"/>
-            <AddRecipe align={"center"}/>
+            <TitleSection titleBlack="Search for Recipes" desc="Paste the link to a TikTok recipe below or search by ingredients, usernames & more!"/>
+            <SearchOrAddRecipe align={"center"}/>
             <RecipeCardList recipes={recipes}/>
         </main>
     );

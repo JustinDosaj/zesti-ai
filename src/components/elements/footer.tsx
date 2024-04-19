@@ -1,25 +1,15 @@
 "use client;"
 
-import getConfig from "next/config"
-import Image from "next/image"
 import { Raleway } from 'next/font/google'
+import Link from "next/link"
 
 const raleway = Raleway({subsets: ['latin']})
 
 const navigation = {
-    solutions: [
-      { name: 'Recipe Video to Text (N/A)', href: '' },
-      { name: 'Cooking Assistant', href: '/about/solutions/cooking-assistant' },
-    ],
-    support: [
+    main: [
       { name: 'Pricing', href: '/about/pricing' },
-      { name: 'Contact Us', href: '/about/contact' },
+      { name: 'Contact', href: '/about/contact' },
       { name: 'FAQ', href: '/about/faq' },
-    ],
-    company: [
-      { name: 'About Us (N/A)', href: ''}
-    ],
-    legal: [
       { name: 'Privacy', href: 'https://app.termly.io/document/privacy-policy/728b76f9-24fe-480c-ad17-3c56ffa53417' },
       { name: 'Terms', href: 'https://app.termly.io/document/terms-of-service/7fda3661-ebd6-42c4-9dfb-e66e58cd4253' },
     ],
@@ -79,95 +69,31 @@ const navigation = {
   
   export function Footer() {
 
-    const { publicRuntimeConfig } = getConfig();
-
     var year = new Date().getFullYear()
 
     return (
-      <footer className={`bg-gray-200 ${raleway}`} aria-labelledby="footer-heading">
-        <h2 id="footer-heading" className="sr-only">
-          Footer
-        </h2>
-        <div className="mx-auto max-w-7xl px-6 pb-8 pt-16 sm:pt-24 lg:px-8 lg:pt-32">
-          <div className="xl:grid xl:grid-cols-3 xl:gap-8">
-            <div className="space-y-4">
-              <Image
-                src="/images/Zesti-Logo.png"
-                alt="Zesti.ai"
-                height={100}
-                width={50}
-              />
-              <p className="text-sm leading-6 text-gray-600">
-                Creating a network of TikTok chefs to inspire your culinary journey
-              </p>
-              <div className="flex space-x-6">
-                {navigation.social.map((item) => (
-                  <button key={item.name} onClick={() => window.open(item.href)} className="text-gray-400 hover:text-gray-500">
-                    <span className="sr-only">{item.name}</span>
-                    <item.icon className="h-6 w-6" aria-hidden="true" />
-                  </button>
-                ))}
-              </div>
-            </div>
-            <div className="mt-16 grid grid-cols-2 gap-8 xl:col-span-2 xl:mt-0">
-              <div className="md:grid md:grid-cols-2 md:gap-8">
-                <div>
-                  <h3 className="text-sm font-semibold leading-6 text-gray-900">Solutions</h3>
-                  <ul role="list" className="mt-6 space-y-4">
-                    {navigation.solutions.map((item) => (
-                      <li key={item.name}>
-                        <a href={item.href} className="text-sm leading-6 text-gray-600 hover:text-gray-900">
-                          {item.name}
-                        </a>
-                      </li>
-                    ))}
-                  </ul>
+      <footer className={`bg-gray-200 ${raleway}`}>
+        <div className="mx-auto max-w-7xl overflow-hidden px-6 py-12 sm:py-24 lg:px-8">
+            <nav className="-mb-6 columns-5 text-center sm:flex sm:justify-center sm:space-x-12" aria-label="Footer">
+              {navigation.main.map((item) => (
+                <div key={item.name} className="pb-6">
+                  <Link href={item.href} className="text-sm leading-6 text-gray-600 hover:text-gray-900">
+                    {item.name}
+                  </Link>
                 </div>
-                <div className="mt-10 md:mt-0">
-                  <h3 className="text-sm font-semibold leading-6 text-gray-900">Support</h3>
-                  <ul role="list" className="mt-6 space-y-4">
-                    {navigation.support.map((item) => (
-                      <li key={item.name}>
-                        <a href={item.href} className="text-sm leading-6 text-gray-600 hover:text-gray-900">
-                          {item.name}
-                        </a>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </div>
-              <div className="md:grid md:grid-cols-2 md:gap-8">
-                <div>
-                  <h3 className="text-sm font-semibold leading-6 text-gray-900">Company</h3>
-                  <ul role="list" className="mt-6 space-y-4">
-                    {navigation.company.map((item) => (
-                      <li key={item.name}>
-                        <a href={item.href} className="text-sm leading-6 text-gray-600 hover:text-gray-900">
-                          {item.name}
-                        </a>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-                <div className="mt-10 md:mt-0">
-                  <h3 className="text-sm font-semibold leading-6 text-gray-900">Legal</h3>
-                  <ul role="list" className="mt-6 space-y-4">
-                    {navigation.legal.map((item) => (
-                      <li key={item.name}>
-                        <a href={item.href} className="text-sm leading-6 text-gray-600 hover:text-gray-900">
-                          {item.name}
-                        </a>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </div>
-            </div>
+              ))}
+            </nav>
+          <div className="mt-10 flex justify-center space-x-10">
+            {navigation.social.map((item) => (
+              <button key={item.name} onClick={() => window.open(item.href)} className="text-gray-400 hover:text-gray-500">
+                <span className="sr-only">{item.name}</span>
+                <item.icon className="h-6 w-6" aria-hidden="true" />
+              </button>
+            ))}
           </div>
-          <div className="mt-16 border-t border-gray-900/10 pt-8 sm:mt-20 lg:mt-24">
-            <p className="text-xs leading-5 text-gray-500">&copy; {year} Vurge LLC. All rights reserved.</p>
-            <div className="text-gray-400 text-left text-xs">{`beta v${publicRuntimeConfig?.version}`}</div>
-          </div>
+          <p className="mt-10 text-center text-xs leading-5 text-gray-500">
+            &copy; {year} Vurge LLC. All rights reserved.
+          </p>
         </div>
       </footer>
     )
