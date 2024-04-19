@@ -55,16 +55,18 @@ export function RecipeCardList({recipes, maxDisplayCount = 9, incrementCount = 9
       <Container className={`grid justify-center lg:flex-row gap-10 lg:gap-12 animate-fadeIn`}>
             <div className="space-y-2 animate-fadeIn border-t mt-2 pt-2">
                 { sortedData.length > 0 ? 
-                  <div ref={containerRef} className={`grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6 mt-4`} >
-                      {sortedData.slice(0, displayCount).map((item: any) => (
-                          <RecipeCard item={item} key={item.name}/>
-                      ))}
+                <div className="space-y-6">
+                    <div ref={containerRef} className={`grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6 mt-4`} >
+                        {sortedData.slice(0, displayCount).map((item: any) => (
+                            <RecipeCard item={item} key={item.name}/>
+                        ))}
+                    </div>
                       {shouldShowLoadMore && (
-                          <div className="grid justify-center py-6">
+                          <div className="w-fit grid mx-auto">
                               <Button onClick={handleLoadMore} isLink={false} className="bg-primary-main rounded-3xl hover:bg-primary-alt text-white font-semibold py-2 px-4" text="Load More" buttonType="button"/>
                           </div>
                       )}
-                  </div>
+                </div>
                 :
                   <div className="text-center my-12">
                     <p className="text-xl font-semibold text-gray-500">No Results...</p>
