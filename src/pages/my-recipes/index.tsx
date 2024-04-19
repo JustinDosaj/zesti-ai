@@ -32,9 +32,8 @@ export default function MyRecipes() {
         <Breadcrumbs/>
         <TitleSection titleBlack="Your Saved Recipes" desc="Access all the recipes you saved from others or search for new ones below"/>
         <br/>
-        <AddRecipe/>
+        <AddRecipe align="center"/>
         <RecipeCardList recipes={userRecipeList} maxDisplayCount={9} max={0} loading={loadingUserRecipes}/>
-
         {/* Ad Display for My Recipes */}
         {stripeRole !== 'premium' && userRecipeList.length > 0 && userData?.account_status !== 'creator' ? 
         <div className="flex justify-center items-center py-16">

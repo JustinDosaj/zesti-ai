@@ -17,7 +17,7 @@ export function Navbar() {
 
     const navItemsDesktop = [
         { href: "/", text: "Home" },
-        { href: "/explore", text: "Explore"},
+        { href: "/search", text: "Search"},
         { href: "/about/pricing", text: "Pricing"},
         { href: "/about/contact", text: "Contact"},
         // Add more items as needed

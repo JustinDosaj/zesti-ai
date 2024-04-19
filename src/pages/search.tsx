@@ -48,7 +48,7 @@ const SearchResults: React.FC = () => {
         <main className={`flex min-h-screen flex-col items-center bg-background w-screen space-y-4 pb-48 ${raleway.className}`}>
             <Breadcrumbs/>
             <TitleSection titleBlack="Search for Recipes" desc="Enter a TikTok Recipe link below or search by ingredients, instructions, usernames & more!"/>
-            <AddRecipe/>
+            <AddRecipe align={"center"}/>
             <RecipeCardList recipes={recipes}/>
         </main>
     );
