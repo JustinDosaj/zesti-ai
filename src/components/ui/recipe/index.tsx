@@ -107,7 +107,7 @@ function RecipeLinks({recipe, setIsOpen}: RecipeProps) {
 
             return () => unsubscribe();
         }
-    }, [user, recipe.data.id]);
+    }, [user, recipe?.data?.id]);
 
     async function onSaveClick() {
         if (user && !isLoading) {
