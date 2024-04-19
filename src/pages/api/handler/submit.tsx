@@ -11,7 +11,7 @@ interface SubmissionProps {
 
 export const handleUserSubmitRecipe = async({url, setUrl}: SubmissionProps) => {
             
-    // Check if URL is empty   
+    var uniqueId;
     const date: Date = new Date();
     const functions = getFunctions();
     const userAddRecipe = httpsCallable(functions, 'userAddRecipe');
@@ -34,6 +34,7 @@ export const handleUserSubmitRecipe = async({url, setUrl}: SubmissionProps) => {
             console.log(response.data)
             const responseData = response.data as UserAddRecipeResponse;
             const message = responseData.message || "Problem receiving message from server.";
+            uniqueId = responseData.recipeId || '';
             Notify(message);
         } else {
             Notify("Failed to get valid response from the server.");
@@ -42,4 +43,7 @@ export const handleUserSubmitRecipe = async({url, setUrl}: SubmissionProps) => {
     .catch((err) => {
         Notify(err.message || "Error processing request");
     });
+
+    return { uniqueId }
+
 }
