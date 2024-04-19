@@ -45,7 +45,7 @@ export function SearchOrAddRecipe({align}: AddRecipeProps) {
             <form action="" method="POST" className="py-1 pl-6 w-full max-w-md pr-1 flex gap-3 items-center text-heading-3 shadow-lg shadow-box-shadow
             border border-box-border bg-box-bg rounded-full ease-linear focus-within:bg-body  focus-within:border-primary">
                 <LinkIcon className="text-gray-600 w-7 h-7 lg:h-10 lg:w-10"/>
-                <input type="text" name="web-page" disabled={isLoading} value={url} placeholder="Recipe Link or Search Keywords" className="text-sm lg:text-base w-full text-gray-500 py-3 outline-none bg-transparent" onChange={(e) => setUrl(e.target.value)}/>
+                <input type="text" name="web-page" disabled={isLoading} value={url} placeholder="Recipe Link or Search Keywords" className="text-base w-full text-gray-500 py-3 outline-none bg-transparent" onChange={(e) => setUrl(e.target.value)}/>
                 <Button buttonType="button" text="" className={"min-w-max text-white"} isLink={false} isDisabled={isLoading}  
                     onClick={onAddButtonClick}>
                     { !isLoading ?
