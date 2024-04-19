@@ -5,7 +5,7 @@ import { ToolExamples, Scroller, DashboardExample } from "../scroller"
 import { Button } from "@/components/shared/button"
 import Image from "next/image"
 import { TitleSection } from "@/components/shared/title"
-import { AddRecipe } from "@/components/search"
+import { SearchOrAddRecipe } from "@/components/search"
 import getConfig from "next/config"
 import { Paragraph } from "@/components/shared/paragraph"
 
@@ -37,10 +37,8 @@ export function Hero({titleStart, titleEnd, description}: HeroProps) {
             </Paragraph>
           </div>
           <div className="grid justify-center lg:justify-start text-left space-y-1">
-
-            <AddRecipe align={"start"}/>
+            <SearchOrAddRecipe align={"start"}/>
           </div>
-
           {/* Statistics removed because currently do not have any
             <div className="grid grid-cols-3 lg:flex justify-center lg:justify-start lg:space-x-16">
               <StatisticItem number="3200+" label="Recipes" />
