@@ -50,7 +50,7 @@ interface RecipeCardProps {
 
 export function RecipeCard({ item, key }: RecipeCardProps) {
     return (
-        <div key={key} className="group relative flex bg-white rounded-2xl border shadow-sm hover:shadow-xl hover:border-gray-300 transition-shadow duration-300 overflow-hidden">
+        <div key={key} className="group relative flex bg-white rounded-2xl border shadow-sm hover:shadow-xl hover:border-gray-300 transition-shadow duration-300 overflow-hidden max-w-[375px]">
             <Link href={`/recipe/${item.data.unique_id}`}>
                 <div className="flex">
                     {/* Image Container */}
