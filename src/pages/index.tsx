@@ -33,7 +33,7 @@ export default function Home() {
         <Hero 
           titleStart={"Your Favorite TikTok Recipes"} 
           titleEnd={"Instantly"} 
-          description={"Tired to pausing videos over and over to get ingredients from TikTok recipes? Enter a TikTok Recipe link below or search by ingredients, usernames & more!"}
+          description={"Paste the link to a TikTok recipe below or search by ingredients, usernames & more!"}
         />
       </main>
     </>
