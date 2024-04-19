@@ -38,7 +38,7 @@ export function Hero({titleStart, titleEnd, description}: HeroProps) {
           </div>
           <div className="grid justify-center lg:justify-start text-left space-y-1">
 
-            <AddRecipe/>
+            <AddRecipe align={"start"}/>
           </div>
 
           {/* Statistics removed because currently do not have any
