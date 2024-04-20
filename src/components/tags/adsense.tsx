@@ -27,7 +27,7 @@ const AdSenseDisplay = ({ adSlot, adFormat, widthRes, role }: AdProps) => {
       }
     }, []);
 
-  if (role == 'premium') return null;
+  if (role !== 'premium') return null;
 
   return (
     <div className="grid justify-center">
