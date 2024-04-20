@@ -7,7 +7,11 @@ import { TitleSection } from '@/components/shared/title';
 import Breadcrumbs from '@/components/shared/breadcrumb';
 import useSetBreadcrumbs from '@/components/shared/setBreadcrumbs';
 import { useRouter } from 'next/router';
+import { useAuth } from './api/auth/auth';
 import algoliasearch from 'algoliasearch/lite';
+import AdSenseDisplay from '@/components/tags/adsense';
+import Head from 'next/head';
+import GoogleTags from '@/components/tags/conversion';
 
 const raleway = Raleway({subsets: ['latin']})
 
@@ -20,6 +24,7 @@ const SearchResults: React.FC = () => {
 
     const [ recipes, setRecipes ] = useState<any>([])
     const [ urlParam, setUrlParam ] = useState<string>('')
+    const { stripeRole } = useAuth();
 
     const router = useRouter()
 
@@ -45,12 +50,21 @@ const SearchResults: React.FC = () => {
     };
 
     return (
-        <main className={`flex min-h-screen flex-col items-center bg-background w-screen space-y-4 pb-48 ${raleway.className}`}>
-            <Breadcrumbs/>
-            <TitleSection titleBlack="Search for Recipes" desc="Paste the link to a TikTok recipe below or search by ingredients, usernames & more!"/>
-            <SearchOrAddRecipe align={"center"}/>
-            <RecipeCardList recipes={recipes}/>
-        </main>
+        <>
+            <Head>
+                <meta name="robots" content="noindex" />
+                <title>Search TikTok Recipes | Zesti AI</title>
+                <GoogleTags/>
+            </Head>
+            <main className={`flex min-h-screen flex-col items-center bg-background w-screen space-y-4 pb-48 ${raleway.className}`}>
+                <Breadcrumbs/>
+                <TitleSection titleBlack="Search for Recipes" desc="Paste the link to a TikTok recipe below or search by ingredients, usernames & more!"/>
+                <SearchOrAddRecipe align={"center"}/>
+                <RecipeCardList recipes={recipes}/>
+                <div className="lg:pt-16"/>
+                <AdSenseDisplay adSlot="5606229053" adFormat="rectangle, horizontal" widthRes="true" role={stripeRole}/>
+            </main>
+        </>
     );
 }
 
