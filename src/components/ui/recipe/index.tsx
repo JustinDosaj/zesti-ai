@@ -1,94 +1,37 @@
 import { Container } from "@/components/shared/container"
 import React, { useState, useEffect } from "react"
-import { ArrowDownTrayIcon, EyeIcon, TrashIcon } from "@heroicons/react/20/solid"
+import { ArrowDownTrayIcon, TrashIcon } from "@heroicons/react/20/solid"
 import { db } from "@/pages/api/firebase/firebase"
 import { useAuth } from "@/pages/api/auth/auth"
 import { Notify } from '@/components/shared/notify';
 import { UserRemoveRecipeFromFirestore, saveRecipeReferenceToUser } from "@/pages/api/firebase/functions"
 import { onSnapshot, doc } from "firebase/firestore";
+import { ArrowTopRightOnSquareIcon } from "@heroicons/react/24/outline"
+import AdSenseDisplay from "@/components/tags/adsense"
 
 interface RecipeProps {
     recipe?: any,
     setIsOpen?: any,
     ingredients?: any,
     instructions?: any,
+    role?: string | null,
 }
 
-export function PublicRecipe({recipe, setIsOpen}: RecipeProps) {
+export function PublicRecipe({recipe, setIsOpen, role}: RecipeProps) {
 
     return(
-    <Container className={"flex flex-col gap-6 animate-fadeInFast alternate-orange-bg rounded-3xl md:w-[599px] p-8 mb-16"}>
-        <RecipeTitleDescriptionComponent recipe={recipe}/>
-        <RecipeLinks recipe={recipe} setIsOpen={setIsOpen}/>
+    <Container className={"flex flex-col gap-12 animate-fadeInFast rounded-3xl p-8 mb-16"}>
+        <RecipeTitleCard recipe={recipe} setIsOpen={setIsOpen}/>
+        <AdSenseDisplay adSlot="4329661976" adFormat="rectangle, horizontal" widthRes="true" role={role}/>
         <RecipeIngredientsComponent ingredients={recipe?.ingredients}/>
+        <AdSenseDisplay adSlot="1690723057" adFormat="rectangle, horizontal" widthRes="true" role={role}/>
         <RecipeInstructionsComponent instructions={recipe?.instructions}/>
-        <RecipeMainButtonComponent/>
+        <AdSenseDisplay adSlot="9326575118" adFormat="rectangle, horizontal" widthRes="true" role={role}/>
     </Container>
     )
 }
 
-function RecipeTitleDescriptionComponent({recipe}: RecipeProps) {
-    
-    return (
-        <div className="grid justify-center items-center text-center gap-y-2">
-            <span className="text-xl font-semibold text-gray-700">{recipe.name}</span>
-            <button onClick={() => window.open(recipe.data.owner.profile_link)} className="flex justify-center gap-1 items-center text-gray-700 font-semibold hover:text-gray-500 underline"> 
-                <EyeIcon className="h-4 w-4"/>
-                <span className="">{recipe.data.owner.username}</span>
-            </button>
-            <p className="text-gray-500 text-sm">{recipe.description}</p>
-        </div>
-    )
-}
-
-function RecipeIngredientsComponent({ ingredients }: RecipeProps) {
-
-    return (
-        <div className="space-y-2">
-            <h2 className="section-desc-text-size font-semibold">Ingredients</h2>
-            <ul className="space-y-2 list-disc pl-6 text-black">
-                {ingredients?.map((ingredient: any, index: number) => (
-                <li key={index} className="col-span-1 rounded-xl">
-                    <div className="grid justify-start rounded-md overflow-visible w-full">
-                        <div className="flex ml-1 mr-1.5 flex-shrink-0 items-center justify-center font-md text-gray-900 text-sm md:text-base">
-                            {ingredient}
-                        </div>
-                    </div>
-                </li>
-                ))}
-            </ul>
-        </div>
-    )
-}
-
-function RecipeInstructionsComponent({ instructions }: RecipeProps) {
-    
-    return(
-        <div className="space-y-2">
-            <h2 className="section-desc-text-size font-semibold">Instructions</h2>
-            <ul className="list-decimal pl-5 text-black">
-                {instructions?.map((instruction: any, index: number) => (
-                    <li key={index} className="col-span-1 rounded-xl">
-                        <div className="grid justify-start rounded-md overflow-wrap w-full">
-                            <div className="flex w-fit ml-1 mr-1.5 flex-shrink-0 items-center justify-center font-md text-gray-900 text-sm md:text-base">
-                                {instruction}
-                            </div>
-                        </div>
-                    </li>
-                ))}
-            </ul>
-        </div>
-    )
-}
-
-function RecipeMainButtonComponent() {
-
-    return(
-        <div className="grid justify-center">Upgrade to premium button?</div>
-    )
-}
-
-function RecipeLinks({recipe, setIsOpen}: RecipeProps) {
+function RecipeTitleCard({recipe, setIsOpen}: RecipeProps) {
 
     const { isLoading, user } = useAuth()
     const [ isSaved, setIsSaved ] = useState(false);
@@ -130,38 +73,73 @@ function RecipeLinks({recipe, setIsOpen}: RecipeProps) {
         }
         return false;
     }
-
-    const navigation = [
-        { 
-            name: `See Video`,
-            onClick: () => window.open(recipe.data.url),
-            icon: (props: any) => (
-                <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 448 512"
-                    {...props}
-                    className="h-3 w-3 md:h-4 md:w-4">
-                    <path
-                        fill="currentColor"
-                        d="M448,209.91a210.06,210.06,0,0,1-122.77-39.25V349.38A162.55,162.55,0,1,1,185,188.31V278.2a74.62,74.62,0,1,0,52.23,71.18V0l88,0a121.18,121.18,0,0,0,1.86,22.17h0A122.18,122.18,0,0,0,381,102.39a121.43,121.43,0,0,0,67,20.14Z" />
-                </svg>
-            ),
-        },
-        {
-            name: isSaved ? 'Delete' : 'Save',
-            onClick: isSaved ? () => onDeleteClick() : () => onSaveClick(),
-            icon: isSaved ? TrashIcon : ArrowDownTrayIcon,
-        }
-    ]
-
+    
     return(
-    <div className="flex justify-evenly">
-        {navigation.map((nav: any) => (
-            <button key={nav.name} onClick={nav.onClick} className="text-gray-700 hover:text-gray-500 inline-flex space-x-1 items-center justify-center w-1/3">
-                <nav.icon className="h-4 w-4 md:h-5 md:w-5"/>
-                <p className="capitalize text-sm lg:text-base text-left">{nav.name}</p>
-            </button>
-        ))}
+        <div className="border rounded-xl p-4 alternate-orange-bg space-y-2">
+            <div className="flex justify-between items-start">
+                <div className="flex-grow">
+                    <h1 className="text-xl font-semibold text-gray-900">{recipe.name}</h1>
+                    <div className="flex items-center gap-1 text-gray-700 mt-1">
+                        <span className="font-semibold">by</span>
+                        <button onClick={() => window.open(recipe.data.owner.profile_link)} className="flex justify-center gap-1 items-center font-semibold hover:text-gray-500">
+                            {recipe.data.owner.username}
+                            <ArrowTopRightOnSquareIcon className="h-4 w-4"/>
+                        </button>
+                    </div>
+                    <p className="text-gray-900 mt-1">{recipe.description}</p>
+                </div>
+                <div className="flex flex-col items-end">
+                    <button onClick={() => { isSaved ? onDeleteClick() : onSaveClick() }}>
+                        {isSaved ? (
+                            <TrashIcon className="h-5 w-5 md:w-6 md:h-6 text-red-600 hover:text-red-500"/>
+                        ) : (
+                            <ArrowDownTrayIcon className="h-5 w-5 md:w-6 md:h-6 text-green-600 hover:text-green-500"/>
+                        )}
+                    </button>
+                </div>
+            </div>
     </div>
     )
 }
+
+
+function RecipeIngredientsComponent({ ingredients }: RecipeProps) {
+
+    return (
+        <div className="space-y-2 border rounded-xl p-4 alternate-orange-bg">
+            <h2 className="section-desc-text-size font-semibold">Ingredients</h2>
+            <ul className="space-y-2 list-disc pl-6 text-black">
+                {ingredients?.map((ingredient: any, index: number) => (
+                <li key={index} className="col-span-1 rounded-xl">
+                    <div className="grid justify-start rounded-md overflow-visible w-full">
+                        <div className="flex ml-1 mr-1.5 flex-shrink-0 items-center justify-center font-md text-gray-900 text-sm md:text-base">
+                            {ingredient}
+                        </div>
+                    </div>
+                </li>
+                ))}
+            </ul>
+        </div>
+    )
+}
+
+function RecipeInstructionsComponent({ instructions }: RecipeProps) {
+    
+    return(
+        <div className="space-y-2 border rounded-xl p-4 alternate-orange-bg">
+            <h2 className="section-desc-text-size font-semibold">Instructions</h2>
+            <ul className="list-decimal pl-5 text-black">
+                {instructions?.map((instruction: any, index: number) => (
+                    <li key={index} className="col-span-1 rounded-xl">
+                        <div className="grid justify-start rounded-md overflow-wrap w-full">
+                            <div className="flex w-fit ml-1 mr-1.5 flex-shrink-0 items-center justify-center font-md text-gray-900 text-sm md:text-base">
+                                {instruction}
+                            </div>
+                        </div>
+                    </li>
+                ))}
+            </ul>
+        </div>
+    )
+}
+
