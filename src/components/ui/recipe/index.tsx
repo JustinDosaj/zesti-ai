@@ -10,21 +10,15 @@ import { onSnapshot, doc } from "firebase/firestore";
 interface RecipeProps {
     recipe?: any,
     setIsOpen?: any,
-    owner_id?: string,
     ingredients?: any,
     instructions?: any,
-    role?: string | null,
-    user_id?: string,
-    owner_name?: string,
-    recipe_name?: string,
-    recipe_title?: string,
 }
 
 export function PublicRecipe({recipe, setIsOpen}: RecipeProps) {
 
     return(
     <Container className={"flex flex-col gap-6 animate-fadeInFast alternate-orange-bg rounded-3xl md:w-[599px] p-8 mb-16"}>
-        <RecipeTitleDescriptionComponent recipe_name={recipe.name} recipe_title={recipe.video_title}/>
+        <RecipeTitleDescriptionComponent recipe={recipe}/>
         <RecipeLinks recipe={recipe} setIsOpen={setIsOpen}/>
         <RecipeIngredientsComponent ingredients={recipe?.ingredients}/>
         <RecipeInstructionsComponent instructions={recipe?.instructions}/>
@@ -33,12 +27,16 @@ export function PublicRecipe({recipe, setIsOpen}: RecipeProps) {
     )
 }
 
-function RecipeTitleDescriptionComponent({recipe_name, recipe_title}: RecipeProps) {
+function RecipeTitleDescriptionComponent({recipe}: RecipeProps) {
     
     return (
-        <div className="grid justify-center items-center">
-            <span className="section-desc-title-size text-center">{recipe_name}</span>
-            <p className="text-center text-gray-500 text-sm">{recipe_title}</p>
+        <div className="grid justify-center items-center text-center gap-y-2">
+            <span className="text-xl font-semibold">{recipe.name}</span>
+            <button onClick={() => window.open(recipe.data.owner.profile_link)} className="flex justify-center gap-1 items-center text-gray-700 font-semibold hover:text-gray-500 underline"> 
+                <EyeIcon className="h-4 w-4"/>
+                <span className="">{recipe.data.owner.username}</span>
+            </button>
+            <p className="text-gray-500 text-sm">{recipe.description}</p>
         </div>
     )
 }
@@ -93,7 +91,7 @@ function RecipeMainButtonComponent() {
 function RecipeLinks({recipe, setIsOpen}: RecipeProps) {
 
     const { isLoading, user } = useAuth()
-    const [isSaved, setIsSaved] = useState(false);
+    const [ isSaved, setIsSaved ] = useState(false);
 
     // Checking if user owns recipe already
     useEffect(() => {
@@ -134,11 +132,6 @@ function RecipeLinks({recipe, setIsOpen}: RecipeProps) {
     }
 
     const navigation = [
-        { 
-            name: recipe.data.owner.username,
-            onClick: () => window.open(recipe.data.owner.profile_link),
-            icon: EyeIcon,
-        },
         { 
             name: `See Video`,
             onClick: () => window.open(recipe.data.url),

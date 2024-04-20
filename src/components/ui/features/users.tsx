@@ -1,7 +1,7 @@
 import { Container } from "@/components/shared/container"
 import { ArrowDownIcon, BeakerIcon} from "@heroicons/react/20/solid"
 import { useState, useEffect, useRef } from "react"
-import { ToolExamples, Scroller, DashboardExample } from "../scroller"
+import { Scroller, DiscoverRecipes } from "../scroller"
 import { Button } from "@/components/shared/button"
 import Image from "next/image"
 import { TitleSection } from "@/components/shared/title"
@@ -66,52 +66,32 @@ export function StatisticItem({ number, label }: any) {
   );
 }
 
-export function HomePageScroller({creators}: any) {
+export function HomePageScroller({recipes}: any) {
 
     const [ scrollPage, setScrollPage] = useState<number>(1)
 
     const onRightScrollClick = () => {
-      /*if(scrollPage >= 2) {
-        setScrollPage(1)
-      } else {
-        setScrollPage(scrollPage + 1)
-      }*/
+      setScrollPage(prev => prev === 3 ? 1 : prev + 1);
     }
 
     const onLeftScrollClick = () => {
-      /*if(scrollPage <= 1) {
-        setScrollPage(2)
-      }
-      else {
-        setScrollPage(scrollPage - 1)
-      }*/
+      setScrollPage(prev => prev === 1 ? 3 : prev - 1);
     }
 
-    if (scrollPage == 1) return(
-      <Container className="home-scroll-container animate-fadeIn"> 
-        <DashboardExample/>
-        <Scroller onRightScrollClick={onRightScrollClick} onLeftScrollClick={onLeftScrollClick} scrollPage={scrollPage}/>
-      </Container> 
-    )
-    else if (scrollPage == 2) return (
-      <Container className="home-scroll-container"> 
-        <DashboardExample/>
-        <Scroller onRightScrollClick={onRightScrollClick} onLeftScrollClick={onLeftScrollClick} scrollPage={scrollPage}/>
+    const startIndex = (scrollPage - 1) * 3;
+    const endIndex = startIndex + 3;
+    const recipesToShow = recipes.slice(startIndex, endIndex);
+
+    return (
+      <Container className="home-scroll-container animate-fadeIn">
+          <DiscoverRecipes recipes={recipesToShow} />
+          <Scroller 
+              onRightScrollClick={onRightScrollClick} 
+              onLeftScrollClick={onLeftScrollClick} 
+              scrollPage={scrollPage}
+          />
       </Container>
-    )
-    else if (scrollPage == 3) return (
-      <Container className="home-scroll-container"> 
-        <ToolExamples/>
-        <Scroller onRightScrollClick={onRightScrollClick} onLeftScrollClick={onLeftScrollClick} scrollPage={scrollPage}/>
-      </Container>
-    )
-    /* PROBABLY WANT TO SHOW ERROR HERE IF SCROLL PAGE IS NOT A VALID PAGE */
-    else return (
-      <Container className="flex flex-col items-start py-12 px-5 bg-gradient-to-b from-orange-100 to-orange-200/50 xl:rounded-3xl"> 
-        <ToolExamples/>
-        <Scroller onRightScrollClick={onRightScrollClick} onLeftScrollClick={onLeftScrollClick} scrollPage={scrollPage}/>
-      </Container>
-    )
+  );
 }
 
 export function HomePageCTA() {
@@ -122,7 +102,7 @@ export function HomePageCTA() {
           <p className="w-full md:w-96 text-xl font-medium text-center primary-orange-text-gradient mb-3">
             Check Out Premium
           </p>
-          <TitleSection titleBlack="Try Free for 7-Days" desc="Get more out of Zesti when you use premium by gaining access to every feature Zesti offers and increased monthly usage!"/>
+          <TitleSection titleBlack="Try Free for 7-Days" desc="Enjoy Zesti without ads and gain access to the Cooking AI Chat Assistant"/>
         </div>
         <Button isLink={true} href='/about/pricing' text="Get Started" className="text-lg font-medium text-center text-white"/>
       </div>
@@ -198,35 +178,6 @@ export function ChatFeature() {
           </div>
         </div>
       </div>
-    </Container>
-  )
-}
-
-export function CookBookFeature({titleStart, titleEnd, desc}: any) {
-  return (
-    <Container className="relative w-full max-w-6xl mx-auto px-5 animate-fadeIn home-scroll-container ">
-        <TitleSection titleBlack={titleStart} titleOrange={titleEnd} desc={desc}/>
-        <div className="relative overflow-hidden pt-16">
-          <div className="mx-auto max-w-7xl px-6 lg:px-8">
-            <img
-              src="/images/screenshots/profile_desktop_screenshot.JPG"
-              alt="App screenshot"
-              className="mb-[-12%] rounded-xl shadow-2xl ring-1 ring-gray-900/10 hidden sm:block"
-              width={2432}
-              height={1442}
-            />
-            <img
-              src="/images/screenshots/profile_mobile_screenshot.JPG"
-              alt="App screenshot"
-              className="mb-[-12%] rounded-xl shadow-2xl ring-1 ring-gray-900/10 block sm:hidden"
-              width={2432}
-              height={1442}
-            />
-            <div className="relative" aria-hidden="true">
-              <div className="absolute -inset-x-20 bottom-0 bg-gradient-to-t from-orange-50 pt-[7%]" />
-            </div>
-          </div>
-        </div>
     </Container>
   )
 }
