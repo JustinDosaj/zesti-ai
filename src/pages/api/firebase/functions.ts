@@ -1,5 +1,7 @@
 import { Notify } from "@/components/shared/notify";
-import { db } from "./firebase"
+import { db, storage } from "./firebase"
+import { collection, query, limit, getDocs, updateDoc } from "firebase/firestore";
+import { ref as storageRef, uploadBytes, getDownloadURL } from "firebase/storage";
 
 export const saveRecipeReferenceToUser = async (userId: string, recipeId: string) => {
   const userRef = db.collection('users').doc(userId);
@@ -26,6 +28,28 @@ export const UserRemoveRecipeFromFirestore = async (userId: string, recipeId: st
 };
 
 /* END DELETE FUNCTIONS */
+
+interface Recipe {
+  id: string;
+  name: string;
+  cover_image_url: string;
+  [key: string]: any; // Extend this interface based on the other fields you expect in your documents
+}
+
+export async function GetRandomRecipes(numberOfRecipes: number): Promise<Recipe[]> {
+  const recipesRef = db.collection('recipes');
+  const snapshot = await recipesRef.get();
+  const recipes: Recipe[] = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }) as Recipe);
+
+  // Shuffle array to simulate randomness
+  for (let i = recipes.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [recipes[i], recipes[j]] = [recipes[j], recipes[i]];
+  }
+
+  // Return the specified number of random recipes
+  return recipes.slice(0, numberOfRecipes);
+}
 
 /* Store Error inside Firebase Error Collection */
 export async function SendErrorToFirestore(user_id: string | undefined | null, error: any, recipeId?: string | null, file?: string) {
