@@ -31,7 +31,7 @@ function RecipeTitleDescriptionComponent({recipe}: RecipeProps) {
     
     return (
         <div className="grid justify-center items-center text-center gap-y-2">
-            <span className="text-xl font-semibold">{recipe.name}</span>
+            <span className="text-xl font-semibold text-gray-700">{recipe.name}</span>
             <button onClick={() => window.open(recipe.data.owner.profile_link)} className="flex justify-center gap-1 items-center text-gray-700 font-semibold hover:text-gray-500 underline"> 
                 <EyeIcon className="h-4 w-4"/>
                 <span className="">{recipe.data.owner.username}</span>
