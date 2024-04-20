@@ -81,7 +81,7 @@ function RecipeTitleCard({recipe, setIsOpen}: RecipeProps) {
                     <h1 className="text-xl font-semibold text-gray-900">{recipe.name}</h1>
                     <div className="flex items-center gap-1 text-gray-700 mt-1">
                         <span className="font-semibold">by</span>
-                        <button onClick={() => window.open(recipe.data.owner.profile_link)} className="flex justify-center gap-1 items-center font-semibold hover:text-gray-500">
+                        <button onClick={() => window.open(recipe.data.url)} className="flex justify-center gap-1 items-center font-semibold hover:text-gray-500">
                             {recipe.data.owner.username}
                             <ArrowTopRightOnSquareIcon className="h-4 w-4"/>
                         </button>
