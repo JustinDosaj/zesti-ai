@@ -12,26 +12,6 @@ interface AdProps {
 const AdSenseDisplay = ({ adSlot, adFormat, widthRes, role }: AdProps) => {
     
     const adRef = useRef(false);
-    const [adSize, setAdSize] = useState({ width: '728px', height: '90px' });
-    
-    useEffect(() => {
-      if (window && typeof window != 'undefined') { adRef.current = true }
-       
-      const handleResize = () => {
-          if (window.innerWidth < 860) {
-              setAdSize({ width: '336px', height: '280px' });
-          } else {
-              setAdSize({ width: '728px', height: '90px' });
-          }
-      };
-
-      handleResize(); // Set on initial render
-
-      window.addEventListener('resize', handleResize);
-
-      return () => window.removeEventListener('resize', handleResize);
-
-    }, [])
     
     useEffect(() => {
       if (adRef.current) {
@@ -41,21 +21,22 @@ const AdSenseDisplay = ({ adSlot, adFormat, widthRes, role }: AdProps) => {
             console.log(error)
         }
       }
-    }, [adRef, adSize]);
+    }, []);
 
   if (role == 'premium') return null;
 
   return (
     <div className="grid justify-center">
       <ins
-        className="adsbygoogle "
+        className="adsbygoogle max-w-[336px] max-h-[280px] lg:max-w-[728px] lg:max-h-[90px] bg-gray-300"
         style={{
-            display: "block",
-            width: adSize.width,
-            height: adSize.height,
-        }}
+          display: "block",
+      }}
         data-ad-client="ca-pub-5837655994202747" // Replace with your publisher ID
         data-ad-slot={adSlot}
+        data-ad-format={adFormat}
+        data-full-width-responsive={widthRes}
+
       ></ins>
     </div>
   );
