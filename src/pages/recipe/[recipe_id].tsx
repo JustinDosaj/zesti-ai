@@ -42,9 +42,9 @@ const Recipe: React.FC = ({id}: any) => {
             <link rel="preload" href="/images/zesti-logos/Zesti-Premium-2.png" as="image"></link>
             <GoogleTags/>
         </Head>  
-        <main className={`flex min-h-screen flex-col items-center p-6 bg-background w-screen pb-36 ${raleway.className}`}>
+        <main className={`flex min-h-screen flex-col items-center p-2 bg-background w-screen pb-28 ${raleway.className}`}>
             <Breadcrumbs/>
-            <PublicRecipe recipe={recipe} setIsOpen={setIsOpen}/>
+            <PublicRecipe recipe={recipe} setIsOpen={setIsOpen} role={stripeRole}/>
             <Chatbox role={stripeRole} recipe={recipe}/>
             <ResponseModal
               title={`${recipe.name} Saved!`}
@@ -58,16 +58,7 @@ const Recipe: React.FC = ({id}: any) => {
               role={stripeRole}
               buttonName={"My Recipes"}
             />
-            
-            {stripeRole !== 'premium' ?
-            <div className="flex justify-center items-center lg:pt-16">
-                <div className="w-full min-w-[300px] max-w-[320px] lg:max-w-full lg:min-w-[1240px] text-center">
-                  <AdSenseDisplay adSlot="9326575118" adFormat="rectangle, horizontal" widthRes="true"/>
-                </div>
-            </div>
-            :
-            <div className="mb-28"></div>
-            }
+    
         </main>
     </>
     )
