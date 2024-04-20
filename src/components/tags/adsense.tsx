@@ -1,24 +1,16 @@
-import { useState, useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 
 declare let adsbygoogle: any;
 
-interface AdProps {
-  adSlot?: string,
-  adFormat?: string,
-  widthRes?: string,
-  role?: string | null,
-}
-
-const AdSenseDisplay = ({ adSlot, adFormat, widthRes, role }: AdProps) => {
+const AdSenseDisplay = ({ adSlot, adFormat, widthRes, role }: any) => {
     
-    const adRef = useRef(false);
-    
+  const isClientSide = useRef(false);
     useEffect(() => {
       if (window && typeof window != 'undefined')
-        adRef.current = true;
+        isClientSide.current = true;
     }, [])
     useEffect(() => {
-      if (adRef.current) {
+      if (isClientSide.current) {
         try {
             (adsbygoogle = window.adsbygoogle || []).push({});
         } catch (error) {
@@ -30,19 +22,18 @@ const AdSenseDisplay = ({ adSlot, adFormat, widthRes, role }: AdProps) => {
   if (role == 'premium') return null;
 
   return (
-    <div className="grid justify-center">
       <ins
         className="adsbygoogle max-w-[336px] max-h-[280px] lg:max-w-[728px] lg:max-h-[90px]"
-        style={{
-          display: "block",
-      }}
+        style={
+          { display: "block" }
+          //{ display: "block", width: "728px", height: "90px", backgroundColor: "gray"}
+          //{ display: "block", width: "336px", height: "280px", backgroundColor: "gray"}
+        }
         data-ad-client="ca-pub-5837655994202747" // Replace with your publisher ID
         data-ad-slot={adSlot}
         data-ad-format={adFormat}
         data-full-width-responsive={widthRes}
-
       ></ins>
-    </div>
   );
 };
 
