@@ -14,6 +14,10 @@ const AdSenseDisplay = ({ adSlot, adFormat, widthRes, role }: AdProps) => {
     const adRef = useRef(false);
     
     useEffect(() => {
+      if (window && typeof window != 'undefined')
+        adRef.current = true;
+    }, [])
+    useEffect(() => {
       if (adRef.current) {
         try {
             (adsbygoogle = window.adsbygoogle || []).push({});
@@ -28,7 +32,7 @@ const AdSenseDisplay = ({ adSlot, adFormat, widthRes, role }: AdProps) => {
   return (
     <div className="grid justify-center">
       <ins
-        className="adsbygoogle max-w-[336px] max-h-[280px] lg:max-w-[728px] lg:max-h-[90px] bg-gray-300"
+        className="adsbygoogle max-w-[336px] max-h-[280px] lg:max-w-[728px] lg:max-h-[90px]"
         style={{
           display: "block",
       }}
