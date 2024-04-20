@@ -20,7 +20,7 @@ interface RecipeProps {
 export function PublicRecipe({recipe, setIsOpen, role}: RecipeProps) {
 
     return(
-    <Container className={"flex flex-col gap-12 animate-fadeInFast rounded-3xl p-8 mb-16"}>
+    <Container className={"flex flex-col gap-12 animate-fadeInFast mb-16"}>
         <RecipeTitleCard recipe={recipe} setIsOpen={setIsOpen}/>
         <AdSenseDisplay adSlot="4329661976" adFormat="rectangle, horizontal" widthRes="true" role={role}/>
         <RecipeIngredientsComponent ingredients={recipe?.ingredients}/>
