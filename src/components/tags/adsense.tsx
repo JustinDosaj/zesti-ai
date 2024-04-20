@@ -18,7 +18,7 @@ const AdSenseDisplay = ({ adSlot, adFormat, widthRes, role }: any) => {
       }
     }, []);
 
-  if (role !== 'premium') return null;
+  if (role == 'premium') return null;
 
   return (
 
