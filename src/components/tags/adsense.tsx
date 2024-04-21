@@ -5,17 +5,11 @@ declare let adsbygoogle: any;
 const AdSenseDisplay = ({ adSlot, adFormat, widthRes, role }: any) => {
     
   const isClientSide = useRef(false);
-  const [ width, setWidth ] = useState<string>('');
-  const [ height, setHeight ] = useState<string>('');
     
   useEffect(() => {
-      if (window && typeof window != 'undefined')
-        
-        if (window?.innerWidth < 1224) { setWidth('300px'); setHeight('50px')}
-        else { setWidth('728px'); setHeight('90px')}
-      
+      if (window && typeof window != 'undefined')     
         isClientSide.current = true;
-    }, [isClientSide])
+    }, [])
   
   useEffect(() => {
       if (isClientSide.current) {
@@ -33,7 +27,7 @@ const AdSenseDisplay = ({ adSlot, adFormat, widthRes, role }: any) => {
       <ins
         className="adsbygoogle grid justify-center"
         style={
-          { display: "block", width: width, height: height, margin: "auto"}
+          { display: "block", margin: "auto"}
           //{ display: "block", width: "728px", height: "90px", backgroundColor: "gray"}
           //{ display: "block", width: "336px", height: "280px", backgroundColor: "gray"}
         }
