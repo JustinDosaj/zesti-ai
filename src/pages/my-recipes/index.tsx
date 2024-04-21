@@ -17,7 +17,7 @@ export default function MyRecipes() {
   useRequireAuth()
   useSetBreadcrumbs()
 
-  const { user, isLoading, stripeRole, userData } = useAuth();
+  const { user, isLoading, stripeRole } = useAuth();
   const { userRecipeList, loadingUserRecipes } = useUserRecipeList(user, isLoading)
 
   return (
@@ -31,8 +31,9 @@ export default function MyRecipes() {
         <TitleSection titleBlack="Your Saved Recipes" desc="Access all the recipes you saved from others or search for new ones below"/>
         <RecipeCardList recipes={userRecipeList} maxDisplayCount={9} max={0} loading={loadingUserRecipes}/>
         {/* Ad Display for My Recipes */}
-        <div className="pt-8"/>
-        <AdSenseDisplay adSlot="1979966274" adFormat="horizontal" widthRes="true" role={stripeRole}/>
+        <div className="pt-12 w-[300px] md:w-[728px]">
+          <AdSenseDisplay adSlot="1979966274" adFormat="horizontal" widthRes="true" role={stripeRole}/>
+        </div>
     </main>
     </>
   )
