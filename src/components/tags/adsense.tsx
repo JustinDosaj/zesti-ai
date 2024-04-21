@@ -15,7 +15,7 @@ const AdSenseDisplay = ({ adSlot, adFormat, widthRes, role }: any) => {
         else { setWidth('728px'); setHeight('90px')}
       
         isClientSide.current = true;
-    }, [window])
+    }, [isClientSide])
   
   useEffect(() => {
       if (isClientSide.current) {
