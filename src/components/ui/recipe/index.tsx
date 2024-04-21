@@ -22,11 +22,11 @@ export function PublicRecipe({recipe, setIsOpen, role}: RecipeProps) {
     return(
     <div className={"flex flex-col gap-8 animate-fadeInFast mb-16 mx-auto w-full lg:max-w-3xl px-3 sm:px-8 md:px-14 lg:px-5"}>
         <RecipeTitleCard recipe={recipe} setIsOpen={setIsOpen}/>
-        <AdSenseDisplay adSlot="4329661976" adFormat="horizontal" widthRes="true" role={role}/>
+        <AdSenseDisplay adSlot="4329661976" adFormat="horizontal" widthRes="false" role={role}/>
         <RecipeIngredientsComponent ingredients={recipe?.ingredients}/>
-        <AdSenseDisplay adSlot="1690723057" adFormat="horizontal" widthRes="true" role={role}/>
+        <AdSenseDisplay adSlot="1690723057" adFormat="horizontal" widthRes="false" role={role}/>
         <RecipeInstructionsComponent instructions={recipe?.instructions}/>
-        <AdSenseDisplay adSlot="9326575118" adFormat="horizontal" widthRes="true" role={role}/>
+        <AdSenseDisplay adSlot="9326575118" adFormat="horizontal" widthRes="false" role={role}/>
     </div>
     )
 }
