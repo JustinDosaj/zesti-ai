@@ -86,7 +86,7 @@ export function ResponseModal({title, text, icon: Icon, modalFunction, isOpen, s
 
                 {/* Checking subscription and ad status before displaying or not displaying ad*/}
                 <div className={role !== 'premium' && displayAd ? `pt-6 pb-4` : `hidden`}>
-                  <AdSenseDisplay adSlot="9250004753" adFormat="rectangle" widthRes="false"/>
+                  <AdSenseDisplay adSlot="9250004753" adFormat="rectangle" widthRes="false" role={role}/>
                 </div>
 
                 <div className="mt-5 sm:mt-6 sm:grid sm:grid-flow-row-dense sm:grid-cols-2 sm:gap-3">
