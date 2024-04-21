@@ -32,8 +32,6 @@ export default function Home() {
 
   },[])
 
-  console.log("Random Recipes: ", recipes)
-
   if (isLoading) return <PageLoader/>
 
   return (

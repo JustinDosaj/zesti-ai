@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 
 declare let adsbygoogle: any;
 
@@ -24,7 +24,6 @@ const AdSenseDisplay = ({ adSlot, adFormat, widthRes, role }: any) => {
   if (role == 'premium') return null;
 
   return (
-    <div className="h-[90px]">
       <ins
         className="adsbygoogle"
         style={
@@ -35,8 +34,8 @@ const AdSenseDisplay = ({ adSlot, adFormat, widthRes, role }: any) => {
         data-ad-client="ca-pub-5837655994202747" // Replace with your publisher ID
         data-ad-slot={adSlot}
         data-ad-format={adFormat}
+        data-full-width-responsive={widthRes}
       ></ins>
-    </div>
   );
 };
 
