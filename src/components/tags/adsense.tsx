@@ -21,10 +21,10 @@ const AdSenseDisplay = ({ adSlot, adFormat, widthRes, role }: any) => {
       }
     }, []);
 
-  if (role == 'premium') return null;
+  if (role !== 'premium') return null;
 
   return (
-    <div className="h-[90px]">
+    <div className="grid mx-auto max-h-[250px] max-w-[300px] bg-gray-900">
       <ins
         className="adsbygoogle"
         style={
@@ -36,7 +36,6 @@ const AdSenseDisplay = ({ adSlot, adFormat, widthRes, role }: any) => {
         data-ad-slot={adSlot}
         data-ad-format={adFormat}
         data-full-width-responsive={widthRes}
-        data-ad-test="on"
       ></ins>
     </div>
   );
