@@ -15,7 +15,7 @@ const AdSenseDisplay = ({ adSlot, adFormat, widthRes, role }: any) => {
         else { setWidth('728px'); setHeight('90px')}
       
         isClientSide.current = true;
-    }, [])
+    }, [isClientSide])
   
   useEffect(() => {
       if (isClientSide.current) {
@@ -31,7 +31,7 @@ const AdSenseDisplay = ({ adSlot, adFormat, widthRes, role }: any) => {
 
   return (
       <ins
-        className="adsbygoogle bg-gray-300 grid justify-center"
+        className="adsbygoogle grid justify-center"
         style={
           { display: "block", width: width, height: height, margin: "auto"}
           //{ display: "block", width: "728px", height: "90px", backgroundColor: "gray"}
