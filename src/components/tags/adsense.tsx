@@ -21,7 +21,7 @@ const AdSenseDisplay = ({ adSlot, adFormat, widthRes, role }: any) => {
       }
     }, []);
 
-  if (role !== 'premium') return null;
+  if (role == 'premium') return null;
 
   return (
     <div className="grid mx-auto max-h-[250px] max-w-[300px] bg-gray-900">
