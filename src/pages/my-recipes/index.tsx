@@ -23,7 +23,6 @@ export default function MyRecipes() {
   return (
     <>
     <Head>
-      <meta name="robots" content="noindex" />
       <title>Zesti | Your Recipes</title>
       <GoogleTags/>
     </Head>
