@@ -62,7 +62,7 @@ const SearchResults: React.FC = () => {
                 <SearchOrAddRecipe align={"center"}/>
                 <RecipeCardList recipes={recipes}/>
                 <div className="pt-8"/>
-                <AdSenseDisplay adSlot="5606229053" adFormat="rectangle, horizontal" widthRes="true" role={stripeRole}/>
+                <AdSenseDisplay adSlot="5606229053" adFormat="horizontal" widthRes="true" role={stripeRole}/>
             </main>
         </>
     );
