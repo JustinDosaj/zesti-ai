@@ -61,7 +61,7 @@ const SearchResults: React.FC = () => {
                 <TitleSection titleBlack="Search for Recipes" desc="Paste the link to a TikTok recipe below or search by ingredients, usernames & more!"/>
                 <SearchOrAddRecipe align={"center"}/>
                 <RecipeCardList recipes={recipes}/>
-                <div className="lg:pt-16"/>
+                <div className="pt-8"/>
                 <AdSenseDisplay adSlot="5606229053" adFormat="rectangle, horizontal" widthRes="true" role={stripeRole}/>
             </main>
         </>
