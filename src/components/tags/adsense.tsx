@@ -24,8 +24,9 @@ const AdSenseDisplay = ({ adSlot, adFormat, widthRes, role }: any) => {
   if (role == 'premium') return null;
 
   return (
+    <div className="h-[90px]">
       <ins
-        className="adsbygoogle grid justify-center"
+        className="adsbygoogle"
         style={
           { display: "block" }
           //{ display: "block", width: "728px", height: "90px", backgroundColor: "gray"}
@@ -35,7 +36,9 @@ const AdSenseDisplay = ({ adSlot, adFormat, widthRes, role }: any) => {
         data-ad-slot={adSlot}
         data-ad-format={adFormat}
         data-full-width-responsive={widthRes}
+        data-ad-test="on"
       ></ins>
+    </div>
   );
 };
 
