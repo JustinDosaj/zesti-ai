@@ -1,6 +1,6 @@
 import { Container } from "@/components/shared/container"
 import React, { useState, useEffect } from "react"
-import { ArrowDownTrayIcon, TrashIcon } from "@heroicons/react/20/solid"
+import { ArrowDownTrayIcon, BookmarkSlashIcon } from "@heroicons/react/20/solid"
 import { db } from "@/pages/api/firebase/firebase"
 import { useAuth } from "@/pages/api/auth/auth"
 import { Notify } from '@/components/shared/notify';
@@ -20,7 +20,7 @@ interface RecipeProps {
 export function PublicRecipe({recipe, setIsOpen, role}: RecipeProps) {
 
     return(
-    <div className={"flex flex-col gap-12 animate-fadeInFast mb-16 mx-auto w-full lg:max-w-3xl px-3 sm:px-8 md:px-14 lg:px-5"}>
+    <div className={"flex flex-col gap-8 animate-fadeInFast mb-16 mx-auto w-full lg:max-w-3xl px-3 sm:px-8 md:px-14 lg:px-5"}>
         <RecipeTitleCard recipe={recipe} setIsOpen={setIsOpen}/>
         <AdSenseDisplay adSlot="4329661976" adFormat="rectangle, horizontal" widthRes="true" role={role}/>
         <RecipeIngredientsComponent ingredients={recipe?.ingredients}/>
@@ -80,18 +80,18 @@ function RecipeTitleCard({recipe, setIsOpen}: RecipeProps) {
                 <div className="flex-grow">
                     <h1 className="text-xl font-semibold text-gray-900">{recipe.name}</h1>
                     <div className="flex items-center gap-1 text-gray-700 mt-1">
-                        <span className="font-semibold">by</span>
-                        <button onClick={() => window.open(recipe.data.url)} className="flex justify-center gap-1 items-center font-semibold hover:text-gray-500">
+                        <span className="">by</span>
+                        <button onClick={() => window.open(recipe.data.url)} className="underline flex justify-center gap-1 items-center font-semibold text-gray-700 hover:text-gray-500">
                             {recipe.data.owner.username}
                             <ArrowTopRightOnSquareIcon className="h-4 w-4"/>
                         </button>
                     </div>
-                    <p className="text-gray-900 mt-1">{recipe.description}</p>
+                    <p className="text-gray-900 text-sm md:text-base mt-2">{recipe.description}</p>
                 </div>
                 <div className="flex flex-col items-end">
                     <button onClick={() => { isSaved ? onDeleteClick() : onSaveClick() }}>
                         {isSaved ? (
-                            <TrashIcon className="h-5 w-5 md:w-6 md:h-6 text-red-600 hover:text-red-500"/>
+                            <BookmarkSlashIcon className="h-5 w-5 md:w-6 md:h-6 text-red-600 hover:text-red-500"/>
                         ) : (
                             <ArrowDownTrayIcon className="h-5 w-5 md:w-6 md:h-6 text-green-600 hover:text-green-500"/>
                         )}
