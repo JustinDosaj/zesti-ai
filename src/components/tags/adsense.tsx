@@ -2,7 +2,15 @@ import { useState, useEffect, useRef } from "react";
 
 declare let adsbygoogle: any;
 
-const AdSenseDisplay = ({ adSlot, adFormat, widthRes, role }: any) => {
+interface AdSenseDisplayProps {
+  adSlot: string;
+  adFormat: string;
+  widthRes: string;
+  role: string | null | undefined;
+  maxHeight?: string;
+}
+
+const AdSenseDisplay = ({ adSlot, adFormat, widthRes, role, maxHeight = "90px" }: AdSenseDisplayProps) => {
     
   const isClientSide = useRef(false);
     
@@ -26,11 +34,7 @@ const AdSenseDisplay = ({ adSlot, adFormat, widthRes, role }: any) => {
   return (
       <ins
         className="adsbygoogle"
-        style={
-          { display: "block", height: "90px"}
-          //{ display: "block", width: "728px", height: "90px", backgroundColor: "gray"}
-          //{ display: "block", width: "336px", height: "280px", backgroundColor: "gray"}
-        }
+        style={{ display: "block", height: `${maxHeight}`}}
         data-ad-client="ca-pub-5837655994202747" // Replace with your publisher ID
         data-ad-slot={adSlot}
         data-ad-format={adFormat}
