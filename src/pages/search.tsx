@@ -52,7 +52,6 @@ const SearchResults: React.FC = () => {
     return (
         <>
             <Head>
-                <meta name="robots" content="noindex" />
                 <title>Search TikTok Recipes | Zesti AI</title>
                 <GoogleTags/>
             </Head>
