@@ -1,15 +1,25 @@
-import { useEffect, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 
 declare let adsbygoogle: any;
 
 const AdSenseDisplay = ({ adSlot, adFormat, widthRes, role }: any) => {
     
   const isClientSide = useRef(false);
-    useEffect(() => {
+  const [ width, setWidth ] = useState<string>('');
+  const [ height, setHeight ] = useState<string>('');
+
+  console.log("Window width: ", window?.innerWidth)
+    
+  useEffect(() => {
       if (window && typeof window != 'undefined')
+        
+        if (window.innerWidth < 1224) { setWidth('300px'); setHeight('50px')}
+        else { setWidth('728px'); setHeight('90px')}
+      
         isClientSide.current = true;
     }, [])
-    useEffect(() => {
+  
+  useEffect(() => {
       if (isClientSide.current) {
         try {
             (adsbygoogle = window.adsbygoogle || []).push({});
@@ -19,13 +29,13 @@ const AdSenseDisplay = ({ adSlot, adFormat, widthRes, role }: any) => {
       }
     }, []);
 
-  if (role == 'premium') return null;
+  if (role !== 'premium') return null;
 
   return (
       <ins
-        className="adsbygoogle max-w-[336px] max-h-[280px] lg:max-w-[728px] lg:max-h-[90px]"
+        className="adsbygoogle bg-gray-300 grid justify-center"
         style={
-          { display: "block" }
+          { display: "block", width: width, height: height, margin: "auto"}
           //{ display: "block", width: "728px", height: "90px", backgroundColor: "gray"}
           //{ display: "block", width: "336px", height: "280px", backgroundColor: "gray"}
         }

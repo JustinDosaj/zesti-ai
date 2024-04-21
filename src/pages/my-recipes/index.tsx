@@ -32,6 +32,7 @@ export default function MyRecipes() {
         <TitleSection titleBlack="Your Saved Recipes" desc="Access all the recipes you saved from others or search for new ones below"/>
         <RecipeCardList recipes={userRecipeList} maxDisplayCount={9} max={0} loading={loadingUserRecipes}/>
         {/* Ad Display for My Recipes */}
+        <div className="pt-8"/>
         <AdSenseDisplay adSlot="5606229053" adFormat="rectangle, horizontal" widthRes="true" role={stripeRole}/>
     </main>
     </>
