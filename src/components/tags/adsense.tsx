@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 
 declare let adsbygoogle: any;
 
@@ -27,7 +27,7 @@ const AdSenseDisplay = ({ adSlot, adFormat, widthRes, role }: any) => {
       <ins
         className="adsbygoogle grid justify-center"
         style={
-          { display: "block", margin: "auto"}
+          { display: "block" }
           //{ display: "block", width: "728px", height: "90px", backgroundColor: "gray"}
           //{ display: "block", width: "336px", height: "280px", backgroundColor: "gray"}
         }
