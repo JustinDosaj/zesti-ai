@@ -6,7 +6,7 @@ interface AdSenseDisplayProps {
   adSlot: string;
   adFormat: string;
   widthRes: string;
-  role: string | null | undefined;
+  role: string | null;
   maxHeight?: string;
 }
 
