@@ -7,13 +7,11 @@ const AdSenseDisplay = ({ adSlot, adFormat, widthRes, role }: any) => {
   const isClientSide = useRef(false);
   const [ width, setWidth ] = useState<string>('');
   const [ height, setHeight ] = useState<string>('');
-
-  console.log("Window width: ", window?.innerWidth)
     
   useEffect(() => {
       if (window && typeof window != 'undefined')
         
-        if (window.innerWidth < 1224) { setWidth('300px'); setHeight('50px')}
+        if (window?.innerWidth < 1224) { setWidth('300px'); setHeight('50px')}
         else { setWidth('728px'); setHeight('90px')}
       
         isClientSide.current = true;
