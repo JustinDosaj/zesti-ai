@@ -1,33 +1,6 @@
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
-<!--  created with Free Online Sitemap Generator www.xml-sitemaps.com  -->
-<url>
-<loc>https://www.zesti.ai/</loc>
-<lastmod>2024-03-20T22:10:07+00:00</lastmod>
-<priority>1.00</priority>
-</url>
-<url>
-<loc>https://www.zesti.ai/search</loc>
-<lastmod>2024-03-20T22:10:07+00:00</lastmod>
-<priority>0.80</priority>
-</url>
-<url>
-<loc>https://www.zesti.ai/about/pricing</loc>
-<lastmod>2024-03-20T22:10:07+00:00</lastmod>
-<priority>0.80</priority>
-</url>
-<url>
-<loc>https://www.zesti.ai/about/contact</loc>
-<lastmod>2024-03-20T22:10:07+00:00</lastmod>
-<priority>0.80</priority>
-</url>
-<url>
-<loc>https://www.zesti.ai/auth/login</loc>
-<lastmod>2024-03-20T22:10:07+00:00</lastmod>
-<priority>0.80</priority>
-</url>
-<url>
-<loc>https://www.zesti.ai/about/faq</loc>
-<lastmod>2024-03-20T22:10:07+00:00</lastmod>
-<priority>0.80</priority>
-</url>
-</urlset>
+<?xml version="1.0" encoding="UTF-8"?>
+<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<sitemap><loc>https://zesti.ngrok.app/sitemap-0.xml</loc></sitemap>
+<sitemap><loc>https://zesti.ngrok.app/sitemap.xml</loc></sitemap>
+<sitemap><loc>https://zesti.ngrok.app/server-sitemap-index.xml</loc></sitemap>
+</sitemapindex>
