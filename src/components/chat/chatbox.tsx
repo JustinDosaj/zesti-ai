@@ -20,7 +20,7 @@ interface ChatBoxProps {
 
 export function Chatbox({role, recipe}:ChatBoxProps) {
     
-  const [isOpen, setIsOpen] = useState<boolean>(true);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
   const [message, setMessage] = useState<string>('');
   const [messages, setMessages] = useState<AIChatMessageProps[]>([]);
   const { user } = useAuth();
