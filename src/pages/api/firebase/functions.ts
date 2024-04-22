@@ -36,6 +36,13 @@ interface Recipe {
   [key: string]: any; // Extend this interface based on the other fields you expect in your documents
 }
 
+export async function GetAllRecipes(): Promise<Recipe[]> {
+  const recipesRef = db.collection('recipes');
+  const snapshot = await recipesRef.get();
+  const recipes: Recipe[] = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }) as Recipe);
+  return recipes
+}
+
 export async function GetRandomRecipes(numberOfRecipes: number): Promise<Recipe[]> {
   const recipesRef = db.collection('recipes');
   const snapshot = await recipesRef.get();

@@ -13,7 +13,7 @@ export default function FAQPage() {
   return (
     <>
       <Head>
-        <title>Zesti AI | FAQ | Basic Questions Answered</title>
+        <title>Zesti AI FAQ | Basic Questions Answered</title>
         <meta name="title" content="Zesti AI | FAQ | Basic Questions Answered"/>
         <meta name="description" content="Get answers to the most common questions asked about Zesti AI"/>
         <GoogleTags/>
