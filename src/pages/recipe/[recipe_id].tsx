@@ -12,7 +12,6 @@ import { Chatbox } from "@/components/chat/chatbox";
 import { ResponseModal } from "@/components/ui/modals/response";
 import { BookmarkIcon } from "@heroicons/react/20/solid";
 import { useRouter } from "next/router";
-import AdSenseDisplay from "@/components/tags/adsense";
 import useRecipe from "@/hooks/useRecipe";
 
 const raleway = Raleway({subsets: ['latin']})
@@ -36,9 +35,9 @@ const Recipe: React.FC = ({id}: any) => {
     return(
     <>
         <Head>
-            <title>{`Zesti AI | ${recipe.name}`}</title>
-            <meta name="title" content={`Zesti AI | ${recipe.name}`}/>
-            <meta name="description" content={`Make ${recipe.name}. A recipe by ${recipe?.data?.owner?.username} from TikTok.`}/>
+            <title>{`${recipe?.name} from ${recipe?.data?.owner?.username}`}</title>
+            <meta name="title" content={`${recipe?.name} from ${recipe?.data?.owner?.username}`}/>
+            <meta name="description" content={`Learn to make ${recipe.name}, a delicious recipe from ${recipe?.data?.owner?.username} on TikTok.`}/>
             <link rel="preload" href="/images/zesti-logos/Zesti-Premium-2.png" as="image"></link>
             <GoogleTags/>
         </Head>  

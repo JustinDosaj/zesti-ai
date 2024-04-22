@@ -5,7 +5,7 @@ import { useAuth } from './api/auth/auth';
 import { PageLoader } from '@/components/shared/loader';
 import { Raleway } from 'next/font/google'
 import { useEffect, useState } from 'react';
-import { GetRandomRecipes } from './api/firebase/functions';
+import { GetAllRecipes, GetRandomRecipes } from './api/firebase/functions';
 
 const raleway = Raleway({subsets: ['latin']})
 
@@ -37,9 +37,9 @@ export default function Home() {
   return (
     <>
       <Head>
-        <title>Zesti AI | Find Transcribed Recipes from TikTok</title>
-        <meta name="title" content="Zesti AI | Find Transcribed Recipes from TikTok"/>
-        <meta name="description" content="Spend less time writing recipes down and more time cooking! Find transcribed recipes from your favorite TikTok Chefs or transcribe a recipe yourself!"/>
+        <title>Zesti AI | Get Your Favorite TikTok Recipes Instantly</title>
+        <meta name="title" content="Zesti AI | Get Your Favorite TikTok Recipes Instantly"/>
+        <meta name="description" content="Instantly get delicious recipes from TikTok by using Zesti AI to transcribe your faovirte recipe videos to text instantly!"/>
         <GoogleTags/>
       </Head>
       <main className={`main-seo-page-class ${raleway.className}`}>
