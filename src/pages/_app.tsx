@@ -9,7 +9,6 @@ import 'react-toastify/dist/ReactToastify.css';
 import React from 'react'
 import { NavigationProvider } from './api/context/navigation'
 
-
 export default function App({ Component, pageProps }: AppProps) {
 
   return (

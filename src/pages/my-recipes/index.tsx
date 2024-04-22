@@ -23,7 +23,8 @@ export default function MyRecipes() {
   return (
     <>
     <Head>
-      <title>Zesti | Your Recipes</title>
+      <title>Zesti AI | My Recipes</title>
+      <meta name="title" content={`Zesti AI | My Recipes`}/>
       <GoogleTags/>
     </Head>
     <main className={`flex min-h-screen flex-col items-center bg-background w-screen space-y-4 pb-48 ${raleway.className}`}>
