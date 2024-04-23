@@ -1,9 +1,13 @@
-import { ExclamationTriangleIcon, LinkIcon } from '@heroicons/react/24/outline'
+import { LinkIcon } from '@heroicons/react/24/outline'
+import { UserIcon } from '@heroicons/react/20/solid';
+import { ResponseModal } from '../ui/modals/response';
 import React, { useState } from "react"
 import { Button } from '../shared/button';
 import { useRouter } from 'next/router';
 import { handleUserSubmitRecipe } from '@/pages/api/handler/submit';
 import { ButtonLoader } from '../shared/loader';
+import { useAuth } from '@/pages/api/auth/auth';
+import { Notify } from '../shared/notify';
 
 interface AddRecipeProps {
     align?: 'start' | 'center' | 'end',
@@ -11,12 +15,20 @@ interface AddRecipeProps {
 
 export function SearchOrAddRecipe({align}: AddRecipeProps) {
 
+    const { user, stripeRole, login } = useAuth(); 
     const [ url , setUrl ] = useState<string>("");
     const [ isLoading, setIsLoading ] = useState<boolean>(false);
+    const [ isOpen, setIsOpen ] = useState<boolean>(false)
     const router = useRouter();
 
     const onAddButtonClick = async (e: React.FormEvent) => {
         e.preventDefault();
+
+        if(!user) {
+            setIsOpen(true)
+            return;
+        }
+
         setIsLoading(true) // Disable button & input
         
         if(url.includes('tiktok.com')) {
@@ -40,7 +52,7 @@ export function SearchOrAddRecipe({align}: AddRecipeProps) {
     }
 
     return(
-    
+        <>
         <div className={`flex sm:flex-row flex-col gap-5 justify-center lg:justify-${align} w-[350px] md:w-[450px]`}> {/* Also needs to be able to center for my recipe page */}
             <form onSubmit={onAddButtonClick} action="" method="POST" className="py-1 pl-6 w-full max-w-md pr-1 flex gap-3 items-center text-heading-3 shadow-lg shadow-box-shadow
             border border-box-border bg-box-bg rounded-full ease-linear focus-within:bg-body  focus-within:border-primary">
@@ -64,6 +76,18 @@ export function SearchOrAddRecipe({align}: AddRecipeProps) {
                 </Button>
             </form>
         </div>
-      
+        <ResponseModal
+          title={"Please login or sign up to continue"}
+          text={""}
+          isOpen={isOpen}
+          setIsOpen={setIsOpen}
+          icon={UserIcon}
+          modalFunction={login}
+          displayAd={false}
+          role={stripeRole}
+          buttonName="Login or Sign Up"
+          iconColor={"green"}
+        />
+        </>
     )
 }
