@@ -1,6 +1,6 @@
 import { Container } from "@/components/shared/container"
 import { ArrowDownIcon, BeakerIcon} from "@heroicons/react/20/solid"
-import { useState, useEffect, useRef } from "react"
+import React, { useState, useEffect, useRef } from "react"
 import { Scroller, DiscoverRecipes } from "../scroller"
 import { Button } from "@/components/shared/button"
 import Image from "next/image"
@@ -50,7 +50,7 @@ export function Hero({titleStart, titleEnd, description}: HeroProps) {
 
 
           <div className="hidden lg:block w-1/2 bg-transparent rounded-lg">
-            <Image src={"/images/Illustration.png"} alt="Profile" height={2058} width={2150} className="object-fit" />
+            <img src={"/images/Illustration.png"} alt="Profile" height={2058} width={2150} className="object-fit" />
           </div> {/* Placeholder for the illustration */}
         
       </Container>

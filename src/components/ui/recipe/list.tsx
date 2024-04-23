@@ -1,4 +1,3 @@
-import { SharedSectionHeadingTitle } from "@/components/shared/title"
 import { Button } from "@/components/shared/button"
 import { Container } from "@/components/shared/container"
 import React, { useState, useRef } from "react"
