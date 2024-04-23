@@ -91,7 +91,7 @@ export function Navbar() {
                 <div className="hidden lg:flex justify-start w-1/3 ">
                     <Link href="/" className="flex items-center gap-3">
                         <div className="relative w-14 h-14 overflow-hidden flex rounded-xl">
-                            <Image src="/images/Zesti-Logo.png" alt="Zesti Artificial Intelligence Recipe Helper Logo" width={60} height={30}/>
+                            <img src="/images/Zesti-Logo.png" alt="Zesti Artificial Intelligence Recipe Helper Logo" width={60} height={30}/>
                         </div>
                         <div className="hidden lg:inline-flex text-2xl font-semibold text-heading-1 text-black">
                             Zesti.ai
