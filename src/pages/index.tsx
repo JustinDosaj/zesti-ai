@@ -6,6 +6,7 @@ import { PageLoader } from '@/components/shared/loader';
 import { Raleway } from 'next/font/google'
 import { useEffect, useState } from 'react';
 import { GetRandomRecipes } from './api/firebase/functions';
+import { FAQ } from '@/components/ui/general';
 
 const raleway = Raleway({subsets: ['latin']})
 
@@ -52,6 +53,7 @@ export default function Home() {
         <HomeVideoToRecipe titleStart={"Instantly Convert"} titleEnd={"Video to Recipe"} desc={""}/>
         <ChatFeature/>
         <HomePageCTA/>
+        <FAQ title="FAQ" desc="Answers to the most common questions we get" type="user"/>
       </main>
     </>
   )
