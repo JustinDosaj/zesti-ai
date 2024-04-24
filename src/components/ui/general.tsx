@@ -197,20 +197,28 @@ export function FAQ({type, title, desc}: FAQProps) {
     const FAQTypes = {
         user: [
             {
-              question: "What is Zesti AI",
-              answer: "Zesti AI is a platform created to help make tiktok recipes readily available so you no longer have to pause or rewind a dozen times for a recipe. We do this by partnering with creators so they can publish their recipe showcase in text format. Users can freely view these existing recipes or use the Zesti AI transcripton tool if a recipe they want is not published yet.",
+              question: "What is Zesti AI?",
+              answer: "Zesti AI is a platform created to help make tiktok recipes readily available so you no longer have to pause or rewind multiple times for a recipe",
             },
             {
-              question: "What is the Zesti AI transcription tool?",
-              answer: "This is a feature that allows users to copy a video link directly from tiktok and paste it into the tool to instantly receive a recipe in text format. This tool is available to all users and is free to use and is accessible from under the search bar & search results",
+              question: "How does Zesti work?",
+              answer: "Zesti uses AI tools to transcribe the audio from a tiktok cooking video into a format that is easily readable by everyone.",
+            },
+            {
+              question: "What platforms does Zesti support?",
+              answer: "Currently TikTok is the only platform supported by Zesti. However, we are working on making YouTube & Instagram available soon!",
+            },
+            {
+              question: "What are the video requirements?",
+              answer: "Videos must contain recipes in either the title or the audio. We are currently working on vision capture that will allow on-screen text to be transribed as well, but there is no release date available yet.",
+            },
+            {
+              question: "How well does Zesti work?",
+              answer: "Zesti is still a new platform and we are constantly working on improving the accuracy of the transcriptions. However, in the current state we cannot guarentee 100% accuracy.",
             },
             {
               question: "How much does Zesti cost?",
-              answer: "The base version of zesti if free and allows you the following: browse existing recipes, unlimited saves to your cookbook, 2 recipe transcriptions per month. We do offer a paid version that unlocks additional features such as increased transcriptions per month and Zesti AI chat assistant.",
-            },
-            {
-              question: "What if a recipe I want is not on Zesti yet?",
-              answer: "If you cannot find a recipe with the search bar, the transcription tool is available for you to use. Simply copy the video link from tiktok and paste it into the tool to recieve a text version of the recipe.",
+              answer: "You can use Zesti for free! Simply create an account, then paste the link to a tiktok video to get the recipe instantly. Optionally, you can search already existing recipes.",
             },
             {
               question: "I have more questions, how can I contact you?",
