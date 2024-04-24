@@ -5,9 +5,7 @@ import { useAuth } from './api/auth/auth';
 import { PageLoader } from '@/components/shared/loader';
 import { Raleway } from 'next/font/google'
 import { useEffect, useState } from 'react';
-import { GetAllRecipes, GetRandomRecipes } from './api/firebase/functions';
-import { ResponseModal } from '@/components/ui/modals/response';
-import { UserIcon } from '@heroicons/react/24/outline';
+import { GetRandomRecipes } from './api/firebase/functions';
 
 const raleway = Raleway({subsets: ['latin']})
 
