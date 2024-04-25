@@ -35,9 +35,9 @@ const Recipe: React.FC = ({id}: any) => {
     return(
     <>
         <Head>
-            <title>{`${recipe?.name} from ${recipe?.data?.owner?.username}`}</title>
-            <meta name="title" content={`${recipe?.name} from ${recipe?.data?.owner?.username}`}/>
-            <meta name="description" content={`Learn to make ${recipe.name}, a delicious recipe from ${recipe?.data?.owner?.username} on TikTok.`}/>
+            <title>{`${recipe?.name} by ${recipe?.data?.owner?.username}`}</title>
+            <meta name="title" content={`${recipe?.name} by ${recipe?.data?.owner?.username}`}/>
+            <meta name="description" content={`${recipe?.description} by ${recipe?.data?.owner?.username} from TikTok`}/>
             <link rel="preload" href="/images/zesti-logos/Zesti-Premium-2.png" as="image"></link>
             <GoogleTags/>
         </Head>  
