@@ -1,5 +1,4 @@
 
-// hooks/useSetBreadcrumbs.js
 import { useEffect } from 'react';
 import { useNavigation } from '@/pages/api/context/navigation';
 import { useRouter } from 'next/router';
@@ -14,6 +13,12 @@ const useSetBreadcrumbs = () => {
     const breadcrumb = ['Home'];
 
     segments.forEach((segment) => {
+
+      if (segment.includes('search')) {
+        breadcrumb.push('search');
+        // Skip remaining processing for this segment to avoid adding query params
+        return;
+      }
 
       if (segment === 'recipe') return; // Skip 'recipe' segment
 
