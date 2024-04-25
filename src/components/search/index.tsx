@@ -1,5 +1,4 @@
-import { LinkIcon } from '@heroicons/react/24/outline'
-import { UserIcon } from '@heroicons/react/20/solid';
+import { UserIcon, LinkIcon, ExclamationTriangleIcon } from '@heroicons/react/20/solid';
 import { ResponseModal } from '../ui/modals/response';
 import React, { useState } from "react"
 import { Button, InlineButton } from '../shared/button';
@@ -22,22 +21,25 @@ export function SearchOrAddRecipe({align}: AddRecipeProps) {
     const router = useRouter();
 
     const onAddButtonClick = async (e: React.FormEvent) => {
+        
         e.preventDefault();
-
-        if(!user) {
-            setIsOpen(true)
-            return;
-        }
-
+        
         setIsLoading(true) // Disable button & input
         
-        if(url.includes('tiktok.com')) {
+        if(url.includes('tiktok.com') && user) {
 
             const response = await handleUserSubmitRecipe({url, setUrl})
 
             if (response.uniqueId && response.uniqueId !== '') { 
                 router.push(`/recipe/${response.uniqueId}`)
             }
+
+        } else if (url.includes('tiktok.com') && !user) {
+            //setIsOpen(true)
+            
+            setIsOpen(true)
+            setIsLoading(false)
+            return;
 
         } else {
             router.push({
@@ -59,7 +61,7 @@ export function SearchOrAddRecipe({align}: AddRecipeProps) {
                 <LinkIcon className="text-gray-600 w-7 h-7 lg:h-10 lg:w-10"/>
                 <input type="text" name="web-page" disabled={isLoading} value={url} placeholder="Recipe Link or Search Keywords" className="text-base w-full text-gray-500 py-3 outline-none bg-transparent" onChange={(e) => setUrl(e.target.value)}/>
                 <Button buttonType="submit" text="" className={"min-w-max text-white text-sm lg:text-base"} isLink={false} isDisabled={isLoading} >
-                    { !isLoading  && user ?
+                    { !isLoading ?
                         <div>                               
                             <span className="hidden sm:flex relative z-[5]">
                                 {"Submit"}
@@ -70,34 +72,28 @@ export function SearchOrAddRecipe({align}: AddRecipeProps) {
                                 </svg>                                      
                             </span>
                         </div>
-                        : !isLoading && !user ? 
-                            <span className="flex relative z-[5]">
-                                {"Login"}
-                            </span>
                         :
                         <ButtonLoader/>
                     }
                 </Button>
             </form>
         </div>
-        { !user && (
-            <div className={`inline-flex justify-center text-sm items-center space-x-1 text-gray-500`}>
-                <p>Please</p>
-                <InlineButton text="login" isLink={false} onClick={login}/>
-                <p className=" text-gray-500">to search</p>
-            </div>
-        )}
         <ResponseModal
-          title={"Please login or sign up to continue"}
-          text={""}
+          title={"Link Detected"}
+          text={"If the recipe you are looking for does not exist yet, you can login & re-enter the link to add it to our database"}
           isOpen={isOpen}
           setIsOpen={setIsOpen}
-          icon={UserIcon}
-          modalFunction={login}
+          icon={LinkIcon}
+          modalFunction={() => {
+            router.push({
+                pathname: '/search',
+                query: { q: encodeURIComponent(url)} 
+            })
+          }}
           displayAd={false}
           role={stripeRole}
-          buttonName="Login or Sign Up"
-          iconColor={"green"}
+          buttonName="Continue Search"
+          iconColor={"orange"}
         />
         </>
     )
