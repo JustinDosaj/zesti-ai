@@ -28,6 +28,7 @@ export function SearchOrAddRecipe({align}: AddRecipeProps) {
         
         if(url.includes('tiktok.com') && user) {
 
+            Notify("Processing recipe video, please wait...")
             const response = await handleUserSubmitRecipe({url, setUrl})
 
             if (response.uniqueId && response.uniqueId !== '') { 
