@@ -47,7 +47,7 @@ export default function Home() {
         <Hero 
           titleStart={"Your Favorite TikTok Recipes"} 
           titleEnd={"Instantly"} 
-          description={"Paste the link to a TikTok recipe below or search by ingredients, usernames & more!"}
+          description={"Copy & paste a TikTok recipe link or search by ingredients, usernames & more!"}
         />
         <HomePageScroller recipes={recipes}/>
         <HomeVideoToRecipe titleStart={"Instantly Convert"} titleEnd={"Video to Recipe"} desc={""}/>
