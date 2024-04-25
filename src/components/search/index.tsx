@@ -2,7 +2,7 @@ import { LinkIcon } from '@heroicons/react/24/outline'
 import { UserIcon } from '@heroicons/react/20/solid';
 import { ResponseModal } from '../ui/modals/response';
 import React, { useState } from "react"
-import { Button } from '../shared/button';
+import { Button, InlineButton } from '../shared/button';
 import { useRouter } from 'next/router';
 import { handleUserSubmitRecipe } from '@/pages/api/handler/submit';
 import { ButtonLoader } from '../shared/loader';
@@ -58,11 +58,11 @@ export function SearchOrAddRecipe({align}: AddRecipeProps) {
             border border-box-border bg-box-bg rounded-full ease-linear focus-within:bg-body  focus-within:border-primary">
                 <LinkIcon className="text-gray-600 w-7 h-7 lg:h-10 lg:w-10"/>
                 <input type="text" name="web-page" disabled={isLoading} value={url} placeholder="Recipe Link or Search Keywords" className="text-base w-full text-gray-500 py-3 outline-none bg-transparent" onChange={(e) => setUrl(e.target.value)}/>
-                <Button buttonType="submit" text="" className={"min-w-max text-white"} isLink={false} isDisabled={isLoading} >
-                    { !isLoading ?
+                <Button buttonType="submit" text="" className={"min-w-max text-white text-sm lg:text-base"} isLink={false} isDisabled={isLoading} >
+                    { !isLoading  && user ?
                         <div>                               
                             <span className="hidden sm:flex relative z-[5]">
-                                Submit
+                                {"Submit"}
                             </span>
                             <span className="flex sm:hidden relative z-[5]">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-5 h-5">
@@ -70,12 +70,23 @@ export function SearchOrAddRecipe({align}: AddRecipeProps) {
                                 </svg>                                      
                             </span>
                         </div>
+                        : !isLoading && !user ? 
+                            <span className="flex relative z-[5]">
+                                {"Login"}
+                            </span>
                         :
                         <ButtonLoader/>
                     }
                 </Button>
             </form>
         </div>
+        { !user && (
+            <div className={`inline-flex justify-center text-sm items-center space-x-1 text-gray-500`}>
+                <p>Please</p>
+                <InlineButton text="login" isLink={false} onClick={login}/>
+                <p className=" text-gray-500">to search</p>
+            </div>
+        )}
         <ResponseModal
           title={"Please login or sign up to continue"}
           text={""}
