@@ -24,7 +24,7 @@ export function SearchOrAddRecipe({align}: AddRecipeProps) {
         
         setIsLoading(true) // Disable button & input
         
-        if(url.includes('tiktok.com') && user) {
+        if(url.includes('tiktok.com')) {
 
             Notify("Processing recipe video, please wait...")
             const response = await handleUserSubmitRecipe({url, setUrl})
@@ -32,16 +32,6 @@ export function SearchOrAddRecipe({align}: AddRecipeProps) {
             if (response.uniqueId && response.uniqueId !== '') { 
                 router.push(`/recipe/${response.uniqueId}`)
             }
-
-        } else if (url.includes('tiktok.com') && !user) {
-            Notify("Create an account to add missing TikTok recipes to Zesti")
-            router.push({
-                pathname: '/search',
-                query: { q: encodeURIComponent(url)} 
-            })
-            setIsLoading(false)
-            setUrl('')
-            return;
 
         } else {
             router.push({
