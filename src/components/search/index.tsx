@@ -1,7 +1,6 @@
-import { UserIcon, LinkIcon, ExclamationTriangleIcon } from '@heroicons/react/20/solid';
-import { ResponseModal } from '../ui/modals/response';
+import { LinkIcon } from '@heroicons/react/20/solid';
 import React, { useState } from "react"
-import { Button, InlineButton } from '../shared/button';
+import { Button } from '../shared/button';
 import { useRouter } from 'next/router';
 import { handleUserSubmitRecipe } from '@/pages/api/handler/submit';
 import { ButtonLoader } from '../shared/loader';
@@ -14,7 +13,7 @@ interface AddRecipeProps {
 
 export function SearchOrAddRecipe({align}: AddRecipeProps) {
 
-    const { user, stripeRole, login } = useAuth(); 
+    const { user } = useAuth(); 
     const [ url , setUrl ] = useState<string>("");
     const [ isLoading, setIsLoading ] = useState<boolean>(false);
     const router = useRouter();
