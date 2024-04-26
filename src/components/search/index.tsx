@@ -17,7 +17,6 @@ export function SearchOrAddRecipe({align}: AddRecipeProps) {
     const { user, stripeRole, login } = useAuth(); 
     const [ url , setUrl ] = useState<string>("");
     const [ isLoading, setIsLoading ] = useState<boolean>(false);
-    const [ isOpen, setIsOpen ] = useState<boolean>(false)
     const router = useRouter();
 
     const onAddButtonClick = async (e: React.FormEvent) => {
@@ -36,10 +35,13 @@ export function SearchOrAddRecipe({align}: AddRecipeProps) {
             }
 
         } else if (url.includes('tiktok.com') && !user) {
-            //setIsOpen(true)
-            
-            setIsOpen(true)
+            Notify("Create an account to add missing TikTok recipes to Zesti")
+            router.push({
+                pathname: '/search',
+                query: { q: encodeURIComponent(url)} 
+            })
             setIsLoading(false)
+            setUrl('')
             return;
 
         } else {
@@ -79,23 +81,6 @@ export function SearchOrAddRecipe({align}: AddRecipeProps) {
                 </Button>
             </form>
         </div>
-        <ResponseModal
-          title={"Link Detected"}
-          text={"If the recipe you are looking for does not exist yet, you can login & re-enter the link to add it to our database"}
-          isOpen={isOpen}
-          setIsOpen={setIsOpen}
-          icon={LinkIcon}
-          modalFunction={() => {
-            router.push({
-                pathname: '/search',
-                query: { q: encodeURIComponent(url)} 
-            })
-          }}
-          displayAd={false}
-          role={stripeRole}
-          buttonName="Continue Search"
-          iconColor={"orange"}
-        />
         </>
     )
 }
