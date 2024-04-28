@@ -13,7 +13,6 @@ interface AddRecipeProps {
 
 export function SearchOrAddRecipe({align}: AddRecipeProps) {
 
-    const { user } = useAuth(); 
     const [ url , setUrl ] = useState<string>("");
     const [ isLoading, setIsLoading ] = useState<boolean>(false);
     const router = useRouter();
