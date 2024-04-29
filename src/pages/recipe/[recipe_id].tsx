@@ -37,7 +37,7 @@ const Recipe: React.FC = ({id}: any) => {
         <Head>
             <title>{`${recipe?.name} | TikTok Recipe`}</title>
             <meta name="title" content={`${recipe?.name} | TikTok Recipe`}/>
-            <meta name="description" content={`${recipe?.description} by ${recipe?.data?.owner?.username}`}/>
+            <meta name="description" content={`@${recipe?.data?.owner?.username} | ${recipe?.video_title.slice(0, 200)}`}/>
             <link rel="preload" href="/images/zesti-logos/Zesti-Premium-2.png" as="image"></link>
             <GoogleTags/>
         </Head>  
