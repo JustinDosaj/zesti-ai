@@ -1,4 +1,5 @@
 import Link from "next/link"
+import Image from "next/image"
 
 interface RecipeCardProps {
     item: {
@@ -21,10 +22,16 @@ export function RecipeCard({ item }: RecipeCardProps) {
     return (
         <div className="group relative flex bg-white rounded-2xl border shadow-sm hover:shadow-xl hover:border-gray-300 transition-shadow duration-300 overflow-hidden max-w-[375px]">
             <Link href={`/recipe/${item.data.unique_id}`}>
-                <div className="flex">
+                <div className="flex h-full">
                     {/* Image Container */}
                     <div className="relative flex-none w-1/3">
-                        <img src={`https://firebasestorage.googleapis.com/v0/b/${process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET}/o/${encodeURIComponent(item.cover_image_url)}?alt=media`} className="h-full w-full object-cover rounded-l-2xl" alt={item.name} />
+                        <Image src={`https://firebasestorage.googleapis.com/v0/b/${process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET}/o/${encodeURIComponent(item.cover_image_url)}?alt=media`} 
+                            className="rounded-l-2xl"
+                            layout="fill"
+                            objectFit="cover"
+                            alt={item.name}
+                            priority={true} 
+                        />
                         {/* Overlay Icon for ingredients and steps */}
                     </div>
                     {/* Content Area */}

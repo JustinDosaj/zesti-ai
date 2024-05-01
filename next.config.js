@@ -12,7 +12,8 @@ const nextConfig = {
     [
       "m.media-amazon.com", 
       "p16-sign.tiktokcdn-us.com",
-      "p16-sign-va.tiktokcdn.com"
+      "p16-sign-va.tiktokcdn.com",
+      "firebasestorage.googleapis.com",
     ],
   },
 }
