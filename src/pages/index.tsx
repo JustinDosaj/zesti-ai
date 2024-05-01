@@ -38,15 +38,15 @@ export default function Home() {
   return (
     <>
       <Head>
-        <title>Zesti AI | Save Your Favorite TikTok Recipes Instantly</title>
-        <meta name="title" content="Zesti AI | Save Your Favorite TikTok Recipes Instantly"/>
+        <title>Zesti AI | A Better Way to Save TikTok Recipes</title>
+        <meta name="title" content="Zesti AI | A Better Way to Save TikTok Recipes"/>
         <meta name="description" content="Instantly save delicious recipes from TikTok by using Zesti AI to transcribe your faovirte recipe videos to text!"/>
         <GoogleTags/>
       </Head>
       <main className={`main-seo-page-class ${raleway.className}`}>
         <Hero 
-          titleStart={"Save Your Favorite TikTok Recipes"} 
-          titleEnd={"Instantly"} 
+          titleStart={"A Better Way to Save"} 
+          titleEnd={"TikTok Recipes"} 
           description={"Copy & paste a TikTok recipe link or search by ingredients, usernames & more!"}
         />
         <HomePageScroller recipes={recipes}/>
