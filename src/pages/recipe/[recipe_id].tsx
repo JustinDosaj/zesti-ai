@@ -38,7 +38,14 @@ const Recipe: React.FC = ({id}: any) => {
             <title>{`${recipe?.name} | TikTok Recipe`}</title>
             <meta name="title" content={`${recipe?.name} | TikTok Recipe`}/>
             <meta name="description" content={`@${recipe?.data?.owner?.username} | ${recipe?.video_title.slice(0, 200)}`}/>
-            <link rel="preload" href="/images/zesti-logos/Zesti-Premium-2.png" as="image"></link>
+            <meta property="og:title" content={`${recipe?.name} by ${recipe?.data?.owner?.username}`}/>
+            <meta property="og:description" content={`${recipe?.video_title} from ${recipe?.data?.source}`}/>
+            <meta property="og:image" content={`https://firebasestorage.googleapis.com/v0/b/${process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET}/o/${encodeURIComponent(recipe?.cover_image_url)}?alt=media`}/>
+            <meta property="og:url" content={`${recipe?.name} by ${recipe?.data?.owner?.username}`}/>
+            <meta property="twitter:image" content={`https://firebasestorage.googleapis.com/v0/b/${process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET}/o/${encodeURIComponent(recipe?.cover_image_url)}?alt=media`}/>
+            <meta property="twitter:card" content={`${recipe?.name} by ${recipe?.data?.owner?.username}`}/>
+            <meta property="twitter:title" content="Twitter link preview title"/>
+            <link rel="preload" href="/images/zesti-logos/Zesti-Premium-2.png" as="image"/>
             <GoogleTags/>
         </Head>  
         <main className={`flex min-h-screen flex-col items-center p-2 bg-background w-screen pb-28 ${raleway.className}`}>
