@@ -106,7 +106,7 @@ export function Chatbox({role, recipe}:ChatBoxProps) {
           user && messages.length == 0 && role == 'premium' ? // Currently set !== to allow for anyone to use chat during beta
             <PremiumChat/>
           : user && messages.length == 0 && (role == null || 'user')  ?
-            <UpgradeToPremiumChat affiliate_code={recipe?.owner?.affiliate_code} display_name={recipe?.owner?.display_name}/>
+            <UpgradeToPremiumChat affiliate_code={recipe?.owner?.affiliate_code}/>
           : user && messages.length > 0 ?
             <ActiveChatMessages messages={messages} endOfMessagesRef={endOfMessagesRef}/>
           :
@@ -152,14 +152,13 @@ export function Chatbox({role, recipe}:ChatBoxProps) {
 
 interface UpgradeToPremiumChatProps {
   affiliate_code: string,
-  display_name: string,
 }
 
-function UpgradeToPremiumChat({affiliate_code, display_name}: UpgradeToPremiumChatProps) {
+function UpgradeToPremiumChat({affiliate_code}: UpgradeToPremiumChatProps) {
   return(
     <div className="flex-1 p-4 overflow-y-auto text-gray-700">
         <div className={`border p-2 rounded-xl message bg-gray-100 bg-opacity-90 justify-items-end w-fit mb-3`}>
-          Use Zesti Assistant by upgrading to premium and {display_name} will automatically receive a portion of the subscription fee
+          Use Zesti Assistant by upgrading to premium!
         </div>
         <div className={`border p-2 rounded-xl message bg-gray-100 bg-opacity-90 justify-items-end w-fit mb-3`}>
             <span>   
