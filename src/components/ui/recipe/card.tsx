@@ -1,5 +1,6 @@
 import Link from "next/link"
 import Image from "next/image"
+import { Loader } from "@/components/shared/loader";
 
 interface RecipeCardProps {
     item: {
