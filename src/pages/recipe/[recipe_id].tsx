@@ -45,7 +45,6 @@ const Recipe: React.FC = ({id}: any) => {
             <meta property="twitter:image" content={`https://firebasestorage.googleapis.com/v0/b/${process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET}/o/${encodeURIComponent(recipe?.cover_image_url)}?alt=media`}/>
             <meta property="twitter:card" content={`${recipe?.name} by ${recipe?.data?.owner?.username}`}/>
             <meta property="twitter:title" content="Twitter link preview title"/>
-            <link rel="preload" href="/images/zesti-logos/Zesti-Premium-2.png" as="image"/>
             <GoogleTags/>
         </Head>  
         <main className={`flex min-h-screen flex-col items-center p-2 bg-background w-screen pb-28 ${raleway.className}`}>
