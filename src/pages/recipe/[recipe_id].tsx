@@ -43,7 +43,7 @@ const Recipe: React.FC = ({id}: any) => {
             <meta property="og:image" content={`https://firebasestorage.googleapis.com/v0/b/${process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET}/o/${encodeURIComponent(recipe?.cover_image_url)}?alt=media`}/>
             <meta property="og:url" content={window?.location?.href}/>
             <meta property="twitter:image" content={`https://firebasestorage.googleapis.com/v0/b/${process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET}/o/${encodeURIComponent(recipe?.cover_image_url)}?alt=media`}/>
-            <meta property="twitter:title" content={`${recipe?.name} | TikTok Recipe`}/>
+            <meta property="twitter:title" content={`${recipe?.name}`}/>
             <meta property="twitter:description" content={`Check out this TikTok recipe by @${recipe?.data?.owner?.username}`}/>
             <GoogleTags/>
         </Head>  
