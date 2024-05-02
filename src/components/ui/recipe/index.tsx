@@ -106,7 +106,7 @@ function RecipeTitleCard({recipe, setIsOpen}: RecipeProps) {
                 <div className="border-t w-full border-gray-400 border-opacity-75 flex justify-between ">
                     <button onClick={onShareClick} className="recipe-page-button border-r border-gray-400 border-opacity-75 rounded-bl-xl">
                         <ShareIcon className="recipe-page-link-icon text-blue-600 hover:text-blue-500"/>
-                        <span className="text-sm md:text-base">Share</span>
+                        <span className="text-sm md:text-base text-gray-900">Share</span>
                     </button>
                     <button onClick={isSaved ? onDeleteClick : onSaveClick} className="recipe-page-button rounded-br-xl">
                         {isSaved ? (
@@ -114,7 +114,7 @@ function RecipeTitleCard({recipe, setIsOpen}: RecipeProps) {
                         ) : (
                             <ArrowDownTrayIcon className="recipe-page-link-icon text-green-600 hover:text-green-500"/>
                         )}
-                        <span className="text-sm md:text-base">{isSaved ? 'Remove' : 'Save'}</span>
+                        <span className="text-sm md:text-base text-gray-900">{isSaved ? 'Remove' : 'Save'}</span>
                     </button>
                 </div>
             </div>
