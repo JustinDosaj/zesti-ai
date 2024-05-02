@@ -89,7 +89,7 @@ function RecipeTitleCard({recipe, setIsOpen}: RecipeProps) {
     }
     
     return(
-        <div className="recipe-page-container pb-0 pl-0 pr-0">
+        <div className="recipe-page-container pb-0 pl-0 pr-0 ">
             <div className="flex flex-col space-y-4">
                 <div className="pl-6 pr-6">
                     <h1 className="text-xl font-semibold text-gray-900">{recipe.name}</h1>
@@ -103,8 +103,8 @@ function RecipeTitleCard({recipe, setIsOpen}: RecipeProps) {
                     <p className="recipe-page-description">{recipe.description}</p>
                 </div>
                 {/* Remove padding here if it's set, and ensure full width for border */}
-                <div className="border-t w-full border-gray-500 flex justify-between ">
-                    <button onClick={onShareClick} className="recipe-page-button border-r border-gray-500 rounded-bl-xl">
+                <div className="border-t w-full border-gray-400 border-opacity-75 flex justify-between ">
+                    <button onClick={onShareClick} className="recipe-page-button border-r border-gray-400 border-opacity-75 rounded-bl-xl">
                         <ShareIcon className="recipe-page-link-icon text-blue-600 hover:text-blue-500"/>
                         <span className="text-sm md:text-base">Share</span>
                     </button>
