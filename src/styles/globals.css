@@ -90,4 +90,30 @@ body {
     @apply text-white bg-primary-main px-2 lg:px-3 py-2 lg:py-3 rounded-full outline-none relative overflow-hidden border duration-200 ease-linear hover:after:opacity-100 hover:bg-primary-alt
   }
 
+
+  /* Recipe Page Components */
+  .recipe-page-container {
+    @apply border rounded-xl p-6 alternate-orange-bg space-y-2
+  }
+
+  .recipe-page-link-icon {
+    @apply h-5 w-5 md:h-6 md:w-6
+  }
+
+  .recipe-page-button {
+    @apply flex-1 flex justify-center items-center space-x-2 py-2 hover:bg-primary-main/25
+  }
+
+  .recipe-page-section-title {
+    @apply text-lg lg:text-xl font-semibold text-gray-900/90
+  }
+
+  .recipe-page-description {
+    @apply text-gray-900 text-sm md:text-base
+  }
+
+  .recipe-information-container {
+    @apply grid grid-cols-2 items-center text-sm md:text-base gap-2 text-gray-700
+  }
+
 }
