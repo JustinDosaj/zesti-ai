@@ -41,10 +41,10 @@ const Recipe: React.FC = ({id}: any) => {
             <meta property="og:title" content={`${recipe?.name} by ${recipe?.data?.owner?.username}`}/>
             <meta property="og:description" content={`${recipe?.video_title} from ${recipe?.data?.source}`}/>
             <meta property="og:image" content={`https://firebasestorage.googleapis.com/v0/b/${process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET}/o/${encodeURIComponent(recipe?.cover_image_url)}?alt=media`}/>
-            <meta property="og:url" content={`${recipe?.name} by ${recipe?.data?.owner?.username}`}/>
+            <meta property="og:url" content={window?.location?.href}/>
             <meta property="twitter:image" content={`https://firebasestorage.googleapis.com/v0/b/${process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET}/o/${encodeURIComponent(recipe?.cover_image_url)}?alt=media`}/>
-            <meta property="twitter:card" content={`${recipe?.name} by ${recipe?.data?.owner?.username}`}/>
-            <meta property="twitter:title" content="Twitter link preview title"/>
+            <meta property="twitter:title" content={`${recipe?.name}`}/>
+            <meta property="twitter:description" content={`Check out this TikTok recipe by @${recipe?.data?.owner?.username}`}/>
             <GoogleTags/>
         </Head>  
         <main className={`flex min-h-screen flex-col items-center p-2 bg-background w-screen pb-28 ${raleway.className}`}>
