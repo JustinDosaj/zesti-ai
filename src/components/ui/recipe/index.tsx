@@ -93,14 +93,14 @@ function RecipeTitleCard({recipe, setIsOpen}: RecipeProps) {
             <div className="flex flex-col space-y-4">
                 <div className="pl-6 pr-6">
                     <h1 className="text-xl font-semibold text-gray-900">{recipe.name}</h1>
-                    <div className="flex items-center gap-1 text-gray-700 mt-2">
-                        <span>by</span>
-                        <button onClick={() => window.open(recipe.data.url)} className="underline flex items-center font-semibold text-gray-700 hover:text-gray-500 ">
+                    <div className="flex items-center gap-1 text-gray-700">
+                        <span className="recipe-page-description">by</span>
+                        <button onClick={() => window.open(recipe.data.url)} className="recipe-page-description underline flex items-center font-semibold hover:text-gray-700">
                             {recipe.data.owner.username}
                             <ArrowTopRightOnSquareIcon className="h-4 w-4 ml-1"/>
                         </button>
                     </div>
-                    <p className="recipe-page-description">{recipe.description}</p>
+                    <p className="recipe-page-description mt-2">{recipe.description}</p>
                 </div>
                 {/* Remove padding here if it's set, and ensure full width for border */}
                 <div className="border-t w-full border-gray-400 border-opacity-75 flex justify-between ">
