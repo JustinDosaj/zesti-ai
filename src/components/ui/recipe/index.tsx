@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react"
+import React, { useState, useEffect, useRef } from "react"
 import { ArrowDownTrayIcon, BookmarkSlashIcon } from "@heroicons/react/20/solid"
 import { db } from "@/pages/api/firebase/firebase"
 import { useAuth } from "@/pages/api/auth/auth"
@@ -29,6 +29,8 @@ export function PublicRecipe({recipe, setIsOpen, role}: RecipeProps) {
         <AdSenseDisplay adSlot="1690723057" adFormat="horizontal" widthRes="false" role={role}/>
         <RecipeInstructionsComponent instructions={recipe?.instructions}/>
         <AdSenseDisplay adSlot="9326575118" adFormat="horizontal" widthRes="false" role={role}/>
+        <RecipeVideoComponent recipe={recipe}/>
+        <AdSenseDisplay adSlot="3730001953" adFormat="horizontal" widthRes="false" role={role}/>
         <RecipeDataComponent recipe={recipe}/>
         <AdSenseDisplay adSlot="9315400934" adFormat="horizontal" widthRes="false" role={role}/>
     </div>
@@ -164,39 +166,16 @@ function RecipeInstructionsComponent({ instructions }: RecipeProps) {
 
 function RecipeDataComponent({ recipe }: RecipeProps) {
     
-    const { date_added, date_created, owner, source, video_id, url, unique_id } = recipe?.data;
-    const { video_title, cover_image_url } = recipe;
+    const { date_added, date_created, owner, source, video_id, url, unique_id, music_info } = recipe?.data;
 
     return (
         <div className="recipe-page-container">
-            <h2 className="recipe-page-section-title pb-1">Video Information</h2>
-            <div className="md:flex gap-6">
+            <h2 className="recipe-page-section-title pb-1">Extra Information</h2>
                 {/* Image container */}
-                <div className="relative w-2/5 h-[480px] min-w-[270px] mx-auto">
-                    <Image src={`https://firebasestorage.googleapis.com/v0/b/${process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET}/o/${encodeURIComponent(cover_image_url)}?alt=media`}
-                        alt="Recipe cover image" 
-                        layout="fill"
-                        objectFit="cover"
-                        priority={true}
-                        className="rounded-xl" 
-                    />
-                    <button 
-                        onClick={() => window.open(url, '_blank')}
-                        style={{ top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }}
-                        className="absolute p-2 rounded-full bg-white bg-opacity-50 hover:bg-opacity-75 transition-opacity duration-300"
-                        aria-label="View video"
-                    >
-                        <EyeIcon className="h-8 w-8 text-gray-700"/>
-                    </button>
-                </div>
                 {/* Text section */}
-                <div className="flex flex-col justify-between mt-6 md:mt-0 md:w-3/5 space-y-4">
+                <div className="flex flex-col justify-between mt-6 md:mt-0 w-full space-y-4">
                     {/* Video title and description */}
                     <div className="space-y-6 h-full">
-                        <div className="space-y-1">
-                            <p className="recipe-page-description line-clamp-6">{video_title}</p>
-                        </div>
-                        <HorizontalBorder/>
                         <div className="grid space-y-1 max-w-[250px]">
                             <div className="recipe-information-container">
                                 <span className="text-gray-700 font-semibold">Owner:</span>
@@ -211,6 +190,10 @@ function RecipeDataComponent({ recipe }: RecipeProps) {
                             <div className="recipe-information-container">
                                 <span className="font-semibold">Zesti ID:</span>
                                 <span className="pb-0.5">{unique_id}</span>
+                            </div>
+                            <div className="recipe-information-container">
+                                <span className="font-semibold">Music ID:</span>
+                                <span className="pb-0.5">{music_info?.id || "N/A"}</span>
                             </div>
                             <div className="recipe-information-container">
                                 <span className="font-semibold">Source:</span>
@@ -229,8 +212,45 @@ function RecipeDataComponent({ recipe }: RecipeProps) {
                             <p className="">{new Date(date_added).toLocaleDateString()}</p>
                     </div>
                 </div>
-            </div>
         </div>
     );
+}
+
+function RecipeVideoComponent({ recipe }: RecipeProps) {
+    
+    const { date_added, date_created, owner, source, video_id, url, unique_id, music_info } = recipe?.data;
+    const { video_title, cover_image_url } = recipe;
+    const tikTokRef = useRef(null);
+    
+    useEffect(() => {
+        const loadTikTokScript = () => {
+            const script = document.createElement('script');
+            script.src = "https://www.tiktok.com/embed.js";
+            script.async = true;
+            document.body.appendChild(script);
+        }
+
+        if (tikTokRef.current) {
+            (tikTokRef.current as HTMLDivElement).innerHTML = `
+                <blockquote class="tiktok-embed" cite="${url}" data-video-id="${video_id}" style="max-width: 605px;min-width: 325px;">
+                    <section>
+                        <a target="_blank" title="@${owner.username}" href="https://www.tiktok.com/@${owner.username}?refer=embed">@${owner.username}</a>
+                        <p>${video_title}</p>
+                        <a target="_blank" title="${music_info?.title || ''}" href="https://www.tiktok.com/music/original-sound-${music_info?.id || ''}?refer=embed">${ music_info?.title || ''}</a>
+                    </section>
+                </blockquote>
+            `;
+            loadTikTokScript();
+          }
+
+    },[])
+
+    return (
+        <div className="rounded-xl  space-y-2">
+            <div className="md:flex gap-6">
+                <div className="flex w-full " ref={tikTokRef}/>
+            </div>
+        </div>
+    )
 }
 
