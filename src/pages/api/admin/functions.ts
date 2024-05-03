@@ -2,18 +2,18 @@ import { Notify } from "@/components/shared/notify";
 import { getFunctions, httpsCallable } from 'firebase/functions';
 
 interface AdminProps {
-    recipeId?: string;
+    userInput: string
 }
 
-export async function AdminUpdateRecipe({recipeId}: AdminProps) {
+export async function AdminUpdateRecipe({userInput}: AdminProps) {
     const functions = getFunctions();
     const adminUpdateRecipe = httpsCallable(functions, 'adminUpdateRecipe');
 
-    const userInput = {
-        "recipeId": recipeId,
+    const input = {
+        recipeId: userInput
     }
 
-    await adminUpdateRecipe(userInput).then(() => Notify("Finished"))
+    await adminUpdateRecipe(input).then(() => Notify("Finished"))
 
-    return { recipeId }
+    return;
 }
