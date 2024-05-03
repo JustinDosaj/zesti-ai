@@ -97,11 +97,11 @@ body {
   }
 
   .recipe-page-link-icon {
-    @apply h-5 w-5 md:h-6 md:w-6
+    @apply h-4 w-4 md:h-5 md:w-5
   }
 
   .recipe-page-button {
-    @apply flex-1 flex justify-center items-center space-x-2 py-2 hover:bg-primary-main/25
+    @apply flex-1 flex justify-center items-center space-x-2 py-1.5 hover:bg-primary-main/25
   }
 
   .recipe-page-section-title {
