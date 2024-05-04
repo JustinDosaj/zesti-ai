@@ -30,6 +30,7 @@ const SearchResults: React.FC = () => {
             'unordered(ingredients)'
         ],
         typoTolerance: 'true',
+        removeWordsIfNoResults: 'allOptional',
     })
 
     const [ recipes, setRecipes ] = useState<any>([])
