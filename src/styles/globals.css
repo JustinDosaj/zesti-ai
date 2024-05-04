@@ -115,5 +115,8 @@ body {
   .recipe-information-container {
     @apply grid grid-cols-2 items-center text-sm md:text-base gap-2 text-gray-700
   }
+  .recipe-information-container2 {
+    @apply flex justify-between text-xs space-x-1 text-gray-500
+  }
 
 }
