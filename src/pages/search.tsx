@@ -8,10 +8,10 @@ import Breadcrumbs from '@/components/shared/breadcrumb';
 import useSetBreadcrumbs from '@/components/shared/setBreadcrumbs';
 import { useRouter } from 'next/router';
 import { useAuth } from './api/auth/auth';
-import algoliasearch from 'algoliasearch/lite';
 import AdSenseDisplay from '@/components/tags/adsense';
 import Head from 'next/head';
 import GoogleTags from '@/components/tags/conversion';
+import algoliasearch, { SearchIndex } from 'algoliasearch';
 
 const raleway = Raleway({subsets: ['latin']})
 
@@ -20,7 +20,17 @@ const SearchResults: React.FC = () => {
     useSetBreadcrumbs()
 
     const searchClient = algoliasearch(`${process.env.NEXT_PUBLIC_ALGOLIA_APPLICATION_ID}`, `${process.env.NEXT_PUBLIC_ALGOLIA_SEARCH_ONLY_KEY}`);
-    const recipesIndex = searchClient.initIndex(`${process.env.NEXT_PUBLIC_ALGOLIA_ALL_RECIPES_INDEX}`);
+    const recipesIndex: SearchIndex = searchClient.initIndex(`${process.env.NEXT_PUBLIC_ALGOLIA_ALL_RECIPES_INDEX}`);
+
+    recipesIndex.setSettings({
+        searchableAttributes: [
+            'unordered(name)',
+            'unordered(video_title)',
+            'unordered(description)',
+            'unordered(ingredients)'
+        ],
+        typoTolerance: 'true',
+    })
 
     const [ recipes, setRecipes ] = useState<any>([])
     const [ urlParam, setUrlParam ] = useState<string>('')
@@ -39,14 +49,17 @@ const SearchResults: React.FC = () => {
     },[router.isReady, router.query])
 
     const handleSearch = async (query: any) => {
+
         try {
             const [ recipes ] = await Promise.all([
                 recipesIndex.search(query)
             ]);
+
             setRecipes(recipes.hits) 
-        } catch (error) {
-            console.error("Algolia search error:", error);
+        } catch(error) {
+            console.error("Error searching for recipes:", error)
         }
+
     };
 
     return (
