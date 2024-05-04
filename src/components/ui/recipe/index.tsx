@@ -22,7 +22,7 @@ interface RecipeProps {
 export function PublicRecipe({recipe, setIsOpen, role}: RecipeProps) {
 
     return(
-    <div className={"flex flex-col gap-8 animate-fadeInFast mb-16 mx-auto w-full lg:max-w-3xl px-3 sm:px-8 md:px-14 lg:px-5"}>
+    <div className={"flex flex-col gap-8 animate-fadeInFast mb-16 mx-auto w-full lg:max-w-3xl px-4 sm:px-8 md:px-14 lg:px-5"}>
         <RecipeTitleCard recipe={recipe} setIsOpen={setIsOpen}/>
         <AdSenseDisplay adSlot="4329661976" adFormat="horizontal" widthRes="false" role={role}/>
         <RecipeIngredientsComponent ingredients={recipe?.ingredients}/>
@@ -30,8 +30,6 @@ export function PublicRecipe({recipe, setIsOpen, role}: RecipeProps) {
         <RecipeInstructionsComponent instructions={recipe?.instructions}/>
         <AdSenseDisplay adSlot="9326575118" adFormat="horizontal" widthRes="false" role={role}/>
         <RecipeVideoComponent recipe={recipe}/>
-        <AdSenseDisplay adSlot="3730001953" adFormat="horizontal" widthRes="false" role={role}/>
-        <RecipeDataComponent recipe={recipe}/>
         <AdSenseDisplay adSlot="9315400934" adFormat="horizontal" widthRes="false" role={role}/>
     </div>
     )
@@ -164,62 +162,10 @@ function RecipeInstructionsComponent({ instructions }: RecipeProps) {
     )
 }
 
-function RecipeDataComponent({ recipe }: RecipeProps) {
-    
-    const { date_added, date_created, owner, source, video_id, url, unique_id, music_info } = recipe?.data;
-
-    return (
-        <div className="recipe-page-container">
-            <h2 className="recipe-page-section-title pb-1">Extra Information</h2>
-                {/* Image container */}
-                {/* Text section */}
-                <div className="flex flex-col justify-between mt-6 md:mt-0 w-full space-y-4">
-                    {/* Video title and description */}
-                    <div className="space-y-6 h-full">
-                        <div className="grid space-y-1 max-w-[250px]">
-                            <div className="recipe-information-container">
-                                <span className="text-gray-700 font-semibold">Owner:</span>
-                                <button onClick={() => window.open(owner.profile_link)} className="underline text-sm md:text-base flex items-center font-semibold text-gray-700 hover:text-gray-500">
-                                   {`@${owner.username}`}
-                                </button>
-                            </div>
-                            <div className="recipe-information-container">
-                                <span className="font-semibold">Video ID:</span>
-                                <span className="pb-0.5">{video_id}</span>
-                            </div>
-                            <div className="recipe-information-container">
-                                <span className="font-semibold">Zesti ID:</span>
-                                <span className="pb-0.5">{unique_id}</span>
-                            </div>
-                            <div className="recipe-information-container">
-                                <span className="font-semibold">Music ID:</span>
-                                <span className="pb-0.5">{music_info?.id || "N/A"}</span>
-                            </div>
-                            <div className="recipe-information-container">
-                                <span className="font-semibold">Source:</span>
-                                <span>{source}</span>
-                            </div>
-                            <div className="recipe-information-container">
-                                <p className="font-semibold">Created:</p>
-                                <p>{new Date(date_created).toLocaleDateString()}</p>
-                            </div>
-                        </div>
-                    </div>
-                    <HorizontalBorder/>
-                    {/* Date info */}
-                    <div className="flex justify-start text-xs space-x-1 text-gray-500 ">
-                            <p className="font-semibold">Date Added:</p>
-                            <p className="">{new Date(date_added).toLocaleDateString()}</p>
-                    </div>
-                </div>
-        </div>
-    );
-}
-
 function RecipeVideoComponent({ recipe }: RecipeProps) {
     
     const { date_added, date_created, owner, source, video_id, url, unique_id, music_info } = recipe?.data;
-    const { video_title, cover_image_url } = recipe;
+    const { video_title } = recipe;
     const tikTokRef = useRef(null);
     
     useEffect(() => {
@@ -232,7 +178,7 @@ function RecipeVideoComponent({ recipe }: RecipeProps) {
 
         if (tikTokRef.current) {
             (tikTokRef.current as HTMLDivElement).innerHTML = `
-                <blockquote class="tiktok-embed" cite="${url}" data-video-id="${video_id}" style="max-width: 605px;min-width: 325px;">
+                <blockquote class="tiktok-embed" cite="${url}" data-video-id="${video_id}" style="max-width: 325px;min-width: 325px; margin-top: 0px; border-radius: 0.5rem;">
                     <section>
                         <a target="_blank" title="@${owner.username}" href="https://www.tiktok.com/@${owner.username}?refer=embed">@${owner.username}</a>
                         <p>${video_title}</p>
@@ -246,9 +192,36 @@ function RecipeVideoComponent({ recipe }: RecipeProps) {
     },[])
 
     return (
-        <div className="rounded-xl  space-y-2">
-            <div className="md:flex gap-6">
-                <div className="flex w-full " ref={tikTokRef}/>
+        <div className="rounded-xl overflow-hidden space-y-2 alternate-orange-bg w-fit mx-auto">
+            
+            <div className="w-full" ref={tikTokRef}/>
+            
+            <div className="flex flex-col justify-between w-full space-y-2 max-w-[325px] mx-auto px-4 pb-6 alternate-orange-bg">
+                {/* Date info */}
+                <div className="recipe-information-container2">
+                        <p className="font-semibold">Video ID:</p>
+                        <p className="">{video_id}</p>
+                </div>
+                <div className="recipe-information-container2 ">
+                        <p className="font-semibold">Zesti ID</p>
+                        <p className="">{unique_id}</p>
+                </div>
+                <div className="recipe-information-container2 ">
+                        <p className="font-semibold">Music Title</p>
+                        <p className="">{music_info?.title || "N/A"}</p>
+                </div>
+                <div className="recipe-information-container2 ">
+                        <p className="font-semibold">Source</p>
+                        <p className="">{source}</p>
+                </div>
+                <div className="recipe-information-container2 ">
+                        <p className="font-semibold">Date Created</p>
+                        <p className="">{new Date(date_created).toLocaleDateString()}</p>
+                </div>
+                <div className="recipe-information-container2 ">
+                        <p className="font-semibold">Date Added:</p>
+                        <p className="">{new Date(date_added).toLocaleDateString()}</p>
+                </div>
             </div>
         </div>
     )
