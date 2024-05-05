@@ -12,36 +12,46 @@ import { Chatbox } from "@/components/chat/chatbox";
 import { ResponseModal } from "@/components/ui/modals/response";
 import { BookmarkIcon } from "@heroicons/react/20/solid";
 import { useRouter } from "next/router";
-import useRecipe from "@/hooks/useRecipe";
+import { db } from "../api/firebase/firebase";
 
 const raleway = Raleway({subsets: ['latin']})
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
     
     const id = context.query?.recipe_id as string
-    return {props: { id }}
+    
+    let recipe = null;
+
+    const recipeSnapshot = await db.doc(`recipes/${id}`).get()
+
+    if(recipeSnapshot.exists) {
+        recipe = recipeSnapshot.data()
+    } else {
+       console.log("error")
+    }
+
+    return {props: { recipe, url: context.req.url }}
 }
 
-const Recipe: React.FC = ({id}: any) => {
+const Recipe: React.FC = ({ recipe, url }: any) => {
 
     useSetBreadcrumbs()
     const { stripeRole } = useAuth();
     const [ isOpen, setIsOpen ] = useState<boolean>(false)
-    const { recipe, isLoadingRecipe } = useRecipe(id)
     const router = useRouter()
 
-    if(isLoadingRecipe) return <PageLoader/>
+    if(!recipe) return <PageLoader/>
 
     return(
     <>
         <Head>
             <title>{`${recipe?.name} | TikTok Recipe`}</title>
             <meta name="title" content={`${recipe?.name} | TikTok Recipe`}/>
-            <meta name="description" content={`@${recipe?.data?.owner?.username} | ${recipe?.video_title.slice(0, 200)}`}/>
+            <meta name="description" content={`@${recipe?.data?.owner?.username} | ${recipe?.video_title?.slice(0, 200)}`}/>
             <meta property="og:title" content={`${recipe?.name} by ${recipe?.data?.owner?.username}`}/>
             <meta property="og:description" content={`${recipe?.video_title} from ${recipe?.data?.source}`}/>
             <meta property="og:image" content={`https://firebasestorage.googleapis.com/v0/b/${process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET}/o/${encodeURIComponent(recipe?.cover_image_url)}?alt=media`}/>
-            <meta property="og:url" content={window?.location?.href}/>
+            <meta property="og:url" content={`https://www.zesti.ai${url}`}/>
             <meta property="twitter:image" content={`https://firebasestorage.googleapis.com/v0/b/${process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET}/o/${encodeURIComponent(recipe?.cover_image_url)}?alt=media`}/>
             <meta property="twitter:title" content={`${recipe?.name}`}/>
             <meta property="twitter:description" content={`Check out this TikTok recipe by @${recipe?.data?.owner?.username}`}/>
