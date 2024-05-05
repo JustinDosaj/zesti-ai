@@ -96,7 +96,7 @@ function RecipeTitleCard({recipe, setIsOpen}: RecipeProps) {
                     <div className="flex items-center gap-1 text-gray-700">
                         <span className="recipe-page-description">by</span>
                         <button onClick={() => window.open(recipe.data.url)} className="recipe-page-description underline flex items-center font-semibold hover:text-gray-700">
-                            {recipe.data.owner.username}
+                            {recipe?.data?.owner?.username}
                             <ArrowTopRightOnSquareIcon className="h-4 w-4 ml-1"/>
                         </button>
                     </div>
