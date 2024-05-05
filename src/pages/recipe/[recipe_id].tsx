@@ -18,7 +18,9 @@ const raleway = Raleway({subsets: ['latin']})
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
     
-    const id = context.query?.recipe_id as string
+    const { req, query, resolvedUrl } = context; 
+    
+    const id = query?.recipe_id as string
     
     let recipe = null;
 
@@ -30,7 +32,11 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
        console.log("error")
     }
 
-    return {props: { recipe, url: context.req.url }}
+    const protocol = req.headers['x-forwarded-proto'] || 'http';
+    const host = req.headers.host
+    const url = `${protocol}://${host}${resolvedUrl}`
+
+    return {props: { recipe, url}}
 }
 
 const Recipe: React.FC = ({ recipe, url }: any) => {
@@ -51,7 +57,7 @@ const Recipe: React.FC = ({ recipe, url }: any) => {
             <meta property="og:title" content={`${recipe?.name} by ${recipe?.data?.owner?.username}`}/>
             <meta property="og:description" content={`${recipe?.video_title} from ${recipe?.data?.source}`}/>
             <meta property="og:image" content={`https://firebasestorage.googleapis.com/v0/b/${process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET}/o/${encodeURIComponent(recipe?.cover_image_url)}?alt=media`}/>
-            <meta property="og:url" content={`https://www.zesti.ai${url}`}/>
+            <meta property="og:url" content={url}/>
             <meta property="twitter:image" content={`https://firebasestorage.googleapis.com/v0/b/${process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET}/o/${encodeURIComponent(recipe?.cover_image_url)}?alt=media`}/>
             <meta property="twitter:title" content={`${recipe?.name}`}/>
             <meta property="twitter:description" content={`Check out this TikTok recipe by @${recipe?.data?.owner?.username}`}/>
