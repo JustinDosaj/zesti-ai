@@ -3,7 +3,7 @@ import { Raleway } from 'next/font/google'
 import { useAuth } from "@/pages/api/auth/auth";
 import { PageLoader } from "@/components/shared/loader";
 import { PublicRecipe } from "@/components/ui/recipe";
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import GoogleTags from "@/components/tags/conversion";
 import Head from "next/head";
 import Breadcrumbs from "@/components/shared/breadcrumb";
@@ -13,6 +13,7 @@ import { ResponseModal } from "@/components/ui/modals/response";
 import { BookmarkIcon } from "@heroicons/react/20/solid";
 import { useRouter } from "next/router";
 import { db } from "../api/firebase/firebase";
+import { CheckForExistingRecipe } from "../api/firebase/functions";
 
 const raleway = Raleway({subsets: ['latin']})
 
@@ -36,15 +37,20 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     const host = req.headers.host
     const url = `${protocol}://${host}${resolvedUrl}`
 
-    return {props: { recipe, url}}
+    return {props: { recipe, url }}
 }
 
 const Recipe: React.FC = ({ recipe, url }: any) => {
 
     useSetBreadcrumbs()
-    const { stripeRole } = useAuth();
+    const { stripeRole, user } = useAuth();
     const [ isOpen, setIsOpen ] = useState<boolean>(false)
+    const [ isSaved, setIsSaved ] = useState<boolean>(false)
     const router = useRouter()
+
+    useEffect(() => {
+        if(user) { CheckForExistingRecipe(recipe, user?.uid, setIsSaved) }
+    },[user, recipe?.data?.id])
 
     if(!recipe) return <PageLoader/>
 
@@ -65,7 +71,7 @@ const Recipe: React.FC = ({ recipe, url }: any) => {
         </Head>  
         <main className={`flex min-h-screen flex-col items-center p-2 bg-background w-screen pb-28 ${raleway.className}`}>
             <Breadcrumbs/>
-            <PublicRecipe recipe={recipe} setIsOpen={setIsOpen} role={stripeRole}/>
+            <PublicRecipe recipe={recipe} setIsOpen={setIsOpen} role={stripeRole} isSaved={isSaved}/>
             <Chatbox role={stripeRole} recipe={recipe}/>
             <ResponseModal
               title={`${recipe.name} Saved!`}

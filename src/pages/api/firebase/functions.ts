@@ -1,7 +1,6 @@
 import { Notify } from "@/components/shared/notify";
-import { db, storage } from "./firebase"
-import { collection, query, limit, getDocs, updateDoc } from "firebase/firestore";
-import { ref as storageRef, uploadBytes, getDownloadURL } from "firebase/storage";
+import { db } from "./firebase"
+import { onSnapshot, doc } from "firebase/firestore";
 
 export const saveRecipeReferenceToUser = async (userId: string, recipeId: string) => {
   const userRef = db.collection('users').doc(userId);
@@ -72,4 +71,15 @@ export async function SendErrorToFirestore(user_id: string | undefined | null, e
   }
 
   await errorRef.set(errorObj, {merge: true})
+}
+
+export async function CheckForExistingRecipe(recipe: any, user_id: string, setIsSaved: any) {
+  
+  const docRef = doc(db, `users/${user_id}/recipes`, recipe?.data.unique_id);
+  const unsubscribe = onSnapshot(docRef, (docSnapshot) => {
+    setIsSaved(docSnapshot.exists())
+  })
+
+  return () => unsubscribe()
+
 }

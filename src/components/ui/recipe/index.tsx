@@ -1,15 +1,10 @@
-import React, { useState, useEffect, useRef } from "react"
+import React from "react"
 import { ArrowDownTrayIcon, BookmarkSlashIcon } from "@heroicons/react/20/solid"
-import { db } from "@/pages/api/firebase/firebase"
 import { useAuth } from "@/pages/api/auth/auth"
 import { Notify } from '@/components/shared/notify';
 import { UserRemoveRecipeFromFirestore, saveRecipeReferenceToUser } from "@/pages/api/firebase/functions"
-import { onSnapshot, doc } from "firebase/firestore";
 import { ArrowTopRightOnSquareIcon, ShareIcon } from "@heroicons/react/24/outline"
-import { EyeIcon } from "@heroicons/react/20/solid";
 import AdSenseDisplay from "@/components/tags/adsense"
-import Image from "next/image";
-import { HorizontalBorder } from "@/components/shared/border";
 
 interface RecipeProps {
     recipe?: any,
@@ -17,13 +12,14 @@ interface RecipeProps {
     ingredients?: any,
     instructions?: any,
     role?: string | null,
+    isSaved?: boolean,
 }
 
-export function PublicRecipe({recipe, setIsOpen, role}: RecipeProps) {
+export function PublicRecipe({recipe, setIsOpen, role, isSaved}: RecipeProps) {
 
     return(
     <div className={"flex flex-col gap-8 animate-fadeInFast mb-16 mx-auto w-full lg:max-w-3xl px-4 sm:px-8 md:px-14 lg:px-5"}>
-        <RecipeTitleCard recipe={recipe} setIsOpen={setIsOpen}/>
+        <RecipeTitleCard recipe={recipe} setIsOpen={setIsOpen} isSaved={isSaved}/>
         <AdSenseDisplay adSlot="4329661976" adFormat="horizontal" widthRes="false" role={role}/>
         <RecipeIngredientsComponent ingredients={recipe?.ingredients}/>
         <AdSenseDisplay adSlot="1690723057" adFormat="horizontal" widthRes="false" role={role}/>
@@ -35,24 +31,9 @@ export function PublicRecipe({recipe, setIsOpen, role}: RecipeProps) {
     )
 }
 
-function RecipeTitleCard({recipe, setIsOpen}: RecipeProps) {
+function RecipeTitleCard({recipe, setIsOpen, isSaved}: RecipeProps) {
 
     const { isLoading, user } = useAuth()
-    const [ isSaved, setIsSaved ] = useState(false);
-
-    // Checking if user owns recipe already
-    useEffect(() => {
-        if(user) {
-            const docRef = doc(db, `users/${user.uid}/recipes`, recipe.data.unique_id);
-            const unsubscribe = onSnapshot(docRef, (docSnapshot) => {
-                setIsSaved(docSnapshot.exists());
-            }, (error) => {
-                console.error("Error checking recipe save status:", error);
-            });
-
-            return () => unsubscribe();
-        }
-    }, [user, recipe?.data?.id]);
 
     async function onSaveClick() {
         if (user && !isLoading) {
@@ -164,65 +145,18 @@ function RecipeInstructionsComponent({ instructions }: RecipeProps) {
 
 function RecipeVideoComponent({ recipe }: RecipeProps) {
     
-    const { date_added, date_created, owner, source, video_id, url, unique_id, music_info } = recipe?.data;
-    const { video_title } = recipe;
-    const tikTokRef = useRef(null);
-    
-    useEffect(() => {
-        const loadTikTokScript = () => {
-            const script = document.createElement('script');
-            script.src = "https://www.tiktok.com/embed.js";
-            script.async = true;
-            document.body.appendChild(script);
-        }
-
-        if (tikTokRef.current) {
-            (tikTokRef.current as HTMLDivElement).innerHTML = `
-                <blockquote class="tiktok-embed" cite="${url}" data-video-id="${video_id}" style="max-width: 325px;min-width: 325px; margin-top: 0px; border-radius: 0.5rem;">
-                    <section>
-                        <a target="_blank" title="@${owner.username}" href="https://www.tiktok.com/@${owner.username}?refer=embed">@${owner.username}</a>
-                        <p>${video_title}</p>
-                        <a target="_blank" title="${music_info?.title || ''}" href="https://www.tiktok.com/music/original-sound-${music_info?.id || ''}?refer=embed">${ music_info?.title || ''}</a>
-                    </section>
-                </blockquote>
-            `;
-            loadTikTokScript();
-          }
-
-    },[])
+    const { date_added, date_created, source, video_id, unique_id, music_info } = recipe?.data;
 
     return (
-        <div className="rounded-xl overflow-hidden space-y-2 alternate-orange-bg w-fit mx-auto">
-            
-            <div className="w-full" ref={tikTokRef}/>
-            
-            <div className="flex flex-col justify-between w-full space-y-2 max-w-[325px] mx-auto px-4 pb-6 alternate-orange-bg">
-                {/* Date info */}
-                <div className="recipe-information-container2">
-                        <p className="font-semibold">Video ID:</p>
-                        <p className="">{video_id}</p>
-                </div>
-                <div className="recipe-information-container2 ">
-                        <p className="font-semibold">Zesti ID</p>
-                        <p className="">{unique_id}</p>
-                </div>
-                <div className="recipe-information-container2 ">
-                        <p className="font-semibold">Music Title</p>
-                        <p className="">{music_info?.title || "N/A"}</p>
-                </div>
-                <div className="recipe-information-container2 ">
-                        <p className="font-semibold">Source</p>
-                        <p className="">{source}</p>
-                </div>
-                <div className="recipe-information-container2 ">
-                        <p className="font-semibold">Date Created</p>
-                        <p className="">{new Date(date_created).toLocaleDateString()}</p>
-                </div>
-                <div className="recipe-information-container2 ">
-                        <p className="font-semibold">Date Added:</p>
-                        <p className="">{new Date(date_added).toLocaleDateString()}</p>
-                </div>
-            </div>
+        <div className="rounded-xl overflow-hidden alternate-orange-bg w-fit mx-auto h-full">
+
+            <iframe
+                className="w-full max-w-[325px] min-w-[325px] min-h-[800px]"
+                src={`https://www.tiktok.com/embed/${video_id}`}
+                allow="fullscreen"
+                loading="lazy"
+            />
+    
         </div>
     )
 }
