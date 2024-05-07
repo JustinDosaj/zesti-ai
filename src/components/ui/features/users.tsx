@@ -1,12 +1,13 @@
 import { Container } from "@/components/shared/container"
 import { ArrowDownIcon, BeakerIcon} from "@heroicons/react/20/solid"
-import React, { useState, useEffect, useRef } from "react"
+import React, { useState } from "react"
 import { Scroller, DiscoverRecipes } from "../scroller"
 import { Button } from "@/components/shared/button"
 import { TitleSection } from "@/components/shared/title"
 import { SearchOrAddRecipe } from "@/components/search"
 import getConfig from "next/config"
 import { Paragraph } from "@/components/shared/paragraph"
+import dynamic from "next/dynamic"
 
 interface HeroProps {
   titleStart?: string,
@@ -19,7 +20,7 @@ export function Hero({titleStart, titleEnd, description}: HeroProps) {
   const { publicRuntimeConfig } = getConfig();
 
   return(
-      <Container className="flex flex-col lg:flex-row items-center justify-between pt-36 px-5 space-x-4 xl:pt-48 animate-fadeIn">
+      <Container className="flex flex-col lg:flex-row items-center justify-between pt-36 px-5 space-x-4 xl:pt-48">
         <div className="flex lg:w-1/2 flex-col gap-6 lg:gap-8">
           <div className="inline-flex w-fit mx-auto lg:mx-0 items-center border border-gray-300 rounded-3xl p-2 space-x-1 ">
               <BeakerIcon className="text-black h-4 w-4"/>
@@ -82,7 +83,7 @@ export function HomePageScroller({recipes}: any) {
     const recipesToShow = recipes.slice(startIndex, endIndex);
 
     return (
-      <Container className="home-scroll-container animate-fadeIn">
+      <Container className="home-scroll-container">
           <DiscoverRecipes recipes={recipesToShow} />
           <Scroller 
               onRightScrollClick={onRightScrollClick} 
@@ -95,7 +96,7 @@ export function HomePageScroller({recipes}: any) {
 
 export function HomePageCTA() {
   return(
-    <Container className="relative w-full max-w-6xl mx-auto px-5 animate-fadeIn">
+    <Container className="relative w-full max-w-6xl mx-auto px-5">
       <div className="flex flex-col items-center gap-8 orange-border-shadow rounded-3xl p-6 lg:p-12">
         <div className="flex flex-col items-center text-center">
           <p className="w-full md:w-96 text-xl font-medium text-center primary-orange-text-gradient mb-3">
@@ -111,43 +112,22 @@ export function HomePageCTA() {
 
 export function HomeVideoToRecipe({titleStart, titleEnd, desc}: any,) {
 
-  const tikTokRef = useRef(null);
-
-  useEffect(() => {
-    // Function to load tFe TikTok embed script
-    const loadTikTokScript = () => {
-      const script = document.createElement('script');
-      script.src = 'https://www.tiktok.com/embed.js';
-      script.async = true;
-      document.body.appendChild(script);
-    };
-
-    // Insert the embed code and load the script
-    if (tikTokRef.current) {
-      (tikTokRef.current as HTMLDivElement).innerHTML = `
-        <blockquote class="tiktok-embed" cite="https://www.tiktok.com/@britscookin/video/7290713603299331374" data-video-id="7290713603299331374" style="max-width: 605px;min-width: 325px;">
-          <section>
-            <a target="_blank" title="@britscookin" href="https://www.tiktok.com/@britscookin?refer=embed">@britscookin</a>
-            <p>Cheesy Hawaiian Roll Garlic Bread!</p>
-            <a target="_blank" title="♬ original sound - britscookin" href="https://www.tiktok.com/music/original-sound-7290713636770646827?refer=embed">♬ original sound - britscookin</a>
-          </section>
-        </blockquote>
-      `;
-      loadTikTokScript();
-    }
-  }, []);
+  const TikTokVideo = dynamic(() => import('../recipe/tiktok'), {
+    ssr: false, 
+    loading: () => <div style={{ height: '90px' }}/> // Placeholder while loading
+  });
 
   return(
-    <Container className="relative w-full max-w-6xl mx-auto px-5 animate-fadeIn ">
+    <Container className="relative w-full max-w-6xl mx-auto px-5">
         <div className="flex flex-col lg:flex-row justify-center text-center lg:items-center w-full gap-8 p-2 xl:orange-border-shadow rounded-3xl">
             <div className="flex flex-col mt-8">
                 <TitleSection titleBlack={titleStart} titleOrange={titleEnd} desc={desc}/>
-                <div className="grid grid-cols-1 xl:grid-cols-2 justify-center mt-4">
-                  <div className="mx-auto" ref={tikTokRef}></div>
+                <div className="grid grid-cols-1 xl:grid-cols-2 justify-center mt-4 align-top">
+                  <TikTokVideo video_id={"7290713603299331374"}/>
                   <div className="block xl:hidden mx-auto my-auto p-12 text-center">
                       <ArrowDownIcon className="block xl:hidden h-20 w-20 text-white bg-primary-main p-4 rounded-full"/>
                   </div>
-                  <div className="h-full mt-2 w-fit mx-auto">
+                  <div className="h-full w-fit mx-auto">
                     <img src="/images/screenshots/new_recipe_display.png" alt="Tiktok Hawaiian Garlic Rolls Ingredients" className="mt-2 rounded-lg object-scale-down max-w-[325px] sm:max-w-sm"/>
                   </div>
                 </div>
@@ -160,7 +140,7 @@ export function HomeVideoToRecipe({titleStart, titleEnd, desc}: any,) {
 export function ChatFeature() {
 
   return (
-    <Container className="relative w-full max-w-6xl mx-auto px-5 animate-fadeIn ">
+    <Container className="relative w-full max-w-6xl mx-auto px-5">
       <div className="mx-auto max-w-2xl px-4 py-12 sm:px-6 lg:max-w-7xl lg:px-8 rounded-3xl orange-border-shadow">
         <div className="flex justify-center items-center">
           <div className="space-y-6">
