@@ -17,12 +17,9 @@ export default function Login() {
 
     const [ email, setEmail ] = useState<string>('')
     const [ password, setPassword ] = useState<string>('')
-    const { signUpWithEmailPassword, isLoading, user } = useAuth();
+    const { isLoading, user } = useAuth();
     const router = useRouter()
 
-    async function signUpOnClick() {
-        await signUpWithEmailPassword(email, password).catch((error) => {Notify("Error with credentials. If you are creating an account, your password must be 7 characters or longer")})
-    }
 
     useEffect(() => {
         if (user) {

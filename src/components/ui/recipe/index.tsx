@@ -28,16 +28,16 @@ export function PublicRecipe({recipe, setIsOpen, role, isSaved}: RecipeProps) {
     });
 
     return(
-    <div className={"flex flex-col gap-8 animate-fadeInFast mb-16 mx-auto w-full lg:max-w-3xl px-4 sm:px-8 md:px-14 lg:px-5 mt-36 lg:mt-48"}>
-        <RecipeTitleCard recipe={recipe} setIsOpen={setIsOpen} isSaved={isSaved}/>
-        <AdSenseDisplay adSlot="4329661976" adFormat="horizontal" widthRes="false" role={role}/>
-        <RecipeIngredientsComponent ingredients={ingredients}/>
-        <AdSenseDisplay adSlot="1690723057" adFormat="horizontal" widthRes="false" role={role}/>
-        <RecipeInstructionsComponent instructions={instructions}/>
-        <AdSenseDisplay adSlot="9326575118" adFormat="horizontal" widthRes="false" role={role}/>
-        <RecipeVideoComponent video_id={video_id} isLoading={isLoading}/>
-        <AdSenseDisplay adSlot="9315400934" adFormat="horizontal" widthRes="false" role={role}/>
-    </div>
+        <div className={"flex flex-col gap-8 animate-fadeInFast mb-16 mx-auto w-full lg:max-w-3xl px-4 sm:px-8 md:px-14 lg:px-5 mt-36 lg:mt-48"}>
+            <RecipeTitleCard recipe={recipe} setIsOpen={setIsOpen} isSaved={isSaved}/>
+            <AdSenseDisplay adSlot="4329661976" adFormat="horizontal" widthRes="false" role={role}/>
+            <RecipeIngredientsComponent ingredients={ingredients}/>
+            <AdSenseDisplay adSlot="1690723057" adFormat="horizontal" widthRes="false" role={role}/>
+            <RecipeInstructionsComponent instructions={instructions}/>
+            <AdSenseDisplay adSlot="9326575118" adFormat="horizontal" widthRes="false" role={role}/>
+            <RecipeVideoComponent video_id={video_id} isLoading={isLoading}/>
+            <AdSenseDisplay adSlot="9315400934" adFormat="horizontal" widthRes="false" role={role}/>
+        </div>
     )
 }
 
