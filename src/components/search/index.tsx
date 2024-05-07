@@ -54,7 +54,7 @@ export function SearchOrAddRecipe({align}: AddRecipeProps) {
                 <Button buttonType="submit" text="" className={"min-w-max text-white text-sm lg:text-base"} isLink={false} isDisabled={isLoading} >
                     { !isLoading ?
                         <div>                               
-                            <span className="hidden sm:flex relative z-[5]">
+                            <span className="hidden sm:flex relative z-[5] font-semibold">
                                 {"Submit"}
                             </span>
                             <span className="flex sm:hidden relative z-[5]">

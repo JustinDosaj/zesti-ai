@@ -8,7 +8,6 @@ import GoogleTags from "@/components/tags/conversion"
 import React, { useState, useEffect } from "react"
 import { useAuth } from "../api/auth/auth"
 import {useRouter} from "next/router"
-import { Notify } from "@/components/shared/notify"
 import { ToastContainer } from "react-toastify"
 import 'react-toastify/dist/ReactToastify.css';
  
@@ -18,18 +17,9 @@ const raleway = Raleway({subsets: ['latin']})
 export default function Reset() {
  
      const [ email, setEmail ] = useState<string>('')
-     const {user, sendPasswordReset} = useAuth();
+     const {user} = useAuth();
      const router = useRouter()
- 
-     async function resetPasswordOnClick() {
-        await sendPasswordReset(email).then((val) => {
-            Notify("Password reset email sent")
-            setEmail('')
-        }).catch((error) => {
-            console.error("Error: ", error)
-            Notify("Problem resetting password. Double check your email and try again.")
-        })    
-    }
+
      
      useEffect(() => {
          if(user) { router.push('/') }
@@ -59,7 +49,7 @@ export default function Reset() {
                          <input type="text" name="EMAIL" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Email" className="w-full py-3 outline-none bg-transparent text-gray-700"/>
                      </div>
                      <div className="grid grid-cols-1 justify-center mt-4 py-1 w-full pr-1 gap-3 items-center text-heading">
-                         <Button isLink={false} buttonType="button" onClick={() => resetPasswordOnClick()} text="" className={"min-w-max text-white"}>
+                         <Button isLink={false} buttonType="button" onClick={() => console.log()} text="" className={"min-w-max text-white"}>
                              <span className="relative z-[5]">
                                  Reset Password
                              </span>

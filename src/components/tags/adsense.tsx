@@ -24,7 +24,7 @@ const AdSenseDisplay = ({ adSlot, adFormat, widthRes, role, maxHeight = "90px" }
         try {
             (adsbygoogle = window.adsbygoogle || []).push({});
         } catch (error) {
-            console.log(error)
+
         }
       }
     }, []);

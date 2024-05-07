@@ -1,21 +1,19 @@
 import { GetServerSideProps } from "next";
 import { Raleway } from 'next/font/google'
 import { useAuth } from "@/pages/api/auth/auth";
-import { PageLoader } from "@/components/shared/loader";
 import { PublicRecipe } from "@/components/ui/recipe";
 import React, { useEffect, useState } from 'react'
 import GoogleTags from "@/components/tags/conversion";
 import Head from "next/head";
-import Breadcrumbs from "@/components/shared/breadcrumb";
-import useSetBreadcrumbs from "@/components/shared/setBreadcrumbs";
 import { Chatbox } from "@/components/chat/chatbox";
-import { ResponseModal } from "@/components/ui/modals/response";
 import { BookmarkIcon } from "@heroicons/react/20/solid";
 import { useRouter } from "next/router";
-import { db } from "../api/firebase/firebase";
-import { CheckForExistingRecipe } from "../api/firebase/functions";
+import { CheckForExistingRecipe, GetRecipeSnapshot } from "../api/firebase/functions";
+import dynamic from "next/dynamic";
 
 const raleway = Raleway({subsets: ['latin']})
+
+const DynamicModal = dynamic(() => import('@/components/ui/modals/response').then((mod) => mod.ResponseModal), { ssr: false })
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
     
@@ -25,12 +23,10 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     
     let recipe = null;
 
-    const recipeSnapshot = await db.doc(`recipes/${id}`).get()
+    const recipeSnapshot = await GetRecipeSnapshot(id)
 
     if(recipeSnapshot.exists) {
         recipe = recipeSnapshot.data()
-    } else {
-       console.log("error")
     }
 
     const protocol = req.headers['x-forwarded-proto'] || 'http';
@@ -42,17 +38,16 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
 const Recipe: React.FC = ({ recipe, url }: any) => {
 
-    useSetBreadcrumbs()
     const { stripeRole, user } = useAuth();
     const [ isOpen, setIsOpen ] = useState<boolean>(false)
     const [ isSaved, setIsSaved ] = useState<boolean>(false)
     const router = useRouter()
 
     useEffect(() => {
-        if(user) { CheckForExistingRecipe(recipe, user?.uid, setIsSaved) }
+        if(user) { 
+            CheckForExistingRecipe(recipe, user?.uid, setIsSaved) 
+        }
     },[user, recipe?.data?.id])
-
-    if(!recipe) return <PageLoader/>
 
     return(
     <>
@@ -70,10 +65,9 @@ const Recipe: React.FC = ({ recipe, url }: any) => {
             <GoogleTags/>
         </Head>  
         <main className={`flex min-h-screen flex-col items-center p-2 bg-background w-screen pb-28 ${raleway.className}`}>
-            <Breadcrumbs/>
             <PublicRecipe recipe={recipe} setIsOpen={setIsOpen} role={stripeRole} isSaved={isSaved}/>
             <Chatbox role={stripeRole} recipe={recipe}/>
-            <ResponseModal
+            <DynamicModal
               title={`${recipe.name} Saved!`}
               text={`You can view the it by visiting your saved recipe page!`}
               icon={BookmarkIcon}

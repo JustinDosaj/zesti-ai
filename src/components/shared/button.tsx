@@ -39,7 +39,7 @@ export function Button({text, className, buttonType, children, onClick, isLink, 
     if (!isLink && onClick && buttonType) return (
         <button type={buttonType} onClick={onClick} disabled={isDisabled}
             className={`text-white bg-primary-main px-6 py-3 rounded-full outline-none relative overflow-hidden border duration-200 ease-linear
-                hover:after:opacity-100 hover:bg-primary-alt ${className}`}>
+                hover:after:opacity-100 hover:bg-primary-alt font-semibold ${className}`}>
                     <span className="relative z-10">{text}</span>
                     {children}
         </button>

@@ -1,10 +1,8 @@
-import React from "react"
 import { ArrowDownTrayIcon, BookmarkSlashIcon } from "@heroicons/react/20/solid"
 import { useAuth } from "@/pages/api/auth/auth"
 import { Notify } from '@/components/shared/notify';
-import { UserRemoveRecipeFromFirestore, saveRecipeReferenceToUser } from "@/pages/api/firebase/functions"
 import { ArrowTopRightOnSquareIcon, ShareIcon } from "@heroicons/react/24/outline"
-import AdSenseDisplay from "@/components/tags/adsense"
+import dynamic from "next/dynamic";
 
 interface RecipeProps {
     recipe?: any,
@@ -13,50 +11,61 @@ interface RecipeProps {
     instructions?: any,
     role?: string | null,
     isSaved?: boolean,
+    video_id?: string,
+    isLoading?: boolean,
+    user?: any,
 }
 
 export function PublicRecipe({recipe, setIsOpen, role, isSaved}: RecipeProps) {
 
+    const { video_id } = recipe?.data
+    const { ingredients, instructions } = recipe
+    const { isLoading, user } = useAuth()
+
+    const AdSenseDisplay = dynamic(() => import('@/components/tags/adsense'), {
+        ssr: false,
+        loading: () => <div style={{ height: '90px' }}>Loading ad...</div>  // Placeholder while loading
+    });
+
     return(
-    <div className={"flex flex-col gap-8 animate-fadeInFast mb-16 mx-auto w-full lg:max-w-3xl px-4 sm:px-8 md:px-14 lg:px-5"}>
-        <RecipeTitleCard recipe={recipe} setIsOpen={setIsOpen} isSaved={isSaved}/>
-        <AdSenseDisplay adSlot="4329661976" adFormat="horizontal" widthRes="false" role={role}/>
-        <RecipeIngredientsComponent ingredients={recipe?.ingredients}/>
-        <AdSenseDisplay adSlot="1690723057" adFormat="horizontal" widthRes="false" role={role}/>
-        <RecipeInstructionsComponent instructions={recipe?.instructions}/>
-        <AdSenseDisplay adSlot="9326575118" adFormat="horizontal" widthRes="false" role={role}/>
-        <RecipeVideoComponent recipe={recipe}/>
-        <AdSenseDisplay adSlot="9315400934" adFormat="horizontal" widthRes="false" role={role}/>
-    </div>
+        <div className={"flex flex-col gap-8 animate-fadeInFast mb-16 mx-auto w-full lg:max-w-3xl px-4 sm:px-8 md:px-14 lg:px-5 mt-36 lg:mt-48"}>
+            <RecipeTitleCard recipe={recipe} setIsOpen={setIsOpen} isSaved={isSaved}/>
+            <AdSenseDisplay adSlot="4329661976" adFormat="horizontal" widthRes="false" role={role}/>
+            <RecipeIngredientsComponent ingredients={ingredients}/>
+            <AdSenseDisplay adSlot="1690723057" adFormat="horizontal" widthRes="false" role={role}/>
+            <RecipeInstructionsComponent instructions={instructions}/>
+            <AdSenseDisplay adSlot="9326575118" adFormat="horizontal" widthRes="false" role={role}/>
+            <RecipeVideoComponent video_id={video_id} isLoading={isLoading}/>
+            <AdSenseDisplay adSlot="9315400934" adFormat="horizontal" widthRes="false" role={role}/>
+        </div>
     )
 }
 
-function RecipeTitleCard({recipe, setIsOpen, isSaved}: RecipeProps) {
-
-    const { isLoading, user } = useAuth()
+function RecipeTitleCard({recipe, setIsOpen, isSaved, isLoading, user}: RecipeProps) {
 
     async function onSaveClick() {
+
+        const saveRecipe = (await (import ('@/pages/api/firebase/functions'))).saveRecipeReferenceToUser
+
         if (user && !isLoading) {
-            try {
-                await saveRecipeReferenceToUser(user?.uid, recipe.data.unique_id);
+
+            await saveRecipe(user?.uid, recipe.data.unique_id).then(() => {
+                Notify("Recipe saved successfully")
                 setIsOpen(true)
-                return true; // Explicitly returning a boolean value
-            } catch (error) {
-                console.error("Error saving recipe:", error);
-                return false;
-            }
+            });
+
         } else {
             Notify("Please login to save recipes")
-            return false; // Or some appropriate boolean value based on your logic
         }
     }
 
     const onDeleteClick = async () => {
+
+        const saveRecipe = (await (import ('@/pages/api/firebase/functions'))).userRemoveRecipeFromFirestore
+
         if(user) {
-            await UserRemoveRecipeFromFirestore(user?.uid, recipe.data.unique_id);
-            return true; 
+            await saveRecipe(user?.uid, recipe.data.unique_id);
         }
-        return false;
     }
 
     const onShareClick = async () => {
@@ -125,6 +134,7 @@ function RecipeIngredientsComponent({ ingredients }: RecipeProps) {
 
 function RecipeInstructionsComponent({ instructions }: RecipeProps) {
     
+    
     return(
         <div className="recipe-page-container">
             <h2 className="recipe-page-section-title">Instructions</h2>
@@ -143,19 +153,17 @@ function RecipeInstructionsComponent({ instructions }: RecipeProps) {
     )
 }
 
-function RecipeVideoComponent({ recipe }: RecipeProps) {
-    
-    const { date_added, date_created, source, video_id, unique_id, music_info } = recipe?.data;
+function RecipeVideoComponent({ video_id, isLoading }: RecipeProps) {
 
     return (
         <div className="rounded-xl overflow-hidden alternate-orange-bg w-fit mx-auto h-full">
 
-            <iframe
+            {!isLoading && (<iframe
                 className="w-full max-w-[325px] min-w-[325px] min-h-[800px]"
                 src={`https://www.tiktok.com/embed/${video_id}`}
                 allow="fullscreen"
                 loading="lazy"
-            />
+            />)}
     
         </div>
     )

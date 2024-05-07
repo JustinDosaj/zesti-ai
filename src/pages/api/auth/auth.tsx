@@ -1,5 +1,5 @@
 import { createContext, useContext, ReactNode, useEffect, useState } from 'react';
-import { User, getAuth, onAuthStateChanged, signOut, signInWithPopup, GoogleAuthProvider, createUserWithEmailAndPassword, signInWithEmailAndPassword, sendPasswordResetEmail } from "firebase/auth";
+import { User, getAuth, onAuthStateChanged, signOut, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import { db } from '../firebase/firebase';
 import { useRouter } from 'next/router';
 import { SendErrorToFirestore } from '../firebase/functions';
@@ -20,9 +20,6 @@ interface AuthContextType {
   login: () => Promise<void>;
   logout: () => Promise<void>;
   stripeRole: string | null;
-  loginWithEmailPassword: (email: string, password: string) => Promise<void>;
-  signUpWithEmailPassword: (email: string, password: string) => Promise<void>;
-  sendPasswordReset: (email: string) => Promise<void>;
   userData: UserData | null;
 }
 
@@ -37,9 +34,6 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   const auth = getAuth();
   const router = useRouter();
   const provider = new GoogleAuthProvider();
-
-
-// Function to initiate TikTok login
 
 
   const login = async () => {
@@ -78,53 +72,6 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     }
   };
 
-  const loginWithEmailPassword = async (email: string, password: string) => {
-    try {
-      await signInWithEmailAndPassword(auth, email, password).catch((error) => {
-        console.error("Error Signing In: ", error)
-        throw error;
-      })
-    } catch (error) {
-      console.error("Error logging in with email and password:", error);
-      throw error;
-    }
-  };
-
-  const signUpWithEmailPassword = async (email: string, password: string) => {
-    try {
-      const result = await createUserWithEmailAndPassword(auth, email, password).catch(async () => {
-        await loginWithEmailPassword(email, password)
-      });
-      
-      const user = result?.user
-
-      if(user) {
-        const userRef = db.collection('users').doc(user.uid);
-        const doc = await userRef.get();
-
-        if(!doc.exists) {
-          await userRef.set({
-            email: user.email,
-            account_status: 'user',
-            date_created: new Date().toISOString()
-          })
-        }
-      }
-    } catch (error) {
-      console.error("Error signing up with email and password:", error);
-      throw error;
-    }
-  };
-
-  const sendPasswordReset = async (email: string) => {
-    try {
-      const result = await sendPasswordResetEmail(auth, email)
-    } catch(error) {
-      console.error("Error: ", error)
-      throw error;
-    }
-  }
-
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
       setUser(currentUser);
@@ -152,7 +99,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
 
 
   return (
-    <AuthContext.Provider value={{ user, isLoading, auth, provider, login, logout, stripeRole, loginWithEmailPassword, signUpWithEmailPassword, sendPasswordReset, userData }}>
+    <AuthContext.Provider value={{ user, isLoading, auth, provider, login, logout, stripeRole, userData }}>
       {children}
     </AuthContext.Provider>
   );

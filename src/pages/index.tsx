@@ -5,7 +5,6 @@ import { useAuth } from './api/auth/auth';
 import { PageLoader } from '@/components/shared/loader';
 import { Raleway } from 'next/font/google'
 import { useEffect, useState } from 'react';
-import { GetRandomRecipes } from './api/firebase/functions';
 import { FAQ } from '@/components/ui/general';
 
 const raleway = Raleway({subsets: ['latin']})
@@ -25,6 +24,8 @@ export default function Home() {
 
   useEffect(() => {
     const fetchRandomRecipes = async () => {
+      
+      const GetRandomRecipes = (await (import ('./api/firebase/functions'))).GetRandomRecipes
       const res = await GetRandomRecipes(9);
       setRecipes(res);
     }
