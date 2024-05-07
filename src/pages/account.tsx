@@ -21,6 +21,7 @@ export default function Account() {
       <title>Zesti AI | Your Account</title>
     </Head>  
     <main className={`flex min-h-screen flex-col items-center bg-background w-screen`}>
+      <div className="mt-36"/>
       <TitleSection titleBlack="Your Account"/>
       <div className={`mx-auto`}>
         <ProfilePageComponent/>

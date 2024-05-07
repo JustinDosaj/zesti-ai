@@ -17,7 +17,7 @@ export default function Contact() {
     </Head>    
     <main className={`flex min-h-screen flex-col items-center bg-background h-screen w-screen`}>
         <Container className={"grid md:grid-cols-1 lg:flex-row gap-10 lg:gap-12 mb-36"}>
-            <div className="flex-1 flex flex-col text-center">
+            <div className="flex-1 flex flex-col text-center mt-36">
                 <TitleSection titleBlack="Contact Us" desc="If you have any questions or require support, send us a message and we will respond as soon as possible!"/>
             </div>
             <form action="https://formspree.io/f/maygvonw" method="POST" target="_blank" className="mx-auto w-full sm:w-[550px]">
