@@ -16,8 +16,8 @@ export default function Contact() {
         <meta name="description" content="Have questions or need assistance? Reach out to the Zesti support team through our contact page. We are here to help with all your recipe conversion needs!"/>
     </Head>    
     <main className={`flex min-h-screen flex-col items-center bg-background h-screen w-screen`}>
-        <Container className={"grid md:grid-cols-1 lg:flex-row gap-10 lg:gap-12 mb-36 mt-36"}>
-            <div className="flex-1 flex flex-col text-center mt-4">
+        <Container className={"grid md:grid-cols-1 lg:flex-row gap-10 lg:gap-12 mb-36"}>
+            <div className="flex-1 flex flex-col text-center">
                 <TitleSection titleBlack="Contact Us" desc="If you have any questions or require support, send us a message and we will respond as soon as possible!"/>
             </div>
             <form action="https://formspree.io/f/maygvonw" method="POST" target="_blank" className="mx-auto w-full sm:w-[550px]">
