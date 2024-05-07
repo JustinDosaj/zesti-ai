@@ -3,7 +3,6 @@ import Head from 'next/head';
 import GoogleTags from "@/components/tags/conversion"
 import React, { useEffect, useState } from "react"
 import { useAuth } from '../api/auth/auth';
-import { Notify } from "@/components/shared/notify"
 import { ToastContainer } from "react-toastify"
 import 'react-toastify/dist/ReactToastify.css';
 import { PageLoader } from "@/components/shared/loader"
@@ -15,14 +14,9 @@ const raleway = Raleway({subsets: ['latin']})
 
 export default function Login() {
 
-    const [ email, setEmail ] = useState<string>('')
-    const [ password, setPassword ] = useState<string>('')
-    const { signUpWithEmailPassword, isLoading, user } = useAuth();
+    const { isLoading, user } = useAuth();
     const router = useRouter()
 
-    async function signUpOnClick() {
-        await signUpWithEmailPassword(email, password).catch((error) => {Notify("Error with credentials. If you are creating an account, your password must be 7 characters or longer")})
-    }
 
     useEffect(() => {
         if (user) {

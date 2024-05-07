@@ -83,7 +83,7 @@ export function Chatbox({role, recipe}:ChatBoxProps) {
     setMessage('') // Clear the message input after sending
 
     const response = await chatWithZesti(requestData).catch((error) => {
-      console.log("Error: ", error)
+
     })
   };
 

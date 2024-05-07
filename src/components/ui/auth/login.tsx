@@ -1,19 +1,12 @@
 import { Container } from "@/components/shared/container"
 import React, { useState } from "react"
 import { useAuth } from "@/pages/api/auth/auth"
-import { Notify } from "@/components/shared/notify"
 import 'react-toastify/dist/ReactToastify.css';
 import { PageLoader } from "@/components/shared/loader"
 
 export function LoginComponent() {
 
-    const [ email, setEmail ] = useState<string>('')
-    const [ password, setPassword ] = useState<string>('')
-    const {user, signUpWithEmailPassword, login, sendPasswordReset, stripeRole, isLoading } = useAuth();
-
-    async function signUpOnClick() {
-        await signUpWithEmailPassword(email, password).catch((error) => {Notify("Error with credentials. If you are creating an account, your password must be 7 characters or longer")})
-    }
+    const { login, isLoading } = useAuth();
 
     if (isLoading) return <PageLoader/>
 
