@@ -1,10 +1,8 @@
-"use client;"
 import { Container } from "../shared/container"
 import { Navitem } from "../shared/navitem"
 import { useAuth } from "@/pages/api/auth/auth"
 import { Button } from "../shared/button"
 import Link from "next/link"
-import Image from "next/image"
 import { BookOpenIcon, HomeIcon, PaperAirplaneIcon, WalletIcon, UserIcon, MagnifyingGlassIcon } from "@heroicons/react/20/solid"
 import { DropDownMenuDesktop, DropDownMenuMobile } from "./menus"
 import { useRouter } from "next/router"
@@ -90,8 +88,8 @@ export function Navbar() {
                 {/* Logo & Text -- Turns visible on screen size large */}
                 <div className="hidden lg:flex justify-start w-1/3 ">
                     <Link href="/" className="flex items-center gap-3">
-                        <div className="relative w-14 h-14 overflow-hidden flex rounded-xl">
-                            <img src="/images/Zesti-Logo.png" alt="Zesti Artificial Intelligence Recipe Helper Logo" width={60} height={30}/>
+                        <div className="relative overflow-hidden flex rounded-xl">
+                            <img src="/images/Zesti-Logo(40x40).png" alt="Zesti Artificial Intelligence Recipe Helper Logo" width={40} height={40}/>
                         </div>
                         <div className="hidden lg:inline-flex text-2xl font-semibold text-heading-1 text-black">
                             Zesti.ai

@@ -14,7 +14,7 @@ export const saveRecipeReferenceToUser = async (userId: string, recipeId: string
 };
 
 /* DELETE FUNCTIONS */
-export const UserRemoveRecipeFromFirestore = async (userId: string, recipeId: string) => {
+export const userRemoveRecipeFromFirestore = async (userId: string, recipeId: string) => {
   try {
     const recipeRef = db.collection('users').doc(userId).collection('recipes').doc(recipeId);
 
@@ -82,4 +82,8 @@ export async function CheckForExistingRecipe(recipe: any, user_id: string, setIs
 
   return () => unsubscribe()
 
+}
+
+export async function GetRecipeSnapshot(id: string) {
+  return await db.doc(`recipes/${id}`).get()
 }
