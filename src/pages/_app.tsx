@@ -1,19 +1,20 @@
 import '@/styles/globals.css'
 import type { AppProps } from 'next/app'
-import { Navbar } from '@/components/elements/navbar'
-import { Footer } from '@/components/elements/footer'
 import { AuthProvider } from './api/auth/auth'
-import { Analytics } from '@vercel/analytics/react';
-import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
 import React from 'react'
+import dynamic from 'next/dynamic'
+
+
+const ToastContainer = dynamic(() => import('react-toastify').then((mod) => mod.ToastContainer), { ssr: false })
+const Navbar = dynamic(() => import('@/components/elements/navbar').then((mod) => mod.Navbar), { ssr: false })
+const Footer = dynamic(() => import('@/components/elements/footer').then((mod) => mod.Footer), { ssr: false })
+const Analytics = dynamic(() => import('@vercel/analytics/react').then((mod) => mod.Analytics), { ssr: false })
 
 
 export default function App({ Component, pageProps }: AppProps) {
 
   return (
-
-
       <AuthProvider>
           <Navbar/>
             <Component {...pageProps}/>
@@ -21,7 +22,5 @@ export default function App({ Component, pageProps }: AppProps) {
             <ToastContainer/>
           <Footer/>
       </AuthProvider>
-
-
   )
 }

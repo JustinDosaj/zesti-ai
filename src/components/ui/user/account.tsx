@@ -5,7 +5,7 @@ import { AccountTitleComponent, SimpleProfileComponent } from '../auth/account';
 
 export function ProfilePageComponent() {
 
-    const { user, stripeRole, logout, userData } = useAuth()
+    const { user, stripeRole, logout } = useAuth()
     const router = useRouter();
     
     return (
