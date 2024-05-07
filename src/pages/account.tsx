@@ -1,7 +1,6 @@
 import { Raleway } from 'next/font/google'
 import { useAuth } from './api/auth/auth'
 import { TitleSection } from '@/components/shared/title'
-import GoogleTags from "@/components/tags/conversion"
 import Head from "next/head"
 import { ProfilePageComponent } from '@/components/ui/user/account'
 import { PageLoader } from '@/components/shared/loader'
@@ -23,7 +22,6 @@ export default function Account() {
     <Head>
       <meta name="robots" content="noindex" />
       <title>Zesti AI | Your Account</title>
-      <GoogleTags/>
     </Head>  
     <main className={`flex min-h-screen flex-col items-center bg-background w-screen ${raleway.className}`}>
       <div className="mt-36"/>

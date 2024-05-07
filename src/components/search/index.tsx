@@ -1,10 +1,9 @@
 import { LinkIcon } from '@heroicons/react/20/solid';
-import React, { useState } from "react"
+import { useState } from "react"
 import { Button } from '../shared/button';
 import { useRouter } from 'next/router';
 import { handleUserSubmitRecipe } from '@/pages/api/handler/submit';
 import { ButtonLoader } from '../shared/loader';
-import { useAuth } from '@/pages/api/auth/auth';
 import { Notify } from '../shared/notify';
 
 interface AddRecipeProps {
@@ -45,7 +44,6 @@ export function SearchOrAddRecipe({align}: AddRecipeProps) {
     }
 
     return(
-        <>
         <div className={`flex sm:flex-row flex-col gap-5 justify-center lg:justify-${align} w-[350px] md:w-[450px]`}> {/* Also needs to be able to center for my recipe page */}
             <form onSubmit={onAddButtonClick} action="" method="POST" className="py-1 pl-6 w-full max-w-md pr-1 flex gap-3 items-center text-heading-3 shadow-lg shadow-box-shadow
             border border-box-border bg-box-bg rounded-full ease-linear focus-within:bg-body  focus-within:border-primary">
@@ -69,6 +67,5 @@ export function SearchOrAddRecipe({align}: AddRecipeProps) {
                 </Button>
             </form>
         </div>
-        </>
     )
 }

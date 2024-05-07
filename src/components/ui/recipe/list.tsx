@@ -1,6 +1,6 @@
 import { Button } from "@/components/shared/button"
 import { Container } from "@/components/shared/container"
-import React, { useState, useRef } from "react"
+import { useState, useRef } from "react"
 import { RecipeListLoader } from "@/components/shared/loader"
 import { RecipeCard } from "./card"
 

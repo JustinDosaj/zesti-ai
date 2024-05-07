@@ -1,14 +1,12 @@
 "use client;"
 import { Dialog, Transition } from '@headlessui/react'
-import React, { Fragment, useRef } from 'react'
-import { classNames } from '@/components/shared/classNames'
-import AdSenseDisplay from '@/components/tags/adsense'
+import { Fragment, useRef } from 'react'
+import dynamic from 'next/dynamic'
+import { BookmarkIcon } from '@heroicons/react/20/solid'
 
 interface ModalProps {
   title: string,
   text: string,
-  icon: any,
-  iconColor: 'green' | 'red' | 'yellow' | 'orange',
   modalFunction: () => void,
   isOpen: any,
   setIsOpen: any,
@@ -18,9 +16,14 @@ interface ModalProps {
 }
 
 
-export function ResponseModal({title, text, icon: Icon, modalFunction, isOpen, setIsOpen, displayAd, role, buttonName, iconColor}: ModalProps) {
+export function ResponseModal({title, text, modalFunction, isOpen, setIsOpen, displayAd, role, buttonName}: ModalProps) {
 
   const cancelButtonRef = useRef(null)
+
+  const AdSenseDisplay = dynamic(() => import('@/components/tags/adsense'), {
+    ssr: false,
+    loading: () => <div style={{ height: '90px' }}/>  // Placeholder while loading
+});
 
   const onButtonClick = () => {
     modalFunction()
@@ -55,22 +58,8 @@ export function ResponseModal({title, text, icon: Icon, modalFunction, isOpen, s
             >
               <Dialog.Panel className="relative transform overflow-hidden rounded-3xl bg-white px-4 pb-4 pt-5 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg sm:p-6">
                 <div>
-                  <div className={classNames(
-                        iconColor == 'red' ? 'border-red-500/50' :
-                        iconColor == 'yellow' ? 'border-yellow-400/50' :
-                        iconColor == 'green' ? 'border-color-alt-green/50' :
-                        iconColor == 'orange' ? 'border-primary-main/50' :
-                        `border-color-alt-green`
-                        ,`mx-auto flex h-12 w-12 items-center justify-center border rounded-full`)}
-                  >
-                    <Icon className={classNames(
-                      iconColor == 'red' ? 'text-red-500' : 
-                      iconColor == 'green' ? 'text-color-alt-green' :
-                      iconColor == 'yellow' ? 'text-yellow-400' :
-                      iconColor == 'orange' ? 'text-primary-main' :
-                      'text-color-alt-green'
-                      ,`h-8 w-8`)}
-                    aria-hidden="true" />
+                  <div className='border-primary-main/50 mx-auto flex h-12 w-12 items-center justify-center border rounded-full'>
+                    <BookmarkIcon className='text-primary-main h-8 w-8' aria-hidden="true" />
                   </div>
                   <div className="mt-3 text-center sm:mt-5">
                     <Dialog.Title as="h3" className="text-xl lg:text-2xl font-semibold leading-6 text-gray-900 capitalize">

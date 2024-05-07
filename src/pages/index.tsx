@@ -1,8 +1,5 @@
 import Head from 'next/head';
-import GoogleTags from '@/components/tags/conversion';
 import { Hero, HomePageCTA, HomePageScroller, ChatFeature, HomeVideoToRecipe } from '@/components/ui/features/users';
-import { useAuth } from './api/auth/auth';
-import { PageLoader } from '@/components/shared/loader';
 import { Raleway } from 'next/font/google'
 import { useEffect, useState } from 'react';
 import { FAQ } from '@/components/ui/general';
@@ -19,7 +16,6 @@ interface Recipe {
 
 export default function Home() {
   
-  const { isLoading } = useAuth();
   const [ recipes, setRecipes ] = useState<Recipe[]>([]);
 
   useEffect(() => {
@@ -34,15 +30,12 @@ export default function Home() {
 
   },[])
 
-  if (isLoading) return <PageLoader/>
-
   return (
     <>
       <Head>
         <title>Zesti AI | A Better Way to Save TikTok Recipes</title>
         <meta name="title" content="Zesti AI | A Better Way to Save TikTok Recipes"/>
         <meta name="description" content="Instantly save delicious recipes from TikTok by using Zesti AI to transcribe your faovirte recipe videos to text!"/>
-        <GoogleTags/>
       </Head>
       <main className={`main-seo-page-class ${raleway.className}`}>
         <Hero 
