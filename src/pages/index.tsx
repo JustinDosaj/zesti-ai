@@ -1,7 +1,9 @@
 import { GetServerSideProps } from "next";
 import Head from 'next/head';
-import { Hero, HomePageCTA, HomePageScroller, ChatFeature, HomeVideoToRecipe } from '@/components/ui/features/users';
+import { Hero, HomePageCTA, HomePageScroller, ChatFeature } from '@/components/ui/features/users';
 import { FAQ } from '@/components/ui/general';
+import dynamic from "next/dynamic";
+
 
 
 export const getServerSideProps: GetServerSideProps = async () => {
@@ -16,6 +18,11 @@ export const getServerSideProps: GetServerSideProps = async () => {
 
 export default function Home({recipes}: any) {
   
+  const HomeVideoToRecipe = dynamic(() => import('@/components/ui/features/users').then((mod) => mod.HomeVideoToRecipe), {
+    ssr: false, 
+    loading: () => <div style={{ height: '300px' }}/> // Placeholder while loading
+  });
+
   return (
     <>
       <Head>
