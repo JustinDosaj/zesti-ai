@@ -7,13 +7,13 @@ import { Analytics } from '@vercel/analytics/react';
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
 import React from 'react'
-import { NavigationProvider } from './api/context/navigation'
+
 
 export default function App({ Component, pageProps }: AppProps) {
 
   return (
 
-    <NavigationProvider>
+
       <AuthProvider>
           <Navbar/>
             <Component {...pageProps}/>
@@ -21,7 +21,7 @@ export default function App({ Component, pageProps }: AppProps) {
             <ToastContainer/>
           <Footer/>
       </AuthProvider>
-    </NavigationProvider>
+
 
   )
 }

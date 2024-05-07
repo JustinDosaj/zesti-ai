@@ -143,16 +143,13 @@ export function PricingDisplay() {
 export function PricingTitle() {
 
   return(
-    <Container className={"flex flex-col lg:flex-row gap-10 lg:gap-12 mt-4"}>
+    <Container className={"flex flex-col lg:flex-row gap-10 lg:gap-12 mx-auto bg-white"}>
       <div className="bg-white mx-auto">
-        <div className="mx-auto max-w-7xl md:px-6 lg:px-8"></div>
-          <div className="mx-auto max-w-4xl text-center">
-            <TitleSection titleBlack="Pricing Plans" desc="Join hundreds of users creating their favorite home cooked meals!"/>
-            <p className="mx-auto sm:mb-8 mt-4 sm:mt-6 max-w-xl w-fit pr-3 pl-3 text-center leading-8 border border-primary-main rounded-3xl text-gray-600">
-              Try for Free. Cancel anytime.
-            </p>
-          </div>
-        </div>
+          <TitleSection titleBlack="Pricing Plans" desc="Join hundreds of users creating their favorite home cooked meals!"/>
+          <p className="mx-auto sm:mb-8 mt-4 sm:mt-6 max-w-xl w-fit pr-3 pl-3 text-center leading-8 border border-primary-main rounded-3xl text-gray-600">
+            Try for Free. Cancel anytime.
+          </p>
+      </div>
     </Container>
   )
 }
