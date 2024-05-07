@@ -1,12 +1,10 @@
 import { Container } from "@/components/shared/container"
 import { Button } from "@/components/shared/button"
-import { Raleway } from 'next/font/google'
 import { EnvelopeIcon, UsersIcon, PaperAirplaneIcon } from "@heroicons/react/24/outline"
 import Head from 'next/head';
 import { TitleSection } from "@/components/shared/title";
 
 
-const raleway = Raleway({subsets: ['latin']})
 
 
 export default function Contact() {
@@ -17,7 +15,7 @@ export default function Contact() {
         <meta name="title" content="Zesti AI | Get in Touch for Support & Inquiries"/>
         <meta name="description" content="Have questions or need assistance? Reach out to the Zesti support team through our contact page. We are here to help with all your recipe conversion needs!"/>
     </Head>    
-    <main className={`flex min-h-screen flex-col items-center bg-background h-screen w-screen ${raleway.className}`}>
+    <main className={`flex min-h-screen flex-col items-center bg-background h-screen w-screen`}>
         <Container className={"grid md:grid-cols-1 lg:flex-row gap-10 lg:gap-12 mb-36 mt-36"}>
             <div className="flex-1 flex flex-col text-center mt-4">
                 <TitleSection titleBlack="Contact Us" desc="If you have any questions or require support, send us a message and we will respond as soon as possible!"/>
