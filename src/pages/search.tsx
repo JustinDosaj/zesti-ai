@@ -10,7 +10,6 @@ import { useRouter } from 'next/router';
 import { useAuth } from './api/auth/auth';
 import AdSenseDisplay from '@/components/tags/adsense';
 import Head from 'next/head';
-import GoogleTags from '@/components/tags/conversion';
 import algoliasearch, { SearchIndex } from 'algoliasearch';
 
 const raleway = Raleway({subsets: ['latin']})
@@ -67,7 +66,6 @@ const SearchResults: React.FC = () => {
         <>
             <Head>
                 <title>Search TikTok Recipes | Zesti AI</title>
-                <GoogleTags/>
             </Head>
             <main className={`flex min-h-screen flex-col items-center bg-background w-screen space-y-4 pb-48 ${raleway.className}`}>
                 <Breadcrumbs/>

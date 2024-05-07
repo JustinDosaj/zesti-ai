@@ -1,4 +1,3 @@
-import React from 'react'
 import { Container } from '@/components/shared/container';
 import { useRouter } from 'next/router';
 import { useAuth } from '@/pages/api/auth/auth'
