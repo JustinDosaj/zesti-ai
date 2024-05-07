@@ -1,14 +1,13 @@
 import { GetServerSideProps } from "next";
-import { Raleway } from 'next/font/google'
 import { useAuth } from "@/pages/api/auth/auth";
 import { PublicRecipe } from "@/components/ui/recipe";
 import { useEffect, useState } from 'react'
-import Head from "next/head";
-import { Chatbox } from "@/components/chat/chatbox";
 import { useRouter } from "next/router";
 import dynamic from "next/dynamic";
+import Head from "next/head";
 
 const DynamicModal = dynamic(() => import('@/components/ui/modals/response').then((mod) => mod.ResponseModal), { ssr: false })
+const Chatbox = dynamic(() => import('@/components/chat/chatbox').then((mod) => mod.Chatbox), { ssr: false });
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
     
@@ -31,6 +30,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
     return {props: { recipe, url }}
 }
+
 
 const Recipe: React.FC = ({ recipe, url }: any) => {
 
@@ -70,8 +70,7 @@ const Recipe: React.FC = ({ recipe, url }: any) => {
             <Chatbox role={stripeRole} recipe={recipe}/>
             <DynamicModal
               title={`${recipe.name} Saved!`}
-              text={`You can view the it by visiting your saved recipe page!`}
-
+              text={`You can view it by visiting your saved recipe page!`}
               modalFunction={() => router.push('/my-recipes')}
               isOpen={isOpen}
               setIsOpen={setIsOpen}
