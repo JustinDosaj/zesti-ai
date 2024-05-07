@@ -7,6 +7,7 @@ import { TitleSection } from "@/components/shared/title"
 import { SearchOrAddRecipe } from "@/components/search"
 import getConfig from "next/config"
 import { Paragraph } from "@/components/shared/paragraph"
+import Image from "next/image"
 import dynamic from "next/dynamic"
 
 interface HeroProps {
@@ -106,33 +107,6 @@ export function HomePageCTA() {
         </div>
         <Button isLink={true} href='/about/pricing' text="Get Started" className="text-lg font-medium text-center text-white"/>
       </div>
-    </Container>
-  )
-}
-
-export function HomeVideoToRecipe({titleStart, titleEnd, desc}: any,) {
-
-  const TikTokVideo = dynamic(() => import('../recipe/tiktok'), {
-    ssr: false, 
-    loading: () => <div style={{ height: '90px' }}/> // Placeholder while loading
-  });
-
-  return(
-    <Container className="relative w-full max-w-6xl mx-auto px-5">
-        <div className="flex flex-col lg:flex-row justify-center text-center lg:items-center w-full gap-8 p-2 xl:orange-border-shadow rounded-3xl">
-            <div className="flex flex-col mt-8">
-                <TitleSection titleBlack={titleStart} titleOrange={titleEnd} desc={desc}/>
-                <div className="grid grid-cols-1 xl:grid-cols-2 justify-center mt-4 align-top">
-                  <TikTokVideo video_id={"7290713603299331374"}/>
-                  <div className="block xl:hidden mx-auto my-auto p-12 text-center">
-                      <ArrowDownIcon className="block xl:hidden h-20 w-20 text-white bg-primary-main p-4 rounded-full"/>
-                  </div>
-                  <div className="h-full w-fit mx-auto">
-                    <img src="/images/screenshots/new_recipe_display.png" alt="Tiktok Hawaiian Garlic Rolls Ingredients" className="mt-2 rounded-lg object-scale-down max-w-[325px] sm:max-w-sm"/>
-                  </div>
-                </div>
-            </div>
-        </div>
     </Container>
   )
 }
