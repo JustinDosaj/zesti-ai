@@ -3,8 +3,6 @@ import { useEffect, useState } from 'react';
 import { RecipeCardList } from '@/components/ui/recipe/list';
 import { SearchOrAddRecipe } from '@/components/search';
 import { TitleSection } from '@/components/shared/title';
-import Breadcrumbs from '@/components/shared/breadcrumb';
-import useSetBreadcrumbs from '@/components/shared/setBreadcrumbs';
 import { useRouter } from 'next/router';
 import { useAuth } from './api/auth/auth';
 import AdSenseDisplay from '@/components/tags/adsense';
@@ -14,8 +12,6 @@ import algoliasearch, { SearchIndex } from 'algoliasearch';
 
 const SearchResults: React.FC = () => {
     
-    useSetBreadcrumbs()
-
     const searchClient = algoliasearch(`${process.env.NEXT_PUBLIC_ALGOLIA_APPLICATION_ID}`, `${process.env.NEXT_PUBLIC_ALGOLIA_SEARCH_ONLY_KEY}`);
     const recipesIndex: SearchIndex = searchClient.initIndex(`${process.env.NEXT_PUBLIC_ALGOLIA_ALL_RECIPES_INDEX}`);
 
@@ -66,7 +62,6 @@ const SearchResults: React.FC = () => {
                 <title>Search TikTok Recipes | Zesti AI</title>
             </Head>
             <main className={`flex min-h-screen flex-col items-center bg-background w-screen space-y-4 pb-48`}>
-                <Breadcrumbs/>
                 <TitleSection titleBlack="Search for Recipes" desc="Copy & paste a TikTok recipe link or search by ingredients, usernames & more!"/>
                 <SearchOrAddRecipe align={"center"}/>
                 <RecipeCardList recipes={recipes}/>

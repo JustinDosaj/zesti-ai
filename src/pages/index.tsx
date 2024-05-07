@@ -1,35 +1,21 @@
+import { GetServerSideProps } from "next";
 import Head from 'next/head';
 import { Hero, HomePageCTA, HomePageScroller, ChatFeature, HomeVideoToRecipe } from '@/components/ui/features/users';
-import { Raleway } from 'next/font/google'
-import { useEffect, useState } from 'react';
 import { FAQ } from '@/components/ui/general';
 
-const raleway = Raleway({subsets: ['latin']})
 
+export const getServerSideProps: GetServerSideProps = async () => {
 
-interface Recipe {
-  id: string;
-  name: string;
-  cover_image_url: string;
-  [key: string]: any; // Extend this interface based on the other fields you expect in your documents
+  const GetRandomRecipes = (await (import ('./api/firebase/functions'))).GetRandomRecipes
+  const recipes = await GetRandomRecipes(9);
+
+  return {
+    props: { recipes }
+  }
 }
 
-export default function Home() {
+export default function Home({recipes}: any) {
   
-  const [ recipes, setRecipes ] = useState<Recipe[]>([]);
-
-  useEffect(() => {
-    const fetchRandomRecipes = async () => {
-      
-      const GetRandomRecipes = (await (import ('./api/firebase/functions'))).GetRandomRecipes
-      const res = await GetRandomRecipes(9);
-      setRecipes(res);
-    }
-
-    fetchRandomRecipes();
-
-  },[])
-
   return (
     <>
       <Head>

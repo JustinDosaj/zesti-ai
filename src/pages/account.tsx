@@ -10,8 +10,7 @@ export default function Account() {
 
     // Redirect if user is not logged in
     useRequireAuth()
-
-    const { isLoading, userData } = useAuth();
+    const { isLoading } = useAuth();
 
     if(isLoading) return <PageLoader/>
 
@@ -22,9 +21,8 @@ export default function Account() {
       <title>Zesti AI | Your Account</title>
     </Head>  
     <main className={`flex min-h-screen flex-col items-center bg-background w-screen`}>
-      <div className="mt-36"/>
       <TitleSection titleBlack="Your Account"/>
-      <div className={userData?.account_status == 'user'  ? `mx-auto` : `grid grid-cols-1 xl:gap-x-3` }>
+      <div className={`mx-auto`}>
         <ProfilePageComponent/>
       </div>
       <div className="mt-36"/>

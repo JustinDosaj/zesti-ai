@@ -11,8 +11,6 @@ const nextConfig = {
     domains: 
     [
       "m.media-amazon.com", 
-      "p16-sign.tiktokcdn-us.com",
-      "p16-sign-va.tiktokcdn.com",
       "firebasestorage.googleapis.com",
     ],
   },
@@ -22,4 +20,4 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
   enabled: process.env.ANALYZE === 'true',
 })
 
-module.exports = nextConfig
+module.exports = withBundleAnalyzer(nextConfig)

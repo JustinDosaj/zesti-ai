@@ -8,7 +8,7 @@ export function DiscoverRecipes({recipes}: any) {
         <>
             <div className="flex flex-col lg:flex-row justify-center text-center lg:items-center w-full gap-8">
                 <div className="flex flex-col">
-                    <TitleSection  titleBlack="Check Out Recipes Already On" titleOrange="Zesti" desc="Click on any of the recipes below to see the ingredient list and instructions!"/>
+                    <TitleSection  titleBlack="Check Out Recipes Already On" titleOrange="Zesti" desc="Click on any of the recipes below to see the ingredient list and instructions!" className="mt-0"/>
                 </div>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-8">
