@@ -1,4 +1,3 @@
-import { Raleway } from 'next/font/google'
 import { useAuth } from "@/pages/api/auth/auth"
 import Head from 'next/head';
 import GoogleTags from '@/components/tags/conversion';
@@ -9,8 +8,6 @@ import AdSenseDisplay from '@/components/tags/adsense';
 import useUserRecipeList from '@/hooks/user/useUserRecipeList';
 import useRequireAuth from '@/hooks/user/useRequireAuth';
 import { RecipeCardList } from '@/components/ui/recipe/list';
-
-const raleway = Raleway({subsets: ['latin']})
 
 export default function MyRecipes() {
 
@@ -27,7 +24,7 @@ export default function MyRecipes() {
       <meta name="title" content={`Zesti AI | My Recipes`}/>
       <GoogleTags/>
     </Head>
-    <main className={`flex min-h-screen flex-col items-center bg-background w-screen space-y-4 pb-48 ${raleway.className}`}>
+    <main className={`flex min-h-screen flex-col items-center bg-background w-screen space-y-4 pb-48`}>
         <Breadcrumbs/>
         <TitleSection titleBlack="Your Saved Recipes" desc="Access all the recipes you saved from others or search for new ones below"/>
         <RecipeCardList recipes={userRecipeList} maxDisplayCount={9} max={0} loading={loadingUserRecipes}/>

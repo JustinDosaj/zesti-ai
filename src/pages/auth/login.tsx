@@ -1,4 +1,3 @@
-import { Raleway } from 'next/font/google'
 import Head from 'next/head';
 import React, { useEffect } from "react"
 import { useAuth } from '../api/auth/auth';
@@ -7,8 +6,6 @@ import 'react-toastify/dist/ReactToastify.css';
 import { PageLoader } from "@/components/shared/loader"
 import { LoginComponent } from '@/components/ui/auth/login';
 import { useRouter } from 'next/router';
-
-const raleway = Raleway({subsets: ['latin']})
 
 
 export default function Login() {
@@ -33,7 +30,7 @@ export default function Login() {
         <meta name="description" content="Join Zesti and find delicious recipes from TikTok already transcribed! Zesti is free to use, but offers a 7-day free trial for our premium model!"/>
     </Head>
     <ToastContainer/>    
-    <main className={`flex min-h-screen flex-col items-center justify-between bg-background h-screen w-screen ${raleway.className}`}>
+    <main className={`flex min-h-screen flex-col items-center justify-between bg-background h-screen w-screen`}>
         <section className="relative my-auto">
             <LoginComponent/>
         </section>

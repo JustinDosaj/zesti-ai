@@ -37,7 +37,7 @@ export default function Home() {
         <meta name="title" content="Zesti AI | A Better Way to Save TikTok Recipes"/>
         <meta name="description" content="Instantly save delicious recipes from TikTok by using Zesti AI to transcribe your faovirte recipe videos to text!"/>
       </Head>
-      <main className={`main-seo-page-class ${raleway.className}`}>
+      <main className={`main-seo-page-class`}>
         <Hero 
           titleStart={"A Better Way to Save"} 
           titleEnd={"TikTok Recipes"} 
