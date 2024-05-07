@@ -1,6 +1,5 @@
 import { collection, doc, addDoc, onSnapshot } from 'firebase/firestore';
 import { db } from '../firebase/firebase';
-import { getCookie } from '../handler/cookies';
 import Stripe from 'stripe'
 
 

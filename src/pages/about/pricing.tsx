@@ -11,7 +11,6 @@ export default function Pricing() {
       <meta name="description" content="Discover already transcribed TikTok recipes so you can spend less time writing and more time cooking!"/>
     </Head>
     <main className={`flex min-h-screen flex-col items-center justify-between p-2 bg-background w-screen pb-36`}>
-      <div className="mt-36"/>
       <PricingTitle/>
       <PricingDisplay/>
     </main>

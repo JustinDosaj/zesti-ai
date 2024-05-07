@@ -84,6 +84,7 @@ export async function CheckForExistingRecipe(recipe: any, user_id: string, setIs
 
 }
 
+// Optimization Functions
 export async function GetRecipeSnapshot(id: string) {
   return await db.doc(`recipes/${id}`).get()
 }
