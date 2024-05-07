@@ -20,11 +20,15 @@ export function PublicRecipe({recipe, setIsOpen, role, isSaved}: RecipeProps) {
 
     const { video_id } = recipe?.data
     const { ingredients, instructions } = recipe
-    const { isLoading, user } = useAuth()
 
     const AdSenseDisplay = dynamic(() => import('@/components/tags/adsense'), {
         ssr: false,
-        loading: () => <div style={{ height: '90px' }}>Loading ad...</div>  // Placeholder while loading
+        loading: () => <div style={{ height: '90px' }}/>  // Placeholder while loading
+    });
+
+    const TikTokVideo = dynamic(() => import('./tiktok'), {
+        ssr: false,  // Placeholder while loading
+        loading: () => <div style={{ height: '90px' }}/> // Placeholder while loading
     });
 
     return(
@@ -35,7 +39,7 @@ export function PublicRecipe({recipe, setIsOpen, role, isSaved}: RecipeProps) {
             <AdSenseDisplay adSlot="1690723057" adFormat="horizontal" widthRes="false" role={role}/>
             <RecipeInstructionsComponent instructions={instructions}/>
             <AdSenseDisplay adSlot="9326575118" adFormat="horizontal" widthRes="false" role={role}/>
-            <RecipeVideoComponent video_id={video_id} isLoading={isLoading}/>
+            <TikTokVideo video_id={video_id}/>
             <AdSenseDisplay adSlot="9315400934" adFormat="horizontal" widthRes="false" role={role}/>
         </div>
     )
@@ -153,19 +157,4 @@ function RecipeInstructionsComponent({ instructions }: RecipeProps) {
     )
 }
 
-function RecipeVideoComponent({ video_id, isLoading }: RecipeProps) {
-
-    return (
-        <div className="rounded-xl overflow-hidden alternate-orange-bg w-fit mx-auto h-full">
-
-            {!isLoading && (<iframe
-                className="w-full max-w-[325px] min-w-[325px] min-h-[800px]"
-                src={`https://www.tiktok.com/embed/${video_id}`}
-                allow="fullscreen"
-                loading="lazy"
-            />)}
-    
-        </div>
-    )
-}
 
