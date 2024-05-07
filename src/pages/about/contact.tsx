@@ -3,7 +3,6 @@ import { Button } from "@/components/shared/button"
 import { Raleway } from 'next/font/google'
 import { EnvelopeIcon, UsersIcon, PaperAirplaneIcon } from "@heroicons/react/24/outline"
 import Head from 'next/head';
-import GoogleTags from "@/components/tags/conversion"
 import { TitleSection } from "@/components/shared/title";
 
 
@@ -17,7 +16,6 @@ export default function Contact() {
         <title>Zesti AI | Get in Touch for Support & Inquiries</title>
         <meta name="title" content="Zesti AI | Get in Touch for Support & Inquiries"/>
         <meta name="description" content="Have questions or need assistance? Reach out to the Zesti support team through our contact page. We are here to help with all your recipe conversion needs!"/>
-        <GoogleTags/>
     </Head>    
     <main className={`flex min-h-screen flex-col items-center bg-background h-screen w-screen ${raleway.className}`}>
         <Container className={"grid md:grid-cols-1 lg:flex-row gap-10 lg:gap-12 mb-36 mt-36"}>

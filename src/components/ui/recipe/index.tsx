@@ -1,7 +1,7 @@
 import { ArrowDownTrayIcon, BookmarkSlashIcon } from "@heroicons/react/20/solid"
-import { useAuth } from "@/pages/api/auth/auth"
 import { Notify } from '@/components/shared/notify';
 import { ArrowTopRightOnSquareIcon, ShareIcon } from "@heroicons/react/24/outline"
+import { useAuth } from "@/pages/api/auth/auth";
 import dynamic from "next/dynamic";
 
 interface RecipeProps {
@@ -20,6 +20,7 @@ export function PublicRecipe({recipe, setIsOpen, role, isSaved}: RecipeProps) {
 
     const { video_id } = recipe?.data
     const { ingredients, instructions } = recipe
+    const { user } = useAuth();
 
     const AdSenseDisplay = dynamic(() => import('@/components/tags/adsense'), {
         ssr: false,
@@ -27,13 +28,13 @@ export function PublicRecipe({recipe, setIsOpen, role, isSaved}: RecipeProps) {
     });
 
     const TikTokVideo = dynamic(() => import('./tiktok'), {
-        ssr: false,  // Placeholder while loading
+        ssr: false, 
         loading: () => <div style={{ height: '90px' }}/> // Placeholder while loading
     });
 
     return(
         <div className={"flex flex-col gap-8 animate-fadeInFast mb-16 mx-auto w-full lg:max-w-3xl px-4 sm:px-8 md:px-14 lg:px-5 mt-36 lg:mt-48"}>
-            <RecipeTitleCard recipe={recipe} setIsOpen={setIsOpen} isSaved={isSaved}/>
+            <RecipeTitleCard recipe={recipe} setIsOpen={setIsOpen} isSaved={isSaved} user={user}/>
             <AdSenseDisplay adSlot="4329661976" adFormat="horizontal" widthRes="false" role={role}/>
             <RecipeIngredientsComponent ingredients={ingredients}/>
             <AdSenseDisplay adSlot="1690723057" adFormat="horizontal" widthRes="false" role={role}/>

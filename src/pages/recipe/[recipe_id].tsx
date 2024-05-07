@@ -2,13 +2,11 @@ import { GetServerSideProps } from "next";
 import { Raleway } from 'next/font/google'
 import { useAuth } from "@/pages/api/auth/auth";
 import { PublicRecipe } from "@/components/ui/recipe";
-import React, { useEffect, useState } from 'react'
-import GoogleTags from "@/components/tags/conversion";
+import { useEffect, useState } from 'react'
 import Head from "next/head";
 import { Chatbox } from "@/components/chat/chatbox";
 import { BookmarkIcon } from "@heroicons/react/20/solid";
 import { useRouter } from "next/router";
-import { CheckForExistingRecipe, GetRecipeSnapshot } from "../api/firebase/functions";
 import dynamic from "next/dynamic";
 
 const raleway = Raleway({subsets: ['latin']})
@@ -20,10 +18,11 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     const { req, query, resolvedUrl } = context; 
     
     const id = query?.recipe_id as string
-    
-    let recipe = null;
 
+    const GetRecipeSnapshot = (await (import ('../api/firebase/functions'))).GetRecipeSnapshot
     const recipeSnapshot = await GetRecipeSnapshot(id)
+
+    let recipe = null;
 
     if(recipeSnapshot.exists) {
         recipe = recipeSnapshot.data()
@@ -45,8 +44,14 @@ const Recipe: React.FC = ({ recipe, url }: any) => {
 
     useEffect(() => {
         if(user) { 
-            CheckForExistingRecipe(recipe, user?.uid, setIsSaved) 
+            existingRecipes()
         }
+
+        async function existingRecipes() {
+            const CheckForExistingRecipe = (await (import ('../api/firebase/functions'))).CheckForExistingRecipe
+            user && CheckForExistingRecipe(recipe, user?.uid, setIsSaved) 
+        }
+
     },[user, recipe?.data?.id])
 
     return(
@@ -62,7 +67,6 @@ const Recipe: React.FC = ({ recipe, url }: any) => {
             <meta property="twitter:image" content={`https://firebasestorage.googleapis.com/v0/b/${process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET}/o/${encodeURIComponent(recipe?.cover_image_url)}?alt=media`}/>
             <meta property="twitter:title" content={`${recipe?.name}`}/>
             <meta property="twitter:description" content={`Check out this TikTok recipe by @${recipe?.data?.owner?.username}`}/>
-            <GoogleTags/>
         </Head>  
         <main className={`flex min-h-screen flex-col items-center p-2 bg-background w-screen pb-28 ${raleway.className}`}>
             <PublicRecipe recipe={recipe} setIsOpen={setIsOpen} role={stripeRole} isSaved={isSaved}/>
@@ -70,8 +74,7 @@ const Recipe: React.FC = ({ recipe, url }: any) => {
             <DynamicModal
               title={`${recipe.name} Saved!`}
               text={`You can view the it by visiting your saved recipe page!`}
-              icon={BookmarkIcon}
-              iconColor={'orange'}
+
               modalFunction={() => router.push('/my-recipes')}
               isOpen={isOpen}
               setIsOpen={setIsOpen}
