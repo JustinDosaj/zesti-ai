@@ -8,6 +8,9 @@ import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
 import React from 'react'
 import { NavigationProvider } from './api/context/navigation'
+import { Raleway } from 'next/font/google'
+
+const raleway = Raleway({subsets: ['latin']})
 
 export default function App({ Component, pageProps }: AppProps) {
 

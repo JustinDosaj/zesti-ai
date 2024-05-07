@@ -5,11 +5,8 @@ import { PublicRecipe } from "@/components/ui/recipe";
 import { useEffect, useState } from 'react'
 import Head from "next/head";
 import { Chatbox } from "@/components/chat/chatbox";
-import { BookmarkIcon } from "@heroicons/react/20/solid";
 import { useRouter } from "next/router";
 import dynamic from "next/dynamic";
-
-const raleway = Raleway({subsets: ['latin']})
 
 const DynamicModal = dynamic(() => import('@/components/ui/modals/response').then((mod) => mod.ResponseModal), { ssr: false })
 
@@ -68,7 +65,7 @@ const Recipe: React.FC = ({ recipe, url }: any) => {
             <meta property="twitter:title" content={`${recipe?.name}`}/>
             <meta property="twitter:description" content={`Check out this TikTok recipe by @${recipe?.data?.owner?.username}`}/>
         </Head>  
-        <main className={`flex min-h-screen flex-col items-center p-2 bg-background w-screen pb-28 ${raleway.className}`}>
+        <main className={`flex min-h-screen flex-col items-center p-2 bg-background w-screen pb-28`}>
             <PublicRecipe recipe={recipe} setIsOpen={setIsOpen} role={stripeRole} isSaved={isSaved}/>
             <Chatbox role={stripeRole} recipe={recipe}/>
             <DynamicModal
