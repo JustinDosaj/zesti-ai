@@ -2,7 +2,6 @@
 import { useEffect, useState } from 'react';
 import { RecipeCardList } from '@/components/ui/recipe/list';
 import { SearchOrAddRecipe } from '@/components/search';
-import { Raleway } from 'next/font/google'
 import { TitleSection } from '@/components/shared/title';
 import Breadcrumbs from '@/components/shared/breadcrumb';
 import useSetBreadcrumbs from '@/components/shared/setBreadcrumbs';
@@ -12,7 +11,6 @@ import AdSenseDisplay from '@/components/tags/adsense';
 import Head from 'next/head';
 import algoliasearch, { SearchIndex } from 'algoliasearch';
 
-const raleway = Raleway({subsets: ['latin']})
 
 const SearchResults: React.FC = () => {
     
@@ -67,7 +65,7 @@ const SearchResults: React.FC = () => {
             <Head>
                 <title>Search TikTok Recipes | Zesti AI</title>
             </Head>
-            <main className={`flex min-h-screen flex-col items-center bg-background w-screen space-y-4 pb-48 ${raleway.className}`}>
+            <main className={`flex min-h-screen flex-col items-center bg-background w-screen space-y-4 pb-48`}>
                 <Breadcrumbs/>
                 <TitleSection titleBlack="Search for Recipes" desc="Copy & paste a TikTok recipe link or search by ingredients, usernames & more!"/>
                 <SearchOrAddRecipe align={"center"}/>
