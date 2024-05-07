@@ -13,19 +13,23 @@ interface RecipeProps {
     instructions?: any,
     role?: string | null,
     isSaved?: boolean,
+    video_id?: string
 }
 
 export function PublicRecipe({recipe, setIsOpen, role, isSaved}: RecipeProps) {
+
+    const { video_id } = recipe?.data
+    const { ingredients, instructions } = recipe
 
     return(
     <div className={"flex flex-col gap-8 animate-fadeInFast mb-16 mx-auto w-full lg:max-w-3xl px-4 sm:px-8 md:px-14 lg:px-5"}>
         <RecipeTitleCard recipe={recipe} setIsOpen={setIsOpen} isSaved={isSaved}/>
         <AdSenseDisplay adSlot="4329661976" adFormat="horizontal" widthRes="false" role={role}/>
-        <RecipeIngredientsComponent ingredients={recipe?.ingredients}/>
+        <RecipeIngredientsComponent ingredients={ingredients}/>
         <AdSenseDisplay adSlot="1690723057" adFormat="horizontal" widthRes="false" role={role}/>
-        <RecipeInstructionsComponent instructions={recipe?.instructions}/>
+        <RecipeInstructionsComponent instructions={instructions}/>
         <AdSenseDisplay adSlot="9326575118" adFormat="horizontal" widthRes="false" role={role}/>
-        <RecipeVideoComponent recipe={recipe}/>
+        <RecipeVideoComponent video_id={video_id}/>
         <AdSenseDisplay adSlot="9315400934" adFormat="horizontal" widthRes="false" role={role}/>
     </div>
     )
@@ -143,9 +147,7 @@ function RecipeInstructionsComponent({ instructions }: RecipeProps) {
     )
 }
 
-function RecipeVideoComponent({ recipe }: RecipeProps) {
-    
-    const { date_added, date_created, source, video_id, unique_id, music_info } = recipe?.data;
+function RecipeVideoComponent({ video_id }: RecipeProps) {
 
     return (
         <div className="rounded-xl overflow-hidden alternate-orange-bg w-fit mx-auto h-full">
