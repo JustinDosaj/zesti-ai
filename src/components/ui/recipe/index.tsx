@@ -1,6 +1,5 @@
-import { ArrowDownTrayIcon, BookmarkSlashIcon } from "@heroicons/react/20/solid"
+import { ArrowDownTrayIcon, BookmarkSlashIcon, ArrowTopRightOnSquareIcon, ShareIcon } from "@heroicons/react/20/solid"
 import { Notify } from '@/components/shared/notify';
-import { ArrowTopRightOnSquareIcon, ShareIcon } from "@heroicons/react/24/outline"
 import { useAuth } from "@/pages/api/auth/auth";
 import dynamic from "next/dynamic";
 
@@ -46,7 +45,7 @@ export function PublicRecipe({recipe, setIsOpen, role, isSaved}: RecipeProps) {
     )
 }
 
-function RecipeTitleCard({recipe, setIsOpen, isSaved, isLoading, user}: RecipeProps) {
+export function RecipeTitleCard({recipe, setIsOpen, isSaved, isLoading, user}: RecipeProps) {
 
     async function onSaveClick() {
 
@@ -74,13 +73,8 @@ function RecipeTitleCard({recipe, setIsOpen, isSaved, isLoading, user}: RecipePr
     }
 
     const onShareClick = async () => {
-        try {
-            await navigator.clipboard.writeText(window.location.href);
-            Notify("Recipe URL copied to clipboard.")
-        } catch (error) {
-            console.error('Failed to copy:', error);
-        }
-
+        await navigator.clipboard.writeText(window.location.href);
+        Notify("Recipe URL copied to clipboard.")
     }
     
     return(

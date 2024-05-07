@@ -1,11 +1,7 @@
 import Head from 'next/head';
 import { Hero, HomePageCTA, HomePageScroller, ChatFeature, HomeVideoToRecipe } from '@/components/ui/features/users';
-import { Raleway } from 'next/font/google'
 import { useEffect, useState } from 'react';
 import { FAQ } from '@/components/ui/general';
-
-const raleway = Raleway({subsets: ['latin']})
-
 
 interface Recipe {
   id: string;
