@@ -3,7 +3,6 @@ import { User, getAuth, onAuthStateChanged, GoogleAuthProvider } from "firebase/
 import { db } from '../firebase/firebase';
 import { useRouter } from 'next/router';
 
-
 interface AuthContextType {
   user: User | null;
   isLoading: boolean;
