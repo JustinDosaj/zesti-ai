@@ -40,6 +40,7 @@ export function PublicRecipe({recipe, setIsOpen, role, isSaved}: RecipeProps) {
             <AdSenseDisplay adSlot="9326575118" adFormat="horizontal" widthRes="false" role={role}/>
             <TikTokVideo video_id={video_id}/>
             <AdSenseDisplay adSlot="9315400934" adFormat="horizontal" widthRes="false" role={role}/>
+            <RecipeDataComponent recipe={recipe}/>
         </div>
     )
 }
@@ -151,6 +152,54 @@ function RecipeInstructionsComponent({ instructions }: RecipeProps) {
             </ul>
         </div>
     )
+}
+
+function RecipeDataComponent({ recipe }: RecipeProps) {
+
+    const { date_added, date_created, owner, source, video_id, unique_id } = recipe?.data;
+
+    return (
+        <div className="recipe-page-container">
+            <h2 className="recipe-page-section-title pb-1">More Information</h2>
+            <div className="md:flex gap-6">
+                <div className="flex flex-col justify-between space-y-4">
+                    {/* Video title and description */}
+                    <div className="space-y-6 h-full">
+                        <div className="grid space-y-1 max-w-[250px]">
+                            <div className="recipe-information-container">
+                                <span className="text-gray-700 font-semibold">Owner:</span>
+                                <button onClick={() => window.open(owner.profile_link)} className="underline text-sm md:text-base flex items-center font-semibold text-gray-700 hover:text-gray-500">
+                                   {`@${owner.username}`}
+                                </button>
+                            </div>
+                            <div className="recipe-information-container">
+                                <span className="font-semibold">Video ID:</span>
+                                <span className="pb-0.5">{video_id}</span>
+                            </div>
+                            <div className="recipe-information-container">
+                                <span className="font-semibold">Zesti ID:</span>
+                                <span className="pb-0.5">{unique_id}</span>
+                            </div>
+                            <div className="recipe-information-container">
+                                <span className="font-semibold">Source:</span>
+                                <span>{source}</span>
+                            </div>
+                            <div className="recipe-information-container">
+                                <p className="font-semibold">Created:</p>
+                                <p>{new Date(date_created).toLocaleDateString()}</p>
+                            </div>
+                            <div className="recipe-information-container">
+                                <p className="font-semibold">Added:</p>
+                                <p>{new Date(date_added).toLocaleDateString()}</p>
+                            </div>
+                        </div>
+                    </div>
+                    {/* Date info */}
+
+                </div>
+            </div>
+        </div>
+    );
 }
 
 
