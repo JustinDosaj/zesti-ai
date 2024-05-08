@@ -27,7 +27,6 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   const login = async () => {
     try {
 
-
       const signInWithPopup = (await import("firebase/auth")).signInWithPopup;
       const result = await signInWithPopup(auth, provider);
 
