@@ -1,7 +1,6 @@
 import { db } from "@/pages/api/firebase/firebase"
-import { onSnapshot, getDoc } from "firebase/firestore"
+import { onSnapshot, getDoc, collection } from "firebase/firestore"
 import { useState, useEffect } from "react"
-import { SendErrorToFirestore } from '@/pages/api/firebase/functions';
 
 interface Recipe {
     id: string;
@@ -13,8 +12,9 @@ const useUserRecipeList = (user: any | null, isLoading: boolean) => {
     const [loadingUserRecipes, setLoadingUserRecipes] = useState<boolean>(true);
 
     useEffect(() => {
-        if (user) {
-            const recipesRef = db.collection('users').doc(user.uid).collection('recipes');
+        if (user && !isLoading) {
+            const recipesRef = collection(db, 'users', user.uid, 'recipes');
+            
             const unsubscribe = onSnapshot(recipesRef, async (querySnapshot) => {
                 setLoadingUserRecipes(true);
 
@@ -36,7 +36,6 @@ const useUserRecipeList = (user: any | null, isLoading: boolean) => {
                 setUserRecipeList(recipes);
                 setLoadingUserRecipes(false);
             }, (error) => {
-                SendErrorToFirestore(user?.uid, error, null, __filename);
                 setLoadingUserRecipes(false);
             });
 

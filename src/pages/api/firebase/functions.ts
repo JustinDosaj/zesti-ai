@@ -1,30 +1,26 @@
 import { Notify } from "@/components/shared/notify";
 import { db } from "./firebase"
-import { onSnapshot, doc } from "firebase/firestore";
+import { onSnapshot, doc, setDoc, deleteDoc, getDocs, collection, getDoc } from "firebase/firestore";
 
 export const saveRecipeReferenceToUser = async (userId: string, recipeId: string) => {
   
-  const userRef = db.collection('users').doc(userId);
-  const recipeRef = db.collection('recipes').doc(recipeId);
+  const useRecipeRef = doc(db, `users/${userId}/recipes`, recipeId);
+  const directRef = doc(db, 'recipes', recipeId);
 
-  await userRef.collection('recipes').doc(recipeId).set({
-      recipe_id: recipeId,
-      recipeRef: recipeRef,
-      date: new Date().toISOString(),
+  await setDoc(useRecipeRef, {
+    recipe_id: recipeId,
+    recipeRef: directRef,
+    date: new Date().toISOString(),
   }).catch(() => { Notify("Failed to save recipe, please try again later.") });
-};
+
+}
 
 /* DELETE FUNCTIONS */
 export const userRemoveRecipeFromFirestore = async (userId: string, recipeId: string) => {
-  try {
-    const recipeRef = db.collection('users').doc(userId).collection('recipes').doc(recipeId);
 
-    await recipeRef.delete();
+  const recipeRef = doc(db, `users/${userId}/recipes`, recipeId);
+  await deleteDoc(recipeRef).then(() => { Notify("Recipe removed successfully")}).catch(() => { Notify("Failed to remove recipe, please try again later.") })
 
-    Notify("Recipe removed successfully");
-  } catch (error) {
-    throw new Error("Failed to remove recipe from saved recipes.");
-  }
 };
 
 /* END DELETE FUNCTIONS */
@@ -37,16 +33,31 @@ interface Recipe {
 }
 
 export async function GetAllRecipes(): Promise<Recipe[]> {
-  const recipesRef = db.collection('recipes');
-  const snapshot = await recipesRef.get();
-  const recipes: Recipe[] = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }) as Recipe);
-  return recipes
+
+      // Reference to the 'recipes' collection
+      const recipesRef = collection(db, 'recipes');
+
+      // Retrieve the document snapshots
+      const snapshot = await getDocs(recipesRef);
+  
+      // Map over the document snapshots to extract data
+      const recipes: Recipe[] = snapshot.docs.map(doc => ({
+        id: doc.id,
+        ...doc.data()
+      }) as Recipe);
+  
+      return recipes;
+
 }
 
 export async function GetRandomRecipes(numberOfRecipes: number): Promise<Recipe[]> {
-  const recipesRef = db.collection('recipes');
-  const snapshot = await recipesRef.get();
-  const recipes: Recipe[] = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }) as Recipe);
+  const recipesRef = collection(db, 'recipes')
+  const snapshot = await getDocs(recipesRef)
+
+  const recipes: Recipe[] = snapshot.docs.map(doc => ({
+    id: doc.id,
+    ...doc.data()
+  }) as Recipe);
 
   // Shuffle array to simulate randomness
   for (let i = recipes.length - 1; i > 0; i--) {
@@ -56,22 +67,6 @@ export async function GetRandomRecipes(numberOfRecipes: number): Promise<Recipe[
 
   // Return the specified number of random recipes
   return recipes.slice(0, numberOfRecipes);
-}
-
-/* Store Error inside Firebase Error Collection */
-export async function SendErrorToFirestore(user_id: string | undefined | null, error: any, recipeId?: string | null, file?: string) {
-
-  const errorRef = db.collection('errors').doc()
-
-  const errorObj = {
-    timestamp: new Date(),
-    user_id: user_id || null,
-    error: error,
-    recipe_id: recipeId || null,
-    file: file || null
-  }
-
-  await errorRef.set(errorObj, {merge: true})
 }
 
 export async function CheckForExistingRecipe(recipe: any, user_id: string, setIsSaved: any) {
@@ -87,5 +82,7 @@ export async function CheckForExistingRecipe(recipe: any, user_id: string, setIs
 
 // Optimization Functions
 export async function GetRecipeSnapshot(id: string) {
-  return await db.doc(`recipes/${id}`).get()
+  const recipeRef = doc(db, `recipes/${id}`)
+  const recipeSnapshot = await getDoc(recipeRef)
+  return recipeSnapshot
 }
