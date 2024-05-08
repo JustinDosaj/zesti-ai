@@ -1,8 +1,7 @@
 // Import the functions you need from the SDKs you need
-import firebase from 'firebase/compat/app';
-import 'firebase/compat/firestore';
-import "firebase/compat/storage";
-
+import { initializeApp } from 'firebase/app';
+import { getFirestore } from 'firebase/firestore';
+import { getStorage } from 'firebase/storage';
 
 const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
@@ -14,15 +13,10 @@ const firebaseConfig = {
   measurementId: process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID
 };
 
-try {
-  if (!firebase.apps.length) {
-      firebase.initializeApp(firebaseConfig);
-  }
-} catch (err) {
-  throw err
-}
+const app = initializeApp(firebaseConfig);
 
-const db = firebase.firestore();
-const storage = firebase.storage();
+// Initialize services
+const db = getFirestore(app);
+const storage = getStorage(app);
 
-export { db, storage }
+export { db, storage, app }
