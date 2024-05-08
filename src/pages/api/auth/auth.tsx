@@ -2,6 +2,7 @@ import { createContext, useContext, ReactNode, useEffect, useState } from 'react
 import { User, getAuth, onAuthStateChanged, GoogleAuthProvider } from "firebase/auth";
 import { useRouter } from 'next/router';
 import { db } from '../firebase/firebase';
+import { getDoc, doc, setDoc } from 'firebase/firestore';
 
 interface AuthContextType {
   user: User | null;
@@ -34,15 +35,18 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
 
       if(user) {
 
-        const userRef = db.collection('users').doc(user.uid);
-        const doc = await userRef.get();
+        const userRef = doc(db, 'users', user.uid);
+
+        // Check if the document exists
+        const docSnap = await getDoc(userRef);
+
         
-        if(!doc.exists) {
-          await userRef.set({
+        if(!docSnap.exists) {
+          await setDoc(userRef, {
             email: user.email,
             account_status: 'user',
             date_created: new Date().toISOString()
-          })
+          });
         } 
           router.reload()
       }

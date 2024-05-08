@@ -7,6 +7,7 @@ import useUserRecipeList from '@/hooks/user/useUserRecipeList';
 import useRequireAuth from '@/hooks/user/useRequireAuth';
 import { RecipeCardList } from '@/components/ui/recipe/list';
 
+
 export default function MyRecipes() {
 
   useRequireAuth()

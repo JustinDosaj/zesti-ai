@@ -19,7 +19,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
     let recipe = null;
 
-    if(recipeSnapshot.exists) {
+    if(recipeSnapshot.exists()) {
         recipe = recipeSnapshot.data()
     }
 
