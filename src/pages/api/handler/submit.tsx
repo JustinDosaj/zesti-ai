@@ -10,7 +10,9 @@ interface SubmissionProps {
 }
 
 export const handleUserSubmitRecipe = async({url, setUrl}: SubmissionProps) => {
-            
+    
+    Notify("Processing recipe video, please wait...")
+    
     var uniqueId;
     const date: Date = new Date();
     const functions = getFunctions();

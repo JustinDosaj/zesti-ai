@@ -1,13 +1,12 @@
 import { GetServerSideProps } from "next";
 import { useAuth } from "@/pages/api/auth/auth";
-import { PublicRecipe } from "@/components/ui/recipe";
 import { useEffect, useState } from 'react'
-import { useRouter } from "next/router";
 import dynamic from "next/dynamic";
 import Head from "next/head";
 
 const DynamicModal = dynamic(() => import('@/components/ui/modals/response').then((mod) => mod.ResponseModal), { ssr: false })
 const Chatbox = dynamic(() => import('@/components/chat/chatbox').then((mod) => mod.Chatbox), { ssr: false });
+const PublicRecipe = dynamic(() => import('@/components/ui/recipe').then((mod) => mod.PublicRecipe), { ssr: false });
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
     
@@ -37,7 +36,6 @@ const Recipe: React.FC = ({ recipe, url }: any) => {
     const { stripeRole, user } = useAuth();
     const [ isOpen, setIsOpen ] = useState<boolean>(false)
     const [ isSaved, setIsSaved ] = useState<boolean>(false)
-    const router = useRouter()
 
     useEffect(() => {
         if(user) { 
@@ -64,7 +62,6 @@ const Recipe: React.FC = ({ recipe, url }: any) => {
             <meta property="twitter:image" content={`https://firebasestorage.googleapis.com/v0/b/${process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET}/o/${encodeURIComponent(recipe?.cover_image_url)}?alt=media`}/>
             <meta property="twitter:title" content={`${recipe?.name}`}/>
             <meta property="twitter:description" content={`Check out this TikTok recipe by @${recipe?.data?.owner?.username}`}/>
-            <link rel="stylesheet" href="/styles/recipe.css" />
         </Head>  
         <main className={`flex min-h-screen flex-col items-center p-2 bg-background w-screen pb-28`}>
             <PublicRecipe recipe={recipe} setIsOpen={setIsOpen} role={stripeRole} isSaved={isSaved}/>
@@ -72,14 +69,12 @@ const Recipe: React.FC = ({ recipe, url }: any) => {
             <DynamicModal
               title={`${recipe.name} Saved!`}
               text={`You can view it by visiting your saved recipe page!`}
-              modalFunction={() => router.push('/my-recipes')}
               isOpen={isOpen}
               setIsOpen={setIsOpen}
               displayAd={true}
               role={stripeRole}
               buttonName={"My Recipes"}
             />
-    
         </main>
     </>
     )
