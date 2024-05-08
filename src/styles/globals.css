@@ -91,7 +91,7 @@ body {
 
   /* Recipe Page Components */
   .recipe-page-container {
-    @apply border rounded-xl p-6 bg-orange-100/50 space-y-2 
+    @apply border rounded-xl p-6 bg-gradient-to-b from-orange-100 to-orange-200/50 space-y-2 
   }
 
   .recipe-page-link-icon {

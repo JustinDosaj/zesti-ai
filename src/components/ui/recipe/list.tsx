@@ -51,7 +51,7 @@ export function RecipeCardList({recipes, maxDisplayCount = 9, incrementCount = 9
     if(loading) return(<RecipeListLoader/>)
 
     return(
-      <Container className={`grid justify-center lg:flex-row gap-10 lg:gap-12`}>
+      <Container className={`grid justify-center lg:flex-row gap-10 lg:gap-12  animate-fadeIn`}>
             <div className="space-y-2 border-t mt-2 pt-2">
                 { sortedData.length > 0 ? 
                 <div className="space-y-6">
