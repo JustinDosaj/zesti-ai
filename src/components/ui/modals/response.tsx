@@ -3,11 +3,11 @@ import { Dialog, Transition } from '@headlessui/react'
 import { Fragment, useRef } from 'react'
 import dynamic from 'next/dynamic'
 import { BookmarkIcon } from '@heroicons/react/20/solid'
+import { useRouter } from 'next/router'
 
 interface ModalProps {
   title: string,
   text: string,
-  modalFunction: () => void,
   isOpen: any,
   setIsOpen: any,
   displayAd: boolean,
@@ -16,9 +16,10 @@ interface ModalProps {
 }
 
 
-export function ResponseModal({title, text, modalFunction, isOpen, setIsOpen, displayAd, role, buttonName}: ModalProps) {
+export function ResponseModal({title, text, isOpen, setIsOpen, displayAd, role, buttonName}: ModalProps) {
 
   const cancelButtonRef = useRef(null)
+  const router = useRouter()
 
   const AdSenseDisplay = dynamic(() => import('@/components/tags/adsense'), {
     ssr: false,
@@ -26,7 +27,7 @@ export function ResponseModal({title, text, modalFunction, isOpen, setIsOpen, di
 });
 
   const onButtonClick = () => {
-    modalFunction()
+    router.push('/my-recipes')
     setIsOpen(false)
   }
 

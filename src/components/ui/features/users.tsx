@@ -1,6 +1,6 @@
 import { Container } from "@/components/shared/container"
-import { ArrowDownIcon, BeakerIcon} from "@heroicons/react/20/solid"
-import React, { useState } from "react"
+import { BeakerIcon} from "@heroicons/react/20/solid"
+import { useState } from "react"
 import { Scroller, DiscoverRecipes } from "../scroller"
 import { Button } from "@/components/shared/button"
 import { TitleSection } from "@/components/shared/title"
@@ -8,7 +8,6 @@ import { SearchOrAddRecipe } from "@/components/search"
 import getConfig from "next/config"
 import { Paragraph } from "@/components/shared/paragraph"
 import Image from "next/image"
-import dynamic from "next/dynamic"
 
 interface HeroProps {
   titleStart?: string,
@@ -48,11 +47,9 @@ export function Hero({titleStart, titleEnd, description}: HeroProps) {
             </div>
           */}
         </div>
-
-
-          <div className="hidden lg:block w-1/2 bg-transparent rounded-lg">
-            <img src={"/images/Illustration.png"} alt="Profile" height={2058} width={2150} className="object-fit" />
-          </div> {/* Placeholder for the illustration */}
+        <div className="hidden lg:block w-1/2 bg-transparent rounded-lg">
+          <Image src={"https://firebasestorage.googleapis.com/v0/b/zesti-production.appspot.com/o/public_images%2FIllustration.png?alt=media&token=581a8061-8667-4b7f-9dd0-3c092c009b24"} alt="Profile" height={2058} width={2150} className="object-fit" loading="lazy"/>
+        </div>
         
       </Container>
   )
@@ -121,10 +118,13 @@ export function ChatFeature() {
               <TitleSection titleBlack={"Chat with"} titleOrange={"Zesti"} desc={"Ask questions about specific steps, ingredients or anything regarding cooking and get instant answers!"}/>
             <div className="aspect-h-1 aspect-w-1 overflow-hidden ">
               <div className="flex justify-center">
-                <img
-                  src="/images/screenshots/chat_screenshot_2.JPG"
+                <Image
+                  src="https://firebasestorage.googleapis.com/v0/b/zesti-production.appspot.com/o/public_images%2Fchat_screenshot_2.JPG?alt=media&token=85acaf81-3d82-454e-a95c-3e66b80b3641"
                   alt="Zesti AI Cooking Assistant chat example asking about substitutions for heavy cream"
                   className="object-cover"
+                  height={500}
+                  width={500}
+                  loading="lazy"
                 />
               </div>
             </div>

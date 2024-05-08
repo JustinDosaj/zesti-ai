@@ -1,5 +1,4 @@
 import { ArrowDownTrayIcon, BookmarkSlashIcon, ArrowTopRightOnSquareIcon, ShareIcon } from "@heroicons/react/20/solid"
-import { Notify } from '@/components/shared/notify';
 import { useAuth } from "@/pages/api/auth/auth";
 import dynamic from "next/dynamic";
 
@@ -45,7 +44,7 @@ export function PublicRecipe({recipe, setIsOpen, role, isSaved}: RecipeProps) {
     )
 }
 
-export function RecipeTitleCard({recipe, setIsOpen, isSaved, isLoading, user}: RecipeProps) {
+function RecipeTitleCard({recipe, setIsOpen, isSaved, isLoading, user}: RecipeProps) {
 
     async function onSaveClick() {
 
@@ -53,27 +52,29 @@ export function RecipeTitleCard({recipe, setIsOpen, isSaved, isLoading, user}: R
 
         if (user && !isLoading) {
 
-            await saveRecipe(user?.uid, recipe.data.unique_id).then(() => {
-                Notify("Recipe saved successfully")
-                setIsOpen(true)
-            });
+            await saveRecipe(user?.uid, recipe.data.unique_id).then(() => { setIsOpen(true) });
 
         } else {
+
+            const Notify = (await (import ('@/components/shared/notify'))).Notify 
             Notify("Please login to save recipes")
+             
         }
     }
 
     const onDeleteClick = async () => {
 
-        const saveRecipe = (await (import ('@/pages/api/firebase/functions'))).userRemoveRecipeFromFirestore
+        const deleteRecipe = (await (import ('@/pages/api/firebase/functions'))).userRemoveRecipeFromFirestore
 
         if(user) {
-            await saveRecipe(user?.uid, recipe.data.unique_id);
+            await deleteRecipe(user?.uid, recipe.data.unique_id);
         }
     }
 
     const onShareClick = async () => {
         await navigator.clipboard.writeText(window.location.href);
+
+        const Notify = (await (import ('@/components/shared/notify'))).Notify
         Notify("Recipe URL copied to clipboard.")
     }
     
