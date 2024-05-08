@@ -33,38 +33,6 @@ export function LoginComponent() {
                 </p>
             </div>
         </div>
-        {/*<div className="mx-auto text-gray-700">OR</div>
-        <form method="POST" target="_blank" className="my-auto md:w-96">
-            <div className="py-1 pl-6 w-full pr-1 flex gap-3 items-center text-heading-3 shadow-lg shadow-box-shadow border border-box-border bg-box-bg rounded-full ease-linear focus-within:bg-body  focus-within:border-primary">
-                <span className="min-w-max pr-2 border-r border-box-border">
-                    <EnvelopeIcon className="h-6 w-6 text-black"/>                                                             
-                </span>
-                <input type="text" name="EMAIL" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Email" className="w-full py-3 outline-none bg-transparent text-gray-700"/>
-            </div>
-            <div className="mt-4 py-1 pl-6 w-full pr-1 flex gap-3 items-center text-heading-3 shadow-lg shadow-box-shadow border border-box-border bg-box-bg rounded-full ease-linear focus-within:bg-body focus-within:border-primary">
-                <span className="min-w-max pr-2 border-r border-box-border">
-                    <KeyIcon className="h-6 w-6 text-black"/>                                                                 
-                </span>
-                <input type="password" name="PASSWORD" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Password"  className="w-full py-3 outline-none bg-transparent required email text-gray-700"/>
-            </div>
-            <div className="grid grid-cols-2 justify-center mt-4 py-1 w-full pr-1 gap-3 items-center text-heading">
-                <Button buttonType="button" onClick={() => signUpOnClick()} text="" className={"min-w-max text-white"}>
-                    <span className="relative z-[5]">
-                        Sign Up
-                    </span>
-
-                </Button>
-                <AltButton buttonType="button" onClick={() => signUpOnClick()} text="" className={"min-w-max text-white"}>
-                    <span className="relative z-[5] text-black">
-                        Login
-                    </span>
-                </AltButton>
-            </div>
-            <div className="text-center mt-4">
-                <Link href="/reset" className="text-sm text-black text-right underline hover:text-gray-500">Forgot Password?</Link>
-            </div>
-        </form>*/}
-
     </Container>
     )
 }
