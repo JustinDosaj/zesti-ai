@@ -3,6 +3,7 @@ import { db } from "./firebase"
 import { onSnapshot, doc } from "firebase/firestore";
 
 export const saveRecipeReferenceToUser = async (userId: string, recipeId: string) => {
+  
   const userRef = db.collection('users').doc(userId);
   const recipeRef = db.collection('recipes').doc(recipeId);
 
@@ -10,7 +11,7 @@ export const saveRecipeReferenceToUser = async (userId: string, recipeId: string
       recipe_id: recipeId,
       recipeRef: recipeRef,
       date: new Date().toISOString(),
-  });
+  }).catch(() => { Notify("Failed to save recipe, please try again later.") });
 };
 
 /* DELETE FUNCTIONS */
