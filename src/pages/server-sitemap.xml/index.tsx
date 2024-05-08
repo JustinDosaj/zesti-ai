@@ -2,10 +2,14 @@
 import { GetServerSideProps } from 'next';
 import { getServerSideSitemapLegacy, ISitemapField } from 'next-sitemap';
 import { db } from '../api/firebase/firebase';
+import { collection, getDocs } from 'firebase/firestore';
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
     // Fetch recipes from Firestore
-    const recipesSnapshot = await db.collection('recipes').get();
+
+    const recipesRef = collection(db, 'recipes');
+    const recipesSnapshot = await getDocs(recipesRef);
+
     const fields: ISitemapField[] = recipesSnapshot.docs.map(doc => ({
         loc: `https://www.zesti.ai/recipe/${doc.id}`, // Adjust the domain as necessary
         lastmod: new Date().toISOString(),
