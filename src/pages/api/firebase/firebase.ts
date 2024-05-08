@@ -19,8 +19,10 @@ try {
       firebase.initializeApp(firebaseConfig);
   }
 } catch (err) {
-  console.error('Firebase initialization error', err);
+  throw err
 }
 
-export const db = firebase.firestore();
-export const storage = firebase.storage();
+const db = firebase.firestore();
+const storage = firebase.storage();
+
+export { db, storage }

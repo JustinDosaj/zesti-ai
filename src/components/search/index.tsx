@@ -2,9 +2,7 @@ import { LinkIcon } from '@heroicons/react/20/solid';
 import { useState } from "react"
 import { Button } from '../shared/button';
 import { useRouter } from 'next/router';
-import { handleUserSubmitRecipe } from '@/pages/api/handler/submit';
 import { ButtonLoader } from '../shared/loader';
-import { Notify } from '../shared/notify';
 
 interface AddRecipeProps {
     align?: 'start' | 'center' | 'end',
@@ -19,12 +17,11 @@ export function SearchOrAddRecipe({align}: AddRecipeProps) {
     const onAddButtonClick = async (e: React.FormEvent) => {
         
         e.preventDefault();
-        
         setIsLoading(true) // Disable button & input
         
         if(url.includes('tiktok.com')) {
 
-            Notify("Processing recipe video, please wait...")
+            const handleUserSubmitRecipe = (await import('@/pages/api/handler/submit')).handleUserSubmitRecipe
             const response = await handleUserSubmitRecipe({url, setUrl})
 
             if (response.uniqueId && response.uniqueId !== '') { 

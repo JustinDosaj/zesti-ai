@@ -1,7 +1,7 @@
 import { createContext, useContext, ReactNode, useEffect, useState } from 'react';
 import { User, getAuth, onAuthStateChanged, GoogleAuthProvider } from "firebase/auth";
-import { db } from '../firebase/firebase';
 import { useRouter } from 'next/router';
+import { db } from '../firebase/firebase';
 
 interface AuthContextType {
   user: User | null;

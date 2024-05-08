@@ -24,7 +24,6 @@ interface SharedPageTitleProps {
     className?: any
 }
 
-
 interface TitleProps {
     titleBlack?: string,
     titleOrange?: string,
