@@ -36,7 +36,7 @@ interface TitleProps {
 
 export function TitleSection({titleBlack, titleOrange, desc, showImage, imageHref, imageAlt, className}: TitleProps) {
     return(
-        <Container className={`flex flex-col lg:flex-row gap-10 lg:gap-12 animate-fadeIn ${className}`}>
+        <Container className={`flex flex-col lg:flex-row gap-10 lg:gap-12 ${className}`}>
             <div className="relative flex flex-col items-center text-center lg:max-w-none max-w-3xl mx-auto lg:mx-0 lg:flex-1 lg:w-1/2">
                 {showImage && (
                     <img src={imageHref || '/images/page-image-placeholder.png'} alt={imageAlt} className="rounded-3xl h-[75px] w-[75px] sm:h-[100px] sm:w-[100px]"/>
