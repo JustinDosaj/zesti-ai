@@ -52,11 +52,11 @@ const Recipe: React.FC = ({ recipe, url }: any) => {
     return(
     <>
         <Head>
-            <title>{`${recipe?.name} | TikTok Recipe`}</title>
-            <meta name="title" content={`${recipe?.name} | TikTok Recipe`}/>
-            <meta name="description" content={`@${recipe?.data?.owner?.username} | ${recipe?.video_title?.slice(0, 200)}`}/>
-            <meta property="og:title" content={`${recipe?.name} by ${recipe?.data?.owner?.username}`}/>
-            <meta property="og:description" content={`${recipe?.video_title} from ${recipe?.data?.source}`}/>
+            <title>{`${recipe?.name} by ${recipe?.data?.owner?.nickname}`}</title>
+            <meta name="title" content={`${recipe?.name} by ${recipe?.data?.owner?.nickname}`}/>
+            <meta name="description" content={`Tiktok recipe by ${recipe?.data?.owner?.nickname} - ${recipe?.video_title?.slice(0, 200)}`}/>
+            <meta property="og:title" content={`${recipe?.name} by ${recipe?.data?.owner?.nickname}`}/>
+            <meta property="og:description" content={`${recipe?.description} from TikTok`}/>
             <meta property="og:image" content={`https://firebasestorage.googleapis.com/v0/b/${process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET}/o/${encodeURIComponent(recipe?.cover_image_url)}?alt=media`}/>
             <meta property="og:url" content={url}/>
             <meta property="twitter:image" content={`https://firebasestorage.googleapis.com/v0/b/${process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET}/o/${encodeURIComponent(recipe?.cover_image_url)}?alt=media`}/>
