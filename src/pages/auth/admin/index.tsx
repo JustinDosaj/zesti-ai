@@ -2,7 +2,7 @@ import Head from 'next/head';
 import { PageLoader } from '@/components/shared/loader';
 import { useState } from 'react';
 import useRequireAdmin from '@/hooks/admin/useRequireAdmin';
-import { AdminUpdateRecipe } from '@/pages/api/admin/functions';
+import { AdminMassUpdateRecipes, AdminUpdateRecipe } from '@/pages/api/admin/functions';
 
 export default function Home() {
   
@@ -18,6 +18,12 @@ export default function Home() {
     setIsLoading(false)
   }
 
+  const handleSubmit2 = async () => {
+    setIsLoading(true)
+    await AdminMassUpdateRecipes()
+    setIsLoading(false)
+  }
+
   return (
     <>
       <Head>
@@ -30,7 +36,7 @@ export default function Home() {
           <button 
             disabled={isLoading}
             type="button"
-            onClick={handleSubmit} 
+            onClick={handleSubmit2} 
             className="border bg-primary-main text-white p-2 rounded-3xl hover:bg-primary-alt">
               {isLoading ? "Loading..." : "Submit"}
           </button>
