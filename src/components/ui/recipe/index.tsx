@@ -116,17 +116,17 @@ function RecipeTitleCard({recipe, setIsOpen, isSaved, isLoading, user}: RecipePr
 function RecipeIngredientsComponent({ ingredients }: RecipeProps) {
 
     return (
-        <div className="recipe-page-container">
+    <div className="recipe-page-container">
             <h2 className="recipe-page-section-title">Ingredients</h2>
             <ul className="space-y-2 list-disc pl-6 text-black">
                 {ingredients?.map((ingredient: any, index: number) => (
-                <li key={index} className="col-span-1 rounded-xl">
-                    <div className="grid justify-start rounded-md overflow-visible w-full">
-                        <div className="flex ml-1 mr-1.5 flex-shrink-0 items-center recipe-page-description">
-                            {ingredient}
+                    <li key={index} className="col-span-1 rounded-xl">
+                        <div className="grid justify-start rounded-md overflow-visible w-full">
+                            <div className="flex ml-1 mr-1.5 flex-shrink-0 items-center recipe-page-description">
+                                <span>{ingredient?.amount} {ingredient?.name}</span>
+                            </div>
                         </div>
-                    </div>
-                </li>
+                    </li>
                 ))}
             </ul>
         </div>
