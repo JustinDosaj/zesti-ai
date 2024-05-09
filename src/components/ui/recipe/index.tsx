@@ -123,7 +123,7 @@ function RecipeIngredientsComponent({ ingredients }: RecipeProps) {
                     <li key={index} className="col-span-1 rounded-xl">
                         <div className="grid justify-start rounded-md overflow-visible w-full">
                             <div className="flex ml-1 mr-1.5 flex-shrink-0 items-center recipe-page-description">
-                                <span>{ingredient?.amount} {ingredient?.name}</span>
+                                <span>{ingredient}</span>
                             </div>
                         </div>
                     </li>
