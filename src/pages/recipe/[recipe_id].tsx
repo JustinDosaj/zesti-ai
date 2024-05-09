@@ -37,6 +37,21 @@ const Recipe: React.FC = ({ recipe, url }: any) => {
     const [ isOpen, setIsOpen ] = useState<boolean>(false)
     const [ isSaved, setIsSaved ] = useState<boolean>(false)
 
+    const jsonLd = {
+        "@context": "http://schema.org",
+        "@type": "Recipe",
+        "name": recipe?.title,
+        "author": {
+          "@type": "TikTok Creator",
+          "name": recipe?.owner?.nickname
+        },
+        //"datePublished": datePublished,
+        "description": recipe?.description,
+        "image": [
+          `https://firebasestorage.googleapis.com/v0/b/${process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET}/o/${encodeURIComponent(recipe?.cover_image_url)}?alt=media`
+        ]
+    };
+
     useEffect(() => {
         if(user) { 
             existingRecipes()
@@ -49,10 +64,14 @@ const Recipe: React.FC = ({ recipe, url }: any) => {
 
     },[user, recipe?.data?.id])
 
+
     return(
     <>
         <Head>
             <title>{`${recipe?.name} by ${recipe?.data?.owner?.nickname}`}</title>
+            <script type="application/ld+json">
+                {JSON.stringify(jsonLd)}
+            </script>
             <meta name="title" content={`${recipe?.name} by ${recipe?.data?.owner?.nickname}`}/>
             <meta name="description" content={`Tiktok recipe by ${recipe?.data?.owner?.nickname} - ${recipe?.video_title?.slice(0, 200)}`}/>
             <meta property="og:title" content={`${recipe?.name} by ${recipe?.data?.owner?.nickname}`}/>
@@ -67,7 +86,7 @@ const Recipe: React.FC = ({ recipe, url }: any) => {
             <PublicRecipe recipe={recipe} setIsOpen={setIsOpen} role={stripeRole} isSaved={isSaved}/>
             <Chatbox role={stripeRole} recipe={recipe}/>
             <DynamicModal
-              title={`${recipe.name} Saved!`}
+              title={`${recipe?.name} Saved!`}
               text={`You can view it by visiting your saved recipe page!`}
               isOpen={isOpen}
               setIsOpen={setIsOpen}
