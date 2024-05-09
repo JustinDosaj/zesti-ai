@@ -36,7 +36,7 @@ export default function Home() {
           <button 
             disabled={isLoading}
             type="button"
-            onClick={handleSubmit2} 
+            onClick={handleSubmit} 
             className="border bg-primary-main text-white p-2 rounded-3xl hover:bg-primary-alt">
               {isLoading ? "Loading..." : "Submit"}
           </button>
