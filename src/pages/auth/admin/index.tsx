@@ -2,7 +2,7 @@ import Head from 'next/head';
 import { PageLoader } from '@/components/shared/loader';
 import { useState } from 'react';
 import useRequireAdmin from '@/hooks/admin/useRequireAdmin';
-import { AdminUpdateRecipe } from '@/pages/api/admin/functions';
+import { AdminMassUpdateRecipes, AdminUpdateRecipe } from '@/pages/api/admin/functions';
 
 export default function Home() {
   
@@ -15,6 +15,12 @@ export default function Home() {
   const handleSubmit = async () => {
     setIsLoading(true)
     await AdminUpdateRecipe({userInput})
+    setIsLoading(false)
+  }
+
+  const handleSubmit2 = async () => {
+    setIsLoading(true)
+    await AdminMassUpdateRecipes()
     setIsLoading(false)
   }
 

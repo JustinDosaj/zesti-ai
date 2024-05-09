@@ -17,3 +17,10 @@ export async function AdminUpdateRecipe({userInput}: AdminProps) {
 
     return;
 }
+
+export async function AdminMassUpdateRecipes() {
+    const functions = getFunctions();
+    const adminMassUpdateRecipes = httpsCallable(functions, 'adminMassUpdateRecipes');
+    
+    await adminMassUpdateRecipes().then(() => Notify("Finished"))
+}
