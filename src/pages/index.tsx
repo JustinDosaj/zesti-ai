@@ -2,7 +2,8 @@ import { GetServerSideProps } from "next";
 import Head from 'next/head';
 import { Hero, HomePageCTA, HomePageScroller, ChatFeature } from '@/components/ui/features/users';
 import { FAQ } from '@/components/ui/general';
-
+import { PageLoader } from "@/components/shared/loader";
+import { useAuth } from "./api/auth/auth";
 
 
 export const getServerSideProps: GetServerSideProps = async () => {
@@ -16,6 +17,10 @@ export const getServerSideProps: GetServerSideProps = async () => {
 }
 
 export default function Home({recipes}: any) {
+
+  const { isLoading } = useAuth()
+
+  if(isLoading) return <PageLoader/>
 
   return (
     <>

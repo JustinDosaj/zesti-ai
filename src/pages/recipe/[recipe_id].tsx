@@ -69,9 +69,6 @@ const Recipe: React.FC = ({ recipe, url }: any) => {
     <>
         <Head>
             <title>{`${recipe?.name} by ${recipe?.data?.owner?.nickname}`}</title>
-            <script type="application/ld+json">
-                {JSON.stringify(jsonLd)}
-            </script>
             <meta name="title" content={`${recipe?.name} by ${recipe?.data?.owner?.nickname}`}/>
             <meta name="description" content={`Tiktok recipe by ${recipe?.data?.owner?.nickname} - ${recipe?.video_title?.slice(0, 200)}`}/>
             <meta property="og:title" content={`${recipe?.name} by ${recipe?.data?.owner?.nickname}`}/>
