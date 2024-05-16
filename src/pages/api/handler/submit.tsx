@@ -14,13 +14,14 @@ export const handleUserSubmitRecipe = async({url, setUrl}: SubmissionProps) => {
     Notify("Processing recipe video, please wait...")
     
     var uniqueId;
+    var source;
     const date: Date = new Date();
     const functions = getFunctions();
     const userAddRecipe = httpsCallable(functions, 'userAddRecipe');
 
     const userInput = {
         "url": url,
-        "source": "tiktok",
+        "source": url?.includes('tiktok.com') ? "tiktok" : url?.includes('instagram.com') ? "instagram" : "unknown",
         "date_added": date.toISOString(),
     }
 
@@ -28,6 +29,7 @@ export const handleUserSubmitRecipe = async({url, setUrl}: SubmissionProps) => {
         message?: string;  // Use optional if message may not always be present
         success?: boolean;
         recipeId?: string;
+        source?: string;
     }
 
     await userAddRecipe(userInput)
@@ -36,7 +38,9 @@ export const handleUserSubmitRecipe = async({url, setUrl}: SubmissionProps) => {
             console.log(response.data)
             const responseData = response.data as UserAddRecipeResponse;
             const message = responseData.message || "Problem receiving message from server.";
+            source = responseData.source || '';
             uniqueId = responseData.recipeId || '';
+            
             Notify(message);
         } else {
             Notify("Failed to get valid response from the server.");
@@ -46,6 +50,6 @@ export const handleUserSubmitRecipe = async({url, setUrl}: SubmissionProps) => {
         Notify(err.message || "Error processing request");
     });
 
-    return { uniqueId }
+    return { uniqueId, source }
 
 }
