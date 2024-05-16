@@ -33,8 +33,8 @@ export function Chatbox({role, recipe}:ChatBoxProps) {
   };
 
   useEffect(() => {
-    if (user && recipe.id) {
-      const messageRef = doc(db, `users/${user.uid}/messages`, recipe.id);
+    if (user && recipe) {
+      const messageRef = doc(db, `users/${user.uid}/messages`, recipe.data.unique_id);
       
       const unsubscribe = onSnapshot(messageRef, (doc) => {
         if (doc.exists()) {
@@ -75,15 +75,15 @@ export function Chatbox({role, recipe}:ChatBoxProps) {
 
     const requestData = {
       messageObj: messageObj,
-      recipe_id: recipe.id,
+      recipe_id: recipe.data.unique_id,
       ingredients: JSON.stringify(recipe.ingredients),
       instructions: JSON.stringify(recipe.instructions)
     }
 
     setMessage('') // Clear the message input after sending
 
-    const response = await chatWithZesti(requestData).catch((error) => {
-
+   const response = await chatWithZesti(requestData).catch((error) => {
+      console.log(error)
     })
   };
 
