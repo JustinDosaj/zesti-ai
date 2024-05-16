@@ -3,6 +3,8 @@ import { useState } from "react"
 import { Button } from '../shared/button';
 import { useRouter } from 'next/router';
 import { ButtonLoader } from '../shared/loader';
+import { ArrowTopRightOnSquareIcon } from '@heroicons/react/20/solid';
+import Link from 'next/link';
 
 interface AddRecipeProps {
     align?: 'start' | 'center' | 'end',
@@ -19,13 +21,22 @@ export function SearchOrAddRecipe({align}: AddRecipeProps) {
         e.preventDefault();
         setIsLoading(true) // Disable button & input
         
-        if(url.includes('tiktok.com')) {
+        if(url.includes('tiktok.com') || url.includes('instagram.com')) {
 
             const handleUserSubmitRecipe = (await import('@/pages/api/handler/submit')).handleUserSubmitRecipe
             const response = await handleUserSubmitRecipe({url, setUrl})
 
-            if (response.uniqueId && response.uniqueId !== '') { 
-                router.push(`/recipe/${response.uniqueId}`)
+            if (response.uniqueId && response.uniqueId !== '') {
+                
+                if (response.source == 'album') {
+                    router.push({
+                        pathname: '/search',
+                        query: { q: response.uniqueId} 
+                    })
+                } else {
+                    router.push(`/recipe/${response.uniqueId}`)
+                }
+
             }
 
         } else {
@@ -41,6 +52,8 @@ export function SearchOrAddRecipe({align}: AddRecipeProps) {
     }
 
     return(
+        
+        <>
         <div className={`flex sm:flex-row flex-col gap-5 justify-center lg:justify-${align} w-[350px] md:w-[450px]`}> {/* Also needs to be able to center for my recipe page */}
             <form onSubmit={onAddButtonClick} action="" method="POST" className="py-1 pl-6 w-full max-w-md pr-1 flex gap-3 items-center text-heading-3 shadow-lg shadow-box-shadow
             border border-box-border bg-box-bg rounded-full ease-linear focus-within:bg-body  focus-within:border-primary">
@@ -64,5 +77,11 @@ export function SearchOrAddRecipe({align}: AddRecipeProps) {
                 </Button>
             </form>
         </div>
+        <div className="inline-flex justify-center lg:justify-start items-center text-xs text-gray-500 pl-2 space-x-1">
+            <p>Results may vary.</p>
+            <Link href="/about/faq" className="underline">Learn More</Link>
+            <ArrowTopRightOnSquareIcon className="h-3 w-3"/>
+        </div>
+        </>
     )
 }

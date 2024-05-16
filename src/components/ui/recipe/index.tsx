@@ -17,7 +17,7 @@ interface RecipeProps {
 export function PublicRecipe({recipe, setIsOpen, role, isSaved}: RecipeProps) {
 
     const { video_id } = recipe?.data
-    const { ingredients, instructions } = recipe
+    const { ingredients, instructions, data } = recipe
     const { user } = useAuth();
 
     const AdSenseDisplay = dynamic(() => import('@/components/tags/adsense'), {
@@ -30,6 +30,11 @@ export function PublicRecipe({recipe, setIsOpen, role, isSaved}: RecipeProps) {
         loading: () => <div style={{ height: '90px' }}/> // Placeholder while loading
     });
 
+    const InstagramVideo = dynamic(() => import('./instagram'), {
+        ssr: false,
+        loading: () => <div style={{ height: '90px' }}/> // Placeholder while loading
+    });
+
     return(
         <div className={"flex flex-col gap-8 mb-16 mx-auto w-full lg:max-w-3xl px-4 sm:px-8 md:px-14 lg:px-5 mt-36 lg:mt-48  animate-fadeIn"}>
             <RecipeTitleCard recipe={recipe} setIsOpen={setIsOpen} isSaved={isSaved} user={user}/>
@@ -38,7 +43,13 @@ export function PublicRecipe({recipe, setIsOpen, role, isSaved}: RecipeProps) {
             <AdSenseDisplay adSlot="1690723057" adFormat="horizontal" widthRes="false" role={role}/>
             <RecipeInstructionsComponent instructions={instructions}/>
             <AdSenseDisplay adSlot="9326575118" adFormat="horizontal" widthRes="false" role={role}/>
+
+            {/* Check recipe source to determine which embedded post needs to be shown */}
+            {data.source == 'tiktok' ?
             <TikTokVideo video_id={video_id}/>
+            :
+            <InstagramVideo video_id={video_id}/>
+            }
             <AdSenseDisplay adSlot="9315400934" adFormat="horizontal" widthRes="false" role={role}/>
             <RecipeDataComponent recipe={recipe}/>
         </div>
@@ -186,7 +197,7 @@ function RecipeDataComponent({ recipe }: RecipeProps) {
                             </div>
                             <div className="recipe-information-container">
                                 <p className="font-semibold">Created:</p>
-                                <p>{new Date(date_created).toLocaleDateString()}</p>
+                                <p>{date_created !== null ? new Date(date_created).toLocaleDateString() : `N/A`}</p>
                             </div>
                             <div className="recipe-information-container">
                                 <p className="font-semibold">Added:</p>
