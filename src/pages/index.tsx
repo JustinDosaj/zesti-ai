@@ -31,10 +31,11 @@ export default function Home({recipes}: any) {
         <meta name="description" content="Instantly save delicious recipes from TikTok or Instagram by using Zesti AI to transcribe your faovirte recipe videos to text!"/>
       </Head>
       <main className={`main-seo-page-class`}>
+
         <Hero 
           titleStart={"A Better Way to Save Recipes from"} 
           titleEnd={"TikTok & Instagram"} 
-          description={"Copy & paste a TikTok recipe link or search by ingredients, usernames & more!"}
+          description={"Copy & paste a TikTok or Instagram recipe link or search by ingredients, usernames & more!"}
         />
         <HomePageScroller recipes={recipes}/>
         <ChatFeature/>
