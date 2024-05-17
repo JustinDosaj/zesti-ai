@@ -1,10 +1,11 @@
-import { ArrowDownTrayIcon, BookmarkSlashIcon, ArrowTopRightOnSquareIcon, ShareIcon } from "@heroicons/react/20/solid"
+import { ArrowDownTrayIcon, BookmarkSlashIcon, ArrowTopRightOnSquareIcon, ShareIcon, ExclamationCircleIcon } from "@heroicons/react/20/solid"
 import { useAuth } from "@/pages/api/auth/auth";
 import dynamic from "next/dynamic";
 
 interface RecipeProps {
     recipe?: any,
     setIsOpen?: any,
+    setIsErrorOpen?: any,
     ingredients?: any,
     instructions?: any,
     role?: string | null,
@@ -14,7 +15,7 @@ interface RecipeProps {
     user?: any,
 }
 
-export function PublicRecipe({recipe, setIsOpen, role, isSaved}: RecipeProps) {
+export function PublicRecipe({recipe, setIsOpen, role, isSaved, setIsErrorOpen}: RecipeProps) {
 
     const { video_id } = recipe?.data
     const { ingredients, instructions, data } = recipe
@@ -51,7 +52,7 @@ export function PublicRecipe({recipe, setIsOpen, role, isSaved}: RecipeProps) {
             <InstagramVideo video_id={video_id}/>
             }
             <AdSenseDisplay adSlot="9315400934" adFormat="horizontal" widthRes="false" role={role}/>
-            <RecipeDataComponent recipe={recipe}/>
+            <RecipeDataComponent recipe={recipe} setIsErrorOpen={setIsErrorOpen}/>
         </div>
     )
 }
@@ -165,7 +166,7 @@ function RecipeInstructionsComponent({ instructions }: RecipeProps) {
     )
 }
 
-function RecipeDataComponent({ recipe }: RecipeProps) {
+function RecipeDataComponent({ recipe, setIsErrorOpen }: RecipeProps) {
 
     const { date_added, date_created, owner, source, video_id, unique_id } = recipe?.data;
 
@@ -204,6 +205,10 @@ function RecipeDataComponent({ recipe }: RecipeProps) {
                                 <p>{new Date(date_added).toLocaleDateString()}</p>
                             </div>
                         </div>
+                        <button onClick={() => setIsErrorOpen(true)}className="inline-flex items-center space-x-1 ">
+                            <ExclamationCircleIcon className="h-4 w-4 text-red-600"/>
+                            <p className="underline text-gray-700 hover:text-gray-500">Report Problem with Recipe</p>
+                        </button>
                     </div>
                     {/* Date info */}
 
