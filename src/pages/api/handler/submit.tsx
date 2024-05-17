@@ -1,27 +1,31 @@
 `use client`
 import { getFunctions, httpsCallable } from 'firebase/functions';
 import { Notify } from "@/components/shared/notify";
-import React from 'react';
 
 
 interface SubmissionProps {
     url?: string,
-    setUrl?: React.Dispatch<React.SetStateAction<string>>,
 }
 
-export const handleUserSubmitRecipe = async({url, setUrl}: SubmissionProps) => {
+export const handleUserSubmitRecipe = async({url}: SubmissionProps) => {
+
+    var source = ''
     
-    Notify("Processing recipe video, please wait...")
-    
+    if(url?.includes('tiktok')) {
+        Notify("Processing TikTok recipe, please wait...")
+        source = "tiktok"
+    } else if(url?.includes('instagram')) {
+        Notify("Processing Instagram recipe, please wait. Albums may take longer to process")
+        source = "instagram"
+    }
     var uniqueId;
-    var source;
     const date: Date = new Date();
     const functions = getFunctions();
     const userAddRecipe = httpsCallable(functions, 'userAddRecipe');
 
     const userInput = {
         "url": url,
-        "source": url?.includes('tiktok.com') ? "tiktok" : url?.includes('instagram.com') ? "instagram" : "unknown",
+        "source": source,
         "date_added": date.toISOString(),
     }
 
@@ -35,19 +39,17 @@ export const handleUserSubmitRecipe = async({url, setUrl}: SubmissionProps) => {
     await userAddRecipe(userInput)
     .then((response) => {
         if (response && response.data) {
-            console.log(response.data)
             const responseData = response.data as UserAddRecipeResponse;
             const message = responseData.message || "Problem receiving message from server.";
             source = responseData.source || '';
             uniqueId = responseData.recipeId || '';
-            
             Notify(message);
         } else {
             Notify("Failed to get valid response from the server.");
         }
     })
     .catch((err) => {
-        Notify(err.message || "Error processing request");
+        Notify("Error processing request");
     });
 
     return { uniqueId, source }

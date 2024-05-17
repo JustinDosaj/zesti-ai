@@ -24,7 +24,7 @@ export function SearchOrAddRecipe({align}: AddRecipeProps) {
         if(url.includes('tiktok.com') || url.includes('instagram.com')) {
 
             const handleUserSubmitRecipe = (await import('@/pages/api/handler/submit')).handleUserSubmitRecipe
-            const response = await handleUserSubmitRecipe({url, setUrl})
+            const response = await handleUserSubmitRecipe({url})
 
             if (response.uniqueId && response.uniqueId !== '') {
                 

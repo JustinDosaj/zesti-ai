@@ -63,7 +63,7 @@ const SearchResults: React.FC = () => {
             </Head>
             <main className={`flex min-h-screen flex-col items-center bg-background w-screen space-y-4 pb-48`}>
                 <div className="mt-36"/>
-                <TitleSection titleBlack="Search for Recipes" desc="Copy & paste a TikTok recipe link or search by ingredients, usernames & more!"/>
+                <TitleSection titleBlack="Search for Recipes" desc="Copy & paste a TikTok or Instagram recipe link or search by ingredients, usernames & more!"/>
                 <SearchOrAddRecipe align={"center"}/>
                 <RecipeCardList recipes={recipes}/>
                 <div className="pt-12 w-[300px] md:w-[728px]">
