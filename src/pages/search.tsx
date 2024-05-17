@@ -8,6 +8,7 @@ import { useAuth } from './api/auth/auth';
 import AdSenseDisplay from '@/components/tags/adsense';
 import Head from 'next/head';
 import algoliasearch, { SearchIndex } from 'algoliasearch';
+import { Notify } from '@/components/shared/notify';
 
 
 const SearchResults: React.FC = () => {
@@ -51,7 +52,7 @@ const SearchResults: React.FC = () => {
 
             setRecipes(recipes.hits) 
         } catch(error) {
-            console.error("Error searching for recipes:", error)
+            Notify("Problem fetching recipes, please try again later")
         }
 
     };
