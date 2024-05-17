@@ -1,6 +1,7 @@
 import { collection, doc, addDoc, onSnapshot } from 'firebase/firestore';
 import { db } from '../firebase/firebase';
 import Stripe from 'stripe'
+import { Notify } from '@/components/shared/notify';
 
 
 /**
@@ -59,6 +60,6 @@ export async function createPremiumCheckoutSession(id: any) {  // You might want
             }
         });
     } catch (error) {
-        console.error("Error creating checkout session: ", error);
+        Notify("Could not create checkout session. Please try again later.")
     }
 }
