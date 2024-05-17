@@ -37,18 +37,25 @@ const Recipe: React.FC = ({ recipe, url }: any) => {
     const [ isOpen, setIsOpen ] = useState<boolean>(false)
     const [ isSaved, setIsSaved ] = useState<boolean>(false)
 
+    console.log(recipe)
+
+    const { name, video_title, description, cover_image_url } = recipe
+    const { source, owner, } = recipe?.data
+
+    const upperCaseSource = source?.charAt(0).toUpperCase() + source?.slice(1)
+    
     const jsonLd = {
         "@context": "http://schema.org",
         "@type": "Recipe",
-        "name": recipe?.title,
+        "name": name,
         "author": {
           "@type": "TikTok Creator",
-          "name": recipe?.owner?.nickname
+          "name": owner?.nickname
         },
         //"datePublished": datePublished,
-        "description": recipe?.description,
+        "description": description,
         "image": [
-          `https://firebasestorage.googleapis.com/v0/b/${process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET}/o/${encodeURIComponent(recipe?.cover_image_url)}?alt=media`
+          `https://firebasestorage.googleapis.com/v0/b/${process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET}/o/${encodeURIComponent(cover_image_url)}?alt=media`
         ]
     };
 
@@ -64,20 +71,19 @@ const Recipe: React.FC = ({ recipe, url }: any) => {
 
     },[user, recipe?.data?.id])
 
-
     return(
     <>
         <Head>
-            <title>{`${recipe?.name} by ${recipe?.data?.owner?.nickname}`}</title>
-            <meta name="title" content={`${recipe?.name} by ${recipe?.data?.owner?.nickname}`}/>
-            <meta name="description" content={`Tiktok recipe by ${recipe?.data?.owner?.nickname} - ${recipe?.video_title?.slice(0, 200)}`}/>
-            <meta property="og:title" content={`${recipe?.name} by ${recipe?.data?.owner?.nickname}`}/>
-            <meta property="og:description" content={`${recipe?.description} from TikTok`}/>
-            <meta property="og:image" content={`https://firebasestorage.googleapis.com/v0/b/${process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET}/o/${encodeURIComponent(recipe?.cover_image_url)}?alt=media`}/>
+            <title>{`${name} by ${owner?.nickname}`}</title>
+            <meta name="title" content={`${name} by ${owner?.nickname}`}/>
+            <meta name="description" content={`${upperCaseSource} recipe from \@${owner?.username} - ${video_title?.slice(0, 200)}`}/>
+            <meta property="og:title" content={`${name} by ${owner?.nickname}`}/>
+            <meta property="og:description" content={`${description} from ${upperCaseSource}`}/>
+            <meta property="og:image" content={`https://firebasestorage.googleapis.com/v0/b/${process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET}/o/${encodeURIComponent(cover_image_url)}?alt=media`}/>
             <meta property="og:url" content={url}/>
-            <meta property="twitter:image" content={`https://firebasestorage.googleapis.com/v0/b/${process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET}/o/${encodeURIComponent(recipe?.cover_image_url)}?alt=media`}/>
-            <meta property="twitter:title" content={`${recipe?.name}`}/>
-            <meta property="twitter:description" content={`Check out this TikTok recipe by @${recipe?.data?.owner?.username}`}/>
+            <meta property="twitter:image" content={`https://firebasestorage.googleapis.com/v0/b/${process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET}/o/${encodeURIComponent(cover_image_url)}?alt=media`}/>
+            <meta property="twitter:title" content={`${name}`}/>
+            <meta property="twitter:description" content={`Check out this TikTok recipe by @${owner?.username}`}/>
         </Head>  
         <main className={`flex min-h-screen flex-col items-center p-2 bg-background w-screen pb-28`}>
             <PublicRecipe recipe={recipe} setIsOpen={setIsOpen} role={stripeRole} isSaved={isSaved}/>
