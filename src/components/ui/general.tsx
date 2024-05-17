@@ -166,24 +166,24 @@ export function FAQ({type, title, desc}: FAQProps) {
     const FAQTypes = {
         user: [
             {
+              question: "Zesti Disclaimer",
+              answer: "Zesti AI is currently in Beta. Not all recipe videos may successfully transcribe & results of successful transcriptions may vary. You can contact us with any further questions.",
+            },
+            {
               question: "What is Zesti AI?",
               answer: "Zesti AI is a platform created to help make tiktok recipes readily available so you no longer have to pause or rewind multiple times for a recipe",
             },
             {
               question: "How does Zesti work?",
-              answer: "Zesti uses AI tools to transcribe the audio from a tiktok cooking video into a format that is easily readable by everyone.",
+              answer: "Zesti uses AI tools to transcribe the audio from tiktok cooking videos into a format that is easily readable by everyone.",
             },
             {
               question: "What platforms does Zesti support?",
-              answer: "Currently TikTok is the only platform supported by Zesti. However, we are working on making YouTube & Instagram available soon!",
+              answer: "Currently TikTok & Instagram is the only platform supported by Zesti. However, we are working on making YouTube & others available soon!",
             },
             {
-              question: "What are the video requirements?",
-              answer: "Videos must contain recipes in either the title or the audio. We are currently working on vision capture that will allow on-screen text to be transribed as well, but there is no release date available yet.",
-            },
-            {
-              question: "How well does Zesti work?",
-              answer: "Zesti is still a new platform and we are constantly working on improving the accuracy of the transcriptions. However, in the current state we cannot guarentee 100% accuracy.",
+              question: "What are the requirments to save a recipe?",
+              answer: "To transcribe a recipe, the instructions and ingredient list must be available via the video audio, comments, title or description. If no recipe ia found in these, Zesti AI is trained to reject the video.",
             },
             {
               question: "How much does Zesti cost?",
