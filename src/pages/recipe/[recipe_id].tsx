@@ -36,9 +36,6 @@ const Recipe: React.FC = ({ recipe, url }: any) => {
     const { stripeRole, user } = useAuth();
     const [ isOpen, setIsOpen ] = useState<boolean>(false)
     const [ isSaved, setIsSaved ] = useState<boolean>(false)
-
-    console.log(recipe)
-
     const { name, video_title, description, cover_image_url } = recipe
     const { source, owner, } = recipe?.data
 
