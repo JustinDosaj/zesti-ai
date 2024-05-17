@@ -5,6 +5,7 @@ import dynamic from "next/dynamic";
 import Head from "next/head";
 
 const DynamicModal = dynamic(() => import('@/components/ui/modals/response').then((mod) => mod.ResponseModal), { ssr: false })
+const ErrorReportModal = dynamic(() => import('@/components/ui/modals/report').then((mod) => mod.ErrorReportModal), { ssr: false })
 const Chatbox = dynamic(() => import('@/components/chat/chatbox').then((mod) => mod.Chatbox), { ssr: false });
 const PublicRecipe = dynamic(() => import('@/components/ui/recipe').then((mod) => mod.PublicRecipe), { ssr: false });
 
@@ -35,6 +36,7 @@ const Recipe: React.FC = ({ recipe, url }: any) => {
 
     const { stripeRole, user } = useAuth();
     const [ isOpen, setIsOpen ] = useState<boolean>(false)
+    const [ isErrorOpen, setIsErrorOpen ] = useState<boolean>(false)    
     const [ isSaved, setIsSaved ] = useState<boolean>(false)
     const { name, video_title, description, cover_image_url } = recipe
     const { source, owner, } = recipe?.data
@@ -66,7 +68,7 @@ const Recipe: React.FC = ({ recipe, url }: any) => {
             user && CheckForExistingRecipe(recipe, user?.uid, setIsSaved) 
         }
 
-    },[user, recipe?.data?.id])
+    },[user, recipe?.data?.unique_id])
 
     return(
     <>
@@ -83,7 +85,7 @@ const Recipe: React.FC = ({ recipe, url }: any) => {
             <meta property="twitter:description" content={`Check out this TikTok recipe by @${owner?.username}`}/>
         </Head>  
         <main className={`flex min-h-screen flex-col items-center p-2 bg-background w-screen pb-28`}>
-            <PublicRecipe recipe={recipe} setIsOpen={setIsOpen} role={stripeRole} isSaved={isSaved}/>
+            <PublicRecipe recipe={recipe} setIsOpen={setIsOpen} setIsErrorOpen={setIsErrorOpen} role={stripeRole} isSaved={isSaved}/>
             <Chatbox role={stripeRole} recipe={recipe}/>
             <DynamicModal
               title={`${recipe?.name} Saved!`}
@@ -93,6 +95,14 @@ const Recipe: React.FC = ({ recipe, url }: any) => {
               displayAd={true}
               role={stripeRole}
               buttonName={"My Recipes"}
+            />
+            <ErrorReportModal
+                isOpen={isErrorOpen}
+                setIsOpen={setIsErrorOpen}
+                title={"Report Recipe"}
+                text={"If there is a problem with this recipe, please let us know so we can investigate it as soon as possible!"}
+                recipe_id={recipe?.data?.unique_id}
+                user_id={user?.uid || null}
             />
         </main>
     </>

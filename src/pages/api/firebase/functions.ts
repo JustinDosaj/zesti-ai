@@ -23,7 +23,25 @@ export const userRemoveRecipeFromFirestore = async (userId: string, recipeId: st
 
 };
 
-/* END DELETE FUNCTIONS */
+export async function SendRecipeErrorReport(message: string, user_id: string | null, recipe_id: string) {
+  
+  const errorReportRef = doc(collection(db, 'reports'));
+
+  try{
+    
+    await setDoc(errorReportRef, {
+      message: message,
+      user_id: user_id,
+      recipe_id: recipe_id,
+      date: new Date().toISOString()
+    })
+
+    Notify("Error report sent successfully. Thank you for your feedback!")
+
+  } catch(error) {
+    Notify("Failed to send report, please try again later.")
+  }
+}
 
 interface Recipe {
   id: string;
