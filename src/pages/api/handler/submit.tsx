@@ -10,6 +10,8 @@ interface SubmissionProps {
 export const handleUserSubmitRecipe = async({url}: SubmissionProps) => {
 
     var source = ''
+    var uniqueId;
+    var albumIdList;
     
     if(url?.includes('tiktok')) {
         Notify("Processing TikTok recipe, please wait...")
@@ -18,7 +20,7 @@ export const handleUserSubmitRecipe = async({url}: SubmissionProps) => {
         Notify("Processing Instagram recipe, please wait. Albums may take longer to process")
         source = "instagram"
     }
-    var uniqueId;
+
     const date: Date = new Date();
     const functions = getFunctions();
     const userAddRecipe = httpsCallable(functions, 'userAddRecipe');
@@ -33,17 +35,22 @@ export const handleUserSubmitRecipe = async({url}: SubmissionProps) => {
         message?: string;  // Use optional if message may not always be present
         success?: boolean;
         recipeId?: string;
+        albumIdList?: string[] | null;
         source?: string;
     }
 
     await userAddRecipe(userInput)
     .then((response) => {
         if (response && response.data) {
+            
             const responseData = response.data as UserAddRecipeResponse;
             const message = responseData.message || "Problem receiving message from server.";
             source = responseData.source || '';
             uniqueId = responseData.recipeId || '';
+            albumIdList = responseData.albumIdList || null;
+            
             Notify(message);
+
         } else {
             Notify("Failed to get valid response from the server.");
         }
@@ -52,6 +59,6 @@ export const handleUserSubmitRecipe = async({url}: SubmissionProps) => {
         Notify("Error processing request");
     });
 
-    return { uniqueId, source }
+    return { uniqueId, source, albumIdList }
 
 }
