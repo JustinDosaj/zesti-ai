@@ -1,4 +1,4 @@
-import { ArrowDownTrayIcon, BookmarkSlashIcon, ArrowTopRightOnSquareIcon, ShareIcon, ExclamationCircleIcon } from "@heroicons/react/20/solid"
+import { ArrowDownTrayIcon, BookmarkSlashIcon, ArrowTopRightOnSquareIcon, ShareIcon, ExclamationTriangleIcon } from "@heroicons/react/20/solid"
 import { useAuth } from "@/pages/api/auth/auth";
 import dynamic from "next/dynamic";
 
@@ -205,15 +205,14 @@ function RecipeDataComponent({ recipe, setIsErrorOpen }: RecipeProps) {
                                 <p>{new Date(date_added).toLocaleDateString()}</p>
                             </div>
                         </div>
-                        <button onClick={() => setIsErrorOpen(true)}className="inline-flex items-center space-x-1 ">
-                            <ExclamationCircleIcon className="h-4 w-4 text-red-600"/>
-                            <p className="underline text-gray-700 hover:text-gray-500">Report Problem with Recipe</p>
-                        </button>
                     </div>
-                    {/* Date info */}
-
                 </div>
+
             </div>
+            <button onClick={() => setIsErrorOpen(true)}className="inline-flex justify-center mx-auto w-full items-center space-x-1 py-4 text-red-600">
+                <ExclamationTriangleIcon className="h-4 w-4 text-red-600 mt-1"/>
+                <p className="underline text-gray-700 hover:text-gray-500">Report Problem or Give Feedback</p>
+            </button>
         </div>
     );
 }
