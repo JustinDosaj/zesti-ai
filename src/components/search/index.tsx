@@ -29,10 +29,12 @@ export function SearchOrAddRecipe({align}: AddRecipeProps) {
             if (response.uniqueId && response.uniqueId !== '') {
                 
                 if (response.source == 'album') {
+
                     router.push({
-                        pathname: '/search',
-                        query: { q: response.uniqueId} 
+                        pathname: '/album',
+                        query: { q: response?.albumIdList} 
                     })
+
                 } else {
                     router.push(`/recipe/${response.uniqueId}`)
                 }

@@ -1,7 +1,10 @@
 import { Notify } from "@/components/shared/notify";
 import { db } from "./firebase"
 import { onSnapshot, doc, setDoc, deleteDoc, getDocs, collection, getDoc } from "firebase/firestore";
+import { get } from "http";
 
+
+// Save & Delete Functions
 export const saveRecipeReferenceToUser = async (userId: string, recipeId: string) => {
   
   const useRecipeRef = doc(db, `users/${userId}/recipes`, recipeId);
@@ -15,7 +18,6 @@ export const saveRecipeReferenceToUser = async (userId: string, recipeId: string
 
 }
 
-/* DELETE FUNCTIONS */
 export const userRemoveRecipeFromFirestore = async (userId: string, recipeId: string) => {
 
   const recipeRef = doc(db, `users/${userId}/recipes`, recipeId);
@@ -23,6 +25,7 @@ export const userRemoveRecipeFromFirestore = async (userId: string, recipeId: st
 
 };
 
+// Error Reporting Functon
 export async function SendRecipeErrorReport(message: string, user_id: string | null, recipe_id: string) {
   
   const errorReportRef = doc(collection(db, 'reports'));
@@ -50,6 +53,8 @@ interface Recipe {
   [key: string]: any; // Extend this interface based on the other fields you expect in your documents
 }
 
+
+// Get Recipes
 export async function GetAllRecipes(): Promise<Recipe[]> {
 
       // Reference to the 'recipes' collection
@@ -85,6 +90,25 @@ export async function GetRandomRecipes(numberOfRecipes: number): Promise<Recipe[
 
   // Return the specified number of random recipes
   return recipes.slice(0, numberOfRecipes);
+}
+
+export async function GetRecipeByIds(ids: string[]): Promise<Recipe[]>{
+
+  const recipes: Recipe[] = []
+
+  for (const id of ids) {
+    const recipeRef = doc(db, `recipes/${id}`)
+    const recipeDoc = await getDoc(recipeRef)
+
+    if(recipeDoc.exists()) {
+      recipes.push({
+        id: recipeDoc.id,
+        ...recipeDoc.data()
+      } as Recipe)
+    }
+  }
+
+  return recipes
 }
 
 export async function CheckForExistingRecipe(recipe: any, user_id: string, setIsSaved: any) {
