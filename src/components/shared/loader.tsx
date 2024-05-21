@@ -1,35 +1,28 @@
-import { Raleway } from 'next/font/google'
+import React from "react"
+import { classNames } from "./classNames"
 
-const raleway = Raleway({subsets: ['latin']})
+interface LoaderProps {
+    className?: string,
+    type?: 'recipe-list' | 'page' | 'button',
+    color?: 'white' | 'primary',
+}
 
 export function Loader() {
 
     return(
     <div className="grid justify-center bg-white px-6 py-3 rounded-full outline-none relative overflow-hidden border duration-300 ease-linear border-primary-main hover:cursor-not-allowed">
-        <div className="animate-spin flex justify-center w-5 h-5 border-[3px] border-current border-t-transparent text-orange-600 rounded-full" role="status" aria-label="loading">
+        <div className="animate-spin flex justify-center w-5 h-5 border-[3px] border-current border-t-transparent text-primary-main rounded-full" role="status" aria-label="loading">
             <span className="sr-only">Loading...</span>
         </div>
     </div>
     )
 }
 
-export function PageLoader() {
+export function PageLoader({type}: LoaderProps) {
     return(
-        <main className={`flex min-h-screen flex-col items-center justify-between p-2 bg-background ${raleway.className}`}>
-            <div className="grid justify-center bg-white px-6 py-3 outline-none relative overflow-hidden duration-300 ease-linear my-auto">
-                <div className="animate-spin flex justify-center w-12 h-12 border-[5px] border-current border-t-transparent text-orange-600 rounded-full" role="status" aria-label="loading">
-                    <span className="sr-only">Loading...</span>
-                </div>
-            </div>
-        </main>
-    )
-}
-
-export function RecipeListLoader() {
-    return(
-        <main className={`flex min-h-screen flex-col items-center justify-between p-12 bg-background ${raleway.className} my-auto`}>
-            <div className="grid justify-center bg-white px-6 py-3 outline-none relative overflow-hidden duration-300 ease-linear">
-                <div className="animate-spin flex justify-center w-10 h-10 border-[3px] border-current border-t-transparent text-orange-600 rounded-full" role="status" aria-label="loading">
+        <main className={`flex min-h-screen flex-col items-center justify-between pt-14 bg-background`}>
+            <div className={classNames(type == 'recipe-list' ? `` : `my-auto`, 'grid justify-center bg-white px-6 py-3 outline-none relative overflow-hidden duration-300 ease-linear')}>
+                <div className="animate-spin flex justify-center w-10 h-10 border-[4px] border-current border-t-transparent text-primary-main rounded-full" role="status" aria-label="loading">
                     <span className="sr-only">Loading...</span>
                 </div>
             </div>
@@ -44,5 +37,15 @@ export function ButtonLoader() {
                 <span className="sr-only">Loading...</span>
             </div>
         </div>
-        )
+    )
+}
+
+export function ProcessingLoader() {
+    return(
+        <div className="grid justify-center rounded-full outline-none relative overflow-hidden duration-300 ease-linear hover:cursor-not-allowed">
+            <div className="animate-spin flex justify-center w-3.5 h-3.5 border-[2px] border-current border-t-transparent text-primary-main rounded-full" role="status" aria-label="loading">
+                <span className="sr-only">Loading...</span>
+            </div>
+        </div>
+    )
 }

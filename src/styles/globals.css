@@ -52,6 +52,10 @@ body {
     @apply text-transparent bg-clip-text bg-gradient-to-br from-primary-main from-20% via-30% to-color-alt-red
   }
 
+  .primary-orange-gradient-bg {
+    @apply bg-gradient-to-br from-primary-main from-20% via-30% to-color-alt-red
+  }
+
   .home-page-scroll-btn {
     @apply text-white bg-primary-main/75 hover:bg-primary-main/50 rounded
   }

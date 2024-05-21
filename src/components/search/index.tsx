@@ -5,6 +5,7 @@ import { useRouter } from 'next/router';
 import { ButtonLoader } from '../shared/loader';
 import { ArrowTopRightOnSquareIcon } from '@heroicons/react/20/solid';
 import Link from 'next/link';
+import { useLoading } from '@/context/loadingcontext';
 
 interface AddRecipeProps {
     align?: 'start' | 'center' | 'end',
@@ -12,31 +13,61 @@ interface AddRecipeProps {
 
 export function SearchOrAddRecipe({align}: AddRecipeProps) {
 
+    const { setLoading, setProgress, isLoading } = useLoading()
     const [ url , setUrl ] = useState<string>("");
-    const [ isLoading, setIsLoading ] = useState<boolean>(false);
     const router = useRouter();
 
     const onAddButtonClick = async (e: React.FormEvent) => {
         
         e.preventDefault();
-        setIsLoading(true) // Disable button & input
+
         
         if(url.includes('tiktok.com') || url.includes('instagram.com')) {
 
-            const handleUserSubmitRecipe = (await import('@/pages/api/handler/submit')).handleUserSubmitRecipe
-            const response = await handleUserSubmitRecipe({url})
+            setLoading(true)
+            setProgress(0)
 
-            if (response.uniqueId && response.uniqueId !== '') {
+            const interval = setInterval(() => {
+                setProgress((prev: number) => {
+                    
+                    if(prev >= 99) {
+                        clearInterval(interval)
+                        return 99
+                    }
+                    else if (prev >= 90) {
+                        return prev + 1;
+                    }
+                    
+                    const randomIncrement = Math.floor(Math.random() * (13 - 8 + 1)) + 8;
+                    
+                    return prev + randomIncrement;
+
+                });
+            }, 1000);
+
+            const handleUserSubmitRecipe = (await import('@/pages/api/handler/submit')).handleUserSubmitRecipe
+            const response = await handleUserSubmitRecipe({url}).then((response: any) => {
+                setProgress(100)
+                clearInterval(interval)
+                return response
+            }).finally(() => {
+                setLoading(false)
+                clearInterval(interval)
+            })
+
+            const { uniqueId, success, albumIdList, source} = response
+
+            if (uniqueId && uniqueId !== '' &&  success == true) {
                 
-                if (response.source == 'album') {
+                if (source == 'album') {
 
                     router.push({
                         pathname: '/album',
-                        query: { q: response?.albumIdList} 
+                        query: { q: albumIdList} 
                     })
 
-                } else {
-                    router.push(`/recipe/${response.uniqueId}`)
+                } else{
+                    router.push(`/recipe/${uniqueId}`)
                 }
 
             }
@@ -48,8 +79,6 @@ export function SearchOrAddRecipe({align}: AddRecipeProps) {
             })
         }
 
-        // Clean up & enable input
-        setIsLoading(false)
         setUrl('')
     }
 
