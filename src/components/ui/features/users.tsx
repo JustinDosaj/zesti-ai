@@ -20,7 +20,7 @@ export function Hero({titleStart, titleEnd, description}: HeroProps) {
   const { publicRuntimeConfig } = getConfig();
 
   return(
-      <Container className="flex flex-col lg:flex-row items-center justify-between pt-36 px-5 space-x-4 xl:pt-48  animate-fadeIn">
+      <Container className="flex flex-col lg:flex-row items-center justify-between pt-14 px-5 space-x-4 animate-fadeIn">
         <div className="flex lg:w-1/2 flex-col gap-6 lg:gap-8">
           <div className="inline-flex w-fit mx-auto lg:mx-0 items-center border border-gray-300 rounded-3xl p-2 space-x-1 ">
               <BeakerIcon className="text-black h-4 w-4"/>

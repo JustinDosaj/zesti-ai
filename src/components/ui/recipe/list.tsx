@@ -1,7 +1,7 @@
 import { Button } from "@/components/shared/button"
 import { Container } from "@/components/shared/container"
 import { useState, useRef } from "react"
-import { RecipeListLoader } from "@/components/shared/loader"
+import { PageLoader } from "@/components/shared/loader"
 import { RecipeCard } from "./card"
 
 interface RecipeCardListProps {
@@ -48,7 +48,7 @@ export function RecipeCardList({recipes, maxDisplayCount = 9, incrementCount = 9
         });
     }
     
-    if(loading) return(<RecipeListLoader/>)
+    if(loading) return(<PageLoader type={"recipe-list"}/>)
 
     return(
       <Container className={`grid justify-center lg:flex-row gap-10 lg:gap-12  animate-fadeIn`}>
