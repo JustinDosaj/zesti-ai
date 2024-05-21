@@ -20,13 +20,12 @@ export function SearchOrAddRecipe({align}: AddRecipeProps) {
     const onAddButtonClick = async (e: React.FormEvent) => {
         
         e.preventDefault();
-
         
         if(url.includes('tiktok.com') || url.includes('instagram.com')) {
 
             setLoading(true)
             setProgress(0)
-
+    
             const interval = setInterval(() => {
                 setProgress((prev: number) => {
                     
@@ -40,10 +39,13 @@ export function SearchOrAddRecipe({align}: AddRecipeProps) {
                     
                     const randomIncrement = Math.floor(Math.random() * (13 - 8 + 1)) + 8;
                     
+                    if (randomIncrement + prev > 99) { return 99 }
+    
                     return prev + randomIncrement;
-
+    
                 });
             }, 1000);
+
 
             const handleUserSubmitRecipe = (await import('@/pages/api/handler/submit')).handleUserSubmitRecipe
             const response = await handleUserSubmitRecipe({url}).then((response: any) => {
