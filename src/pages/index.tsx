@@ -20,6 +20,7 @@ export default function Home({recipes}: any) {
 
   const { isLoading } = useAuth()
 
+
   if(isLoading) return <PageLoader/>
 
   return (
@@ -30,7 +31,6 @@ export default function Home({recipes}: any) {
         <meta name="description" content="Instantly save delicious recipes from TikTok or Instagram by using Zesti AI to transcribe your faovirte recipe videos to text!"/>
       </Head>
       <main className={`main-seo-page-class`}>
-
         <Hero 
           titleStart={"A Better Way to Save Recipes from"} 
           titleEnd={"TikTok & Instagram"} 
