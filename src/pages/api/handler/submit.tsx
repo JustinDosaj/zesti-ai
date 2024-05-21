@@ -7,9 +7,11 @@ interface SubmissionProps {
     url?: string,
 }
 
-export const handleUserSubmitRecipe = async({url}: SubmissionProps) => {
+export const handleUserSubmitRecipe = async({ url }: SubmissionProps) => {
 
+    
     var source = ''
+    var success;
     var uniqueId;
     var albumIdList;
     
@@ -17,7 +19,7 @@ export const handleUserSubmitRecipe = async({url}: SubmissionProps) => {
         Notify("Processing TikTok recipe, please wait...")
         source = "tiktok"
     } else if(url?.includes('instagram')) {
-        Notify("Processing Instagram recipe, please wait. Albums may take longer to process")
+        Notify("Processing Instagram recipe, please wait...")
         source = "instagram"
     }
 
@@ -48,6 +50,7 @@ export const handleUserSubmitRecipe = async({url}: SubmissionProps) => {
             source = responseData.source || '';
             uniqueId = responseData.recipeId || '';
             albumIdList = responseData.albumIdList || null;
+            success = responseData.success || false;
             
             Notify(message);
 
@@ -57,8 +60,8 @@ export const handleUserSubmitRecipe = async({url}: SubmissionProps) => {
     })
     .catch((err) => {
         Notify("Error processing request");
-    });
+    })
 
-    return { uniqueId, source, albumIdList }
+    return { uniqueId, source, albumIdList, success }
 
 }

@@ -37,7 +37,7 @@ export function PublicRecipe({recipe, setIsOpen, role, isSaved, setIsErrorOpen}:
     });
 
     return(
-        <div className={"flex flex-col gap-8 mb-16 mx-auto w-full lg:max-w-3xl px-4 sm:px-8 md:px-14 lg:px-5 mt-36 lg:mt-48  animate-fadeIn"}>
+        <div className={"flex flex-col gap-8 mb-16 mx-auto w-full lg:max-w-3xl px-4 sm:px-8 md:px-14 lg:px-5 mt-2 lg:mt-8  animate-fadeIn"}>
             <RecipeTitleCard recipe={recipe} setIsOpen={setIsOpen} isSaved={isSaved} user={user}/>
             <AdSenseDisplay adSlot="4329661976" adFormat="horizontal" widthRes="false" role={role}/>
             <RecipeIngredientsComponent ingredients={ingredients}/>

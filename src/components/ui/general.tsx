@@ -20,7 +20,7 @@ interface HeroProps {
 export function SharedHero({titleStart, titleEnd, description, button, buttonName}: HeroProps) {
 
   return (
-    <Container className="flex flex-col items-center justify-between pt-36 px-5 space-x-4 xl:pt-48 animate-fadeIn">
+    <Container className="flex flex-col items-center justify-between pt-8 lg:pt-16 px-5 space-x-4 animate-fadeIn">
       <div className="flex flex-col gap-6 lg:gap-8">
           <div className="flex flex-col gap-8 text-center">
             <h1 className="section-title-text-size xl:text-6xl font-bold text-gray-800">
@@ -167,7 +167,7 @@ export function FAQ({type, title, desc}: FAQProps) {
         user: [
             {
               question: "Zesti Disclaimer",
-              answer: "Zesti AI is currently in Beta. Not all recipe videos may successfully transcribe & results of successful transcriptions may vary. You can contact us with any further questions.",
+              answer: "Zesti AI is currently in Beta. Not all recipe videos may successfully transcribe & results of successful transcriptions may vary. You can contact us with any further questions. Additionally, Zesti does not currently support instagram albums.",
             },
             {
               question: "What is Zesti AI?",
@@ -179,7 +179,7 @@ export function FAQ({type, title, desc}: FAQProps) {
             },
             {
               question: "What platforms does Zesti support?",
-              answer: "Currently TikTok & Instagram is the only platform supported by Zesti. However, we are working on making YouTube & others available soon!",
+              answer: "Currently TikTok & Instagram is the only platform supported by Zesti right now while we are currently working on integrating YouTube & other platforms!",
             },
             {
               question: "What are the requirments to save a recipe?",
