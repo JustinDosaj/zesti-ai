@@ -16,10 +16,8 @@ export const handleUserSubmitRecipe = async({ url }: SubmissionProps) => {
     var albumIdList;
     
     if(url?.includes('tiktok')) {
-        Notify("Processing TikTok recipe, please wait...")
         source = "tiktok"
     } else if(url?.includes('instagram')) {
-        Notify("Processing Instagram recipe, please wait...")
         source = "instagram"
     }
 
