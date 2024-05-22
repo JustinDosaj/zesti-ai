@@ -2,8 +2,8 @@ import { GetServerSideProps } from "next";
 import Head from 'next/head';
 import { Hero, HomePageCTA, HomePageScroller, ChatFeature } from '@/components/ui/features/users';
 import { FAQ } from '@/components/ui/general';
-import { PageLoader } from "@/components/shared/loader";
-import { useAuth } from "./api/auth/auth";
+import { getEntriesForContentTypes } from "@/lib/contentfulHelpers";
+
 
 
 export const getServerSideProps: GetServerSideProps = async () => {
@@ -11,17 +11,16 @@ export const getServerSideProps: GetServerSideProps = async () => {
   const GetRandomRecipes = (await (import ('./api/firebase/functions'))).GetRandomRecipes
   const recipes = await GetRandomRecipes(9);
 
+  const entries = await getEntriesForContentTypes(['hero'])
+  const heroContent = entries.hero[0]
+
   return {
-    props: { recipes }
+    props: { recipes, heroContent }
   }
 }
 
-export default function Home({recipes}: any) {
+export default function Home({recipes, heroContent}: any) {
 
-  const { isLoading } = useAuth()
-
-
-  if(isLoading) return <PageLoader/>
 
   return (
     <>
@@ -32,9 +31,10 @@ export default function Home({recipes}: any) {
       </Head>
       <main className={`main-seo-page-class`}>
         <Hero 
-          titleStart={"A Better Way to Save Recipes from"} 
-          titleEnd={"TikTok & Instagram"} 
-          description={"Copy & paste a TikTok or Instagram recipe link or search by ingredients, usernames & more!"}
+          titleStart={heroContent.titleStart} 
+          titleEnd={heroContent.titleEnd} 
+          description={heroContent.description}
+          imageUrl={heroContent.image.fields.file.url}
         />
         <HomePageScroller recipes={recipes}/>
         <ChatFeature/>
