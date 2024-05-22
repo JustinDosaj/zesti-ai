@@ -1,4 +1,7 @@
-// pages/search-results.tsx
+// Page not in use on production while instagram albums are disabled
+
+
+
 import { useEffect, useState } from 'react';
 import { RecipeCardList } from '@/components/ui/recipe/list';
 import { SearchOrAddRecipe } from '@/components/search';

@@ -13,11 +13,14 @@ interface HeroProps {
   titleStart?: string,
   titleEnd?: string,
   description?: string,
+  imageUrl: string,
 }
 
-export function Hero({titleStart, titleEnd, description}: HeroProps) {
+export function Hero({titleStart, titleEnd, description, imageUrl}: HeroProps) {
 
   const { publicRuntimeConfig } = getConfig();
+
+  const absoluteImageUrl = imageUrl.startsWith('//') ? `https:${imageUrl}` : imageUrl;
 
   return(
       <Container className="flex flex-col lg:flex-row items-center justify-between pt-14 px-5 space-x-4 animate-fadeIn">
@@ -48,7 +51,8 @@ export function Hero({titleStart, titleEnd, description}: HeroProps) {
           */}
         </div>
         <div className="hidden lg:block w-1/2 bg-transparent rounded-lg">
-          <Image src={"https://firebasestorage.googleapis.com/v0/b/zesti-production.appspot.com/o/public_images%2FIllustration.png?alt=media&token=581a8061-8667-4b7f-9dd0-3c092c009b24"} alt="Profile" height={2058} width={2150} className="object-fit" loading="lazy"/>
+          <Image src={absoluteImageUrl} alt="Profile" height={2058} width={2150} className="object-fit" loading="lazy"/>
+          {/* https://firebasestorage.googleapis.com/v0/b/zesti-production.appspot.com/o/public_images%2FIllustration.png?alt=media&token=581a8061-8667-4b7f-9dd0-3c092c009b24 */}
         </div>
         
       </Container>
