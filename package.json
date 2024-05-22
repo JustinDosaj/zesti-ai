@@ -17,6 +17,7 @@
     "@types/node": "^20.8.4",
     "@vercel/analytics": "^1.1.1",
     "algoliasearch": "^4.22.1",
+    "contentful": "^10.11.1",
     "firebase": "^10.4.0",
     "next": "latest",
     "next-sitemap": "^4.2.3",

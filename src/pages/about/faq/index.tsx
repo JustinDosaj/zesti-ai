@@ -1,12 +1,8 @@
 import Head from 'next/head';
-import { FAQ, SharedHero } from '@/components/ui/general';
-import { useRouter } from 'next/router';
-import { TitleSection } from '@/components/shared/title';
+import { FAQ } from '@/components/ui/general';
 
 export default function FAQPage() {
 
-  const router = useRouter();
-  
   return (
     <>
       <Head>
