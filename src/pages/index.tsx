@@ -1,8 +1,14 @@
 import { GetServerSideProps } from "next";
 import Head from 'next/head';
-import { Hero, HomePageCTA, HomePageScroller, ChatFeature } from '@/components/ui/features/users';
-import { FAQ } from '@/components/ui/general';
 import { getEntriesForContentTypes } from "@/lib/contentfulHelpers";
+import dynamic from "next/dynamic";
+import { PageLoader } from "@/components/shared/loader";
+
+const Hero = dynamic(() => import('@/components/ui/features/users').then((mod) => mod.Hero), { ssr: false })
+const HomePageCTA = dynamic(() => import('@/components/ui/features/users').then((mod) => mod.HomePageCTA), { ssr: false })
+const HomePageScroller = dynamic(() => import('@/components/ui/features/users').then((mod) => mod.HomePageScroller), { ssr: false })
+const ChatFeature = dynamic(() => import('@/components/ui/features/users').then((mod) => mod.ChatFeature), { ssr: false })
+const FAQ = dynamic(() => import('@/components/ui/general').then((mod) => mod.FAQ), { ssr: false })
 
 
 
@@ -21,6 +27,7 @@ export const getServerSideProps: GetServerSideProps = async () => {
 
 export default function Home({recipes, heroContent}: any) {
 
+  if (!heroContent) return <PageLoader/>
 
   return (
     <>
