@@ -150,53 +150,14 @@ export function ThreeBoxFeature({type, titleStart, titleEnd, desc}: ThreeBoxFeat
     )
 }
 
-interface FAQ {
-    question: string,
-    answer: any,
-  }
-
 interface FAQProps {
     type: 'user',
     title?: string,
     desc?: string,
+    qA?: any,
 }
 
-export function FAQ({type, title, desc}: FAQProps) {
-
-    const FAQTypes = {
-        user: [
-            {
-              question: "Zesti Disclaimer",
-              answer: "Zesti AI is currently in Beta. Not all recipe videos may successfully transcribe & results of successful transcriptions may vary. You can contact us with any further questions. Additionally, Zesti does not currently support instagram albums.",
-            },
-            {
-              question: "What is Zesti AI?",
-              answer: "Zesti AI is a platform created to help make tiktok recipes readily available so you no longer have to pause or rewind multiple times for a recipe",
-            },
-            {
-              question: "How does Zesti work?",
-              answer: "Zesti uses AI tools to transcribe the audio from tiktok cooking videos into a format that is easily readable by everyone.",
-            },
-            {
-              question: "What platforms does Zesti support?",
-              answer: "Currently TikTok & Instagram is the only platform supported by Zesti right now while we are currently working on integrating YouTube & other platforms!",
-            },
-            {
-              question: "What are the requirments to save a recipe?",
-              answer: "To transcribe a recipe, the instructions and ingredient list must be available via the video audio, comments, title or description. If no recipe ia found in these, Zesti AI is trained to reject the video.",
-            },
-            {
-              question: "How much does Zesti cost?",
-              answer: "You can use Zesti for free! Simply create an account, then paste the link to a tiktok video to get the recipe instantly. Optionally, you can search already existing recipes.",
-            },
-            {
-              question: "I have more questions, how can I contact you?",
-              answer: "You can visit the contact page and send us a message!",
-            },
-        ],
-    }
-
-    const faqs: FAQ[] = FAQTypes[type]
+export function FAQ({title, desc, qA}: FAQProps) {
 
     return (
       <Container className={"flex flex-col lg:flex-row gap-10 lg:gap-12 animate-fadeIn"}>
@@ -207,7 +168,7 @@ export function FAQ({type, title, desc}: FAQProps) {
               <TitleSection titleBlack={title} desc={desc}/>
             </div>
             <dl className="mt-10 space-y-6 divide-y divide-gray-900/10">
-              {faqs.map((faq) => (
+              {qA.map((faq: any) => (
                 <Disclosure as="div" key={faq.question} className="pt-6">
                   {({ open }) => (
                     <>

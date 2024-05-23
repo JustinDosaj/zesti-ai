@@ -85,6 +85,7 @@ const Recipe: React.FC = ({ recipe, url }: any) => {
             <meta property="twitter:description" content={`Check out this TikTok recipe by @${owner?.username}`}/>
         </Head>  
         <main className={`flex min-h-screen flex-col items-center p-2 bg-background w-screen pb-28`}>
+            <div className="mt-2 lg:mt-8"/>
             <PublicRecipe recipe={recipe} setIsOpen={setIsOpen} setIsErrorOpen={setIsErrorOpen} role={stripeRole} isSaved={isSaved}/>
             <Chatbox role={stripeRole} recipe={recipe}/>
             <DynamicModal
