@@ -9,17 +9,34 @@ import getConfig from "next/config"
 import { Paragraph } from "@/components/shared/paragraph"
 import Image from "next/image"
 
-interface HeroProps {
-  titleStart?: string,
-  titleEnd?: string,
-  description?: string,
-  imageUrl: string,
+
+
+interface ImageFields {
+  file: {
+    url: string;
+  };
 }
 
-export function Hero({titleStart, titleEnd, description, imageUrl}: HeroProps) {
+interface Image {
+  fields: ImageFields;
+}
+
+interface HeroContent {
+  titleStart: string;
+  titleEnd: string;
+  description: string;
+  image: Image;
+}
+
+interface HeroProps {
+  heroContent: HeroContent;
+}
+
+export function Hero({heroContent}: HeroProps) {
 
   const { publicRuntimeConfig } = getConfig();
-
+  const { titleStart, titleEnd, description, image } = heroContent;
+  const imageUrl = image.fields.file.url;
   const absoluteImageUrl = imageUrl.startsWith('//') ? `https:${imageUrl}` : imageUrl;
 
   return(
@@ -42,13 +59,13 @@ export function Hero({titleStart, titleEnd, description, imageUrl}: HeroProps) {
           <div className="grid justify-center lg:justify-start text-left space-y-1">
             <SearchOrAddRecipe align={"start"}/>
           </div>
-          {/* Statistics removed because currently do not have any
+          {
             <div className="grid grid-cols-3 lg:flex justify-center lg:justify-start lg:space-x-16">
-              <StatisticItem number="3200+" label="Recipes" />
-              <StatisticItem number="540+" label="Users" />
+              <StatisticItem number="350+" label="Recipes" />
+              <StatisticItem number="500+" label="Users" />
               <StatisticItem number="$0/mo." label="Price" />
             </div>
-          */}
+          }
         </div>
         <div className="hidden lg:block w-1/2 bg-transparent rounded-lg">
           <Image src={absoluteImageUrl} alt="Profile" height={2058} width={2150} className="object-fit" loading="lazy"/>
