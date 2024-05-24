@@ -68,7 +68,7 @@ const Post: React.FC = ({post, url}: any) => {
 
               if(section.fields.showAd) {
                 return(
-                  <div className="my-6">
+                  <div key={index} className="my-6">
                     <AdSenseDisplay adSlot="7480590418" adFormat="horizontal" widthRes="false" role={stripeRole}/>
                   </div>
                 )
