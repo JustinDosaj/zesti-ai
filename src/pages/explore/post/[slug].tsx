@@ -38,8 +38,6 @@ const Post: React.FC = ({post, url}: any) => {
   const ogImageUrl = ogImage?.fields.file.url || '';
   const absoluteOgImageUrl = ogImageUrl.startsWith('//') ? `https:${ogImageUrl}` : ogImageUrl;
 
-  console.log(post)
-
   return(
     <>
       <Head>
@@ -55,32 +53,33 @@ const Post: React.FC = ({post, url}: any) => {
           <meta property="twitter:description" content={seoDescription}/>
       </Head>   
       <main className={`flex min-h-screen flex-col items-center bg-background w-screen space-y-4 pb-48`}>
-        <div className="mt-2 lg:mt-8"/>
+        <div className="mt-2 lg:mt-8 w-full"/>
         <Container className="grid justify-center lg:flex-row animate-fadeIn lg:min-w-[725px] max-w-[730px]">
           <PostTitle title={title} description={description} author={author} date={date} category={category}/>
           <AdSenseDisplay adSlot="7423668524" adFormat="horizontal" widthRes="false" role={stripeRole}/>
           <Image src={absoluteImageUrl} width={1600} height={900} alt={imageDescription} className="w-full object-scale-down max-h-[900px] max-w-[1600px] rounded-lg mb-4 mt-8" />
-          <h2 className="prose mt-6">{documentToReactComponents(sgeTitle)}</h2>
-          <div className="prose mb-6">{documentToReactComponents(sgeDescription)}</div>
+          <div className="prose-lg mt-6">{documentToReactComponents(sgeTitle)}</div>
+          <div className="prose-lg mb-6">{documentToReactComponents(sgeDescription)}</div>
           <AdSenseDisplay adSlot="7423668524" adFormat="horizontal" widthRes="false" role={stripeRole}/>
-          <div className="mt-6"/>
-          { sections?.map((section: any, index: number) => {
+          <div className="mt-6">
+            { sections?.map((section: any, index: number) => {
 
-              if(section.fields.showAd) {
+                if(section.fields.showAd) {
+                  return(
+                    <div key={index} className="my-6 w-full">
+                      <AdSenseDisplay adSlot="7480590418" adFormat="horizontal" widthRes="false" role={stripeRole}/>
+                    </div>
+                  )
+                }
+
                 return(
-                  <div key={index} className="my-6">
-                    <AdSenseDisplay adSlot="7480590418" adFormat="horizontal" widthRes="false" role={stripeRole}/>
+                  <div key={index} className="w-full">
+                    <div className="w-full prose-lg">{documentToReactComponents(section.fields.content)}</div>
                   </div>
                 )
               }
-
-              return(
-                <div key={index}>
-                  <div className="prose">{documentToReactComponents(section.fields.content)}</div>
-                </div>
-              )
-            }
-          )}
+            )}
+          </div>
         </Container>
       </main>
     </>
