@@ -19,7 +19,7 @@ export function ProfilePageComponent() {
                                 <SimpleProfileComponent 
                                     onButtonClick={() => logout()} 
                                     title={"Email"} 
-                                    desc={"vince.tomasello@sbcglobal.net"} 
+                                    desc={user?.email} 
                                     buttonName="Logout"
                                 />
                                 {stripeRole == 'premium' ? // If premium -> manage account; if free -> CTA
