@@ -1,7 +1,21 @@
+import { GetServerSideProps } from "next";
+import { getEntriesForContentTypes } from "@/lib/contentfulHelpers";
 import Head from 'next/head';
-import { FAQ } from '@/components/ui/general';
+import dynamic from "next/dynamic";
 
-export default function FAQPage() {
+const FAQ = dynamic(() => import('@/components/ui/general').then((mod) => mod.FAQ), { ssr: false })
+
+export const getServerSideProps: GetServerSideProps = async () => {
+
+  const entries = await getEntriesForContentTypes(['faq'])
+  const faqContent = entries.faq[0]
+
+  return {
+    props: { faqContent }
+  }
+}
+
+export default function FAQPage({faqContent}: any) {
 
   return (
     <>
@@ -12,7 +26,7 @@ export default function FAQPage() {
       </Head>
       <main className={`flex min-h-screen flex-col items-center justify-between bg-background w-screen pb-48`}>
         <div className="pt-2 lg:pt-8"/>
-        <FAQ type={'user'} title={"FAQ"} desc={"Most common questions and answers among all of our users"}/>
+        <FAQ qA={faqContent.qA.fields.user} title="FAQ" desc="Answers to the most common questions we get" type="user"/>
       </main>
     </>
   )
