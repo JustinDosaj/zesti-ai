@@ -27,8 +27,6 @@ export const getServerSideProps: GetServerSideProps = async () => {
 
 export default function Home({recipes, heroContent, faqContent}: any) {
 
-  console.log(faqContent)
-
   return (
     <>
       <Head>

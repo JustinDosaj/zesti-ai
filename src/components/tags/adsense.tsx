@@ -29,11 +29,11 @@ const AdSenseDisplay = ({ adSlot, adFormat, widthRes, role, maxHeight = "90px" }
       }
     }, []);
 
-  if (role == 'premium') return null;
+  if (role !== 'premium') return null;
 
   return (
       <ins
-        className="adsbygoogle"
+        className="adsbygoogle bg-gray-300"
         style={{ display: "block", height: `${maxHeight}`}}
         data-ad-client="ca-pub-5837655994202747" // Replace with your publisher ID
         data-ad-slot={adSlot}

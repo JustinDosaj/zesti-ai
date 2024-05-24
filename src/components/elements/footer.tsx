@@ -10,6 +10,7 @@ const navigation = {
       { name: 'Pricing', href: '/about/pricing' },
       { name: 'Contact', href: '/about/contact' },
       { name: 'FAQ', href: '/about/faq' },
+      { name: 'Explore', href: '/explore'},
       { name: 'Privacy', href: 'https://app.termly.io/document/privacy-policy/728b76f9-24fe-480c-ad17-3c56ffa53417' },
       { name: 'Terms', href: 'https://app.termly.io/document/terms-of-service/7fda3661-ebd6-42c4-9dfb-e66e58cd4253' },
     ],
@@ -74,7 +75,7 @@ const navigation = {
     return (
       <footer className={`bg-gray-200 ${raleway}`}>
         <div className="mx-auto max-w-7xl overflow-hidden px-6 py-12 sm:py-16 lg:px-8">
-            <nav className="-mb-6 columns-5 text-center sm:flex sm:justify-center sm:space-x-12" aria-label="Footer">
+            <nav className="-mb-6 columns-3 text-center sm:flex sm:justify-center sm:space-x-12" aria-label="Footer">
               {navigation.main.map((item) => (
                 <div key={item.name} className="pb-6">
                   <Link href={item.href} className="text-sm leading-6 text-gray-600 hover:text-gray-900">
