@@ -30,13 +30,15 @@ const Post: React.FC = ({post, url}: any) => {
   
   const { stripeRole } = useAuth();
 
-  const { author, category, date, description, image, imageDescription, sgeTitle, sgeDescription, title, sections, seoTitle, seoDescription, ogTitle, ogDescription, ogImage  } = post?.fields
+  const { author, category, date, description, image, imageDescription, sgeTitle, sgeDescription, title, mainSection, seoTitle, seoDescription, ogTitle, ogDescription, ogImage  } = post?.fields
 
   const imageUrl = image.fields.file.url;
   const absoluteImageUrl = imageUrl.startsWith('//') ? `https:${imageUrl}` : imageUrl;
 
   const ogImageUrl = ogImage?.fields.file.url || '';
   const absoluteOgImageUrl = ogImageUrl.startsWith('//') ? `https:${ogImageUrl}` : ogImageUrl;
+
+  console.log(post)
 
   return(
     <>
@@ -62,23 +64,10 @@ const Post: React.FC = ({post, url}: any) => {
           <div className="prose-lg mb-6">{documentToReactComponents(sgeDescription)}</div>
           <AdSenseDisplay adSlot="7423668524" adFormat="horizontal" widthRes="false" role={stripeRole}/>
           <div className="mt-6">
-            { sections?.map((section: any, index: number) => {
-
-                if(section.fields.showAd) {
-                  return(
-                    <div key={index} className="my-6 w-full">
-                      <AdSenseDisplay adSlot="7480590418" adFormat="horizontal" widthRes="false" role={stripeRole}/>
-                    </div>
-                  )
-                }
-
-                return(
-                  <div key={index} className="w-full">
-                    <div className="w-full prose-lg">{documentToReactComponents(section.fields.content)}</div>
-                  </div>
-                )
-              }
-            )}
+          <div className="w-full prose-lg">{documentToReactComponents(mainSection)}</div>
+          <div className="my-6 w-full">
+            <AdSenseDisplay adSlot="7480590418" adFormat="horizontal" widthRes="false" role={stripeRole}/>
+          </div>
           </div>
         </Container>
       </main>
