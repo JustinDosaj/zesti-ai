@@ -19,20 +19,16 @@ interface ProfileProps {
     onButtonClick?: () => void,
     desc?: any,
     title?: string,
-    subText?: string
 }
 
-export function SimpleProfileComponent({onButtonClick, buttonName, title, desc, subText}: ProfileProps) {
+export function SimpleProfileComponent({onButtonClick, buttonName, title, desc}: ProfileProps) {
     
     return(
         <div className="pt-6 flex justify-between items-center border-gray-200">
-            <dt className="grid grid-cols-1 font-semibold text-gray-900 sm:w-64 sm:flex-none pr-6 text-sm lg:text-base">
-                <span>{title}</span>
-                <span className="text-xs text-gray-500">{subText}</span>
+            <dt className="grid grid-cols-1 sm:w-12 sm:flex-none pr-6 text-sm lg:text-base">
+                <span className="text-gray-900 font-semibold">{title}</span>
+                <span className="text-gray-700 text-sm lg:text-base">{desc}</span>
             </dt>
-            <dd className="mt-1 flex gap-x-6 sm:mt-0">
-                <div className="text-gray-700 text-sm lg:text-base">{desc}</div>
-            </dd>
             <dd className={`mt-1 flex gap-x-6 sm:mt-0 ${!buttonName ? `hidden` : ``}`}>
                 <button type="button" className="font-semibold text-primary-main hover:text-primary-alt text-sm lg:text-base"
                     onClick={onButtonClick}>
