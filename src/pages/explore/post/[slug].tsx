@@ -60,8 +60,8 @@ const Post: React.FC = ({post, url}: any) => {
           <PostTitle title={title} description={description} author={author} date={date} category={category}/>
           <AdSenseDisplay adSlot="7423668524" adFormat="horizontal" widthRes="false" role={stripeRole}/>
           <Image src={absoluteImageUrl} width={1600} height={900} alt={imageDescription} className="w-full object-scale-down max-h-[900px] max-w-[1600px] rounded-lg mb-4 mt-8" />
-          <div className="prose-lg mt-6">{documentToReactComponents(sgeTitle)}</div>
-          <div className="prose-lg mb-6">{documentToReactComponents(sgeDescription)}</div>
+          <div className="prose-lg mt-6 text-gray-900">{documentToReactComponents(sgeTitle)}</div>
+          <div className="prose-lg mb-6 text-gray-900">{documentToReactComponents(sgeDescription)}</div>
           <AdSenseDisplay adSlot="7423668524" adFormat="horizontal" widthRes="false" role={stripeRole}/>
           <div className="mt-6">
           <div className="w-full prose-lg text-gray-900">{documentToReactComponents(mainSection)}</div>
