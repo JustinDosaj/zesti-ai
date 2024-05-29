@@ -47,9 +47,15 @@ const Recipe: React.FC = ({ recipe, url }: any) => {
         "@type": "Recipe",
         "name": name,
         "author": {
-          "@type": "TikTok Creator",
+          "@type": "person",
           "name": owner?.nickname
         },
+        "recipeInstructions": recipe?.instructions || "",
+        "recipeIngredient": recipe?.ingredients,
+        "recipeCategory": recipe?.category || "",
+        "recipeCuisine": recipe?.cuisine || "",
+        "prepTime": recipe?.prep_time || "",
+        "cookTime": recipe?.cook_time || "",
         //"datePublished": datePublished,
         "description": description,
         "image": [
@@ -82,6 +88,10 @@ const Recipe: React.FC = ({ recipe, url }: any) => {
             <meta property="twitter:image" content={`https://firebasestorage.googleapis.com/v0/b/${process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET}/o/${encodeURIComponent(cover_image_url)}?alt=media`}/>
             <meta property="twitter:title" content={`${name}`}/>
             <meta property="twitter:description" content={`Check out this TikTok recipe by @${owner?.username}`}/>
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+            />
         </Head>  
         <main className={`flex min-h-screen flex-col items-center p-2 bg-background w-screen pb-28`}>
             <div className="mt-2 lg:mt-8"/>
