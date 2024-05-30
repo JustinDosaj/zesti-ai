@@ -1,4 +1,4 @@
-import Image from "next/image"
+import { documentToReactComponents } from '@contentful/rich-text-react-renderer'
 import { Container } from "../shared/container"
 import Link from "next/link"
 
@@ -35,7 +35,7 @@ export function BlogList({ blogContent }: any) {
                         <span className="absolute inset-0" />
                         {post.title}
                       </h3>
-                      <p className="mt-5 text-sm leading-6 text-gray-600 line-clamp-3">{post.description}</p>
+                      <p className="mt-5 text-sm leading-6 text-gray-600 line-clamp-3">{documentToReactComponents(post.description)}</p>
                     </div>
                   </div>
                   <div className="relative mt-8 flex items-center gap-x-4">
