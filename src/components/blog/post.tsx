@@ -22,8 +22,8 @@ export const PostTitle = ({ title, description, author, date, category }: PostPr
             <Paragraph className="mt-2 text-gray-600">
                     {description || ''}
             </Paragraph>
-            <Paragraph className="text-gray-500 mb-4 text-center">{author} - {date}</Paragraph>
-            <span className="faded-bg text-gray-700 px-3 py-1 rounded-full mb-8 inline-block w-fit">{category}</span>
+            <Paragraph className="text-gray-500 mb-2 text-center">{author} - {date}</Paragraph>
+            <span className="faded-bg text-gray-700 px-3 py-1 rounded-full mb-4 inline-block w-fit">{category}</span>
         </div>
     </Container>
     )
