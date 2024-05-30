@@ -1,6 +1,6 @@
 import { getBlogPostById } from "@/lib/contentfulHelpers"
 import { GetServerSideProps } from "next"
-import {documentToReactComponents} from '@contentful/rich-text-react-renderer'
+import { documentToReactComponents } from '@contentful/rich-text-react-renderer'
 import Head from "next/head"
 import Image from "next/image"
 import { Container } from "@/components/shared/container"
@@ -30,15 +30,12 @@ const Post: React.FC = ({post, url}: any) => {
   
   const { stripeRole } = useAuth();
 
-  const { author, category, date, description, image, imageDescription, sgeTitle, sgeDescription, title, mainSection, seoTitle, seoDescription, ogTitle, ogDescription, ogImage  } = post?.fields
+  const { author, category, date, description, image, imageDescription, title, mainSection, seoTitle, seoDescription, ogTitle, ogDescription } = post?.fields
 
   const imageUrl = image.fields.file.url;
   const absoluteImageUrl = imageUrl.startsWith('//') ? `https:${imageUrl}` : imageUrl;
 
-  const ogImageUrl = ogImage?.fields.file.url || '';
-  const absoluteOgImageUrl = ogImageUrl.startsWith('//') ? `https:${ogImageUrl}` : ogImageUrl;
-
-  console.log(post)
+  console.log(description)
 
   return(
     <>
@@ -48,7 +45,7 @@ const Post: React.FC = ({post, url}: any) => {
           <meta name="description" content={seoDescription}/>
           <meta property="og:title" content={ogTitle}/>
           <meta property="og:description" content={ogDescription}/>
-          <meta property="og:image" content={absoluteOgImageUrl}/>
+          <meta property="og:image" content={absoluteImageUrl}/>
           <meta property="og:url" content={url}/>
           <meta property="twitter:image" content={absoluteImageUrl}/>
           <meta property="twitter:title" content={ogTitle}/>
@@ -57,11 +54,10 @@ const Post: React.FC = ({post, url}: any) => {
       <main className={`flex min-h-screen flex-col items-center bg-background w-screen space-y-4 pb-48`}>
         <div className="mt-2 lg:mt-8 w-full"/>
         <Container className="grid justify-center lg:flex-row animate-fadeIn lg:min-w-[725px] max-w-[730px]">
-          <PostTitle title={title} description={description} author={author} date={date} category={category}/>
+          <PostTitle title={title} author={author} date={date} category={category}/>
           <AdSenseDisplay adSlot="7423668524" adFormat="horizontal" widthRes="false" role={stripeRole}/>
           <Image src={absoluteImageUrl} width={1600} height={900} alt={imageDescription} className="w-full object-scale-down max-h-[900px] max-w-[1600px] rounded-lg mb-4 mt-8" />
-          <div className="prose-lg mt-6 text-gray-700">{documentToReactComponents(sgeTitle)}</div>
-          <div className="prose-lg mb-6 text-gray-700">{documentToReactComponents(sgeDescription)}</div>
+          <div className="prose-lg mt-6 text-gray-700">{documentToReactComponents(description)}</div>
           <AdSenseDisplay adSlot="7423668524" adFormat="horizontal" widthRes="false" role={stripeRole}/>
           <div className="mt-6">
           <div className="w-full prose-lg text-gray-700">{documentToReactComponents(mainSection)}</div>
