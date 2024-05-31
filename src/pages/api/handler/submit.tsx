@@ -50,7 +50,8 @@ export const handleUserSubmitRecipe = async({ url }: SubmissionProps) => {
             albumIdList = responseData.albumIdList || null;
             success = responseData.success || false;
             
-            Notify(message);
+            // Temporarily remove the notification
+            //Notify(message);
 
         } else {
             Notify("Failed to get valid response from the server.");
