@@ -35,8 +35,6 @@ const Post: React.FC = ({post, url}: any) => {
   const imageUrl = image.fields.file.url;
   const absoluteImageUrl = imageUrl.startsWith('//') ? `https:${imageUrl}` : imageUrl;
 
-  console.log(description)
-
   return(
     <>
       <Head>
