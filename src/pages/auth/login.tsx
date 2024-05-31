@@ -6,6 +6,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { PageLoader } from "@/components/shared/loader"
 import { LoginComponent } from '@/components/ui/auth/login';
 import { useRouter } from 'next/router';
+import { Title, TitleSection } from '@/components/shared/title';
 
 
 export default function Login() {
@@ -30,10 +31,10 @@ export default function Login() {
         <meta name="description" content="Join Zesti and find delicious recipes from TikTok already transcribed! Zesti is free to use, but offers a 7-day free trial for our premium model!"/>
     </Head>
     <ToastContainer/>    
-    <main className={`flex min-h-screen flex-col items-center justify-between bg-background h-screen w-screen`}>
-        <section className="relative my-auto">
-            <LoginComponent/>
-        </section>
+    <main className={`flex min-h-screen flex-col jutify-between space-y-4 items-center bg-background h-screen w-screen`}>
+        <div className="mt-2 lg:mt-8"/>
+        <TitleSection titleBlack={"Login or Sign Up"} desc={"Select one of the options below to sign up or login to Zesti"}/>
+        <LoginComponent/>
     </main>
     </>
     )

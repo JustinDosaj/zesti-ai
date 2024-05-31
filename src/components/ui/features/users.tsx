@@ -9,8 +9,6 @@ import getConfig from "next/config"
 import { Paragraph } from "@/components/shared/paragraph"
 import Image from "next/image"
 
-
-
 interface ImageFields {
   file: {
     url: string;
@@ -61,7 +59,7 @@ export function Hero({heroContent}: HeroProps) {
           </div>
           {
             <div className="grid grid-cols-3 lg:flex justify-center lg:justify-start lg:space-x-16">
-              <StatisticItem number="350+" label="Recipes" />
+              <StatisticItem number="407+" label="Recipes" />
               <StatisticItem number="500+" label="Users" />
               <StatisticItem number="$0/mo." label="Price" />
             </div>
@@ -129,7 +127,12 @@ export function HomePageCTA() {
   )
 }
 
-export function ChatFeature() {
+export function ChatFeature({data}: any) {
+
+  const { imageAlt, chatScreenshot } = data;
+
+  const imageUrl = chatScreenshot.fields.file.url;
+  const absoluteImageUrl = imageUrl.startsWith('//') ? `https:${imageUrl}` : imageUrl;
 
   return (
     <Container className="relative w-full max-w-6xl mx-auto px-5 animate-fadeIn">
@@ -140,8 +143,8 @@ export function ChatFeature() {
             <div className="aspect-h-1 aspect-w-1 overflow-hidden ">
               <div className="flex justify-center">
                 <Image
-                  src="https://firebasestorage.googleapis.com/v0/b/zesti-production.appspot.com/o/public_images%2Fchat_screenshot_2.JPG?alt=media&token=85acaf81-3d82-454e-a95c-3e66b80b3641"
-                  alt="Zesti AI Cooking Assistant chat example asking about substitutions for heavy cream"
+                  src={absoluteImageUrl}
+                  alt={imageAlt}
                   className="object-cover"
                   height={500}
                   width={500}

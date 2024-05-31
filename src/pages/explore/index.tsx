@@ -16,8 +16,6 @@ export const getServerSideProps: GetServerSideProps = async () => {
   
 const Explore: React.FC = ({blogContent}: any) => {
 
-    console.log(blogContent)
-
     return (
         <main className={`flex min-h-screen flex-col items-center bg-background w-screen space-y-4 pb-48`}>
             <div className="mt-2 lg:mt-8"/>

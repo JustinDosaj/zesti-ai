@@ -11,12 +11,6 @@ export function LoginComponent() {
 
     return(
     <Container className={"grid md:grid-cols-1 lg:flex-row gap-4 animate-fadeIn"}>
-        <h1 className="section-title-text-size font-semibold text-center text-gray-700">
-            Login
-        </h1>
-        <p className="w-full section-desc-text-size font-medium text-center text-gray-600 opacity-70">
-            Select one of the options below to sign up or login to Zesti 
-        </p>
         <div className="grid justify-center grid-cols-1 border w-fit mx-auto px-6 rounded-3xl orange-border-shadow py-8 gap-8">
             <div className="mx-auto">
                 <button onClick={login} className="inline-flex mx-auto space-x-2 align-middle bg-black text-white p-2 pr-4 pl-4 rounded-3xl hover:bg-gray-700">

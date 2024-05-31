@@ -2,11 +2,10 @@ import { documentToReactComponents } from '@contentful/rich-text-react-renderer'
 import { Container } from "../shared/container"
 import Link from "next/link"
 
-
 export function BlogList({ blogContent }: any) {
     return (
       <Container className={`grid justify-center lg:flex-row gap-10 lg:gap-12 animate-fadeIn`}>
-        <div className="mx-auto mt-16 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-20 lg:mx-0 lg:max-w-none lg:grid-cols-3">
+        <div className="mx-auto mt-8 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-20 lg:mx-0 lg:max-w-none lg:grid-cols-4">
           {blogContent.map((post: any) => (
             <Link key={post.id} href={`/explore/post/${post.id}`}>
               <article
@@ -35,10 +34,10 @@ export function BlogList({ blogContent }: any) {
                         <span className="absolute inset-0" />
                         {post.title}
                       </h3>
-                      <p className="mt-5 text-sm leading-6 text-gray-600 line-clamp-3">{documentToReactComponents(post.description)}</p>
+                      <p className="mt-3 text-sm leading-6 text-gray-600 line-clamp-3">{documentToReactComponents(post.description)}</p>
                     </div>
                   </div>
-                  <div className="relative mt-8 flex items-center gap-x-4">
+                  <div className="relative mt-3 flex items-center gap-x-4">
                     <div className="text-sm leading-6">
                       <p className="font-semibold text-gray-900">
                         <span className="absolute inset-0" />
