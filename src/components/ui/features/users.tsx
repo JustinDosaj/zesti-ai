@@ -44,7 +44,7 @@ export function Hero({heroContent}: HeroProps) {
               <BeakerIcon className="text-black h-4 w-4"/>
               <div className="text-black font-bold text-sm">{`beta v${publicRuntimeConfig?.version}`}</div>
           </div>
-          <div className="flex flex-col gap-8 text-center lg:text-left">
+          <div className="flex flex-col gap-4 text-center lg:text-left">
             <h1 className="section-title-text-size xl:text-6xl font-bold text-gray-800">
               <span className="text-gray-700"> {titleStart} </span>
               <span className="primary-orange-text-gradient"> {titleEnd} </span>
