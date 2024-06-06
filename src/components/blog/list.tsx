@@ -1,12 +1,16 @@
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer'
 import { Container } from "../shared/container"
+import formatDate from '@/utils/date-format';
 import Link from "next/link"
 
 export function BlogList({ blogContent }: any) {
+
+    const sortedBlogContent = blogContent.sort((a: any, b: any) => new Date(b.publishDate).getTime() - new Date(a.publishDate).getTime());
+
     return (
       <Container className={`grid justify-center lg:flex-row gap-10 lg:gap-12 animate-fadeIn`}>
         <div className="mx-auto mt-8 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-20 lg:mx-0 lg:max-w-none lg:grid-cols-4">
-          {blogContent.map((post: any) => (
+          {sortedBlogContent.map((post: any) => (
             <Link key={post.id} href={`/explore/post/${post.id}`}>
               <article
                 key={post.id}
@@ -23,7 +27,7 @@ export function BlogList({ blogContent }: any) {
                   <div>
                     <div className="mt-2 flex items-center gap-x-4 text-xs">
                       <time dateTime={post.datetime} className="text-gray-500">
-                        {post.date}
+                        {formatDate(post.publishDate)}
                       </time>
                       <p className="relative z-10 rounded-full faded-bg text-gray-700 px-3 py-1.5 font-medium ">
                         {post.category}

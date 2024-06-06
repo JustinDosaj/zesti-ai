@@ -42,7 +42,7 @@ export function TitleSection({titleBlack, titleOrange, desc, showImage, imageHre
                     <img src={imageHref || '/images/page-image-placeholder.png'} alt={imageAlt} className="rounded-3xl h-[75px] w-[75px] sm:h-[100px] sm:w-[100px]"/>
                 )}
                 <div className="items-center inline-flex mt-2">
-                    <h1 className="text-3xl/tight sm:text-4xl/tight md:text-5xl/tight xl:text-5xl/tight font-semibold text-heading-1 text-gray-700 capitalize">
+                    <h1 className="text-4xl/tight md:text-5xl/tight xl:text-5xl/tight font-bold lg:font-semibold text-heading-1 text-gray-700 capitalize">
                         <span>{titleBlack}</span> 
                         <span className="primary-orange-text-gradient"> {titleOrange} </span>
                     </h1>
