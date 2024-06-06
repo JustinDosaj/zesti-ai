@@ -7,6 +7,7 @@ import { Container } from "@/components/shared/container"
 import AdSenseDisplay from "@/components/tags/adsense"
 import { useAuth } from "@/pages/api/auth/auth"
 import { PostTitle } from "@/components/blog/post"
+import formatDate from "@/utils/date-format"
 
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
@@ -30,10 +31,44 @@ const Post: React.FC = ({post, url}: any) => {
   
   const { stripeRole } = useAuth();
 
-  const { author, category, date, description, image, imageDescription, title, mainSection, seoTitle, seoDescription, ogTitle, ogDescription } = post?.fields
+  const { author, category, publishDate, description, image, imageDescription, title, mainSection, seoTitle, seoDescription, ogTitle, ogDescription, logo } = post?.fields
+  const { updatedAt } = post?.sys
 
   const imageUrl = image.fields.file.url;
   const absoluteImageUrl = imageUrl.startsWith('//') ? `https:${imageUrl}` : imageUrl;
+
+  const logoUrl = logo.fields.file.url;
+  const absoluteLogoUrl = logoUrl.startsWith('//') ? `https:${logoUrl}` : logoUrl;
+  
+  const date = formatDate(publishDate);
+
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": url
+    },
+    "headline": seoTitle,
+    "description": seoDescription,
+    "image": absoluteImageUrl,
+    "author": {
+      "@type": "Person",
+      "name": author,
+      "url": "https://zesti.ai/about/author"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Zesti AI",
+      "logo": {
+        "@type": "ImageObject",
+        "url": absoluteLogoUrl
+      }
+    },
+    "datePublished": publishDate,
+    "dateModified": updatedAt,
+    "articleSection": category,
+  };
 
   return(
     <>
@@ -48,6 +83,10 @@ const Post: React.FC = ({post, url}: any) => {
           <meta property="twitter:image" content={absoluteImageUrl}/>
           <meta property="twitter:title" content={ogTitle}/>
           <meta property="twitter:description" content={seoDescription}/>
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+          />
       </Head>   
       <main className={`flex min-h-screen flex-col items-center bg-background w-screen space-y-4 pb-48`}>
         <div className="mt-2 lg:mt-8 w-full"/>

@@ -26,7 +26,7 @@ export const getServerSideProps: GetServerSideProps = async () => {
 
 export default function Home({recipes, heroContent, faqContent, chatFeature}: any) {
 
-  return (
+  return (  
     <>
       <Head>
         <title>Zesti AI | A Better Way to Save Recipes from TikTok & Instagram</title>
