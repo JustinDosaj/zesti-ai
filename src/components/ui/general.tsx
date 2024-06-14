@@ -7,7 +7,6 @@ import { Disclosure } from "@headlessui/react"
 import { TitleSection } from "../shared/title"
 import { Paragraph } from "../shared/paragraph"
 
-
 interface HeroProps {
   titleStart?: string,
   titleEnd?: string,
@@ -62,21 +61,19 @@ export function ThreeBoxFeature({type, titleStart, titleEnd, desc}: ThreeBoxFeat
     const FeatureTypes = {
         home: [
             {
-                name: 'Search for Recipe or Creator',
-                description: 'Find recipes from your favorite tiktok chefs',
+                name: 'Instantly Save TikTok Recipes',
+                description: 'With just a link, Zesti AI will write the recipe down for you!',
                 icon: StarIcon,
             },
             {
-                name: 'Save Recipes',
-                description: 'Save recipes to your account so you can easily find them later',
+                name: 'Bookmark Recipes for Later',
+                description: 'Zesti provides an alternative way to save recipes for later use!',
                 icon: BookOpenIcon,
             },
             {
                 name: 'AI Cooking Assistant',
                 description: 'Get chat assistant help for any recipe you are cooking',
                 icon: ChatBubbleLeftIcon,
-                href: () => router.push('/about/solutions/cooking-assistant'),
-                linkName: 'Learn More'
             },
         ],
         assistant: [

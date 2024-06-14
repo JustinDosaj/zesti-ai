@@ -117,9 +117,9 @@ export function HomePageCTA() {
       <div className="flex flex-col items-center gap-8 orange-border-shadow rounded-3xl p-6 lg:p-12">
         <div className="flex flex-col items-center text-center">
           <p className="w-full md:w-96 text-xl font-medium text-center primary-orange-text-gradient mb-3">
-            Check Out Premium
+            Premium
           </p>
-          <TitleSection titleBlack="Try Free for 7-Days" desc="Enjoy Zesti without ads and gain access to the Cooking AI Chat Assistant"/>
+          <TitleSection titleBlack="Try 7-Day Free Trial" desc="Enjoy Zesti without ads and gain access to the Cooking AI Chat Assistant"/>
         </div>
         <Button isLink={true} href='/about/pricing' text="Get Started" className="text-lg font-medium text-center text-white"/>
       </div>
