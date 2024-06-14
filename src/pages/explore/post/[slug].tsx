@@ -1,4 +1,4 @@
-import { getBlogPostById } from "@/lib/contentfulHelpers"
+import { getBlogPostBySlug } from "@/lib/contentfulHelpers"
 import { GetServerSideProps } from "next"
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer'
 import Head from "next/head"
@@ -20,7 +20,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const host = req.headers.host;
   const url = `${protocol}://${host}${resolvedUrl}`;
   
-  const post = await getBlogPostById(slug)
+  const post = await getBlogPostBySlug(slug)
 
   return {
       props: { post, url }

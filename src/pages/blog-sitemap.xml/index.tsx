@@ -8,10 +8,10 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const blogPosts = entries.blogPost;
 
   const fields: ISitemapField[] = blogPosts.map((post: any) => ({
-    loc: `https://www.zesti.ai/explore/post/${post.id}`, // Adjust the domain as necessary
+    loc: `https://www.zesti.ai/explore/post/${post.slug}`, // Adjust the domain as necessary
     lastmod: new Date().toISOString(),
     changefreq: 'weekly',
-    priority: 0.7,
+    priority: 0.8,
   }));
 
   // Generate sitemap
