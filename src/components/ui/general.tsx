@@ -72,7 +72,7 @@ export function ThreeBoxFeature({type, titleStart, titleEnd, desc}: ThreeBoxFeat
             },
             {
                 name: 'AI Cooking Assistant',
-                description: 'Get chat assistant help for any recipe you are cooking',
+                description: 'Get your cooking questions answered instantly using the in-recipe chat feature!',
                 icon: ChatBubbleLeftIcon,
             },
         ],
