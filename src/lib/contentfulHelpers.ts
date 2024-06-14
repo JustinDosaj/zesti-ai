@@ -22,6 +22,19 @@ export const getEntriesForContentTypes = async (contentTypes: string[]): Promise
   return entries;
 };
 
+export const getBlogPostBySlug = async (slug: string) => {
+  const entries = await client.getEntries({
+    content_type: 'blogPost',
+    'fields.slug': slug,
+  });
+
+  if (entries.items.length > 0) {
+    return entries.items[0];
+  }
+
+  return null;
+};
+
 export const getBlogPostById = async (id: string) => {
   const entries = await client.getEntries({
     content_type: 'blogPost',
