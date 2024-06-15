@@ -1,5 +1,6 @@
 import { Paragraph } from "../shared/paragraph";
 import { Container } from "../shared/container";
+import Link from "next/link";
 
 interface PostProps {
     title?: string;
@@ -22,7 +23,7 @@ export const PostTitle = ({ title, description, author, date, category }: PostPr
             <Paragraph className="mt-2 text-gray-600">
                     {description || ''}
             </Paragraph>
-            <Paragraph className="text-gray-500 mb-2 text-center">{author} - {date}</Paragraph>
+            <Paragraph className="text-gray-500 mb-2 text-center"><Link href="/about/author" className="underline hover:text-gray-600">{author}</Link> - {date}</Paragraph>
             <span className="faded-bg text-gray-700 px-3 py-1 rounded-full mb-4 inline-block w-fit">{category}</span>
         </div>
     </Container>
