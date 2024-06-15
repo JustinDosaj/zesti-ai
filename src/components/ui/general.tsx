@@ -1,7 +1,6 @@
 import { Container } from "@/components/shared/container"
 import { ChatBubbleLeftIcon, StarIcon, BookOpenIcon, PuzzlePieceIcon, SpeakerWaveIcon, EyeIcon } from "@heroicons/react/20/solid"
 import { Button, InlineButton } from "@/components/shared/button"
-import { useRouter } from "next/router"
 import { MinusSmallIcon, PlusSmallIcon} from "@heroicons/react/20/solid"
 import { Disclosure } from "@headlessui/react"
 import { TitleSection } from "../shared/title"
@@ -56,8 +55,6 @@ interface ThreeBoxFeatureProps {
   
 export function ThreeBoxFeature({type, titleStart, titleEnd, desc}: ThreeBoxFeatureProps) {
 
-    const router = useRouter()
-
     const FeatureTypes = {
         home: [
             {
@@ -72,7 +69,7 @@ export function ThreeBoxFeature({type, titleStart, titleEnd, desc}: ThreeBoxFeat
             },
             {
                 name: 'AI Cooking Assistant',
-                description: 'Get chat assistant help for any recipe you are cooking',
+                description: 'Get your cooking questions answered instantly using the in-recipe chat feature!',
                 icon: ChatBubbleLeftIcon,
             },
         ],
