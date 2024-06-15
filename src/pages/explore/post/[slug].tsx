@@ -97,7 +97,7 @@ const Post: React.FC = ({post, url}: any) => {
           <div className="prose-lg mt-6 text-gray-700 mb-2">{documentToReactComponents(description)}</div>
           <AdSenseDisplay adSlot="7423668524" adFormat="horizontal" widthRes="false" role={stripeRole}/>
           <div className="mt-6">
-          <div className="w-full prose-lg text-gray-700">{documentToReactComponents(mainSection)}</div>
+          <div className="w-full prose prose-lg text-gray-700">{documentToReactComponents(mainSection)}</div>
           <div className="my-6 w-full">
             <AdSenseDisplay adSlot="7480590418" adFormat="horizontal" widthRes="false" role={stripeRole}/>
           </div>
