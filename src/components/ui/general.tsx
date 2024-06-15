@@ -1,7 +1,6 @@
 import { Container } from "@/components/shared/container"
 import { ChatBubbleLeftIcon, StarIcon, BookOpenIcon, PuzzlePieceIcon, SpeakerWaveIcon, EyeIcon } from "@heroicons/react/20/solid"
 import { Button, InlineButton } from "@/components/shared/button"
-import { useRouter } from "next/router"
 import { MinusSmallIcon, PlusSmallIcon} from "@heroicons/react/20/solid"
 import { Disclosure } from "@headlessui/react"
 import { TitleSection } from "../shared/title"
@@ -55,8 +54,6 @@ interface ThreeBoxFeatureProps {
 }
   
 export function ThreeBoxFeature({type, titleStart, titleEnd, desc}: ThreeBoxFeatureProps) {
-
-    const router = useRouter()
 
     const FeatureTypes = {
         home: [
