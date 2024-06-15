@@ -24,6 +24,16 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
         recipe = recipeSnapshot.data()
     }
 
+
+    if (!recipe) {
+        return {
+            redirect: {
+                destination: '/search',
+                permanent: false,
+            }
+        }
+    }
+
     const protocol = req.headers['x-forwarded-proto'] || 'http';
     const host = req.headers.host
     const url = `${protocol}://${host}${resolvedUrl}`
