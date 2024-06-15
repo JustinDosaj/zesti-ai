@@ -1,5 +1,6 @@
 import { ArrowDownTrayIcon, BookmarkSlashIcon, ArrowTopRightOnSquareIcon, ShareIcon, ExclamationTriangleIcon } from "@heroicons/react/20/solid"
 import { useAuth } from "@/pages/api/auth/auth";
+import convertDurationToReadable from "@/utils/recipe-time-format";
 import dynamic from "next/dynamic";
 
 interface RecipeProps {
@@ -169,6 +170,7 @@ function RecipeInstructionsComponent({ instructions }: RecipeProps) {
 function RecipeDataComponent({ recipe, setIsErrorOpen }: RecipeProps) {
 
     const { date_added, date_created, owner, source, video_id, unique_id } = recipe?.data;
+    const { cook_time, prep_time, category, cuisine } = recipe
 
     return (
         <div className="recipe-page-container">
@@ -179,18 +181,26 @@ function RecipeDataComponent({ recipe, setIsErrorOpen }: RecipeProps) {
                     <div className="space-y-6 h-full">
                         <div className="grid space-y-1 max-w-[250px]">
                             <div className="recipe-information-container">
+                                <span className="font-semibold">Cuisine:</span>
+                                <span className="pb-0.5">{cuisine || 'N/A'}</span>
+                            </div>
+                            <div className="recipe-information-container">
+                                <span className="font-semibold">Category</span>
+                                <span className="pb-0.5">{category || 'N/A'}</span>
+                            </div>
+                            <div className="recipe-information-container">
+                                <span className="font-semibold">Prep Time:</span>
+                                <span className="pb-0.5">{convertDurationToReadable(prep_time) || 'N/A'}</span>
+                            </div>
+                            <div className="recipe-information-container">
+                                <span className="font-semibold">Cook Time:</span>
+                                <span className="pb-0.5">{convertDurationToReadable(cook_time) || 'N/A'}</span>
+                            </div>
+                            <div className="recipe-information-container">
                                 <span className="text-gray-700 font-semibold">Owner:</span>
                                 <button onClick={() => window.open(owner.profile_link)} className="underline text-sm md:text-base flex items-center font-semibold text-gray-700 hover:text-gray-500">
                                    {`@${owner.username}`}
                                 </button>
-                            </div>
-                            <div className="recipe-information-container">
-                                <span className="font-semibold">Video ID:</span>
-                                <span className="pb-0.5">{video_id}</span>
-                            </div>
-                            <div className="recipe-information-container">
-                                <span className="font-semibold">Zesti ID:</span>
-                                <span className="pb-0.5">{unique_id}</span>
                             </div>
                             <div className="recipe-information-container">
                                 <span className="font-semibold">Source:</span>
