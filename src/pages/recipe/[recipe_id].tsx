@@ -38,7 +38,7 @@ const Recipe: React.FC = ({ recipe, url }: any) => {
     const [ isErrorOpen, setIsErrorOpen ] = useState<boolean>(false)    
     const [ isSaved, setIsSaved ] = useState<boolean>(false)
     const { name, video_title, description, cover_image_url } = recipe
-    const { source, owner, } = recipe?.data
+    const { source, owner, date_added} = recipe?.data
 
     const upperCaseSource = source?.charAt(0).toUpperCase() + source?.slice(1)
     
@@ -56,7 +56,7 @@ const Recipe: React.FC = ({ recipe, url }: any) => {
         "recipeCuisine": recipe?.cuisine || "",
         "prepTime": recipe?.prep_time || "",
         "cookTime": recipe?.cook_time || "",
-        //"datePublished": datePublished,
+        "datePublished": date_added,
         "description": description,
         "image": [
           `https://firebasestorage.googleapis.com/v0/b/${process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET}/o/${encodeURIComponent(cover_image_url)}?alt=media`
