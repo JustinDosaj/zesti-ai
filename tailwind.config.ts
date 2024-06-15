@@ -1,3 +1,4 @@
+import { text } from 'stream/consumers'
 import type { Config } from 'tailwindcss'
 
 const config: Config = {
@@ -10,6 +11,26 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      typography: {
+        DEFAULT: {
+          css: {
+            table: {
+              width: '100%',
+              borderCollapse: 'collapse',
+            },
+            'thead th': {
+              border: '2px solid #e5e7eb', // Light gray border
+              padding: '1rem', // Padding
+              textAlign: 'center', // Left align text
+            },
+            'tbody td': {
+              border: '2px solid #e5e7eb', // Light gray border
+              padding: '1rem', // Padding
+              textAlign: 'center', // Left align text
+            },
+          },
+        },
+      },
       keyframes: {
         fadeIn: {
           '0%': { opacity: '0' },
