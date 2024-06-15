@@ -23,8 +23,9 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     if(recipeSnapshot.exists()) {
         recipe = recipeSnapshot.data()
     }
-    else if (!recipeSnapshot.exists()) {
 
+
+    if (!recipe) {
         return {
             redirect: {
                 destination: '/search',
