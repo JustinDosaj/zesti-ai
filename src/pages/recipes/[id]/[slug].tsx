@@ -46,10 +46,10 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     const host = req.headers.host;
     const url = `${protocol}://${host}${resolvedUrl}`;
 
-    return { props: { slug, recipe, url } };
+    return { props: { recipe, url } };
 };
 
-const Recipe: React.FC = ({ slug, recipe, url }: any) => {
+const Recipe: React.FC = ({ recipe, url }: any) => {
 
     const { stripeRole, user } = useAuth();
     const [ isOpen, setIsOpen ] = useState<boolean>(false)
