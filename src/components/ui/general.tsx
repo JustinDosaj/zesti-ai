@@ -112,7 +112,7 @@ export function ThreeBoxFeature({type, titleStart, titleEnd, desc}: ThreeBoxFeat
     const features: Feature[] = FeatureTypes[type]
 
     return(
-        <Container className={"px-5 animate-fadeIn"}>
+        <Container className={"animate-fadeIn"}>
             <div className="w-full max-w-7xl mx-auto space-y-4">
                 <div className="grid justify-center items-center text-center lg:text-left">
                     <p className="section-title-text-size font-semibold text-gray-700">

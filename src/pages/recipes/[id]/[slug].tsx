@@ -1,9 +1,4 @@
-// OLD RECIPE PAGE -> SEE RECIPES/[id]/[slug] for new page
-// This page is currently in use as back up when recipe does not contain a slug
-// Once all recipes contain a slug, delete this page
-// Once this page is deleted --> go to search console and remove all pages with /recipe/{id} from index
-
-import { GetServerSideProps } from "next";
+import { GetServerSideProps } from 'next';
 import { useAuth } from "@/pages/api/auth/auth";
 import { useEffect, useState } from 'react'
 import dynamic from "next/dynamic";
@@ -15,20 +10,19 @@ const Chatbox = dynamic(() => import('@/components/chat/chatbox').then((mod) => 
 const PublicRecipe = dynamic(() => import('@/components/ui/recipe').then((mod) => mod.PublicRecipe), { ssr: false });
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-    
     const { req, query, resolvedUrl } = context; 
     
-    const id = query?.recipe_id as string
+    const id = query.id as string;
+    const slug = query.slug as string;
 
-    const GetRecipeSnapshot = (await (import ('../api/firebase/functions'))).GetRecipeSnapshot
-    const recipeSnapshot = await GetRecipeSnapshot(id)
+    const GetRecipeSnapshot = (await (import ('../../api/firebase/functions'))).GetRecipeSnapshot
+    const recipeSnapshot = await GetRecipeSnapshot(id);
 
     let recipe = null;
 
-    if(recipeSnapshot.exists()) {
-        recipe = recipeSnapshot.data()
+    if (recipeSnapshot.exists()) {
+        recipe = recipeSnapshot.data();
     }
-
 
     if (!recipe) {
         return {
@@ -37,16 +31,25 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
                 permanent: false,
             }
         }
+    } 
+
+    if (slug == `undefined`) {
+        return {
+            redirect: {
+                destination: `/recipe/${id}`,
+                permanent: true,
+            }
+        }
     }
 
     const protocol = req.headers['x-forwarded-proto'] || 'http';
-    const host = req.headers.host
-    const url = `${protocol}://${host}${resolvedUrl}`
+    const host = req.headers.host;
+    const url = `${protocol}://${host}${resolvedUrl}`;
 
-    return {props: { recipe, url }}
-}
+    return { props: { slug, recipe, url } };
+};
 
-const Recipe: React.FC = ({ recipe, url }: any) => {
+const Recipe: React.FC = ({ slug, recipe, url }: any) => {
 
     const { stripeRole, user } = useAuth();
     const [ isOpen, setIsOpen ] = useState<boolean>(false)
@@ -84,7 +87,7 @@ const Recipe: React.FC = ({ recipe, url }: any) => {
         }
 
         async function existingRecipes() {
-            const CheckForExistingRecipe = (await (import ('../api/firebase/functions'))).CheckForExistingRecipe
+            const CheckForExistingRecipe = (await (import ('../../api/firebase/functions'))).CheckForExistingRecipe
             user && CheckForExistingRecipe(recipe, user?.uid, setIsSaved) 
         }
 

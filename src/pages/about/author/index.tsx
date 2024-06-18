@@ -29,7 +29,7 @@ const Author: React.FC = ({author}: any) => {
             <meta name="title" content="Zesti AI | FAQ | Basic Questions Answered"/>
             <meta name="description" content="Get answers to the most common questions asked about Zesti AI"/>
         </Head>
-        <main className={`flex min-h-screen flex-col items-center bg-background w-screen pb-48`}>
+        <main className={`flex min-h-screen flex-col items-center bg-background w-full pb-48`}>
             <div className="pt-2 lg:pt-8"/>
             <Container className="grid lg:flex-row animate-fadeIn lg:min-w-[725px] max-w-[730px]">
                 <TitleSection titleBlack={name} desc={`Learn more about ${name}`}/>

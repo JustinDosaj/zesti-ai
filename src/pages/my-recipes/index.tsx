@@ -22,7 +22,7 @@ export default function MyRecipes() {
       <meta name="title" content={`Zesti AI | My Recipes`}/>
       <GoogleTags/>
     </Head>
-    <main className={`flex min-h-screen flex-col items-center bg-background w-screen space-y-4 pb-48`}>
+    <main className={`flex min-h-screen flex-col items-center bg-background w-full space-y-4 pb-48`}>
         <div className="mt-2 lg:mt-8"/>
         <TitleSection titleBlack="Your Saved Recipes" desc="Access all the recipes you saved from others or search for new ones below"/>
         <RecipeCardList recipes={userRecipeList} maxDisplayCount={9} max={0} loading={loadingUserRecipes}/>

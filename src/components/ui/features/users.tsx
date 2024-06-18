@@ -38,7 +38,7 @@ export function Hero({heroContent}: HeroProps) {
   const absoluteImageUrl = imageUrl.startsWith('//') ? `https:${imageUrl}` : imageUrl;
 
   return(
-      <Container className="flex flex-col lg:flex-row items-center justify-between pt-14 px-5 space-x-4 animate-fadeIn">
+      <Container className="flex flex-col lg:flex-row items-center justify-between pt-14 space-x-4 animate-fadeIn">
         <div className="flex lg:w-1/2 flex-col gap-6 lg:gap-8">
           <div className="inline-flex w-fit mx-auto lg:mx-0 items-center border border-gray-300 rounded-3xl p-2 space-x-1 ">
               <BeakerIcon className="text-black h-4 w-4"/>
@@ -113,7 +113,7 @@ export function HomePageScroller({recipes}: any) {
 
 export function HomePageCTA() {
   return(
-    <Container className="relative w-full max-w-6xl mx-auto px-5">
+    <Container className="relative w-full max-w-6xl mx-auto">
       <div className="flex flex-col items-center gap-8 orange-border-shadow rounded-3xl p-6 lg:p-12">
         <div className="flex flex-col items-center text-center">
           <p className="w-full md:w-96 text-xl font-medium text-center primary-orange-text-gradient mb-3">
@@ -135,7 +135,7 @@ export function ChatFeature({data}: any) {
   const absoluteImageUrl = imageUrl.startsWith('//') ? `https:${imageUrl}` : imageUrl;
 
   return (
-    <Container className="relative w-full max-w-6xl mx-auto px-5 animate-fadeIn">
+    <Container className="relative w-full max-w-6xl mx-auto animate-fadeIn">
       <div className="mx-auto max-w-2xl px-4 py-12 sm:px-6 lg:max-w-7xl lg:px-8 rounded-3xl orange-border-shadow">
         <div className="flex justify-center items-center">
           <div className="space-y-6">

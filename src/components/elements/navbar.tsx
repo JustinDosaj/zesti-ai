@@ -82,7 +82,7 @@ export function Navbar() {
 
     return(
 
-    <header className="relative bg-white inset-x-0 top-0 z-45 py-6 w-screen">
+    <header className="relative bg-white inset-x-0 top-0 z-50 py-6 w-full">
         <Container>
             <nav className="flex justify-between items-center">
                 {/* Logo & Text -- Turns visible on screen size large */}
