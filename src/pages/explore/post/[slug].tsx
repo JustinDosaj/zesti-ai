@@ -88,7 +88,7 @@ const Post: React.FC = ({post, url}: any) => {
             dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
           />
       </Head>   
-      <main className={`flex min-h-screen flex-col items-center bg-background w-screen space-y-4 pb-48`}>
+      <main className={`flex min-h-screen flex-col items-center bg-background w-full space-y-4 pb-48`}>
         <div className="mt-2 lg:mt-8 w-full"/>
         <Container className="grid justify-center lg:flex-row animate-fadeIn lg:min-w-[725px] max-w-[730px]">
           <PostTitle title={title} author={author} date={date} category={category}/>

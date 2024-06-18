@@ -70,8 +70,9 @@ body {
 @layer components {
 
   .main-seo-page-class {
-    @apply flex min-h-screen flex-col items-center justify-between bg-background w-screen space-y-48 pb-48
+    @apply flex min-h-screen flex-col items-center justify-between bg-background w-full space-y-48 pb-48;
   }
+  
 
   .primary-orange-text-gradient {
     @apply text-transparent bg-clip-text bg-gradient-to-br from-primary-main from-20% via-30% to-color-alt-red
