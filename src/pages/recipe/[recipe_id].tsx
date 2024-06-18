@@ -103,7 +103,7 @@ const Recipe: React.FC = ({ recipe, url }: any) => {
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
             />
         </Head>  
-        <main className={`flex min-h-screen flex-col items-center p-2 bg-background w-screen pb-28`}>
+        <main className={`flex min-h-screen flex-col items-center p-2 bg-background w-full pb-28`}>
             <div className="mt-2 lg:mt-8"/>
             <PublicRecipe recipe={recipe} setIsOpen={setIsOpen} setIsErrorOpen={setIsErrorOpen} role={stripeRole} isSaved={isSaved}/>
             <Chatbox role={stripeRole} recipe={recipe}/>

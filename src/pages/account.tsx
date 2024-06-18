@@ -15,7 +15,7 @@ export default function Account() {
       <meta name="robots" content="noindex" />
       <title>Zesti AI | Your Account</title>
     </Head>  
-    <main className={`flex min-h-screen flex-col items-center bg-background w-screen`}>
+    <main className={`flex min-h-screen flex-col items-center bg-background w-full`}>
       <div className="mt-4 lg:mt-8"/>
       <TitleSection titleBlack="Your Account"/>
       <ProfilePageComponent/>
