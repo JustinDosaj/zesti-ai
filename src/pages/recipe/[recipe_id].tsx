@@ -1,3 +1,8 @@
+// OLD RECIPE PAGE -> SEE RECIPES/[id]/[slug] for new page
+// This page is currently in use as back up when recipe does not contain a slug
+// Once all recipes contain a slug, delete this page
+// Once this page is deleted --> go to search console and remove all pages with /recipe/{id} from index
+
 import { GetServerSideProps } from "next";
 import { useAuth } from "@/pages/api/auth/auth";
 import { useEffect, useState } from 'react'
