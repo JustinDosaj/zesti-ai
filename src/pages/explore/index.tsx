@@ -28,7 +28,7 @@ const Explore: React.FC = ({blogContent}: any) => {
             <meta property="twitter:title" content={"News, Educational Articles & More - Zesti AI"}/>
             <meta property="twitter:description" content={"Discover news, educational articles and more on Zesti"}/>
         </Head>   
-            <main className={`flex min-h-screen flex-col items-center bg-background w-screen space-y-4 pb-48`}>
+            <main className={`flex min-h-screen flex-col items-center bg-background w-full space-y-4 pb-48`}>
                 <div className="mt-2 lg:mt-8"/>
                 <TitleSection titleBlack="Explore Blog" desc="Check out these articles written by members of Zesti"/>
                 <BlogList blogContent={blogContent}/>

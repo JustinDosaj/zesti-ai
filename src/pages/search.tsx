@@ -13,7 +13,7 @@ import { Notify } from '@/components/shared/notify';
 
 const SearchResults: React.FC = () => {
     
-    const searchClient = algoliasearch(`${process.env.NEXT_PUBLIC_ALGOLIA_APPLICATION_ID}`, `${process.env.NEXT_PUBLIC_ALGOLIA_SEARCH_ONLY_KEY}`);
+    const searchClient = algoliasearch(`${process.env.NEXT_PUBLIC_ALGOLIA_APPLICATION_ID}`, `${process.env.NEXT_PUBLIC_ALGOLIA_ADMIN_API_KEY}`);
     const recipesIndex: SearchIndex = searchClient.initIndex(`${process.env.NEXT_PUBLIC_ALGOLIA_ALL_RECIPES_INDEX}`);
 
     recipesIndex.setSettings({
@@ -62,7 +62,7 @@ const SearchResults: React.FC = () => {
             <Head>
                 <title>Search TikTok Recipes | Zesti AI</title>
             </Head>
-            <main className={`flex min-h-screen flex-col items-center bg-background w-screen space-y-4 pb-48`}>
+            <main className={`flex min-h-screen flex-col items-center bg-background w-full space-y-4 pb-48`}>
                 <div className="mt-2 lg:mt-8"/>
                 <TitleSection titleBlack="Search for Recipes" desc="Copy & paste a TikTok or Instagram recipe link or search by ingredients, usernames & more!"/>
                 <SearchOrAddRecipe align={"center"}/>

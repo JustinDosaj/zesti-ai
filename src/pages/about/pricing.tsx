@@ -10,7 +10,7 @@ export default function Pricing() {
       <meta name="title" content="Zesti AI | Find Transcribed TikTok Recipes | Try for Free"/>
       <meta name="description" content="Discover already transcribed TikTok recipes so you can spend less time writing and more time cooking!"/>
     </Head>
-    <main className={`flex min-h-screen flex-col items-center bg-background w-screen pb-36`}>
+    <main className={`flex min-h-screen flex-col items-center bg-background w-full pb-36`}>
       <div className="mt-2 lg:mt-10"/>
       <PricingTitle/>
       <PricingDisplay/>
