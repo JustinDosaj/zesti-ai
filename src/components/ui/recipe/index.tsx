@@ -169,7 +169,7 @@ function RecipeInstructionsComponent({ instructions }: RecipeProps) {
 
 function RecipeDataComponent({ recipe, setIsErrorOpen }: RecipeProps) {
 
-    const { date_added, date_created, owner, source, video_id, unique_id } = recipe?.data;
+    const { date_added, date_created, owner, source } = recipe?.data;
     const { cook_time, prep_time, category, cuisine } = recipe
 
     return (
@@ -180,10 +180,11 @@ function RecipeDataComponent({ recipe, setIsErrorOpen }: RecipeProps) {
                     {/* Video title and description */}
                     <div className="space-y-6 h-full">
                         <div className="grid space-y-1 max-w-[250px]">
-                            <div className="recipe-information-container">
+                            { cuisine && (<div className="recipe-information-container">
                                 <span className="font-semibold">Cuisine:</span>
                                 <span className="pb-0.5">{cuisine || 'N/A'}</span>
-                            </div>
+                            </div>)}
+
                             <div className="recipe-information-container">
                                 <span className="font-semibold">Category</span>
                                 <span className="pb-0.5">{category || 'N/A'}</span>
