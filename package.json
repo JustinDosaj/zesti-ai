@@ -23,6 +23,7 @@
     "firebase": "^10.4.0",
     "next": "latest",
     "next-sitemap": "^4.2.3",
+    "openai": "^4.52.0",
     "react": "latest",
     "react-dom": "latest",
     "react-firebase-hooks": "^5.1.1",
