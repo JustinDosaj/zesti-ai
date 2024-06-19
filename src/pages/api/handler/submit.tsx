@@ -14,6 +14,7 @@ export const handleUserSubmitRecipe = async({ url }: SubmissionProps) => {
     var success;
     var uniqueId;
     var albumIdList;
+    var slug;
     
     if(url?.includes('tiktok')) {
         source = "tiktok"
@@ -37,6 +38,7 @@ export const handleUserSubmitRecipe = async({ url }: SubmissionProps) => {
         recipeId?: string;
         albumIdList?: string[] | null;
         source?: string;
+        slug?: string;
     }
 
     await userAddRecipe(userInput)
@@ -49,6 +51,7 @@ export const handleUserSubmitRecipe = async({ url }: SubmissionProps) => {
             uniqueId = responseData.recipeId || '';
             albumIdList = responseData.albumIdList || null;
             success = responseData.success || false;
+            slug = responseData.slug
             
             Notify(message);
 
@@ -57,9 +60,9 @@ export const handleUserSubmitRecipe = async({ url }: SubmissionProps) => {
         }
     })
     .catch((err) => {
-        Notify("Error processing request");
+        Notify("Error processing request. Please try again later.");
     })
 
-    return { uniqueId, source, albumIdList, success }
+    return { uniqueId, source, albumIdList, success, slug }
 
 }

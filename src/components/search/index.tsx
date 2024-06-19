@@ -57,7 +57,7 @@ export function SearchOrAddRecipe({align}: AddRecipeProps) {
                 clearInterval(interval)
             })
 
-            const { uniqueId, success, albumIdList, source} = response
+            const { uniqueId, success, albumIdList, source, slug } = response
 
             if (uniqueId && uniqueId !== '' &&  success == true) {
                 
@@ -69,7 +69,7 @@ export function SearchOrAddRecipe({align}: AddRecipeProps) {
                     })
 
                 } else{
-                    router.push(`/recipe/${uniqueId}`)
+                    router.push(`/recipes/${uniqueId}/${slug}`)
                 }
 
             }
