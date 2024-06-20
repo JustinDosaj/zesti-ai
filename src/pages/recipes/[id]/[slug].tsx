@@ -44,19 +44,19 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
     const protocol = req.headers['x-forwarded-proto'] || 'http';
     const host = req.headers.host;
-    const url = `${protocol}://${host}${resolvedUrl}`;
+    const ogUrl = `${protocol}://${host}${resolvedUrl}`;
 
-    return { props: { recipe, url } };
+    return { props: { recipe, ogUrl } };
 };
 
-const Recipe: React.FC = ({ recipe, url }: any) => {
+const Recipe: React.FC = ({ recipe, ogUrl }: any) => {
 
     const { stripeRole, user } = useAuth();
     const [ isOpen, setIsOpen ] = useState<boolean>(false)
     const [ isErrorOpen, setIsErrorOpen ] = useState<boolean>(false)    
     const [ isSaved, setIsSaved ] = useState<boolean>(false)
-    const { name, video_title, description, cover_image_url } = recipe
-    const { source, owner, date_added} = recipe?.data
+    const { name, video_title, description, cover_image_url, instructions, ingredients, category, cuisine, prep_time, cook_time } = recipe
+    const { source, owner, date_added, date_created, url, video_id } = recipe?.data
 
     const upperCaseSource = source?.charAt(0).toUpperCase() + source?.slice(1)
     
@@ -68,17 +68,26 @@ const Recipe: React.FC = ({ recipe, url }: any) => {
           "@type": "person",
           "name": owner?.nickname
         },
-        "recipeInstructions": recipe?.instructions || "",
-        "recipeIngredient": recipe?.ingredients,
-        "recipeCategory": recipe?.category || "",
-        "recipeCuisine": recipe?.cuisine || "",
-        "prepTime": recipe?.prep_time || "",
-        "cookTime": recipe?.cook_time || "",
+        "recipeInstructions": instructions || "",
+        "recipeIngredient": ingredients,
+        "recipeCategory": category || "",
+        "recipeCuisine": cuisine || "",
+        "prepTime": prep_time || "",
+        "cookTime": cook_time || "",
         "datePublished": date_added,
         "description": description,
         "image": [
           `https://firebasestorage.googleapis.com/v0/b/${process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET}/o/${encodeURIComponent(cover_image_url)}?alt=media`
-        ]
+        ],
+        "video": {
+            "@type": "VideoObject",
+            "name": video_title,
+            "description": description,
+            "contentUrl": url,
+            "embedUrl": `https://www.tiktok.com/embed/${video_id}`,
+            "thumbnailUrl": `https://firebasestorage.googleapis.com/v0/b/${process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET}/o/${encodeURIComponent(cover_image_url)}?alt=media`,
+            "uploadDate": date_created,
+        }
     };
 
     useEffect(() => {
@@ -102,7 +111,7 @@ const Recipe: React.FC = ({ recipe, url }: any) => {
             <meta property="og:title" content={`${name} by ${owner?.nickname}`}/>
             <meta property="og:description" content={`${description} from ${upperCaseSource}`}/>
             <meta property="og:image" content={`https://firebasestorage.googleapis.com/v0/b/${process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET}/o/${encodeURIComponent(cover_image_url)}?alt=media`}/>
-            <meta property="og:url" content={url}/>
+            <meta property="og:url" content={ogUrl}/>
             <meta property="twitter:image" content={`https://firebasestorage.googleapis.com/v0/b/${process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET}/o/${encodeURIComponent(cover_image_url)}?alt=media`}/>
             <meta property="twitter:title" content={`${name}`}/>
             <meta property="twitter:description" content={`Check out this TikTok recipe by @${owner?.username}`}/>
