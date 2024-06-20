@@ -37,8 +37,8 @@ export function SearchOrAddRecipe({align}: AddRecipeProps) {
                         return prev + 1;
                     }
                     
-                    const randomIncrement = Math.floor(Math.random() * (13 - 8 + 1)) + 8;
-                    
+                    const randomIncrement = Math.floor(Math.random() * (9 - 5 + 1)) + 5;
+   
                     if (randomIncrement + prev > 99) { return 99 }
     
                     return prev + randomIncrement;
