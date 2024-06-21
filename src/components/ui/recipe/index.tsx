@@ -191,11 +191,11 @@ function RecipeDataComponent({ recipe, setIsErrorOpen }: RecipeProps) {
                             </div>
                             <div className="recipe-information-container">
                                 <span className="font-semibold">Prep Time:</span>
-                                <span className="pb-0.5">{convertDurationToReadable(prep_time) || 'N/A'}</span>
+                                <span className="pb-0.5">{prep_time ? convertDurationToReadable(prep_time) : 'N/A'}</span>
                             </div>
                             <div className="recipe-information-container">
                                 <span className="font-semibold">Cook Time:</span>
-                                <span className="pb-0.5">{convertDurationToReadable(cook_time) || 'N/A'}</span>
+                                <span className="pb-0.5">{cook_time ? convertDurationToReadable(cook_time) : 'N/A'}</span>
                             </div>
                             <div className="recipe-information-container">
                                 <span className="text-gray-700 font-semibold">Owner:</span>
