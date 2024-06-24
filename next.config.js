@@ -12,7 +12,8 @@ const nextConfig = {
     [
       "m.media-amazon.com", 
       "firebasestorage.googleapis.com",
-      "images.ctfassets.net"
+      "images.ctfassets.net",
+      "downloads.ctfassets.net"
     ],
   },
 }
