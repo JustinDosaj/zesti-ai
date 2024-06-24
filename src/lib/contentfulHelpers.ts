@@ -1,5 +1,6 @@
 // lib/contentfulHelpers.ts
 import client from './contentful';
+import { BLOCKS, Block, Inline } from '@contentful/rich-text-types';
 
 interface ContentfulEntryFields {
   [key: string]: any;
@@ -35,6 +36,7 @@ export const getBlogPostBySlug = async (slug: string) => {
   return null;
 };
 
+// Currently not used
 export const getBlogPostById = async (id: string) => {
   const entries = await client.getEntries({
     content_type: 'blogPost',
@@ -47,3 +49,6 @@ export const getBlogPostById = async (id: string) => {
 
   return null;
 };
+
+
+
