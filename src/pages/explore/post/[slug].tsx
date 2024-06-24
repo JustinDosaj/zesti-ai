@@ -1,13 +1,15 @@
 import { getBlogPostBySlug } from "@/lib/contentfulHelpers"
 import { GetServerSideProps } from "next"
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer'
-import Head from "next/head"
-import Image from "next/image"
 import { Container } from "@/components/shared/container"
 import AdSenseDisplay from "@/components/tags/adsense"
 import { useAuth } from "@/pages/api/auth/auth"
 import { PostTitle } from "@/components/blog/post"
+import { BLOCKS, Document, Block, Inline } from '@contentful/rich-text-types';
 import formatDate from "@/utils/date-format"
+import Head from "next/head"
+import Image from "next/image"
+
 
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
@@ -29,6 +31,8 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
 const Post: React.FC = ({post, url}: any) => { 
   
+  console.log("Post: ", post)
+
   const { stripeRole } = useAuth();
 
   const { author, category, publishDate, description, image, imageDescription, title, mainSection, seoTitle, seoDescription, ogTitle, ogDescription, logo } = post?.fields
@@ -70,6 +74,18 @@ const Post: React.FC = ({post, url}: any) => {
     "articleSection": category,
   };
 
+  const renderOptions = {
+    renderNode: {
+      [BLOCKS.EMBEDDED_ASSET]: (node: Block | Inline ) => {
+        const { file, title } = (node.data.target as any).fields;
+        const imageUrl = file.url;
+        const finalImageUrl = imageUrl.startsWith('//') ? `https:${imageUrl}` : imageUrl;
+  
+        return <Image height={900} width={1600} src={finalImageUrl} alt={title} className="w-full object-scale-down max-h-[900px] max-w-[1600px] rounded-lg mb-4 mt-4"/>;
+      },
+    },
+  };
+
   return(
     <>
       <Head>
@@ -97,7 +113,7 @@ const Post: React.FC = ({post, url}: any) => {
           <div className="prose-lg mt-6 text-gray-700 mb-2">{documentToReactComponents(description)}</div>
           <AdSenseDisplay adSlot="7423668524" adFormat="horizontal" widthRes="false" role={stripeRole}/>
           <div className="mt-6">
-          <div className="w-full prose prose-lg text-gray-700">{documentToReactComponents(mainSection)}</div>
+          <div className="w-full max-w-[1600px] prose prose-lg text-gray-700">{documentToReactComponents(mainSection, renderOptions)}</div>
           <div className="my-6 w-full">
             <AdSenseDisplay adSlot="7480590418" adFormat="horizontal" widthRes="false" role={stripeRole}/>
           </div>
