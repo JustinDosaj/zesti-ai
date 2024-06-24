@@ -5,7 +5,7 @@ import { Container } from "@/components/shared/container"
 import AdSenseDisplay from "@/components/tags/adsense"
 import { useAuth } from "@/pages/api/auth/auth"
 import { PostTitle } from "@/components/blog/post"
-import { BLOCKS, Document, Block, Inline } from '@contentful/rich-text-types';
+import { BLOCKS, Block, Inline } from '@contentful/rich-text-types';
 import formatDate from "@/utils/date-format"
 import Head from "next/head"
 import Image from "next/image"
@@ -30,8 +30,6 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 }
 
 const Post: React.FC = ({post, url}: any) => { 
-  
-  console.log("Post: ", post)
 
   const { stripeRole } = useAuth();
 
