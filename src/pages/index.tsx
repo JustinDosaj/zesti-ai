@@ -5,15 +5,15 @@ import dynamic from "next/dynamic";
 
 const Hero = dynamic(() => import('@/components/ui/features/users').then((mod) => mod.Hero), { ssr: false })
 const HomePageCTA = dynamic(() => import('@/components/ui/features/users').then((mod) => mod.HomePageCTA), { ssr: false })
-//const HomePageScroller = dynamic(() => import('@/components/ui/features/users').then((mod) => mod.HomePageScroller), { ssr: false })
+const HomePageScroller = dynamic(() => import('@/components/ui/features/users').then((mod) => mod.HomePageScroller), { ssr: false })
 const ThreeBoxFeature = dynamic(() => import('@/components/ui/general').then((mod) => mod.ThreeBoxFeature), { ssr: false })
 const ChatFeature = dynamic(() => import('@/components/ui/features/users').then((mod) => mod.ChatFeature), { ssr: false })
 const FAQ = dynamic(() => import('@/components/ui/general').then((mod) => mod.FAQ), { ssr: false })
 
 export const getServerSideProps: GetServerSideProps = async () => {
 
-  //const GetRandomRecipes = (await (import ('./api/firebase/functions'))).GetRandomRecipes
-  //const recipes = await GetRandomRecipes(9);
+  const GetRandomRecipes = (await (import ('./api/firebase/functions'))).GetRandomRecipes
+  const recipes = await GetRandomRecipes(9);
 
   const entries = await getEntriesForContentTypes(['hero', 'faq', 'chatFeature'])
   const heroContent = entries.hero[0]
@@ -21,11 +21,11 @@ export const getServerSideProps: GetServerSideProps = async () => {
   const chatFeature = entries.chatFeature[0]
 
   return {
-    props: { heroContent, faqContent, chatFeature }
+    props: { heroContent, faqContent, chatFeature, recipes }
   }
 }
 
-export default function Home({heroContent, faqContent, chatFeature}: any) {
+export default function Home({heroContent, faqContent, chatFeature, recipes}: any) {
 
   return (  
     <>
@@ -36,7 +36,7 @@ export default function Home({heroContent, faqContent, chatFeature}: any) {
       </Head>
       <main className={`main-seo-page-class`}>
         <Hero heroContent={heroContent}/>
-        {/*<HomePageScroller recipes={recipes}/>*/}
+        <HomePageScroller recipes={recipes}/>
         <ThreeBoxFeature type="home" titleStart="What You Can Do With" titleEnd="Zesti" desc="Zesti makes it easy to copy recipes and can help you by answering any questions you have along the way!"/>
         <ChatFeature data={chatFeature}/>
         <HomePageCTA/>
