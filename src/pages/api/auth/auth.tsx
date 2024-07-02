@@ -41,7 +41,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         const docSnap = await getDoc(userRef);
 
         
-        if(!docSnap.exists) {
+        if(!docSnap.exists()) {
           await setDoc(userRef, {
             email: user.email,
             account_status: 'user',
