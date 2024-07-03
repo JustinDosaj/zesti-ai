@@ -108,7 +108,7 @@ const Recipe: React.FC = ({ recipe, ogUrl }: any) => {
     <>
         <Head>
             <title>{`${name} by ${owner?.nickname}`}</title>
-            <meta name="title" content={`${name} by ${owner?.nickname}`}/>
+            <meta name="title" content={`${name} Recipe by ${owner?.nickname}`}/>
             <meta name="description" content={`${upperCaseSource} recipe from \@${owner?.username} - ${video_title?.slice(0, 200)}`}/>
             <meta property="og:title" content={`${name} by ${owner?.nickname}`}/>
             <meta property="og:description" content={`${description} from ${upperCaseSource}`}/>
