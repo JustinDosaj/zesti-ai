@@ -46,7 +46,6 @@ export function PricingDisplay() {
           learnhref: "/about/subscription/premium",
           features: [
             'Zero Ads',
-            'Unlock Zesti AI Chat Assistant',
             'Freely Browse Recipes on Zesti',
             'Unlimited Recipe Saves',
           ],
