@@ -132,6 +132,10 @@ body {
     @apply flex items-center gap-2 py-2 px-4 hover:bg-gray-100 w-1/2 justify-center border-gray-300
   }
 
+  .recipe-information-spacer {
+    @apply flex items-center justify-between md:max-w-[200px]
+  }
+
   .recipe-page-link-icon {
     @apply h-4 w-4 md:h-5 md:w-5
   }
