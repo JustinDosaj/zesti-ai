@@ -135,10 +135,10 @@ const Recipe: React.FC = ({ recipe, ogUrl }: any) => {
         <meta property="twitter:description" content={`Check out this TikTok recipe by @${owner?.username}`} />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       </Head>
-      <main className="bg-background min-h-screen flex justify-center px-4 sm:px-8 md:px-14 lg:px-5 pb-28">
+      <main className="bg-background min-h-screen flex justify-center px-4 sm:px-8 md:px-14 lg:px-5 pb-28 lg:space-x-12">
         
         
-      <div className={`w-full lg:w-2/3 xl:w-1/2 lg:max-w-4xl space-y-10 lg:mt-10 mt-8`}>
+      <div className={`w-full lg:w-2/3 xl:w-1/2 lg:max-w-[728px] space-y-10 lg:mt-10 mt-8`}>
           <RecipeTitleCard recipe={recipe} isSaved={isSaved} setIsOpen={setIsOpen} user={user} isLoading={isLoading} />
           <AdSenseDisplay adSlot="3721531543" adFormat="horizontal" widthRes={"false"} role={stripeRole} maxHeight="90px" /> 
           <RecipeIngredientsComponent ingredients={ingredients} />
@@ -150,9 +150,9 @@ const Recipe: React.FC = ({ recipe, ogUrl }: any) => {
           <RecipeDataComponent recipe={recipe} setIsErrorOpen={setIsErrorOpen} />
         </div>
         {stripeRole !== 'premium' && (
-          <div className="hidden lg:flex lg:flex-col lg:space-y-6 lg:justify-between lg:ml-8 lg:w-1/6 lg:mt-8 mt-2">
+          <div className="hidden lg:flex lg:flex-col l lg:space-y-6 lg:justify-between lg:ml-8 lg:w-1/6 lg:mt-10 mt-8">
             <AdSenseDisplay adSlot="7190552003" adFormat="vertical" widthRes={"false"} role={stripeRole} maxHeight="600px" />
-            <AdSenseDisplay adSlot="8782286534" adFormat="rectangle" widthRes={"false"} role={stripeRole} maxHeight="600px" />
+            <AdSenseDisplay adSlot="8782286534" adFormat="vertical" widthRes={"false"} role={stripeRole} maxHeight="600px" />
             <AdSenseDisplay adSlot="7469204867" adFormat="vertical" widthRes={"false"} role={stripeRole} maxHeight="600px" />
           </div>
         )}
