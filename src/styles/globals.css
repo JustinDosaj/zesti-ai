@@ -124,8 +124,12 @@ body {
 
 
   /* Recipe Page Components */
-  .recipe-page-container {
-    @apply border rounded-xl p-6 bg-gradient-to-b from-orange-100 to-orange-200/50 space-y-2 
+  .recipe-component-container {
+    @apply shadow-lg bg-gray-50 border-gray-100 border rounded-lg p-6 mb-8 
+  }
+
+  .recipe-title-button {
+    @apply flex items-center gap-2 py-2 px-4 hover:bg-gray-100 w-1/2 justify-center border-gray-300
   }
 
   .recipe-page-link-icon {

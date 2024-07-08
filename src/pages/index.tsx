@@ -7,7 +7,6 @@ const Hero = dynamic(() => import('@/components/ui/features/users').then((mod) =
 const HomePageCTA = dynamic(() => import('@/components/ui/features/users').then((mod) => mod.HomePageCTA), { ssr: false })
 const HomePageScroller = dynamic(() => import('@/components/ui/features/users').then((mod) => mod.HomePageScroller), { ssr: false })
 const ThreeBoxFeature = dynamic(() => import('@/components/ui/general').then((mod) => mod.ThreeBoxFeature), { ssr: false })
-const ChatFeature = dynamic(() => import('@/components/ui/features/users').then((mod) => mod.ChatFeature), { ssr: false })
 const FAQ = dynamic(() => import('@/components/ui/general').then((mod) => mod.FAQ), { ssr: false })
 
 export const getServerSideProps: GetServerSideProps = async () => {
@@ -25,7 +24,7 @@ export const getServerSideProps: GetServerSideProps = async () => {
   }
 }
 
-export default function Home({heroContent, faqContent, chatFeature, recipes}: any) {
+export default function Home({heroContent, faqContent, recipes}: any) {
 
   return (  
     <>
@@ -38,7 +37,6 @@ export default function Home({heroContent, faqContent, chatFeature, recipes}: an
         <Hero heroContent={heroContent}/>
         <HomePageScroller recipes={recipes}/>
         <ThreeBoxFeature type="home" titleStart="What You Can Do With" titleEnd="Zesti" desc="Zesti makes it easy to copy recipes and can help you by answering any questions you have along the way!"/>
-        <ChatFeature data={chatFeature}/>
         <HomePageCTA/>
         <FAQ qA={faqContent.qA.fields.user} title="FAQ" desc="Answers to the most common questions we get" type="user"/>
       </main>
