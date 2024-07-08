@@ -15,56 +15,55 @@ interface RecipeProps {
 }
 
 export function RecipeTitleCard({ recipe, setIsOpen, isSaved, user, isLoading }: RecipeProps) {
-    
-    async function onSaveClick() {
-      const saveRecipe = (await import('@/pages/api/firebase/functions')).saveRecipeReferenceToUser;
-  
-      if (user && !isLoading) {
-        await saveRecipe(user?.uid, recipe.data.unique_id).then(() => { setIsOpen(true) });
-      } else {
-        const Notify = (await import('@/components/shared/notify')).Notify;
-        Notify("Please login to save recipes");
-      }
-    }
-  
-    const onDeleteClick = async () => {
-      const deleteRecipe = (await import('@/pages/api/firebase/functions')).userRemoveRecipeFromFirestore;
-  
-      if (user) {
-        await deleteRecipe(user?.uid, recipe.data.unique_id);
-      }
-    }
-  
-    const onShareClick = async () => {
-      await navigator.clipboard.writeText(window.location.href);
+  async function onSaveClick() {
+    const saveRecipe = (await import('@/pages/api/firebase/functions')).saveRecipeReferenceToUser;
+
+    if (user && !isLoading) {
+      await saveRecipe(user?.uid, recipe.data.unique_id).then(() => { setIsOpen(true) });
+    } else {
       const Notify = (await import('@/components/shared/notify')).Notify;
-      Notify("Recipe URL copied to clipboard.");
+      Notify("Please login to save recipes");
     }
-  
-    return (
-      <div className="recipe-component-container">
-        <h1 className="text-2xl font-semibold text-gray-900">{recipe.name}</h1>
-        <div className="flex items-center gap-2 text-gray-700 mt-2">
-          <span>by</span>
-          <button onClick={() => window.open(recipe.data.url)} className="underline flex items-center font-semibold hover:text-gray-700">
-            {recipe?.data?.owner?.username}
-            <ArrowTopRightOnSquareIcon className="h-4 w-4 ml-1" />
-          </button>
-        </div>
-        <p className="text-gray-700 mt-4">{recipe.description}</p>
-        <div className="border-t w-full border-gray-300 mt-6 flex justify-between">
-          <button onClick={onShareClick} className="flex items-center gap-2 py-2 px-4 text-blue-600 hover:text-blue-500">
-            <ShareIcon className="h-5 w-5" />
-            <span>Share</span>
-          </button>
-          <button onClick={isSaved ? onDeleteClick : onSaveClick} className="flex items-center gap-2 py-2 px-4 text-green-600 hover:text-green-500">
-            {isSaved ? <BookmarkSlashIcon className="h-5 w-5" /> : <ArrowDownTrayIcon className="h-5 w-5" />}
-            <span>{isSaved ? 'Remove' : 'Save'}</span>
-          </button>
-        </div>
-      </div>
-    );
   }
+
+  const onDeleteClick = async () => {
+    const deleteRecipe = (await import('@/pages/api/firebase/functions')).userRemoveRecipeFromFirestore;
+
+    if (user) {
+      await deleteRecipe(user?.uid, recipe.data.unique_id);
+    }
+  }
+
+  const onShareClick = async () => {
+    await navigator.clipboard.writeText(window.location.href);
+    const Notify = (await import('@/components/shared/notify')).Notify;
+    Notify("Recipe URL copied to clipboard.");
+  }
+
+  return (
+    <div className="bg-gray-50 border-gray-100 border shadow-md rounded-lg pt-6 mb-8">
+      <h1 className="text-2xl font-semibold text-gray-900 px-6">{recipe.name}</h1>
+      <div className="flex items-center gap-2 text-gray-700 mt-2 px-6">
+        <span>by</span>
+        <button onClick={() => window.open(recipe.data.url)} className="underline flex items-center font-semibold hover:text-gray-700">
+          {recipe?.data?.owner?.username}
+          <ArrowTopRightOnSquareIcon className="h-4 w-4 ml-1" />
+        </button>
+      </div>
+      <p className="text-gray-700 mt-4 px-6">{recipe.description}</p>
+      <div className="border-t w-full border-gray-300 mt-6 flex">
+        <button onClick={onShareClick} className="recipe-title-button border-r text-blue-600">
+          <ShareIcon className="h-5 w-5" />
+          <span>Share</span>
+        </button>
+        <button onClick={isSaved ? onDeleteClick : onSaveClick} className={`recipe-title-button text-green-600 ${isSaved ? `text-red-600` : `text-green-600`}`}>
+          {isSaved ? <BookmarkSlashIcon className="h-5 w-5" /> : <ArrowDownTrayIcon className="h-5 w-5" />}
+          <span>{isSaved ? 'Remove' : 'Save'}</span>
+        </button>
+      </div>
+    </div>
+  );
+}
 
   export function RecipeIngredientsComponent({ ingredients }: RecipeProps) {
     return (

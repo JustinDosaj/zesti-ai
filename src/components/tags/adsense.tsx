@@ -12,24 +12,19 @@ interface AdSenseDisplayProps {
 
 const AdSenseDisplay = ({ adSlot, adFormat, widthRes, role, maxHeight = "90px" }: AdSenseDisplayProps) => {
     
-  const isClientSide = useRef(false);
+  const isClientSide = useRef(null);
     
   useEffect(() => {
-      if (window && typeof window != 'undefined')     
-        isClientSide.current = true;
-    }, [])
-  
-  useEffect(() => {
-      if (isClientSide.current) {
-        try {
-            (adsbygoogle = window.adsbygoogle || []).push({});
-        } catch (error) {
-
-        }
+    if (typeof window !== 'undefined' && isClientSide.current) {
+      try {
+        (adsbygoogle = window.adsbygoogle || []).push({});
+      } catch (error) {
+        console.error('AdSense Error:', error);
       }
-    }, []);
+    }
+  }, []);
 
-  if (role !== 'premium') return null;
+  if (role == 'premium') return null;
 
   return (
       <ins
@@ -39,6 +34,7 @@ const AdSenseDisplay = ({ adSlot, adFormat, widthRes, role, maxHeight = "90px" }
         data-ad-slot={adSlot}
         data-ad-format={adFormat}
         data-full-width-responsive={widthRes}
+        ref={isClientSide}
       ></ins>
   );
 };
