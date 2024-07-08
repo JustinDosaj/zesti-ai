@@ -1,5 +1,5 @@
 import { Container } from "@/components/shared/container"
-import { ChatBubbleLeftIcon, StarIcon, BookOpenIcon, PuzzlePieceIcon, SpeakerWaveIcon, EyeIcon } from "@heroicons/react/20/solid"
+import { ChatBubbleLeftIcon, StarIcon, BookOpenIcon, PuzzlePieceIcon, SpeakerWaveIcon, EyeIcon, BookmarkIcon } from "@heroicons/react/20/solid"
 import { Button, InlineButton } from "@/components/shared/button"
 import { MinusSmallIcon, PlusSmallIcon} from "@heroicons/react/20/solid"
 import { Disclosure } from "@headlessui/react"
@@ -63,14 +63,14 @@ export function ThreeBoxFeature({type, titleStart, titleEnd, desc}: ThreeBoxFeat
                 icon: StarIcon,
             },
             {
-                name: 'Bookmark Recipes for Later',
-                description: 'Zesti provides an alternative way to save recipes for later use!',
+                name: 'Discover New Recipes',
+                description: 'Find new & creative recipes to try yourself!',
                 icon: BookOpenIcon,
             },
             {
-                name: 'AI Cooking Assistant',
-                description: 'Get your cooking questions answered instantly using the in-recipe chat feature!',
-                icon: ChatBubbleLeftIcon,
+                name: 'Save Recipes for Later',
+                description: 'Zesti provides an alternative way to save recipes for later use!',
+                icon: BookmarkIcon,
             },
         ],
         assistant: [
