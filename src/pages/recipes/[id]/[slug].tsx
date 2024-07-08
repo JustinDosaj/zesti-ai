@@ -138,7 +138,7 @@ const Recipe: React.FC = ({ recipe, ogUrl }: any) => {
       <main className="bg-background min-h-screen flex justify-center px-4 sm:px-8 md:px-14 lg:px-5 pb-28">
         
         
-      <div className={`w-full lg:w-2/3 xl:w-1/2 lg:max-w-4xl space-y-6 lg:mt-8 mt-2`}>
+      <div className={`w-full lg:w-2/3 xl:w-1/2 lg:max-w-4xl space-y-10 lg:mt-8 mt-2`}>
           <RecipeTitleCard recipe={recipe} isSaved={isSaved} setIsOpen={setIsOpen} user={user} isLoading={isLoading} />
           <AdSenseDisplay adSlot="3721531543" adFormat="horizontal" widthRes={"false"} role={stripeRole} maxHeight="90px" /> 
           <RecipeIngredientsComponent ingredients={ingredients} />
