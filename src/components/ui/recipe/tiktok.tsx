@@ -1,21 +1,20 @@
 interface TikTokProps {
-    video_id: any,
-}
-
-const TikTokComponent = ({video_id}: TikTokProps) => {
-    return(
-        <div className="rounded-xl overflow-hidden alternate-orange-bg w-fit mx-auto h-full">
-
-            {/* Scrolling is depracated but still works? */}
-            <iframe
-                className="w-full max-w-[325px] min-w-[325px] min-h-[775px]"
-                src={`https://www.tiktok.com/embed/${video_id}`}
-                allow="fullscreen"
-                loading="lazy"
-                scrolling="no"
-            />
+    video_id: string;
+  }
+  
+const TikTokComponent: React.FC<TikTokProps> = ({ video_id }) => {
+    return (
+        <div className="rounded-xl bg-orange-200 overflow-hidden mx-auto my-8 max-w-md w-full">
+        <iframe
+            className="w-full h-[619px]"
+            src={`https://www.tiktok.com/embed/${video_id}`}
+            allow="fullscreen"
+            loading="lazy"
+            scrolling="no"
+        />
         </div>
-    )
-}
-
-export default TikTokComponent
+    );
+};
+  
+export default TikTokComponent;
+  

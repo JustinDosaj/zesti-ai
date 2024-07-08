@@ -10,3 +10,19 @@ export function Container({className, children}:Props) {
         </div>
     )
 }
+
+export function RecipeContainer({className, children}:Props) {
+    return(
+        <div className={`flex flex-col gap-8 mb-16 mx-auto w-full lg:max-w-3xl px-4 sm:px-8 md:px-14 lg:px-5 mt-2 lg:mt-8 animate-fadeIn ${className}`}>
+            {children}
+        </div>
+    )
+}
+
+export function TestContainer({ className, children }: Props) {
+    return (
+      <div className={`flex flex-col gap-8 mb-16 mx-auto w-full lg:max-w-5xl px-4 sm:px-8 md:px-14 lg:px-5 mt-2 lg:mt-8 animate-fadeIn ${className}`}>
+        {children}
+      </div>
+    );
+  }
