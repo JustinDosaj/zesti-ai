@@ -41,11 +41,11 @@ export function RecipeTitleCard({ recipe, setIsOpen, isSaved, user, isLoading }:
   }
 
   return (
-    <div className="bg-gray-50 border-gray-100 border shadow-md rounded-lg pt-6 mb-8">
-      <h1 className="text-2xl font-semibold text-gray-900 px-6">{recipe.name}</h1>
-      <div className="flex items-center gap-2 text-gray-700 mt-2 px-6">
+    <div className="bg-gray-50 border-gray-300 border shadow-md rounded-lg pt-6 mb-8">
+      <h1 className="text-2xl lg:text-3xl font-semibold text-gray-900 px-6">{recipe.name}</h1>
+      <div className="flex items-center gap-1 text-gray-700 mt-2 px-6">
         <span>by</span>
-        <button onClick={() => window.open(recipe.data.url)} className="underline flex items-center font-semibold hover:text-gray-700">
+        <button onClick={() => window.open(recipe.data.url)} className="underline flex items-center font-semibold hover:text-gray-600">
           {recipe?.data?.owner?.username}
           <ArrowTopRightOnSquareIcon className="h-4 w-4 ml-1" />
         </button>
