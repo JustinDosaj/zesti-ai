@@ -21,7 +21,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const id = query.id as string;
   const slug = query.slug as string;
 
-    const GetRecipeSnapshot = (await (import ('../../api/firebase/functions'))).GetRecipeSnapshot
+  const GetRecipeSnapshot = (await (import ('../../api/firebase/functions'))).GetRecipeSnapshot
   const recipeSnapshot = await GetRecipeSnapshot(id);
 
   let recipe = null;
@@ -135,7 +135,7 @@ const Recipe: React.FC = ({ recipe, ogUrl }: any) => {
         <meta property="twitter:description" content={`Check out this TikTok recipe by @${owner?.username}`} />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       </Head>
-      <main className="bg-background min-h-screen flex justify-center px-4 sm:px-8 md:px-14 lg:px-5 pb-28 lg:space-x-12">
+      <main className="bg-background min-h-screen flex justify-center px-4 sm:px-8 md:px-14 lg:px-5 pb-28 lg:space-x-24">
         
         
       <div className={`w-full lg:w-2/3 xl:w-1/2 lg:max-w-[728px] space-y-10 lg:mt-10 mt-8`}>
@@ -152,7 +152,7 @@ const Recipe: React.FC = ({ recipe, ogUrl }: any) => {
         {stripeRole !== 'premium' && (
           <div className="hidden lg:flex lg:flex-col l lg:space-y-6 lg:justify-between lg:ml-8 lg:w-1/6 lg:mt-10 mt-8">
             <AdSenseDisplay adSlot="7190552003" adFormat="vertical" widthRes={"false"} role={stripeRole} maxHeight="600px" />
-            <AdSenseDisplay adSlot="8782286534" adFormat="vertical" widthRes={"false"} role={stripeRole} maxHeight="600px" />
+            <AdSenseDisplay adSlot="8782286534" adFormat="rectangle" widthRes={"false"} role={stripeRole} maxHeight="250px" />
             <AdSenseDisplay adSlot="7469204867" adFormat="vertical" widthRes={"false"} role={stripeRole} maxHeight="600px" />
           </div>
         )}
