@@ -152,7 +152,7 @@ const Recipe: React.FC = ({ recipe, ogUrl }: any) => {
         {stripeRole !== 'premium' && (
           <div className="hidden lg:flex lg:flex-col l lg:space-y-6 lg:justify-between lg:ml-8 lg:w-1/6 lg:mt-10 mt-8">
             <AdSenseDisplay adSlot="7190552003" adFormat="vertical" widthRes={"false"} role={stripeRole} maxHeight="600px" />
-            <AdSenseDisplay adSlot="8782286534" adFormat="rectangle" widthRes={"false"} role={stripeRole} maxHeight="250px" />
+            <AdSenseDisplay adSlot="8782286534" adFormat="vertical" widthRes={"false"} role={stripeRole} maxHeight="250px" />
             <AdSenseDisplay adSlot="7469204867" adFormat="vertical" widthRes={"false"} role={stripeRole} maxHeight="600px" />
           </div>
         )}
