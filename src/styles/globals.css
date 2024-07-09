@@ -125,7 +125,7 @@ body {
 
   /* Recipe Page Components */
   .recipe-component-container {
-    @apply shadow-lg bg-gray-50 border-gray-100 border rounded-lg p-6 mb-8 
+    @apply shadow-lg bg-gray-50 border-gray-300 border rounded-lg p-6 mb-8 
   }
 
   .recipe-title-button {
