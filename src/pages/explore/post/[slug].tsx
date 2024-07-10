@@ -1,14 +1,11 @@
 import { getBlogPostBySlug } from "@/lib/contentfulHelpers"
 import { GetServerSideProps } from "next"
-import { documentToReactComponents } from '@contentful/rich-text-react-renderer'
-import { Container } from "@/components/shared/container"
 import AdSenseDisplay from "@/components/tags/adsense"
 import { useAuth } from "@/pages/api/auth/auth"
 import { PostTitle } from "@/components/blog/post"
-import { BLOCKS, Block, Inline } from '@contentful/rich-text-types';
+import { renderContentBlock } from "@/pages/api/blog/render"
 import formatDate from "@/utils/date-format"
 import Head from "next/head"
-import Image from "next/image"
 
 
 
@@ -32,16 +29,15 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 const Post: React.FC = ({post, url}: any) => { 
 
   const { stripeRole } = useAuth();
-
-  const { author, category, publishDate, description, image, imageDescription, title, mainSection, seoTitle, seoDescription, ogTitle, ogDescription, logo } = post?.fields
+  const { author, category, publishDate, shortDescription, image, title, seoTitle, seoDescription, ogTitle, ogDescription, logo, contentBlocks } = post?.fields
   const { updatedAt } = post?.sys
 
   const imageUrl = image.fields.file.url;
   const absoluteImageUrl = imageUrl.startsWith('//') ? `https:${imageUrl}` : imageUrl;
-
+  
   const logoUrl = logo.fields.file.url;
   const absoluteLogoUrl = logoUrl.startsWith('//') ? `https:${logoUrl}` : logoUrl;
-  
+
   const date = formatDate(publishDate);
 
   const jsonLd = {
@@ -72,18 +68,6 @@ const Post: React.FC = ({post, url}: any) => {
     "articleSection": category,
   };
 
-  const renderOptions = {
-    renderNode: {
-      [BLOCKS.EMBEDDED_ASSET]: (node: Block | Inline ) => {
-        const { file, title } = (node.data.target as any).fields;
-        const imageUrl = file.url;
-        const finalImageUrl = imageUrl.startsWith('//') ? `https:${imageUrl}` : imageUrl;
-  
-        return <Image height={900} width={1600} src={finalImageUrl} alt={title} className="w-full object-scale-down max-h-[900px] max-w-[1600px] rounded-lg mb-4 mt-4"/>;
-      },
-    },
-  };
-
   return(
     <>
       <Head>
@@ -102,21 +86,26 @@ const Post: React.FC = ({post, url}: any) => {
             dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
           />
       </Head>   
-      <main className={`flex min-h-screen flex-col items-center bg-background w-full space-y-4 pb-48`}>
-        <div className="mt-2 lg:mt-8 w-full"/>
-        <Container className="grid justify-center lg:flex-row animate-fadeIn lg:min-w-[725px] max-w-[730px]">
-          <PostTitle title={title} author={author} date={date} category={category}/>
+      <main className={`bg-background min-h-screen flex justify-center px-4 sm:px-8 md:px-14 lg:px-5 pb-28 lg:space-x-24`}>
+        <div className="w-full lg:w-2/3 xl:w-2/3 lg:max-w-[728px] space-y-10 lg:mt-10 mt-8">
+          <PostTitle title={title} author={author} date={date} description={shortDescription}/>
           <AdSenseDisplay adSlot="7423668524" adFormat="horizontal" widthRes="false" role={stripeRole}/>
-          <Image src={absoluteImageUrl} width={1600} height={900} alt={imageDescription} className="w-full object-scale-down max-h-[900px] max-w-[1600px] rounded-lg mb-4 mt-4" />
-          <div className="prose-lg mt-6 text-gray-700 mb-2">{documentToReactComponents(description)}</div>
-          <AdSenseDisplay adSlot="7423668524" adFormat="horizontal" widthRes="false" role={stripeRole}/>
-          <div className="mt-6">
-          <div className="w-full max-w-[1600px] prose prose-lg text-gray-700">{documentToReactComponents(mainSection, renderOptions)}</div>
+          <div className="mt-6 w-full max-w-[1600px] prose prose-lg text-gray-700 space-y-4">
+            {contentBlocks.map((block: any) => (
+              <div key={block.sys.id}>{renderContentBlock(block)}</div>
+            ))}
+          </div>
           <div className="my-6 w-full">
             <AdSenseDisplay adSlot="7480590418" adFormat="horizontal" widthRes="false" role={stripeRole}/>
           </div>
+        </div>
+        {stripeRole !== 'premium' && (
+          <div className="hidden lg:flex lg:flex-col l lg:space-y-6 lg:justify-between lg:ml-8 lg:w-1/6 lg:mt-10 mt-8">
+            <AdSenseDisplay adSlot="6995148875" adFormat="vertical" widthRes={"false"} role={stripeRole} maxHeight="600px" />
+            <AdSenseDisplay adSlot="2365955953" adFormat="vertical" widthRes={"false"} role={stripeRole} maxHeight="600px" />
+            <AdSenseDisplay adSlot="5682067204" adFormat="vertical" widthRes={"false"} role={stripeRole} maxHeight="600px" />
           </div>
-        </Container>
+        )}
       </main>
     </>
   )
