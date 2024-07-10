@@ -1,11 +1,9 @@
 import { Container } from "@/components/shared/container"
-import { BeakerIcon} from "@heroicons/react/20/solid"
 import { useState } from "react"
 import { Scroller, DiscoverRecipes } from "../scroller"
 import { Button } from "@/components/shared/button"
 import { TitleSection } from "@/components/shared/title"
 import { SearchOrAddRecipe } from "@/components/search"
-import getConfig from "next/config"
 import { Paragraph } from "@/components/shared/paragraph"
 import Image from "next/image"
 
@@ -32,18 +30,13 @@ interface HeroProps {
 
 export function Hero({heroContent}: HeroProps) {
 
-  const { publicRuntimeConfig } = getConfig();
   const { titleStart, titleEnd, description, image } = heroContent;
   const imageUrl = image.fields.file.url;
   const absoluteImageUrl = imageUrl.startsWith('//') ? `https:${imageUrl}` : imageUrl;
 
   return(
-      <Container className="flex flex-col lg:flex-row items-center justify-between pt-14 space-x-4 animate-fadeIn">
+      <Container className="pt-12 lg:pt-0 flex flex-col lg:flex-row items-center justify-between animate-fadeIn">
         <div className="flex lg:w-1/2 flex-col gap-6 lg:gap-8">
-          <div className="inline-flex w-fit mx-auto lg:mx-0 items-center border border-gray-300 rounded-3xl p-2 space-x-1 ">
-              <BeakerIcon className="text-black h-4 w-4"/>
-              <div className="text-black font-bold text-sm">{`beta v${publicRuntimeConfig?.version}`}</div>
-          </div>
           <div className="flex flex-col gap-4 text-center lg:text-left">
             <h1 className="section-title-text-size xl:text-6xl font-bold text-gray-800">
               <span className="text-gray-700"> {titleStart} </span>
@@ -59,15 +52,14 @@ export function Hero({heroContent}: HeroProps) {
           </div>
           {
             <div className="grid grid-cols-3 lg:flex justify-center lg:justify-start lg:space-x-16">
-              <StatisticItem number="407+" label="Recipes" />
-              <StatisticItem number="500+" label="Users" />
-              <StatisticItem number="$0/mo." label="Price" />
+              <StatisticItem number="400+" label="Recipes" />
+              <StatisticItem number="130+" label="Users" />
+              <StatisticItem number="Free" label="Price" />
             </div>
           }
         </div>
-        <div className="hidden lg:block w-1/2 bg-transparent rounded-lg">
-          <Image src={absoluteImageUrl} alt="Profile" height={2058} width={2150} className="object-fit" loading="lazy"/>
-          {/* https://firebasestorage.googleapis.com/v0/b/zesti-production.appspot.com/o/public_images%2FIllustration.png?alt=media&token=581a8061-8667-4b7f-9dd0-3c092c009b24 */}
+        <div className="mt-12 lg:mt-0 md:block md:w-1/2 bg-transparent rounded-lg">
+          <Image src={absoluteImageUrl} alt="Profile" height={1600} width={900} className="object-scale-down" loading="lazy"/>
         </div>
         
       </Container>
