@@ -4,6 +4,8 @@ import AdSenseDisplay from "@/components/tags/adsense"
 import { useAuth } from "@/pages/api/auth/auth"
 import { PostTitle } from "@/components/blog/post"
 import { renderContentBlock } from "@/pages/api/blog/render"
+import { GetRecipeByIds } from "@/pages/api/firebase/functions"
+import { RecipeCard } from "@/components/ui/recipe/card"
 import formatDate from "@/utils/date-format"
 import Head from "next/head"
 
@@ -20,13 +22,18 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const url = `${protocol}://${host}${resolvedUrl}`;
   
   const post = await getBlogPostBySlug(slug)
+  const relatedRecipeIds: string[] = Array.isArray(post?.fields.relatedRecipes)
+  ? post.fields.relatedRecipes.map(String)
+  : [];
+
+  const relatedRecipes = await GetRecipeByIds(relatedRecipeIds);
 
   return {
-      props: { post, url }
+      props: { post, url, relatedRecipes }
   }
 }
 
-const Post: React.FC = ({post, url}: any) => { 
+const Post: React.FC = ({post, url, relatedRecipes}: any) => { 
 
   const { stripeRole } = useAuth();
   const { author, category, publishDate, shortDescription, image, title, seoTitle, seoDescription, ogTitle, ogDescription, logo, contentBlocks } = post?.fields
@@ -93,6 +100,11 @@ const Post: React.FC = ({post, url}: any) => {
           <div className="mt-6 w-full max-w-[1600px] prose prose-lg text-gray-700 space-y-4">
             {contentBlocks.map((block: any) => (
               <div key={block.sys.id}>{renderContentBlock(block)}</div>
+            ))}
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {relatedRecipes.map((recipe: any) => (
+              <RecipeCard key={recipe.id} item={recipe} />
             ))}
           </div>
           <div className="my-6 w-full">
