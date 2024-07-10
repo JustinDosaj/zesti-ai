@@ -9,7 +9,33 @@ import { RecipeCard } from "@/components/ui/recipe/card"
 import formatDate from "@/utils/date-format"
 import Head from "next/head"
 
+interface BlogPost {
+  fields: {
+    title: string;
+    author: string;
+    category: string;
+    publishDate: string;
+    shortDescription: string;
+    image: any;
+    seoTitle: string;
+    seoDescription: string;
+    ogTitle: string;
+    ogDescription: string;
+    logo: any;
+    description: any;
+    contentBlocks: any[];
+    content: any;
+    relatedRecipes?: string[]; // Make this optional
+  };
+  sys: any,
+}
 
+interface Recipe {
+  id: string;
+  name: string;
+  cover_image_url: string;
+  [key: string]: any; // Extend this interface based on the other fields you expect in your documents
+}
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
 
@@ -33,7 +59,13 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   }
 }
 
-const Post: React.FC = ({post, url, relatedRecipes}: any) => { 
+interface PostProps {
+  post: BlogPost;
+  url: string;
+  relatedRecipes: Recipe[];
+}
+
+const Post: React.FC<PostProps> = ({post, url, relatedRecipes}: PostProps) => { 
 
   const { stripeRole } = useAuth();
   const { author, category, publishDate, shortDescription, image, title, seoTitle, seoDescription, ogTitle, ogDescription, logo, contentBlocks } = post?.fields
