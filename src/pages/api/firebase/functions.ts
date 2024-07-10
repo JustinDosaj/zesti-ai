@@ -93,17 +93,19 @@ export async function GetRandomRecipes(numberOfRecipes: number): Promise<Recipe[
 
 export async function GetRecipeByIds(ids: string[]): Promise<Recipe[]>{
 
-  const recipes: Recipe[] = []
+  const recipes: Recipe[] = [];
 
   for (const id of ids) {
-    const recipeRef = doc(db, `recipes/${id}`)
-    const recipeDoc = await getDoc(recipeRef)
+    const recipeRef = doc(db, `recipes/${id}`);
+    const recipeDoc = await getDoc(recipeRef);
 
-    if(recipeDoc.exists()) {
+    if (recipeDoc.exists()) {
       recipes.push({
         id: recipeDoc.id,
         ...recipeDoc.data()
-      } as Recipe)
+      } as Recipe);
+    } else {
+      console.log(`Recipe with ID ${id} does not exist.`);
     }
   }
 
