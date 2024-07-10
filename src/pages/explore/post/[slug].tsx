@@ -50,7 +50,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const post = await getBlogPostBySlug(slug)
   const relatedRecipeIds: string[] = Array.isArray(post?.fields.relatedRecipes)
   ? post?.fields.relatedRecipes.map(String)
-  : ['9dPr4zecWHggW81lZcfu', 'BIruI1eRcr5g4lZUVmZr', 'uSAW740E9cg3q6iI9hf7', 'Z5Gz54RTo978H81odNZf'];
+  : ['9dPr4zecWHggW81lZcfu', 'BIruI1eRcr5g4lZUVmZr', 'uSAW740E9cg3q6iI9hf7', 'Z5Gz54RTo978H81odNZf'] as string[];
 
   const relatedRecipes = await GetRecipeByIds(relatedRecipeIds);
 
