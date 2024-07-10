@@ -28,7 +28,7 @@ const AdSenseDisplay = ({ adSlot, adFormat, widthRes, role, maxHeight = "90px" }
 
   return (
       <ins
-        className="adsbygoogle bg-gray-300"
+        className="adsbygoogle"
         style={{ display: "block", height: `${maxHeight}`}}
         data-ad-client="ca-pub-5837655994202747" // Replace with your publisher ID
         data-ad-slot={adSlot}
