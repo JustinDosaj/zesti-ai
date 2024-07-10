@@ -4,10 +4,38 @@ import AdSenseDisplay from "@/components/tags/adsense"
 import { useAuth } from "@/pages/api/auth/auth"
 import { PostTitle } from "@/components/blog/post"
 import { renderContentBlock } from "@/pages/api/blog/render"
+import { GetRecipeByIds } from "@/pages/api/firebase/functions"
+import { RecipeCard } from "@/components/ui/recipe/card"
 import formatDate from "@/utils/date-format"
 import Head from "next/head"
 
+interface BlogPost {
+  fields: {
+    title: string;
+    author: string;
+    category: string;
+    publishDate: string;
+    shortDescription: string;
+    image: any;
+    seoTitle: string;
+    seoDescription: string;
+    ogTitle: string;
+    ogDescription: string;
+    logo: any;
+    description: any;
+    contentBlocks: any[];
+    content: any;
+    relatedRecipes?: string[]; // Make this optional
+  };
+  sys: any,
+}
 
+interface Recipe {
+  id: string;
+  name: string;
+  cover_image_url: string;
+  [key: string]: any; // Extend this interface based on the other fields you expect in your documents
+}
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
 
@@ -20,13 +48,26 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const url = `${protocol}://${host}${resolvedUrl}`;
   
   const post = await getBlogPostBySlug(slug)
+  const relatedRecipeIds: string[] = Array.isArray(post?.fields.relatedRecipes) && post?.fields.relatedRecipes.every(item => typeof item === 'string')
+    ? post?.fields.relatedRecipes as string[]
+    : ['9dPr4zecWHggW81lZcfu', 'BIruI1eRcr5g4lZUVmZr', 'uSAW740E9cg3q6iI9hf7', 'Z5Gz54RTo978H81odNZf'];
+
+  //['9dPr4zecWHggW81lZcfu', 'BIruI1eRcr5g4lZUVmZr', 'uSAW740E9cg3q6iI9hf7', 'Z5Gz54RTo978H81odNZf']
+
+  const relatedRecipes = await GetRecipeByIds(relatedRecipeIds);
 
   return {
-      props: { post, url }
+      props: { post, url, relatedRecipes }
   }
 }
 
-const Post: React.FC = ({post, url}: any) => { 
+interface PostProps {
+  post: BlogPost;
+  url: string;
+  relatedRecipes: Recipe[];
+}
+
+const Post: React.FC<PostProps> = ({post, url, relatedRecipes}: PostProps) => { 
 
   const { stripeRole } = useAuth();
   const { author, category, publishDate, shortDescription, image, title, seoTitle, seoDescription, ogTitle, ogDescription, logo, contentBlocks } = post?.fields
@@ -93,6 +134,12 @@ const Post: React.FC = ({post, url}: any) => {
           <div className="mt-6 w-full max-w-[1600px] prose prose-lg text-gray-700 space-y-4">
             {contentBlocks.map((block: any) => (
               <div key={block.sys.id}>{renderContentBlock(block)}</div>
+            ))}
+          </div>
+          <h2 className=" text-gray-900 max-w-[1600px] w-full text-3xl font-bold">Recipes You May Enjoy</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {relatedRecipes.map((recipe: any) => (
+              <RecipeCard key={recipe.id} item={recipe} />
             ))}
           </div>
           <div className="my-6 w-full">
