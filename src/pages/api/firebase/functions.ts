@@ -91,23 +91,21 @@ export async function GetRandomRecipes(numberOfRecipes: number): Promise<Recipe[
   return recipes.slice(0, numberOfRecipes);
 }
 
-export async function GetRecipeByIds(ids: string[] | undefined ): Promise<Recipe[]>{
+export async function GetRecipeByIds(ids: string[]): Promise<Recipe[]>{
 
   const recipes: Recipe[] = [];
 
-  if (ids) {
-    for (const id of ids) {
-      const recipeRef = doc(db, `recipes/${id}`);
-      const recipeDoc = await getDoc(recipeRef);
+  for (const id of ids) {
+    const recipeRef = doc(db, `recipes/${id}`);
+    const recipeDoc = await getDoc(recipeRef);
 
-      if (recipeDoc.exists()) {
-        recipes.push({
-          id: recipeDoc.id,
-          ...recipeDoc.data()
-        } as Recipe);
-      } else {
-        console.log(`Recipe with ID ${id} does not exist.`);
-      }
+    if (recipeDoc.exists()) {
+      recipes.push({
+        id: recipeDoc.id,
+        ...recipeDoc.data()
+      } as Recipe);
+    } else {
+      console.log(`Recipe with ID ${id} does not exist.`);
     }
   }
 
