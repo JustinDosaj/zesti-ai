@@ -35,7 +35,7 @@ export function Hero({heroContent}: HeroProps) {
   const absoluteImageUrl = imageUrl.startsWith('//') ? `https:${imageUrl}` : imageUrl;
 
   return(
-      <Container className="pt-12 flex flex-col lg:flex-row items-center justify-between animate-fadeIn">
+      <Container className="mt-14 lg:mt-28 flex flex-col lg:flex-row items-center justify-between animate-fadeIn">
         <div className="flex lg:w-1/2 flex-col gap-6 lg:gap-8">
           <div className="flex flex-col gap-4 text-center lg:text-left">
             <h1 className="section-title-text-size xl:text-6xl font-bold text-gray-800">
@@ -58,8 +58,17 @@ export function Hero({heroContent}: HeroProps) {
             </div>
           }
         </div>
-        <div className="mt-12 lg:mt-0  bg-transparent rounded-lg">
-          <Image src={absoluteImageUrl} alt="Profile" height={1000} width={450} className="object-scale-down" loading="lazy"/>
+        <div className="mt-12 lg:mt-0 bg-transparent rounded-lg w-full lg:w-auto">
+          <div className="relative w-full h-96 lg:w-[450px] lg:h-[600px]">
+            <Image
+              src={absoluteImageUrl}
+              alt="Profile"
+              layout="fill"
+              objectFit="contain"
+              className="object-scale-down"
+              loading="lazy"
+            />
+          </div>
         </div>
         
       </Container>
