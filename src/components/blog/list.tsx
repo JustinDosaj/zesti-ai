@@ -38,7 +38,7 @@ export function BlogList({ blogContent }: any) {
                         <span className="absolute inset-0" />
                         {post.title}
                       </h3>
-                      <p className="mt-3 text-sm leading-6 text-gray-600 line-clamp-3">{documentToReactComponents(post.description)}</p>
+                      <p className="mt-3 text-sm leading-6 text-gray-600 line-clamp-3">{documentToReactComponents(post.shortDescription)}</p>
                     </div>
                   </div>
                   <div className="relative mt-3 flex items-center gap-x-4">
