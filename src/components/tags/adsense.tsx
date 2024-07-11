@@ -25,7 +25,7 @@ const AdSenseDisplay = ({ adSlot, adFormat, widthRes, role, maxHeight = "90px", 
     }
   }, []);
 
-  if (role !== 'premium') return null;
+  if (role == 'premium') return null;
 
   return (
       <ins
