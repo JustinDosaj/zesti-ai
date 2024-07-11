@@ -8,6 +8,8 @@ import { GetRecipeByIds } from "@/pages/api/firebase/functions"
 import { RecipeCard } from "@/components/ui/recipe/card"
 import formatDate from "@/utils/date-format"
 import Head from "next/head"
+import { HorizontalBorder } from "@/components/shared/border"
+import { Container } from "@/components/shared/container"
 
 interface BlogPost {
   fields: {
@@ -127,32 +129,42 @@ const Post: React.FC<PostProps> = ({post, url, relatedRecipes}: PostProps) => {
             dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
           />
       </Head>   
-      <main className={`bg-background min-h-screen flex justify-center px-4 sm:px-8 md:px-14 lg:px-5 pb-28 lg:space-x-24`}>
-        <div className="w-full lg:w-2/3 xl:w-2/3 lg:max-w-[728px] space-y-10 lg:mt-10 mt-8">
-          <PostTitle title={title} author={author} date={date} description={shortDescription}/>
-          <AdSenseDisplay adSlot="7423668524" adFormat="horizontal" widthRes="false" role={stripeRole}/>
-          <div className="mt-6 w-full max-w-[1600px] prose prose-lg text-gray-700 space-y-4">
-            {contentBlocks.map((block: any) => (
-              <div key={block.sys.id}>{renderContentBlock(block)}</div>
-            ))}
+      <main className={`bg-background min-h-screen pb-28 px-6 sm:px-8 md:px-14 lg:px-5`}>
+        <div className="max-w-7xl mx-auto flex justify-center">
+          
+          <div className="w-full lg:w-3/5 grid justify-center space-y-4 lg:mt-10 mt-8">
+            <HorizontalBorder className="prose"/>
+            <PostTitle title={title} author={author} date={date} description={shortDescription}/>
+            <HorizontalBorder className="prose mt-4"/>
+            <div className="mt-6 prose-lg text-gray-700 space-y-4">
+              {contentBlocks.map((block: any) => (
+                <div key={block.sys.id}>{renderContentBlock(block, stripeRole)}</div>
+              ))}
+            </div>
           </div>
-          <h2 className=" text-gray-900 max-w-[1600px] w-full text-3xl font-bold">Recipes You May Enjoy</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+
+          {stripeRole !== 'premium' && (
+            <div className="hidden lg:flex lg:flex-col l lg:space-y-6 lg:justify-between lg:ml-8 lg:w-1/5 lg:mt-10 mt-8">
+              <AdSenseDisplay adSlot="6995148875" adFormat="vertical" widthRes={"false"} role={stripeRole} maxHeight="250px" />
+              <AdSenseDisplay adSlot="2365955953" adFormat="vertical" widthRes={"false"} role={stripeRole} maxHeight="600px" />
+              <AdSenseDisplay adSlot="5682067204" adFormat="vertical" widthRes={"false"} role={stripeRole} maxHeight="600px" />
+            </div>
+          )}
+
+        </div>
+
+        <div className="mx-auto max-w-7xl w-full space-y-8 lg:mt-24">
+          <AdSenseDisplay adSlot="7480590418" adFormat="horizontal" widthRes="false" role={stripeRole} maxHeight="110px"/>
+          <HorizontalBorder/>
+          <h2 className="text-gray-900 max-w-[1600px] w-full font-bold prose-2xl">Recipes You May Enjoy</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 pb-3">
             {relatedRecipes.map((recipe: any) => (
               <RecipeCard key={recipe.id} item={recipe} />
             ))}
           </div>
-          <div className="my-6 w-full">
-            <AdSenseDisplay adSlot="7480590418" adFormat="horizontal" widthRes="false" role={stripeRole}/>
-          </div>
+          <HorizontalBorder/>
+          <AdSenseDisplay adSlot="7423668524" adFormat="horizontal" widthRes="false" role={stripeRole} maxHeight="300px"/>
         </div>
-        {stripeRole !== 'premium' && (
-          <div className="hidden lg:flex lg:flex-col l lg:space-y-6 lg:justify-between lg:ml-8 lg:w-1/6 lg:mt-10 mt-8">
-            <AdSenseDisplay adSlot="6995148875" adFormat="vertical" widthRes={"false"} role={stripeRole} maxHeight="600px" />
-            <AdSenseDisplay adSlot="2365955953" adFormat="vertical" widthRes={"false"} role={stripeRole} maxHeight="600px" />
-            <AdSenseDisplay adSlot="5682067204" adFormat="vertical" widthRes={"false"} role={stripeRole} maxHeight="600px" />
-          </div>
-        )}
       </main>
     </>
   )
