@@ -35,10 +35,6 @@ export async function createPremiumCheckoutSession(id: any) {  // You might want
             success_url: `${window.location.origin}/account`,
             cancel_url: `${window.location.origin}`,
             mode: "subscription",
-            /*metadata: {
-                //promotekit_referral: window.promotekit_referral || 'default-value'
-                promotekit_referral: affiliateCode
-            }*/
         };
    
         const checkoutSessionsCollection = collection(doc(collection(db, 'users'), id), 'checkout_sessions');
