@@ -26,10 +26,10 @@ export function PricingDisplay() {
           id: 'tier-basic',
           trial: false,
           priceMonthly: '$0',
-          description: "The perfect plan if you're just getting started with Zesti",
+          description: "Perfect if you\'re just getting started with Zesti",
           features: [
-            'Freely Browse Recipes on Zesti',
-            'Unlimited Recipe Saves',
+            'View Recipes on Zesti',
+            'Convert TikTok Recipes to Text',
         ],
           featured: false,
           checkout: () => {
@@ -40,14 +40,14 @@ export function PricingDisplay() {
         {
           name: 'Premium',
           id: 'tier-premium',
-          trial: true,
+          trial: false,
           priceMonthly: '$0.99',
-          description: 'Unlock the full potential of Zesti',
+          description: 'Get the best experience with Zesti',
           learnhref: "/about/subscription/premium",
           features: [
             'Zero Ads',
-            'Freely Browse Recipes on Zesti',
-            'Unlimited Recipe Saves',
+            'View Recipes on Zesti',
+            'Convert TikTok Recipes to Text',
           ],
           featured: true,
           checkout: () => {
