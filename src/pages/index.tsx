@@ -11,8 +11,8 @@ const FAQ = dynamic(() => import('@/components/ui/general').then((mod) => mod.FA
 
 export const getServerSideProps: GetServerSideProps = async () => {
 
-  const GetRandomRecipes = (await (import ('./api/firebase/functions'))).GetRandomRecipes
-  const recipes = await GetRandomRecipes(9);
+  const GetRecentRecipes = (await (import ('./api/firebase/functions'))).GetRecentRecipes
+  const recipes = await GetRecentRecipes(9);
 
   const entries = await getEntriesForContentTypes(['hero', 'faq', 'chatFeature'])
   const heroContent = entries.hero[0]

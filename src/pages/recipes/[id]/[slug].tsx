@@ -9,6 +9,7 @@ import {
   RecipeInstructionsComponent,
   RecipeDataComponent
 } from '@/components/ui/recipe';
+import { RecipeSuggestions } from '@/components/ui/recipe/suggestions';
 
 const DynamicModal = dynamic(() => import('@/components/ui/modals/response').then((mod) => mod.ResponseModal), { ssr: false });
 const ErrorReportModal = dynamic(() => import('@/components/ui/modals/report').then((mod) => mod.ErrorReportModal), { ssr: false });
@@ -23,6 +24,9 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
   const GetRecipeSnapshot = (await (import ('../../api/firebase/functions'))).GetRecipeSnapshot
   const recipeSnapshot = await GetRecipeSnapshot(id);
+
+  const GetRecentRecipes = (await (import ('../../api/firebase/functions'))).GetRecentRecipes
+  const recentRecipes = await GetRecentRecipes(6);
 
   let recipe = null;
 
@@ -52,10 +56,11 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const host = req.headers.host;
   const ogUrl = `${protocol}://${host}${resolvedUrl}`;
 
-  return { props: { recipe, ogUrl } };
+  return { props: { recipe, ogUrl, recentRecipes } };
 };
 
-const Recipe: React.FC = ({ recipe, ogUrl }: any) => {
+const Recipe: React.FC = ({ recipe, ogUrl, recentRecipes }: any) => {
+  
   const { stripeRole, user, isLoading } = useAuth();
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [isErrorOpen, setIsErrorOpen] = useState<boolean>(false);
@@ -135,10 +140,10 @@ const Recipe: React.FC = ({ recipe, ogUrl }: any) => {
         <meta property="twitter:description" content={`Check out this TikTok recipe by @${owner?.username}`} />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       </Head>
-      <main className="bg-background min-h-screen flex justify-center px-4 sm:px-8 md:px-14 lg:px-5 pb-28 lg:space-x-24">
+      <main className="bg-background min-h-screen justify-center px-4 sm:px-8 md:px-14 lg:px-5 pb-28">
         
-        
-        <div className={`w-full lg:w-2/3 xl:w-1/2 lg:max-w-[728px] space-y-10 lg:mt-10 mt-8`}>
+      <div className="max-w-7xl mx-auto flex justify-center">
+        <div className={`w-full lg:w-5/6 lg:max-w-[728px] space-y-10 lg:mt-10 mt-8`}>
             <RecipeTitleCard recipe={recipe} isSaved={isSaved} setIsOpen={setIsOpen} user={user} isLoading={isLoading} />
             <AdSenseDisplay adSlot="3721531543" adFormat="horizontal" widthRes={"false"} role={stripeRole} maxHeight="90px" /> 
             <RecipeIngredientsComponent ingredients={ingredients} />
@@ -150,13 +155,15 @@ const Recipe: React.FC = ({ recipe, ogUrl }: any) => {
             <RecipeDataComponent recipe={recipe} setIsErrorOpen={setIsErrorOpen} />
         </div>
         {stripeRole !== 'premium' && (
-          <div className="hidden lg:flex lg:flex-col l lg:space-y-6 lg:justify-between lg:ml-8 lg:w-1/6 lg:mt-10 mt-8">
+          <div className="hidden lg:flex lg:flex-col l lg:space-y-6 lg:justify-between lg:ml-8 lg:w-[320px] lg:mt-10 mt-8">
             <AdSenseDisplay adSlot="7190552003" adFormat="vertical" widthRes={"false"} role={stripeRole} maxHeight="600px" />
             <AdSenseDisplay adSlot="8782286534" adFormat="vertical" widthRes={"false"} role={stripeRole} maxHeight="600px" />
             <AdSenseDisplay adSlot="7469204867" adFormat="vertical" widthRes={"false"} role={stripeRole} maxHeight="600px" />
           </div>
         )}
-
+        </div>
+      
+        <RecipeSuggestions recipes={recentRecipes}/>
 
         <DynamicModal
           title={`${recipe?.name} Saved!`}
