@@ -44,7 +44,7 @@ export const renderContentBlock = (block: any, role: string | null) => {
                     adFormat="horizontal" 
                     widthRes="false" 
                     role={role} 
-                    maxHeight='280px'
+                    maxHeight='320px'
                   />
                 </div>
       default:
