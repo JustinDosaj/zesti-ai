@@ -153,7 +153,7 @@ const Post: React.FC<PostProps> = ({post, url, relatedRecipes}: PostProps) => {
           )}
 
         </div>
-        <RecipeSuggestions recipes={relatedRecipes}/>
+        <RecipeSuggestions recipes={relatedRecipes} title={"Recipes You May Enjoy"} role={stripeRole}/>
       </main>
     </>
   )
