@@ -1,5 +1,3 @@
-
-
 interface BorderProps {
     className?: string,
     width?: string,
