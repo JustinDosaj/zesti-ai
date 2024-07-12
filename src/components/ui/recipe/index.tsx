@@ -97,47 +97,47 @@ export function RecipeTitleCard({ recipe, setIsOpen, isSaved, user, isLoading }:
     const { cook_time, prep_time, category, cuisine } = recipe;
   
     return (
-      <div className="recipe-component-container">
-        <h2 className="text-xl font-semibold mb-4 text-gray-900">More Information</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-gray-900">
+      <div className="recipe-component-container p-6 bg-white rounded-lg shadow-md">
+        <h2 className="text-2xl font-semibold mb-6 text-gray-900">More Information</h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-gray-900">
           {cuisine && (
-            <div className="recipe-information-spacer">
+            <div className="recipe-information-item">
               <span className="font-semibold">Cuisine:</span>
               <span className="ml-2">{cuisine}</span>
             </div>
           )}
-          <div className="recipe-information-spacer">
+          <div className="recipe-information-item">
             <span className="font-semibold">Category:</span>
             <span className="ml-2">{category || 'N/A'}</span>
           </div>
-          <div className="recipe-information-spacer">
+          <div className="recipe-information-item">
             <span className="font-semibold">Prep Time:</span>
             <span className="ml-2">{prep_time ? convertDurationToReadable(prep_time) : 'N/A'}</span>
           </div>
-          <div className="recipe-information-spacer">
+          <div className="recipe-information-item">
             <span className="font-semibold">Cook Time:</span>
             <span className="ml-2">{cook_time ? convertDurationToReadable(cook_time) : 'N/A'}</span>
           </div>
-          <div className="recipe-information-spacer">
+          <div className="recipe-information-item">
             <span className="font-semibold">Owner:</span>
             <button onClick={() => window.open(owner.profile_link)} className="ml-2 underline hover:text-gray-500">
               {`@${owner.username}`}
             </button>
           </div>
-          <div className="recipe-information-spacer">
+          <div className="recipe-information-item">
             <span className="font-semibold">Source:</span>
             <span className="ml-2">{source}</span>
           </div>
-          <div className="recipe-information-spacer">
+          <div className="recipe-information-item">
             <span className="font-semibold">Created:</span>
-            <span className="ml-2">{date_created !== null ? new Date(date_created).toLocaleDateString() : 'N/A'}</span>
+            <span className="ml-2">{date_created ? new Date(date_created).toLocaleDateString() : 'N/A'}</span>
           </div>
-          <div className="recipe-information-spacer">
+          <div className="recipe-information-item">
             <span className="font-semibold">Added:</span>
             <span className="ml-2">{new Date(date_added).toLocaleDateString()}</span>
           </div>
         </div>
-        <button onClick={() => setIsErrorOpen(true)} className="mt-6 flex items-center justify-center w-full py-2 text-red-600">
+        <button onClick={() => setIsErrorOpen(true)} className="mt-8 flex items-center justify-center w-full py-3 text-red-600 bg-red-100 rounded-lg hover:bg-red-200 transition duration-200">
           <ExclamationTriangleIcon className="h-5 w-5 mr-2" />
           <span>Report Problem or Give Feedback</span>
         </button>
