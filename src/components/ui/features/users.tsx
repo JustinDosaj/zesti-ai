@@ -120,7 +120,7 @@ export function HomePageCTA() {
           <p className="w-full md:w-96 text-xl font-medium text-center primary-orange-text-gradient mb-3">
             Premium
           </p>
-          <TitleSection titleBlack="Try 7-Day Free Trial" desc="Enjoy Zesti without ads and gain access to the Cooking AI Chat Assistant"/>
+          <TitleSection titleBlack="The Best Way To Use Zesti" desc="Experience Zesti AI with zero ads"/>
         </div>
         <Button isLink={true} href='/about/pricing' text="Get Started" className="text-lg font-medium text-center text-white"/>
       </div>
