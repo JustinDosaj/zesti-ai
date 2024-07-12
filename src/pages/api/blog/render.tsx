@@ -41,7 +41,7 @@ export const renderContentBlock = (block: any, role: string | null) => {
         return <div className="lg:hidden py-4">
                   <AdSenseDisplay 
                     adSlot="7423668524" 
-                    adFormat="horizontal" 
+                    adFormat="square" 
                     widthRes="false" 
                     role={role} 
                     maxHeight='320px'
