@@ -163,7 +163,7 @@ const Recipe: React.FC = ({ recipe, ogUrl, recentRecipes }: any) => {
         )}
         </div>
       
-        <RecipeSuggestions recipes={recentRecipes}/>
+        <RecipeSuggestions recipes={recentRecipes} title={"Recently Added Recipes"} role={stripeRole}/>
 
         <DynamicModal
           title={`${recipe?.name} Saved!`}
