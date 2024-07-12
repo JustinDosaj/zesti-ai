@@ -1,6 +1,6 @@
 import { Notify } from "@/components/shared/notify";
 import { db } from "./firebase"
-import { onSnapshot, doc, setDoc, deleteDoc, getDocs, collection, getDoc } from "firebase/firestore";
+import { onSnapshot, doc, setDoc, deleteDoc, getDocs, collection, getDoc, orderBy, query, limit } from "firebase/firestore";
 
 
 // Save & Delete Functions
@@ -72,23 +72,18 @@ export async function GetAllRecipes(): Promise<Recipe[]> {
 
 }
 
-export async function GetRandomRecipes(numberOfRecipes: number): Promise<Recipe[]> {
-  const recipesRef = collection(db, 'recipes')
-  const snapshot = await getDocs(recipesRef)
+export async function GetRecentRecipes(numberOfRecipes: number = 9): Promise<Recipe[]> {
+
+  const recipesRef = collection(db, 'recipes');
+  const q = query(recipesRef, orderBy('data.date_added', 'desc'), limit(numberOfRecipes));
+  const snapshot = await getDocs(q);
 
   const recipes: Recipe[] = snapshot.docs.map(doc => ({
     id: doc.id,
     ...doc.data()
   }) as Recipe);
 
-  // Shuffle array to simulate randomness
-  for (let i = recipes.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [recipes[i], recipes[j]] = [recipes[j], recipes[i]];
-  }
-
-  // Return the specified number of random recipes
-  return recipes.slice(0, numberOfRecipes);
+  return recipes;
 }
 
 export async function GetRecipeByIds(ids: string[]): Promise<Recipe[]>{
