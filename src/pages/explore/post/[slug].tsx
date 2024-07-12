@@ -137,7 +137,7 @@ const Post: React.FC<PostProps> = ({post, url, relatedRecipes}: PostProps) => {
             <HorizontalBorder className="prose"/>
             <PostTitle title={title} author={author} date={date} description={shortDescription}/>
             <HorizontalBorder className="prose mt-4"/>
-            <div className="mt-6 prose-lg text-gray-700 space-y-4">
+            <div className="mt-6 prose text-gray-700 space-y-4">
               {contentBlocks.map((block: any) => (
                 <div key={block.sys.id}>{renderContentBlock(block, stripeRole)}</div>
               ))}
