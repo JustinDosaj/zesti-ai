@@ -26,9 +26,10 @@ interface HeroContent {
 
 interface HeroProps {
   heroContent: HeroContent;
+  totalRecipes: number;
 }
 
-export function Hero({heroContent}: HeroProps) {
+export function Hero({heroContent, totalRecipes}: HeroProps) {
 
   const { titleStart, titleEnd, description, image } = heroContent;
   const imageUrl = image.fields.file.url;
@@ -52,7 +53,7 @@ export function Hero({heroContent}: HeroProps) {
           </div>
           {
             <div className="grid grid-cols-3 lg:flex justify-center lg:justify-start lg:space-x-16">
-              <StatisticItem number="400+" label="Recipes" />
+              <StatisticItem number={totalRecipes} label="Recipes" />
               <StatisticItem number="130+" label="Users" />
               <StatisticItem number="Free" label="Price" />
             </div>

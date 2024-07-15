@@ -2,6 +2,7 @@ import { GetServerSideProps } from "next";
 import { getEntriesForContentTypes } from "@/lib/contentfulHelpers";
 import Head from 'next/head';
 import dynamic from "next/dynamic";
+import { GetTotalRecipeCount } from "./api/firebase/functions";
 
 const Hero = dynamic(() => import('@/components/ui/features/users').then((mod) => mod.Hero), { ssr: false })
 const HomePageCTA = dynamic(() => import('@/components/ui/features/users').then((mod) => mod.HomePageCTA), { ssr: false })
@@ -19,12 +20,14 @@ export const getServerSideProps: GetServerSideProps = async () => {
   const faqContent = entries.faq[0]
   const chatFeature = entries.chatFeature[0]
 
+  const totalRecipes = await GetTotalRecipeCount()
+
   return {
-    props: { heroContent, faqContent, chatFeature, recipes }
+    props: { heroContent, faqContent, chatFeature, recipes, totalRecipes }
   }
 }
 
-export default function Home({heroContent, faqContent, recipes}: any) {
+export default function Home({heroContent, faqContent, recipes, totalRecipes}: any) {
 
   return (  
     <>
@@ -34,7 +37,7 @@ export default function Home({heroContent, faqContent, recipes}: any) {
         <meta name="description" content="Instantly save delicious recipes from TikTok or Instagram by using Zesti AI to transcribe your faovirte recipe videos to text!"/>
       </Head>
       <main className={`main-seo-page-class`}>
-        <Hero heroContent={heroContent}/>
+        <Hero heroContent={heroContent} totalRecipes={totalRecipes}/>
         <HomePageScroller recipes={recipes}/>
         <ThreeBoxFeature type="home" titleStart="What You Can Do With" titleEnd="Zesti" desc="Zesti makes it easy to copy recipes and can help you by answering any questions you have along the way!"/>
         <HomePageCTA/>
