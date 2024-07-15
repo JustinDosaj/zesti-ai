@@ -10,6 +10,7 @@ import {
   RecipeDataComponent
 } from '@/components/ui/recipe';
 import { RecipeSuggestions } from '@/components/ui/recipe/suggestions';
+import InstagramComponent from '@/components/ui/recipe/instagram';
 
 const DynamicModal = dynamic(() => import('@/components/ui/modals/response').then((mod) => mod.ResponseModal), { ssr: false });
 const ErrorReportModal = dynamic(() => import('@/components/ui/modals/report').then((mod) => mod.ErrorReportModal), { ssr: false });
@@ -150,7 +151,7 @@ const Recipe: React.FC = ({ recipe, ogUrl, recentRecipes }: any) => {
             <AdSenseDisplay adSlot="6960485708" adFormat="horizontal" widthRes={"false"} role={stripeRole} maxHeight="90px" /> 
             <RecipeInstructionsComponent instructions={instructions} />
             <AdSenseDisplay adSlot="2408449875" adFormat="horizontal" widthRes={"false"} role={stripeRole} maxHeight="90px" /> 
-            <TikTokVideo video_id={video_id} />
+            {source == "tiktok" ? <TikTokVideo video_id={video_id}/> : <InstagramComponent video_id={video_id}/>}
             <AdSenseDisplay adSlot="5275868942" adFormat="horizontal" widthRes={"false"} role={stripeRole} maxHeight="90px" /> 
             <RecipeDataComponent recipe={recipe} setIsErrorOpen={setIsErrorOpen} />
         </div>
