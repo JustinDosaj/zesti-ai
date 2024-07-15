@@ -124,3 +124,14 @@ export async function GetRecipeSnapshot(id: string) {
   const recipeSnapshot = await getDoc(recipeRef)
   return recipeSnapshot
 }
+
+export async function GetTotalRecipeCount(): Promise<number> {
+  try {
+    const recipesRef = collection(db, 'recipes');
+    const snapshot = await getDocs(recipesRef);
+    return snapshot.size;
+  } catch (error) {
+    Notify("Failed to retrieve the total recipe count, please try again later.");
+    throw error;
+  }
+}
