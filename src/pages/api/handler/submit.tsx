@@ -18,6 +18,8 @@ export const handleUserSubmitRecipe = async({ url }: SubmissionProps) => {
     
     if(url?.includes('tiktok')) {
         source = "tiktok"
+    } else if (url?.includes('instagram')) {
+        source = "instagram"
     }
 
     const date: Date = new Date();
