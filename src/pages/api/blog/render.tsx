@@ -22,7 +22,12 @@ export const renderContentBlock = (block: any, role: string | null) => {
       case 'Image':
         const imageUrl = block.fields.singleImage.fields.file.url;
         const finalImageUrl = imageUrl.startsWith('//') ? `https:${imageUrl}` : imageUrl;
-        return <Image src={finalImageUrl} alt={block.fields.imageDescription} width={575} height={500} className="w-full object-scale-down max-w-[575px] rounded-lg mb-4 mt-4" />;
+        return (
+          <div className="">
+            <Image src={finalImageUrl} alt={block.fields.imageDescription} width={575} height={500} className="w-full object-scale-down max-w-[575px] rounded-lg mb-2" />
+            <p className="text-xs text-gray-500">{block.fields.imageCredit ? `Photo By: ${block.fields.imageCredit}` : ''}</p>
+          </div>
+        )
       case 'Image Gallery':
         return (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
