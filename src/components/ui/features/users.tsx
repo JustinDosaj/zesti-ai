@@ -5,6 +5,7 @@ import { Button } from "@/components/shared/button"
 import { TitleSection } from "@/components/shared/title"
 import { SearchOrAddRecipe } from "@/components/search"
 import { Paragraph } from "@/components/shared/paragraph"
+import Typewriter from "typewriter-effect"
 import Image from "next/image"
 
 interface ImageFields {
@@ -38,11 +39,21 @@ export function Hero({heroContent, totalRecipes}: HeroProps) {
   return(
       <Container className="mt-14 lg:mt-28 flex flex-col lg:flex-row items-center justify-between animate-fadeIn">
         <div className="flex lg:w-1/2 flex-col gap-6 lg:gap-8">
-          <div className="flex flex-col gap-4 text-center lg:text-left">
+          <div className="flex flex-col gap-2 text-center lg:text-left">
             <h1 className="section-title-text-size xl:text-6xl font-bold text-gray-800">
+
               <span className="text-gray-700"> {titleStart} </span>
-              <span className="primary-orange-text-gradient"> {titleEnd} </span>
               <br />
+              <span className="primary-orange-text-gradient inline-block pb-3">
+                <Typewriter
+                  options={{
+                    strings: ["TikTok Recipes", "Instagram Recipes"],
+                    autoStart: true,
+                    loop: true,
+                  }}
+                />
+              </span>
+
             </h1>
             <Paragraph className="font-medium text-gray-600">
               {description}
