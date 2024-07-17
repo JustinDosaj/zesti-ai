@@ -20,7 +20,7 @@ export function RecipeSuggestions({recipes, role, title}: Suggestions) {
               ))}
             </div>
             <HorizontalBorder/>
-            <AdSenseDisplay adSlot="7423668524" adFormat="horizontal" widthRes="false" role={role} maxHeight="300px" maxWidth="728px" className="mx-auto"/>
+            <AdSenseDisplay adSlot="7423668524" adFormat="horizontal" widthRes="false" role={role} maxHeight="320px" maxWidth="728px" className="mx-auto"/>
         </div>
 
     )
