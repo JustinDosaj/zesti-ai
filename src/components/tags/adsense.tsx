@@ -8,10 +8,11 @@ interface AdSenseDisplayProps {
   widthRes: string;
   role: any;
   maxHeight?: string;
+  maxWidth?: string;
   className?: string;
 }
 
-const AdSenseDisplay = ({ adSlot, adFormat, widthRes, role, maxHeight = "90px", className }: AdSenseDisplayProps) => {
+const AdSenseDisplay = ({ adSlot, adFormat, widthRes, role, maxHeight = "90px", maxWidth="100%", className }: AdSenseDisplayProps) => {
     
   const isClientSide = useRef(null);
     
@@ -29,8 +30,8 @@ const AdSenseDisplay = ({ adSlot, adFormat, widthRes, role, maxHeight = "90px", 
 
   return (
       <ins
-        className={`adsbygoogle ${className}`}
-        style={{ display: "block", height: `${maxHeight}`}}
+        className={`adsbygoogle max-w-[${maxWidth}] ${className}`}
+        style={{ display: "block", height: maxHeight, width: "100%" }}
         data-ad-client="ca-pub-5837655994202747" // Replace with your publisher ID
         data-ad-slot={adSlot}
         data-ad-format={adFormat}

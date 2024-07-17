@@ -39,7 +39,7 @@ export default function Home({heroContent, faqContent, recipes, totalRecipes}: a
       <main className={`main-seo-page-class`}>
         <Hero heroContent={heroContent} totalRecipes={totalRecipes}/>
         <HomePageScroller recipes={recipes}/>
-        <ThreeBoxFeature type="home" titleStart="What You Can Do With" titleEnd="Zesti" desc="Zesti makes it easy to copy recipes and can help you by answering any questions you have along the way!"/>
+        <ThreeBoxFeature type="home" titleStart="How" titleMid="Zesti" titleEnd="Works" desc="Zesti makes it easy to copy recipes and can help you by answering any questions you have along the way!"/>
         <HomePageCTA/>
         <FAQ qA={faqContent.qA.fields.user} title="FAQ" desc="Answers to the most common questions we get" type="user"/>
       </main>
