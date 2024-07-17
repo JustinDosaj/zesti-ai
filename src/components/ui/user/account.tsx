@@ -33,7 +33,7 @@ export function ProfilePageComponent() {
                                 <SimpleProfileComponent 
                                     onButtonClick={() => router.push('/about/pricing')}
                                     title={"Subscription"} 
-                                    buttonName={"Start Free Trial"} 
+                                    buttonName={"Remove Ads"} 
                                 />
                                 }
                             </dl>
