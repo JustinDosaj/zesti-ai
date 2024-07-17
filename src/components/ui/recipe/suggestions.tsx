@@ -11,7 +11,7 @@ interface Suggestions {
 export function RecipeSuggestions({recipes, role, title}: Suggestions) { 
     return(
         <div className="mx-auto max-w-7xl w-full space-y-8 mt-6 lg:mt-24">
-            <AdSenseDisplay adSlot="7480590418" adFormat="horizontal" widthRes="false" role={role} maxHeight="320px"/>
+            <AdSenseDisplay adSlot="7480590418" adFormat="horizontal" widthRes="false" role={role} maxHeight="320px" maxWidth="728px" className="mx-auto"/>
             <HorizontalBorder/>
             <h2 className="text-gray-900 max-w-[1600px] w-full font-bold prose-2xl">{title}</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 pb-3">
@@ -20,7 +20,7 @@ export function RecipeSuggestions({recipes, role, title}: Suggestions) {
               ))}
             </div>
             <HorizontalBorder/>
-            <AdSenseDisplay adSlot="7423668524" adFormat="horizontal" widthRes="false" role={role} maxHeight="300px"/>
+            <AdSenseDisplay adSlot="7423668524" adFormat="horizontal" widthRes="false" role={role} maxHeight="300px" maxWidth="728px" className="mx-auto"/>
         </div>
 
     )

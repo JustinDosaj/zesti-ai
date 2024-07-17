@@ -1,5 +1,5 @@
 import { Container } from "@/components/shared/container"
-import { ChatBubbleLeftIcon, StarIcon, BookOpenIcon, PuzzlePieceIcon, SpeakerWaveIcon, EyeIcon, BookmarkIcon } from "@heroicons/react/20/solid"
+import { ChatBubbleLeftIcon, StarIcon, BookOpenIcon, PuzzlePieceIcon, SpeakerWaveIcon, EyeIcon, BookmarkIcon, LinkIcon, VideoCameraIcon, DocumentIcon } from "@heroicons/react/20/solid"
 import { Button, InlineButton } from "@/components/shared/button"
 import { MinusSmallIcon, PlusSmallIcon} from "@heroicons/react/20/solid"
 import { Disclosure } from "@headlessui/react"
@@ -50,27 +50,28 @@ interface ThreeBoxFeatureProps {
   type: 'home' | 'assistant' | 'howitworks',
   titleStart: string,
   titleEnd: string,
+  titleMid?: string,
   desc: string,
 }
   
-export function ThreeBoxFeature({type, titleStart, titleEnd, desc}: ThreeBoxFeatureProps) {
+export function ThreeBoxFeature({type, titleStart, titleEnd, titleMid, desc}: ThreeBoxFeatureProps) {
 
     const FeatureTypes = {
         home: [
             {
-                name: 'Instantly Save TikTok Recipes',
-                description: 'With just a link, Zesti AI will write the recipe down for you!',
-                icon: StarIcon,
+                name: 'Find Recipe Video',
+                description: 'Explore TikTok & Instagram for a recipe you want to try!',
+                icon: VideoCameraIcon,
             },
             {
-                name: 'Discover New Recipes',
-                description: 'Find new & creative recipes to try yourself!',
-                icon: BookOpenIcon,
+                name: 'Give Zesti the Video Link',
+                description: 'Use the share button on the video to copy the link then paste it into Zesti',
+                icon: LinkIcon,
             },
             {
-                name: 'Save Recipes for Later',
-                description: 'Zesti provides an alternative way to save recipes for later use!',
-                icon: BookmarkIcon,
+                name: 'Enjoy the Recipe!',
+                description: 'In just a few seconds, Zesti will have a written recipe ready for you!',
+                icon: DocumentIcon,
             },
         ],
         assistant: [
@@ -117,7 +118,8 @@ export function ThreeBoxFeature({type, titleStart, titleEnd, desc}: ThreeBoxFeat
                 <div className="grid justify-center items-center text-center lg:text-left">
                     <p className="section-title-text-size font-semibold text-gray-700">
                     {titleStart}
-                    <span className="primary-orange-text-gradient"> {titleEnd} </span>
+                    <span className="primary-orange-text-gradient"> {titleMid} </span>
+                    {titleEnd}
                     </p>
                 </div>
                 <Paragraph className="text-center text-gray-600">
