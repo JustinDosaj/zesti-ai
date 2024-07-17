@@ -29,15 +29,17 @@ const AdSenseDisplay = ({ adSlot, adFormat, widthRes, role, maxHeight = "90px", 
   if (role == 'premium') return null;
 
   return (
+    <div className={`w-[${maxWidth}] h-[${maxHeight}] ${className}`}>
       <ins
-        className={`adsbygoogle max-w-[${maxWidth}] ${className}`}
-        style={{ display: "block", height: maxHeight, width: "100%" }}
+        className={`adsbygoogle`}
+        style={{ display: "block", height: maxHeight }}
         data-ad-client="ca-pub-5837655994202747" // Replace with your publisher ID
         data-ad-slot={adSlot}
         data-ad-format={adFormat}
         data-full-width-responsive={widthRes}
         ref={isClientSide}
       ></ins>
+    </div>
   );
 };
 
