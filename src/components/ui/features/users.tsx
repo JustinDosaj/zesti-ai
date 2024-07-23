@@ -1,100 +1,9 @@
 import { Container } from "@/components/shared/container"
 import { useState } from "react"
-import { Scroller, DiscoverRecipes } from "../scroller"
-import { Button } from "@/components/shared/button"
 import { TitleSection } from "@/components/shared/title"
-import { SearchOrAddRecipe } from "@/components/search"
-import { Paragraph } from "@/components/shared/paragraph"
-import Typewriter from "typewriter-effect"
-import Image from "next/image"
+import { RecipeCard } from "../recipe/card"
+import { ChevronLeftIcon, ChevronRightIcon} from "@heroicons/react/20/solid"
 
-interface ImageFields {
-  file: {
-    url: string;
-  };
-}
-
-interface Image {
-  fields: ImageFields;
-}
-
-interface HeroContent {
-  titleStart: string;
-  titleEnd: string;
-  description: string;
-  image: Image;
-}
-
-interface HeroProps {
-  heroContent: HeroContent;
-  totalRecipes: number;
-}
-
-export function Hero({heroContent, totalRecipes}: HeroProps) {
-
-  const { titleStart, titleEnd, description, image } = heroContent;
-  const imageUrl = image.fields.file.url;
-  const absoluteImageUrl = imageUrl.startsWith('//') ? `https:${imageUrl}` : imageUrl;
-
-  return(
-      <Container className="mt-14 lg:mt-28 flex flex-col lg:flex-row items-center justify-between animate-fadeIn">
-        <div className="flex lg:w-1/2 flex-col gap-6 lg:gap-8">
-          <div className="flex flex-col gap-2 text-center lg:text-left">
-            <h1 className="section-title-text-size xl:text-6xl font-bold text-gray-800">
-
-              <span className="text-gray-700"> {titleStart} </span>
-              <br />
-              <span className="primary-orange-text-gradient inline-block pb-3">
-                <Typewriter
-                  options={{
-                    strings: ["TikTok Recipes", "Instagram Recipes"],
-                    autoStart: true,
-                    loop: true,
-                  }}
-                />
-              </span>
-
-            </h1>
-            <Paragraph className="font-medium text-gray-600">
-              {description}
-            </Paragraph>
-          </div>
-          <div className="grid justify-center lg:justify-start text-left space-y-1">
-            <SearchOrAddRecipe align={"start"}/>
-          </div>
-          {
-            <div className="grid grid-cols-3 lg:flex justify-center lg:justify-start lg:space-x-16">
-              <StatisticItem number={totalRecipes} label="Recipes" />
-              <StatisticItem number="130+" label="Users" />
-              <StatisticItem number="Free" label="Price" />
-            </div>
-          }
-        </div>
-        <div className="mt-12 lg:mt-0 bg-transparent rounded-lg w-full lg:w-auto">
-          <div className="relative w-full h-96 lg:w-[450px] lg:h-[600px]">
-            <Image
-              src={absoluteImageUrl}
-              alt="Profile"
-              layout="fill"
-              objectFit="contain"
-              className="object-scale-down"
-              loading="lazy"
-            />
-          </div>
-        </div>
-        
-      </Container>
-  )
-}
-
-export function StatisticItem({ number, label }: any) {
-  return (
-    <div className="flex flex-col items-center">
-      <p className="text-2xl font-semibold text-gray-700">{number}</p>
-      <p className="text-base font-medium text-gray-600">{label}</p>
-    </div>
-  );
-}
 
 export function HomePageScroller({recipes}: any) {
 
@@ -124,50 +33,33 @@ export function HomePageScroller({recipes}: any) {
   );
 }
 
-export function HomePageCTA() {
+export function Scroller({onRightScrollClick, onLeftScrollClick, scrollPage}: any) {
   return(
-    <Container className="relative w-full max-w-6xl mx-auto">
-      <div className="flex flex-col items-center gap-8 orange-border-shadow rounded-3xl p-6 lg:p-12">
-        <div className="flex flex-col items-center text-center">
-          <p className="w-full md:w-96 text-xl font-medium text-center primary-orange-text-gradient mb-3">
-            Premium
-          </p>
-          <TitleSection titleBlack="The Best Way To Use Zesti" desc="Experience Zesti AI with zero ads"/>
-        </div>
-        <Button isLink={true} href='/about/pricing' text="Get Started" className="text-lg font-medium text-center text-white"/>
+      <div className="flex items-center justify-center w-full mt-8 space-x-4">
+          <button onClick={() => onLeftScrollClick()} type="button"><ChevronLeftIcon className="h-10 w-10 home-page-scroll-btn" /></button>
+          <p className="text-base font-bold text-gray-600">{scrollPage} / 3</p>
+          <button onClick={() => onRightScrollClick()} type="button"><ChevronRightIcon className="h-10 w-10 home-page-scroll-btn" /></button>
       </div>
-    </Container>
   )
 }
 
-export function ChatFeature({data}: any) {
-
-  const { imageAlt, chatScreenshot } = data;
-
-  const imageUrl = chatScreenshot.fields.file.url;
-  const absoluteImageUrl = imageUrl.startsWith('//') ? `https:${imageUrl}` : imageUrl;
-
-  return (
-    <Container className="relative w-full max-w-6xl mx-auto animate-fadeIn">
-      <div className="mx-auto max-w-2xl px-4 py-12 sm:px-6 lg:max-w-7xl lg:px-8 rounded-3xl orange-border-shadow">
-        <div className="flex justify-center items-center">
-          <div className="space-y-6">
-              <TitleSection titleBlack={"Chat with"} titleOrange={"Zesti"} desc={"Ask questions about specific steps, ingredients or anything regarding cooking and get instant answers!"}/>
-            <div className="aspect-h-1 aspect-w-1 overflow-hidden ">
-              <div className="flex justify-center">
-                <Image
-                  src={absoluteImageUrl}
-                  alt={imageAlt}
-                  className="object-cover"
-                  height={500}
-                  width={500}
-                  loading="lazy"
-                />
+export function DiscoverRecipes({recipes}: any) {
+  return(
+      <>
+          <div className="flex flex-col lg:flex-row justify-center text-center lg:items-center w-full gap-8">
+              <div className="flex flex-col">
+                  <TitleSection  titleBlack="Check Out Recipes Recently Added to" titleOrange="Zesti" desc="Here are some recipes users have recently added to Zesti from TikTok" className="mt-0"/>
               </div>
-            </div>
           </div>
-        </div>
-      </div>
-    </Container>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-8">
+          {/* Testimonial cards */}
+          {recipes.map((recipe: any) => (
+              <RecipeCard
+                  key={recipe.data.unique_id}
+                  item={recipe}
+              />
+          ))}
+          </div>
+      </>
   )
 }
