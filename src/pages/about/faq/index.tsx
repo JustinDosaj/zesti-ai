@@ -3,7 +3,7 @@ import { getEntriesForContentTypes } from "@/lib/contentfulHelpers";
 import Head from 'next/head';
 import dynamic from "next/dynamic";
 
-const FAQ = dynamic(() => import('@/components/ui/general').then((mod) => mod.FAQ), { ssr: false })
+const FAQ = dynamic(() => import('@/components/ui/general/faq').then((mod) => mod.FAQ), { ssr: false })
 
 export const getServerSideProps: GetServerSideProps = async () => {
 
