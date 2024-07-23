@@ -4,11 +4,11 @@ import Head from 'next/head';
 import dynamic from "next/dynamic";
 import { GetTotalRecipeCount } from "./api/firebase/functions";
 
-const Hero = dynamic(() => import('@/components/ui/features/users').then((mod) => mod.Hero), { ssr: false })
-const HomePageCTA = dynamic(() => import('@/components/ui/features/users').then((mod) => mod.HomePageCTA), { ssr: false })
+const Hero = dynamic(() => import('@/components/ui/general/hero').then((mod) => mod.Hero), { ssr: false })
+const CTA = dynamic(() => import('@/components/ui/general/cta').then((mod) => mod.CTA), { ssr: false })
 const HomePageScroller = dynamic(() => import('@/components/ui/features/users').then((mod) => mod.HomePageScroller), { ssr: false })
-const ThreeBoxFeature = dynamic(() => import('@/components/ui/general').then((mod) => mod.ThreeBoxFeature), { ssr: false })
-const FAQ = dynamic(() => import('@/components/ui/general').then((mod) => mod.FAQ), { ssr: false })
+const ThreeBoxFeature = dynamic(() => import('@/components/ui/general/threeboxfeature').then((mod) => mod.ThreeBoxFeature), { ssr: false })
+const FAQ = dynamic(() => import('@/components/ui/general/faq').then((mod) => mod.FAQ), { ssr: false })
 
 export const getServerSideProps: GetServerSideProps = async () => {
 
@@ -40,7 +40,7 @@ export default function Home({heroContent, faqContent, recipes, totalRecipes}: a
         <Hero heroContent={heroContent} totalRecipes={totalRecipes}/>
         <HomePageScroller recipes={recipes}/>
         <ThreeBoxFeature type="home" titleStart="How" titleMid="Zesti" titleEnd="Works" desc="Zesti makes it easy to copy recipes and can help you by answering any questions you have along the way!"/>
-        <HomePageCTA/>
+        <CTA/>
         <FAQ qA={faqContent.qA.fields.user} title="FAQ" desc="Answers to the most common questions we get" type="user"/>
       </main>
     </>
