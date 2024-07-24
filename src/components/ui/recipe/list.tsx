@@ -14,9 +14,10 @@ interface RecipeCardListProps {
   }
 
 export function RecipeCardList({recipes, maxDisplayCount = 9, incrementCount = 9, max = 0, loading}: RecipeCardListProps) {
+
     const [ displayCount, setDisplayCount ] = useState(maxDisplayCount)
     const containerRef = useRef<HTMLDivElement>(null);
-  
+
     const sortedData = recipes?.sort((a: any, b: any) => {
       // Convert dates to timestamps, treating invalid or absent dates as 0
       const dateA = new Date(a.date).getTime() || 0;

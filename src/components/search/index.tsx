@@ -6,6 +6,8 @@ import { ButtonLoader } from '../shared/loader';
 import { ArrowTopRightOnSquareIcon } from '@heroicons/react/20/solid';
 import Link from 'next/link';
 import { useLoading } from '@/context/loadingcontext';
+import { useModal } from '@/context/modalcontext';
+import { useAuth } from '@/pages/api/auth/auth';
 
 interface AddRecipeProps {
     align?: 'start' | 'center' | 'end',
@@ -15,6 +17,8 @@ export function SearchOrAddRecipe({align}: AddRecipeProps) {
 
     const { setLoading, setProgress, isLoading } = useLoading()
     const [ url , setUrl ] = useState<string>("");
+    const { stripeRole } = useAuth();
+    const { openModal } = useModal();
     const router = useRouter();
 
     const onAddButtonClick = async (e: React.FormEvent) => {
@@ -24,6 +28,7 @@ export function SearchOrAddRecipe({align}: AddRecipeProps) {
         if (url.includes('tiktok.com') || url.includes('instagram.com')) {
 
             setLoading(true)
+            openModal("Recipe Submitted", "Processing recipe, this should only take a few moments.", "Okay", "info", true, stripeRole)
             setProgress(0)
     
             const interval = setInterval(() => {
