@@ -9,7 +9,7 @@ interface TextProps {
 export function Paragraph({className, children, size}: TextProps){
 
     return(
-        <p className={classNames(size == 'small' ? `text-sm md:text-base lg:text-medium` : `text-base md:text-md lg:text-lg`, `text-heading-3 ${className}`)}>
+        <p className={classNames(size == 'small' ? `text-sm` : size == 'medium' ? `text-base` : `text-base md:text-md lg:text-lg`, `text-gray-700 ${className}`)}>
             {children}
         </p>
     )

@@ -8,6 +8,7 @@ import { useAuth } from './api/auth/auth';
 import AdSenseDisplay from '@/components/tags/adsense';
 import Head from 'next/head';
 import algoliasearch, { SearchIndex } from 'algoliasearch';
+import { useModal } from '@/context/modalcontext';
 import { Notify } from '@/components/shared/notify';
 
 
@@ -30,6 +31,7 @@ const SearchResults: React.FC = () => {
     const [ recipes, setRecipes ] = useState<any>([])
     const [ urlParam, setUrlParam ] = useState<string>('')
     const { stripeRole } = useAuth();
+    const { openModal } = useModal();
 
     const router = useRouter()
 
@@ -66,6 +68,9 @@ const SearchResults: React.FC = () => {
                 <div className="mt-2 lg:mt-8"/>
                 <TitleSection titleBlack="Add or Find Recipes" desc="Copy & paste a TikTok or Instagram link to get the recipe in seconds or search for recipes that already exist on Zesti!"/>
                 <SearchOrAddRecipe align={"center"}/>
+                <div className="w-[300px] md:w-[728px]">
+                    <AdSenseDisplay adSlot="5445664417" adFormat="horizontal" widthRes="true" role={stripeRole} maxHeight="90px"/>
+                </div>
                 <RecipeCardList recipes={recipes}/>
                 <div className="pt-12 w-[300px] md:w-[728px]">
                     <AdSenseDisplay adSlot="2119249846" adFormat="horizontal" widthRes="true" role={stripeRole}/>
