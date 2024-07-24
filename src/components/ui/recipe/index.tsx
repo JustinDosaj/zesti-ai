@@ -1,9 +1,9 @@
 import { ArrowDownTrayIcon, BookmarkSlashIcon, ArrowTopRightOnSquareIcon, ShareIcon, ExclamationTriangleIcon } from "@heroicons/react/20/solid"
 import convertDurationToReadable from "@/utils/recipe-time-format";
+import { useModal } from "@/context/modalcontext";
 
 interface RecipeProps {
   recipe?: any;
-  setIsOpen?: any;
   setIsErrorOpen?: any;
   ingredients?: any;
   instructions?: any;
@@ -14,12 +14,15 @@ interface RecipeProps {
   user?: any;
 }
 
-export function RecipeTitleCard({ recipe, setIsOpen, isSaved, user, isLoading }: RecipeProps) {
+export function RecipeTitleCard({ recipe, isSaved, user, isLoading, role }: RecipeProps) {
+
+  const { openModal } = useModal()
+
   async function onSaveClick() {
     const saveRecipe = (await import('@/pages/api/firebase/functions')).saveRecipeReferenceToUser;
 
     if (user && !isLoading) {
-      await saveRecipe(user?.uid, recipe.data.unique_id).then(() => { setIsOpen(true) });
+      await saveRecipe(user?.uid, recipe.data.unique_id).then(() => { openModal("Recipe Saved", "You can continue browsing or view all your saved recipes", "My Recipes", "success", true, role) });
     } else {
       const Notify = (await import('@/components/shared/notify')).Notify;
       Notify("Please login to save recipes");

@@ -12,7 +12,6 @@ import {
 import { RecipeSuggestions } from '@/components/ui/recipe/suggestions';
 import InstagramComponent from '@/components/ui/recipe/instagram';
 
-const DynamicModal = dynamic(() => import('@/components/ui/modals/response').then((mod) => mod.ResponseModal), { ssr: false });
 const ErrorReportModal = dynamic(() => import('@/components/ui/modals/report').then((mod) => mod.ErrorReportModal), { ssr: false });
 const AdSenseDisplay = dynamic(() => import('@/components/tags/adsense'), { ssr: false, loading: () => <div style={{ height: '90px' }} /> });
 const TikTokVideo = dynamic(() => import('@/components/ui/recipe/tiktok'), { ssr: false, loading: () => <div style={{ height: '90px' }} /> });
@@ -129,15 +128,15 @@ const Recipe: React.FC = ({ recipe, ogUrl, recentRecipes }: any) => {
   return (
     <>
       <Head>
-        <title>{`${name} Recipe By ${owner?.nickname}`}</title>
-        <meta name="title" content={`${name} Recipe By ${owner?.nickname}`} />
+        <title>{`${name} Recipe`}</title>
+        <meta name="title" content={`${name} Recipe`} />
         <meta name="description" content={`${source} recipe from @${owner?.username} - ${video_title?.slice(0, 200)}`} />
-        <meta property="og:title" content={`${name} Recipe By ${owner?.nickname}`} />
+        <meta property="og:title" content={`${name} Recipe`} />
         <meta property="og:description" content={`${description} from ${source}`} />
         <meta property="og:image" content={`https://firebasestorage.googleapis.com/v0/b/${process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET}/o/${encodeURIComponent(cover_image_url)}?alt=media`} />
         <meta property="og:url" content={ogUrl} />
         <meta property="twitter:image" content={`https://firebasestorage.googleapis.com/v0/b/${process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET}/o/${encodeURIComponent(cover_image_url)}?alt=media`} />
-        <meta property="twitter:title" content={`${name}`} />
+        <meta property="twitter:title" content={`${name} Recipe`} />
         <meta property="twitter:description" content={`Check out this TikTok recipe by @${owner?.username}`} />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       </Head>
@@ -145,7 +144,7 @@ const Recipe: React.FC = ({ recipe, ogUrl, recentRecipes }: any) => {
         
       <div className="max-w-7xl mx-auto flex justify-center">
         <div className={`w-full lg:w-5/6 lg:max-w-[728px] space-y-10 lg:mt-10 mt-8`}>
-            <RecipeTitleCard recipe={recipe} isSaved={isSaved} setIsOpen={setIsOpen} user={user} isLoading={isLoading} />
+            <RecipeTitleCard recipe={recipe} isSaved={isSaved} user={user} isLoading={isLoading} role={stripeRole}/>
             <AdSenseDisplay adSlot="3721531543" adFormat="horizontal" widthRes={"false"} role={stripeRole} maxHeight="90px" /> 
             <RecipeIngredientsComponent ingredients={ingredients} />
             <AdSenseDisplay adSlot="6960485708" adFormat="horizontal" widthRes={"false"} role={stripeRole} maxHeight="90px" /> 
@@ -155,6 +154,8 @@ const Recipe: React.FC = ({ recipe, ogUrl, recentRecipes }: any) => {
             <AdSenseDisplay adSlot="5275868942" adFormat="horizontal" widthRes={"false"} role={stripeRole} maxHeight="90px" /> 
             <RecipeDataComponent recipe={recipe} setIsErrorOpen={setIsErrorOpen} />
         </div>
+
+
         {stripeRole !== 'premium' && (
           <div className="hidden lg:flex lg:flex-col l lg:space-y-6 lg:justify-between lg:ml-8 lg:w-[320px] lg:mt-10 mt-8">
             <AdSenseDisplay adSlot="7190552003" adFormat="vertical" widthRes={"false"} role={stripeRole} maxHeight="600px" />
@@ -166,15 +167,6 @@ const Recipe: React.FC = ({ recipe, ogUrl, recentRecipes }: any) => {
       
         <RecipeSuggestions recipes={recentRecipes} title={"Recently Added Recipes"} role={stripeRole}/>
 
-        <DynamicModal
-          title={`${recipe?.name} Saved!`}
-          text={`You can view it by visiting your saved recipe page!`}
-          isOpen={isOpen}
-          setIsOpen={setIsOpen}
-          displayAd={true}
-          role={stripeRole}
-          buttonName={"My Recipes"}
-        />
         <ErrorReportModal
           isOpen={isErrorOpen}
           setIsOpen={setIsErrorOpen}
