@@ -1,5 +1,6 @@
 import Link from "next/link"
 import Image from "next/image"
+import { Paragraph } from "@/components/shared/paragraph"
 
 interface RecipeCardProps {
     item: {

@@ -4,6 +4,8 @@ import 'react-toastify/dist/ReactToastify.css';
 import React from 'react'
 import dynamic from 'next/dynamic'
 import LoadingBar from '@/components/shared/loadingbar';
+import GlobalModal from '@/components/shared/modal';
+import { ModalProvider } from '@/context/modalcontext';
 
 const ToastContainer = dynamic(() => import('react-toastify').then((mod) => mod.ToastContainer), { ssr: false })
 const Navbar = dynamic(() => import('@/components/elements/navbar').then((mod) => mod.Navbar), { ssr: false })
@@ -18,12 +20,15 @@ export default function App({ Component, pageProps }: AppProps) {
   return (
     <LoadingProvider>
         <AuthProvider>
+          <ModalProvider>
               <LoadingBar/>
+              <GlobalModal />
               <Navbar/>
                   <Component {...pageProps}/>
                   <Analytics/>
                   <ToastContainer/>
               <Footer/>
+          </ModalProvider>
         </AuthProvider>
     </LoadingProvider>
   )
