@@ -8,6 +8,7 @@ import Link from 'next/link';
 import { useLoading } from '@/context/loadingcontext';
 import { useModal } from '@/context/modalcontext';
 import { useAuth } from '@/pages/api/auth/auth';
+import { Notify } from '../shared/notify';
 
 interface AddRecipeProps {
     align?: 'start' | 'center' | 'end',
@@ -28,9 +29,11 @@ export function SearchOrAddRecipe({align}: AddRecipeProps) {
         if (url.includes('tiktok.com') || url.includes('instagram.com')) {
 
             setLoading(true)
-            openModal("Recipe Submitted", "Processing recipe, this should only take a few moments.", "Okay", "info", true, stripeRole)
             setProgress(0)
-    
+
+            if (stripeRole == 'premium') { Notify("Processing recipe, this may take a few moments") }
+            else { openModal("Recipe Submitted", "Processing recipe, this should only take a few moments.", "Okay", "info", true, stripeRole) }
+
             const interval = setInterval(() => {
                 setProgress((prev: number) => {
                     
