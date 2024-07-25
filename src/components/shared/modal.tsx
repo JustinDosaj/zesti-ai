@@ -44,7 +44,7 @@ const GlobalModal: React.FC = () => {
 
     return (
         <Transition.Root show={isOpen} as={Fragment}>
-            <Dialog as="div" className="relative z-50 my-auto" initialFocus={cancelButtonRef} onClose={closeModal}>
+            <Dialog as="div" className="relative z-50" initialFocus={cancelButtonRef} onClose={closeModal}>
                 <Transition.Child
                 as={Fragment}
                 enter="ease-out duration-300"
@@ -56,8 +56,8 @@ const GlobalModal: React.FC = () => {
                 >
                 <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
                 </Transition.Child>
-                <div className="fixed inset-0 z-10 w-screen overflow-y-auto">
-                    <div className="flex min-h-screen items-center justify-center p-4 text-center sm:min-h-full">
+                <div className="fixed inset-0 z-10 flex items-center justify-center p-4 text-center">
+                    <div className="flex min-h-screen items-center justify-center w-full">
                         <Transition.Child
                         as={Fragment}
                         enter="ease-out duration-300"
