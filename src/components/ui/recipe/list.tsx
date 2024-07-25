@@ -20,8 +20,8 @@ export function RecipeCardList({recipes, maxDisplayCount = 9, incrementCount = 9
 
     const sortedData = recipes?.sort((a: any, b: any) => {
       // Convert dates to timestamps, treating invalid or absent dates as 0
-      const dateA = new Date(a.date).getTime() || 0;
-      const dateB = new Date(b.date).getTime() || 0;
+      const dateA = new Date(a.data.date_added).getTime() || 0;
+      const dateB = new Date(b.data.date_added).getTime() || 0;
   
       // If both dates are invalid or missing, maintain their order
       if (dateA === 0 && dateB === 0) return 0;

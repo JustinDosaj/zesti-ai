@@ -1,5 +1,5 @@
 import { db } from "@/pages/api/firebase/firebase"
-import { onSnapshot, getDoc, collection } from "firebase/firestore"
+import { onSnapshot, getDoc, collection, query, orderBy } from "firebase/firestore"
 import { useState, useEffect } from "react"
 
 interface Recipe {
@@ -13,9 +13,11 @@ const useUserRecipeList = (user: any | null, isLoading: boolean) => {
 
     useEffect(() => {
         if (user && !isLoading) {
+
             const recipesRef = collection(db, 'users', user.uid, 'recipes');
+            const recipeQuery = query(recipesRef, orderBy('date', 'desc'));
             
-            const unsubscribe = onSnapshot(recipesRef, async (querySnapshot) => {
+            const unsubscribe = onSnapshot(recipeQuery, async (querySnapshot) => {
                 setLoadingUserRecipes(true);
 
                 const recipeFetchPromises = querySnapshot.docs.map(async (doc) => {
