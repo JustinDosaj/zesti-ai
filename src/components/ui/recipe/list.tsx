@@ -18,22 +18,6 @@ export function RecipeCardList({recipes, maxDisplayCount = 9, incrementCount = 9
     const [ displayCount, setDisplayCount ] = useState(maxDisplayCount)
     const containerRef = useRef<HTMLDivElement>(null);
 
-    const sortedData = recipes?.sort((a: any, b: any) => {
-      // Convert dates to timestamps, treating invalid or absent dates as 0
-      const dateA = new Date(a.data.date_added).getTime() || 0;
-      const dateB = new Date(b.data.date_added).getTime() || 0;
-  
-      // If both dates are invalid or missing, maintain their order
-      if (dateA === 0 && dateB === 0) return 0;
-  
-      // A valid date is always considered "greater" than an invalid or missing one
-      if (dateA === 0) return 1;
-      if (dateB === 0) return -1;
-  
-      // If both dates are valid, sort them in descending order
-      return dateB - dateA;
-    });
-  
     const shouldShowLoadMore = max > 0
     ? (displayCount < recipes.length && displayCount <= max)
     : (displayCount < recipes.length);
@@ -54,10 +38,10 @@ export function RecipeCardList({recipes, maxDisplayCount = 9, incrementCount = 9
     return(
       <Container className={`grid justify-center lg:flex-row gap-10 lg:gap-12  animate-fadeIn`}>
             <div className="space-y-2 border-t mt-2 pt-2">
-                { sortedData.length > 0 ? 
+                { recipes.length > 0 ? 
                 <div className="space-y-6">
                     <div ref={containerRef} className={`grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6 mt-4`} >
-                        {sortedData.slice(0, displayCount).map((item: any) => (
+                        {recipes.slice(0, displayCount).map((item: any) => (
                             <RecipeCard item={item} key={item.data.unique_id}/>
                         ))}
                     </div>
