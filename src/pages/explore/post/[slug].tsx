@@ -126,7 +126,7 @@ const Post: React.FC<PostProps> = ({post, url, relatedRecipes}: PostProps) => {
             dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
           />
       </Head>   
-      <main className={`bg-background min-h-screen px-6 sm:px-8 md:px-14 lg:px-5 b-28 `}>
+      <main className={`bg-background min-h-screen px-6 sm:px-8 md:px-14 lg:px-5 pb-28 `}>
         <div className="max-w-7xl mx-auto flex justify-center">
           
           <div className="w-full lg:w-3/5 grid justify-center space-y-4 lg:mt-10 mt-8">
