@@ -26,12 +26,12 @@ export default function MyRecipes() {
         <div className="mt-2 lg:mt-8"/>
         <TitleSection titleBlack="Your Saved Recipes" desc="Access all the recipes you saved from others or search for new ones below"/>
         <div className="w-[300px] md:w-[728px]">
-          <AdSenseDisplay adSlot="9125889123" adFormat="horizontal" widthRes="true" role={stripeRole} maxHeight="90px"/>
+          <AdSenseDisplay adSlot="9125889123" adFormat="horizontal" widthRes="false" role={stripeRole} maxHeight="90px"/>
         </div>
         <RecipeCardList recipes={userRecipeList} maxDisplayCount={9} max={0} loading={loadingUserRecipes}/>
         {/* Ad Display for My Recipes */}
         <div className="pt-12 w-[300px] md:w-[728px]">
-          <AdSenseDisplay adSlot="4770591581" adFormat="horizontal" widthRes="true" role={stripeRole}/>
+          <AdSenseDisplay adSlot="4770591581" adFormat="horizontal" widthRes="true" role={stripeRole} maxHeight="250px"/>
         </div>
     </main>
     </>
