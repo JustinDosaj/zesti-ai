@@ -50,7 +50,14 @@ const SearchResults: React.FC = () => {
                 recipesIndex.search(query)
             ]);
 
-            setRecipes(recipes.hits) 
+            const sortedRecipes = recipes.hits.sort((a: any, b: any) => {
+                const dateA = new Date(a.data.date_added).getTime();
+                const dateB = new Date(b.data.date_added).getTime();
+                return dateB - dateA;
+            });
+
+            setRecipes(sortedRecipes) 
+            
         } catch(error) {
             Notify("Problem fetching recipes, please try again later")
         }
