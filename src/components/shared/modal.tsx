@@ -44,7 +44,7 @@ const GlobalModal: React.FC = () => {
 
     return (
         <Transition.Root show={isOpen} as={Fragment}>
-            <Dialog as="div" className="relative z-50" initialFocus={cancelButtonRef} onClose={closeModal}>
+            <Dialog as="div" className="relative z-50 my-auto" initialFocus={cancelButtonRef} onClose={closeModal}>
                 <Transition.Child
                 as={Fragment}
                 enter="ease-out duration-300"
