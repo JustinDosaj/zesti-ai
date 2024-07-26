@@ -67,25 +67,24 @@ const GlobalModal: React.FC = () => {
                         leaveFrom="opacity-100 translate-y-0 sm:scale-100"
                         leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
                         >
-                        <Dialog.Panel className="relative transform overflow-hidden rounded-3xl bg-white px-4 pb-4 pt-5 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg sm:p-6">
+                        <Dialog.Panel className="relative transform overflow-hidden rounded-3xl bg-white px-4 pb-4 pt-5 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg sm:p-6 space-y-4">
                             <div>
-                            <div className={`${borderColor[status]} mx-auto flex h-12 w-12 items-center justify-center border rounded-full`}>
-                                {statusIcons[status]}
-                            </div>
-                            <div className="mt-3 text-center sm:mt-5">
-                                <Dialog.Title as="h3" className="text-xl lg:text-2xl font-semibold leading-6 text-gray-900 capitalize">
-                                {title}
-                                </Dialog.Title>
-                                <div className="mt-4">
-                                <p className="text-sm lg:text-base text-gray-600">
-                                    {text}
-                                </p>
+                                <div className={`${borderColor[status]} mx-auto flex h-12 w-12 items-center justify-center border rounded-full`}>
+                                    {statusIcons[status]}
+                                </div>
+                                <div className="mt-1 text-center space-y-1">
+                                    <Dialog.Title as="h3" className="text-xl lg:text-2xl font-semibold leading-6 text-gray-900 capitalize">
+                                    {title}
+                                    </Dialog.Title>
+                                    <p className="text-sm lg:text-base text-gray-600">
+                                        {text}
+                                    </p>
+ 
                                 </div>
                             </div>
-                            </div>
 
-                            <div className={role !== 'premium' && displayAd ? `pt-6 pb-4 px-4` : `hidden`}>
-                                <AdSenseDisplay adSlot="9250004753" adFormat="rectangle" widthRes="true" role={role}/>
+                            <div className={role !== 'premium' && displayAd ? `w-[300px] md:w-[336px] mx-auto` : `hidden`}>
+                                <AdSenseDisplay adSlot="9250004753" adFormat="rectangle" widthRes="true" role={role} maxHeight="250px"/>
                             </div>
 
                             <div className="mt-5 sm:mt-6 sm:grid sm:grid-flow-row-dense sm:grid-cols-2 sm:gap-3">
