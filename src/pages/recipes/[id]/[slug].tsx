@@ -145,12 +145,12 @@ const Recipe: React.FC = ({ recipe, ogUrl, recentRecipes }: any) => {
       <div className="max-w-7xl mx-auto flex justify-center">
         <div className={`w-full lg:w-5/6 lg:max-w-[728px] space-y-10 lg:mt-10 mt-8`}>
             <RecipeTitleCard recipe={recipe} isSaved={isSaved} user={user} isLoading={isLoading} role={stripeRole}/>
-            <AdSenseDisplay adSlot="3721531543" adFormat="horizontal" widthRes={"false"} role={stripeRole} maxHeight="90px" /> 
-            <RecipeIngredientsComponent ingredients={ingredients} />
-            <AdSenseDisplay adSlot="6960485708" adFormat="horizontal" widthRes={"false"} role={stripeRole} maxHeight="90px" /> 
-            <RecipeInstructionsComponent instructions={instructions} />
+            <AdSenseDisplay adSlot="3721531543" adFormat="horizontal" widthRes={"false"} role={stripeRole} maxHeight="90px" />
+            {source == "tiktok" ? <TikTokVideo video_id={video_id}/> : <InstagramComponent video_id={video_id}/>} 
+            <AdSenseDisplay adSlot="6960485708" adFormat="horizontal" widthRes={"false"} role={stripeRole} maxHeight="90px" />
+            <RecipeIngredientsComponent ingredients={ingredients} /> 
             <AdSenseDisplay adSlot="2408449875" adFormat="horizontal" widthRes={"false"} role={stripeRole} maxHeight="90px" /> 
-            {source == "tiktok" ? <TikTokVideo video_id={video_id}/> : <InstagramComponent video_id={video_id}/>}
+            <RecipeInstructionsComponent instructions={instructions} />
             <AdSenseDisplay adSlot="5275868942" adFormat="horizontal" widthRes={"false"} role={stripeRole} maxHeight="90px" /> 
             <RecipeDataComponent recipe={recipe} setIsErrorOpen={setIsErrorOpen} />
         </div>
