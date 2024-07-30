@@ -28,7 +28,7 @@ interface ImageFields {
   
   export function Hero({heroContent, totalRecipes}: HeroProps) {
   
-    const { titleStart, titleEnd, description, image } = heroContent;
+    const { titleStart, description, image } = heroContent;
     const imageUrl = image.fields.file.url;
     const absoluteImageUrl = imageUrl.startsWith('//') ? `https:${imageUrl}` : imageUrl;
   

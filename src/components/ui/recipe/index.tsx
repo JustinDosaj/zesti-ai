@@ -1,6 +1,8 @@
 import { ArrowDownTrayIcon, BookmarkSlashIcon, ArrowTopRightOnSquareIcon, ShareIcon, ExclamationTriangleIcon } from "@heroicons/react/20/solid"
 import convertDurationToReadable from "@/utils/recipe-time-format";
 import { useModal } from "@/context/modalcontext";
+import Link from "next/link";
+
 
 interface RecipeProps {
   recipe?: any;
@@ -45,16 +47,33 @@ export function RecipeTitleCard({ recipe, isSaved, user, isLoading, role }: Reci
 
   return (
     <div className="bg-gray-50 border-gray-300 border shadow-md rounded-lg pt-6 mb-8">
-      <h1 className="text-2xl lg:text-3xl font-semibold text-gray-900 px-6">{recipe.name}</h1>
-      <div className="flex items-center gap-1 text-gray-700 mt-2 px-6">
-        <span>by</span>
-        <button onClick={() => window.open(recipe.data.url)} className="underline flex items-center font-semibold hover:text-gray-600">
-          {recipe?.data?.owner?.username}
-          <ArrowTopRightOnSquareIcon className="h-4 w-4 ml-1" />
-        </button>
+
+      <div className="px-6">
+        <h1 className="text-2xl lg:text-3xl font-semibold text-gray-900">{recipe.name}</h1>
+
+        <div className="flex items-center gap-1 text-gray-700">
+          <span>by</span>
+          <button onClick={() => window.open(recipe.data.url)} className="underline flex items-center font-semibold hover:text-gray-600">
+            {recipe?.data?.owner?.username}
+            <ArrowTopRightOnSquareIcon className="h-4 w-4 ml-1" />
+          </button>
+        </div>
+
+        <p className="text-gray-700 mt-4">{recipe.description}</p>
+
+        <div className="text-xs text-gray-500 mt-4">
+            <div className="">
+              <span className="font-semibold">Disclaimer: </span>
+              <span>Recipe is retrieved from {recipe.data.source}. </span>
+              <span>Results may vary. </span> 
+              <Link href="/about/faq" className="underline">Click here</Link>
+              <span> to learn more.</span>
+            </div>
+
+        </div>
       </div>
-      <p className="text-gray-700 mt-4 px-6">{recipe.description}</p>
-      <div className="border-t w-full border-gray-300 mt-6 flex">
+
+      <div className="border-t w-full border-gray-300 mt-4 flex">
         <button onClick={onShareClick} className="recipe-title-button border-r text-blue-600">
           <ShareIcon className="h-5 w-5" />
           <span>Share</span>
@@ -64,6 +83,7 @@ export function RecipeTitleCard({ recipe, isSaved, user, isLoading, role }: Reci
           <span>{isSaved ? 'Remove' : 'Save'}</span>
         </button>
       </div>
+
     </div>
   );
 }

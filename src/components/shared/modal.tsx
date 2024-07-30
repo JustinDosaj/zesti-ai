@@ -83,7 +83,7 @@ const GlobalModal: React.FC = () => {
                                 </div>
                             </div>
 
-                            <div className={role !== 'premium' && displayAd ? `w-[300px] md:w-[336px] mx-auto` : `hidden`}>
+                            <div className={role !== 'premium' && displayAd ? `w-[260px] md:w-[336px] mx-auto` : `hidden`}>
                                 <AdSenseDisplay adSlot="9250004753" adFormat="rectangle" widthRes="true" role={role} maxHeight="250px"/>
                             </div>
 
