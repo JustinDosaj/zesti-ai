@@ -105,11 +105,9 @@ export function RecipeTitleCard({ recipe, isSaved, user, isLoading, role, hasLik
       <div className="border-t w-full border-gray-300 mt-4 flex">
         <button onClick={onShareClick} className="recipe-title-button border-r text-blue-600">
           <ShareIcon className="h-5 w-5" />
-          <span>Share</span>
         </button>
         <button onClick={isSaved ? onDeleteClick : onSaveClick} className={`recipe-title-button text-green-600 ${isSaved ? `text-red-600` : `text-green-600`}`}>
           {isSaved ? <BookmarkSlashIcon className="h-5 w-5" /> : <ArrowDownTrayIcon className="h-5 w-5" />}
-          <span>{isSaved ? 'Remove' : 'Save'}</span>
         </button>
         <button onClick={onLikeClick} className="recipe-title-button border-l">
           <HandThumbUpIcon className={classNames( hasLiked ? `text-green-600` : `text-gray-500` , `h-5 w-5`)}/>
