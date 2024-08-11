@@ -118,6 +118,12 @@ const Recipe: React.FC = ({ recipe, ogUrl, recentRecipes }: any) => {
     "description": description,
     "recipeYield": recipeYield || "",
     "keywords": keywords || "",
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": `${likes}`,
+      "bestRating": "1",
+      "ratingCount": `${likes}`,
+    },
     "image": [
       `https://firebasestorage.googleapis.com/v0/b/${process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET}/o/${encodeURIComponent(cover_image_url)}?alt=media`,
     ],
