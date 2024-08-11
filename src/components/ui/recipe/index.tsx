@@ -1,7 +1,10 @@
 import { ArrowDownTrayIcon, BookmarkSlashIcon, ArrowTopRightOnSquareIcon, ShareIcon, ExclamationTriangleIcon } from "@heroicons/react/20/solid"
 import convertDurationToReadable from "@/utils/recipe-time-format";
 import { useModal } from "@/context/modalcontext";
+import { UpdateLikesInFirebase } from "@/pages/api/firebase/functions";
 import Link from "next/link";
+import { HandThumbUpIcon } from "@heroicons/react/24/solid";
+import { classNames } from "@/components/shared/classNames";
 
 
 interface RecipeProps {
@@ -14,9 +17,13 @@ interface RecipeProps {
   video_id?: string;
   isLoading?: boolean;
   user?: any;
+  hasLiked?: boolean;
+  likes?: number
+  setHasLiked?: any;
+  setLikes?: any;
 }
 
-export function RecipeTitleCard({ recipe, isSaved, user, isLoading, role }: RecipeProps) {
+export function RecipeTitleCard({ recipe, isSaved, user, isLoading, role, hasLiked, likes = 0, setHasLiked, setLikes }: RecipeProps) {
 
   const { openModal } = useModal()
 
@@ -43,6 +50,28 @@ export function RecipeTitleCard({ recipe, isSaved, user, isLoading, role }: Reci
     await navigator.clipboard.writeText(window.location.href);
     const Notify = (await import('@/components/shared/notify')).Notify;
     Notify("Recipe URL copied to clipboard.");
+  }
+
+  const onLikeClick = async () => {
+    
+    if(!user) {
+      openModal("Login Required", "Please login to like recipes", "Login", "error", false, role);
+      return;
+    }
+
+    if(hasLiked) {
+      setLikes(likes - 1);
+      setHasLiked(false);
+      await UpdateLikesInFirebase({recipeId: recipe.data.unique_id, remove: true });
+      return;
+    }
+
+    if(!hasLiked) {
+      setLikes(likes + 1);
+      setHasLiked(true);
+      await UpdateLikesInFirebase({recipeId: recipe.data.unique_id, remove: false });
+    }
+
   }
 
   return (
@@ -76,11 +105,13 @@ export function RecipeTitleCard({ recipe, isSaved, user, isLoading, role }: Reci
       <div className="border-t w-full border-gray-300 mt-4 flex">
         <button onClick={onShareClick} className="recipe-title-button border-r text-blue-600">
           <ShareIcon className="h-5 w-5" />
-          <span>Share</span>
         </button>
         <button onClick={isSaved ? onDeleteClick : onSaveClick} className={`recipe-title-button text-green-600 ${isSaved ? `text-red-600` : `text-green-600`}`}>
           {isSaved ? <BookmarkSlashIcon className="h-5 w-5" /> : <ArrowDownTrayIcon className="h-5 w-5" />}
-          <span>{isSaved ? 'Remove' : 'Save'}</span>
+        </button>
+        <button onClick={onLikeClick} className="recipe-title-button border-l">
+          <HandThumbUpIcon className={classNames( hasLiked ? `text-green-600` : `text-gray-500` , `h-5 w-5`)}/>
+          <span>{likes}</span>
         </button>
       </div>
 
