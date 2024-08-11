@@ -62,9 +62,10 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 const Recipe: React.FC = ({ recipe, ogUrl, recentRecipes }: any) => {
   
   const { stripeRole, user, isLoading } = useAuth();
-  const [isOpen, setIsOpen] = useState<boolean>(false);
   const [isErrorOpen, setIsErrorOpen] = useState<boolean>(false);
   const [isSaved, setIsSaved] = useState<boolean>(false);
+  const [likes, setLikes] = useState<number>(recipe?.data?.likes || 0);
+  const [hasLiked, setHasLiked] = useState<boolean>(false);
 
   const {
     name,
@@ -86,12 +87,18 @@ const Recipe: React.FC = ({ recipe, ogUrl, recentRecipes }: any) => {
     if (user) {
       existingRecipes();
     }
-
     async function existingRecipes() {
       const CheckForExistingRecipe = (await import('../../api/firebase/functions')).CheckForExistingRecipe;
       user && CheckForExistingRecipe(recipe, user?.uid, setIsSaved);
     }
   }, [user, recipe?.data?.unique_id]);
+
+  useEffect(() => {
+    if(recipe.data.likedBy && user) {
+      setHasLiked(recipe.data.likedBy.includes(user.uid))
+    }
+  },[user, isLoading, recipe?.data?.likedBy])
+  
 
   const jsonLd = {
     "@context": "http://schema.org",
@@ -111,6 +118,12 @@ const Recipe: React.FC = ({ recipe, ogUrl, recentRecipes }: any) => {
     "description": description,
     "recipeYield": recipeYield || "",
     "keywords": keywords || "",
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": `${likes}`,
+      "bestRating": "1",
+      "ratingCount": `${likes}`,
+    },
     "image": [
       `https://firebasestorage.googleapis.com/v0/b/${process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET}/o/${encodeURIComponent(cover_image_url)}?alt=media`,
     ],
@@ -144,7 +157,7 @@ const Recipe: React.FC = ({ recipe, ogUrl, recentRecipes }: any) => {
         
       <div className="max-w-7xl mx-auto flex justify-center">
         <div className={`w-full lg:w-5/6 lg:max-w-[728px] space-y-10 lg:mt-10 mt-8`}>
-            <RecipeTitleCard recipe={recipe} isSaved={isSaved} user={user} isLoading={isLoading} role={stripeRole}/>
+            <RecipeTitleCard recipe={recipe} isSaved={isSaved} user={user} isLoading={isLoading} role={stripeRole} hasLiked={hasLiked} likes={likes} setHasLiked={setHasLiked} setLikes={setLikes}/>
             <AdSenseDisplay adSlot="3721531543" adFormat="horizontal" widthRes={"false"} role={stripeRole} maxHeight="90px" />
             {source == "tiktok" ? <TikTokVideo video_id={video_id}/> : <InstagramComponent video_id={video_id}/>} 
             <AdSenseDisplay adSlot="6960485708" adFormat="horizontal" widthRes={"false"} role={stripeRole} maxHeight="90px" />

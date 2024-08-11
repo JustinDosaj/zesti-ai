@@ -1,4 +1,5 @@
 import { Notify } from "@/components/shared/notify";
+import { httpsCallable, getFunctions } from 'firebase/functions';
 import { db } from "./firebase"
 import { onSnapshot, doc, setDoc, deleteDoc, getDocs, collection, getDoc, orderBy, query, limit } from "firebase/firestore";
 
@@ -134,4 +135,38 @@ export async function GetTotalRecipeCount(): Promise<number> {
     Notify("Failed to retrieve the total recipe count, please try again later.");
     throw error;
   }
+}
+
+interface LikeProps {
+  recipeId: string;
+  remove: boolean
+}
+
+export async function UpdateLikesInFirebase({recipeId, remove}: LikeProps) {
+    const data = {
+      "recipeId": recipeId,
+      "remove": remove,
+    }
+
+    const functions = getFunctions();
+    const likeRecipe = httpsCallable(functions, 'likeRecipe');
+
+    let id = ""
+    let success = false;
+
+    await likeRecipe(data).then((res) => {
+
+        if(res && res.data) {
+
+            const responseData = res.data as any;
+            id = responseData.id;
+            
+        }
+
+    }).catch(() => {
+        Notify("Error updating build order. Please try again later.")
+    })
+
+    return { success }
+
 }
