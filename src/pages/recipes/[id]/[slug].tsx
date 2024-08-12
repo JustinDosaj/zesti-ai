@@ -135,9 +135,9 @@ const Recipe: React.FC = ({ recipe, ogUrl, recentRecipes }: any) => {
     "keywords": keywords || "",
     "aggregateRating": {
       "@type": "AggregateRating",
-      "ratingValue": `${likes}`,
+      "ratingValue": `${likes || 1}`,
       "bestRating": "1",
-      "ratingCount": `${likes}`,
+      "ratingCount": `${likes || 1}`,
     },
     "image": [
       `https://firebasestorage.googleapis.com/v0/b/${process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET}/o/${encodeURIComponent(cover_image_url)}?alt=media`,
