@@ -11,7 +11,7 @@ interface RecipeCardProps {
         instructions: string[],
         description: string,
         data: {
-            unique_id: string,
+            id: string,
             slug: string,
             owner: {
                 username: string,
@@ -22,11 +22,11 @@ interface RecipeCardProps {
 
 export function RecipeCard({ item }: RecipeCardProps) {
 
-    const { unique_id, slug } = item.data;
+    const { id, slug } = item.data;
 
     return (
         <div className="group relative flex bg-white rounded-2xl border shadow-sm hover:shadow-xl hover:border-gray-300 transition-shadow duration-300 overflow-hidden w-full h-[190px]">
-            <Link href={{pathname: `/recipes/${unique_id}/${slug}`}} passHref={true}>
+            <Link href={{pathname: `/recipes/${id}/${slug}`}} passHref={true}>
                 <div className="flex h-full">
                     {/* Image Container */}
                     <div className="relative flex-none w-1/3">
