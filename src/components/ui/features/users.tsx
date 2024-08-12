@@ -55,7 +55,7 @@ export function DiscoverRecipes({recipes}: any) {
           {/* Testimonial cards */}
           {recipes.map((recipe: any) => (
               <RecipeCard
-                  key={recipe.data.unique_id}
+                  key={recipe.data.id}
                   item={recipe}
               />
           ))}
