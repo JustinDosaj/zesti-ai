@@ -110,7 +110,7 @@ export async function GetRecipeByIds(ids: string[]): Promise<Recipe[]>{
 
 export async function CheckForExistingRecipe(recipe: any, user_id: string, setIsSaved: any) {
   
-  const docRef = doc(db, `users/${user_id}/recipes`, recipe?.data.unique_id);
+  const docRef = doc(db, `users/${user_id}/recipes`, recipe?.data.id);
   const unsubscribe = onSnapshot(docRef, (docSnapshot) => {
     setIsSaved(docSnapshot.exists())
   })
@@ -126,11 +126,24 @@ export async function GetRecipeSnapshot(id: string) {
   return recipeSnapshot
 }
 
+export async function GetRecipeMap(id: string) {
+  const recipeMapRef = doc(db, `recipesMap/${id}`);
+  const recipeMapSnapshot = await getDoc(recipeMapRef);
+  return recipeMapSnapshot
+}
+
 export async function GetTotalRecipeCount(): Promise<number> {
   try {
-    const recipesRef = collection(db, 'recipes');
-    const snapshot = await getDocs(recipesRef);
-    return snapshot.size;
+    const counterRef = doc(db, 'counters', 'recipeCounter');
+    const counterSnapshot = await getDoc(counterRef);
+
+    if (counterSnapshot.exists()) {
+      const data = counterSnapshot.data();
+      return data.count || 0;
+    } else {
+      Notify("No recipe counter found, defaulting to count 0.");
+      return 0;
+    }
   } catch (error) {
     Notify("Failed to retrieve the total recipe count, please try again later.");
     throw error;
@@ -169,4 +182,15 @@ export async function UpdateLikesInFirebase({recipeId, remove}: LikeProps) {
 
     return { success }
 
+}
+
+export async function UpdateRecipeIds() {
+  const functions = getFunctions();
+  const updateRecipeIDs = httpsCallable(functions, 'updateRecipeIDs');
+
+  await updateRecipeIDs({}).then(() => {
+    Notify("Recipe IDs updated successfully.")
+  }).catch(() => {
+    Notify("Error updating recipe IDs. Please try again later.")
+  })
 }

@@ -34,7 +34,7 @@ export function Chatbox({role, recipe}:ChatBoxProps) {
 
   useEffect(() => {
     if (user && recipe) {
-      const messageRef = doc(db, `users/${user.uid}/messages`, recipe.data.unique_id);
+      const messageRef = doc(db, `users/${user.uid}/messages`, recipe.data.id);
       
       const unsubscribe = onSnapshot(messageRef, (doc) => {
         if (doc.exists()) {
@@ -75,7 +75,7 @@ export function Chatbox({role, recipe}:ChatBoxProps) {
 
     const requestData = {
       messageObj: messageObj,
-      recipe_id: recipe.data.unique_id,
+      recipe_id: recipe.data.id,
       ingredients: JSON.stringify(recipe.ingredients),
       instructions: JSON.stringify(recipe.instructions)
     }

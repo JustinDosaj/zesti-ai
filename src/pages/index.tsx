@@ -2,7 +2,7 @@ import { GetServerSideProps } from "next";
 import { getEntriesForContentTypes } from "@/lib/contentfulHelpers";
 import Head from 'next/head';
 import dynamic from "next/dynamic";
-import { GetTotalRecipeCount } from "./api/firebase/functions";
+import { GetTotalRecipeCount, UpdateRecipeIds } from "./api/firebase/functions";
 
 const Hero = dynamic(() => import('@/components/ui/general/hero').then((mod) => mod.Hero), { ssr: false })
 const CTA = dynamic(() => import('@/components/ui/general/cta').then((mod) => mod.CTA), { ssr: false })
@@ -37,6 +37,7 @@ export default function Home({heroContent, faqContent, recipes, totalRecipes}: a
         <meta name="description" content="Instantly save delicious recipes from TikTok or Instagram by using Zesti AI to transcribe your faovirte recipe videos to text!"/>
       </Head>
       <main className={`main-seo-page-class`}>
+
         <Hero heroContent={heroContent} totalRecipes={totalRecipes}/>
         <HomePageScroller recipes={recipes}/>
         <ThreeBoxFeature type="home" titleStart="How" titleMid="Zesti" titleEnd="Works" desc="Zesti makes it easy to copy recipes and can help you by answering any questions you have along the way!"/>

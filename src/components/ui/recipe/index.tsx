@@ -31,7 +31,7 @@ export function RecipeTitleCard({ recipe, isSaved, user, isLoading, role, hasLik
     const saveRecipe = (await import('@/pages/api/firebase/functions')).saveRecipeReferenceToUser;
 
     if (user && !isLoading) {
-      await saveRecipe(user?.uid, recipe.data.unique_id).then(() => { openModal("Recipe Saved", "You can continue browsing or view all your saved recipes", "My Recipes", "success", true, role) });
+      await saveRecipe(user?.uid, recipe.data.id).then(() => { openModal("Recipe Saved", "You can continue browsing or view all your saved recipes", "My Recipes", "success", true, role) });
     } else {
       const Notify = (await import('@/components/shared/notify')).Notify;
       Notify("Please login to save recipes");
@@ -42,7 +42,7 @@ export function RecipeTitleCard({ recipe, isSaved, user, isLoading, role, hasLik
     const deleteRecipe = (await import('@/pages/api/firebase/functions')).userRemoveRecipeFromFirestore;
 
     if (user) {
-      await deleteRecipe(user?.uid, recipe.data.unique_id);
+      await deleteRecipe(user?.uid, recipe.data.id);
     }
   }
 
@@ -62,14 +62,14 @@ export function RecipeTitleCard({ recipe, isSaved, user, isLoading, role, hasLik
     if(hasLiked) {
       setLikes(likes - 1);
       setHasLiked(false);
-      await UpdateLikesInFirebase({recipeId: recipe.data.unique_id, remove: true });
+      await UpdateLikesInFirebase({recipeId: recipe.data.id, remove: true });
       return;
     }
 
     if(!hasLiked) {
       setLikes(likes + 1);
       setHasLiked(true);
-      await UpdateLikesInFirebase({recipeId: recipe.data.unique_id, remove: false });
+      await UpdateLikesInFirebase({recipeId: recipe.data.id, remove: false });
     }
 
   }

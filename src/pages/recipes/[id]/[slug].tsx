@@ -11,6 +11,7 @@ import {
 } from '@/components/ui/recipe';
 import { RecipeSuggestions } from '@/components/ui/recipe/suggestions';
 import InstagramComponent from '@/components/ui/recipe/instagram';
+import { GetRecipeMap } from '../../api/firebase/functions';
 
 const ErrorReportModal = dynamic(() => import('@/components/ui/modals/report').then((mod) => mod.ErrorReportModal), { ssr: false });
 const AdSenseDisplay = dynamic(() => import('@/components/tags/adsense'), { ssr: false, loading: () => <div style={{ height: '90px' }} /> });
@@ -27,6 +28,20 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
   const GetRecentRecipes = (await (import ('../../api/firebase/functions'))).GetRecentRecipes
   const recentRecipes = await GetRecentRecipes(6);
+
+  const recipeMapSnapshot = await GetRecipeMap(id);
+
+  if (recipeMapSnapshot.exists()) {
+    const { redirect: newId, slug: newSlug } = recipeMapSnapshot.data();
+
+    // Redirect to new URL
+    return {
+      redirect: {
+        destination: `/recipes/${newId}/${newSlug}`,
+        permanent: true,
+      },
+    };
+  }
 
   let recipe = null;
 
@@ -91,7 +106,7 @@ const Recipe: React.FC = ({ recipe, ogUrl, recentRecipes }: any) => {
       const CheckForExistingRecipe = (await import('../../api/firebase/functions')).CheckForExistingRecipe;
       user && CheckForExistingRecipe(recipe, user?.uid, setIsSaved);
     }
-  }, [user, recipe?.data?.unique_id]);
+  }, [user, recipe?.data?.id]);
 
   useEffect(() => {
     if(recipe.data.likedBy && user) {
@@ -185,7 +200,7 @@ const Recipe: React.FC = ({ recipe, ogUrl, recentRecipes }: any) => {
           setIsOpen={setIsErrorOpen}
           title={"Report Recipe"}
           text={"If there is a problem with this recipe, please let us know so we can investigate it as soon as possible!"}
-          recipe_id={recipe?.data?.unique_id}
+          recipe_id={recipe?.data?.id}
           user_id={user?.uid || null}
         />
       </main>
