@@ -1,10 +1,16 @@
-import { db } from "@/pages/api/firebase/firebase"
-import { onSnapshot, getDoc, collection, query, orderBy } from "firebase/firestore"
-import { useState, useEffect } from "react"
+import { db } from "@/pages/api/firebase/firebase";
+import { onSnapshot, getDoc, collection, query, orderBy, doc, DocumentReference } from "firebase/firestore";
+import { useState, useEffect } from "react";
 
 interface Recipe {
     id: string;
     date: string;
+    // Add other necessary fields based on your recipe structure
+}
+
+interface RecipeMapData {
+    redirect: string; // The new ID of the recipe
+    slug: string;
 }
 
 const useUserRecipeList = (user: any | null, isLoading: boolean) => {
@@ -16,22 +22,48 @@ const useUserRecipeList = (user: any | null, isLoading: boolean) => {
 
             const recipesRef = collection(db, 'users', user.uid, 'recipes');
             const recipeQuery = query(recipesRef, orderBy('date', 'desc'));
-            
+
             const unsubscribe = onSnapshot(recipeQuery, async (querySnapshot) => {
                 setLoadingUserRecipes(true);
 
-                const recipeFetchPromises = querySnapshot.docs.map(async (doc) => {
-                    const recipeRefData = doc.data();
-                    const recipeRef = recipeRefData.recipeRef; // Assuming this is a DocumentReference
-                    const recipeSnapshot = await getDoc(recipeRef);
+                const recipeFetchPromises = querySnapshot.docs.map(async (snapshot) => {
+                    const recipeRefData = snapshot.data();
+                    let recipeRef = recipeRefData.recipeRef;
+
+                    // Check if recipeRef is a string (old ID path)
+                    if (typeof recipeRef === 'string') {
+                        // Convert string to a DocumentReference
+                        recipeRef = doc(db, recipeRef);
+                    }
+
+                    let recipeSnapshot = await getDoc(recipeRef);
+
+                    if (!recipeSnapshot.exists()) {
+                        // Handle old IDs: Check the recipeMap for a redirect
+                        const oldId = recipeRefData.recipe_id; // Old ID from user collection
+                        const recipeMapRef = doc(db, 'recipesMap', oldId);
+                        const recipeMapSnapshot = await getDoc(recipeMapRef);
+
+                        if (recipeMapSnapshot.exists()) {
+                            const recipeMapData = recipeMapSnapshot.data() as RecipeMapData;
+
+                            if (typeof recipeMapData.redirect === 'string') {
+                                recipeRef = doc(db, 'recipes', recipeMapData.redirect);
+                                recipeSnapshot = await getDoc(recipeRef);
+                            }
+                        }
+                    }
 
                     if (recipeSnapshot.exists()) {
                         const recipeData = recipeSnapshot.data() as Recipe;
-                        return { ...recipeData, id: doc.id, savedDate: recipeRefData.date };
+                        return {
+                            ...recipeData,
+                            id: recipeRef.id, // Use the actual recipe ID
+                            savedDate: recipeRefData.date,
+                        };
                     }
-                    
-                    return null;
 
+                    return null;
                 });
 
                 const recipes = (await Promise.all(recipeFetchPromises)).filter(recipe => recipe !== null);
@@ -39,6 +71,7 @@ const useUserRecipeList = (user: any | null, isLoading: boolean) => {
                 setLoadingUserRecipes(false);
             }, (error) => {
                 setLoadingUserRecipes(false);
+                console.error("Error fetching user recipes:", error);
             });
 
             return () => unsubscribe();
