@@ -133,11 +133,10 @@ const Recipe: React.FC = ({ recipe, ogUrl, recentRecipes }: any) => {
     "description": description,
     "recipeYield": recipeYield || "",
     "keywords": keywords || "",
-    "aggregateRating": {
-      "@type": "AggregateRating",
-      "ratingValue": `${likes || 1}`,
-      "bestRating": "1",
-      "ratingCount": `${likes || 1}`,
+    "interactionStatistic": {
+      "@type": "InteractionCounter",
+      "interactionType": "https://schema.org/LikeAction",
+      "userInteractionCount": `${likes || 0}`
     },
     "image": [
       `https://firebasestorage.googleapis.com/v0/b/${process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET}/o/${encodeURIComponent(cover_image_url)}?alt=media`,
