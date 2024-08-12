@@ -42,7 +42,7 @@ export function RecipeCardList({recipes, maxDisplayCount = 9, incrementCount = 9
                 <div className="space-y-6">
                     <div ref={containerRef} className={`grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6 mt-4`} >
                         {recipes.slice(0, displayCount).map((item: any) => (
-                            <RecipeCard item={item} key={item.data.unique_id}/>
+                            <RecipeCard item={item} key={item.data.id}/>
                         ))}
                     </div>
                       {shouldShowLoadMore && (
