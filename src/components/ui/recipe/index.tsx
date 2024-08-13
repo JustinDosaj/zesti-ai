@@ -5,6 +5,7 @@ import { UpdateLikesInFirebase } from "@/pages/api/firebase/functions";
 import Link from "next/link";
 import { HandThumbUpIcon } from "@heroicons/react/24/solid";
 import { classNames } from "@/components/shared/classNames";
+import { useState } from "react";
 
 
 interface RecipeProps {
@@ -26,6 +27,7 @@ interface RecipeProps {
 export function RecipeTitleCard({ recipe, isSaved, user, isLoading, role, hasLiked, likes = 0, setHasLiked, setLikes }: RecipeProps) {
 
   const { openModal } = useModal()
+  const [likesDisabled, setLikesDisabled] = useState<boolean>(false);
 
   async function onSaveClick() {
     const saveRecipe = (await import('@/pages/api/firebase/functions')).saveRecipeReferenceToUser;
@@ -59,17 +61,19 @@ export function RecipeTitleCard({ recipe, isSaved, user, isLoading, role, hasLik
       return;
     }
 
+    setLikesDisabled(true);
+
     if(hasLiked) {
       setLikes(likes - 1);
       setHasLiked(false);
-      await UpdateLikesInFirebase({recipeId: recipe.data.id, remove: true });
+      await UpdateLikesInFirebase({recipeId: recipe.data.id, remove: true }).then(() => setLikesDisabled(false));
       return;
     }
 
     if(!hasLiked) {
       setLikes(likes + 1);
       setHasLiked(true);
-      await UpdateLikesInFirebase({recipeId: recipe.data.id, remove: false });
+      await UpdateLikesInFirebase({recipeId: recipe.data.id, remove: false }).then(() => setLikesDisabled(false));
     }
 
   }
@@ -109,7 +113,7 @@ export function RecipeTitleCard({ recipe, isSaved, user, isLoading, role, hasLik
         <button onClick={isSaved ? onDeleteClick : onSaveClick} className={`recipe-title-button text-green-600 ${isSaved ? `text-red-600` : `text-green-600`}`}>
           {isSaved ? <BookmarkSlashIcon className="h-5 w-5" /> : <ArrowDownTrayIcon className="h-5 w-5" />}
         </button>
-        <button onClick={onLikeClick} className="recipe-title-button border-l">
+        <button disabled={likesDisabled} onClick={onLikeClick} className="recipe-title-button border-l">
           <HandThumbUpIcon className={classNames( hasLiked ? `text-green-600` : `text-gray-500` , `h-5 w-5`)}/>
           <span>{likes}</span>
         </button>
