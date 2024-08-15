@@ -25,7 +25,7 @@ export default function MyRecipes() {
     <main className={`flex min-h-screen flex-col items-center bg-background w-full space-y-4 pb-48`}>
         <div className="mt-2 lg:mt-8"/>
         <TitleSection titleBlack="Your Saved Recipes" desc="Access all the recipes you saved from others or search for new ones below"/>
-        <AdSense className="max-w-5xl w-[300px] md:w-full" adSlot="9125889123" adFormat="horizontal" adStyle={{ height: '90px', maxHeight: '90px' }} role={stripeRole}/>
+        {/*<AdSense className="max-w-5xl h-[90px]" adSlot="9125889123" adFormat="horizontal" adStyle={{ width: '100%', height: '90px', maxHeight: '90px' }} role={stripeRole}/>*/}
         <RecipeCardList recipes={userRecipeList} maxDisplayCount={9} max={0} loading={loadingUserRecipes}/>
         <div className="my-1"/>
         <AdSense className="max-w-5xl" adSlot="4770591581" adFormat="auto" adStyle={{ width: '100%', height: '250px' }} role={stripeRole}/>
