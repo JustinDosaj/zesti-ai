@@ -34,9 +34,9 @@ const AdSense: React.FC<AdSenseProps> = ({ adSlot, adFormat, className, adStyle 
   if (role == 'premium') return null;
 
   return (
-    <div className={`${className}`} style={{ textAlign: 'center', ...adStyle }}>
+    <div className={`${className} mx-auto`} style={{ textAlign: 'center', ...adStyle }}>
       <ins
-        className="bg-gray-50 adsbygoogle"
+        className="adsbygoogle bg-gray-50"
         style={{ display: 'block', ...adStyle }}
         data-ad-client="ca-pub-5837655994202747"  // Replace with your AdSense Publisher ID
         data-ad-slot={adSlot}
