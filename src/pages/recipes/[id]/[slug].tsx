@@ -173,13 +173,13 @@ const Recipe: React.FC = ({ recipe, ogUrl, recentRecipes }: any) => {
       <div className="max-w-5xl mx-auto flex justify-center space-x-10">
         <div className={`w-full lg:w-5/6 lg:max-w-[728px] space-y-10 lg:mt-10 mt-8`}>
             <RecipeTitleCard recipe={recipe} isSaved={isSaved} user={user} isLoading={isLoading} role={stripeRole} hasLiked={hasLiked} likes={likes} setHasLiked={setHasLiked} setLikes={setLikes}/>
-            <AdSense className="px-2" adSlot="3721531543" adFormat="horizontal" adStyle={{ width: '100%', height: '90px', maxHeight: '90px'}} role={stripeRole}/>
+            <AdSense adSlot="3721531543" adFormat="horizontal" adStyle={{ width: '100%', height: '90px', maxHeight: '90px'}} role={stripeRole}/>
             {source == "tiktok" ? <TikTokVideo video_id={video_id}/> : <InstagramComponent video_id={video_id}/>} 
-            <AdSense className="px-2" adSlot="6960485708" adFormat="horizontal" adStyle={{ width: '100%', height: '90px', maxHeight: '90px' }} role={stripeRole}/>
+            <AdSense adSlot="6960485708" adFormat="horizontal" adStyle={{ width: '100%', height: '90px', maxHeight: '90px' }} role={stripeRole}/>
             <RecipeIngredientsComponent ingredients={ingredients} /> 
-            <AdSense className="px-2" adSlot="2408449875" adFormat="horizontal" adStyle={{ width: '100%', height: '90px', maxHeight: '90px' }} role={stripeRole}/>
+            <AdSense adSlot="2408449875" adFormat="horizontal" adStyle={{ width: '100%', height: '90px', maxHeight: '90px' }} role={stripeRole}/>
             <RecipeInstructionsComponent instructions={instructions} />
-            <AdSense className="px-2" adSlot="5275868942" adFormat="horizontal" adStyle={{ width: '100%', height: '90px', maxHeight: '90px' }} role={stripeRole}/> 
+            <AdSense adSlot="5275868942" adFormat="horizontal" adStyle={{ width: '100%', height: '90px', maxHeight: '90px' }} role={stripeRole}/> 
             <RecipeDataComponent recipe={recipe} setIsErrorOpen={setIsErrorOpen} />
         </div>
 
