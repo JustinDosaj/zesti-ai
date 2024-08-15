@@ -182,9 +182,11 @@ const Recipe: React.FC = ({ recipe, ogUrl, recentRecipes }: any) => {
             <AdSense className="mx-auto"  adSlot="5275868942" adFormat="horizontal" adStyle={{ width: '100%', maxHeight: '90px' }} role={stripeRole}/> 
             <RecipeDataComponent recipe={recipe} setIsErrorOpen={setIsErrorOpen} />
         </div>
-        {stripeRole !== 'premium' && (
+
+        {stripeRole == 'premium' && (
             <StickyAd adSlot='7190552003'/>
         )}
+        
       </div>
       
         <RecipeSuggestions recipes={recentRecipes} title={"Recently Added Recipes"} role={stripeRole}/>
