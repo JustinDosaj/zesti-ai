@@ -27,7 +27,7 @@ const AdSense: React.FC<AdSenseProps> = ({ adSlot, adFormat, className, adStyle 
     loadAds();
   }, []);
   
-  if (role !== 'premium') return null;
+  if (role == 'premium') return null;
 
   return (
     <div className={` ${className}`} style={{ textAlign: 'center', ...adStyle }}>
