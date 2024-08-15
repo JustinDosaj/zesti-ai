@@ -19,7 +19,7 @@ export function RecipeSuggestions({recipes, role, title}: Suggestions) {
                 <RecipeCard key={recipe.id} item={recipe} />
               ))}
             </div>
-            <AdSense className="max-w-5xl" adSlot="5275868942" adFormat="auto" adStyle={{ width: '100%', height: '90px' }} role={role}/>
+            <AdSense className="max-w-5xl" adSlot="5275868942" adFormat="auto" adStyle={{ width: '100%', maxHeight: '320px' }} role={role}/>
       
         </div>
 
