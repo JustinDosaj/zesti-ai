@@ -80,10 +80,8 @@ export function RecipeTitleCard({ recipe, isSaved, user, isLoading, role, hasLik
 
   return (
     <div className="bg-gray-50 border-gray-300 border shadow-md rounded-lg pt-6 mb-8">
-
       <div className="px-6">
         <h1 className="text-2xl lg:text-3xl font-semibold text-gray-900">{recipe.name}</h1>
-
         <div className="flex items-center gap-1 text-gray-700">
           <span>by</span>
           <button onClick={() => window.open(recipe.data.url)} className="underline flex items-center font-semibold hover:text-gray-600">
