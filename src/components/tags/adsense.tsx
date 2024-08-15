@@ -34,7 +34,7 @@ const AdSense: React.FC<AdSenseProps> = ({ adSlot, adFormat, className, adStyle 
   if (role == 'premium') return null;
 
   return (
-    <div className={`${className} mx-auto`} style={{ textAlign: 'center' }}>
+    <div className={`${className} mx-auto`} style={{ textAlign: 'center', ...adStyle }}>
       <ins
         className="adsbygoogle bg-gray-200"
         style={{ display: 'block', ...adStyle }}
