@@ -77,7 +77,6 @@ const SearchResults: React.FC = () => {
                 <RecipeCardList recipes={recipes}/>
                 <div className="mt-2"/>
                 <AdSense className="max-w-5xl" adSlot="2119249846" adFormat="auto" adStyle={{ width: '100%', height: '250px' }} role={stripeRole}/> 
-       
             </main>
         </>
     );
