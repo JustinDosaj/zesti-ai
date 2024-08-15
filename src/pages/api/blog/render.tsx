@@ -1,4 +1,4 @@
-import AdSenseDisplay from '@/components/tags/adsense';
+import AdSense from '@/components/tags/adsense';
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer'
 import { BLOCKS, Block, Inline } from '@contentful/rich-text-types';
 import Image from "next/image"
@@ -44,13 +44,7 @@ export const renderContentBlock = (block: any, role: string | null) => {
         return <pre className="bg-gray-100 p-4 rounded my-4">{block.fields.codeSnippet}</pre>;
       case 'Advertisement': 
         return <div className="lg:hidden py-4">
-                  <AdSenseDisplay 
-                    adSlot="7423668524" 
-                    adFormat="square" 
-                    widthRes="false" 
-                    role={role} 
-                    maxHeight='320px'
-                  />
+                  <AdSense adSlot="7423668524" adFormat="auto" adStyle={{ width: '100%', height: '320px' }} role={role}/> 
                 </div>
       default:
         return null;
