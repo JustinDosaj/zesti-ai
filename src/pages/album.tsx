@@ -8,7 +8,6 @@ import { SearchOrAddRecipe } from '@/components/search';
 import { TitleSection } from '@/components/shared/title';
 import { useRouter } from 'next/router';
 import { useAuth } from './api/auth/auth';
-import AdSenseDisplay from '@/components/tags/adsense';
 import Head from 'next/head';
 import { GetServerSideProps } from 'next';
 import { GetRecipeByIds } from './api/firebase/functions';
@@ -61,9 +60,6 @@ const AlbumResults: React.FC<AlbumResultsProps> = (recipes) => {
                 <TitleSection titleBlack="Search for Recipes" desc="Copy & paste a TikTok or Instagram recipe link or search by ingredients, usernames & more!"/>
                 <SearchOrAddRecipe align={"center"}/>
                 <RecipeCardList recipes={recipes.recipes}/>
-                <div className="pt-12 w-[300px] md:w-[728px]">
-                    <AdSenseDisplay adSlot="4368924493" adFormat="horizontal" widthRes="true" role={stripeRole}/>
-                </div>
             </main>
         </>
     );
