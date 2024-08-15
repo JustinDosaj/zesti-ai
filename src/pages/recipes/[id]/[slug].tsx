@@ -12,9 +12,10 @@ import {
 import { RecipeSuggestions } from '@/components/ui/recipe/suggestions';
 import InstagramComponent from '@/components/ui/recipe/instagram';
 import { GetRecipeMap } from '../../api/firebase/functions';
+import AdSense from '@/components/tags/adsense';
+import { StickyAd } from '@/components/ads/stickyAd';
 
 const ErrorReportModal = dynamic(() => import('@/components/ui/modals/report').then((mod) => mod.ErrorReportModal), { ssr: false });
-const AdSenseDisplay = dynamic(() => import('@/components/tags/adsense'), { ssr: false, loading: () => <div style={{ height: '90px' }} /> });
 const TikTokVideo = dynamic(() => import('@/components/ui/recipe/tiktok'), { ssr: false, loading: () => <div style={{ height: '90px' }} /> });
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
@@ -169,28 +170,22 @@ const Recipe: React.FC = ({ recipe, ogUrl, recentRecipes }: any) => {
       </Head>
       <main className="bg-background min-h-screen justify-center px-4 sm:px-8 md:px-14 lg:px-5 pb-28">
         
-      <div className="max-w-7xl mx-auto flex justify-center">
+      <div className="max-w-5xl mx-auto flex justify-center space-x-10">
         <div className={`w-full lg:w-5/6 lg:max-w-[728px] space-y-10 lg:mt-10 mt-8`}>
             <RecipeTitleCard recipe={recipe} isSaved={isSaved} user={user} isLoading={isLoading} role={stripeRole} hasLiked={hasLiked} likes={likes} setHasLiked={setHasLiked} setLikes={setLikes}/>
-            <AdSenseDisplay adSlot="3721531543" adFormat="horizontal" widthRes={"false"} role={stripeRole} maxHeight="90px" />
+            <AdSense adSlot="3721531543" adFormat="auto" adStyle={{ width: '100%', height: '90px' }} role={stripeRole}/>
             {source == "tiktok" ? <TikTokVideo video_id={video_id}/> : <InstagramComponent video_id={video_id}/>} 
-            <AdSenseDisplay adSlot="6960485708" adFormat="horizontal" widthRes={"false"} role={stripeRole} maxHeight="90px" />
+            <AdSense adSlot="6960485708" adFormat="auto" adStyle={{ width: '100%', height: '90px' }} role={stripeRole}/>
             <RecipeIngredientsComponent ingredients={ingredients} /> 
-            <AdSenseDisplay adSlot="2408449875" adFormat="horizontal" widthRes={"false"} role={stripeRole} maxHeight="90px" /> 
+            <AdSense adSlot="2408449875" adFormat="auto" adStyle={{ width: '100%', height: '90px' }} role={stripeRole}/>
             <RecipeInstructionsComponent instructions={instructions} />
-            <AdSenseDisplay adSlot="5275868942" adFormat="horizontal" widthRes={"false"} role={stripeRole} maxHeight="90px" /> 
+            <AdSense adSlot="5275868942" adFormat="auto" adStyle={{ width: '100%', height: '90px' }} role={stripeRole}/> 
             <RecipeDataComponent recipe={recipe} setIsErrorOpen={setIsErrorOpen} />
         </div>
-
-
         {stripeRole !== 'premium' && (
-          <div className="hidden lg:flex lg:flex-col l lg:space-y-6 lg:justify-between lg:ml-8 lg:w-[320px] lg:mt-10 mt-8">
-            <AdSenseDisplay adSlot="7190552003" adFormat="vertical" widthRes={"false"} role={stripeRole} maxHeight="600px" />
-            <AdSenseDisplay adSlot="8782286534" adFormat="vertical" widthRes={"false"} role={stripeRole} maxHeight="600px" />
-            <AdSenseDisplay adSlot="7469204867" adFormat="vertical" widthRes={"false"} role={stripeRole} maxHeight="600px" />
-          </div>
+            <StickyAd adSlot='7190552003'/>
         )}
-        </div>
+      </div>
       
         <RecipeSuggestions recipes={recentRecipes} title={"Recently Added Recipes"} role={stripeRole}/>
 

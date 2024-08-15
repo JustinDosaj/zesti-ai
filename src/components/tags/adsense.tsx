@@ -1,46 +1,45 @@
-import { useEffect, useRef } from "react";
+// components/AdSense.tsx
+import React, { useEffect } from 'react';
+import { useRef } from 'react';
 
-declare let adsbygoogle: any;
-
-interface AdSenseDisplayProps {
+interface AdSenseProps {
   adSlot: string;
   adFormat: string;
-  widthRes: string;
-  role: any;
-  maxHeight?: string;
-  maxWidth?: string;
+  adStyle?: React.CSSProperties;
   className?: string;
+  role?: string | null;
 }
 
-const AdSenseDisplay = ({ adSlot, adFormat, widthRes, role, maxHeight = "90px", maxWidth="100%", className }: AdSenseDisplayProps) => {
-    
-  const isClientSide = useRef(null);
-    
-  useEffect(() => {
-    if (typeof window !== 'undefined' && isClientSide.current) {
-      try {
-        (adsbygoogle = window.adsbygoogle || []).push({});
-      } catch (error) {
-        console.error('AdSense Error:', error);
-      }
-    }
-  }, []);
+const AdSense: React.FC<AdSenseProps> = ({ adSlot, adFormat, className, adStyle = {}, role }) => {
 
+  const isClientSide = useRef(false);
+
+  useEffect(() => {
+    const loadAds = () => {
+      if (typeof window !== 'undefined' && isClientSide.current) {
+        try {
+          (window.adsbygoogle = window.adsbygoogle || []).push({});
+        } catch (e) {
+          console.error('Adsense error', e);
+        }
+      }
+    };
+    loadAds();
+  }, []);
+  
   if (role == 'premium') return null;
 
   return (
-    <div className={`w-[${maxWidth}] h-[${maxHeight}] ${className}`}>
+    <div className={` ${className}`} style={{ textAlign: 'center', ...adStyle }}>
       <ins
-        className={`adsbygoogle mx-auto`}
-        style={{ display: "block", height: maxHeight }}
-        data-ad-client="ca-pub-5837655994202747" // Replace with your publisher ID
+        className="adsbygoogle"
+        style={{ display: 'block', ...adStyle }}
+        data-ad-client="ca-pub-5837655994202747"  // Replace with your AdSense Publisher ID
         data-ad-slot={adSlot}
         data-ad-format={adFormat}
-        data-full-width-responsive={widthRes}
-        ref={isClientSide}
-      ></ins>
+      />
     </div>
   );
 };
 
-export default AdSenseDisplay;
+export default AdSense;
