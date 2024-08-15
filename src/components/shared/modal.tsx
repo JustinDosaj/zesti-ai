@@ -2,15 +2,10 @@
 "use client";
 import { Dialog, Transition } from '@headlessui/react';
 import { Fragment, useRef } from 'react';
-import dynamic from 'next/dynamic';
-import { BookOpenIcon, ExclamationTriangleIcon, CheckCircleIcon, InformationCircleIcon } from '@heroicons/react/20/solid';
+import { BookOpenIcon, ExclamationTriangleIcon, CheckCircleIcon } from '@heroicons/react/20/solid';
+import AdSense from '@/components/tags/adsense';
 import { useRouter } from 'next/router';
 import { useModal } from '@/context/modalcontext'
-
-const AdSenseDisplay = dynamic(() => import('@/components/tags/adsense'), {
-  ssr: false,
-  loading: () => <div style={{ height: '90px' }} />,
-});
 
 const statusIcons = {
   info: <BookOpenIcon className='text-primary-main h-8 w-8' aria-hidden="true" />,
@@ -43,7 +38,7 @@ const GlobalModal: React.FC = () => {
     const primaryButtonText = status === 'success' ? 'My Recipes' : 'Okay';
 
     return (
-        <Transition.Root show={isOpen} as={Fragment}>
+        <Transition.Root show={true} as={Fragment}>
             <Dialog as="div" className="relative z-50" initialFocus={cancelButtonRef} onClose={closeModal}>
                 <Transition.Child
                 as={Fragment}
@@ -82,11 +77,9 @@ const GlobalModal: React.FC = () => {
  
                                 </div>
                             </div>
-
-                            <div className={role !== 'premium' && displayAd ? `w-[260px] md:w-[336px] mx-auto` : `hidden`}>
-                                <AdSenseDisplay adSlot="9250004753" adFormat="rectangle" widthRes="true" role={role} maxHeight="250px"/>
-                            </div>
-
+                            {displayAd && (
+                                <AdSense adSlot="9250004753" adFormat="auto" adStyle={{ width: '100%', height: '250px' }}/> 
+                            )}
                             <div className="mt-5 sm:mt-6 sm:grid sm:grid-flow-row-dense sm:grid-cols-2 sm:gap-3">
                             <button
                                 className="inline-flex w-full justify-center rounded-3xl bg-primary-main px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-primary-alt focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 sm:col-start-2"

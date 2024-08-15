@@ -7,7 +7,7 @@ interface AdSenseProps {
   adFormat: string;
   adStyle?: React.CSSProperties;
   className?: string;
-  role: string | null;
+  role?: string | null;
 }
 
 const AdSense: React.FC<AdSenseProps> = ({ adSlot, adFormat, className, adStyle = {}, role }) => {
@@ -27,12 +27,12 @@ const AdSense: React.FC<AdSenseProps> = ({ adSlot, adFormat, className, adStyle 
     loadAds();
   }, []);
   
-  if (role == 'premium') return null;
+  if (role !== 'premium') return null;
 
   return (
-    <div className={`bg-gray-300 ${className}`} style={{ textAlign: 'center', ...adStyle }}>
+    <div className={` ${className}`} style={{ textAlign: 'center', ...adStyle }}>
       <ins
-        className="adsbygoogle"
+        className="bg-gray-300 adsbygoogle"
         style={{ display: 'block', ...adStyle }}
         data-ad-client="ca-pub-5837655994202747"  // Replace with your AdSense Publisher ID
         data-ad-slot={adSlot}
