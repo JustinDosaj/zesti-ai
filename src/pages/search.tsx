@@ -73,7 +73,7 @@ const SearchResults: React.FC = () => {
                 <div className="mt-2 lg:mt-8"/>
                 <TitleSection titleBlack="Add or Find Recipes" desc="Copy & paste a TikTok or Instagram link to get the recipe in seconds or search for recipes that already exist on Zesti!"/>
                 <SearchOrAddRecipe align={"center"}/>
-                <AdSense className="max-w-5xl w-[300px] md:w-full" adSlot="5445664417" adFormat="horizontal" adStyle={{ height: '90px', maxHeight: '90px' }} role={stripeRole}/>
+                {/*<AdSense className="max-w-4xl" adSlot="5445664417" adFormat="horizontal" adStyle={{ width: '100%', maxHeight: '90px' }} role={stripeRole}/>*/}
                 <RecipeCardList recipes={recipes}/>
                 <div className="mt-2"/>
                 <AdSense className="max-w-5xl" adSlot="2119249846" adFormat="auto" adStyle={{ width: '100%', height: '250px' }} role={stripeRole}/> 
