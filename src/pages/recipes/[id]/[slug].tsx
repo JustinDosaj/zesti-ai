@@ -179,7 +179,7 @@ const Recipe: React.FC = ({ recipe, ogUrl, recentRecipes }: any) => {
             <RecipeIngredientsComponent ingredients={ingredients} /> 
             <AdSense className="mx-auto"  adSlot="2408449875" adFormat="auto" adStyle={{ width: '100%', maxHeight: '90px' }} role={stripeRole}/>
             <RecipeInstructionsComponent instructions={instructions} />
-            <AdSense className="mx-auto"  adSlot="5275868942" adFormat="auto" adStyle={{ width: '100%', maxHeight: '300px' }} role={stripeRole}/> 
+            <AdSense className="mx-auto"  adSlot="5275868942" adFormat="auto" adStyle={{ width: '100%', maxHeight: '90px' }} role={stripeRole}/> 
             <RecipeDataComponent recipe={recipe} setIsErrorOpen={setIsErrorOpen} />
         </div>
         {stripeRole == 'premium' && (
