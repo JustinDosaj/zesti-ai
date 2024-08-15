@@ -2,6 +2,8 @@
 import React, { useEffect } from 'react';
 import { useRef } from 'react';
 
+declare let adsbygoogle: any;
+
 interface AdSenseProps {
   adSlot: string;
   adFormat: string;
@@ -15,16 +17,18 @@ const AdSense: React.FC<AdSenseProps> = ({ adSlot, adFormat, className, adStyle 
   const isClientSide = useRef(false);
 
   useEffect(() => {
-    const loadAds = () => {
-      if (typeof window !== 'undefined' && isClientSide.current) {
-        try {
-          (window.adsbygoogle = window.adsbygoogle || []).push({});
-        } catch (e) {
-          console.error('Adsense error', e);
-        }
+    if (window && typeof window != 'undefined')     
+      isClientSide.current = true;
+  }, [])
+
+  useEffect(() => {
+    if (isClientSide.current) {
+      try {
+          (adsbygoogle = window.adsbygoogle || []).push({});
+      } catch (error) {
+
       }
-    };
-    loadAds();
+    }
   }, []);
   
   if (role == 'premium') return null;
