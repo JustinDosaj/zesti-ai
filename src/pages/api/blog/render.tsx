@@ -44,7 +44,7 @@ export const renderContentBlock = (block: any, role: string | null) => {
         return <pre className="bg-gray-100 p-4 rounded my-4">{block.fields.codeSnippet}</pre>;
       case 'Advertisement': 
         return <div className="lg:hidden py-4">
-                  <AdSense className="mx-auto" adSlot="7423668524" adFormat="auto" adStyle={{ width: '300px', height: '250px' }} role={role}/> 
+                  <AdSense className="mx-auto" adSlot="7423668524" adFormat="auto" adStyle={{ width: '250px', height: '250px' }} role={role}/> 
                 </div>
       default:
         return null;
