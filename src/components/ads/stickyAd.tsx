@@ -16,7 +16,7 @@ export function StickyAd({adSlot}: StickyAdProps) {
             {/* Right Sticky Ad */}
             <AdSense 
                 adSlot={`${adSlot}`}  // Replace with your Ad Slot ID
-                adFormat="rectangle"
+                adFormat="vertical"
                 adStyle={{ width: '300px', minHeight: '550px', maxHeight: '600px' }}
                 role={stripeRole}
             />
