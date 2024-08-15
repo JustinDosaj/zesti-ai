@@ -171,7 +171,7 @@ const Recipe: React.FC = ({ recipe, ogUrl, recentRecipes }: any) => {
       <main className="bg-background min-h-screen justify-center px-5 sm:px-8 md:px-14 lg:px-5 pb-28">
         
       <div className="max-w-5xl mx-auto flex justify-center space-x-10">
-        <div className={`max-w-[350px] lg:w-5/6 lg:max-w-[728px] space-y-10 lg:mt-10 mt-8`}>
+        <div className={`w-full lg:w-5/6 lg:max-w-[728px] space-y-10 lg:mt-10 mt-8`}>
             <RecipeTitleCard recipe={recipe} isSaved={isSaved} user={user} isLoading={isLoading} role={stripeRole} hasLiked={hasLiked} likes={likes} setHasLiked={setHasLiked} setLikes={setLikes}/>
             <AdSense adSlot="3721531543" adFormat="horizontal" adStyle={{ width: '100%', height: '90px', maxHeight: '90px'}} role={stripeRole}/>
             {source == "tiktok" ? <TikTokVideo video_id={video_id}/> : <InstagramComponent video_id={video_id}/>} 
