@@ -1,6 +1,6 @@
 import { getBlogPostBySlug } from "@/lib/contentfulHelpers"
 import { GetServerSideProps } from "next"
-import AdSenseDisplay from "@/components/tags/adsense"
+import AdSense from "@/components/tags/adsense"
 import { useAuth } from "@/pages/api/auth/auth"
 import { PostTitle } from "@/components/blog/post"
 import { renderContentBlock } from "@/pages/api/blog/render"
@@ -9,6 +9,7 @@ import formatDate from "@/utils/date-format"
 import Head from "next/head"
 import { HorizontalBorder } from "@/components/shared/border"
 import { RecipeSuggestions } from "@/components/ui/recipe/suggestions"
+import { StickyAd } from "@/components/ads/stickyAd"
 
 interface BlogPost {
   fields: {
@@ -141,11 +142,7 @@ const Post: React.FC<PostProps> = ({post, url, relatedRecipes}: PostProps) => {
           </div>
 
           {stripeRole !== 'premium' && (
-            <div className="hidden lg:flex lg:flex-col l lg:space-y-6 lg:justify-between lg:ml-8 lg:w-1/4 lg:mt-10 mt-8">
-              <AdSenseDisplay adSlot="6995148875" adFormat="vertical" widthRes={"false"} role={stripeRole} maxHeight="250px" />
-              <AdSenseDisplay adSlot="2365955953" adFormat="vertical" widthRes={"false"} role={stripeRole} maxHeight="600px" />
-              <AdSenseDisplay adSlot="5682067204" adFormat="vertical" widthRes={"false"} role={stripeRole} maxHeight="600px" />
-            </div>
+            <StickyAd adSlot='7190552003'/>
           )}
 
         </div>

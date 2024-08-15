@@ -5,10 +5,10 @@ import { SearchOrAddRecipe } from '@/components/search';
 import { TitleSection } from '@/components/shared/title';
 import { useRouter } from 'next/router';
 import { useAuth } from './api/auth/auth';
-import AdSenseDisplay from '@/components/tags/adsense';
 import Head from 'next/head';
 import algoliasearch, { SearchIndex } from 'algoliasearch';
 import { Notify } from '@/components/shared/notify';
+import AdSense from '@/components/tags/adsense';
 
 
 const SearchResults: React.FC = () => {
@@ -73,13 +73,11 @@ const SearchResults: React.FC = () => {
                 <div className="mt-2 lg:mt-8"/>
                 <TitleSection titleBlack="Add or Find Recipes" desc="Copy & paste a TikTok or Instagram link to get the recipe in seconds or search for recipes that already exist on Zesti!"/>
                 <SearchOrAddRecipe align={"center"}/>
-                <div className="w-[300px] md:w-[728px]">
-                    <AdSenseDisplay adSlot="5445664417" adFormat="horizontal" widthRes="false" role={stripeRole} maxHeight="90px"/>
-                </div>
+                <AdSense className="max-w-4xl" adSlot="5445664417" adFormat="auto" adStyle={{ width: '100%', height: '90px' }} role={stripeRole}/> 
                 <RecipeCardList recipes={recipes}/>
-                <div className="pt-12 w-[300px] md:w-[728px]">
-                    <AdSenseDisplay adSlot="2119249846" adFormat="horizontal" widthRes="true" role={stripeRole} maxHeight="250px"/>
-                </div>
+                <div className="mt-2"/>
+                <AdSense className="max-w-5xl" adSlot="2119249846" adFormat="auto" adStyle={{ width: '100%', height: '250px' }} role={stripeRole}/> 
+       
             </main>
         </>
     );
