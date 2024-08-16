@@ -79,7 +79,7 @@ const GlobalModal: React.FC = () => {
                                 </div>
                             </div>
                             {displayAd && role !== 'premium' && (
-                                <AdSense adSlot="9250004753" adFormat="auto" adStyle={{ width: '100%', height: '250px' }}/> 
+                                <AdSense className="mx-auto" adSlot="9250004753" adFormat="auto" adStyle={{ width: '100%', height: '250px' }}/> 
                             )}
                             <div className="mt-5 sm:mt-6 sm:grid sm:grid-flow-row-dense sm:grid-cols-2 sm:gap-3">
                             <button
