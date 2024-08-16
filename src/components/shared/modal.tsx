@@ -22,6 +22,7 @@ const borderColor = {
 }
 
 const GlobalModal: React.FC = () => {
+
     const cancelButtonRef = useRef(null);
     const router = useRouter();
     const { isOpen, title, text, role, displayAd, status, closeModal } = useModal();
@@ -51,7 +52,7 @@ const GlobalModal: React.FC = () => {
                 >
                 <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
                 </Transition.Child>
-                <div className="fixed inset-0 z-10 flex items-center justify-center p-4 text-center">
+                <div className="fixed inset-0 z-10 flex items-center justify-center p-4 text-center w-screen">
                     <div className="flex min-h-screen items-center justify-center w-full">
                         <Transition.Child
                         as={Fragment}
@@ -77,7 +78,7 @@ const GlobalModal: React.FC = () => {
  
                                 </div>
                             </div>
-                            {displayAd && (
+                            {displayAd && role !== 'premium' && (
                                 <AdSense adSlot="9250004753" adFormat="auto" adStyle={{ width: '100%', height: '250px' }}/> 
                             )}
                             <div className="mt-5 sm:mt-6 sm:grid sm:grid-flow-row-dense sm:grid-cols-2 sm:gap-3">
