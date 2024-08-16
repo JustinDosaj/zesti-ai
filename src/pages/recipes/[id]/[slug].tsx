@@ -18,7 +18,7 @@ const ErrorReportModal = dynamic(() => import('@/components/ui/modals/report').t
 const TikTokVideo = dynamic(() => import('@/components/ui/recipe/tiktok'), { ssr: false, loading: () => <div style={{ height: '90px' }} /> });
 const AdSense = dynamic(() => import('@/components/tags/adsense'), {
   ssr: false,
-  loading: () => <div style={{ height: '90px' }}/>  // Placeholder while loading
+  loading: () => <div style={{ maxHeight: '250px' }}/>  // Placeholder while loading
 });
 
 
