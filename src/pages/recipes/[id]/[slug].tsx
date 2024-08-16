@@ -183,7 +183,7 @@ const Recipe: React.FC = ({ recipe, ogUrl, recentRecipes }: any) => {
             <RecipeDataComponent recipe={recipe} setIsErrorOpen={setIsErrorOpen} />
         </div>
 
-        {stripeRole == 'premium' && (
+        {stripeRole !== 'premium' && (
             <StickyAd adSlot='7190552003'/>
         )}
         
