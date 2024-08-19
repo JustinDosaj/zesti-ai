@@ -177,13 +177,13 @@ const Recipe: React.FC = ({ recipe, ogUrl, recentRecipes }: any) => {
       <div className="max-w-5xl mx-auto flex justify-center space-x-10">
         <div className={`w-full lg:w-5/6 md:max-w-[728px] space-y-10 lg:mt-10 mt-8`}>
             <RecipeTitleCard recipe={recipe} isSaved={isSaved} user={user} isLoading={isLoading} role={stripeRole} hasLiked={hasLiked} likes={likes} setHasLiked={setHasLiked} setLikes={setLikes}/>
-            <AdSense className="mx-auto max-w-[320px] md:max-w-[728px]" adSlot="3721531543" adFormat="horizontal" adStyle={{ width: '100%', minHeight: '90px', maxHeight: '320px' }} role={stripeRole}/>
+            <AdSense className="mx-auto max-w-[320px] md:max-w-[728px] min-h-[100px]" adSlot="3721531543" adFormat="horizontal" adStyle={{ width: '100%', maxHeight: '320px' }} role={stripeRole}/>
             {source == "tiktok" ? <TikTokVideo video_id={video_id}/> : <InstagramComponent video_id={video_id}/>} 
-            <AdSense className="mx-auto max-w-[320px] md:max-w-[728px]" adSlot="6960485708" adFormat="horizontal" adStyle={{ width: '100%', minHeight: '90px', maxHeight: '320px' }} role={stripeRole}/>
+            <AdSense className="mx-auto max-w-[320px] md:max-w-[728px] min-h-[100px]" adSlot="6960485708" adFormat="horizontal" adStyle={{ width: '100%', maxHeight: '320px' }} role={stripeRole}/>
             <RecipeIngredientsComponent ingredients={ingredients} /> 
-            <AdSense className="mx-auto max-w-[320px] md:max-w-[728px]" adSlot="2408449875" adFormat="horizontal" adStyle={{ width: '100%', minHeight: '90px', maxHeight: '320px' }} role={stripeRole}/>
+            <AdSense className="mx-auto max-w-[320px] md:max-w-[728px] min-h-[100px]" adSlot="2408449875" adFormat="horizontal" adStyle={{ width: '100%', maxHeight: '320px' }} role={stripeRole}/>
             <RecipeInstructionsComponent instructions={instructions} />
-            <AdSense className="mx-auto max-w-[320px] md:max-w-[728px]" adSlot="5275868942" adFormat="horizontal" adStyle={{ width: '100%', minHeight: '90px', maxHeight: '320px' }} role={stripeRole}/> 
+            <AdSense className="mx-auto max-w-[320px] md:max-w-[728px] min-h-[100px]" adSlot="5275868942" adFormat="horizontal" adStyle={{ width: '100%', maxHeight: '320px' }} role={stripeRole}/> 
             <RecipeDataComponent recipe={recipe} setIsErrorOpen={setIsErrorOpen} />
         </div>
 
