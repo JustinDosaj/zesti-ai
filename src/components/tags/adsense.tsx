@@ -41,6 +41,7 @@ const AdSense: React.FC<AdSenseProps> = ({ adSlot, adFormat, className, adStyle 
         data-ad-client="ca-pub-5837655994202747"  // Replace with your AdSense Publisher ID
         data-ad-slot={adSlot}
         data-ad-format={adFormat}
+        data-full-width-responsive="false"
       />
       <p className="text-xs text-gray-200">ad</p>
     </div>
