@@ -177,7 +177,9 @@ const Recipe: React.FC = ({ recipe, ogUrl, recentRecipes }: any) => {
       <div className="max-w-5xl mx-auto flex justify-center space-x-10">
         <div className={`w-full lg:w-5/6 md:max-w-[728px] space-y-10 lg:mt-10 mt-8`}>
             <RecipeTitleCard recipe={recipe} isSaved={isSaved} user={user} isLoading={isLoading} role={stripeRole} hasLiked={hasLiked} likes={likes} setHasLiked={setHasLiked} setLikes={setLikes}/>
-            <AdSense className="mx-auto" adSlot="3721531543" adFormat="horizontal" adStyle={{ width: '100%', height: '90px', maxHeight: '90px'}} role={stripeRole}/>
+            <div className="h-[90px] mx-auto w-full">
+              <AdSense className="mx-auto" adSlot="3721531543" adFormat="horizontal" adStyle={{ width: '100%', height: '90px', maxHeight: '90px'}} role={stripeRole}/>
+            </div>
             {source == "tiktok" ? <TikTokVideo video_id={video_id}/> : <InstagramComponent video_id={video_id}/>} 
             <AdSense className="mx-auto" adSlot="6960485708" adFormat="horizontal" adStyle={{ width: '100%', height: '90px', maxHeight: '90px' }} role={stripeRole}/>
             <RecipeIngredientsComponent ingredients={ingredients} /> 
