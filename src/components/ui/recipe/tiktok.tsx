@@ -4,9 +4,9 @@ interface TikTokProps {
   
 const TikTokComponent: React.FC<TikTokProps> = ({ video_id }) => {
     return (
-        <div className="rounded-xl bg-orange-200 overflow-hidden mx-auto my-8 max-w-md w-full">
+        <div className="rounded-xl bg-gray-200 overflow-hidden mx-auto my-8 max-w-md w-full">
         <iframe
-            className="w-full h-[619px]"
+            className="w-full h-[620px]"
             src={`https://www.tiktok.com/embed/${video_id}`}
             allow="fullscreen"
             loading="lazy"
