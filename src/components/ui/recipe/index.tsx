@@ -149,6 +149,7 @@ export function RecipeTitleCard({ recipe, isSaved, user, isLoading, role, hasLik
   }
 
   export function RecipeDataComponent({ recipe, setIsErrorOpen }: RecipeProps) {
+    
     const { date_added, date_created, owner, source } = recipe?.data;
     const { cook_time, prep_time, category, cuisine } = recipe;
   
