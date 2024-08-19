@@ -43,7 +43,6 @@ const AdSense: React.FC<AdSenseProps> = ({ adSlot, adFormat, className, adStyle 
         data-ad-format={adFormat}
         data-full-width-responsive="false"
       />
-      <p className="text-xs text-gray-200">ad</p>
     </div>
   );
 };
