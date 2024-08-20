@@ -113,7 +113,7 @@ export function RecipeTitleCard({ recipe, isSaved, user, isLoading, role, hasLik
         </button>
         <button disabled={likesDisabled} onClick={onLikeClick} className="recipe-title-button border-l">
           <HandThumbUpIcon className={classNames( hasLiked ? `text-green-600` : `text-gray-500` , `h-5 w-5`)}/>
-          <span>{likes}</span>
+          <span className="text-gray-700">{likes}</span>
         </button>
       </div>
 
