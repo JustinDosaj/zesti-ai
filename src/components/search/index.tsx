@@ -1,14 +1,14 @@
-import { LinkIcon } from '@heroicons/react/20/solid';
-import { useState } from "react"
+import React, { useState } from "react"
 import { Button } from '../shared/button';
 import { useRouter } from 'next/router';
 import { ButtonLoader } from '../shared/loader';
-import { ArrowTopRightOnSquareIcon } from '@heroicons/react/20/solid';
+import { ArrowTopRightOnSquareIcon, LinkIcon, MagnifyingGlassIcon } from '@heroicons/react/20/solid';
 import Link from 'next/link';
 import { useLoading } from '@/context/loadingcontext';
 import { useModal } from '@/context/modalcontext';
 import { useAuth } from '@/pages/api/auth/auth';
 import { Notify } from '../shared/notify';
+import { Container } from '../shared/container';
 
 interface AddRecipeProps {
     align?: 'start' | 'center' | 'end',
@@ -86,7 +86,7 @@ export function SearchOrAddRecipe({align}: AddRecipeProps) {
             <div className={`flex sm:flex-row flex-col gap-5 justify-center lg:justify-${align} w-[350px] md:w-[450px]`}> {/* Also needs to be able to center for my recipe page */}
                 <form onSubmit={onAddButtonClick} action="" method="POST" className="py-1 pl-6 w-full max-w-md pr-1 flex gap-3 items-center text-heading-3 shadow-lg shadow-box-shadow
                 border border-box-border bg-box-bg rounded-full ease-linear focus-within:bg-body  focus-within:border-primary">
-                    <LinkIcon className="text-gray-600 w-7 h-7 lg:h-10 lg:w-10"/>
+                    <LinkIcon className="text-gray-600 w-7 h-7 lg:h-9 lg:w-9"/>
                     <input type="text" name="web-page" disabled={isLoading} value={url} placeholder="Recipe URL or Search" className="text-base w-full text-gray-500 py-3 outline-none bg-transparent" onChange={(e) => setUrl(e.target.value)}/>
                     <Button buttonType="submit" text="" className={"min-w-max text-white text-sm lg:text-base"} isLink={false} isDisabled={isLoading} >
                         { !isLoading ?
@@ -112,5 +112,25 @@ export function SearchOrAddRecipe({align}: AddRecipeProps) {
                 <ArrowTopRightOnSquareIcon className="h-3 w-3"/>
             </div>
         </>
+    )
+}
+
+export function MyRecipeSearch({searchQuery, setSearchQuery}: {searchQuery: string, setSearchQuery: React.Dispatch<React.SetStateAction<string>>}) {
+    return(
+        <Container className="w-full px-4 sm:px-6 lg:px-8">
+            <div className="flex justify-center"> {/* Center aligned like your design example */}
+                <div className="py-1 pl-6 w-full max-w-md pr-1 flex gap-3 items-center text-heading-3 shadow-lg shadow-box-shadow
+                    border border-box-border bg-box-bg rounded-full ease-linear focus-within:bg-body focus-within:border-primary">
+                    <MagnifyingGlassIcon className="text-gray-600 w-6 h-6" />
+                    <input 
+                        type="text" 
+                        value={searchQuery} 
+                        placeholder="Search your saved recipes..." 
+                        className="text-base w-full text-gray-500 py-3 outline-none bg-transparent" 
+                        onChange={(e) => setSearchQuery(e.target.value)} 
+                    />
+                </div>
+            </div>
+        </Container>
     )
 }
