@@ -1,35 +1,42 @@
-import { useAuth } from "@/pages/api/auth/auth"
+import { useAuth } from "@/pages/api/auth/auth";
 import Head from 'next/head';
 import GoogleTags from '@/components/tags/conversion';
 import { TitleSection } from '@/components/shared/title';
 import AdSense from "@/components/tags/adsense";
-import useUserRecipeList from '@/hooks/user/useUserRecipeList';
 import useRequireAuth from '@/hooks/user/useRequireAuth';
 import { RecipeCardList } from '@/components/ui/recipe/list';
-
+import useUserRecipeList from '@/hooks/user/useUserRecipeList'; // Import the hook
+import { useState } from 'react';
+import { MyRecipeSearch } from "@/components/search";
 
 export default function MyRecipes() {
+  
+  useRequireAuth();
 
-  useRequireAuth()
+  const { user, isLoading } = useAuth();
+  const { userRecipeList, loadingUserRecipes } = useUserRecipeList(user, isLoading); // Use the hook
+  const [searchQuery, setSearchQuery] = useState('');
 
-  const { user, isLoading, stripeRole } = useAuth();
-  const { userRecipeList, loadingUserRecipes } = useUserRecipeList(user, isLoading)
+  // Filter the recipes based on the search query
+  const filteredRecipes = userRecipeList.filter(recipe =>
+    recipe.name.toLowerCase().includes(searchQuery.toLowerCase())
+  );
 
   return (
     <>
-    <Head>
-      <title>Zesti AI | My Recipes</title>
-      <meta name="title" content={`Zesti AI | My Recipes`}/>
-      <GoogleTags/>
-    </Head>
-    <main className={`flex min-h-screen flex-col items-center bg-background w-full space-y-4 pb-48`}>
-        <div className="mt-2 lg:mt-8"/>
-        <TitleSection titleBlack="Your Saved Recipes" desc="Access all the recipes you saved from others or search for new ones below"/>
-        {/*<AdSense className="max-w-5xl h-[90px]" adSlot="9125889123" adFormat="horizontal" adStyle={{ width: '100%', height: '90px', maxHeight: '90px' }} role={stripeRole}/>*/}
-        <RecipeCardList recipes={userRecipeList} maxDisplayCount={9} max={0} loading={loadingUserRecipes}/>
-        <div className="my-1"/>
-        <AdSense className="max-w-5xl" adSlot="4770591581" adFormat="auto" adStyle={{ width: '100%', height: '250px' }} role={stripeRole}/>
-    </main>
+      <Head>
+        <title>Zesti AI | My Recipes</title>
+        <meta name="title" content={`Zesti AI | My Recipes`} />
+        <GoogleTags />
+      </Head>
+      <main className={`flex min-h-screen flex-col items-center bg-background w-full space-y-4 pb-48`}>
+        <div className="mt-2 lg:mt-8" />
+        <TitleSection titleBlack="Saved Recipes" desc="Access & search all of the recipes you have saved on Zesti" />
+        <MyRecipeSearch searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
+        <RecipeCardList recipes={filteredRecipes} maxDisplayCount={9} max={0} loading={loadingUserRecipes} />
+        <div className="my-1" />
+        <AdSense className="max-w-5xl" adSlot="4770591581" adFormat="auto" adStyle={{ width: '100%', height: '250px' }} />
+      </main>
     </>
-  )
+  );
 }
