@@ -53,7 +53,6 @@ interface Recipe {
   [key: string]: any; // Extend this interface based on the other fields you expect in your documents
 }
 
-
 // Get Recipes
 export async function GetAllRecipes(): Promise<Recipe[]> {
 
@@ -184,13 +183,3 @@ export async function UpdateLikesInFirebase({recipeId, remove}: LikeProps) {
 
 }
 
-export async function UpdateRecipeIds() {
-  const functions = getFunctions();
-  const updateRecipeIDs = httpsCallable(functions, 'updateRecipeIDs');
-
-  await updateRecipeIDs({}).then(() => {
-    Notify("Recipe IDs updated successfully.")
-  }).catch(() => {
-    Notify("Error updating recipe IDs. Please try again later.")
-  })
-}
