@@ -18,9 +18,15 @@ export default function MyRecipes() {
   const [searchQuery, setSearchQuery] = useState('');
 
   // Filter the recipes based on the search query
-  const filteredRecipes = userRecipeList.filter(recipe =>
-    recipe.name.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+  const filteredRecipes = userRecipeList.filter(recipe => {
+    const query = searchQuery.toLowerCase();
+    return (
+      recipe.name.toLowerCase().includes(query) ||
+      recipe.data.owner?.nickname?.toLowerCase().includes(query) ||
+      recipe.data.owner?.username?.toLowerCase().includes(query) ||
+      recipe.keywords?.some((keyword: string) => keyword.toLowerCase().includes(query))
+    );
+  });
 
   return (
     <>
