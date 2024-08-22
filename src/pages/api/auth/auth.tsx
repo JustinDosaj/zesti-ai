@@ -71,7 +71,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   const sendSignInLink = async (email: string, redirect?: string) => {
     const actionCodeSettings = {
       // Your redirect URL
-      url: `${process.env.NEXT_PUBLIC_URL}/auth/finishSignIn${redirect ? `?redirect=${redirect}` : ``}`, // Change this to your actual redirect URL
+      url: `https://www.zesti.ai/auth/finishSignIn${redirect ? `?redirect=${redirect}` : ``}`, // Change this to your actual redirect URL
       handleCodeInApp: true,
     };
 
