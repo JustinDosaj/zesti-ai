@@ -6,6 +6,8 @@ import Link from "next/link"
 import { BookOpenIcon, HomeIcon, PaperAirplaneIcon, WalletIcon, UserIcon, MagnifyingGlassIcon } from "@heroicons/react/20/solid"
 import { DropDownMenuDesktop, DropDownMenuMobile } from "./menus"
 import { useRouter } from "next/router"
+import { text } from "stream/consumers"
+import { PlusIcon } from "@heroicons/react/20/solid"
 
 
 export function Navbar() {
@@ -16,8 +18,8 @@ export function Navbar() {
     const navItemsDesktop = [
         { href: "/", text: "Home" },
         { href: "/search", text: "Search"},
+        { href: "/add", text: "Add Recipe"},
         { href: "/about/pricing", text: "Pricing"},
-        { href: "/about/contact", text: "Contact"},
         // Add more items as needed
     ];
 
@@ -74,6 +76,11 @@ export function Navbar() {
             icon: MagnifyingGlassIcon,
         },
         {
+            href:"/add",
+            text: "Add Recipe",
+            icon: PlusIcon,
+        },
+        {
             href: "/account",
             text: "Account Settings",
             icon: UserIcon,
@@ -97,7 +104,7 @@ export function Navbar() {
                     </Link>
                 </div>
                 <div className="hidden lg:flex justify-center w-1/3">
-                    <ul className="hidden lg:flex items-center justify-center gap-x-8 text-xl">
+                    <ul className="hidden lg:flex items-center justify-center gap-x-10 text-xl">
                         {navItemsDesktop.map(item=> {
                             return <Navitem key={item.text} {...item}/>
                         })}
