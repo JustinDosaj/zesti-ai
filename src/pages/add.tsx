@@ -77,8 +77,8 @@ const AddRecipe: React.FC = ({recentRecipes}: any) => {
     return (
         <>
             <Head>
-                <title>Save TikTok & Instagram Recipes | Zesti AI</title>
-                <meta name="title" content="Save TikTok & Instagram Recipes | Zesti AI"/>
+                <title>Add TikTok & Instagram Recipes | Zesti AI</title>
+                <meta name="title" content="Add TikTok & Instagram Recipes | Zesti AI"/>
                 <meta name="description" content="Instantly save your favorite social media recipes without the hassle of rewatching the video to get every ingredient!"/>
             </Head>
             <main className={`flex min-h-screen flex-col items-center bg-background w-full space-y-4 pb-48`}>
@@ -88,7 +88,10 @@ const AddRecipe: React.FC = ({recentRecipes}: any) => {
                     <Paragraph className="mt-2 text-center">Copy & paste a TikTok or Instagram link to save the recipe in seconds!</Paragraph>
                 </Container>
                 <SearchOrAddRecipe align={"center"}/>
-                <div className="pt-24"/>
+                
+                {stripeRole == "premium" ? <div className="pt-24"/>
+                : <AdSense className="max-w-5xl mx-auto" adSlot="5445664417" adFormat="horizontal" adStyle={{ width: '100%', maxHeight: '90px' }} role={stripeRole}/>
+                }
                 <Gallery recipes={recentRecipes}/>
                 <div className="mt-2"/>
                 <AdSense className="max-w-5xl" adSlot="2119249846" adFormat="auto" adStyle={{ width: '100%', height: '250px' }} role={stripeRole}/> 
