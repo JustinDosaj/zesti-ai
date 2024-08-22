@@ -10,7 +10,7 @@ import { useRouter } from "next/router"
 
 export function Navbar() {
     
-    const { user, login } = useAuth();
+    const { user } = useAuth();
     const router = useRouter()
 
     const navItemsDesktop = [
@@ -110,7 +110,7 @@ export function Navbar() {
                         {user ? 
                             <Button buttonType="button" isLink={false} onClick={() => router.push('/my-recipes')} text={"My Recipes"}/>
                         :
-                            <Button buttonType="button" isLink={false} onClick={login} text={"Login"}/>
+                            <Button buttonType="button" isLink={false} onClick={() => router.push('/auth/login')} text={"Login"}/>
                         }
                         <DropDownMenuDesktop navItems={desktopDropDownItems} isHidden={!user}/> 
                     </div>
@@ -119,7 +119,7 @@ export function Navbar() {
                 {!user ?
                     <div className="flex lg:hidden justify-between items-center w-full"> 
                         <DropDownMenuMobile navItems={navItemsMobileLoggedOut}/> 
-                        <Button buttonType="button" isLink={false} onClick={login} text={"Login"}/>
+                        <Button buttonType="button" isLink={false} onClick={() => router.push('/auth/login')} text={"Login"}/>
                     </div>
                 : 
                     <div className="flex lg:hidden justify-between items-center w-full"> 
