@@ -2,8 +2,6 @@ import Head from 'next/head';
 import { PageLoader } from '@/components/shared/loader';
 import { useState } from 'react';
 import useRequireAdmin from '@/hooks/admin/useRequireAdmin';
-import { AdminMassUpdateRecipes, AdminUpdateRecipe } from '@/pages/api/admin/functions';
-import OpenAI from 'openai';
 
 export default function Home() {
   

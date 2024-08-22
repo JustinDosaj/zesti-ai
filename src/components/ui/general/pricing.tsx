@@ -2,14 +2,11 @@
 
 import { Button } from "@/components/shared/button";
 import { CheckIcon } from "@heroicons/react/20/solid";
-import { Container } from "@/components/shared/container";
 import { createPremiumCheckoutSession } from "@/pages/api/stripe/stripePremium";
 import { Loader } from "@/components/shared/loader";
 import { useAuth } from "@/pages/api/auth/auth";
 import { useState } from "react";
 import { useRouter } from "next/router";
-import { Paragraph } from "@/components/shared/paragraph";
-import { Title } from "@/components/shared/title";
 
 function classNames(...classes: (string | undefined | null | false)[]): string {
   return classes.filter(Boolean).join(' ');
@@ -61,7 +58,7 @@ export function PricingDisplay() {
 
     return (
 
-        <div className="relative isolate bg-white lg:px-8">
+        <div className="relative isolate bg-white lg:px-8 mt-8 md:mt-2">
           <div className="mx-auto grid max-w-lg grid-cols-1 items-center gap-y-6 sm:gap-y-0 lg:max-w-4xl lg:grid-cols-2">
             {tiers.map((tier: any, tierIdx: number) => (
               <div
@@ -138,19 +135,4 @@ export function PricingDisplay() {
         </div>
 
       )
-}
-
-export function PricingTitle() {
-
-  return(
-    <Container className={"flex flex-col lg:flex-row gap-10 lg:gap-12 mx-auto bg-white"}>
-      <div className="bg-white mx-auto mt-4">
-          <Title className="text-center">Pricing Plans</Title>
-          <Paragraph className="mt-2 text-center">Join hundreds of users creating their favorite home cooked meals!</Paragraph>
-          <p className="mx-auto sm:mb-8 mt-4 sm:mt-6 max-w-xl w-fit pr-3 pl-3 text-center leading-8 border border-primary-main rounded-3xl text-gray-600">
-            Try for Free. Cancel anytime.
-          </p>
-      </div>
-    </Container>
-  )
 }

@@ -1,7 +1,7 @@
 "use client;"
 import { Dialog, Transition } from '@headlessui/react'
 import { Fragment, useRef } from 'react'
-import { ExclamationTriangleIcon } from '@heroicons/react/20/solid'
+import { ExclamationCircleIcon } from '@heroicons/react/24/outline'
 import { SendRecipeErrorReport } from '@/pages/api/firebase/functions'
 import { useState } from 'react'
 
@@ -53,10 +53,8 @@ export function ErrorReportModal({title, text, isOpen, setIsOpen, recipe_id, use
             >
               <Dialog.Panel className="relative transform overflow-hidden rounded-3xl bg-white px-4 pb-4 pt-5 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg sm:p-6">
                 <div>
-                  <div className='border-red-600/50 mx-auto flex h-12 w-12 items-center justify-center border rounded-full'>
-                    <ExclamationTriangleIcon className='text-red-600 h-8 w-8' aria-hidden="true" />
-                  </div>
-                  <div className="mt-3 text-center sm:mt-5">
+                  <ExclamationCircleIcon className='text-red-600 h-8 w-8 mx-auto' aria-hidden="true" />
+                  <div className="text-center mt-2">
                     <Dialog.Title as="h3" className="text-xl lg:text-2xl font-semibold leading-6 text-gray-900 capitalize">
                       {title}
                     </Dialog.Title>

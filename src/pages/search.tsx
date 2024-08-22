@@ -30,7 +30,6 @@ const SearchResults: React.FC = () => {
     })
 
     const [ recipes, setRecipes ] = useState<any>([])
-    const [ urlParam, setUrlParam ] = useState<string>('')
     const { stripeRole } = useAuth();
 
     const router = useRouter()
@@ -38,9 +37,6 @@ const SearchResults: React.FC = () => {
     useEffect(() => {
         if(router.isReady) {
             const { q } = router.query
-            if (q) {
-                setUrlParam(decodeURIComponent(q as string))
-            }
             handleSearch(q)
         }
     },[router.isReady, router.query])
