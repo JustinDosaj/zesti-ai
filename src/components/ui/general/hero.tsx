@@ -38,7 +38,7 @@ interface ImageFields {
             <div className="flex flex-col gap-2 text-center lg:text-left">
               <h1 className="section-title-text-size xl:text-6xl font-bold text-gray-800">
   
-                <span className="text-gray-700"> {titleStart} </span>
+                <span className="text-gray-800"> {titleStart} </span>
                 <br />
                 <span className="primary-orange-text-gradient inline-block pb-3">
                   <Typewriter
@@ -51,7 +51,7 @@ interface ImageFields {
                 </span>
   
               </h1>
-              <Paragraph className="font-medium text-gray-600">
+              <Paragraph className="">
                 {description}
               </Paragraph>
             </div>
