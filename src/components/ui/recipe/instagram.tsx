@@ -4,7 +4,7 @@ interface InstagramProps {
 
 const InstagramComponent = ({video_id}: InstagramProps) => {
     return(
-        <div className="rounded-xl overflow-hidden alternate-orange-bg w-fit mx-auto border">
+        <div className="rounded-xl overflow-hidden bg-gray-200 w-fit mx-auto border">
             <iframe
                 className="w-full h-[515px]"
                 src={`https://www.instagram.com/p/${video_id}/embed`}

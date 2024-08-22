@@ -81,7 +81,6 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
       Notify("Check your email for the sign-in link")
     } catch (error) {
       Notify("Invalid email address, please try again.")
-      console.error("Error sending email link:", error);
     }
   };
 
