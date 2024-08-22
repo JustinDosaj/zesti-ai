@@ -1,6 +1,7 @@
 import { Container } from "@/components/shared/container"
 import { Button } from "@/components/shared/button"
-import { TitleSection } from "@/components/shared/title"
+import { Title } from "@/components/shared/title"
+import { Paragraph } from "@/components/shared/paragraph"
 
 export function CTA() {
     return(
@@ -10,7 +11,8 @@ export function CTA() {
             <p className="w-full md:w-96 text-xl font-medium text-center primary-orange-text-gradient mb-3">
               Premium
             </p>
-            <TitleSection titleBlack="The Best Way To Use Zesti" desc="Experience Zesti AI with zero ads"/>
+            <Title>The Best Way To Use Zesti</Title>
+            <Paragraph className="mt-2">Experience Zesti AI with zero ads</Paragraph>
           </div>
           <Button isLink={true} href='/about/pricing' text="Get Started" className="text-lg font-medium text-center text-white"/>
         </div>

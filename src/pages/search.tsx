@@ -2,13 +2,15 @@
 import { useEffect, useState } from 'react';
 import { RecipeCardList } from '@/components/ui/recipe/list';
 import { SearchOrAddRecipe } from '@/components/search';
-import { TitleSection } from '@/components/shared/title';
+import { Title } from '@/components/shared/title';
 import { useRouter } from 'next/router';
 import { useAuth } from './api/auth/auth';
 import Head from 'next/head';
 import algoliasearch, { SearchIndex } from 'algoliasearch';
 import { Notify } from '@/components/shared/notify';
 import AdSense from '@/components/tags/adsense';
+import { Paragraph } from '@/components/shared/paragraph';
+import { Container } from '@/components/shared/container';
 
 
 const SearchResults: React.FC = () => {
@@ -71,7 +73,10 @@ const SearchResults: React.FC = () => {
             </Head>
             <main className={`flex min-h-screen flex-col items-center bg-background w-full space-y-4 pb-48`}>
                 <div className="mt-2 lg:mt-8"/>
-                <TitleSection titleBlack="Add or Find Recipes" desc="Copy & paste a TikTok or Instagram link to get the recipe in seconds or search for recipes that already exist on Zesti!"/>
+                <Container>
+                    <Title className="text-center">Add or Find Recipes</Title>
+                    <Paragraph className="mt-2 text-center">Copy & paste a TikTok or Instagram link to get the recipe in seconds or search for recipes that already exist on Zesti!</Paragraph>
+                </Container>
                 <SearchOrAddRecipe align={"center"}/>
                 {/*<AdSense className="max-w-5xl" adSlot="5445664417" adFormat="horizontal" adStyle={{ width: '100%', maxHeight: '90px' }} role={stripeRole}/>*/}
                 <RecipeCardList recipes={recipes}/>

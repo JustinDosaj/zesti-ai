@@ -9,6 +9,7 @@ import { useModal } from '@/context/modalcontext';
 import { useAuth } from '@/pages/api/auth/auth';
 import { Notify } from '../shared/notify';
 import { Container } from '../shared/container';
+import { Paragraph } from "../shared/paragraph";
 
 interface AddRecipeProps {
     align?: 'start' | 'center' | 'end',
@@ -107,7 +108,7 @@ export function SearchOrAddRecipe({align}: AddRecipeProps) {
                 </form>
             </div>
             <div className="inline-flex justify-center lg:justify-start lg:pl-4 items-center text-xs text-gray-500 space-x-1">
-                <p>Results may vary.</p>
+                <Paragraph size="xsmall">Results may vary.</Paragraph>
                 <Link href="/about/faq" className="underline">Learn More</Link>
                 <ArrowTopRightOnSquareIcon className="h-3 w-3"/>
             </div>
