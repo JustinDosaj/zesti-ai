@@ -6,7 +6,8 @@ import 'react-toastify/dist/ReactToastify.css';
 import { PageLoader } from "@/components/shared/loader"
 import { LoginComponent } from '@/components/ui/auth/login';
 import { useRouter } from 'next/router';
-import { Title, TitleSection } from '@/components/shared/title';
+import { Title } from '@/components/shared/title';
+import { Paragraph } from '@/components/shared/paragraph';
 
 
 export default function Login() {
@@ -33,7 +34,8 @@ export default function Login() {
     <ToastContainer/>    
     <main className={`flex min-h-screen flex-col jutify-between space-y-4 items-center bg-background h-screen w-screen`}>
         <div className="mt-2 lg:mt-8"/>
-        <TitleSection titleBlack={"Login or Sign Up"} desc={"Select one of the options below to sign up or login to Zesti"}/>
+        <Title>Login or Sign Up</Title>
+        <Paragraph>Select one of the options below to sign up or login to Zesti</Paragraph>
         <LoginComponent/>
     </main>
     </>
