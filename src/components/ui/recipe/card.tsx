@@ -40,11 +40,11 @@ export function RecipeCard({ item }: RecipeCardProps) {
                     </div>
                     {/* Content Area */}
                     <div className="flex-grow p-4 flex flex-col justify-between overflow-clip gap-2">
-                        <h3 className="text-lg font-semibold text-gray-700 overflow-hidden text-ellipsis line-clamp-2 w-full">{item.name}</h3>
+                        <h3 className="text-lg font-semibold text-gray-800 overflow-hidden text-ellipsis line-clamp-2 w-full">{item.name}</h3>
                         <div className="flex flex-col flex-grow gap-4">
-                            <Paragraph size="small" className="text-gray-600 line-clamp-3">{item.description}</Paragraph>
+                            <Paragraph size="small" className=" line-clamp-3">{item.description}</Paragraph>
                         </div>
-                        <Paragraph size="xsmall" className=" text-gray-500 mt-3 self-start truncate">by {item.data.owner.username}</Paragraph>
+                        <Paragraph size="xsmall" className="mt-3 self-start truncate">by {item.data.owner.username}</Paragraph>
                     </div>
                 </div>
             </Link>

@@ -3,8 +3,8 @@ import { getEntriesForContentTypes } from "@/lib/contentfulHelpers";
 import Head from 'next/head';
 import dynamic from "next/dynamic";
 import { GetTotalRecipeCount } from "./api/firebase/functions";
-import { HomePageScroller } from "@/components/ui/features/users";
 import { Hero } from "@/components/ui/general/hero";
+import { Gallery } from "@/components/ui/general/gallery";
 
 const CTA = dynamic(() => import('@/components/ui/general/cta').then((mod) => mod.CTA), { ssr: false })
 const FAQ = dynamic(() => import('@/components/ui/general/faq').then((mod) => mod.FAQ), { ssr: false })
@@ -37,7 +37,7 @@ export default function Home({heroContent, faqContent, recipes, totalRecipes}: a
       </Head>
       <main className={`main-seo-page-class`}>
         <Hero heroContent={heroContent} totalRecipes={totalRecipes}/>
-        <HomePageScroller recipes={recipes}/>
+        <Gallery recipes={recipes}/>
         <ThreeBoxFeature type="home"/>
         <CTA/>
         <FAQ qA={faqContent.qA.fields.user} title="FAQ" desc="Answers to the most common questions we get" type="user"/>

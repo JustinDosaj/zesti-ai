@@ -6,7 +6,7 @@ import { ChevronLeftIcon, ChevronRightIcon} from "@heroicons/react/20/solid"
 import { Paragraph } from "@/components/shared/paragraph"
 
 
-export function HomePageScroller({recipes}: any) {
+export function Gallery({recipes}: any) {
 
     const [ scrollPage, setScrollPage] = useState<number>(1)
 
