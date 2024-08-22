@@ -3,11 +3,11 @@ import { useAuth } from "@/pages/api/auth/auth";
 import { useEffect, useState } from 'react';
 import dynamic from "next/dynamic";
 import Head from "next/head";
+import { RecipeTitleCard } from '@/components/ui/recipe/title';
 import {
-  RecipeTitleCard,
-  RecipeIngredientsComponent,
-  RecipeInstructionsComponent,
-  RecipeDataComponent
+  RecipeIngredients,
+  RecipeInstructions,
+  RecipeInfo
 } from '@/components/ui/recipe';
 import { RecipeSuggestions } from '@/components/ui/recipe/suggestions';
 import InstagramComponent from '@/components/ui/recipe/instagram';
@@ -180,11 +180,11 @@ const Recipe: React.FC = ({ recipe, ogUrl, recentRecipes }: any) => {
             <AdSense className="mx-auto max-w-[320px] md:max-w-[728px]" adSlot="3721531543" adFormat="horizontal" adStyle={{ width: '100%', height: '100px', maxHeight: '320px' }} role={stripeRole}/>
             {source == "tiktok" ? <TikTokComponent video_id={video_id}/> : <InstagramComponent video_id={video_id}/>} 
             <AdSense className="mx-auto max-w-[320px] md:max-w-[728px]" adSlot="6960485708" adFormat="horizontal" adStyle={{ width: '100%', height: '100px', maxHeight: '320px' }} role={stripeRole}/>
-            <RecipeIngredientsComponent ingredients={ingredients} /> 
+            <RecipeIngredients ingredients={ingredients} /> 
             <AdSense className="mx-auto max-w-[320px] md:max-w-[728px]" adSlot="2408449875" adFormat="horizontal" adStyle={{ width: '100%', height: '100px', maxHeight: '320px' }} role={stripeRole}/>
-            <RecipeInstructionsComponent instructions={instructions} />
+            <RecipeInstructions instructions={instructions} />
             <AdSense className="mx-auto max-w-[320px] md:max-w-[728px]" adSlot="5275868942" adFormat="horizontal" adStyle={{ width: '100%', height: '100px', maxHeight: '320px' }} role={stripeRole}/> 
-            <RecipeDataComponent recipe={recipe} setIsErrorOpen={setIsErrorOpen} />
+            <RecipeInfo recipe={recipe} setIsErrorOpen={setIsErrorOpen} />
         </div>
 
         {/* Sticky ad in right whitespace -- desktop only*/}
@@ -199,8 +199,8 @@ const Recipe: React.FC = ({ recipe, ogUrl, recentRecipes }: any) => {
         <ErrorReportModal
           isOpen={isErrorOpen}
           setIsOpen={setIsErrorOpen}
-          title={"Report Recipe"}
-          text={"If there is a problem with this recipe, please let us know so we can investigate it as soon as possible!"}
+          title={"Recipe Feedback"}
+          text={"If there is anything wrong with this recipe, please let us know and we will look into it as soon as possible!"}
           recipe_id={recipe?.data?.id}
           user_id={user?.uid || null}
         />
