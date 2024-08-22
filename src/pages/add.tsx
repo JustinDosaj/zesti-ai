@@ -1,6 +1,5 @@
 // pages/search-results.tsx
 import { useEffect, useState } from 'react';
-import { RecipeCardList } from '@/components/ui/recipe/list';
 import { SearchOrAddRecipe } from '@/components/search/search-add-recipe';
 import { Title } from '@/components/shared/title';
 import { useRouter } from 'next/router';
@@ -11,9 +10,22 @@ import { Notify } from '@/components/shared/notify';
 import AdSense from '@/components/tags/adsense';
 import { Paragraph } from '@/components/shared/paragraph';
 import { Container } from '@/components/shared/container';
+import { Gallery } from '@/components/ui/general/gallery';
+import { GetServerSideProps } from "next";
 
 
-const SearchResults: React.FC = () => {
+export const getServerSideProps: GetServerSideProps = async () => {
+
+  const GetRecentRecipes = (await (import ('./api/firebase/functions'))).GetRecentRecipes
+  const recentRecipes = await GetRecentRecipes(9);
+
+  return {
+    props: { recentRecipes }
+  }
+}
+
+
+const AddRecipe: React.FC = ({recentRecipes}: any) => {
     
     const searchClient = algoliasearch(`${process.env.NEXT_PUBLIC_ALGOLIA_APPLICATION_ID}`, `${process.env.NEXT_PUBLIC_ALGOLIA_ADMIN_API_KEY}`);
     const recipesIndex: SearchIndex = searchClient.initIndex(`${process.env.NEXT_PUBLIC_ALGOLIA_ALL_RECIPES_INDEX}`);
@@ -65,19 +77,19 @@ const SearchResults: React.FC = () => {
     return (
         <>
             <Head>
-                <title>Search TikTok & Instagram Recipes | Zesti AI</title>
-                <meta name="title" content="Search TikTok & Instagram Recipes | Zesti AI"/>
-                <meta name="description" content="Find your favorite TikTok & Instagram recipes on Zesti and never write down ingredients again!"/>
+                <title>Save TikTok & Instagram Recipes | Zesti AI</title>
+                <meta name="title" content="Save TikTok & Instagram Recipes | Zesti AI"/>
+                <meta name="description" content="Instantly save your favorite social media recipes without the hassle of rewatching the video to get every ingredient!"/>
             </Head>
             <main className={`flex min-h-screen flex-col items-center bg-background w-full space-y-4 pb-48`}>
                 <div className="mt-2 lg:mt-8"/>
                 <Container>
-                    <Title className="text-center">Search Recipes</Title>
-                    <Paragraph className="mt-2 text-center">Find recipes from TikTok & Instagram that already exist on Zesti!</Paragraph>
+                    <Title className="text-center">Add Recipe</Title>
+                    <Paragraph className="mt-2 text-center">Copy & paste a TikTok or Instagram link to save the recipe in seconds!</Paragraph>
                 </Container>
                 <SearchOrAddRecipe align={"center"}/>
-                <AdSense className="max-w-5xl" adSlot="5445664417" adFormat="horizontal" adStyle={{ width: '100%', maxHeight: '90px' }} role={stripeRole}/>
-                <RecipeCardList recipes={recipes}/>
+                <div className="pt-24"/>
+                <Gallery recipes={recentRecipes}/>
                 <div className="mt-2"/>
                 <AdSense className="max-w-5xl" adSlot="2119249846" adFormat="auto" adStyle={{ width: '100%', height: '250px' }} role={stripeRole}/> 
             </main>
@@ -85,4 +97,4 @@ const SearchResults: React.FC = () => {
     );
 }
 
-export default SearchResults;
+export default AddRecipe;

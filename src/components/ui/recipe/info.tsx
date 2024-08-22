@@ -2,40 +2,12 @@ import { ExclamationCircleIcon } from "@heroicons/react/24/outline";
 import convertDurationToReadable from "@/utils/recipe-time-format";
 
 
-interface RecipeComponentProps {
+interface InfoProps {
   recipe?: any;
   setIsErrorOpen?: any;
-  ingredients?: any;
-  instructions?: any;
 }
 
-export function RecipeIngredients({ ingredients }: RecipeComponentProps) {
-  return (
-    <div className="recipe-component-container">
-      <h2 className="text-2xl font-semibold mb-4 text-gray-800">Ingredients</h2>
-      <ul className="list-disc pl-6 text-gray-900">
-        {ingredients?.map((ingredient: any, index: number) => (
-          <li key={index} className="mb-2">{ingredient}</li>
-        ))}
-      </ul>
-    </div>
-  );
-}
-  
-export function RecipeInstructions({ instructions }: RecipeComponentProps) {
-  return (
-    <div className="recipe-component-container">
-      <h2 className="text-2xl font-semibold mb-4 text-gray-800">Instructions</h2>
-      <ol className="list-decimal pl-6 text-gray-900 space-y-2">
-        {instructions?.map((instruction: any, index: number) => (
-          <li key={index}>{instruction}</li>
-        ))}
-      </ol>
-    </div>
-  );
-}
-
-export function RecipeInfo({ recipe, setIsErrorOpen }: RecipeComponentProps) {
+export function Information({ recipe, setIsErrorOpen }: InfoProps) {
   
   const { date_added, date_created, owner, source } = recipe?.data;
   const { cook_time, prep_time, category, cuisine } = recipe;
