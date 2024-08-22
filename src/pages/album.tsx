@@ -5,7 +5,9 @@
 import { useEffect, useState } from 'react';
 import { RecipeCardList } from '@/components/ui/recipe/list';
 import { SearchOrAddRecipe } from '@/components/search';
-import { TitleSection } from '@/components/shared/title';
+import { Container } from '@/components/shared/container';
+import { Title } from '@/components/shared/title';
+import { Paragraph } from '@/components/shared/paragraph';
 import { useRouter } from 'next/router';
 import { useAuth } from './api/auth/auth';
 import Head from 'next/head';
@@ -57,7 +59,10 @@ const AlbumResults: React.FC<AlbumResultsProps> = (recipes) => {
             </Head>
             <main className={`flex min-h-screen flex-col items-center bg-background w-full space-y-4 pb-48`}>
                 <div className="mt-2 lg:mt-8"/>
-                <TitleSection titleBlack="Search for Recipes" desc="Copy & paste a TikTok or Instagram recipe link or search by ingredients, usernames & more!"/>
+                <Container>
+                    <Title className="text-center">Albums not currently supported</Title>
+                    <Paragraph className="mt-2 text-center">Copy & paste a TikTok or Instagram recipe link or search by ingredients, usernames & more!</Paragraph>
+                </Container>
                 <SearchOrAddRecipe align={"center"}/>
                 <RecipeCardList recipes={recipes.recipes}/>
             </main>

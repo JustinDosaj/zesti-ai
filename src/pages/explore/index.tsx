@@ -1,6 +1,8 @@
 import { getEntriesForContentTypes } from "@/lib/contentfulHelpers";
 import { GetServerSideProps } from "next";
-import { TitleSection } from "@/components/shared/title"
+import { Container } from "@/components/shared/container";
+import { Paragraph } from "@/components/shared/paragraph";
+import { Title } from "@/components/shared/title";
 import { BlogList } from "@/components/blog/list";
 import Head from "next/head"
 
@@ -30,7 +32,10 @@ const Explore: React.FC = ({blogContent}: any) => {
         </Head>   
             <main className={`flex min-h-screen flex-col items-center bg-background w-full space-y-4 pb-48`}>
                 <div className="mt-2 lg:mt-8"/>
-                <TitleSection titleBlack="Explore Blog" desc="Check out these articles written by members of Zesti"/>
+                <Container>
+                    <Title className="text-center">Explore Blog</Title>
+                    <Paragraph className="mt-2 text-center">Check out these articles written by members of Zesti</Paragraph>
+                </Container>
                 <BlogList blogContent={blogContent}/>
             </main>
         </>
