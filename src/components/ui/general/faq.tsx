@@ -1,7 +1,8 @@
 import { Container } from "@/components/shared/container"
 import { MinusSmallIcon, PlusSmallIcon} from "@heroicons/react/20/solid"
 import { Disclosure } from "@headlessui/react"
-import { TitleSection } from "@/components/shared/title"
+import { Title } from "@/components/shared/title"
+import { Paragraph } from "@/components/shared/paragraph"
 
 
 interface FAQProps {
@@ -19,7 +20,8 @@ export function FAQ({title, desc, qA}: FAQProps) {
         <div className="mx-auto max-w-7xl px-6">
           <div className="mx-auto max-w-4xl divide-y divide-gray-900/10">
             <div className="flex flex-col items-center text-center">
-              <TitleSection titleBlack={title} desc={desc}/>
+              <Title>{title}</Title>
+              <Paragraph className="mt-2">{desc}</Paragraph>
             </div>
             <dl className="mt-10 space-y-6 divide-y divide-gray-900/10">
               {qA.map((faq: any) => (
