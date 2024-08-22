@@ -4,7 +4,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import React from 'react'
 import dynamic from 'next/dynamic'
 import LoadingBar from '@/components/shared/loadingbar';
-import GlobalModal from '@/components/shared/modal';
+import GlobalModal from '@/components/ui/modals/global';
 import { ModalProvider } from '@/context/modalcontext';
 
 const ToastContainer = dynamic(() => import('react-toastify').then((mod) => mod.ToastContainer), { ssr: false })

@@ -1,6 +1,5 @@
 import { getBlogPostBySlug } from "@/lib/contentfulHelpers"
 import { GetServerSideProps } from "next"
-import AdSense from "@/components/tags/adsense"
 import { useAuth } from "@/pages/api/auth/auth"
 import { PostTitle } from "@/components/blog/post"
 import { renderContentBlock } from "@/pages/api/blog/render"
@@ -8,7 +7,7 @@ import { GetRecipeByIds } from "@/pages/api/firebase/functions"
 import formatDate from "@/utils/date-format"
 import Head from "next/head"
 import { HorizontalBorder } from "@/components/shared/border"
-import { RecipeSuggestions } from "@/components/ui/recipe/suggestions"
+import { RecipeSuggestions } from "@/components/ui/general/recipe-suggestions"
 import { StickyAd } from "@/components/ads/stickyAd"
 
 interface BlogPost {
