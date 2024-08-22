@@ -3,12 +3,12 @@ import { getEntriesForContentTypes } from "@/lib/contentfulHelpers";
 import Head from 'next/head';
 import dynamic from "next/dynamic";
 import { GetTotalRecipeCount } from "./api/firebase/functions";
+import { HomePageScroller } from "@/components/ui/features/users";
+import { Hero } from "@/components/ui/general/hero";
 
-const Hero = dynamic(() => import('@/components/ui/general/hero').then((mod) => mod.Hero), { ssr: false })
 const CTA = dynamic(() => import('@/components/ui/general/cta').then((mod) => mod.CTA), { ssr: false })
-const HomePageScroller = dynamic(() => import('@/components/ui/features/users').then((mod) => mod.HomePageScroller), { ssr: false })
-const ThreeBoxFeature = dynamic(() => import('@/components/ui/general/threeboxfeature').then((mod) => mod.ThreeBoxFeature), { ssr: false })
 const FAQ = dynamic(() => import('@/components/ui/general/faq').then((mod) => mod.FAQ), { ssr: false })
+const ThreeBoxFeature = dynamic(() => import('@/components/ui/general/threeboxfeature').then((mod) => mod.ThreeBoxFeature), { ssr: false })
 
 export const getServerSideProps: GetServerSideProps = async () => {
 
@@ -18,12 +18,11 @@ export const getServerSideProps: GetServerSideProps = async () => {
   const entries = await getEntriesForContentTypes(['hero', 'faq', 'chatFeature'])
   const heroContent = entries.hero[0]
   const faqContent = entries.faq[0]
-  const chatFeature = entries.chatFeature[0]
 
   const totalRecipes = await GetTotalRecipeCount()
 
   return {
-    props: { heroContent, faqContent, chatFeature, recipes, totalRecipes }
+    props: { heroContent, faqContent, recipes, totalRecipes }
   }
 }
 
