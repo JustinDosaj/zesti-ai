@@ -4,16 +4,14 @@ import { useEffect, useState } from 'react';
 import dynamic from "next/dynamic";
 import Head from "next/head";
 import { RecipeTitleCard } from '@/components/ui/recipe/title';
-import {
-  RecipeIngredients,
-  RecipeInstructions,
-  RecipeInfo
-} from '@/components/ui/recipe';
-import { RecipeSuggestions } from '@/components/ui/recipe/suggestions';
-import InstagramComponent from '@/components/ui/recipe/instagram';
-import TikTokComponent from '@/components/ui/recipe/tiktok';
+import { Ingredients } from '@/components/ui/recipe/ingredients';
+import { Instructions } from '@/components/ui/recipe/instructions';
+import { Information } from '@/components/ui/recipe/info';
+import { RecipeSuggestions } from '@/components/ui/general/recipe-suggestions';
 import { GetRecipeMap } from '../../api/firebase/functions';
 import { StickyAd } from '@/components/ads/stickyAd';
+import InstagramComponent from '@/components/ui/recipe/instagram';
+import TikTokComponent from '@/components/ui/recipe/tiktok';
 
 const ErrorReportModal = dynamic(() => import('@/components/ui/modals/report').then((mod) => mod.ErrorReportModal), { ssr: false });
 const AdSense = dynamic(() => import('@/components/tags/adsense'), {
@@ -180,11 +178,11 @@ const Recipe: React.FC = ({ recipe, ogUrl, recentRecipes }: any) => {
             <AdSense className="mx-auto max-w-[320px] md:max-w-[728px]" adSlot="3721531543" adFormat="horizontal" adStyle={{ width: '100%', height: '100px', maxHeight: '320px' }} role={stripeRole}/>
             {source == "tiktok" ? <TikTokComponent video_id={video_id}/> : <InstagramComponent video_id={video_id}/>} 
             <AdSense className="mx-auto max-w-[320px] md:max-w-[728px]" adSlot="6960485708" adFormat="horizontal" adStyle={{ width: '100%', height: '100px', maxHeight: '320px' }} role={stripeRole}/>
-            <RecipeIngredients ingredients={ingredients} /> 
+            <Ingredients ingredients={ingredients} /> 
             <AdSense className="mx-auto max-w-[320px] md:max-w-[728px]" adSlot="2408449875" adFormat="horizontal" adStyle={{ width: '100%', height: '100px', maxHeight: '320px' }} role={stripeRole}/>
-            <RecipeInstructions instructions={instructions} />
+            <Instructions instructions={instructions} />
             <AdSense className="mx-auto max-w-[320px] md:max-w-[728px]" adSlot="5275868942" adFormat="horizontal" adStyle={{ width: '100%', height: '100px', maxHeight: '320px' }} role={stripeRole}/> 
-            <RecipeInfo recipe={recipe} setIsErrorOpen={setIsErrorOpen} />
+            <Information recipe={recipe} setIsErrorOpen={setIsErrorOpen} />
         </div>
 
         {/* Sticky ad in right whitespace -- desktop only*/}
