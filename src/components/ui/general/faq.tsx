@@ -21,7 +21,7 @@ export function FAQ({title, desc, qA}: FAQProps) {
           <div className="mx-auto max-w-4xl divide-y divide-gray-900/10">
             <div className="flex flex-col items-center text-center">
               <Title>{title}</Title>
-              <Paragraph className="mt-2">{desc}</Paragraph>
+              <Paragraph className="mt-2"></Paragraph>
             </div>
             <dl className="mt-10 space-y-6 divide-y divide-gray-900/10">
               {qA.map((faq: any) => (
