@@ -1,13 +1,15 @@
 import { useAuth } from "@/pages/api/auth/auth";
 import Head from 'next/head';
 import GoogleTags from '@/components/tags/conversion';
-import { TitleSection } from '@/components/shared/title';
+import { Title } from '@/components/shared/title';
 import AdSense from "@/components/tags/adsense";
 import useRequireAuth from '@/hooks/user/useRequireAuth';
 import { RecipeCardList } from '@/components/ui/recipe/list';
 import useUserRecipeList from '@/hooks/user/useUserRecipeList'; // Import the hook
 import { useState } from 'react';
 import { MyRecipeSearch } from "@/components/search";
+import { Paragraph } from "@/components/shared/paragraph";
+import { Container } from "@/components/shared/container";
 
 export default function MyRecipes() {
   
@@ -37,7 +39,10 @@ export default function MyRecipes() {
       </Head>
       <main className={`flex min-h-screen flex-col items-center bg-background w-full space-y-4 pb-48`}>
         <div className="mt-2 lg:mt-8" />
-        <TitleSection titleBlack="Saved Recipes" desc="Access & search all of the recipes you have saved on Zesti" />
+        <Container>
+          <Title className="text-center">Saved Recipes</Title>
+          <Paragraph className="text-center mt-2">Access & search all of the recipes you have saved on Zesti</Paragraph>
+        </Container>
         <MyRecipeSearch searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
         <RecipeCardList recipes={filteredRecipes} maxDisplayCount={9} max={0} loading={loadingUserRecipes} />
         <div className="my-1" />
