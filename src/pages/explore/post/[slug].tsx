@@ -1,6 +1,6 @@
 import { getBlogPostBySlug } from "@/lib/contentfulHelpers"
 import { GetServerSideProps } from "next"
-import { useAuth } from "@/pages/api/auth/auth"
+import { useAuth } from "@/context/AuthContext"
 import { PostTitle } from "@/components/blog/post"
 import { renderContentBlock } from "@/pages/api/blog/render"
 import { GetRecipeByIds } from "@/pages/api/firebase/functions"

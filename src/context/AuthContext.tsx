@@ -1,7 +1,7 @@
 import { createContext, useContext, ReactNode, useEffect, useState } from 'react';
 import { User, getAuth, onAuthStateChanged, GoogleAuthProvider, sendSignInLinkToEmail, isSignInWithEmailLink, signInWithEmailLink } from "firebase/auth";
 import { useRouter } from 'next/router';
-import { db } from '../firebase/firebase';
+import { db } from '@/lib/firebase';
 import { getDoc, doc, setDoc } from 'firebase/firestore';
 import { Notify } from '@/components/shared/notify';
 
@@ -52,7 +52,8 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
             date_created: new Date().toISOString()
           });
         } 
-          router.reload()
+        
+        router.push(redirect ? String(redirect) : "/");
       }
 
     } catch (error) {
@@ -71,7 +72,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   const sendSignInLink = async (email: string, redirect?: string) => {
     const actionCodeSettings = {
       // Your redirect URL
-      url: `https://www.zesti.ai/auth/finishSignIn${redirect ? `?redirect=${redirect}` : ``}`, // Change this to your actual redirect URL
+      url: `http://localhost:3000/auth/finishSignIn${redirect ? `?redirect=${redirect}` : ``}`, // Change this to your actual redirect URL
       handleCodeInApp: true,
     };
 

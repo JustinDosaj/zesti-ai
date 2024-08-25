@@ -2,7 +2,7 @@
 "use client";
 import { Dialog, Transition } from '@headlessui/react';
 import { Fragment, useRef } from 'react';
-import { BookOpenIcon, ExclamationTriangleIcon, CheckCircleIcon } from '@heroicons/react/20/solid';
+import { BookOpenIcon, ExclamationTriangleIcon, CheckCircleIcon, UserIcon } from '@heroicons/react/20/solid';
 import AdSense from '@/components/tags/adsense';
 import { useRouter } from 'next/router';
 import { useModal } from '@/context/modalcontext'
@@ -12,6 +12,7 @@ const statusIcons = {
   error: <ExclamationTriangleIcon className='text-red-500 h-8 w-8' aria-hidden="true" />,
   success: <CheckCircleIcon className='text-green-500 h-8 w-8' aria-hidden="true" />,
   warning: <ExclamationTriangleIcon className='text-yellow-500 h-8 w-8' aria-hidden="true" />,
+  auth: <UserIcon className='text-primary-main h-8 w-8' aria-hidden="true" />,
 };
 
 const borderColor = {
@@ -19,24 +20,35 @@ const borderColor = {
     error: 'border-red-500/50',
     success: 'border-green-500/50',
     warning: 'border-yellow-500/50',
+    auth: 'border-primary-main/50',
 }
 
 const GlobalModal: React.FC = () => {
 
     const cancelButtonRef = useRef(null);
     const router = useRouter();
-    const { isOpen, title, text, role, displayAd, status, closeModal } = useModal();
+    const { isOpen, title, text, role, displayAd, status, recipeId, slug, userId, closeModal } = useModal();
 
     const onButtonClick = () => {
-    if (status === 'success') {
-        router.push('/my-recipes');
-    }
-    
-    closeModal();
-    
+        router.push(modalAction[status]);
+        closeModal();
     };
-    
-    const primaryButtonText = status === 'success' ? 'My Recipes' : 'Okay';
+
+    const modalAction = {
+        info: "/",
+        error: "/",
+        success: "/my-recipes",
+        warning: "/",
+        auth: `/auth/login?redirect=/recipes/${recipeId?.toString()}/${slug}`,
+    };
+
+    const buttonText = {
+        info: 'Okay',
+        error: 'Return',
+        success: 'My Recipes',
+        warning: 'Return',
+        auth: 'Login / Signup',
+    }
 
     return (
         <Transition.Root show={isOpen} as={Fragment}>
@@ -86,7 +98,7 @@ const GlobalModal: React.FC = () => {
                                 className="inline-flex w-full justify-center rounded-3xl bg-primary-main px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-primary-alt focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 sm:col-start-2"
                                 onClick={onButtonClick}
                             >
-                                { primaryButtonText }
+                                { buttonText[status] }
                             </button>
                             <button
                                 type="button"

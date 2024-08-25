@@ -11,7 +11,7 @@ const ToastContainer = dynamic(() => import('react-toastify').then((mod) => mod.
 const Navbar = dynamic(() => import('@/components/elements/navbar').then((mod) => mod.Navbar), { ssr: false })
 const Footer = dynamic(() => import('@/components/elements/footer').then((mod) => mod.Footer), { ssr: false })
 const Analytics = dynamic(() => import('@vercel/analytics/react').then((mod) => mod.Analytics), { ssr: false })
-const AuthProvider = dynamic(() => import('./api/auth/auth').then((mod) => mod.AuthProvider), { ssr: false })
+const AuthProvider = dynamic(() => import('@/context/AuthContext').then((mod) => mod.AuthProvider), { ssr: false })
 const LoadingProvider = dynamic(() => import('@/context/loadingcontext').then((mod) => mod.LoadingProvider), { ssr: false })
 
 
