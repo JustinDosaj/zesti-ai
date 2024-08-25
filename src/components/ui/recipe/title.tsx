@@ -23,15 +23,16 @@ export function RecipeTitleCard({ recipe, isSaved, user, isLoading, role, hasLik
 
   const { openModal } = useModal()
   const [likesDisabled, setLikesDisabled] = useState<boolean>(false);
+  const { data, description, name } = recipe;
+  const { id, source, slug, url } = data;
 
   async function onSaveClick() {
     const saveRecipe = (await import('@/pages/api/firebase/functions')).saveRecipeReferenceToUser;
 
     if (user && !isLoading) {
-      await saveRecipe(user?.uid, recipe.data.id).then(() => { openModal("Recipe Saved", "You can continue browsing or view all your saved recipes", "My Recipes", "success", true, role) });
+      await saveRecipe(user?.uid, id).then(() => { openModal("Recipe Saved", "You can continue browsing or view all your saved recipes", "success", true, role) });
     } else {
-      const Notify = (await import('@/components/shared/notify')).Notify;
-      Notify("Please login to save recipes");
+      openModal("Account Required", "Please create an account to save recipes", "auth", false, role, id, slug, user?.uid);
     }
   }
 
@@ -39,7 +40,7 @@ export function RecipeTitleCard({ recipe, isSaved, user, isLoading, role, hasLik
     const deleteRecipe = (await import('@/pages/api/firebase/functions')).userRemoveRecipeFromFirestore;
 
     if (user) {
-      await deleteRecipe(user?.uid, recipe.data.id);
+      await deleteRecipe(user?.uid, id);
     }
   }
 
@@ -52,7 +53,7 @@ export function RecipeTitleCard({ recipe, isSaved, user, isLoading, role, hasLik
   const onLikeClick = async () => {
     
     if(!user) {
-      openModal("Login Required", "Please login to like recipes", "Login", "error", false, role);
+      openModal("Account Required", "Please create an account to like recipes", "auth", false, role, id, slug, user?.uid);
       return;
     }
 
@@ -61,14 +62,14 @@ export function RecipeTitleCard({ recipe, isSaved, user, isLoading, role, hasLik
     if(hasLiked) {
       setLikes(likes - 1);
       setHasLiked(false);
-      await UpdateLikesInFirebase({recipeId: recipe.data.id, remove: true }).then(() => setLikesDisabled(false));
+      await UpdateLikesInFirebase({recipeId: id, remove: true }).then(() => setLikesDisabled(false));
       return;
     }
 
     if(!hasLiked) {
       setLikes(likes + 1);
       setHasLiked(true);
-      await UpdateLikesInFirebase({recipeId: recipe.data.id, remove: false }).then(() => setLikesDisabled(false));
+      await UpdateLikesInFirebase({recipeId: id, remove: false }).then(() => setLikesDisabled(false));
     }
 
   }
@@ -76,21 +77,21 @@ export function RecipeTitleCard({ recipe, isSaved, user, isLoading, role, hasLik
   return (
     <div className="bg-gray-50 border-gray-300 border shadow-md rounded-lg pt-6 mb-8">
       <div className="px-6">
-        <h1 className="text-3xl lg:text-4xl font-semibold text-gray-800">{recipe.name}</h1>
+        <h1 className="text-3xl lg:text-4xl font-semibold text-gray-800">{name}</h1>
         <div className="flex items-center gap-1 text-gray-700">
           <span>by</span>
-          <button onClick={() => window.open(recipe.data.url)} className="underline flex items-center font-semibold hover:text-gray-600">
+          <button onClick={() => window.open(url)} className="underline flex items-center font-semibold hover:text-gray-600">
             {recipe?.data?.owner?.username}
             <ArrowTopRightOnSquareIcon className="w-3.5 lg:w-4 ml-1" />
           </button>
         </div>
 
-        <p className="text-gray-700 mt-4">{recipe.description}</p>
+        <p className="text-gray-700 mt-4">{description}</p>
 
         <div className="text-xs text-gray-500 mt-4">
             <div className="">
               <span className="font-semibold">Disclaimer: </span>
-              <span>Recipe is retrieved from {recipe.data.source}. </span>
+              <span>Recipe is retrieved from {source}. </span>
               <span>Results may vary. </span> 
               <Link href="/about/faq" className="underline">Click here</Link>
               <span> to learn more.</span>

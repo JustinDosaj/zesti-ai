@@ -1,17 +1,19 @@
 // context/ModalContext.tsx
 import React, { createContext, useContext, useState, ReactNode } from 'react';
 
-type ModalStatus = 'info' | 'error' | 'success' | 'warning';
+type ModalStatus = 'info' | 'error' | 'success' | 'warning' | 'auth';
 
 interface ModalContextProps {
   isOpen: boolean;
   title: string;
   text: string;
-  buttonName: string;
   role?: string | null;
   displayAd: boolean;
   status: ModalStatus;
-  openModal: (title: string, text: string, buttonName: string, status: ModalStatus, displayAd?: boolean, role?: string | null) => void;
+  recipeId?: string;
+  slug?: string;
+  userId?: string;
+  openModal: (title: string, text: string, status: ModalStatus, displayAd?: boolean, role?: string | null, recipeId?: number, slug?:string, userId?: string) => void;
   closeModal: () => void;
 }
 
@@ -21,17 +23,21 @@ export const ModalProvider: React.FC<{ children: ReactNode }> = ({ children }) =
   const [isOpen, setIsOpen] = useState(false);
   const [title, setTitle] = useState('');
   const [text, setText] = useState('');
-  const [buttonName, setButtonName] = useState('');
   const [role, setRole] = useState<string | null>(null);
   const [displayAd, setDisplayAd] = useState(false);
   const [status, setStatus] = useState<ModalStatus>('info');
+  const [recipeId, setRecipeId] = useState('');
+  const [slug, setSlug] = useState('');
+  const [userId, setUserId] = useState('');
 
-  const openModal = (title: string, text: string, buttonName: string, status: ModalStatus, displayAd = false, role: string | null = null) => {
+  const openModal = (title: string, text: string, status: ModalStatus, displayAd = false, role: string | null = null, recipeId = 0, slug = '', userId = '') => {
     setTitle(title);
     setText(text);
-    setButtonName(buttonName);
     setStatus(status);
     setDisplayAd(displayAd);
+    setRecipeId(recipeId.toString());
+    setSlug(slug);
+    setUserId(userId);
     setRole(role);
     setIsOpen(true);
   };
@@ -41,7 +47,7 @@ export const ModalProvider: React.FC<{ children: ReactNode }> = ({ children }) =
   };
 
   return (
-    <ModalContext.Provider value={{ isOpen, title, text, buttonName, role, displayAd, status, openModal, closeModal }}>
+    <ModalContext.Provider value={{ isOpen, title, text, role, displayAd, status, recipeId, slug, userId, openModal, closeModal }}>
       {children}
     </ModalContext.Provider>
   );
