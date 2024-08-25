@@ -1,6 +1,6 @@
 import { Notify } from "@/components/shared/notify";
 import { httpsCallable, getFunctions } from 'firebase/functions';
-import { db } from "./firebase"
+import { db } from "@/lib/firebase";
 import { onSnapshot, doc, setDoc, deleteDoc, getDocs, collection, getDoc, orderBy, query, limit } from "firebase/firestore";
 
 

@@ -1,5 +1,5 @@
 import { collection, doc, addDoc, onSnapshot } from 'firebase/firestore';
-import { db } from '../firebase/firebase';
+import { db } from '@/lib/firebase';
 import Stripe from 'stripe'
 import { Notify } from '@/components/shared/notify';
 

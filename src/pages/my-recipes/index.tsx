@@ -1,4 +1,4 @@
-import { useAuth } from "@/pages/api/auth/auth";
+import { useAuth } from '@/context/AuthContext';
 import Head from 'next/head';
 import GoogleTags from '@/components/tags/conversion';
 import { Title } from '@/components/shared/title';

@@ -24,7 +24,8 @@ export function RecipeTitleCard({ recipe, isSaved, user, isLoading, role, hasLik
   const { openModal } = useModal()
   const [likesDisabled, setLikesDisabled] = useState<boolean>(false);
   const { data, description, name } = recipe;
-  const { id, source, slug, url } = data;
+  const { id, source, slug, url, owner } = data;
+  const { username } = owner;
 
   async function onSaveClick() {
     const saveRecipe = (await import('@/pages/api/firebase/functions')).saveRecipeReferenceToUser;
@@ -81,7 +82,7 @@ export function RecipeTitleCard({ recipe, isSaved, user, isLoading, role, hasLik
         <div className="flex items-center gap-1 text-gray-700">
           <span>by</span>
           <button onClick={() => window.open(url)} className="underline flex items-center font-semibold hover:text-gray-600">
-            {recipe?.data?.owner?.username}
+            {username}
             <ArrowTopRightOnSquareIcon className="w-3.5 lg:w-4 ml-1" />
           </button>
         </div>

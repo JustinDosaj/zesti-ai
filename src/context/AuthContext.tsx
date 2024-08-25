@@ -1,7 +1,7 @@
 import { createContext, useContext, ReactNode, useEffect, useState } from 'react';
 import { User, getAuth, onAuthStateChanged, GoogleAuthProvider, sendSignInLinkToEmail, isSignInWithEmailLink, signInWithEmailLink } from "firebase/auth";
 import { useRouter } from 'next/router';
-import { db } from '../firebase/firebase';
+import { db } from '@/lib/firebase';
 import { getDoc, doc, setDoc } from 'firebase/firestore';
 import { Notify } from '@/components/shared/notify';
 
