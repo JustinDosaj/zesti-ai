@@ -4,7 +4,7 @@ import { Button } from "@/components/shared/button";
 import { CheckIcon } from "@heroicons/react/20/solid";
 import { createPremiumCheckoutSession } from "@/pages/api/stripe/stripePremium";
 import { Loader } from "@/components/shared/loader";
-import { useAuth } from "@/pages/api/auth/auth";
+import { useAuth } from "@/context/AuthContext";
 import { useState } from "react";
 import { useRouter } from "next/router";
 

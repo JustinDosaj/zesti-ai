@@ -6,7 +6,6 @@ import { BookOpenIcon, ExclamationTriangleIcon, CheckCircleIcon, UserIcon } from
 import AdSense from '@/components/tags/adsense';
 import { useRouter } from 'next/router';
 import { useModal } from '@/context/modalcontext'
-import { info } from 'console';
 
 const statusIcons = {
   info: <BookOpenIcon className='text-primary-main h-8 w-8' aria-hidden="true" />,

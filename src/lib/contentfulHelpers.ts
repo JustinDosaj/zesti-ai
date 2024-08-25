@@ -1,6 +1,5 @@
 // lib/contentfulHelpers.ts
 import client from './contentful';
-import { BLOCKS, Block, Inline } from '@contentful/rich-text-types';
 
 interface ContentfulEntryFields {
   [key: string]: any;

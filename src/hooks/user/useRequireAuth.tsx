@@ -1,7 +1,7 @@
 // useRequireAuth hook
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
-import { useAuth } from '@/pages/api/auth/auth';
+import { useAuth } from '@/context/AuthContext';
 import { Notify } from '@/components/shared/notify';
 
 // Hook that requires the user to be authenticated

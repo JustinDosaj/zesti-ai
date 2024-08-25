@@ -1,6 +1,6 @@
 import Head from 'next/head';
 import React, { useEffect } from "react"
-import { useAuth } from '../api/auth/auth';
+import { useAuth } from '@/context/AuthContext';
 import { ToastContainer } from "react-toastify"
 import 'react-toastify/dist/ReactToastify.css';
 import { useState } from 'react';

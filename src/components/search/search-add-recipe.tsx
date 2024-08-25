@@ -2,13 +2,12 @@ import React, { useState } from "react"
 import { Button } from '../shared/button';
 import { useRouter } from 'next/router';
 import { ButtonLoader } from '../shared/loader';
-import { ArrowTopRightOnSquareIcon, LinkIcon, MagnifyingGlassIcon } from '@heroicons/react/20/solid';
+import { ArrowTopRightOnSquareIcon, LinkIcon } from '@heroicons/react/20/solid';
 import Link from 'next/link';
 import { useLoading } from '@/context/loadingcontext';
 import { useModal } from '@/context/modalcontext';
-import { useAuth } from '@/pages/api/auth/auth';
+import { useAuth } from "@/context/AuthContext";
 import { Notify } from '../shared/notify';
-import { Container } from '../shared/container';
 import { Paragraph } from "../shared/paragraph";
 
 interface AddRecipeProps {

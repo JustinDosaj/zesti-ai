@@ -1,7 +1,7 @@
 // pages/server-sitemap.xml/index.tsx
 import { GetServerSideProps } from 'next';
 import { getServerSideSitemapLegacy, ISitemapField } from 'next-sitemap';
-import { db } from '../api/firebase/firebase'; // Adjust the import path as necessary
+import { db } from '@/lib/firebase';
 import { collection, getDocs } from 'firebase/firestore';
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {

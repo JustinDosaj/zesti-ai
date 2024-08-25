@@ -1,4 +1,4 @@
-import { db } from "@/pages/api/firebase/firebase";
+import { db } from "@/lib/firebase";
 import { onSnapshot, getDoc, collection, query, orderBy, doc, DocumentReference } from "firebase/firestore";
 import { useState, useEffect } from "react";
 
