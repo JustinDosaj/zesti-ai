@@ -33,7 +33,7 @@ export function SearchOrAddRecipe({align}: AddRecipeProps) {
             setProgress(0)
 
             if (stripeRole == 'premium') { Notify("Processing recipe, this may take a few moments") }
-            else { openModal("Recipe Submitted", "Processing recipe, this should only take a few moments.", "Okay", "info", true, stripeRole) }
+            else { openModal("Recipe Submitted", "Processing recipe, this should only take a few moments.", "info", true, stripeRole) }
 
             const interval = setInterval(() => {
                 setProgress((prev: number) => {

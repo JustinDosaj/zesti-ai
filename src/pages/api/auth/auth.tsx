@@ -52,7 +52,8 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
             date_created: new Date().toISOString()
           });
         } 
-          router.reload()
+        
+        router.push(redirect ? String(redirect) : "/");
       }
 
     } catch (error) {
@@ -71,7 +72,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   const sendSignInLink = async (email: string, redirect?: string) => {
     const actionCodeSettings = {
       // Your redirect URL
-      url: `https://www.zesti.ai/auth/finishSignIn${redirect ? `?redirect=${redirect}` : ``}`, // Change this to your actual redirect URL
+      url: `http://localhost:3000/auth/finishSignIn${redirect ? `?redirect=${redirect}` : ``}`, // Change this to your actual redirect URL
       handleCodeInApp: true,
     };
 
