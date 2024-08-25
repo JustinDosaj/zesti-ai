@@ -37,7 +37,7 @@ const GlobalModal: React.FC = () => {
     const modalAction = {
         info: "/",
         error: "/",
-        success: "/",
+        success: "/my-recipes",
         warning: "/",
         auth: `/auth/login?redirect=/recipes/${recipeId?.toString()}/${slug}`,
     };
