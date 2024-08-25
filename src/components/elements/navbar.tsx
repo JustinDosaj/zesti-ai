@@ -1,12 +1,11 @@
 import { Container } from "../shared/container"
 import { Navitem } from "../shared/navitem"
-import { useAuth } from "@/pages/api/auth/auth"
+import { useAuth } from "@/context/AuthContext"
 import { Button } from "../shared/button"
 import Link from "next/link"
 import { BookOpenIcon, HomeIcon, PaperAirplaneIcon, WalletIcon, UserIcon, MagnifyingGlassIcon } from "@heroicons/react/20/solid"
 import { DropDownMenuDesktop, DropDownMenuMobile } from "./menus"
 import { useRouter } from "next/router"
-import { text } from "stream/consumers"
 import { PlusIcon } from "@heroicons/react/20/solid"
 
 

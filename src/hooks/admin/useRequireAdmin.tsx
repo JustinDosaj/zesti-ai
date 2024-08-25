@@ -1,9 +1,9 @@
 // hooks/useRequireAdmin.tsx
 import { useEffect, useState } from 'react';
-import { useAuth } from '@/pages/api/auth/auth';
+import { useAuth } from '@/context/AuthContext';
 import { useRouter } from 'next/router';
 import { doc, getDoc } from 'firebase/firestore';
-import { db } from '@/pages/api/firebase/firebase';
+import { db } from '@/lib/firebase';
 
 const useRequireAdmin = () => {
   const { user, isLoading } = useAuth();

@@ -1,7 +1,7 @@
 // useRequireAuth hook
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
-import { useAuth } from '@/pages/api/auth/auth';
+import { useAuth } from '@/context/AuthContext';
 import { Notify } from '@/components/shared/notify';
 
 // Hook that requires the user to be authenticated
@@ -14,8 +14,8 @@ const useRequireAuth = (redirectUrl = '/auth/login') => {
     useEffect(() => {
         if (!isLoading && !user) {
             // Redirect unauthenticated users to the login page
-            router.push(redirectUrl);
-            Notify("You must be logged in to access this content")
+            router.push(`${redirectUrl}?redirect=${router.pathname}`);
+            Notify("Please create an account to access this content")
         }
     }, [require, isLoading, redirectUrl, router, user]);
 

@@ -2,13 +2,12 @@ import React, { useState } from "react"
 import { Button } from '../shared/button';
 import { useRouter } from 'next/router';
 import { ButtonLoader } from '../shared/loader';
-import { ArrowTopRightOnSquareIcon, LinkIcon, MagnifyingGlassIcon } from '@heroicons/react/20/solid';
+import { ArrowTopRightOnSquareIcon, LinkIcon } from '@heroicons/react/20/solid';
 import Link from 'next/link';
 import { useLoading } from '@/context/loadingcontext';
 import { useModal } from '@/context/modalcontext';
-import { useAuth } from '@/pages/api/auth/auth';
+import { useAuth } from "@/context/AuthContext";
 import { Notify } from '../shared/notify';
-import { Container } from '../shared/container';
 import { Paragraph } from "../shared/paragraph";
 
 interface AddRecipeProps {
@@ -33,7 +32,7 @@ export function SearchOrAddRecipe({align}: AddRecipeProps) {
             setProgress(0)
 
             if (stripeRole == 'premium') { Notify("Processing recipe, this may take a few moments") }
-            else { openModal("Recipe Submitted", "Processing recipe, this should only take a few moments.", "Okay", "info", true, stripeRole) }
+            else { openModal("Recipe Submitted", "Processing recipe, this should only take a few moments.", "info", true, stripeRole) }
 
             const interval = setInterval(() => {
                 setProgress((prev: number) => {

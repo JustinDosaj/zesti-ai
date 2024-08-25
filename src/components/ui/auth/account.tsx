@@ -1,6 +1,6 @@
 import { Container } from '@/components/shared/container';
 import { useRouter } from 'next/router';
-import { useAuth } from '@/pages/api/auth/auth'
+import { useAuth } from '@/context/AuthContext';
 
 export function AccountComponent() {
 

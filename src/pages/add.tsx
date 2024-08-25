@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { SearchOrAddRecipe } from '@/components/search/search-add-recipe';
 import { Title } from '@/components/shared/title';
 import { useRouter } from 'next/router';
-import { useAuth } from './api/auth/auth';
+import { useAuth } from '@/context/AuthContext';
 import Head from 'next/head';
 import algoliasearch, { SearchIndex } from 'algoliasearch';
 import { Notify } from '@/components/shared/notify';

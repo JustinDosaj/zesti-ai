@@ -1,5 +1,5 @@
 import AdSense from "../tags/adsense";
-import { useAuth } from "@/pages/api/auth/auth";
+import { useAuth } from "@/context/AuthContext";
 
 
 interface StickyAdProps {

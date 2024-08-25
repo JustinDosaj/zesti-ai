@@ -1,5 +1,5 @@
 import { GetServerSideProps } from 'next';
-import { useAuth } from "@/pages/api/auth/auth";
+import { useAuth } from '@/context/AuthContext';
 import { useEffect, useState } from 'react';
 import dynamic from "next/dynamic";
 import Head from "next/head";

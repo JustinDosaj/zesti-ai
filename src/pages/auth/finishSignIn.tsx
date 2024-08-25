@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useAuth } from "../api/auth/auth";
+import { useAuth } from "@/context/AuthContext";
 import { useRouter } from "next/router";
 import Head from "next/head";
 import { LoginLoader } from "@/components/shared/loader";
