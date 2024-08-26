@@ -17,7 +17,7 @@ export function Ingredients({ ingredients }: IngredientProps) {
 
     return (
         <div className="recipe-component-container">
-            <h2 className="text-2xl font-semibold mb-4 text-gray-800">Ingredients</h2>
+            <h2 className="text-2xl md:text-3xl font-semibold mb-4 text-gray-800">Ingredients</h2>
             <ul className=" text-gray-900 space-y-4">
                 {ingredients?.map((ingredient: string, index: number) => (
                 <li key={index} className="mb-2 flex items-center">
