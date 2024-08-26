@@ -38,7 +38,7 @@ const AddRecipe: React.FC = ({recentRecipes}: any) => {
                     <Title className="text-center">Add Recipe</Title>
                     <Paragraph className="mt-2 text-center">Copy & paste a TikTok or Instagram link to save the recipe in seconds!</Paragraph>
                 </Container>
-                <SearchOrAddRecipe/>
+                <SearchOrAddRecipe placeholder="Enter Recipe URL" page="add"/>
                 <div className="pt-24"/>
                 <Gallery recipes={recentRecipes}/>
                 <div className="mt-2"/>
