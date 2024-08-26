@@ -172,8 +172,7 @@ const Recipe: React.FC = ({ recipe, ogUrl, recentRecipes }: any) => {
       </Head>
       <main className="bg-background min-h-screen justify-center px-5 sm:px-8 md:px-14 lg:px-5 pb-28">
         
-      <div className="max-w-5xl mx-auto flex justify-center space-x-10">
-        
+      <div className="max-w-5xl mx-auto flex justify-center space-x-10"> 
         <div className={`w-full lg:w-5/6 md:max-w-[728px] space-y-12 lg:mt-14 mt-8`}>
             <RecipeTitleCard recipe={recipe} isSaved={isSaved} user={user} isLoading={isLoading} role={stripeRole} hasLiked={hasLiked} likes={likes} setHasLiked={setHasLiked} setLikes={setLikes}/>
             <AdSense className="mx-auto max-w-[320px] md:max-w-[728px]" adSlot="3721531543" adFormat="horizontal" adStyle={{ width: '100%', height: '100px', maxHeight: '320px' }} role={stripeRole}/>
