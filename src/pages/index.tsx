@@ -2,7 +2,6 @@ import { GetServerSideProps } from "next";
 import { getEntriesForContentTypes } from "@/lib/contentfulHelpers";
 import Head from 'next/head';
 import dynamic from "next/dynamic";
-import { GetTotalRecipeCount } from "./api/firebase/functions";
 import { Hero } from "@/components/ui/general/hero";
 import { Gallery } from "@/components/ui/general/gallery";
 
@@ -19,24 +18,22 @@ export const getServerSideProps: GetServerSideProps = async () => {
   const heroContent = entries.hero[0]
   const faqContent = entries.faq[0]
 
-  const totalRecipes = await GetTotalRecipeCount()
-
   return {
-    props: { heroContent, faqContent, recipes, totalRecipes }
+    props: { heroContent, faqContent, recipes }
   }
 }
 
-export default function Home({heroContent, faqContent, recipes, totalRecipes}: any) {
+export default function Home({heroContent, faqContent, recipes}: any) {
 
   return (  
     <>
       <Head>
-        <title>Zesti AI | A Better Way to Save Recipes from TikTok & Instagram</title>
-        <meta name="title" content="Zesti AI | A Better Way to Save Recipes from TikTok & Instagram"/>
+        <title>Zesti AI | Instantly Save Recipes from TikTok & Instagram</title>
+        <meta name="title" content="Zesti AI | Instantly Save Recipes from TikTok & Instagram"/>
         <meta name="description" content="Instantly save delicious recipes from TikTok or Instagram by using Zesti AI to transcribe your faovirte recipe videos to text!"/>
       </Head>
       <main className={`main-seo-page-class`}>
-        <Hero heroContent={heroContent} totalRecipes={totalRecipes}/>
+        <Hero heroContent={heroContent}/>
         <Gallery recipes={recipes}/>
         <ThreeBoxFeature type="home"/>
         <CTA/>
