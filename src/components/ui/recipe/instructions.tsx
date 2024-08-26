@@ -16,7 +16,7 @@ export function Instructions({ instructions }: InstructionProps) {
 
   return (
     <div className="recipe-component-container">
-      <h2 className="text-2xl font-semibold mb-4 text-gray-800">Instructions</h2>
+      <h2 className="text-2xl md:text-3xl font-semibold mb-4 text-gray-800">Instructions</h2>
       <ol className="text-gray-900 space-y-6">
         {instructions?.map((instruction: string, index: number) => (
           <li key={index} className="flex items-center h-full">
