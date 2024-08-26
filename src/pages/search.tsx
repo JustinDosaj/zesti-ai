@@ -20,12 +20,11 @@ const SearchResults: React.FC = () => {
 
     recipesIndex.setSettings({
         searchableAttributes: [
-            'unordered(name)',
-            'unordered(video_title)',
+            'name',
+            'video_title',
             'unordered(description)',
             'unordered(ingredients)'
         ],
-        typoTolerance: 'true',
         removeWordsIfNoResults: 'allOptional',
     })
 
@@ -75,7 +74,7 @@ const SearchResults: React.FC = () => {
                     <Title className="text-center">Search Recipes</Title>
                     <Paragraph className="mt-2 text-center">Find recipes from TikTok & Instagram that already exist on Zesti!</Paragraph>
                 </Container>
-                <SearchOrAddRecipe align={"center"}/>
+                <SearchOrAddRecipe/>
                 <RecipeCardList recipes={recipes}/>
                 <div className="mt-2"/>
                 <AdSense className="max-w-5xl" adSlot="2119249846" adFormat="auto" adStyle={{ width: '100%', height: '250px' }} role={stripeRole}/> 

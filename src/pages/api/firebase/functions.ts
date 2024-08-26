@@ -131,24 +131,6 @@ export async function GetRecipeMap(id: string) {
   return recipeMapSnapshot
 }
 
-export async function GetTotalRecipeCount(): Promise<number> {
-  try {
-    const counterRef = doc(db, 'counters', 'recipeCounter');
-    const counterSnapshot = await getDoc(counterRef);
-
-    if (counterSnapshot.exists()) {
-      const data = counterSnapshot.data();
-      return data.count || 0;
-    } else {
-      Notify("No recipe counter found, defaulting to count 0.");
-      return 0;
-    }
-  } catch (error) {
-    Notify("Failed to retrieve the total recipe count, please try again later.");
-    throw error;
-  }
-}
-
 interface LikeProps {
   recipeId: string;
   remove: boolean
