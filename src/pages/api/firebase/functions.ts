@@ -53,25 +53,6 @@ interface Recipe {
   [key: string]: any; // Extend this interface based on the other fields you expect in your documents
 }
 
-// Get Recipes
-export async function GetAllRecipes(): Promise<Recipe[]> {
-
-      // Reference to the 'recipes' collection
-      const recipesRef = collection(db, 'recipes');
-
-      // Retrieve the document snapshots
-      const snapshot = await getDocs(recipesRef);
-  
-      // Map over the document snapshots to extract data
-      const recipes: Recipe[] = snapshot.docs.map(doc => ({
-        id: doc.id,
-        ...doc.data()
-      }) as Recipe);
-  
-      return recipes;
-
-}
-
 export async function GetRecentRecipes(numberOfRecipes: number = 9): Promise<Recipe[]> {
 
   const recipesRef = collection(db, 'recipes');
