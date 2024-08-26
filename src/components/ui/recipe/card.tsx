@@ -29,20 +29,19 @@ export function RecipeCard({ item }: RecipeCardProps) {
             <Link href={{pathname: `/recipes/${id}/${slug}`}} passHref={true}>
                 <div className="flex h-full">
                     {/* Image Container */}
-                    <div className="relative flex-none w-1/3">
+                    <div className="relative flex-none  w-[110px] md:w-[125px]">
                         <Image src={`https://firebasestorage.googleapis.com/v0/b/${process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET}/o/${encodeURIComponent(item.cover_image_url)}?alt=media`} 
-                            className="rounded-l-2xl"
+                            className="rounded-l-2xl object-cover"
                             layout="fill"
-                            objectFit="cover"
                             alt={item.name}
                             priority={true} 
                         />
                     </div>
                     {/* Content Area */}
-                    <div className="flex-grow p-4 flex flex-col justify-between overflow-clip gap-2">
+                    <div className="flex-grow p-4 flex flex-col justify-between overflow-clip gap-2 w-2/3">
                         <h3 className="text-lg font-semibold text-gray-800 overflow-hidden text-ellipsis line-clamp-2 w-full">{item.name}</h3>
                         <div className="flex flex-col flex-grow gap-4">
-                            <Paragraph size="small" className=" line-clamp-3">{item.description}</Paragraph>
+                            <Paragraph size="small" className="line-clamp-3">{item.description}</Paragraph>
                         </div>
                         <Paragraph size="xsmall" className="mt-3 self-start truncate">by {item.data.owner.username}</Paragraph>
                     </div>

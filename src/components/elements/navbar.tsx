@@ -15,8 +15,6 @@ export function Navbar() {
     const router = useRouter()
     const { query } = router;
 
-    console.log(query)
-
     const navItemsDesktop = [
         { href: "/", text: "Home" },
         { href: "/search", text: "Search"},
