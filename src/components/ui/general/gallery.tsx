@@ -56,7 +56,7 @@ function DiscoverRecipes({recipes}: any) {
                   <Paragraph className="mt-2">Check out some recipes users have already transcribed from TikTok & Instagram</Paragraph>
               </div>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-8">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mt-8">
           {/* Testimonial cards */}
           {recipes.map((recipe: any) => (
               <RecipeCard

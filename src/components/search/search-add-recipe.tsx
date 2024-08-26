@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react"
 import { Button } from '../shared/button';
 import { useRouter } from 'next/router';
 import { ButtonLoader } from '../shared/loader';
-import { ArrowTopRightOnSquareIcon, LinkIcon, PencilIcon } from '@heroicons/react/20/solid';
+import { ArrowTopRightOnSquareIcon, LinkIcon } from '@heroicons/react/20/solid';
 import { MagnifyingGlassIcon, PlusIcon } from "@heroicons/react/24/solid";
 import Link from 'next/link';
 import { useLoading } from '@/context/loadingcontext';

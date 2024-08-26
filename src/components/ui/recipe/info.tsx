@@ -47,7 +47,7 @@ export function Information({ recipe, setIsErrorOpen }: InfoProps) {
         </div>
         <div className="recipe-information-item">
           <span className="font-semibold">Source:</span>
-          <span className="ml-2">{source}</span>
+          <span className="ml-2 capitalize">{source}</span>
         </div>
         <div className="recipe-information-item">
           <span className="font-semibold">Created:</span>

@@ -8,8 +8,7 @@ interface SubmissionProps {
 }
 
 export const handleUserSubmitRecipe = async({ url }: SubmissionProps) => {
-
-    
+ 
     var source = ''
     var success;
     var uniqueId;

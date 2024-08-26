@@ -13,6 +13,7 @@ export function Navbar() {
     
     const { user } = useAuth();
     const router = useRouter()
+    const { query } = router;
 
     const navItemsDesktop = [
         { href: "/", text: "Home" },
@@ -86,6 +87,16 @@ export function Navbar() {
         },
     ]
 
+    const loginClick = async () => {
+        if (query.id && query.slug && !user) {
+            router.push(`/auth/login?redirect=/recipes/${query.id}/${query.slug}`)
+        } else if (user) {
+            router.push('/my-recipes')
+        } else {
+            router.push('/auth/login')
+        }
+    }
+
     return(
 
     <header className="relative bg-white inset-x-0 top-0 z-50 py-6 w-full">
@@ -114,9 +125,9 @@ export function Navbar() {
                 <div className="hidden lg:flex justify-end w-1/3">
                     <div className="inline-flex items-center space-x-4">
                         {user ? 
-                            <Button buttonType="button" isLink={false} onClick={() => router.push('/my-recipes')} text={"My Recipes"}/>
+                            <Button buttonType="button" isLink={false} text={"My Recipes"} onClick={loginClick}/>
                         :
-                            <Button buttonType="button" isLink={false} onClick={() => router.push('/auth/login')} text={"Login"}/>
+                            <Button buttonType="button" isLink={false}  text={"Login"} onClick={loginClick}/>
                         }
                         <DropDownMenuDesktop navItems={desktopDropDownItems} isHidden={!user}/> 
                     </div>
@@ -125,12 +136,12 @@ export function Navbar() {
                 {!user ?
                     <div className="flex lg:hidden justify-between items-center w-full"> 
                         <DropDownMenuMobile navItems={navItemsMobileLoggedOut}/> 
-                        <Button buttonType="button" isLink={false} onClick={() => router.push('/auth/login')} text={"Login"}/>
+                        <Button buttonType="button" isLink={false} onClick={loginClick} text={"Login"}/>
                     </div>
                 : 
                     <div className="flex lg:hidden justify-between items-center w-full"> 
                         <DropDownMenuMobile navItems={navItemsLoggedInMobile}/> 
-                        <Button buttonType="button" isLink={false} onClick={() => router.push('/my-recipes')} text={"My Recipes"}/>
+                        <Button buttonType="button" isLink={false} onClick={loginClick} text={"My Recipes"}/>
                     </div>
                 }
             </nav>
