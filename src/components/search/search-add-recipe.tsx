@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react"
 import { Button } from '../shared/button';
 import { useRouter } from 'next/router';
 import { ButtonLoader } from '../shared/loader';
-import { ArrowTopRightOnSquareIcon, LinkIcon } from '@heroicons/react/20/solid';
+import { ArrowTopRightOnSquareIcon, LinkIcon, PencilIcon } from '@heroicons/react/20/solid';
 import { MagnifyingGlassIcon, PlusIcon } from "@heroicons/react/24/solid";
 import Link from 'next/link';
 import { useLoading } from '@/context/loadingcontext';
@@ -11,12 +11,16 @@ import { useAuth } from "@/context/AuthContext";
 import { Notify } from '../shared/notify';
 import { Paragraph } from "../shared/paragraph";
 
+interface SearchProps {
+    placeholder?: string;
+    page?: "other" | "add" | "search";   
+}
 
-export function SearchOrAddRecipe() {
+export function SearchOrAddRecipe({placeholder = 'Recipe URL or Search', page = "other"}: SearchProps) {
 
     const { setLoading, setProgress, isLoading } = useLoading()
     const [ url , setUrl ] = useState<string>("");
-    const [ selectIcon, setSelectIcon ] = useState<"search" | "add">("add")
+    const [ selectIcon, setSelectIcon ] = useState<"search" | "add" | "other">(page)
     const { stripeRole } = useAuth();
     const { openModal } = useModal();
     const router = useRouter();
@@ -81,7 +85,7 @@ export function SearchOrAddRecipe() {
     }
 
     useEffect(() => {
-        if(url.includes('tiktok.com') || url.includes('instagram.com') || url == "") {
+        if(url.includes('tiktok.com') || url.includes('instagram.com') || url == "" && page =="other") {
             setSelectIcon("add")
         } else {
             setSelectIcon("search")
@@ -93,15 +97,27 @@ export function SearchOrAddRecipe() {
             <div className={`flex sm:flex-row flex-col gap-5 justify-center w-[350px] md:w-[450px]`}> {/* Also needs to be able to center for my recipe page */}
                 <form onSubmit={onAddButtonClick} action="" method="POST" className="py-1 pl-6 w-full max-w-md pr-1 flex gap-3 items-center text-heading-3 shadow-lg shadow-box-shadow
                 border border-box-border bg-box-bg rounded-full ease-linear focus-within:bg-body  focus-within:border-primary">
-                    <LinkIcon className="text-gray-600 w-7 h-7 lg:h-9 lg:w-9"/>
-                    <input type="text" name="web-page" disabled={isLoading} value={url} placeholder="Recipe URL or Search" className="text-base w-full text-gray-500 py-2 outline-none bg-transparent" onChange={(e) => setUrl(e.target.value)}/>
+                    { page == "search" ?
+                        <MagnifyingGlassIcon className="text-gray-600 w-7 h-7 lg:h-9 lg:w-9"/>
+                    : page == "add" ?
+                        <LinkIcon className="text-gray-600 w-7 h-7 lg:h-9 lg:w-9"/>
+                    : selectIcon == "search" ?
+                        <MagnifyingGlassIcon className="text-gray-600 w-7 h-7 lg:h-9 lg:w-9"/>
+                    :
+                        <LinkIcon className="text-gray-600 w-7 h-7 lg:h-9 lg:w-9"/>
+                    }
+                    <input type="text" name="web-page" disabled={isLoading} value={url} placeholder={placeholder} className="text-base w-full text-gray-500 py-2 outline-none bg-transparent" onChange={(e) => setUrl(e.target.value)}/>
                     <Button buttonType="submit" text="" className={"min-w-max text-white text-sm lg:text-base"} isLink={false} isDisabled={isLoading} >
                         { !isLoading ?
                             <div>
-                                {selectIcon == "search" ? 
-                                    (<MagnifyingGlassIcon className="flex relative z-[5] h-5 w-5 text-white"/>)
-                                : 
-                                    (<PlusIcon className="flex relative z-[5] h-5 w-5 text-white"/>)
+                                { page == "search" ? 
+                                    <MagnifyingGlassIcon className="flex relative z-[5] h-5 w-5 text-white"/>
+                                : page == "add" ?
+                                    <PlusIcon className="flex relative z-[5] h-5 w-5 text-white"/>
+                                : selectIcon == "search" ?
+                                    <MagnifyingGlassIcon className="flex relative z-[5] h-5 w-5 text-white"/>
+                                :
+                                    <PlusIcon className="flex relative z-[5] h-5 w-5 text-white"/>
                                 }                               
                             </div>
                             :

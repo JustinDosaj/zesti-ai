@@ -14,7 +14,7 @@ export const getServerSideProps: GetServerSideProps = async () => {
   const GetRecentRecipes = (await (import ('./api/firebase/functions'))).GetRecentRecipes
   const recipes = await GetRecentRecipes(9);
 
-  const entries = await getEntriesForContentTypes(['hero', 'faq', 'chatFeature'])
+  const entries = await getEntriesForContentTypes(['hero', 'faq'])
   const heroContent = entries.hero[0]
   const faqContent = entries.faq[0]
 
