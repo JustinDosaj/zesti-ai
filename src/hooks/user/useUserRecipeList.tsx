@@ -1,11 +1,10 @@
 import { db } from "@/lib/firebase";
-import { onSnapshot, getDoc, collection, query, orderBy, doc, DocumentReference } from "firebase/firestore";
+import { onSnapshot, getDoc, collection, query, orderBy, doc } from "firebase/firestore";
 import { useState, useEffect } from "react";
 
 interface Recipe {
     id: string;
     date: string;
-    // Add other necessary fields based on your recipe structure
 }
 
 interface RecipeMapData {
