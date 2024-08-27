@@ -39,8 +39,9 @@ const AddRecipe: React.FC = ({recentRecipes}: any) => {
                     <Paragraph className="mt-2 text-center">Copy & paste a TikTok or Instagram link to save the recipe in seconds!</Paragraph>
                 </Container>
                 <SearchOrAddRecipe placeholder="Enter Recipe URL" page="add"/>
-                <div className="pt-24"/>
-                <AdSense className="max-w-5xl" adSlot="3663491065" adFormat="horizontal" adStyle={{ width: '100%', maxHeight: '90px', height: '90px' }} role={stripeRole}/> 
+                <div className="pt-2"/>
+                <AdSense className="mx-auto max-w-[320px] md:max-w-[728px]" adSlot="3663491065" adFormat="horizontal" adStyle={{ width: '100%', maxHeight: '90px', height: '90px' }} role={stripeRole}/> 
+                <div className="pt-2"/>
                 <Gallery recipes={recentRecipes}/>
                 <div className="mt-2"/>
                 <AdSense className="max-w-5xl" adSlot="9109019747" adFormat="auto" adStyle={{ width: '100%', height: '250px' }} role={stripeRole}/> 
