@@ -21,8 +21,6 @@ const SearchResults: React.FC = () => {
     recipesIndex.setSettings({
         searchableAttributes: [
             'name',
-            'video_title',
-            'unordered(description)',
             'unordered(ingredients)'
         ],
         removeWordsIfNoResults: 'allOptional',
