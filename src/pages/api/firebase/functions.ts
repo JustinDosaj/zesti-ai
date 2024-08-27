@@ -46,26 +46,6 @@ export async function SendRecipeErrorReport(message: string, user_id: string | n
   }
 }
 
-export async function SendContactRequest(message: string, user_id: string | null, email: string) {
-  
-  const errorReportRef = doc(collection(db, 'contact-requests'));
-
-  try{
-    
-    await setDoc(errorReportRef, {
-      email: email,
-      message: message,
-      user_id: user_id,
-      date: new Date().toISOString()
-    })
-
-    Notify("Contact request sent successfully. We will get back to you soon!")
-
-  } catch(error) {
-    Notify("Failed to send contact request, please try again later.")
-  }
-}
-
 interface Recipe {
   id: string;
   name: string;
