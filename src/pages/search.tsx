@@ -8,7 +8,7 @@ import { useAuth } from '@/context/AuthContext';
 import Head from 'next/head';
 import algoliasearch, { SearchIndex } from 'algoliasearch';
 import { Notify } from '@/components/shared/notify';
-import AdSense from '@/components/tags/adsense';
+import AdSense from '@/components/ads/adsense';
 import { Paragraph } from '@/components/shared/paragraph';
 import { Container } from '@/components/shared/container';
 

@@ -3,7 +3,7 @@ import { SearchOrAddRecipe } from '@/components/search/search-add-recipe';
 import { Title } from '@/components/shared/title';
 import { useAuth } from '@/context/AuthContext';
 import Head from 'next/head';
-import AdSense from '@/components/tags/adsense';
+import AdSense from '@/components/ads/adsense';
 import { Paragraph } from '@/components/shared/paragraph';
 import { Container } from '@/components/shared/container';
 import { Gallery } from '@/components/ui/general/gallery';

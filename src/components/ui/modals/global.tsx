@@ -3,7 +3,7 @@
 import { Dialog, Transition } from '@headlessui/react';
 import { Fragment, useRef } from 'react';
 import { BookOpenIcon, ExclamationTriangleIcon, CheckCircleIcon, UserIcon } from '@heroicons/react/20/solid';
-import AdSense from '@/components/tags/adsense';
+import AdSense from '@/components/ads/adsense';
 import { useRouter } from 'next/router';
 import { useModal } from '@/context/modalcontext'
 

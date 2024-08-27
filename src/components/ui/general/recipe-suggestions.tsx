@@ -1,4 +1,4 @@
-import AdSense from "@/components/tags/adsense"
+import AdSense from "@/components/ads/adsense"
 import { RecipeCard } from "../recipe/card"
 import { HorizontalBorder } from "@/components/shared/border"
 

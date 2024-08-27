@@ -1,4 +1,4 @@
-import AdSense from '@/components/tags/adsense';
+import AdSense from '@/components/ads/adsense';
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer'
 import { BLOCKS, Block, Inline } from '@contentful/rich-text-types';
 import Image from "next/image"
