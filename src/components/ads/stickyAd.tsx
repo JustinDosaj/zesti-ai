@@ -1,4 +1,4 @@
-import AdSense from "../tags/adsense";
+import AdSense from "./adsense";
 import { useAuth } from "@/context/AuthContext";
 
 

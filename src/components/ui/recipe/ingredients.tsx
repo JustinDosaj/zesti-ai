@@ -22,13 +22,13 @@ export function Ingredients({ ingredients }: IngredientProps) {
                 {ingredients?.map((ingredient: string, index: number) => (
                 <li key={index} className="mb-2 flex items-center">
                     <input
-                    type="checkbox"
-                    checked={checkedItems[index]}
-                    onChange={() => handleCheckboxChange(index)}
-                    className="mr-3 h-4 w-4 hover:cursor-pointer"
+                        type="checkbox"
+                        checked={checkedItems[index]}
+                        onChange={() => handleCheckboxChange(index)}
+                        className="mr-3 h-4 w-4 hover:cursor-pointer"
                     />
                     <span className={checkedItems[index] ? "line-through text-gray-500 w-full" : "w-full"}>
-                    {ingredient}
+                        {ingredient}
                     </span>
                 </li>
                 ))}

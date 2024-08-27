@@ -1,5 +1,4 @@
 import { Container } from "../shared/container"
-import { Navitem } from "../shared/navitem"
 import { useAuth } from "@/context/AuthContext"
 import { Button } from "../shared/button"
 import Link from "next/link"
@@ -120,7 +119,7 @@ export function Navbar() {
                 </div>
                 <div className="hidden lg:flex justify-center w-1/3">
                     <ul className="hidden lg:flex items-center justify-center gap-x-10 text-xl">
-                        {navItemsDesktop.map(item=> {
+                        {navItemsDesktop.map(item => {
                             return <Navitem key={item.text} {...item}/>
                         })}
                     </ul>
@@ -153,5 +152,21 @@ export function Navbar() {
         </Container>
     </header>
 
+    )
+}
+
+
+interface NavItemProps {
+    href: string,
+    text: string,
+}
+
+function Navitem({href, text}: NavItemProps) {
+    return(
+    <li key={text}>
+        <Link href={href} key={text} className="duration-300 font-medium ease-linear text-gray-700 hover:text-primary-main py-3">
+            {text}
+        </Link>
+    </li>
     )
 }
