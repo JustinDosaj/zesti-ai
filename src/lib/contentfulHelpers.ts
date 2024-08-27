@@ -35,19 +35,5 @@ export const getBlogPostBySlug = async (slug: string) => {
   return null;
 };
 
-// Currently not used
-export const getBlogPostById = async (id: string) => {
-  const entries = await client.getEntries({
-    content_type: 'blogPost',
-    'sys.id': id,
-  });
-
-  if (entries.items.length > 0) {
-    return entries.items[0];
-  }
-
-  return null;
-};
-
 
 
