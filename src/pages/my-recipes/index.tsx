@@ -2,7 +2,7 @@ import { useAuth } from '@/context/AuthContext';
 import Head from 'next/head';
 import GoogleTags from '@/components/tags/conversion';
 import { Title } from '@/components/shared/title';
-import AdSense from "@/components/tags/adsense";
+import AdSense from "@/components/ads/adsense";
 import useRequireAuth from '@/hooks/user/useRequireAuth';
 import { RecipeCardList } from '@/components/ui/recipe/list';
 import useUserRecipeList from '@/hooks/user/useUserRecipeList'; // Import the hook

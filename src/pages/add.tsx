@@ -3,7 +3,7 @@ import { SearchOrAddRecipe } from '@/components/search/search-add-recipe';
 import { Title } from '@/components/shared/title';
 import { useAuth } from '@/context/AuthContext';
 import Head from 'next/head';
-import AdSense from '@/components/tags/adsense';
+import AdSense from '@/components/ads/adsense';
 import { Paragraph } from '@/components/shared/paragraph';
 import { Container } from '@/components/shared/container';
 import { Gallery } from '@/components/ui/general/gallery';
@@ -40,9 +40,10 @@ const AddRecipe: React.FC = ({recentRecipes}: any) => {
                 </Container>
                 <SearchOrAddRecipe placeholder="Enter Recipe URL" page="add"/>
                 <div className="pt-24"/>
+                <AdSense className="max-w-5xl" adSlot="3663491065" adFormat="horizontal" adStyle={{ width: '100%', maxHeight: '90px', height: '90px' }} role={stripeRole}/> 
                 <Gallery recipes={recentRecipes}/>
                 <div className="mt-2"/>
-                <AdSense className="max-w-5xl" adSlot="2119249846" adFormat="auto" adStyle={{ width: '100%', height: '250px' }} role={stripeRole}/> 
+                <AdSense className="max-w-5xl" adSlot="9109019747" adFormat="auto" adStyle={{ width: '100%', height: '250px' }} role={stripeRole}/> 
             </main>
         </>
     );

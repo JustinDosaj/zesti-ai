@@ -14,7 +14,7 @@ import InstagramComponent from '@/components/ui/recipe/instagram';
 import TikTokComponent from '@/components/ui/recipe/tiktok';
 
 const ErrorReportModal = dynamic(() => import('@/components/ui/modals/report').then((mod) => mod.ErrorReportModal), { ssr: false });
-const AdSense = dynamic(() => import('@/components/tags/adsense'), {
+const AdSense = dynamic(() => import('@/components/ads/adsense'), {
   ssr: false,
   loading: () => <div style={{ maxHeight: '320px' }}/>  // Placeholder while loading
 });
