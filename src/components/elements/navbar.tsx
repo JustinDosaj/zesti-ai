@@ -48,6 +48,11 @@ export function Navbar() {
             icon: MagnifyingGlassIcon,
         },
         {
+            href:"/add",
+            text: "Add Recipe",
+            icon: PlusIcon,
+        },
+        {
             href:"/about/pricing",
             text:"Pricing",
             icon: WalletIcon,
