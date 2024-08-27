@@ -73,6 +73,7 @@ const SearchResults: React.FC = () => {
                     <Paragraph className="mt-2 text-center">Find recipes from TikTok & Instagram that already exist on Zesti!</Paragraph>
                 </Container>
                 <SearchOrAddRecipe placeholder={"Search for recipes"} page="search"/>
+                <AdSense className="max-w-5xl" adSlot="5445664417" adFormat="horizontal" adStyle={{ width: '100%', maxHeight: '90px', height: '90px' }} role={stripeRole}/> 
                 <RecipeCardList recipes={recipes}/>
                 <div className="mt-2"/>
                 <AdSense className="max-w-5xl" adSlot="2119249846" adFormat="auto" adStyle={{ width: '100%', height: '250px' }} role={stripeRole}/> 
