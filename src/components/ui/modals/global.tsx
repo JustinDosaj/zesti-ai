@@ -30,7 +30,9 @@ const GlobalModal: React.FC = () => {
     const { isOpen, title, text, role, displayAd, status, recipeId, slug, userId, closeModal } = useModal();
 
     const onButtonClick = () => {
-        router.push(modalAction[status]);
+        if (status !== 'info') {
+            router.push(modalAction[status]);
+        } 
         closeModal();
     };
 
