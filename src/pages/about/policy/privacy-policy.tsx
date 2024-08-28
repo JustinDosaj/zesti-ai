@@ -1,11 +1,9 @@
-// pages/policy/privacy.tsx
-
 import { GetStaticProps } from 'next';
 import { fetchPolicyEntries } from '@/lib/contentfulHelpers';
 import { Container } from '@/components/shared/container';
-import { options } from './options';
+import { options } from './terms-and-conditions';
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
-import { PolicyProps } from './options';
+import { PolicyProps } from './terms-and-conditions';
 import Head from 'next/head';
 
 const PrivacyPolicy: React.FC<PolicyProps> = ({ content }) => {
