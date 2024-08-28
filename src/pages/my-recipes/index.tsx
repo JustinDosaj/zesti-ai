@@ -15,7 +15,7 @@ export default function MyRecipes() {
   
   useRequireAuth();
 
-  const { user, isLoading } = useAuth();
+  const { user, isLoading, stripeRole } = useAuth();
   const { userRecipeList, loadingUserRecipes } = useUserRecipeList(user, isLoading); // Use the hook
   const [searchQuery, setSearchQuery] = useState('');
 
@@ -46,7 +46,7 @@ export default function MyRecipes() {
         <MyRecipeSearch searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
         <RecipeCardList recipes={filteredRecipes} maxDisplayCount={9} max={0} loading={loadingUserRecipes} />
         <div className="my-1" />
-        <AdSense className="max-w-5xl" adSlot="4770591581" adFormat="auto" adStyle={{ width: '100%', height: '250px' }} />
+        <AdSense className="max-w-5xl" adSlot="4770591581" adFormat="auto" adStyle={{ width: '100%', height: '250px' }} role={stripeRole}/>
       </main>
     </>
   );
