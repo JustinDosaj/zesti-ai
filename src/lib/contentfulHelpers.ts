@@ -22,6 +22,18 @@ export const getEntriesForContentTypes = async (contentTypes: string[]): Promise
   return entries;
 };
 
+export const fetchPolicyEntries = async (contentType: string) => {
+  const entries = await client.getEntries({
+    content_type: contentType,
+  });
+
+  if (entries.items) {
+    return entries.items;
+  }
+  
+  console.log(`Error getting Entries for ${contentType}.`);
+}
+
 export const getBlogPostBySlug = async (slug: string) => {
   const entries = await client.getEntries({
     content_type: 'blogPost',
