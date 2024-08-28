@@ -44,6 +44,7 @@ export default function MyRecipes() {
           <Paragraph className="text-center mt-2">Access & search all of the recipes you have saved on Zesti</Paragraph>
         </Container>
         <MyRecipeSearch searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
+        <AdSense className="mx-auto max-w-[320px] md:max-w-[728px]" adSlot="9125889123" adFormat="horizontal" adStyle={{ width: '100%', maxHeight: '90px', height: '90px' }} role={stripeRole}/>
         <RecipeCardList recipes={filteredRecipes} maxDisplayCount={9} max={0} loading={loadingUserRecipes} />
         <div className="my-1" />
         <AdSense className="max-w-5xl" adSlot="4770591581" adFormat="auto" adStyle={{ width: '100%', height: '250px' }} role={stripeRole}/>
