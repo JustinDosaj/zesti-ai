@@ -11,8 +11,8 @@ const navigation = {
       { name: 'Contact', href: '/about/contact' },
       { name: 'FAQ', href: '/about/faq' },
       { name: 'Explore', href: '/explore'},
-      { name: 'Privacy', href: 'https://app.termly.io/document/privacy-policy/728b76f9-24fe-480c-ad17-3c56ffa53417' },
-      { name: 'Terms', href: 'https://app.termly.io/document/terms-of-service/7fda3661-ebd6-42c4-9dfb-e66e58cd4253' },
+      { name: 'Privacy', href: '/about/policy/privacy-policy' },
+      { name: 'Terms', href: '/about/policy/terms-and-conditions' },
     ],
     social: [
         {
