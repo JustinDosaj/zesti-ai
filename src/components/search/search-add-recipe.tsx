@@ -16,12 +16,12 @@ interface SearchProps {
     page?: "other" | "add" | "search";   
 }
 
-export function SearchOrAddRecipe({placeholder = 'Recipe URL or Search', page = "other"}: SearchProps) {
+export function SearchOrAddRecipe({placeholder = 'Recipe URL or Search Recipes', page = "other"}: SearchProps) {
 
     const { setLoading, setProgress, isLoading } = useLoading()
     const [ url , setUrl ] = useState<string>("");
     const [ selectIcon, setSelectIcon ] = useState<"search" | "add" | "other">(page)
-    const { stripeRole } = useAuth();
+    const { stripeRole, user } = useAuth();
     const { openModal } = useModal();
     const router = useRouter();
 
@@ -30,6 +30,11 @@ export function SearchOrAddRecipe({placeholder = 'Recipe URL or Search', page = 
         e.preventDefault();
         
         if (url.includes('tiktok.com') || url.includes('instagram.com')) {
+
+            if (!user) {
+                openModal("Login to Continue", "Please create an account to transcribe videos to recipes", "auth", false, stripeRole)
+                return;
+            }
 
             setLoading(true)
             setProgress(0)

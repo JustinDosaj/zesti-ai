@@ -53,11 +53,11 @@ const TermsAndConditions: React.FC<PolicyProps> = ({ content }) => {
         <main className="bg-white py-24 min-h-screen">
         <Container>
             {content ? 
-                <div>{documentToReactComponents(content, options)}</div>
+                <div className="text-gray-900">{documentToReactComponents(content, options)}</div>
             : 
                 <>
-                    <h1 className="text-4xl font-bold mb-8">Terms & Conditions</h1>
-                    <p className="text-centet">Content currently unavailable.</p>
+                    <h1 className="text-4xl font-bold text-gray-900 mb-8">Terms & Conditions</h1>
+                    <p className="text-gray-900">Content currently unavailable.</p>
                 </>
             }
 
