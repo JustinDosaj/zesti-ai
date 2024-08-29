@@ -21,7 +21,9 @@ const SearchResults: React.FC = () => {
     recipesIndex.setSettings({
         searchableAttributes: [
             'name',
-            'unordered(ingredients)'
+            'unordered(ingredients)',
+            'unordered(data.owner.nickname)',
+            'unordered(data.owner.username)'
         ],
         removeWordsIfNoResults: 'allOptional',
     })
