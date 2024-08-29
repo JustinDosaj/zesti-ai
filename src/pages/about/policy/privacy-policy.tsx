@@ -18,11 +18,11 @@ const PrivacyPolicy: React.FC<PolicyProps> = ({ content }) => {
         <main className="bg-white py-24 min-h-screen">
             <Container>
                 {content ? 
-                    <div>{documentToReactComponents(content, options)}</div>
+                    <div className="text-gray-900">{documentToReactComponents(content, options)}</div>
                 :
                     <>
-                        <h1 className="text-4xl font-bold mb-8">Privacy Policy</h1>
-                        <p className="text-centet">Content currently unavailable.</p>
+                        <h1 className="text-4xl font-bold mb-8 text-gray-900">Privacy Policy</h1>
+                        <p className="text-gray-900">Content currently unavailable.</p>
                     </>
                 }
             </Container>

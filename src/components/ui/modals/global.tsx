@@ -27,7 +27,7 @@ const GlobalModal: React.FC = () => {
 
     const cancelButtonRef = useRef(null);
     const router = useRouter();
-    const { isOpen, title, text, role, displayAd, status, recipeId, slug, userId, closeModal } = useModal();
+    const { isOpen, title, text, role, displayAd, status, recipeId, slug, closeModal } = useModal();
 
     const onButtonClick = () => {
         if (status !== 'info') {
@@ -41,7 +41,7 @@ const GlobalModal: React.FC = () => {
         error: "/",
         success: "/my-recipes",
         warning: "/",
-        auth: `/auth/login?redirect=/recipes/${recipeId?.toString()}/${slug}`,
+        auth: recipeId == `0` ? `/auth/login?redirect=/` : `/auth/login?redirect=/recipes/${recipeId?.toString()}/${slug}`,
     };
 
     const buttonText = {
