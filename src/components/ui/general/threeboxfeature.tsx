@@ -1,5 +1,5 @@
 import { Container } from "@/components/shared/container"
-import { LinkIcon, VideoCameraIcon, DocumentIcon } from "@heroicons/react/20/solid"
+import { LinkIcon, VideoCameraIcon, DocumentTextIcon } from "@heroicons/react/20/solid"
 import { Paragraph } from "@/components/shared/paragraph"
 import { Title } from "@/components/shared/title"
 
@@ -21,18 +21,18 @@ export function ThreeBoxFeature({type = 'home'}: ThreeBoxFeatureProps) {
         home: [
             {
                 name: 'Find Recipe Video',
-                description: 'Explore TikTok & Instagram for a recipe you want to try!',
+                description: 'Explore TikTok & Instagram for a recipe you want to try.',
                 icon: VideoCameraIcon,
             },
             {
-                name: 'Give Zesti the Video Link',
-                description: 'Use the share button on the video to copy the link then paste it into Zesti',
+                name: 'Copy the Link',
+                description: 'Get the video url and paste it into Zesti.',
                 icon: LinkIcon,
             },
             {
                 name: 'Enjoy the Recipe!',
-                description: 'In just a few seconds, Zesti will have a written recipe ready for you!',
-                icon: DocumentIcon,
+                description: 'In just a few seconds, Zesti will have a fully written recipe ready for you!',
+                icon: DocumentTextIcon,
             },
         ],
     }
