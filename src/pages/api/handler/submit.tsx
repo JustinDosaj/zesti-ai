@@ -7,6 +7,15 @@ interface SubmissionProps {
     url?: string,
 }
 
+interface UserAddRecipeResponse {
+    message?: string;  // Use optional if message may not always be present
+    success?: boolean;
+    recipeId?: string;
+    albumIdList?: string[] | null;
+    source?: string;
+    slug?: string;
+}
+
 export const handleUserSubmitRecipe = async({ url }: SubmissionProps) => {
  
     var source = ''
@@ -29,15 +38,6 @@ export const handleUserSubmitRecipe = async({ url }: SubmissionProps) => {
         "url": url,
         "source": source,
         "date_added": date.toISOString(),
-    }
-
-    interface UserAddRecipeResponse {
-        message?: string;  // Use optional if message may not always be present
-        success?: boolean;
-        recipeId?: string;
-        albumIdList?: string[] | null;
-        source?: string;
-        slug?: string;
     }
 
     await userAddRecipe(userInput)
