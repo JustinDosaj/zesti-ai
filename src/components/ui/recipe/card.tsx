@@ -43,7 +43,7 @@ export function RecipeCard({ item }: RecipeCardProps) {
                         <div className="flex flex-col flex-grow gap-4">
                             <Paragraph size="small" className="line-clamp-3">{item.description}</Paragraph>
                         </div>
-                        <Paragraph size="xsmall" className="mt-3 self-start truncate">by {item.data.owner.username}</Paragraph>
+                        <Paragraph size="xsmall" className="self-start truncate">by {item.data.owner.username}</Paragraph>
                     </div>
                 </div>
             </Link>
