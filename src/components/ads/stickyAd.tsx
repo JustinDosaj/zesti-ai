@@ -11,7 +11,7 @@ export function StickyAd({adSlot}: StickyAdProps) {
     const { stripeRole } = useAuth();
 
     return(
-        <div className="hidden lg:block mt-14">
+        <div className="hidden lg:block mt-10">
             <div className="sticky top-20">
             {/* Right Sticky Ad */}
             <AdSense 
