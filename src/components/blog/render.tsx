@@ -18,7 +18,7 @@ export const renderOptions = {
 export const renderContentBlock = (block: any, role: string | null) => {
     switch (block.fields.blockType) {
       case 'Text':
-        return <div className="prose">{documentToReactComponents(block.fields.textContent)}</div>;
+        return <div className="prose pt-3">{documentToReactComponents(block.fields.textContent)}</div>;
       case 'Image':
         const imageUrl = block.fields.singleImage.fields.file.url;
         const finalImageUrl = imageUrl.startsWith('//') ? `https:${imageUrl}` : imageUrl;
