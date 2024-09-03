@@ -139,7 +139,7 @@ const Post: React.FC<PostProps> = ({post, url, relatedRecipes}: PostProps) => {
             </div>
           </div>
 
-            {stripeRole == 'premium' && (
+            {stripeRole !== 'premium' && (
               <StickyAd adSlot='7190552003'/>
             )}
 
