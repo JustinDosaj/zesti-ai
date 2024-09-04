@@ -31,12 +31,18 @@ export default function Home({heroContent, faqContent, recipes}: any) {
         <title>Zesti AI | Instantly Save Recipes from TikTok & Instagram</title>
         <meta name="title" content="Zesti AI | Instantly Save Recipes from TikTok & Instagram"/>
         <meta name="description" content="Instantly save delicious recipes from TikTok or Instagram by using Zesti AI to transcribe your faovirte recipe videos to text!"/>
+        <meta property="og:title" content="Zesti AI | Instantly Save Recipes from TikTok & Instagram"/>
+        <meta property="og:description" content="Instantly save delicious recipes from TikTok or Instagram by using Zesti AI to transcribe your faovirte recipe videos to text!"/>
+        <meta property="og:image" content={`${process.env.NEXT_PUBLIC_URL}/images/x/x_meta_image.png`}/>
+        <meta property="og:url" content="htts://www.zesti.ai/"/>
+        <meta property="og:type" content="website"/>
         <meta name="twitter:card" content="summary_large_image"/>
         <meta name="twitter:site" content="@zestidotai"/>
         <meta name="twitter:creator" content="@zestidotai"/>
         <meta name="twitter:title" content="Zesti AI | Instantly Save Recipes from TikTok & Instagram"/> 
         <meta name="twitter:description" content="Instantly save delicious recipes from TikTok or Instagram with Zesti AI!"/> 
-        <meta name="twitter:image:src" content={`${process.env.NEXT_PUBLIC_URL}/images/x/x_meta_image.png`}/>
+        <meta name="twitter:image" content={`${process.env.NEXT_PUBLIC_URL}/images/x/x_meta_image.png`}/>
+        <meta name="twitter:image:alt" content="Zesti AI | Instantly Save Recipes from TikTok & Instagram"/>
         <meta name="twitter:url" content="https://www.zesti.ai/"/>  
       </Head>
       <main className={`main-seo-page-class`}>
