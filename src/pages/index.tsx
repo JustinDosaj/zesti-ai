@@ -33,9 +33,11 @@ export default function Home({heroContent, faqContent, recipes}: any) {
         <meta name="description" content="Instantly save delicious recipes from TikTok or Instagram by using Zesti AI to transcribe your faovirte recipe videos to text!"/>
         <meta name="twitter:card" content="summary_large_image"/>
         <meta name="twitter:site" content="@zestidotai"/>
+        <meta name="twitter:creator" content="@zestidotai"/>
         <meta name="twitter:title" content="Zesti AI | Instantly Save Recipes from TikTok & Instagram"/> 
         <meta name="twitter:description" content="Instantly save delicious recipes from TikTok or Instagram with Zesti AI!"/> 
-        <meta name="twitter:image" content={`${process.env.NEXT_PUBLIC_URL}/images/x/x_meta_image.png`}/> 
+        <meta name="twitter:image:src" content={`${process.env.NEXT_PUBLIC_URL}/images/x/x_meta_image.png`}/>
+        <meta name="twitter:url" content="https://www.zesti.ai/"/>  
       </Head>
       <main className={`main-seo-page-class`}>
         <Hero heroContent={heroContent}/>
