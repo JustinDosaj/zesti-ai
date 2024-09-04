@@ -33,7 +33,7 @@ export default function Home({heroContent, faqContent, recipes}: any) {
         <meta name="description" content="Instantly save delicious recipes from TikTok or Instagram by using Zesti AI to transcribe your faovirte recipe videos to text!"/>
         <meta property="og:title" content="Zesti AI | Instantly Save Recipes from TikTok & Instagram"/>
         <meta property="og:description" content="Instantly save delicious recipes from TikTok or Instagram by using Zesti AI to transcribe your faovirte recipe videos to text!"/>
-        <meta property="og:image" content={`https://www.zesti.ai/images/x/x_meta_image.png`}/>
+        <meta property="og:image" content="https://www.zesti.ai/images/x/x_meta_image.png"/>
         <meta property="og:url" content="https://www.zesti.ai/"/>
         <meta property="og:type" content="website"/>
         <meta name="twitter:card" content="summary_large_image"/>
@@ -41,7 +41,7 @@ export default function Home({heroContent, faqContent, recipes}: any) {
         <meta name="twitter:creator" content="@zestidotai"/>
         <meta name="twitter:title" content="Zesti AI | Instantly Save Recipes from TikTok & Instagram"/> 
         <meta name="twitter:description" content="Instantly save delicious recipes from TikTok or Instagram with Zesti AI!"/> 
-        <meta name="twitter:image" content={`https://www.zesti.ai/images/x/x_meta_image.png`}/>
+        <meta name="twitter:image" content="https://www.zesti.ai/images/x/x_meta_image.png"/>
         <meta name="twitter:image:alt" content="Zesti AI | Instantly Save Recipes from TikTok & Instagram"/>
         <meta name="twitter:url" content="https://www.zesti.ai/"/>  
       </Head>
