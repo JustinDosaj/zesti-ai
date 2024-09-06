@@ -39,7 +39,7 @@ export function PricingDisplay() {
           name: 'Premium',
           id: 'tier-premium',
           trial: false,
-          priceMonthly: '$0.99',
+          priceMonthly: '$1.99',
           description: 'Get the best experience with Zesti',
           learnhref: "/about/subscription/premium",
           features: [

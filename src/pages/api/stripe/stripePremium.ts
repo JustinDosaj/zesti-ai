@@ -1,14 +1,6 @@
 import { collection, doc, addDoc, onSnapshot } from 'firebase/firestore';
 import { db } from '@/lib/firebase';
-import Stripe from 'stripe'
 import { Notify } from '@/components/shared/notify';
-
-
-/**
- * referral code not in use -- removed from ln 36-39
- * add back when promotekit affiliate program is added back
- * Maybe add back ln 30 with affiliateCode cookie retrieval - thoughh this could actually break the affiliate program
- */
 
 interface CheckoutSessionData {
     price: string | undefined;
@@ -16,25 +8,18 @@ interface CheckoutSessionData {
     cancel_url: string;
     mode: string;
     clientReferenceId?: string;
-    
-    // Removed metadata from checkout session while affiliate program is not in use
-    /*metadata?: {
-        promotekit_referral: string,
-    }*/
+    allow_promotion_codes?: boolean;
 }
 
-const stripe = new Stripe(process.env.NEXT_PUBLIC_STRIPE_SECRET!);
-
 export async function createPremiumCheckoutSession(id: any) {  // You might want to replace 'any' with the appropriate type for currentUser
-
-   // const affiliateCode = getCookie('promotekit_referral') || 'default-value';
 
     try {
         const checkoutSessionData: CheckoutSessionData  = {
             price: process.env.NEXT_PUBLIC_STRIPE_PREMIUM_PRICE,
-            success_url: `${window.location.origin}/account`,
+            success_url: `${window.location.origin}`,
             cancel_url: `${window.location.origin}`,
             mode: "subscription",
+            allow_promotion_codes: true,
         };
    
         const checkoutSessionsCollection = collection(doc(collection(db, 'users'), id), 'checkout_sessions');
