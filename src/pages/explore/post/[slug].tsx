@@ -130,7 +130,6 @@ const Post: React.FC<PostProps> = ({post, url, relatedRecipes}: PostProps) => {
       <main className={`bg-background min-h-screen px-6 sm:px-8 md:px-14 lg:px-5 pb-28 `}>
         <div className="max-w-5xl mx-auto flex justify-center lg:px-8">
           <div className={classNames(stripeRole !== 'premium' ? '' : 'justify-center', 'w-full grid space-y-4 lg:mt-10 mt-8')}>
-            <HorizontalBorder className="prose"/>
             <PostTitle title={title} author={author} date={date} description={shortDescription}/>
             <HorizontalBorder className="prose mt-4"/>
             <div className="mt-6 prose text-gray-700 space-y-4">
