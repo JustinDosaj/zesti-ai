@@ -37,7 +37,7 @@ export function RecipeCard({ item }: RecipeCardProps) {
             <Link href={{pathname: `/${collection}/${id}/${slug}`}} passHref={true}>
                 <div className="flex h-full">
                     {/* Image Container */}
-                    <div className={classNames(item.cover_image_url == '' ? `relative` : `hidden`, `flex-none w-[110px] md:w-[125px]`)}>
+                    <div className={classNames(item.cover_image_url ? `relative` : `hidden`, `flex-none w-[110px] md:w-[125px]`)}>
                         <Image src={`https://firebasestorage.googleapis.com/v0/b/${process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET}/o/${encodeURIComponent(item.cover_image_url)}?alt=media`} 
                             className="rounded-l-2xl object-cover"
                             layout="fill"
