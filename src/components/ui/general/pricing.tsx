@@ -26,8 +26,9 @@ export function PricingDisplay() {
           priceMonthly: '$0',
           description: "Perfect if you\'re just getting started with Zesti",
           features: [
-            'View Recipes on Zesti',
             'Convert TikTok Recipes to Text',
+            'AI Recipe Generator',
+            'Search Recipes on Zesti',
         ],
           featured: false,
           checkout: () => {
@@ -44,8 +45,9 @@ export function PricingDisplay() {
           learnhref: "/about/subscription/premium",
           features: [
             'Zero Ads',
-            'View Recipes on Zesti',
             'Convert TikTok Recipes to Text',
+            'AI Recipe Generator',
+            'Search Recipes on Zesti',
           ],
           featured: true,
           checkout: () => {
