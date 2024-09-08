@@ -1,54 +1,36 @@
 `use client`
 import { getFunctions, httpsCallable } from 'firebase/functions';
 import { Notify } from "@/components/shared/notify";
-
+import { UserAddRecipeResponse } from './submit';
 
 interface SubmissionProps {
-    url?: string,
+    gptMessage?: string,
 }
 
-export interface UserAddRecipeResponse {
-    message?: string;  // Use optional if message may not always be present
-    success?: boolean;
-    recipeId?: string;
-    albumIdList?: string[] | null;
-    source?: string;
-    slug?: string;
-}
-
-export const handleUserSubmitRecipe = async({ url }: SubmissionProps) => {
+export const handleUserGenerateRecipe = async({ gptMessage }: SubmissionProps) => {
  
-    var source = ''
+    var source = 'ai-generated'
     var success;
-    var uniqueId;
+    var id;
     var albumIdList;
     var slug;
-    
-    if(url?.includes('tiktok')) {
-        source = "tiktok"
-    } else if (url?.includes('instagram')) {
-        source = "instagram"
-    }
 
-    const date: Date = new Date();
     const functions = getFunctions();
-    const userAddRecipe = httpsCallable(functions, 'userAddRecipe');
+    const generateRecipe = httpsCallable(functions, 'recipeGenerator');
 
     const userInput = {
-        "url": url,
+        "gptMessage": gptMessage,
         "source": source,
-        "date_added": date.toISOString(),
     }
 
-    await userAddRecipe(userInput)
+    await generateRecipe(userInput)
     .then((response) => {
         if (response && response.data) {
             
             const responseData = response.data as UserAddRecipeResponse;
             const message = responseData.message || "Problem receiving message from server.";
             source = responseData.source || '';
-            uniqueId = responseData.recipeId || '';
-            albumIdList = responseData.albumIdList || null;
+            id = responseData.recipeId || '';
             success = responseData.success || false;
             slug = responseData.slug
             
@@ -62,6 +44,6 @@ export const handleUserSubmitRecipe = async({ url }: SubmissionProps) => {
         Notify("Error processing request. Please try again later.");
     })
 
-    return { uniqueId, source, albumIdList, success, slug }
+    return { id, source, albumIdList, success, slug }
 
 }

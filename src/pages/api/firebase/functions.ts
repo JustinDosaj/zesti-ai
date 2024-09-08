@@ -99,12 +99,20 @@ export async function CheckForExistingRecipe(recipe: any, user_id: string, setIs
 
 }
 
-// Optimization Functions
+// Snapshots
 export async function GetRecipeSnapshot(id: string) {
   const recipeRef = doc(db, `recipes/${id}`)
   const recipeSnapshot = await getDoc(recipeRef)
   return recipeSnapshot
 }
+
+export async function GetAIRecipeSnapshot(id: string) {
+  const recipeRef = doc(db, `ai-recipes/${id}`)
+  const recipeSnapshot = await getDoc(recipeRef)
+  return recipeSnapshot
+}
+
+// End Snapshots
 
 export async function GetRecipeMap(id: string) {
   const recipeMapRef = doc(db, `recipesMap/${id}`);

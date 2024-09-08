@@ -117,3 +117,95 @@ export function RecipeTitleCard({ recipe, isSaved, user, isLoading, role, hasLik
     </div>
   );
 }
+
+export function AIRecipeTitleCard({ recipe, isSaved, user, isLoading, role, hasLiked, likes = 0, setHasLiked, setLikes }: RecipeCardTitleProps) {
+
+  const { openModal } = useModal()
+  const [likesDisabled, setLikesDisabled] = useState<boolean>(false);
+  const { data, description, name } = recipe;
+  const { id, source, slug, url, owner } = data;
+  const { username } = owner;
+
+  async function onSaveClick() {
+    const saveRecipe = (await import('@/pages/api/firebase/functions')).saveRecipeReferenceToUser;
+
+    if (user && !isLoading) {
+      await saveRecipe(user?.uid, id).then(() => { openModal("Recipe Saved", "You can continue browsing or view all your saved recipes", "success", true, role) });
+    } else {
+      openModal("Account Required", "Please create an account to save recipes", "auth", false, role, id, slug, user?.uid);
+    }
+  }
+
+  const onDeleteClick = async () => {
+    const deleteRecipe = (await import('@/pages/api/firebase/functions')).userRemoveRecipeFromFirestore;
+
+    if (user) {
+      await deleteRecipe(user?.uid, id);
+    }
+  }
+
+  const onShareClick = async () => {
+    await navigator.clipboard.writeText(window.location.href);
+    const Notify = (await import('@/components/shared/notify')).Notify;
+    Notify("Recipe URL copied to clipboard.");
+  }
+
+  const onLikeClick = async () => {
+    
+    if(!user) {
+      openModal("Account Required", "Please create an account to like recipes", "auth", false, role, id, slug, user?.uid);
+      return;
+    }
+
+    setLikesDisabled(true);
+
+    if(hasLiked) {
+      setLikes(likes - 1);
+      setHasLiked(false);
+      await UpdateLikesInFirebase({recipeId: id, remove: true }).then(() => setLikesDisabled(false));
+      return;
+    }
+
+    if(!hasLiked) {
+      setLikes(likes + 1);
+      setHasLiked(true);
+      await UpdateLikesInFirebase({recipeId: id, remove: false }).then(() => setLikesDisabled(false));
+    }
+
+  }
+
+  return (
+    <div className="bg-gray-50 border-gray-300 border shadow-md rounded-lg pt-6 mb-8">
+      <div className="px-6">
+        <h1 className="text-3xl lg:text-4xl font-semibold text-gray-800">{name}</h1>
+        <div className="flex items-center gap-1 text-gray-700">
+          <span>by</span>
+          <div className="underline flex items-center font-semibold">
+            {username}
+          </div>
+        </div>
+
+        <p className="text-gray-700 mt-4">{description}</p>
+
+        <div className="text-xs text-gray-500 mt-4">
+            <div className="">
+              <span className="font-semibold">Disclaimer: </span>
+              <span>Recipe is AI Generated. </span>
+              <span>Results not guaranteed. </span> 
+            </div>
+
+        </div>
+      </div>
+
+      <div className="border-t w-full border-gray-300 mt-4 flex">
+        <button onClick={onShareClick} className="recipe-title-button border-r text-blue-600">
+          <ShareIcon className="h-5 w-5" />
+        </button>
+        <button onClick={isSaved ? onDeleteClick : onSaveClick} className={`recipe-title-button text-green-600 ${isSaved ? `text-red-600` : `text-green-600`}`}>
+          {isSaved ? <BookmarkSlashIcon className="h-5 w-5" /> : <ArrowDownTrayIcon className="h-5 w-5" />}
+        </button>
+      </div>
+
+    </div>
+  );
+}
