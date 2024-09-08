@@ -72,7 +72,7 @@ export function ThreeBoxFeature({type = 'home', desc, showTitle = true}: ThreeBo
                         <Paragraph className="mt-2">{desc}</Paragraph>
                     </div>
                 }
-                <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-10 mt-12">
+                <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-10">
                     {features.map((feature) => (
                     <div key={feature.name} className="flex flex-col items-start p-6 rounded-3xl gap-y-2 bg-white orange-border-shadow">
                         <feature.icon className="h-12 w-12 bg-orange-100 p-2 rounded-2xl text-primary-main" aria-hidden="true" />
