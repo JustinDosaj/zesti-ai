@@ -31,7 +31,7 @@ const Explore: React.FC = ({blogContent}: any) => {
             <meta property="twitter:description" content={"Discover news, educational articles and more on Zesti"}/>
         </Head>   
             <main className={`flex min-h-screen flex-col items-center bg-background w-full space-y-4 pb-48`}>
-                <div className="mt-2 lg:mt-8"/>
+                <div className="mt-8"/>
                 <Container>
                     <Title className="text-center">Explore Blog</Title>
                     <Paragraph className="mt-2 text-center">Check out these articles written by members of Zesti</Paragraph>

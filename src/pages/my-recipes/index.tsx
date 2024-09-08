@@ -42,7 +42,7 @@ export default function MyRecipes() {
         <GoogleTags />
       </Head>
       <main className={`flex min-h-screen flex-col items-center bg-background w-full space-y-4 pb-48`}>
-        <div className="mt-2 lg:mt-8" />
+        <div className="mt-8"/>
         <Container>
           <Title className="text-center">Saved Recipes</Title>
           <Paragraph className="text-center mt-2">Access & search all of the recipes you have saved on Zesti</Paragraph>

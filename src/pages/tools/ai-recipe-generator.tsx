@@ -38,7 +38,7 @@ const AIGenerator: React.FC = () => {
             <meta property="og:type" content="website"/>
         </Head>
             <main className={`flex min-h-screen flex-col items-center bg-background w-full space-y-4 pb-48`}>
-                <div className="mt-2 lg:mt-8"/>
+                <div className="mt-8"/>
                 <Container>
                     <Title className="text-center">AI Recipe Generator</Title>
                     <Paragraph className="mt-2 text-center">Describe what kind of recipe you would like to create and let Zesti create a it for you</Paragraph>
