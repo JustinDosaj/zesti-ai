@@ -3,12 +3,13 @@ import { useAuth } from '@/context/AuthContext';
 import { useEffect, useState } from 'react';
 import dynamic from "next/dynamic";
 import Head from "next/head";
-import { AIRecipeTitleCard } from '@/components/ui/recipe/title';
+import { AIRecipeTitleCard } from '@/components/ui/recipe/title-ai';
 import { Ingredients } from '@/components/ui/recipe/ingredients';
 import { Instructions } from '@/components/ui/recipe/instructions';
 import { Information } from '@/components/ui/recipe/info';
 import { RecipeSuggestions } from '@/components/ui/general/recipe-suggestions';
 import { StickyAd } from '@/components/ads/stickyAd';
+import { RecipeExpiration } from '@/components/ui/recipe/expiration';
 
 const ErrorReportModal = dynamic(() => import('@/components/ui/modals/report').then((mod) => mod.ErrorReportModal), { ssr: false });
 const AdSense = dynamic(() => import('@/components/ads/adsense'), {
@@ -48,10 +49,14 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const host = req.headers.host;
   const ogUrl = `${protocol}://${host}${resolvedUrl}`;
 
+  if(recipe.data.delete_at) {
+    recipe.data.delete_at = recipe.data.delete_at.toDate().toISOString();
+  }
+
   return { props: { recipe, ogUrl, recentRecipes } };
 };
 
-const Recipe: React.FC = ({ recipe, ogUrl, recentRecipes }: any) => {
+const AIRecipe: React.FC = ({ recipe, ogUrl, recentRecipes }: any) => {
   
   const { stripeRole, user, isLoading } = useAuth();
   const [isErrorOpen, setIsErrorOpen] = useState<boolean>(false);
@@ -72,7 +77,10 @@ const Recipe: React.FC = ({ recipe, ogUrl, recentRecipes }: any) => {
     }
     async function existingRecipes() {
       const CheckForExistingRecipe = (await import('../../api/firebase/functions')).CheckForExistingRecipe;
+      const CheckForExistingAIRecipe = (await import('../../api/firebase/functions')).CheckForExistingAIRecipe;
+      
       user && CheckForExistingRecipe(recipe, user?.uid, setIsSaved);
+      user && CheckForExistingAIRecipe(recipe, user?.uid, setIsSaved);
     }
   }, [user, recipe?.data?.id]);
 
@@ -93,14 +101,17 @@ const Recipe: React.FC = ({ recipe, ogUrl, recentRecipes }: any) => {
       <main className="bg-background min-h-screen justify-center px-5 sm:px-8 md:px-14 lg:px-5 pb-28">
         
       <div className="max-w-5xl mx-auto flex justify-center space-x-10"> 
-        <div className={`w-full lg:w-5/6 md:max-w-[728px] space-y-12 lg:mt-14 mt-8`}>
-            <AIRecipeTitleCard recipe={recipe} isSaved={isSaved} user={user} isLoading={isLoading} role={stripeRole} hasLiked={hasLiked} likes={likes} setHasLiked={setHasLiked} setLikes={setLikes}/>
-            <AdSense className="mx-auto max-w-[320px] md:max-w-[728px]" adSlot="6960485708" adFormat="horizontal" adStyle={{ width: '100%', height: '100px', maxHeight: '320px' }} role={stripeRole}/>
-            <Ingredients ingredients={ingredients} /> 
-            <AdSense className="mx-auto max-w-[320px] md:max-w-[728px]" adSlot="2408449875" adFormat="horizontal" adStyle={{ width: '100%', height: '100px', maxHeight: '320px' }} role={stripeRole}/>
-            <Instructions instructions={instructions} />
-            <AdSense className="mx-auto max-w-[320px] md:max-w-[728px]" adSlot="5275868942" adFormat="horizontal" adStyle={{ width: '100%', height: '100px', maxHeight: '320px' }} role={stripeRole}/> 
-            <Information recipe={recipe} setIsErrorOpen={setIsErrorOpen} />
+        <div className={`w-full lg:w-5/6 md:max-w-[728px] lg:mt-14 mt-8`}>
+            <RecipeExpiration delete_at={recipe.data.delete_at}/>
+            <div className="space-y-12">
+                <AIRecipeTitleCard recipe={recipe} isSaved={isSaved} user={user} isLoading={isLoading} role={stripeRole} hasLiked={hasLiked} likes={likes} setHasLiked={setHasLiked} setLikes={setLikes}/>
+                <AdSense className="mx-auto max-w-[320px] md:max-w-[728px]" adSlot="6960485708" adFormat="horizontal" adStyle={{ width: '100%', height: '100px', maxHeight: '320px' }} role={stripeRole}/>
+                <Ingredients ingredients={ingredients} /> 
+                <AdSense className="mx-auto max-w-[320px] md:max-w-[728px]" adSlot="2408449875" adFormat="horizontal" adStyle={{ width: '100%', height: '100px', maxHeight: '320px' }} role={stripeRole}/>
+                <Instructions instructions={instructions} />
+                <AdSense className="mx-auto max-w-[320px] md:max-w-[728px]" adSlot="5275868942" adFormat="horizontal" adStyle={{ width: '100%', height: '100px', maxHeight: '320px' }} role={stripeRole}/> 
+                <Information recipe={recipe} setIsErrorOpen={setIsErrorOpen} />
+            </div>
         </div>
 
         {/* Sticky ad in right whitespace -- desktop only*/}
@@ -125,4 +136,4 @@ const Recipe: React.FC = ({ recipe, ogUrl, recentRecipes }: any) => {
   );
 };
 
-export default Recipe;
+export default AIRecipe;

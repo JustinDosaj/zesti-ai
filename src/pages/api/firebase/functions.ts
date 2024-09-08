@@ -5,10 +5,18 @@ import { onSnapshot, doc, setDoc, deleteDoc, getDocs, collection, getDoc, orderB
 
 
 // Save & Delete Functions
-export const saveRecipeReferenceToUser = async (userId: string, recipeId: string) => {
+export const saveRecipeReferenceToUser = async (userId: string, recipeId: string, collection = 'recipes') => {
   
-  const useRecipeRef = doc(db, `users/${userId}/recipes`, recipeId);
-  const directRef = doc(db, 'recipes', recipeId);
+  const useRecipeRef = doc(db, `users/${userId}/${collection}`, recipeId);
+  const directRef = doc(db, `${collection}`, recipeId);
+
+  if (collection === 'ai-recipes') {
+    const functions = getFunctions();
+    const removeRecipeExpiration = httpsCallable(functions, 'removeRecipeExpiration');
+
+    await removeRecipeExpiration({ recipeId }).catch(() => { Notify("Failed to save recipe, please try again later.") });
+    
+  }
 
   await setDoc(useRecipeRef, {
     recipe_id: recipeId,
@@ -18,10 +26,16 @@ export const saveRecipeReferenceToUser = async (userId: string, recipeId: string
 
 }
 
-export const userRemoveRecipeFromFirestore = async (userId: string, recipeId: string) => {
+export const userRemoveRecipeFromFirestore = async (userId: string, recipeId: string, collection = 'recipes') => {
 
-  const recipeRef = doc(db, `users/${userId}/recipes`, recipeId);
+  const recipeRef = doc(db, `users/${userId}/${collection}`, recipeId);
   await deleteDoc(recipeRef).then(() => { Notify("Recipe removed successfully")}).catch(() => { Notify("Failed to remove recipe, please try again later.") })
+
+  if(collection === 'ai-recipes') {
+    const functions = getFunctions();
+    const addRecipeExpiration = httpsCallable(getFunctions(), 'addRecipeExpiration');
+    await addRecipeExpiration({ recipeId })
+  }
 
 };
 
@@ -88,9 +102,22 @@ export async function GetRecipeByIds(ids: string[]): Promise<Recipe[]>{
   return recipes
 }
 
+
+// Checking for Existing Recipes
 export async function CheckForExistingRecipe(recipe: any, user_id: string, setIsSaved: any) {
   
   const docRef = doc(db, `users/${user_id}/recipes`, recipe?.data.id);
+  const unsubscribe = onSnapshot(docRef, (docSnapshot) => {
+    setIsSaved(docSnapshot.exists())
+  })
+
+  return () => unsubscribe()
+
+}
+
+export async function CheckForExistingAIRecipe(recipe: any, user_id: string, setIsSaved: any) {
+  
+  const docRef = doc(db, `users/${user_id}/ai-recipes`, recipe?.data.id);
   const unsubscribe = onSnapshot(docRef, (docSnapshot) => {
     setIsSaved(docSnapshot.exists())
   })

@@ -6,6 +6,7 @@ import AdSense from "@/components/ads/adsense";
 import useRequireAuth from '@/hooks/user/useRequireAuth';
 import { RecipeCardList } from '@/components/ui/recipe/list';
 import useUserRecipeList from '@/hooks/user/useUserRecipeList'; // Import the hook
+import useUserAIRecipeList from '@/hooks/user/useUserAIRecipeList';
 import { useState } from 'react';
 import { MyRecipeSearch } from "@/components/tools/my-recipe-search";
 import { Paragraph } from "@/components/shared/paragraph";
@@ -17,10 +18,13 @@ export default function MyRecipes() {
 
   const { user, isLoading, stripeRole } = useAuth();
   const { userRecipeList, loadingUserRecipes } = useUserRecipeList(user, isLoading); // Use the hook
+  const { userAIRecipeList, loadingUserAIRecipes } = useUserAIRecipeList(user, isLoading); // Use the hook
   const [searchQuery, setSearchQuery] = useState('');
 
+  const combinedRecipes = [...userRecipeList, ...userAIRecipeList];
+
   // Filter the recipes based on the search query
-  const filteredRecipes = userRecipeList.filter(recipe => {
+  const filteredRecipes = combinedRecipes.filter(recipe => {
     const query = searchQuery.toLowerCase();
     return (
       recipe.name.toLowerCase().includes(query) ||
@@ -45,7 +49,7 @@ export default function MyRecipes() {
         </Container>
         <MyRecipeSearch searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
         <AdSense className="mx-auto max-w-[320px] md:max-w-[728px]" adSlot="9125889123" adFormat="horizontal" adStyle={{ width: '100%', maxHeight: '90px', height: '90px' }} role={stripeRole}/>
-        <RecipeCardList recipes={filteredRecipes} maxDisplayCount={9} max={0} loading={loadingUserRecipes} />
+        <RecipeCardList recipes={filteredRecipes} maxDisplayCount={9} max={0} loading={loadingUserRecipes} loadingAI={loadingUserAIRecipes}/>
         <div className="my-1" />
         <AdSense className="max-w-5xl" adSlot="4770591581" adFormat="auto" adStyle={{ width: '100%', height: '250px' }} role={stripeRole}/>
       </main>
