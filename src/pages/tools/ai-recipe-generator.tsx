@@ -1,5 +1,5 @@
 // pages/search-results.tsx
-import { SearchOrAddRecipe } from '@/components/tools/search-add-recipe';
+import { ThreeBoxFeature } from '@/components/ui/general/threeboxfeature';
 import { Title } from '@/components/shared/title';
 import { useAuth } from '@/context/AuthContext';
 import Head from 'next/head';
@@ -41,10 +41,13 @@ const AIGenerator: React.FC = () => {
                 <div className="mt-2 lg:mt-8"/>
                 <Container>
                     <Title className="text-center">AI Recipe Generator</Title>
-                    <Paragraph className="mt-2 text-center">Describe what kind of recipe you would like to create</Paragraph>
+                    <Paragraph className="mt-2 text-center">Describe what kind of recipe you would like to create and let Zesti create a it for you</Paragraph>
                 </Container>
                 <GeneratorInput/>
+                <div className="pt-2"/>
                 <AdSense className="mx-auto max-w-[320px] md:max-w-[728px]" adSlot="3663491065" adFormat="horizontal" adStyle={{ width: '100%', maxHeight: '90px', height: '90px' }} role={stripeRole}/> 
+                <div className="pt-12"/>
+                <ThreeBoxFeature type="ai" desc={"Use Zesti AI recipe generator to create delicious and creative recipes in seconds!"}/>
                 <div className="pt-2"/>
                 <AdSense className="max-w-5xl" adSlot="9109019747" adFormat="auto" adStyle={{ width: '100%', height: '250px' }} role={stripeRole}/> 
             </main>

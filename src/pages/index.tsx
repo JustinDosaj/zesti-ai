@@ -48,7 +48,7 @@ export default function Home({heroContent, faqContent, recipes}: any) {
       <main className={`main-seo-page-class`}>
         <Hero heroContent={heroContent}/>
         <Gallery recipes={recipes}/>
-        <ThreeBoxFeature type="home"/>
+        <ThreeBoxFeature type="home" desc={"Zesti makes it easy to copy recipes so you can do more cooking and less scrolling!"}/>
         <CTA/>
         <FAQ qA={faqContent.qA.fields.user} title="FAQ" desc="Answers to the most common questions we get" type="user"/>
       </main>
