@@ -10,9 +10,11 @@ interface RecipeCardListProps {
   incrementCount?: number,
   max?: number,
   loading?: boolean,
+  loadingAI?: boolean,
 }
 
-export function RecipeCardList({ recipes, maxDisplayCount = 9, incrementCount = 9, max = 0, loading }: RecipeCardListProps) {
+export function RecipeCardList({ recipes, maxDisplayCount = 9, incrementCount = 9, max = 0, loading, loadingAI }: RecipeCardListProps) {
+  
   const [displayCount, setDisplayCount] = useState(maxDisplayCount);
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -35,7 +37,7 @@ export function RecipeCardList({ recipes, maxDisplayCount = 9, incrementCount = 
     setDisplayCount(maxDisplayCount); // Reset display count when recipes change
   }, [recipes, maxDisplayCount]);
 
-  if (loading) return ( <PageLoader type={"recipe-list"} />);
+  if (loading || loadingAI) return ( <PageLoader type={"recipe-list"} />);
 
   return (
     <Container className={`grid justify-center lg:flex-row gap-10 lg:gap-12 animate-fadeIn`}>

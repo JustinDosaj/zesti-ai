@@ -7,24 +7,19 @@ interface Recipe {
     date: string;
 }
 
-interface RecipeMapData {
-    redirect: string; // The new ID of the recipe
-    slug: string;
-}
+const useUserAIRecipeList = (user: any | null, isLoading: boolean) => {
 
-const useUserRecipeList = (user: any | null, isLoading: boolean) => {
-
-    const [userRecipeList, setUserRecipeList] = useState<any[]>([]);
-    const [loadingUserRecipes, setLoadingUserRecipes] = useState<boolean>(true);
+    const [userAIRecipeList, setUserAIRecipeList] = useState<any[]>([]);
+    const [loadingUserAIRecipes, setLoadingUserAIRecipes] = useState<boolean>(true);
 
     useEffect(() => {
         if (user && !isLoading) {
             
-            const recipesRef = collection(db, 'users', user.uid, 'recipes');
+            const recipesRef = collection(db, 'users', user.uid, 'ai-recipes');
             const recipeQuery = query(recipesRef, orderBy('date', 'desc'));
 
             const unsubscribe = onSnapshot(recipeQuery, async (querySnapshot) => {
-                setLoadingUserRecipes(true);
+                setLoadingUserAIRecipes(true);
 
                 const recipeFetchPromises = querySnapshot.docs.map(async (snapshot) => {
                     const recipeRefData = snapshot.data();
@@ -37,22 +32,6 @@ const useUserRecipeList = (user: any | null, isLoading: boolean) => {
                     }
 
                     let recipeSnapshot = await getDoc(recipeRef);
-
-                    if (!recipeSnapshot.exists()) {
-                        // Handle old IDs: Check the recipeMap for a redirect
-                        const oldId = recipeRefData.recipe_id; // Old ID from user collection
-                        const recipeMapRef = doc(db, 'recipesMap', oldId);
-                        const recipeMapSnapshot = await getDoc(recipeMapRef);
-
-                        if (recipeMapSnapshot.exists()) {
-                            const recipeMapData = recipeMapSnapshot.data() as RecipeMapData;
-
-                            if (typeof recipeMapData.redirect === 'string') {
-                                recipeRef = doc(db, 'recipes', recipeMapData.redirect);
-                                recipeSnapshot = await getDoc(recipeRef);
-                            }
-                        }
-                    }
 
                     if (recipeSnapshot.exists()) {
                         const recipeData = recipeSnapshot.data() as Recipe;
@@ -67,10 +46,10 @@ const useUserRecipeList = (user: any | null, isLoading: boolean) => {
                 });
 
                 const recipes = (await Promise.all(recipeFetchPromises)).filter(recipe => recipe !== null);
-                setUserRecipeList(recipes);
-                setLoadingUserRecipes(false);
+                setUserAIRecipeList(recipes);
+                setLoadingUserAIRecipes(false);
             }, (error) => {
-                setLoadingUserRecipes(false);
+                setLoadingUserAIRecipes(false);
                 console.error("Error fetching user recipes:", error);
             });
 
@@ -78,7 +57,7 @@ const useUserRecipeList = (user: any | null, isLoading: boolean) => {
         }
     }, [user, isLoading]);
 
-    return { userRecipeList, loadingUserRecipes };
+    return { userAIRecipeList, loadingUserAIRecipes };
 };
 
-export default useUserRecipeList;
+export default useUserAIRecipeList;
