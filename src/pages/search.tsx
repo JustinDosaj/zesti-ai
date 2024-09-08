@@ -1,7 +1,7 @@
 // pages/search-results.tsx
 import { useEffect, useState } from 'react';
 import { RecipeCardList } from '@/components/ui/recipe/list';
-import { SearchOrAddRecipe } from '@/components/search/search-add-recipe';
+import { SearchOrAddRecipe } from '@/components/tools/search-add-recipe';
 import { Title } from '@/components/shared/title';
 import { useRouter } from 'next/router';
 import { useAuth } from '@/context/AuthContext';

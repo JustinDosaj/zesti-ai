@@ -1,5 +1,5 @@
 import { Container } from "@/components/shared/container"
-import { SearchOrAddRecipe } from "@/components/search/search-add-recipe"
+import { SearchOrAddRecipe } from "@/components/tools/search-add-recipe"
 import { Paragraph } from "@/components/shared/paragraph"
 import Typewriter from "typewriter-effect"
 import Image from "next/image"

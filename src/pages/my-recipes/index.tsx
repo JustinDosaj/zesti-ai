@@ -7,7 +7,7 @@ import useRequireAuth from '@/hooks/user/useRequireAuth';
 import { RecipeCardList } from '@/components/ui/recipe/list';
 import useUserRecipeList from '@/hooks/user/useUserRecipeList'; // Import the hook
 import { useState } from 'react';
-import { MyRecipeSearch } from "@/components/search/my-recipe-search";
+import { MyRecipeSearch } from "@/components/tools/my-recipe-search";
 import { Paragraph } from "@/components/shared/paragraph";
 import { Container } from "@/components/shared/container";
 
