@@ -68,12 +68,12 @@ export function AIRecipeTitleCard({ recipe, isSaved, user, isLoading, role }: Re
             {isSaved ?
                 <span className="inline-flex space-x-2 items-center">
                     <BookmarkSlashIcon className=" text-red-600 h-5 w-5" /> 
-                    <span>Delete Recipe</span> 
+                    <span className="text-gray-800">Delete Recipe</span> 
                 </span>
             : 
                 <span className="inline-flex space-x-2 items-center">
                     <ArrowDownTrayIcon className=" text-green-600 h-5 w-5" />
-                    <span>Save Recipe</span>  
+                    <span className="text-gray-800">Save Recipe</span>  
                 </span>
             }
           </button>
