@@ -3,6 +3,7 @@ import { useAuth } from "@/context/AuthContext"
 import { Button } from "../shared/button"
 import Link from "next/link"
 import { BookOpenIcon, HomeIcon, PaperAirplaneIcon, WalletIcon, UserIcon, MagnifyingGlassIcon } from "@heroicons/react/20/solid"
+import { FiRefreshCw } from "react-icons/fi";
 import { DropDownMenuDesktop, DropDownMenuMobile } from "./menus"
 import { useRouter } from "next/router"
 import { PlusIcon } from "@heroicons/react/20/solid"
@@ -16,17 +17,26 @@ export function Navbar() {
 
     const navItemsDesktop = [
         { href: "/", text: "Home" },
-        { href: "/search", text: "Search"},
-        { href: "/add", text: "Add Recipe"},
+        { href: "/tools", text: "Tools"},
         { href: "/about/pricing", text: "Pricing"},
         // Add more items as needed
     ];
 
     const desktopDropDownItems = [
         {
-            href: "/my-recipes",
-            text: "My Recipes",
-            icon: BookOpenIcon,
+            href:"/add",
+            text: "Add Recipe",
+            icon: PlusIcon,
+        },
+        {
+            href: "/search",
+            text: "Search",
+            icon: MagnifyingGlassIcon,
+        },
+        {
+            href: "/tools/ai-recipe-generator",
+            text: "AI Recipe Generator",
+            icon: FiRefreshCw,
         },
         {
             href: "/account",
@@ -75,14 +85,19 @@ export function Navbar() {
             icon: BookOpenIcon,
         },
         {
+            href:"/add",
+            text: "Add Recipe",
+            icon: PlusIcon,
+        },
+        {
             href: "/search",
             text: "Search",
             icon: MagnifyingGlassIcon,
         },
         {
-            href:"/add",
-            text: "Add Recipe",
-            icon: PlusIcon,
+            href: "/tools/ai-recipe-generator",
+            text: "AI Recipe Generator",
+            icon: FiRefreshCw,
         },
         {
             href: "/account",
