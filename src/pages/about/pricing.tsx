@@ -13,8 +13,8 @@ export default function Pricing() {
       <meta name="title" content="Zesti AI | Pricing - Try for Free"/>
       <meta name="description" content="Discover already transcribed TikTok recipes so you can spend less time writing and more time cooking!"/>
     </Head>
-    <main className={`flex min-h-screen flex-col items-center bg-background w-full pb-28`}>
-      <div className="mt-2 lg:mt-10"/>
+    <main className={`flex min-h-screen flex-col items-center bg-background w-full pb-28 space-y-4`}>
+      <div className="mt-8"/>
       <Container className={"flex flex-col mx-auto bg-white"}>
         <Title className="text-center mt-4 md:mt-0">Pricing Plans</Title>
         <Paragraph className="mt-2 text-center">Join hundreds of users creating their favorite home cooked meals!</Paragraph>
