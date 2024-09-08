@@ -15,9 +15,10 @@ interface Feature {
 interface ThreeBoxFeatureProps {
     type?: 'home' | 'ai',
     desc?: string
+    showTitle?: boolean
   }
     
-export function ThreeBoxFeature({type = 'home', desc}: ThreeBoxFeatureProps) {
+export function ThreeBoxFeature({type = 'home', desc, showTitle = true}: ThreeBoxFeatureProps) {
 
     const FeatureTypes = {
         home: [
@@ -61,14 +62,16 @@ export function ThreeBoxFeature({type = 'home', desc}: ThreeBoxFeatureProps) {
     return(
         <Container className={"animate-fadeIn"}>
             <div className="w-full max-w-7xl mx-auto space-y-4">
-                <div className="grid justify-center items-center text-center lg:text-left">
-                    <Title className="text-center">
-                        <span>How </span>
-                        <span className="primary-orange-text-gradient">Zesti </span>
-                        <span>Works</span>
-                    </Title>
-                    <Paragraph className="mt-2">{desc}</Paragraph>
-                </div>
+                {showTitle &&
+                    <div className="grid justify-center items-center text-center lg:text-left">
+                        <Title className="text-center">
+                            <span>How </span>
+                            <span className="primary-orange-text-gradient">Zesti </span>
+                            <span>Works</span>
+                        </Title>
+                        <Paragraph className="mt-2">{desc}</Paragraph>
+                    </div>
+                }
                 <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-10 mt-12">
                     {features.map((feature) => (
                     <div key={feature.name} className="flex flex-col items-start p-6 rounded-3xl gap-y-2 bg-white orange-border-shadow">
