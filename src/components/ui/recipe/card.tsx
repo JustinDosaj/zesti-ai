@@ -1,6 +1,7 @@
 import Link from "next/link"
 import Image from "next/image"
 import { Paragraph } from "@/components/shared/paragraph";
+import { classNames } from "@/components/shared/classNames";
 
 interface RecipeCardProps {
     item: {
@@ -13,6 +14,7 @@ interface RecipeCardProps {
         data: {
             id: string,
             slug: string,
+            source: string,
             owner: {
                 username: string,
             },
@@ -22,14 +24,20 @@ interface RecipeCardProps {
 
 export function RecipeCard({ item }: RecipeCardProps) {
 
-    const { id, slug } = item.data;
+    const { id, slug, source } = item.data;
+
+    let collection = 'recipes'
+
+    if (source == 'ai') {
+        collection = 'ai-recipes'
+    }
 
     return (
         <div className="group relative flex bg-white rounded-2xl border shadow-sm hover:shadow-xl hover:border-gray-300 transition-shadow duration-300 overflow-hidden w-full h-[190px]">
-            <Link href={{pathname: `/recipes/${id}/${slug}`}} passHref={true}>
+            <Link href={{pathname: `/${collection}/${id}/${slug}`}} passHref={true}>
                 <div className="flex h-full">
                     {/* Image Container */}
-                    <div className="relative flex-none  w-[110px] md:w-[125px]">
+                    <div className={classNames(item.cover_image_url == '' ? `relative` : `hidden`, `flex-none w-[110px] md:w-[125px]`)}>
                         <Image src={`https://firebasestorage.googleapis.com/v0/b/${process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET}/o/${encodeURIComponent(item.cover_image_url)}?alt=media`} 
                             className="rounded-l-2xl object-cover"
                             layout="fill"

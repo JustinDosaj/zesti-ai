@@ -6,13 +6,13 @@ import Head from 'next/head';
 import AdSense from '@/components/ads/adsense';
 import { Paragraph } from '@/components/shared/paragraph';
 import { Container } from '@/components/shared/container';
-import { Gallery } from '@/components/ui/general/gallery';
 import { GetServerSideProps } from "next";
+import { GeneratorInput } from '@/components/tools/generator-input';
 
 
 export const getServerSideProps: GetServerSideProps = async () => {
 
-  const GetRecentRecipes = (await (import ('./api/firebase/functions'))).GetRecentRecipes
+  const GetRecentRecipes = (await (import ('../api/firebase/functions'))).GetRecentRecipes
   const recentRecipes = await GetRecentRecipes(9);
 
   return {
@@ -21,32 +21,35 @@ export const getServerSideProps: GetServerSideProps = async () => {
 }
 
 
-const AddRecipe: React.FC = ({recentRecipes}: any) => {
+const AIGenerator: React.FC = () => {
     
     const { stripeRole } = useAuth();
 
     return (
         <>
-            <Head>
-                <title>Add TikTok & Instagram Recipes | Zesti AI</title>
-                <meta name="title" content="Add TikTok & Instagram Recipes | Zesti AI"/>
-                <meta name="description" content="Instantly save your favorite social media recipes without the hassle of rewatching the video to get every ingredient!"/>
-            </Head>
+        <Head>
+            <title>AI Recipe Generator - 100% Free, No Login</title>
+            <meta name="title" content="AI Recipe Generator - 100% Free, No Login"/>
+            <meta name="description" content="Tell Zesti AI what kind of recipe you feel like making, and in seconds you will have a delicious recipe ready to cook!"/>
+            <meta property="og:title" content="AI Recipe Generator - 100% Free, No Login"/>
+            <meta property="og:description" content="Tell Zesti AI what kind of recipe you feel like making, and in seconds you will have a delicious recipe ready to cook!"/>
+            <meta property="og:image" content="https://www.zesti.ai/images/x/x_meta_image.png"/>
+            <meta property="og:url" content="https://www.zesti.ai/"/>
+            <meta property="og:type" content="website"/>
+        </Head>
             <main className={`flex min-h-screen flex-col items-center bg-background w-full space-y-4 pb-48`}>
                 <div className="mt-2 lg:mt-8"/>
                 <Container>
-                    <Title className="text-center">Add Recipe</Title>
-                    <Paragraph className="mt-2 text-center">Copy & paste a TikTok or Instagram link to save the recipe in seconds!</Paragraph>
+                    <Title className="text-center">AI Recipe Generator</Title>
+                    <Paragraph className="mt-2 text-center">Describe what kind of recipe you would like to create</Paragraph>
                 </Container>
-                <SearchOrAddRecipe placeholder="Enter Recipe URL" page="add"/>
+                <GeneratorInput/>
                 <AdSense className="mx-auto max-w-[320px] md:max-w-[728px]" adSlot="3663491065" adFormat="horizontal" adStyle={{ width: '100%', maxHeight: '90px', height: '90px' }} role={stripeRole}/> 
                 <div className="pt-2"/>
-                <Gallery recipes={recentRecipes}/>
-                <div className="mt-2"/>
                 <AdSense className="max-w-5xl" adSlot="9109019747" adFormat="auto" adStyle={{ width: '100%', height: '250px' }} role={stripeRole}/> 
             </main>
         </>
     );
 }
 
-export default AddRecipe;
+export default AIGenerator;

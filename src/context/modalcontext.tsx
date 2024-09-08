@@ -13,7 +13,8 @@ interface ModalContextProps {
   recipeId?: string;
   slug?: string;
   userId?: string;
-  openModal: (title: string, text: string, status: ModalStatus, displayAd?: boolean, role?: string | null, recipeId?: number, slug?:string, userId?: string) => void;
+  source?: string;
+  openModal: (title: string, text: string, status: ModalStatus, displayAd?: boolean, role?: string | null, recipeId?: number, slug?:string, userId?: string, source?: string) => void;
   closeModal: () => void;
 }
 
@@ -29,8 +30,9 @@ export const ModalProvider: React.FC<{ children: ReactNode }> = ({ children }) =
   const [recipeId, setRecipeId] = useState('');
   const [slug, setSlug] = useState('');
   const [userId, setUserId] = useState('');
+  const [source, setSource] = useState('social');
 
-  const openModal = (title: string, text: string, status: ModalStatus, displayAd = false, role: string | null = null, recipeId = 0, slug = '', userId = '') => {
+  const openModal = (title: string, text: string, status: ModalStatus, displayAd = false, role: string | null = null, recipeId = 0, slug = '', userId = '', source = 'social') => {
     setTitle(title);
     setText(text);
     setStatus(status);
@@ -38,6 +40,7 @@ export const ModalProvider: React.FC<{ children: ReactNode }> = ({ children }) =
     setRecipeId(recipeId.toString());
     setSlug(slug);
     setUserId(userId);
+    setSource(source);
     setRole(role);
     setIsOpen(true);
   };
@@ -47,7 +50,7 @@ export const ModalProvider: React.FC<{ children: ReactNode }> = ({ children }) =
   };
 
   return (
-    <ModalContext.Provider value={{ isOpen, title, text, role, displayAd, status, recipeId, slug, userId, openModal, closeModal }}>
+    <ModalContext.Provider value={{ isOpen, title, text, role, displayAd, status, recipeId, slug, userId, source, openModal, closeModal }}>
       {children}
     </ModalContext.Provider>
   );
