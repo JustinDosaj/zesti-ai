@@ -31,7 +31,7 @@ const Author: React.FC = ({author}: any) => {
             <meta name="description" content="Get answers to the most common questions asked about Zesti AI"/>
         </Head>
         <main className={`flex min-h-screen flex-col items-center bg-background w-full pb-48`}>
-            <div className="pt-2 lg:pt-8"/>
+            <div className="pt-8"/>
             <Container className="grid lg:flex-row animate-fadeIn lg:min-w-[725px] max-w-[730px]">
                 <Title className="text-center">{name}</Title>
                 <Paragraph className="text-center mt-2">{`Learn more about ${name}`}</Paragraph>

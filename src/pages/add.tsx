@@ -33,7 +33,7 @@ const AddRecipe: React.FC = ({recentRecipes}: any) => {
                 <meta name="description" content="Instantly save your favorite social media recipes without the hassle of rewatching the video to get every ingredient!"/>
             </Head>
             <main className={`flex min-h-screen flex-col items-center bg-background w-full space-y-4 pb-48`}>
-                <div className="mt-2 lg:mt-8"/>
+                <div className="mt-8"/>
                 <Container>
                     <Title className="text-center">Add Recipe</Title>
                     <Paragraph className="mt-2 text-center">Copy & paste a TikTok or Instagram link to save the recipe in seconds!</Paragraph>

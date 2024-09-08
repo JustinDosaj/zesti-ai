@@ -43,7 +43,7 @@ export function ToolBoxFeature() {
     const features: Feature[] = FeatureTypes['tools']
 
     return(
-        <Container className={"animate-fadeIn mt-8 lg:mt-12"}>
+        <Container className={"animate-fadeIn"}>
             <div className="w-full max-w-7xl mx-auto space-y-4">
                 <div className="grid justify-center items-center text-center lg:text-left">
                     <Title className="text-center">
