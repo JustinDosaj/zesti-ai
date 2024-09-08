@@ -12,8 +12,10 @@ export default function Tools() {
       <meta name="title" content="Zesti AI | Pricing - Try for Free"/>
       <meta name="description" content="Discover already transcribed TikTok recipes so you can spend less time writing and more time cooking!"/>
     </Head>
-    <main className={`flex min-h-screen flex-col items-center bg-background w-full pb-28 space-y-28`}>
+    <main className={`flex min-h-screen flex-col items-center bg-background w-full pb-28 space-y-4`}>
+        <div className="pt-8"/>
         <ToolBoxFeature/>
+        <div className="pt-32"/>
         <CTA/>
     </main>
     </>

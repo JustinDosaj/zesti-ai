@@ -69,7 +69,7 @@ const SearchResults: React.FC = () => {
                 <meta name="description" content="Find your favorite TikTok & Instagram recipes on Zesti and never write down ingredients again!"/>
             </Head>
             <main className={`flex min-h-screen flex-col items-center bg-background w-full space-y-4 pb-48`}>
-                <div className="mt-2 lg:mt-8"/>
+                <div className="mt-8"/>
                 <Container>
                     <Title className="text-center">Search Recipes</Title>
                     <Paragraph className="mt-2 text-center">Find recipes from TikTok & Instagram that already exist on Zesti!</Paragraph>
