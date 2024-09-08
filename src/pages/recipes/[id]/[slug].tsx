@@ -158,10 +158,10 @@ const Recipe: React.FC = ({ recipe, ogUrl, recentRecipes }: any) => {
   return (
     <>
       <Head>
-        <title>{`${name} Recipe`}</title>
-        <meta name="title" content={`${name} Recipe`} />
+        <title>{`${name} Recipe by ${owner?.nickname}`}</title>
+        <meta name="title" content={`${name} Recipe by ${owner?.nickname}`} />
         <meta name="description" content={`${source} recipe from @${owner?.username} - ${video_title?.slice(0, 200)}`} />
-        <meta property="og:title" content={`${name} Recipe`} />
+        <meta property="og:title" content={`${name} Recipe by ${owner?.nickname}`} />
         <meta property="og:description" content={`${description} from ${source}`} />
         <meta property="og:image" content={`https://firebasestorage.googleapis.com/v0/b/${process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET}/o/${encodeURIComponent(cover_image_url)}?alt=media`} />
         <meta property="og:url" content={ogUrl} />
