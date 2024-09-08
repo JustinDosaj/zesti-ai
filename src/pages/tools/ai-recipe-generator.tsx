@@ -8,6 +8,7 @@ import { Paragraph } from '@/components/shared/paragraph';
 import { Container } from '@/components/shared/container';
 import { GetServerSideProps } from "next";
 import { GeneratorInput } from '@/components/tools/generator-input';
+import { HorizontalBorder } from '@/components/shared/border';
 
 
 export const getServerSideProps: GetServerSideProps = async () => {
@@ -46,8 +47,8 @@ const AIGenerator: React.FC = () => {
                 <GeneratorInput/>
                 <div className="pt-2"/>
                 <AdSense className="mx-auto max-w-[320px] md:max-w-[728px]" adSlot="3663491065" adFormat="horizontal" adStyle={{ width: '100%', maxHeight: '90px', height: '90px' }} role={stripeRole}/> 
-                <div className="pt-12"/>
-                <ThreeBoxFeature type="ai" desc={"Use Zesti AI recipe generator to create delicious and creative recipes in seconds!"}/>
+                <div className="pt-2"/>
+                <ThreeBoxFeature showTitle={false} type="ai" desc={"Use Zesti AI recipe generator to create delicious and creative recipes in seconds!"}/>
                 <div className="pt-2"/>
                 <AdSense className="max-w-5xl" adSlot="9109019747" adFormat="auto" adStyle={{ width: '100%', height: '250px' }} role={stripeRole}/> 
             </main>
