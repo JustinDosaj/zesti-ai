@@ -1,6 +1,6 @@
 import { Container } from "@/components/shared/container"
 import { Button } from "@/components/shared/button"
-import { EnvelopeIcon, UsersIcon, PaperAirplaneIcon } from "@heroicons/react/24/outline"
+import { TbUsers, TbSend2, TbMail } from "react-icons/tb";
 import Head from 'next/head';
 import { Title } from "@/components/shared/title";
 import { Paragraph } from "@/components/shared/paragraph";
@@ -22,13 +22,13 @@ export default function Contact() {
             <form action="https://formspree.io/f/maygvonw" method="POST" target="_blank" className="mx-auto w-full sm:w-[550px]">
                 <div className="py-1 pl-6 w-full pr-1 flex gap-3 items-center text-heading-3 shadow-lg shadow-box-shadow border border-box-border bg-box-bg rounded-full ease-linear focus-within:bg-body  focus-within:border-primary">
                     <span className="min-w-max pr-2 border-r border-box-border">
-                        <UsersIcon className="h-6 w-6 text-black"/>                                                             
+                        <TbUsers className="h-6 w-6 text-black"/>                                                             
                     </span>
                     <input type="text" required={true} name="FULLNAME" placeholder="Name" className="w-full py-3 outline-none bg-transparent text-gray-500"/>
                 </div>
                     <div className="mt-4 py-1 pl-6 w-full pr-1 flex gap-3 items-center text-heading-3 shadow-lg shadow-box-shadow border border-box-border bg-box-bg rounded-full ease-linear focus-within:bg-body  focus-within:border-primary">
                         <span className="min-w-max pr-2 border-r border-box-border">
-                            <EnvelopeIcon className="h-6 w-6 text-black"/>                                                                 
+                            <TbMail className="h-6 w-6 text-black"/>                                                                 
                         </span>
                         <input type="email" required={true} name="EMAIL" placeholder="Email" className="w-full py-3 outline-none bg-transparent required email text-gray-500"/>
                     </div>
@@ -41,7 +41,7 @@ export default function Contact() {
                                 Submit
                             </span>
                             <span className="flex sm:hidden relative z-[5]">
-                                <PaperAirplaneIcon className="h-6 w-6 text-white"/>                                     
+                                <TbSend2 className="h-6 w-6 text-white"/>                                     
                             </span>
                         </Button>
                     </div>

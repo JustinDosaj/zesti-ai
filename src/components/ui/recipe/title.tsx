@@ -1,8 +1,7 @@
-import { ArrowDownTrayIcon, BookmarkSlashIcon, ArrowTopRightOnSquareIcon, ShareIcon } from "@heroicons/react/20/solid"
+import { TbDownload, TbBookmarkOff, TbExternalLink, TbThumbUp, TbLink } from "react-icons/tb";
 import { useModal } from "@/context/modalcontext";
 import { UpdateLikesInFirebase } from "@/pages/api/firebase/functions";
 import Link from "next/link";
-import { HandThumbUpIcon } from "@heroicons/react/24/solid";
 import { classNames } from "@/components/shared/classNames";
 import { useState } from "react";
 
@@ -83,7 +82,7 @@ export function RecipeTitleCard({ recipe, isSaved, user, isLoading, role, hasLik
           <span>by</span>
           <button onClick={() => window.open(url)} className="underline flex items-center font-semibold hover:text-gray-600">
             {username}
-            <ArrowTopRightOnSquareIcon className="w-3.5 lg:w-4 ml-1" />
+            <TbExternalLink className="w-3.5 lg:w-4 ml-1" />
           </button>
         </div>
 
@@ -101,15 +100,15 @@ export function RecipeTitleCard({ recipe, isSaved, user, isLoading, role, hasLik
         </div>
       </div>
 
-      <div className="border-t w-full border-gray-300 mt-4 flex">
+      <div className="border-t w-full border-gray-300 mt-4 flex py-0.5">
         <button onClick={onShareClick} className="recipe-title-button border-r text-blue-600">
-          <ShareIcon className="h-5 w-5" />
+          <TbLink className="h-6 w-6" />
         </button>
         <button onClick={isSaved ? onDeleteClick : onSaveClick} className={`recipe-title-button text-green-600 ${isSaved ? `text-red-600` : `text-green-600`}`}>
-          {isSaved ? <BookmarkSlashIcon className="h-5 w-5" /> : <ArrowDownTrayIcon className="h-5 w-5" />}
+          {isSaved ? <TbBookmarkOff className="h-6 w-6" /> : <TbDownload className="h-5 w-5" />}
         </button>
         <button disabled={likesDisabled} onClick={onLikeClick} className="recipe-title-button border-l">
-          <HandThumbUpIcon className={classNames( hasLiked ? `text-green-600` : `text-gray-500` , `h-5 w-5`)}/>
+          <TbThumbUp className={classNames( hasLiked ? `text-green-600` : `text-gray-500` , `h-6 w-6`)}/>
           <span className="text-gray-700">{likes}</span>
         </button>
       </div>

@@ -1,5 +1,5 @@
 import React from "react"
-import { MagnifyingGlassIcon } from '@heroicons/react/20/solid';
+import { TbSearch } from "react-icons/tb";
 import { Container } from '../shared/container';
 
 interface MyRecipeSearchProps {
@@ -13,7 +13,7 @@ export function MyRecipeSearch({searchQuery, setSearchQuery}: MyRecipeSearchProp
             <div className="flex justify-center"> {/* Center aligned like your design example */}
                 <div className="py-1 pl-6 w-full max-w-md pr-1 flex gap-3 items-center text-heading-3 shadow-lg shadow-box-shadow
                     border border-box-border bg-box-bg rounded-full ease-linear focus-within:bg-body focus-within:border-primary">
-                    <MagnifyingGlassIcon className="text-gray-600 w-6 h-6" />
+                    <TbSearch className="text-gray-600 w-6 h-6" />
                     <input 
                         type="text" 
                         value={searchQuery} 

@@ -1,9 +1,7 @@
 import { Container } from "@/components/shared/container"
-import { LinkIcon, VideoCameraIcon, DocumentTextIcon } from "@heroicons/react/20/solid"
-import { LuTimer } from "react-icons/lu";
+import { TbSearch, TbRefresh, TbTransform } from "react-icons/tb";
 import { Paragraph } from "@/components/shared/paragraph"
 import { Title } from "@/components/shared/title"
-import { Button } from "@/components/shared/button";
 import Link from "next/link";
 
 interface Feature {
@@ -22,19 +20,19 @@ export function ToolBoxFeature() {
             {
                 name: 'Recipe Transcriber',
                 description: 'Transcribe TikTok and Instagram recipe videos into clean text instructions.',
-                icon: VideoCameraIcon,
+                icon: TbTransform,
                 href: '/add',
             },
             {
                 name: 'Recipe Search',
                 description: 'Search through our recipe collection to find exactly what you need.',
-                icon: LinkIcon,
+                icon: TbSearch,
                 href: '/search',
             },
             {
                 name: 'AI Recipe Generator',
                 description: 'Generate recipes by telling Zesti AI what you want to cook.',
-                icon: DocumentTextIcon,
+                icon: TbRefresh,
                 href: '/tools/ai-recipe-generator',
             },
         ],

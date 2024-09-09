@@ -1,4 +1,4 @@
-import { ArrowDownTrayIcon, BookmarkSlashIcon } from "@heroicons/react/20/solid"
+import { TbDownload, TbBookmarkOff } from "react-icons/tb";
 import { useModal } from "@/context/modalcontext";
 
 
@@ -67,12 +67,12 @@ export function AIRecipeTitleCard({ recipe, isSaved, user, isLoading, role }: Re
           <button onClick={isSaved ? onDeleteClick : onSaveClick} className={`flex items-center gap-2 py-2 px-4 hover:bg-gray-100 w-full justify-center border-gray-300`}>
             {isSaved ?
                 <span className="inline-flex space-x-2 items-center">
-                    <BookmarkSlashIcon className=" text-red-600 h-5 w-5" /> 
+                    <TbBookmarkOff className=" text-red-600 h-5 w-5" /> 
                     <span className="text-gray-800">Delete Recipe</span> 
                 </span>
             : 
                 <span className="inline-flex space-x-2 items-center">
-                    <ArrowDownTrayIcon className=" text-green-600 h-5 w-5" />
+                    <TbDownload className=" text-green-600 h-5 w-5" />
                     <span className="text-gray-800">Save Recipe</span>  
                 </span>
             }

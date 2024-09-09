@@ -1,7 +1,7 @@
 "use client";
 
 import { Button } from "@/components/shared/button";
-import { CheckIcon } from "@heroicons/react/20/solid";
+import { TbCheck } from "react-icons/tb";
 import { createPremiumCheckoutSession } from "@/pages/api/stripe/stripePremium";
 import { Loader } from "@/components/shared/loader";
 import { useAuth } from "@/context/AuthContext";
@@ -112,7 +112,7 @@ export function PricingDisplay() {
                 >
                   {tier.features.map((feature: any) => (
                     <li key={feature} className="flex gap-x-3">
-                      <CheckIcon
+                      <TbCheck
                         className={classNames(tier.featured ? 'text-color-alt-green' : 'text-color-alt-green', 'h-6 w-5 flex-none')}
                         aria-hidden="true"
                       />

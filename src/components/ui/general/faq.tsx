@@ -1,5 +1,5 @@
 import { Container } from "@/components/shared/container"
-import { MinusSmallIcon, PlusSmallIcon} from "@heroicons/react/20/solid"
+import { TbPlus, TbMinus } from "react-icons/tb";
 import { Disclosure } from "@headlessui/react"
 import { Title } from "@/components/shared/title"
 import { Paragraph } from "@/components/shared/paragraph"
@@ -33,9 +33,9 @@ export function FAQ({title, desc, qA}: FAQProps) {
                           <span className="text-base font-semibold leading-7">{faq.question}</span>
                           <span className="ml-6 flex h-7 items-center">
                             {open ? (
-                              <MinusSmallIcon className="h-6 w-6" aria-hidden="true" />
+                              <TbMinus className="h-4 w-4" aria-hidden="true" />
                             ) : (
-                              <PlusSmallIcon className="h-6 w-6" aria-hidden="true" />
+                              <TbPlus className="h-4 w-4" aria-hidden="true" />
                             )}
                           </span>
                         </Disclosure.Button>
