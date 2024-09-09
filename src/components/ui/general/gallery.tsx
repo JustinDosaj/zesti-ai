@@ -2,7 +2,7 @@ import { Container } from "@/components/shared/container"
 import { useState } from "react"
 import { Title } from "@/components/shared/title"
 import { RecipeCard } from "../recipe/card"
-import { ChevronLeftIcon, ChevronRightIcon} from "@heroicons/react/20/solid"
+import { TbChevronRight, TbChevronLeft } from "react-icons/tb";
 import { Paragraph } from "@/components/shared/paragraph"
 
 
@@ -37,9 +37,9 @@ export function Gallery({recipes}: any) {
 function Scroller({onRightScrollClick, onLeftScrollClick, scrollPage}: any) {
   return(
       <div className="flex items-center justify-center w-full mt-8 space-x-4">
-          <button onClick={() => onLeftScrollClick()} type="button"><ChevronLeftIcon className="h-10 w-10 home-page-scroll-btn" /></button>
+          <button onClick={() => onLeftScrollClick()} type="button"><TbChevronLeft className="h-10 w-10 home-page-scroll-btn" /></button>
           <p className="text-base font-bold text-gray-600">{scrollPage} / 3</p>
-          <button onClick={() => onRightScrollClick()} type="button"><ChevronRightIcon className="h-10 w-10 home-page-scroll-btn" /></button>
+          <button onClick={() => onRightScrollClick()} type="button"><TbChevronRight className="h-10 w-10 home-page-scroll-btn" /></button>
       </div>
   )
 }

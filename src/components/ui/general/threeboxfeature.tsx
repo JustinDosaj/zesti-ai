@@ -1,6 +1,5 @@
 import { Container } from "@/components/shared/container"
-import { LinkIcon, VideoCameraIcon, DocumentTextIcon } from "@heroicons/react/20/solid"
-import { LuTimer } from "react-icons/lu";
+import { TbClock, TbBook2, TbDeviceMobileHeart, TbBubbleText, TbLink} from "react-icons/tb";
 import { Paragraph } from "@/components/shared/paragraph"
 import { Title } from "@/components/shared/title"
 
@@ -25,34 +24,34 @@ export function ThreeBoxFeature({type = 'home', desc, showTitle = true}: ThreeBo
             {
                 name: 'Find Recipe Video',
                 description: 'Explore TikTok & Instagram for a recipe you want to try.',
-                icon: VideoCameraIcon,
+                icon: TbDeviceMobileHeart,
             },
             {
                 name: 'Copy the Link',
                 description: 'Get the video url and paste it into Zesti.',
-                icon: LinkIcon,
+                icon: TbLink,
             },
             {
                 name: 'Enjoy the Recipe!',
                 description: 'In just a few seconds, Zesti will have a fully written recipe ready for you!',
-                icon: DocumentTextIcon,
+                icon: TbBook2,
             },
         ],
         ai: [
             {
                 name: 'Describe the Recipe',
                 description: 'Tell Zesti AI what you want to cook so it can generate a recipe for you.',
-                icon: VideoCameraIcon,
+                icon: TbBubbleText,
             },
             {
                 name: 'Let Zesti AI Cook',
-                description: 'In just a few seconds, Zesti will have a recipe ready and will take you to it automatically!',
-                icon: LuTimer,
+                description: 'In just a few seconds, Zesti will take you to your newly generated recipe.',
+                icon: TbClock,
             },
             {
                 name: 'Enjoy the Recipe!',
-                description: 'Cook your new recipe and save it for later if you love it!',
-                icon: DocumentTextIcon,
+                description: 'Create ',
+                icon: TbBook2,
             },
         ]
     }

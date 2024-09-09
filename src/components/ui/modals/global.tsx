@@ -2,26 +2,18 @@
 "use client";
 import { Dialog, Transition } from '@headlessui/react';
 import { Fragment, useRef } from 'react';
-import { BookOpenIcon, ExclamationTriangleIcon, CheckCircleIcon, UserIcon } from '@heroicons/react/20/solid';
+import { TbAlertTriangle, TbBook2, TbCircleCheck, TbUser } from "react-icons/tb";
 import AdSense from '@/components/ads/adsense';
 import { useRouter } from 'next/router';
 import { useModal } from '@/context/modalcontext'
 
 const statusIcons = {
-  info: <BookOpenIcon className='text-primary-main h-8 w-8' aria-hidden="true" />,
-  error: <ExclamationTriangleIcon className='text-red-500 h-8 w-8' aria-hidden="true" />,
-  success: <CheckCircleIcon className='text-green-500 h-8 w-8' aria-hidden="true" />,
-  warning: <ExclamationTriangleIcon className='text-yellow-500 h-8 w-8' aria-hidden="true" />,
-  auth: <UserIcon className='text-primary-main h-8 w-8' aria-hidden="true" />,
+  info: <TbBook2 className='text-primary-main h-10 w-10' aria-hidden="true" />,
+  error: <TbAlertTriangle className='text-red-500 h-10 w-10' aria-hidden="true" />,
+  success: <TbCircleCheck className='text-green-500 h-10 w-10' aria-hidden="true" />,
+  warning: <TbAlertTriangle className='text-yellow-500 h-10 w-10' aria-hidden="true" />,
+  auth: <TbUser className='text-primary-main h-10 w-10' aria-hidden="true" />,
 };
-
-const borderColor = {
-    info: 'border-primary-main/50',
-    error: 'border-red-500/50',
-    success: 'border-green-500/50',
-    warning: 'border-yellow-500/50',
-    auth: 'border-primary-main/50',
-}
 
 const GlobalModal: React.FC = () => {
 
@@ -79,7 +71,7 @@ const GlobalModal: React.FC = () => {
                         >
                         <Dialog.Panel className="relative transform overflow-hidden rounded-3xl bg-white px-4 pb-4 pt-5 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg sm:p-6 space-y-4">
                             <div>
-                                <div className={`${borderColor[status]} mx-auto flex h-12 w-12 items-center justify-center border rounded-full`}>
+                                <div className={` mx-auto flex h-12 w-12 items-center justify-center`}>
                                     {statusIcons[status]}
                                 </div>
                                 <div className="mt-1 text-center space-y-1">
