@@ -1,6 +1,5 @@
 import { Container } from "@/components/shared/container"
 import { Button } from "@/components/shared/button"
-import { EnvelopeIcon, UsersIcon, PaperAirplaneIcon } from "@heroicons/react/24/outline"
 import { TbUsers, TbSend2, TbMail } from "react-icons/tb";
 import Head from 'next/head';
 import { Title } from "@/components/shared/title";
