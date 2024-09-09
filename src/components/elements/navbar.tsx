@@ -43,6 +43,24 @@ export function Navbar() {
         },
     ]
 
+    const desktopDropDownItemsLoggedOut = [
+        {
+            href:"/add",
+            text: "Add Recipe",
+            icon: TbLibraryPlus ,
+        },
+        {
+            href: "/search",
+            text: "Search",
+            icon: TbSearch,
+        },
+        {
+            href: "/tools/ai-recipe-generator",
+            text: "AI Recipe Generator",
+            icon: TbRefresh,
+        },
+    ]
+
     const navItemsMobileLoggedOut = [
         {
             href:"/",
@@ -143,12 +161,17 @@ export function Navbar() {
                 {/* Desktop menu only visible on large screens or bigger */}
                 <div className="hidden lg:flex justify-end w-1/3">
                     <div className="inline-flex items-center space-x-4">
-                        {user ? 
+                        {user ?
+                        <>
                             <Button buttonType="button" isLink={false} text={"My Recipes"} onClick={loginClick}/>
+                            <DropDownMenuDesktop navItems={desktopDropDownItems} isHidden={!user}/>  
+                        </>
                         :
+                        <>
                             <Button buttonType="button" isLink={false}  text={"Login"} onClick={loginClick}/>
+                            <DropDownMenuDesktop navItems={desktopDropDownItemsLoggedOut} isHidden={!user}/> 
+                        </>
                         }
-                        <DropDownMenuDesktop navItems={desktopDropDownItems} isHidden={!user}/> 
                     </div>
 
                 </div>
