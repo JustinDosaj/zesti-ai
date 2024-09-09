@@ -1,8 +1,7 @@
-import { Bars3Icon } from '@heroicons/react/24/outline'
+import { TbMenu2 } from "react-icons/tb";
 import { Fragment } from 'react'
 import { Menu, Transition } from '@headlessui/react'
 import Link from "next/link"
-import { ChevronDownIcon } from '@heroicons/react/20/solid'
 
 function classNames(...classes: (string | undefined | null | false)[]): string {
     return classes.filter(Boolean).join(' ');
@@ -13,9 +12,9 @@ export function DropDownMenuMobile({navItems}: any) {
     return(
         <Menu as="div" className={`relative inline-block text-left lg:invisible mt-3`}>
             <div>
-                <Menu.Button className="flex items-center rounded-full text-black hover:text-gray-600 focus:outline-none focus:ring-2 focus:ring-primary-main focus:ring-offset-2 focus:ring-offset-primary-alt">
+                <Menu.Button className="flex items-center rounded-full text-black hover:text-gray-600">
                     <span className="sr-only">Open options</span>
-                    <Bars3Icon className="h-8 w-8" aria-hidden="true" />
+                    <TbMenu2 className="h-8 w-8" aria-hidden="true" />
                 </Menu.Button>
             </div>
 
@@ -62,7 +61,7 @@ export function DropDownMenuDesktop({navItems, isHidden}: any) {
     return(
     <Menu as="div" className={isHidden == true ? `hidden` : `relative`}>
         <Menu.Button as="div" className="flex items-center cursor-pointer">
-            <ChevronDownIcon className="w-9 h-9 text-gray-500 hover:text-gray-300" />
+            <TbMenu2 className="w-9 h-9 text-gray-500 hover:text-gray-300" />
         </Menu.Button>
         <Transition
             as={Fragment}

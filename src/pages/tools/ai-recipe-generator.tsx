@@ -42,7 +42,7 @@ const AIGenerator: React.FC = () => {
                 <div className="mt-8"/>
                 <Container>
                     <Title className="text-center">AI Recipe Generator</Title>
-                    <Paragraph className="mt-2 text-center">Describe what kind of recipe you would like to create and let Zesti create a it for you</Paragraph>
+                    <Paragraph className="mt-2 text-center">Describe what kind of recipe you would like to generate and let Zesti do it for you</Paragraph>
                 </Container>
                 <GeneratorInput/>
                 <div className="pt-2"/>

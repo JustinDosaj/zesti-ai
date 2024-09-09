@@ -1,4 +1,4 @@
-import { ExclamationCircleIcon } from "@heroicons/react/24/outline";
+import { TbAlertCircle } from "react-icons/tb";
 import convertDurationToReadable from "@/utils/recipe-time-format";
 
 interface InfoProps {
@@ -27,7 +27,7 @@ export function Information({ recipe, setIsErrorOpen }: InfoProps) {
       <div className="inline-flex space-x-2 items-center mb-6">
         <h2 className="text-2xl md:text-3xl font-semibold text-gray-800 w-full">More Information</h2>
         <button onClick={() => setIsErrorOpen(true)} className="text-red-600 hover:text-red-800 transition duration-200">
-          <ExclamationCircleIcon className="h-7 w-7"/>
+          <TbAlertCircle className="h-7 w-7"/>
         </button>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-gray-800">
