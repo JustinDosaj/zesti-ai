@@ -2,11 +2,9 @@ import { Container } from "../shared/container"
 import { useAuth } from "@/context/AuthContext"
 import { Button } from "../shared/button"
 import Link from "next/link"
-import { BookOpenIcon, HomeIcon, PaperAirplaneIcon, WalletIcon, UserIcon, MagnifyingGlassIcon } from "@heroicons/react/20/solid"
-import { FiRefreshCw } from "react-icons/fi";
+import { TbHome, TbBook2, TbLibraryPlus, TbSearch, TbRefresh, TbUser, TbSend2, TbWallet} from "react-icons/tb";
 import { DropDownMenuDesktop, DropDownMenuMobile } from "./menus"
 import { useRouter } from "next/router"
-import { PlusIcon } from "@heroicons/react/20/solid"
 
 
 export function Navbar() {
@@ -26,22 +24,22 @@ export function Navbar() {
         {
             href:"/add",
             text: "Add Recipe",
-            icon: PlusIcon,
+            icon: TbLibraryPlus ,
         },
         {
             href: "/search",
             text: "Search",
-            icon: MagnifyingGlassIcon,
+            icon: TbSearch,
         },
         {
             href: "/tools/ai-recipe-generator",
             text: "AI Recipe Generator",
-            icon: FiRefreshCw,
+            icon: TbRefresh,
         },
         {
             href: "/account",
             text: "Account Settings",
-            icon: UserIcon,
+            icon: TbUser,
         },
     ]
 
@@ -49,27 +47,32 @@ export function Navbar() {
         {
             href:"/",
             text:"Home",
-            icon: HomeIcon,
-        },
-        {
-            href: "/search",
-            text: "Search",
-            icon: MagnifyingGlassIcon,
+            icon: TbHome,
         },
         {
             href:"/add",
             text: "Add Recipe",
-            icon: PlusIcon,
+            icon: TbLibraryPlus ,
+        },
+        {
+            href: "/tools/ai-recipe-generator",
+            text: "AI Recipe Generator",
+            icon: TbRefresh,
+        },
+        {
+            href: "/search",
+            text: "Search",
+            icon: TbSearch,
         },
         {
             href:"/about/pricing",
             text:"Pricing",
-            icon: WalletIcon,
+            icon: TbWallet,
         },
         {
             href:"/about/contact",
             text: "Contact",
-            icon: PaperAirplaneIcon,
+            icon: TbSend2 ,
         },
     ]
 
@@ -77,32 +80,32 @@ export function Navbar() {
         {
             href:"/",
             text:"Home",
-            icon: HomeIcon,
+            icon: TbHome,
         },
         {
             href:"/my-recipes",
             text:"My Recipes",
-            icon: BookOpenIcon,
+            icon: TbBook2,
         },
         {
             href:"/add",
             text: "Add Recipe",
-            icon: PlusIcon,
+            icon: TbLibraryPlus ,
         },
         {
             href: "/search",
             text: "Search",
-            icon: MagnifyingGlassIcon,
+            icon: TbSearch,
         },
         {
             href: "/tools/ai-recipe-generator",
             text: "AI Recipe Generator",
-            icon: FiRefreshCw,
+            icon: TbRefresh,
         },
         {
             href: "/account",
             text: "Account Settings",
-            icon: UserIcon,
+            icon: TbUser,
         },
     ]
 

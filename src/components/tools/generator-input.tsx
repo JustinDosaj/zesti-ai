@@ -3,7 +3,7 @@ import { Container } from '../shared/container';
 import { useState } from "react";
 import { Button } from "../shared/button";
 import { useLoading } from "@/context/loadingcontext";
-import { FiRefreshCw } from "react-icons/fi";
+import { TbRefresh } from "react-icons/tb";
 import { ButtonLoader } from "../shared/loader";
 import { useRouter } from "next/router";
 import { useAuth } from "@/context/AuthContext";
@@ -22,50 +22,52 @@ export function GeneratorInput() {
         
         e.preventDefault();
 
-            setLoading(true)
-            setProgress(0)
+        if (gptMessage == '') { return Notify("Please describe what kind of recipe you would like to generate") }
 
-            if (stripeRole == 'premium') { Notify("Processing recipe, this may take a few moments") }
-            else { openModal("Recipe Submitted", "Processing recipe, this should only take a few moments.", "info", true, stripeRole) }
+        setLoading(true)
+        setProgress(0)
 
-            const interval = setInterval(() => {
-                setProgress((prev: number) => {
-                    
-                    if(prev >= 99) {
-                        clearInterval(interval)
-                        return 99
-                    }
-                    else if (prev >= 90) {
-                        return prev + 1;
-                    }
-                    
-                    const randomIncrement = Math.floor(Math.random() * (9 - 5 + 1)) + 5;
-   
-                    if (randomIncrement + prev > 99) { return 99 }
-    
-                    return prev + randomIncrement;
-    
-                });
-            }, 1000);
+        if (stripeRole == 'premium') { Notify("Processing recipe, this may take a few moments") }
+        else { openModal("Recipe Submitted", "Processing recipe, this should only take a few moments.", "info", true, stripeRole) }
+
+        const interval = setInterval(() => {
+            setProgress((prev: number) => {
+                
+                if(prev >= 99) {
+                    clearInterval(interval)
+                    return 99
+                }
+                else if (prev >= 90) {
+                    return prev + 1;
+                }
+                
+                const randomIncrement = Math.floor(Math.random() * (9 - 5 + 1)) + 5;
+
+                if (randomIncrement + prev > 99) { return 99 }
+
+                return prev + randomIncrement;
+
+            });
+        }, 1000);
 
 
-            const handleUserSubmitRecipe = (await import('@/pages/api/handler/generate')).handleUserGenerateRecipe
-            const response = await handleUserSubmitRecipe({gptMessage}).then((response: any) => {
-                setProgress(100)
-                clearInterval(interval)
-                return response
-            }).finally(() => {
-                setLoading(false)
-                clearInterval(interval)
-            })
+        const handleUserSubmitRecipe = (await import('@/pages/api/handler/generate')).handleUserGenerateRecipe
+        const response = await handleUserSubmitRecipe({gptMessage}).then((response: any) => {
+            setProgress(100)
+            clearInterval(interval)
+            return response
+        }).finally(() => {
+            setLoading(false)
+            clearInterval(interval)
+        })
 
-            const { id, success, slug } = response
+        const { id, success, slug } = response
 
-            if (id && id !== '' &&  success == true) {
-                    router.push(`/ai-recipes/${id}/${slug}`)
-            }
+        if (id && id !== '' &&  success == true) {
+                router.push(`/ai-recipes/${id}/${slug}`)
+        }
 
-            setGptMessage('')
+        setGptMessage('')
     }
 
     return(
@@ -75,7 +77,7 @@ export function GeneratorInput() {
                     <input type="text" name="web-page" disabled={isLoading} value={gptMessage} placeholder={"Describe recipe"} className="text-base w-full text-gray-500 py-2 outline-none bg-transparent" onChange={(e) => setGptMessage(e.target.value)}/>       
                     <Button buttonType="submit" text="" className={"min-w-max text-white text-sm lg:text-base"} isLink={false} isDisabled={isLoading} >
                         { !isLoading ? 
-                            <FiRefreshCw className="flex relative z-[5] h-5 w-5 text-white"/>
+                            <TbRefresh className="flex relative z-[5] h-5 w-5 text-white"/>
                         :
                             <ButtonLoader/>
                         }
