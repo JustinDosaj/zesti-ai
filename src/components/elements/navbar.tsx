@@ -27,14 +27,14 @@ export function Navbar() {
             icon: TbLibraryPlus ,
         },
         {
-            href: "/search",
-            text: "Search",
-            icon: TbSearch,
-        },
-        {
             href: "/tools/ai-recipe-generator",
             text: "AI Recipe Generator",
             icon: TbRefresh,
+        },
+        {
+            href: "/search",
+            text: "Search",
+            icon: TbSearch,
         },
         {
             href: "/account",
@@ -50,14 +50,14 @@ export function Navbar() {
             icon: TbLibraryPlus ,
         },
         {
-            href: "/search",
-            text: "Search",
-            icon: TbSearch,
-        },
-        {
             href: "/tools/ai-recipe-generator",
             text: "AI Recipe Generator",
             icon: TbRefresh,
+        },
+        {
+            href: "/search",
+            text: "Search",
+            icon: TbSearch,
         },
     ]
 
