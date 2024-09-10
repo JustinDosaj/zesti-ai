@@ -27,6 +27,7 @@ export function PricingDisplay() {
           description: "Perfect if you\'re just getting started with Zesti",
           features: [
             'Convert TikTok Recipes to Text',
+            'Convert Instagram Recipes to Text',
             'AI Recipe Generator',
             'Search Recipes on Zesti',
         ],
@@ -46,6 +47,7 @@ export function PricingDisplay() {
           features: [
             'Zero Ads',
             'Convert TikTok Recipes to Text',
+            'Convert Instagram Recipes to Text',
             'AI Recipe Generator',
             'Search Recipes on Zesti',
           ],

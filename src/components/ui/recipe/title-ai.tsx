@@ -1,5 +1,7 @@
 import { TbDownload, TbBookmarkOff } from "react-icons/tb";
 import { useModal } from "@/context/modalcontext";
+import { useRouter } from "next/router";
+import React from "react";
 
 
 interface RecipeCardTitleProps {
@@ -8,25 +10,26 @@ interface RecipeCardTitleProps {
   isSaved?: boolean;
   isLoading?: boolean;
   user?: any;
-  hasLiked?: boolean;
-  likes?: number
-  setHasLiked?: any;
-  setLikes?: any;
+  setHideTimer?: any
 }
 
-export function AIRecipeTitleCard({ recipe, isSaved, user, isLoading, role }: RecipeCardTitleProps) {
+export function AIRecipeTitleCard({ recipe, isSaved, user, isLoading, role, setHideTimer }: RecipeCardTitleProps) {
 
     const { openModal } = useModal()
     const { data, description, name } = recipe;
-    const { id, source, slug, url, owner } = data;
+    const { id, slug, owner } = data;
     const { username } = owner;
-
+    const router = useRouter();
 
     async function onSaveClick() {
       const saveRecipe = (await import('@/pages/api/firebase/functions')).saveRecipeReferenceToUser;
   
       if (user && !isLoading) {
-        await saveRecipe(user?.uid, id, 'ai-recipes').then(() => { openModal("Recipe Saved", "You can continue browsing or view all your saved recipes", "success", true, role) });
+
+        openModal("Recipe Saved", "You can continue browsing or view all your saved recipes", "success", true, role)
+        setHideTimer(true);
+        await saveRecipe(user?.uid, id, 'ai-recipes');
+
       } else {
         openModal("Account Required", "Please create an account to save recipes", "auth", false, role, id, slug, user?.uid, 'ai');
       }
@@ -36,7 +39,7 @@ export function AIRecipeTitleCard({ recipe, isSaved, user, isLoading, role }: Re
       const deleteRecipe = (await import('@/pages/api/firebase/functions')).userRemoveRecipeFromFirestore;
   
       if (user) {
-        await deleteRecipe(user?.uid, id, 'ai-recipes');
+        await deleteRecipe(user?.uid, id, 'ai-recipes').then( () => { router.reload() } );
       }
     }
   
