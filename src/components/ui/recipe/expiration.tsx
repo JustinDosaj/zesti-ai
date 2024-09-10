@@ -45,9 +45,11 @@ export function RecipeExpiration({delete_at, hideTimer}: RecipeExpirationProps) 
     if(remainingTime === 'Expired' || hideTimer) return null;
       
     return (
-        <div className="inline-flex items-center space-x-2 text-gray-700 justify-center mb-4 w-full">
-            <span className="border font-semibold rounded-md py-0.5 px-1.5 bg-gray-50 border-gray-300">
-                {remainingTime !== 'Expired' && (<span>Recipe Expires in</span>)} {remainingTime}
+        <div className="grid items-center text-gray-700 justify-center mb-4 w-fit border  border-gray-300 rounded-md bg-gray-50 mx-auto text-center">
+            <span className="rounded-md font-semibold py-0.5 px-1.5">
+                <span>Recipe will expire in </span>
+                <span className="font-bold">{remainingTime}</span> 
+                <span> if not saved</span>
             </span>
         </div>
     )
