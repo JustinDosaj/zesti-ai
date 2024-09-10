@@ -61,8 +61,6 @@ const AIRecipe: React.FC = ({ recipe, ogUrl, recentRecipes }: any) => {
   const { stripeRole, user, isLoading } = useAuth();
   const [isErrorOpen, setIsErrorOpen] = useState<boolean>(false);
   const [isSaved, setIsSaved] = useState<boolean>(false);
-  const [likes, setLikes] = useState<number>(recipe?.data?.likes || 0);
-  const [hasLiked, setHasLiked] = useState<boolean>(false);
   const [hideTimer, setHideTimer] = useState<boolean>(false);
 
   const {
@@ -83,12 +81,6 @@ const AIRecipe: React.FC = ({ recipe, ogUrl, recentRecipes }: any) => {
       user && CheckForExistingAIRecipe(recipe, user?.uid, setIsSaved);
     }
   }, [user, recipe?.data?.id]);
-
-  useEffect(() => {
-    if(recipe.data.likedBy && user) {
-      setHasLiked(recipe.data.likedBy.includes(user.uid))
-    }
-  },[user, isLoading, recipe?.data?.likedBy])
 
 
   return (
