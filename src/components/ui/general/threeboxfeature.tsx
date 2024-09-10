@@ -50,7 +50,7 @@ export function ThreeBoxFeature({type = 'home', desc, showTitle = true}: ThreeBo
             },
             {
                 name: 'Enjoy the Recipe!',
-                description: 'Create ',
+                description: 'If you are happy with the results, save the recipe and get cooking!',
                 icon: TbBook2,
             },
         ]

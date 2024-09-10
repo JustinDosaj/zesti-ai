@@ -63,12 +63,12 @@ const AIRecipe: React.FC = ({ recipe, ogUrl, recentRecipes }: any) => {
   const [isSaved, setIsSaved] = useState<boolean>(false);
   const [likes, setLikes] = useState<number>(recipe?.data?.likes || 0);
   const [hasLiked, setHasLiked] = useState<boolean>(false);
+  const [hideTimer, setHideTimer] = useState<boolean>(false);
 
   const {
     name,
     instructions,
     ingredients,
-    data: { source, video_id },
   } = recipe;
 
   useEffect(() => {
@@ -102,9 +102,9 @@ const AIRecipe: React.FC = ({ recipe, ogUrl, recentRecipes }: any) => {
         
       <div className="max-w-5xl mx-auto flex justify-center space-x-10"> 
         <div className={`w-full lg:w-5/6 md:max-w-[728px] lg:mt-14 mt-8`}>
-            <RecipeExpiration delete_at={recipe.data.delete_at}/>
+            <RecipeExpiration delete_at={recipe.data.delete_at} hideTimer={hideTimer}/>
             <div className="space-y-12">
-                <AIRecipeTitleCard recipe={recipe} isSaved={isSaved} user={user} isLoading={isLoading} role={stripeRole} hasLiked={hasLiked} likes={likes} setHasLiked={setHasLiked} setLikes={setLikes}/>
+                <AIRecipeTitleCard recipe={recipe} isSaved={isSaved} user={user} isLoading={isLoading} role={stripeRole} setHideTimer={setHideTimer}/>
                 <AdSense className="mx-auto max-w-[320px] md:max-w-[728px]" adSlot="6960485708" adFormat="horizontal" adStyle={{ width: '100%', height: '100px', maxHeight: '320px' }} role={stripeRole}/>
                 <Ingredients ingredients={ingredients} /> 
                 <AdSense className="mx-auto max-w-[320px] md:max-w-[728px]" adSlot="2408449875" adFormat="horizontal" adStyle={{ width: '100%', height: '100px', maxHeight: '320px' }} role={stripeRole}/>
