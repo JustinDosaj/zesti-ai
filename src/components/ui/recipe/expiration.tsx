@@ -4,15 +4,18 @@ import { Notify } from "@/components/shared/notify";
 
 interface RecipeExpirationProps {
     delete_at: any;
+    hideTimer: boolean;
 }
 
-export function RecipeExpiration({delete_at}: RecipeExpirationProps) {
+export function RecipeExpiration({delete_at, hideTimer}: RecipeExpirationProps) {
 
     const [remainingTime, setRemainingTime] = useState<string>("Expired");
     const router = useRouter();
 
     useEffect(() => {
+        
         if (!delete_at) return;
+
     
         const deleteTime = new Date(delete_at.seconds ? delete_at.seconds * 1000 : delete_at); // Support Firestore Timestamp or ISO string
     
@@ -39,7 +42,7 @@ export function RecipeExpiration({delete_at}: RecipeExpirationProps) {
         return () => clearInterval(interval); // Cleanup on unmount
       }, [delete_at]);
 
-    if(remainingTime === 'Expired') return null;
+    if(remainingTime === 'Expired' || hideTimer) return null;
       
     return (
         <div className="inline-flex items-center space-x-2 text-gray-700 justify-center mb-4 w-full">
