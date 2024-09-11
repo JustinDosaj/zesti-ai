@@ -87,7 +87,17 @@ const AIRecipe: React.FC = ({ recipe, ogUrl, recentRecipes }: any) => {
   return (
     <>
       <Head>
-        <PageViewConversion/>
+        { /* Conversion Tag */ }
+        <script dangerouslySetInnerHTML={{
+            __html: `
+                gtag('event', 'conversion', {
+                    'send_to': 'AW-16696789759/FZ3ACNvpj9EZEP-V05k-',
+                    'value': 0.02,
+                    'currency': 'USD'
+                });
+            `
+          }} 
+        />
         <title>{`${name} Recipe`}</title>
         <meta name="title" content={`${name} Recipe`} />
         <meta name="description" content={`${name} Recipe`} />
