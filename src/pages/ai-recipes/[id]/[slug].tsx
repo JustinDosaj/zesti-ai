@@ -87,10 +87,10 @@ const AIRecipe: React.FC = ({ recipe, ogUrl, recentRecipes }: any) => {
   return (
     <>
       <Head>
+        <PageViewConversion/>
         <title>{`${name} Recipe`}</title>
         <meta name="title" content={`${name} Recipe`} />
         <meta name="description" content={`${name} Recipe`} />
-        <PageViewConversion/>
       </Head>
       <main className="bg-background min-h-screen justify-center px-5 sm:px-8 md:px-14 lg:px-5 pb-28">
         
