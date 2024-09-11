@@ -1,6 +1,5 @@
 import { useAuth } from '@/context/AuthContext';
 import Head from 'next/head';
-import GoogleTags from '@/components/tags/conversion';
 import { Title } from '@/components/shared/title';
 import AdSense from "@/components/ads/adsense";
 import useRequireAuth from '@/hooks/user/useRequireAuth';
@@ -39,7 +38,6 @@ export default function MyRecipes() {
       <Head>
         <title>Zesti AI | My Recipes</title>
         <meta name="title" content={`Zesti AI | My Recipes`} />
-        <GoogleTags />
       </Head>
       <main className={`flex min-h-screen flex-col items-center bg-background w-full space-y-4 pb-48`}>
         <div className="mt-8"/>
