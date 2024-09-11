@@ -8,7 +8,6 @@ import { Paragraph } from '@/components/shared/paragraph';
 import { Container } from '@/components/shared/container';
 import { GetServerSideProps } from "next";
 import { GeneratorInput } from '@/components/tools/generator-input';
-import { HorizontalBorder } from '@/components/shared/border';
 
 
 export const getServerSideProps: GetServerSideProps = async () => {
@@ -34,9 +33,6 @@ const AIGenerator: React.FC = () => {
             <meta name="description" content="Tell Zesti AI what kind of recipe you feel like making, and in seconds you will have a delicious recipe ready to cook!"/>
             <meta property="og:title" content="AI Recipe Generator - 100% Free, No Login"/>
             <meta property="og:description" content="Tell Zesti AI what kind of recipe you feel like making, and in seconds you will have a delicious recipe ready to cook!"/>
-            <meta property="og:image" content="https://www.zesti.ai/images/x/x_meta_image.png"/>
-            <meta property="og:url" content="https://www.zesti.ai/"/>
-            <meta property="og:type" content="website"/>
         </Head>
             <main className={`flex min-h-screen flex-col items-center bg-background w-full space-y-4 pb-48`}>
                 <div className="mt-8"/>
