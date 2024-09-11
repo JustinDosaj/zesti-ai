@@ -20,6 +20,7 @@ export function GoogleTags() {
 
 export function PageViewConversion() {
     return(
+        <>
         <script dangerouslySetInnerHTML={{
             __html: `
                 gtag('event', 'conversion', {
@@ -29,6 +30,9 @@ export function PageViewConversion() {
                 });
             `
             }} />
+        </>
     )
 }
+
+
 
