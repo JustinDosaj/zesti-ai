@@ -1,5 +1,5 @@
 
-export default function GoogleTags() {
+export function GoogleTags() {
     return(
     <>
         <meta name="google-adsense-account" content="ca-pub-5837655994202747"></meta>
@@ -17,3 +17,18 @@ export default function GoogleTags() {
     </>
     )
 }
+
+export function PageViewConversion() {
+    return(
+        <script dangerouslySetInnerHTML={{
+            __html: `
+                gtag('event', 'conversion', {
+                    'send_to': '${process.env.NEXT_PUBLIC_GOOGLE_CONVERSION_ID}/FZ3ACNvpj9EZEP-V05k-',
+                    'value': 1.0,
+                    'currency': 'USD'
+                });
+            `
+            }} />
+    )
+}
+
