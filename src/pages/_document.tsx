@@ -1,5 +1,5 @@
 import { Html, Head, Main, NextScript } from 'next/document'
-import GoogleTags from '@/components/tags/conversion'
+import { GoogleTags } from '@/components/tags/conversion'
 
 export default function Document() {
   return (
