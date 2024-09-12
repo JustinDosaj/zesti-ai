@@ -25,13 +25,15 @@ export const getServerSideProps: GetServerSideProps = async () => {
 
 export default function Home({heroContent, faqContent, recipes}: any) {
 
+  const seoTitle = "Zesti AI | Instantly Save TikTok & Instagram Recipes as Text"
+
   return (  
     <>
       <Head>
-        <title>Zesti AI | Instantly Save Recipes from TikTok & Instagram</title>
-        <meta name="title" content="Zesti AI | Instantly Save Recipes from TikTok & Instagram"/>
+        <title>{seoTitle}</title>
+        <meta name="title" content={seoTitle}/>
         <meta name="description" content="Instantly save delicious recipes from TikTok or Instagram by using Zesti AI to transcribe your faovirte recipe videos to text!"/>
-        <meta property="og:title" content="Zesti AI | Instantly Save Recipes from TikTok & Instagram"/>
+        <meta property="og:title" content={seoTitle}/>
         <meta property="og:description" content="Instantly save delicious recipes from TikTok or Instagram by using Zesti AI to transcribe your faovirte recipe videos to text!"/>
         <meta property="og:image" content="https://www.zesti.ai/images/x/x_meta_image.png"/>
         <meta property="og:url" content="https://www.zesti.ai/"/>
@@ -39,10 +41,10 @@ export default function Home({heroContent, faqContent, recipes}: any) {
         <meta name="twitter:card" content="summary_large_image"/>
         <meta name="twitter:site" content="@zestidotai"/>
         <meta name="twitter:creator" content="@zestidotai"/>
-        <meta name="twitter:title" content="Zesti AI | Instantly Save Recipes from TikTok & Instagram"/> 
+        <meta name="twitter:title" content={seoTitle}/> 
         <meta name="twitter:description" content="Instantly save delicious recipes from TikTok or Instagram with Zesti AI!"/> 
         <meta name="twitter:image" content="https://www.zesti.ai/images/x/x_meta_image.png"/>
-        <meta name="twitter:image:alt" content="Zesti AI | Instantly Save Recipes from TikTok & Instagram"/>
+        <meta name="twitter:image:alt" content={seoTitle}/>
         <meta name="twitter:url" content="https://www.zesti.ai/"/>  
       </Head>
       <main className={`main-seo-page-class`}>
