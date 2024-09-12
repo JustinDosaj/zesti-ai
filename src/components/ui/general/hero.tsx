@@ -1,7 +1,6 @@
 import { Container } from "@/components/shared/container"
 import { SearchOrAddRecipe } from "@/components/tools/search-add-recipe"
 import { Paragraph } from "@/components/shared/paragraph"
-import Typewriter from "typewriter-effect"
 import Image from "next/image"
 
 interface ImageFields {
@@ -37,16 +36,11 @@ interface ImageFields {
             <div className="flex flex-col gap-2 text-center lg:text-left">
               <h1 className="section-title-text-size xl:text-6xl font-bold text-gray-800">
   
-                <span className="text-gray-800">Use AI to Instantly Save Recipes from</span>
+                <span className="text-gray-800">Instantly Save</span>
                 <br />
                 <span className="primary-orange-text-gradient inline-block pb-3 mx-auto">
-                  <Typewriter
-                    options={{
-                      strings: ["Instagram", "TikTok"],
-                      autoStart: true,
-                      loop: true,
-                    }}
-                  />
+                  <span>Instagram & TikTok </span>
+                  <span className="text-gray-800">Recipes as Text</span>
                 </span>
               </h1>
               <Paragraph className="">
