@@ -51,7 +51,7 @@ export const handleUserSubmitRecipe = async({ url }: SubmissionProps) => {
             albumIdList = responseData.albumIdList || null;
             success = responseData.success || false;
             slug = responseData.slug
-            
+
             Notify(message);
 
         } else {
