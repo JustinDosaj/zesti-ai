@@ -52,6 +52,8 @@ export const handleUserSubmitRecipe = async({ url }: SubmissionProps) => {
             success = responseData.success || false;
             slug = responseData.slug
 
+            Notify(message);
+
         } else {
             Notify("Failed to get valid response from the server.");
         }
