@@ -14,16 +14,20 @@ export const getServerSideProps: GetServerSideProps = async () => {
   const GetRecentRecipes = (await (import ('./api/firebase/functions'))).GetRecentRecipes
   const recipes = await GetRecentRecipes(9);
 
+  const getTotalRecipesAndUsers = (await (import ('./api/firebase/functions'))).getTotalRecipesAndUsers
+  const counters = await getTotalRecipesAndUsers()
+  const totalRecipes = counters?.totalRecipes || `700+`
+
   const entries = await getEntriesForContentTypes(['hero', 'faq'])
   const heroContent = entries.hero[0]
   const faqContent = entries.faq[0]
 
   return {
-    props: { heroContent, faqContent, recipes }
+    props: { heroContent, faqContent, recipes, totalRecipes }
   }
 }
 
-export default function Home({heroContent, faqContent, recipes}: any) {
+export default function Home({heroContent, faqContent, recipes, totalRecipes}: any) {
 
   const seoTitle = "Zesti AI | Instantly Save TikTok & Instagram Recipes as Text"
 
@@ -48,7 +52,7 @@ export default function Home({heroContent, faqContent, recipes}: any) {
         <meta name="twitter:url" content="https://www.zesti.ai/"/>  
       </Head>
       <main className={`main-seo-page-class`}>
-        <Hero heroContent={heroContent}/>
+        <Hero heroContent={heroContent} totalRecipes={totalRecipes}/>
         <Gallery recipes={recipes}/>
         <ThreeBoxFeature type="home" desc={"Zesti makes it easy to copy recipes so you can do more cooking and less scrolling!"}/>
         <CTA/>
