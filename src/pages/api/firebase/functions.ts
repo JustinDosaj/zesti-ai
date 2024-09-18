@@ -181,3 +181,18 @@ export async function UpdateLikesInFirebase({recipeId, remove}: LikeProps) {
 
 }
 
+export async function getTotalRecipesAndUsers() {
+  
+  const counterRef = doc(db, 'counters', 'recipeCounter');
+
+  const counterDoc = await getDoc(counterRef);
+
+  if (counterDoc.exists()) {
+    const data = counterDoc.data();
+    return {
+      totalRecipes: data.count || 0, // Assuming the field name is 'totalRecipes'
+    };
+  }
+
+}
+
