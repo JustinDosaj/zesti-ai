@@ -52,7 +52,7 @@ export function SearchOrAddRecipe({placeholder = 'Recipe URL or Search Recipes',
                         return prev + 1;
                     }
                     
-                    const randomIncrement = Math.floor(Math.random() * (9 - 5 + 1)) + 5;
+                    const randomIncrement = Math.floor(Math.random() * (6 - 4 + 1)) + 4;
    
                     if (randomIncrement + prev > 99) { return 99 }
     
